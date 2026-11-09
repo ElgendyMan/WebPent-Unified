@@ -1,0 +1,291 @@
+{
+  "benchmark_scope": {
+    "credentials": false,
+    "external_network": false,
+    "mode": "offline_replay_of_recorded_controlled_campaign",
+    "network_scope": "loopback_only",
+    "requests_sent_by_this_runner": 0,
+    "state_mutation": false,
+    "target_ids": [
+      "controlled_local_idor_target_v1"
+    ]
+  },
+  "case_disposition": {
+    "blocked_case_ids": [
+      "asros-blocked-business_logic-v1",
+      "asros-blocked-information_disclosure-v1",
+      "asros-blocked-privilege_escalation-v1"
+    ],
+    "blocked_excluded_from_tp_fp_fn": true,
+    "out_of_scope_case_ids": [],
+    "out_of_scope_excluded_from_tp_fp_fn": true,
+    "scorable_case_ids": [
+      "controlled.idor.owner_resource.v1"
+    ],
+    "synthetic_observations_created": false,
+    "synthetic_proof_bundles_created": false
+  },
+  "claims": {
+    "controlled_research_quality_metrics_only": true,
+    "production_precision_recall_calculated": false,
+    "qualification_claim": false,
+    "real_world_detection_rate_measured": false
+  },
+  "class_inventory": [
+    {
+      "adapter_id": "avde-local-contract-adapter:broken_access_control:v1",
+      "allowed_methods": [
+        "GET",
+        "HEAD"
+      ],
+      "baseline_contract": "record an authorized reference response for the protected boundary; route reachability alone is insufficient",
+      "blocked_reason": null,
+      "candidate_contract": "record the same-condition candidate response only after an approved local precondition is verified",
+      "causal_oracle_id": "avde-causal-oracle:broken_access_control:v1",
+      "class_id": "broken_access_control",
+      "execution_status": "not_executed",
+      "included_in_scoring": true,
+      "negative_control_contract": "record an independently protected control and require the oracle to distinguish candidate from control",
+      "proof_bundle_procedure": "central verifier receives baseline/candidate/control observations, causal result, redaction manifest, and a sealed bundle",
+      "recorded_case_ids": [
+        "controlled.idor.owner_resource.v1"
+      ],
+      "replay_procedure": "replay the recorded redacted observations and verify the seal without network access",
+      "scorable_case_ids": [
+        "controlled.idor.owner_resource.v1"
+      ],
+      "status": "scorable"
+    },
+    {
+      "adapter_id": "avde-local-contract-adapter:privilege_escalation:v1",
+      "allowed_methods": [
+        "GET",
+        "HEAD"
+      ],
+      "baseline_contract": "record an authorized reference response for the protected boundary; route reachability alone is insufficient",
+      "blocked_reason": "no complete recorded candidate/control causal evidence for this class",
+      "candidate_contract": "record the same-condition candidate response only after an approved local precondition is verified",
+      "causal_oracle_id": "avde-causal-oracle:privilege_escalation:v1",
+      "class_id": "privilege_escalation",
+      "execution_status": "not_executed",
+      "included_in_scoring": false,
+      "negative_control_contract": "record an independently protected control and require the oracle to distinguish candidate from control",
+      "proof_bundle_procedure": "central verifier receives baseline/candidate/control observations, causal result, redaction manifest, and a sealed bundle",
+      "recorded_case_ids": [
+        "asros-blocked-privilege_escalation-v1"
+      ],
+      "replay_procedure": "replay the recorded redacted observations and verify the seal without network access",
+      "scorable_case_ids": [],
+      "status": "blocked"
+    },
+    {
+      "adapter_id": "avde-local-contract-adapter:business_logic_abuse:v1",
+      "allowed_methods": [
+        "GET",
+        "HEAD"
+      ],
+      "baseline_contract": "record an authorized reference response for the protected boundary; route reachability alone is insufficient",
+      "blocked_reason": "no complete recorded candidate/control causal evidence for this class",
+      "candidate_contract": "record the same-condition candidate response only after an approved local precondition is verified",
+      "causal_oracle_id": "avde-causal-oracle:business_logic_abuse:v1",
+      "class_id": "business_logic_abuse",
+      "execution_status": "not_executed",
+      "included_in_scoring": false,
+      "negative_control_contract": "record an independently protected control and require the oracle to distinguish candidate from control",
+      "proof_bundle_procedure": "central verifier receives baseline/candidate/control observations, causal result, redaction manifest, and a sealed bundle",
+      "recorded_case_ids": [
+        "asros-blocked-business_logic-v1"
+      ],
+      "replay_procedure": "replay the recorded redacted observations and verify the seal without network access",
+      "scorable_case_ids": [],
+      "status": "blocked"
+    },
+    {
+      "adapter_id": "avde-local-contract-adapter:information_disclosure:v1",
+      "allowed_methods": [
+        "GET",
+        "HEAD"
+      ],
+      "baseline_contract": "record an authorized reference response for the protected boundary; route reachability alone is insufficient",
+      "blocked_reason": "no complete recorded candidate/control causal evidence for this class",
+      "candidate_contract": "record the same-condition candidate response only after an approved local precondition is verified",
+      "causal_oracle_id": "avde-causal-oracle:information_disclosure:v1",
+      "class_id": "information_disclosure",
+      "execution_status": "not_executed",
+      "included_in_scoring": false,
+      "negative_control_contract": "record an independently protected control and require the oracle to distinguish candidate from control",
+      "proof_bundle_procedure": "central verifier receives baseline/candidate/control observations, causal result, redaction manifest, and a sealed bundle",
+      "recorded_case_ids": [
+        "asros-blocked-information_disclosure-v1"
+      ],
+      "replay_procedure": "replay the recorded redacted observations and verify the seal without network access",
+      "scorable_case_ids": [],
+      "status": "blocked"
+    },
+    {
+      "adapter_id": "avde-local-contract-adapter:authentication_boundary_issue:v1",
+      "allowed_methods": [
+        "GET",
+        "HEAD"
+      ],
+      "baseline_contract": "record an authorized reference response for the protected boundary; route reachability alone is insufficient",
+      "blocked_reason": "no complete recorded candidate/control causal evidence for this class",
+      "candidate_contract": "record the same-condition candidate response only after an approved local precondition is verified",
+      "causal_oracle_id": "avde-causal-oracle:authentication_boundary_issue:v1",
+      "class_id": "authentication_boundary_issue",
+      "execution_status": "not_executed",
+      "included_in_scoring": false,
+      "negative_control_contract": "record an independently protected control and require the oracle to distinguish candidate from control",
+      "proof_bundle_procedure": "central verifier receives baseline/candidate/control observations, causal result, redaction manifest, and a sealed bundle",
+      "recorded_case_ids": [],
+      "replay_procedure": "replay the recorded redacted observations and verify the seal without network access",
+      "scorable_case_ids": [],
+      "status": "blocked"
+    },
+    {
+      "adapter_id": "avde-local-contract-adapter:data_exposure:v1",
+      "allowed_methods": [
+        "GET",
+        "HEAD"
+      ],
+      "baseline_contract": "record an authorized reference response for the protected boundary; route reachability alone is insufficient",
+      "blocked_reason": "no complete recorded candidate/control causal evidence for this class",
+      "candidate_contract": "record the same-condition candidate response only after an approved local precondition is verified",
+      "causal_oracle_id": "avde-causal-oracle:data_exposure:v1",
+      "class_id": "data_exposure",
+      "execution_status": "not_executed",
+      "included_in_scoring": false,
+      "negative_control_contract": "record an independently protected control and require the oracle to distinguish candidate from control",
+      "proof_bundle_procedure": "central verifier receives baseline/candidate/control observations, causal result, redaction manifest, and a sealed bundle",
+      "recorded_case_ids": [],
+      "replay_procedure": "replay the recorded redacted observations and verify the seal without network access",
+      "scorable_case_ids": [],
+      "status": "blocked"
+    }
+  ],
+  "governance": {
+    "bug_bounty_status": "BLOCKED",
+    "human_signoff": false,
+    "official_isolated_p10_runs_authorized": false,
+    "p10_status": "NOT_QUALIFIED",
+    "p9_status": "NOT_QUALIFIED",
+    "qualification_effect": false,
+    "vip_status": "NOT_QUALIFIED"
+  },
+  "metrics": {
+    "adi_chain_inventory": [
+      {
+        "blocked_reason": "complete recorded multi-step chain fields and ground-truth-backed proof are unavailable",
+        "execution_status": "not_executed",
+        "hypothesis_requirement": "hypothesis links object identity, subject ownership, and boundary assumption",
+        "included_in_scoring": false,
+        "oracle_requirement": "causal oracle proves unauthorized object access rather than route reachability",
+        "proof_bundle_requirement": "sealed bundle contains redacted candidate/control observations and lineage",
+        "recorded_case_ids": [
+          "controlled.idor.owner_resource.v1"
+        ],
+        "replay_requirement": "central verifier replays the recorded chain without network access",
+        "research_plan_requirement": "plan contains baseline, candidate, and independent negative control",
+        "scenario_id": "idor_chain",
+        "scorable_case_ids": [],
+        "status": "blocked",
+        "target_model": "owned-versus-unowned object relationship with a protected read boundary",
+        "validation_requirement": "same-condition validation differentiates owned and unowned access",
+        "vulnerability_class": "broken_access_control"
+      },
+      {
+        "blocked_reason": "complete recorded multi-step chain fields and ground-truth-backed proof are unavailable",
+        "execution_status": "not_executed",
+        "hypothesis_requirement": "hypothesis identifies a privilege assumption and affected operation",
+        "included_in_scoring": false,
+        "oracle_requirement": "causal oracle proves privilege boundary violation with an independent control",
+        "proof_bundle_requirement": "sealed bundle includes privilege context, redacted observations, and verifier result",
+        "recorded_case_ids": [],
+        "replay_requirement": "replay verifies the privilege contrast and seal offline",
+        "research_plan_requirement": "plan compares authorized lower-privilege control with candidate boundary behavior",
+        "scenario_id": "privilege_boundary_chain",
+        "scorable_case_ids": [],
+        "status": "blocked",
+        "target_model": "lower-privilege subject versus protected operation boundary",
+        "validation_requirement": "validation is safe, same-condition, and records the privilege contrast",
+        "vulnerability_class": "privilege_escalation"
+      },
+      {
+        "blocked_reason": "complete recorded multi-step chain fields and ground-truth-backed proof are unavailable",
+        "execution_status": "not_executed",
+        "hypothesis_requirement": "hypothesis identifies a workflow/state assumption beyond endpoint existence",
+        "included_in_scoring": false,
+        "oracle_requirement": "causal oracle distinguishes workflow violation from normal response behavior",
+        "proof_bundle_requirement": "sealed bundle records state context, oracle inputs, and redacted evidence",
+        "recorded_case_ids": [],
+        "replay_requirement": "replay validates the recorded workflow reasoning without target contact",
+        "research_plan_requirement": "plan records permitted baseline and non-mutating candidate/control checks",
+        "scenario_id": "business_workflow_chain",
+        "scorable_case_ids": [],
+        "status": "blocked",
+        "target_model": "workflow state transition with a protected approval or ownership invariant",
+        "validation_requirement": "validation demonstrates a causal workflow boundary without destructive mutation",
+        "vulnerability_class": "business_logic_abuse"
+      }
+    ],
+    "adi_efficiency_metrics": {
+      "average_useful_hypothesis_ratio": null,
+      "blocked_capability_detection_accuracy": null,
+      "duplicate_hypothesis_reduction": 1.0,
+      "evidence_completeness": null,
+      "investigation_depth": null,
+      "metric_scope": "recorded_controlled_adi_research_only",
+      "production_precision": null,
+      "production_recall": null,
+      "real_world_detection_rate_measured": false,
+      "registered_chain_count": 3,
+      "scorable_chain_count": 0
+    },
+    "average_selected_rank": 1.0,
+    "benchmark_coverage": 0.16666666666666666,
+    "blocked_or_inconclusive_case_count": 3,
+    "duplicate_case_ids_detected": false,
+    "duplicate_investigation_reduction": 1.0,
+    "evidence_completeness": 1.0,
+    "hypothesis_relevance": 1.0,
+    "metric_scope": "recorded_controlled_research_only",
+    "missing_required_classes": [
+      "authentication_boundary_issue",
+      "business_logic_abuse",
+      "data_exposure",
+      "information_disclosure",
+      "privilege_escalation"
+    ],
+    "out_of_scope_case_count": 0,
+    "production_precision": null,
+    "production_recall": null,
+    "proof_bundle_quality": 1.0,
+    "proof_completeness": 1.0,
+    "raw_scorable_classes": [
+      "idor"
+    ],
+    "real_world_detection_rate_measured": false,
+    "recorded_case_count": 4,
+    "registered_class_count": 6,
+    "requests_used_for_scorable_cases": 3,
+    "required_class_count": 6,
+    "research_path_efficiency": 1.0,
+    "scorable_case_count": 1,
+    "scorable_class_count": 1,
+    "scorable_classes": [
+      "broken_access_control"
+    ],
+    "source_reported_metrics": 0.25,
+    "validation_efficiency": 0.3333333333333333
+  },
+  "registered_vulnerability_classes": [
+    "broken_access_control",
+    "privilege_escalation",
+    "business_logic_abuse",
+    "information_disclosure",
+    "authentication_boundary_issue",
+    "data_exposure"
+  ],
+  "schema_version": "avde-controlled-benchmark-v2",
+  "source_schema_version": "asros-advanced-controlled-benchmark-v1"
+}

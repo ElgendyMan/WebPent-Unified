@@ -1,0 +1,55 @@
+{
+  "schema": "webpent-target-backed-first-case-result-v1",
+  "decision": "BLOCKED",
+  "case_id": "webgoat.idor.view_other_profile.causal-vnext",
+  "execution_mode": "target_backed_preflight_only",
+  "network_requests_made": false,
+  "old_webgoat_flow_reused": false,
+  "target_evidence_readiness": {
+    "identity_model_available": false,
+    "ownership_model_available": false,
+    "reset_available": false,
+    "oracle_signal_available": false,
+    "observable_security_invariant": false,
+    "replayable_state_transition": false,
+    "status": "blocked",
+    "network_allowed": false
+  },
+  "preflight_gate": {
+    "evaluated_before_any_request": true,
+    "required_outcome_for_execution": "ready",
+    "actual_outcome": "blocked",
+    "missing_capability_artifact": "WEBGOAT-TARGET-EVIDENCE-CAPABILITY-GAP-v1.json"
+  },
+  "observations": {
+    "baseline": null,
+    "candidate": null,
+    "negative_control": null
+  },
+  "causal_oracle": {
+    "decision": "BLOCKED",
+    "reason": "No independently controllable target owner/requester identities, disposable target resource reset, bounded semantic authorization signal, or replayable target state was attested.",
+    "target_backed_confirmation": false
+  },
+  "proof": {
+    "sealed_proof_bundle_created": false,
+    "scoring_proof_bundle_created": false,
+    "replay_success": false
+  },
+  "safety": {
+    "real_credentials_used": false,
+    "login_performed": false,
+    "token_material_created": false,
+    "state_mutation_performed": false,
+    "external_callbacks_used": false,
+    "raw_response_persisted": false
+  },
+  "governance": {
+    "official_isolated_p10_runs_authorized": false,
+    "p10": "NOT_QUALIFIED",
+    "p9": "NOT_QUALIFIED",
+    "vip": "NOT_QUALIFIED",
+    "bug_bounty": "BLOCKED",
+    "scoring_promotion": false
+  }
+}

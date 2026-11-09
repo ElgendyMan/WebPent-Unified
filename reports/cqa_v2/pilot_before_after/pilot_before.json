@@ -1,0 +1,73 @@
+{
+  "tp": 1,
+  "tn": 0,
+  "fp": 0,
+  "fn": 3,
+  "inconclusive": 1,
+  "blocked": 0,
+  "precision": 1.0,
+  "recall": 0.2,
+  "f1": 0.3333,
+  "proof_complete": 4,
+  "proof_eligible": 5,
+  "proof_completeness": 0.8,
+  "replay_verified": 4,
+  "replay_completeness": 0.8,
+  "cases": {
+    "pilot-alpha-case-01": {
+      "case_id": "pilot-alpha-case-01",
+      "target": "target-alpha",
+      "class": "IDOR",
+      "current_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "scoring": "TP",
+      "proof_complete": true,
+      "replay_verified": true,
+      "note": "Original TP \u2014 properly executable with correct actor context"
+    },
+    "target-beta-case-01": {
+      "case_id": "target-beta-case-01",
+      "target": "target-beta",
+      "class": "Broken Access Control",
+      "current_verdict": "CLEAN",
+      "is_vulnerable": true,
+      "scoring": "FN",
+      "proof_complete": true,
+      "replay_verified": true,
+      "root_cause_hypothesis": "ActorContext missing \u2014 executed with wrong tenant/role"
+    },
+    "target-gamma-case-01": {
+      "case_id": "target-gamma-case-01",
+      "target": "target-gamma",
+      "class": "Privilege Escalation",
+      "current_verdict": "CLEAN",
+      "is_vulnerable": true,
+      "scoring": "FN",
+      "proof_complete": true,
+      "replay_verified": true,
+      "root_cause_hypothesis": "ActorContext missing \u2014 executed as owner instead of low-privilege actor"
+    },
+    "target-delta-case-01": {
+      "case_id": "target-delta-case-01",
+      "target": "target-delta",
+      "class": "Tenant Isolation Failure",
+      "current_verdict": "CLEAN",
+      "is_vulnerable": true,
+      "scoring": "FN",
+      "proof_complete": true,
+      "replay_verified": true,
+      "root_cause_hypothesis": "ActorContext missing \u2014 executed in same tenant instead of cross-tenant"
+    },
+    "pilot-epsilon-case-01": {
+      "case_id": "pilot-epsilon-case-01",
+      "target": "target-epsilon",
+      "class": "Workflow Authorization",
+      "current_verdict": "INCONCLUSIVE",
+      "is_vulnerable": true,
+      "scoring": "INCONCLUSIVE",
+      "proof_complete": false,
+      "replay_verified": false,
+      "root_cause_hypothesis": "Multi-step workflow \u2014 current execution only does single GET"
+    }
+  }
+}

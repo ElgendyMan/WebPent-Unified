@@ -1,0 +1,159 @@
+{
+  "authorization": {
+    "bug_bounty": "BLOCKED",
+    "official_isolated_p10_runs_authorized": false,
+    "p10": "NOT_QUALIFIED",
+    "p9": "NOT_QUALIFIED",
+    "raw_approval_content_persisted": false,
+    "scope": "B2 local-only synthetic session/fixture injection",
+    "source_artifact": "pasted_content_2.txt",
+    "source_artifact_sha256": "a1236f27a2d60785adcfbe9be9445123050a921ebd37a9212e9f474e3fed120c",
+    "vip": "NOT_QUALIFIED"
+  },
+  "cases": [
+    {
+      "baseline": {
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "cookies_persisted": false,
+        "feedback_code": "",
+        "lesson_completed": false,
+        "method": "GET",
+        "output_present": false,
+        "path_class": "idor_profile",
+        "raw_response_persisted": false,
+        "role": "requester_own_profile",
+        "status_code": 302
+      },
+      "campaign_id": "b2.1-webgoat-idor-local-20260827",
+      "candidate": {
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "cookies_persisted": false,
+        "feedback_code": "",
+        "lesson_completed": false,
+        "method": "GET",
+        "output_present": false,
+        "path_class": "idor_profile",
+        "raw_response_persisted": false,
+        "role": "requester_other_synthetic_profile",
+        "status_code": 302
+      },
+      "case_id": "webgoat.idor.view_other_profile.v1",
+      "causal_oracle": {
+        "causal_signal": false,
+        "decision": "inconclusive",
+        "negative_control_complete": true,
+        "predicate": "candidate.lesson_completed=true and baseline.lesson_completed=false and negative.lesson_completed=false",
+        "requires_target_backed": true,
+        "status": "evaluated"
+      },
+      "cleanup": {
+        "network_attempted": true,
+        "snapshot_restore": "verified",
+        "status": "complete"
+      },
+      "final_classification": "INCONCLUSIVE",
+      "identity_model": {
+        "owner_id": "opaque-owner-bill",
+        "raw_credentials_persisted": false,
+        "requester_id": "opaque-requester-tom",
+        "session_cookie_persisted": false,
+        "type": "synthetic_local_lesson_identity"
+      },
+      "independent_negative_control": {
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "cookies_persisted": false,
+        "feedback_code": "",
+        "lesson_completed": false,
+        "method": "GET",
+        "output_present": false,
+        "path_class": "idor_profile",
+        "raw_response_persisted": false,
+        "role": "independent_nonexistent_profile",
+        "status_code": 302
+      },
+      "ownership_fixture": {
+        "model": "disposable_lesson_profile_fixture",
+        "state_persisted": false,
+        "status": "not_causally_observed"
+      },
+      "precondition": {
+        "status": "ready",
+        "target_live_preconditions_ready": true
+      },
+      "proof_bundle": {
+        "reason": "observations_exist_but_causal_predicate_is_not_satisfied",
+        "replay": "not_run",
+        "seal": "not_created",
+        "status": "withheld_not_scoring",
+        "verify_seal": "not_run"
+      },
+      "session_bootstrap": {
+        "method": "normal_local_auth",
+        "session_material_persisted": false,
+        "status": "completed_but_lesson_session_unavailable"
+      },
+      "target": {
+        "origin": "http://127.0.0.1:8080",
+        "runtime_artifact_sha256": "694626342150c1263288834fd722ec636639a36c92a68fc6a62154823dec8edb",
+        "service_alignment": {
+          "artifact": "/tmp/webgoat-source/target/webgoat-2026.2-SNAPSHOT.jar",
+          "artifact_digest_matches_pin": true,
+          "artifact_sha256": "694626342150c1263288834fd722ec636639a36c92a68fc6a62154823dec8edb",
+          "cwd_is_source_root": true,
+          "java_binary_digest_matches_pin": true,
+          "java_binary_sha256": "7380ce48ed5013735d2c8414db54adb8f981e7933ff594bd36f3baccddaafba3",
+          "listener_loopback_only": true,
+          "open_jar_fd": true,
+          "pid": 3284,
+          "service_alignment_attested": true,
+          "source_revision": "7517acca95d9851da706452454c223dd13545ef4"
+        },
+        "source_revision": "7517acca95d9851da706452454c223dd13545ef4"
+      },
+      "target_id": "owasp_webgoat"
+    },
+    {
+      "baseline": {
+        "status": "not_run"
+      },
+      "candidate": {
+        "status": "not_run"
+      },
+      "case_id": "crapi.object_access.b2",
+      "causal_oracle": {
+        "status": "not_evaluated"
+      },
+      "cleanup": {
+        "reset_verified": false,
+        "status": "not_applicable"
+      },
+      "final_classification": "BLOCKED",
+      "independent_negative_control": {
+        "status": "not_run"
+      },
+      "precondition": {
+        "reason": "requester/owner fixture injection and reset cannot be proven under B2 without target application state mutation or credential/token material",
+        "status": "blocked"
+      },
+      "proof_bundle": {
+        "reason": "no observations",
+        "status": "withheld"
+      },
+      "target_id": "crapi"
+    }
+  ],
+  "generated_on": "2026-08-27",
+  "non_claims": [
+    "This is bounded local B2 evidence, not an Official P10 run.",
+    "No crAPI scoring evidence was created because its fixture precondition remained blocked.",
+    "The WebGoat result does not change P10/P9/VIP or Bug Bounty gates."
+  ],
+  "schema": "webpent-b2-target-live-result-v1",
+  "summary": {
+    "blocked_cases": 1,
+    "quality_metrics": "WITHHELD_NOT_OFFICIAL_P10",
+    "sealed_proof_bundles": 0,
+    "target_backed_causal_confirmations": 0,
+    "target_live_preconditions_ready": true
+  }
+}

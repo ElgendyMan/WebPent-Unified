@@ -1,0 +1,160 @@
+{
+  "admin_access": {
+    "content_type": "text/html; charset=UTF-8",
+    "masked_queries": {
+      "contains_instruction": "no",
+      "has_login_form": "no"
+    },
+    "path": "/administration",
+    "query_keys": [],
+    "response_digest": "a519dd117e005fa0",
+    "response_length": 9984,
+    "response_time_ms": 18.57,
+    "status_code": 200,
+    "structural_features": {
+      "form_count": 0,
+      "has_email_or_username_field": false,
+      "has_form": false,
+      "has_password_field": false,
+      "instruction_like_text": false,
+      "json_like": false,
+      "login_signal": false
+    }
+  },
+  "idor_basket": {
+    "content_type": "text/html; charset=utf-8",
+    "masked_queries": {
+      "contains_instruction": "no",
+      "has_login_form": "no"
+    },
+    "path": "/rest/basket/1",
+    "query_keys": [],
+    "response_digest": "75f50e0265066064",
+    "response_length": 972,
+    "response_time_ms": 30.869,
+    "status_code": 401,
+    "structural_features": {
+      "form_count": 0,
+      "has_email_or_username_field": false,
+      "has_form": false,
+      "has_password_field": false,
+      "instruction_like_text": false,
+      "json_like": false,
+      "login_signal": false
+    }
+  },
+  "info_admin_version": {
+    "content_type": "application/json; charset=utf-8",
+    "masked_queries": {
+      "contains_instruction": "no",
+      "has_login_form": "no"
+    },
+    "path": "/rest/admin/application-version",
+    "query_keys": [],
+    "response_digest": "6bfef51c9256d84a",
+    "response_length": 20,
+    "response_time_ms": 6.789,
+    "status_code": 200,
+    "structural_features": {
+      "form_count": 0,
+      "has_email_or_username_field": false,
+      "has_form": false,
+      "has_password_field": false,
+      "instruction_like_text": false,
+      "json_like": true,
+      "login_signal": false
+    }
+  },
+  "open_redirect": {
+    "content_type": "text/html; charset=utf-8",
+    "masked_queries": {
+      "contains_instruction": "no",
+      "has_login_form": "no"
+    },
+    "path": "/redirect",
+    "query_keys": [
+      "to"
+    ],
+    "response_digest": "b4ffa61516b4ce3b",
+    "response_length": 2824,
+    "response_time_ms": 13.448,
+    "status_code": 406,
+    "structural_features": {
+      "form_count": 0,
+      "has_email_or_username_field": false,
+      "has_form": false,
+      "has_password_field": false,
+      "instruction_like_text": false,
+      "json_like": false,
+      "login_signal": false
+    }
+  },
+  "sqli_login": {
+    "content_type": "text/html; charset=utf-8",
+    "masked_queries": {
+      "contains_instruction": "no",
+      "has_login_form": "no"
+    },
+    "path": "/rest/user/login",
+    "query_keys": [],
+    "response_digest": "a1421e9a95a70152",
+    "response_length": 2724,
+    "response_time_ms": 15.328,
+    "status_code": 500,
+    "structural_features": {
+      "form_count": 0,
+      "has_email_or_username_field": false,
+      "has_form": false,
+      "has_password_field": false,
+      "instruction_like_text": false,
+      "json_like": false,
+      "login_signal": true
+    }
+  },
+  "ssrf_candidate": {
+    "content_type": "text/html; charset=utf-8",
+    "masked_queries": {
+      "contains_instruction": "no",
+      "has_login_form": "no"
+    },
+    "path": "/rest/track-order",
+    "query_keys": [],
+    "response_digest": "4b4ab86784c99f8a",
+    "response_length": 2726,
+    "response_time_ms": 22.147,
+    "status_code": 500,
+    "structural_features": {
+      "form_count": 0,
+      "has_email_or_username_field": false,
+      "has_form": false,
+      "has_password_field": false,
+      "instruction_like_text": false,
+      "json_like": false,
+      "login_signal": false
+    }
+  },
+  "xss_search": {
+    "content_type": "application/json; charset=utf-8",
+    "masked_queries": {
+      "contains_instruction": "no",
+      "has_login_form": "no"
+    },
+    "path": "/rest/products/search",
+    "query_keys": [
+      "q"
+    ],
+    "response_digest": "20bc1392a17b383b",
+    "response_length": 30,
+    "response_time_ms": 36.808,
+    "status_code": 200,
+    "structural_features": {
+      "form_count": 0,
+      "has_email_or_username_field": false,
+      "has_form": false,
+      "has_password_field": false,
+      "instruction_like_text": false,
+      "json_like": true,
+      "login_signal": false
+    }
+  }
+}

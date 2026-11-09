@@ -1,0 +1,392 @@
+{
+  "date": "2026-09-04T10:22:56.276522+00:00",
+  "adversarial_v3": {
+    "total_cases": 40,
+    "vulnerable": 20,
+    "clean": 20,
+    "confusion_matrix": {
+      "tp": 20,
+      "fp": 0,
+      "fn": 0,
+      "tn": 20
+    },
+    "eligible_scored_cases": 40,
+    "raw_case_records": [
+      {
+        "case_id": "adv3_v1_alias-primary",
+        "class": "url_aliases",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_clean_about_page",
+        "class": "about_page",
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.8897,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_clean_contact_form",
+        "class": "contact_form",
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.8897,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_clean_decoy_admin_1",
+        "class": "decoy_endpoints",
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.8898,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_clean_decoy_admin_2",
+        "class": "decoy_endpoints",
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.8898,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_clean_decoy_admin_3",
+        "class": "decoy_endpoints",
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.8898,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_clean_dynamic_links",
+        "class": "dynamic_generated_links",
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.8897,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_clean_faq_page",
+        "class": "faq_page",
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.8897,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_clean_health_check",
+        "class": "health_check",
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.8897,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_clean_login_page",
+        "class": "public_auth_page",
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.8897,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_clean_misleading_hdrs",
+        "class": "misleading_headers",
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.8897,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_clean_missing_hdrs",
+        "class": "missing_security_headers",
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.8897,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_clean_privacy_policy",
+        "class": "privacy_policy",
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.8897,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_clean_public_status",
+        "class": "public_status_page",
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.8898,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_clean_register_page",
+        "class": "public_auth_page",
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.8897,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_clean_reordered_a",
+        "class": "reordered_json_fields",
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.8898,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_clean_reordered_b",
+        "class": "reordered_json_fields",
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.8898,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_clean_sitemap",
+        "class": "sitemap_page",
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.8897,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_clean_static_content",
+        "class": "static_content",
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.8897,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_clean_terms_page",
+        "class": "terms_page",
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.8897,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_clean_version_info",
+        "class": "version_info",
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.8897,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_deep-path",
+        "class": "deeply_nested_paths",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_delayed-state",
+        "class": "delayed_state_transitions",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_diff-body-auth",
+        "class": "diff_body_same_auth",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_encoded_dGFyZ2V0X3Jlc291cmNlXzAwMQ==",
+        "class": "encoded_identifiers",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_header-protected",
+        "class": "header_based_authz",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_item-create",
+        "class": "diff_status_same_meaning",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_mass-assign",
+        "class": "mass_assignment",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_method-bypass",
+        "class": "method_variation",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_multistep-token",
+        "class": "multi_step_chain",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_nested-deep",
+        "class": "nested_json_payloads",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_opaque_47ef8735-65b9-646b-32f7-4aaa1e82cdd1",
+        "class": "opaque_identifiers",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_other-profile",
+        "class": "identical_body_diff_ownership",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_race-counter",
+        "class": "race_condition",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_random-status",
+        "class": "random_status_codes",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_role-escalation",
+        "class": "privilege_escalation",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_secrets",
+        "class": "same_status_diff_semantics",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_stateful-side",
+        "class": "stateful_side_effects",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_tenant-bypass",
+        "class": "tenant_isolation_bypass",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      {
+        "case_id": "adv3_v1_workflow-approve",
+        "class": "multistep_workflow",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      }
+    ],
+    "totals_reproducible": true
+  },
+  "hidden_v2": {
+    "total_cases": 168,
+    "targets": 12,
+    "classes": 10,
+    "confusion_matrix": {
+      "tp": 120,
+      "fp": 0,
+      "fn": 0,
+      "tn": 48
+    },
+    "eligible_scored_cases": 168,
+    "executed": 168,
+    "totals_reproducible_from_raw": true
+  }
+}

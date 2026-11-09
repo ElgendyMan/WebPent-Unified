@@ -1,0 +1,128 @@
+{
+  "chains_discovered": 1,
+  "chains_confirmed": 1,
+  "chains_refuted": 0,
+  "chains_blocked": 0,
+  "combined_severity_upgrades": 1,
+  "candidates": [
+    {
+      "chain_id": "chain_1698e2e742e92e97",
+      "pattern": "ssrf_to_internal_access",
+      "description": "SSRF vulnerability -> access internal services/metadata",
+      "step_1_finding": {
+        "finding_id": "ssrf-metadata",
+        "family": "SSRF",
+        "status": "PROMOTED",
+        "target_url": "http://synthetic-chain.test",
+        "engagement_id": "eng-chain-proof-001",
+        "route": "/api/fetch?url=",
+        "severity": "8.0",
+        "proof_bundle_ref": "proof_bundle_416f4154c23e4f26b8f93bc5c573a059",
+        "capabilities": [
+          "internal_access"
+        ],
+        "promotion_gates": [
+          "g1",
+          "g2",
+          "g3",
+          "g4",
+          "g5",
+          "g6",
+          "g7",
+          "g8"
+        ]
+      },
+      "step_2_finding": null,
+      "prerequisites_met": true,
+      "estimated_impact": "CRITICAL",
+      "confidence": 0.8,
+      "narrative": "The SSRF reaches an internal resource or metadata service, demonstrating an internal-access impact.",
+      "verification_needed": [
+        "execute the governed chain request",
+        "verify combined causal impact"
+      ],
+      "target_url": "http://synthetic-chain.test",
+      "engagement_id": "eng-chain-proof-001",
+      "chain_input": {
+        "source_finding_id": "ssrf-metadata",
+        "source_resource_id": null,
+        "input_authority": "sealed_step_1_proof_bundle"
+      }
+    }
+  ],
+  "executions": [
+    {
+      "chain_id": "chain_1698e2e742e92e97",
+      "status": "chain_confirmed",
+      "confirmed": true,
+      "reason": "M4/AVI/PromotionPipeline passed \u2014 governed chain execution confirmed",
+      "evidence": {
+        "authority": "M4/AVI/PromotionPipeline",
+        "response_digest": "redacted-synthetic-proof",
+        "executor": "deterministic-stub (synthetic proof, not live)"
+      },
+      "proof_bundle_ref": "chain-proof-chain_1698e2e742e92e97",
+      "replay_verified": true,
+      "gates_passed": [
+        "g1",
+        "g2",
+        "g3",
+        "g4",
+        "g5",
+        "g6",
+        "g7",
+        "g8"
+      ],
+      "gates_failed": []
+    }
+  ],
+  "reports": [
+    {
+      "chain_id": "chain_1698e2e742e92e97",
+      "title": "[CRITICAL] Combined impact via ssrf to internal access",
+      "pattern": "ssrf_to_internal_access",
+      "steps": [
+        {
+          "step": 1,
+          "finding": "ssrf-metadata",
+          "result": "confirmed prerequisite"
+        },
+        {
+          "step": 3,
+          "chain": "chain_1698e2e742e92e97",
+          "result": "governed chain execution confirmed"
+        }
+      ],
+      "combined_severity": "CRITICAL",
+      "combined_cvss": 9.0,
+      "cvss_justification": "The ssrf_to_internal_access pattern is confirmed by the individual evidence and a successful governed chain execution; combined impact floor is 9.0, base individual score was 8.0.",
+      "impact": "The SSRF reaches an internal resource or metadata service, demonstrating an internal-access impact.",
+      "evidence": [
+        {
+          "source": "step_1",
+          "proof_bundle_ref": "proof_bundle_416f4154c23e4f26b8f93bc5c573a059"
+        },
+        {
+          "source": "chain_execution",
+          "evidence": {
+            "authority": "M4/AVI/PromotionPipeline",
+            "response_digest": "redacted-synthetic-proof",
+            "executor": "deterministic-stub (synthetic proof, not live)"
+          }
+        }
+      ],
+      "proof_bundle_ref": "chain-proof-chain_1698e2e742e92e97",
+      "replay_verified": true,
+      "gates_passed": [
+        "g1",
+        "g2",
+        "g3",
+        "g4",
+        "g5",
+        "g6",
+        "g7",
+        "g8"
+      ]
+    }
+  ]
+}

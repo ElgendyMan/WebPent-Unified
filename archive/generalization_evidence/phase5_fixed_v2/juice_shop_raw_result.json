@@ -1,0 +1,17 @@
+{
+  "credentials_in_llm_context": false,
+  "duration_seconds": 25.188,
+  "error_class": "AuditChainVerificationFailed",
+  "error_message": "AUDIT_CHAIN_VERIFICATION_FAILED: cannot append event_type='campaign.started' \u2014 chain for engagement 'generalization-phase5-fixed-juice_shop' is already finalized",
+  "modifications_during_phase": true,
+  "phase": "phase5_fixed_v2_rerun",
+  "principal_count": 0,
+  "started_at_epoch": 1790895571.9712725,
+  "status": "failed",
+  "system_path": "run_hunter_campaign -> AutonomousCrawler/httpx -> HunterGraph -> ModernOrchestrator/AVI",
+  "target": {
+    "name": "juice_shop",
+    "target_note": "Official OWASP Juice Shop local service",
+    "target_url": "http://127.0.0.1:3000"
+  }
+}

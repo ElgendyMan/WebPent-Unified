@@ -1,0 +1,83 @@
+{
+ "phase": "PHASE_3_REGRESSION_ATTACK_REPLAY",
+ "captured_at": "2026-09-19T10:44:56.879482+00:00",
+ "attacks": {
+  "attack_1_false_idor_healthy_target": {
+   "id": 1,
+   "decisions": 5,
+   "validator_outcomes": [
+    "REFUTED"
+   ],
+   "promoted_count": 0,
+   "expected": "REFUTED and NOT PROMOTED",
+   "result": "PASS"
+  },
+  "attack_2_real_idor": {
+   "id": 2,
+   "decisions": 5,
+   "promoted_with_identity_bound": 5,
+   "sample_causal_difference": "actor=oscar (not owner bob) accessed resource /api/orders/2 (status 200); owner=bob also 200; nc=404",
+   "expected": "identity_bound=true and PROMOTED",
+   "result": "PASS"
+  },
+  "attack_3_synthetic_observation": {
+   "id": 3,
+   "gate_test_decision": "REJECTED",
+   "gate_test_failed_gates": [
+    "real_runtime_observations",
+    "proof_bundle_signed",
+    "semantic_identity_bound"
+   ],
+   "end_to_end_identity_bound": [
+    false
+   ],
+   "end_to_end_promoted": 0,
+   "identity_bound_reasons": [
+    "no_explicit_request_specs_synthetic_observation_cannot_bind_identity"
+   ],
+   "expected": "identity_bound=false and NOT PROMOTED",
+   "result": "PASS"
+  },
+  "attack_4_missing_negative_control": {
+   "id": 4,
+   "decision": "REJECTED",
+   "gates_failed": [
+    "negative_control_present"
+   ],
+   "expected": "REJECTED via negative_control_present gate",
+   "result": "PASS"
+  },
+  "attack_5_replay_tampering": {
+   "id": 5,
+   "replay_verified_after_tamper": false,
+   "digests_match": false,
+   "decision": "REJECTED",
+   "gates_failed": [
+    "replay_verified"
+   ],
+   "expected": "replay_verified=False and REJECTED",
+   "result": "PASS"
+  },
+  "attack_6_proof_tampering": {
+   "id": 6,
+   "verify_seal_after_tamper": false,
+   "decision": "REJECTED",
+   "gates_failed": [
+    "proof_bundle_signed"
+   ],
+   "trace_seal_verified": false,
+   "report_rejected": true,
+   "expected": "seal verification failure and REJECTED",
+   "result": "PASS"
+  }
+ },
+ "summary": {
+  "attack_1_false_idor_healthy_target": "PASS",
+  "attack_2_real_idor": "PASS",
+  "attack_3_synthetic_observation": "PASS",
+  "attack_4_missing_negative_control": "PASS",
+  "attack_5_replay_tampering": "PASS",
+  "attack_6_proof_tampering": "PASS"
+ },
+ "all_pass": true
+}

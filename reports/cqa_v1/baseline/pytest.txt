@@ -1,0 +1,212 @@
+=== pytest ===
+........................................................................ [  3%]
+........................................................................ [  6%]
+........................................................................ [  9%]
+........................................................................ [ 12%]
+........................................................................ [ 15%]
+........................................................................ [ 18%]
+........................................................................ [ 21%]
+.............F.........F.......F..F..................................... [ 25%]
+........................................................................ [ 28%]
+.......F..................FF............................................ [ 31%]
+......FFF............................................................... [ 34%]
+........................................................................ [ 37%]
+........................................................................ [ 40%]
+........................................................................ [ 43%]
+.....................................................F.................. [ 47%]
+........................................................................ [ 50%]
+........................................................................ [ 53%]
+........................................................................ [ 56%]
+........................................................................ [ 59%]
+........................................................................ [ 62%]
+........................................................................ [ 65%]
+........................................................................ [ 68%]
+........................................................................ [ 72%]
+........................................................................ [ 75%]
+........................................................................ [ 78%]
+........................................................................ [ 81%]
+........................................................................ [ 84%]
+........................................................................ [ 87%]
+........................................................................ [ 90%]
+........................................................................ [ 94%]
+........................................................................ [ 97%]
+................................................................         [100%]
+=================================== FAILURES ===================================
+______ test_g02_inventory_is_generated_from_current_source_without_drift _______
+
+    def test_g02_inventory_is_generated_from_current_source_without_drift():
+        inventory = _inventory()
+        assert inventory["schema"] == "webpent.direct_io_inventory.v1"
+        assert inventory["generated_from"] == "src/**/*.py"
+>       assert inventory["records"] == scan_direct_io(PROJECT_ROOT / "src")
+E       AssertionError: assert [{'approval_s...y', ...}, ...] == [{'file': 'sr...n', ...}, ...]
+E         
+E         At index 196 diff: {'approval_status': 'not_applicable', 'classification': 'dynamic_resolution', 'column': 21, 'file': 'src/webpent/memory/db.py', 'kind': 'dynamic_resolution', 'line': 845, 'normalized_symbol': 'getattr(finding, ... )', 'reason': 'dynamic attribute access observed without a transport signal', 'symbol': 'getattr', 'transport': 'dynamic_resolution', 'transport_family': 'non_transport'} != {'file': 'src/webpent/irta/v3/campaign.py', 'line': 8, 'column': 1, 'kind': 'import', 'symbol': 'httpx', 'normalized_symbol': 'httpx', 'transport': 'http_implementation'...
+E         
+E         ...Full output truncated (3 lines hidden), use '-vv' to show
+
+tests/test_g02_direct_io_inventory.py:26: AssertionError
+________ test_precommit_checker_accepts_current_deterministic_artifacts ________
+
+    def test_precommit_checker_accepts_current_deterministic_artifacts() -> None:
+>       assert check_repository(project_root=ROOT) == []
+E       AssertionError: assert ['JSON artifa...ampaign.py:8'] == []
+E         
+E         Left contains 5 more items, first extra item: 'JSON artifact is not the deterministic scanner output'
+E         Use -v to get more diff
+
+tests/test_g02_precommit_enforcement.py:84: AssertionError
+_____ test_g02_primary_inventory_has_no_unapproved_or_unclassified_records _____
+
+    def test_g02_primary_inventory_has_no_unapproved_or_unclassified_records():
+        records = scan_direct_io(SOURCE_ROOT)
+        assert records
+>       assert all(record["approval_status"] != "not_approved" for record in records)
+E       assert False
+E        +  where False = all(<generator object test_g02_primary_inventory_has_no_unapproved_or_unclassified_records.<locals>.<genexpr> at 0x7fd60c19ae90>)
+
+tests/test_g02_scanner_expansion.py:22: AssertionError
+_________________ test_g02_inventory_contract_helper_is_clean __________________
+
+    def test_g02_inventory_contract_helper_is_clean():
+        from json import loads
+    
+        artifact = loads(
+            (PROJECT_ROOT / "docs" / "direct_io_inventory.json").read_text(encoding="utf-8")
+        )
+>       assert inventory_contract_errors(artifact, SOURCE_ROOT) == []
+E       AssertionError: assert ['artifact re... source scan'] == []
+E         
+E         Left contains one more item: 'artifact records drift from current source scan'
+E         Use -v to get more diff
+
+tests/test_g02_scanner_expansion.py:59: AssertionError
+_______ test_option_b_import_validates_and_original_packet_stays_pending _______
+
+    def test_option_b_import_validates_and_original_packet_stays_pending() -> None:
+>       assert validate(IMPORT, PACKET, INVENTORY, APPROVAL) == []
+E       AssertionError: assert ['approval_so...ash_mismatch'] == []
+E         
+E         Left contains one more item: 'approval_source_hash_mismatch'
+E         Use -v to get more diff
+
+tests/test_local_causal_lab_option_b_approval.py:27: AssertionError
+_________ test_webgoat_source_pin_matches_but_service_alignment_blocks _________
+
+    def test_webgoat_source_pin_matches_but_service_alignment_blocks() -> None:
+        provenance = _provenance_for_webgoat()
+        assert provenance.validate() == ()
+        result = readiness_check(provenance, WEBGOAT_ROOT)
+>       assert result["source"]["all_match"] is True
+E       assert False is True
+
+tests/test_local_causal_lab_runtime_provenance.py:59: AssertionError
+_______________ test_crapi_source_and_runtime_pins_are_attested ________________
+
+    def test_crapi_source_and_runtime_pins_are_attested() -> None:
+        provenance = _provenance_for_crapi()
+        assert provenance.validate() == ()
+        result = readiness_check(provenance, CRAPI_ROOT)
+>       assert result["source"]["all_match"] is True
+E       assert False is True
+
+tests/test_local_causal_lab_runtime_provenance.py:68: AssertionError
+___________ test_option_b_runner_emits_only_redacted_blocked_records ___________
+
+    def test_option_b_runner_emits_only_redacted_blocked_records() -> None:
+>       result = build_result()
+                 ^^^^^^^^^^^^^^
+
+tests/test_option_b_local_causal_lab_runner.py:7: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+import_path = PosixPath('/tmp/webpent-work/reports/evaluation/owner_decision/LOCAL-CAUSAL-LAB-OPTION-B-OWNER-APPROVAL-IMPORT-v1.json')
+
+    def build_result(
+        import_path: Path = ROOT
+        / "reports/evaluation/owner_decision/LOCAL-CAUSAL-LAB-OPTION-B-OWNER-APPROVAL-IMPORT-v1.json",
+    ) -> dict[str, Any]:
+        approval_errors = validate_approval(import_path=import_path)
+        if approval_errors:
+>           raise ValueError("approval_boundary_failed:" + ",".join(approval_errors))
+E           ValueError: approval_boundary_failed:approval_source_hash_mismatch
+
+scripts/run_option_b_local_causal_lab.py:339: ValueError
+_ test_option_b_runner_records_runtime_digest_blockers_without_sensitive_material _
+
+    def test_option_b_runner_records_runtime_digest_blockers_without_sensitive_material() -> None:
+>       result = build_result()
+                 ^^^^^^^^^^^^^^
+
+tests/test_option_b_local_causal_lab_runner.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+import_path = PosixPath('/tmp/webpent-work/reports/evaluation/owner_decision/LOCAL-CAUSAL-LAB-OPTION-B-OWNER-APPROVAL-IMPORT-v1.json')
+
+    def build_result(
+        import_path: Path = ROOT
+        / "reports/evaluation/owner_decision/LOCAL-CAUSAL-LAB-OPTION-B-OWNER-APPROVAL-IMPORT-v1.json",
+    ) -> dict[str, Any]:
+        approval_errors = validate_approval(import_path=import_path)
+        if approval_errors:
+>           raise ValueError("approval_boundary_failed:" + ",".join(approval_errors))
+E           ValueError: approval_boundary_failed:approval_source_hash_mismatch
+
+scripts/run_option_b_local_causal_lab.py:339: ValueError
+______ test_option_b_runner_exposes_offline_harness_readiness_separately _______
+
+    def test_option_b_runner_exposes_offline_harness_readiness_separately() -> None:
+>       result = build_result()
+                 ^^^^^^^^^^^^^^
+
+tests/test_option_b_local_causal_lab_runner.py:56: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+import_path = PosixPath('/tmp/webpent-work/reports/evaluation/owner_decision/LOCAL-CAUSAL-LAB-OPTION-B-OWNER-APPROVAL-IMPORT-v1.json')
+
+    def build_result(
+        import_path: Path = ROOT
+        / "reports/evaluation/owner_decision/LOCAL-CAUSAL-LAB-OPTION-B-OWNER-APPROVAL-IMPORT-v1.json",
+    ) -> dict[str, Any]:
+        approval_errors = validate_approval(import_path=import_path)
+        if approval_errors:
+>           raise ValueError("approval_boundary_failed:" + ",".join(approval_errors))
+E           ValueError: approval_boundary_failed:approval_source_hash_mismatch
+
+scripts/run_option_b_local_causal_lab.py:339: ValueError
+_______________________ test_inventory_validator_passes ________________________
+
+    def test_inventory_validator_passes() -> None:
+        result = subprocess.run(
+            [sys.executable, str(ROOT / "scripts/check_source_backed_candidate_inventory.py")],
+            cwd=ROOT,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: FAIL: source evidence file missing: /tmp/juice-shop-source/data/static/challenges.yml
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/usr/bin/python', '/tmp/webpent-work/scripts/check_source_backed_candidate_inventory.py'], returncode=1, stdout='', stderr='FAIL: source evidence file missing: /tmp/juice-shop-source/data/static/challenges.yml\n').returncode
+
+tests/test_source_backed_candidate_inventory.py:24: AssertionError
+=============================== warnings summary ===============================
+../../usr/local/lib/python3.12/dist-packages/fastapi/testclient.py:1
+  /usr/local/lib/python3.12/dist-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_g02_direct_io_inventory.py::test_g02_inventory_is_generated_from_current_source_without_drift
+FAILED tests/test_g02_precommit_enforcement.py::test_precommit_checker_accepts_current_deterministic_artifacts
+FAILED tests/test_g02_scanner_expansion.py::test_g02_primary_inventory_has_no_unapproved_or_unclassified_records
+FAILED tests/test_g02_scanner_expansion.py::test_g02_inventory_contract_helper_is_clean
+FAILED tests/test_local_causal_lab_option_b_approval.py::test_option_b_import_validates_and_original_packet_stays_pending
+FAILED tests/test_local_causal_lab_runtime_provenance.py::test_webgoat_source_pin_matches_but_service_alignment_blocks
+FAILED tests/test_local_causal_lab_runtime_provenance.py::test_crapi_source_and_runtime_pins_are_attested
+FAILED tests/test_option_b_local_causal_lab_runner.py::test_option_b_runner_emits_only_redacted_blocked_records
+FAILED tests/test_option_b_local_causal_lab_runner.py::test_option_b_runner_records_runtime_digest_blockers_without_sensitive_material
+FAILED tests/test_option_b_local_causal_lab_runner.py::test_option_b_runner_exposes_offline_harness_readiness_separately
+FAILED tests/test_source_backed_candidate_inventory.py::test_inventory_validator_passes
+11 failed, 2285 passed, 1 warning in 130.50s (0:02:10)

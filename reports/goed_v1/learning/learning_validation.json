@@ -1,0 +1,38 @@
+{
+  "phase": "12_learning_validation",
+  "date": "2026-09-03T06:26:59.058707+00:00",
+  "comparison": "COLD vs LEARNED",
+  "cold_run": {
+    "run_type": "COLD",
+    "description": "No prior memory, no pattern hints",
+    "useful_hypothesis_rate": 0.4,
+    "repeated_path_reduction": 0.0,
+    "steps_to_valid_proof": 7,
+    "discovery_coverage": 0.55,
+    "tp": 1,
+    "fp": 0,
+    "fn": 1,
+    "research_efficiency": 0.25
+  },
+  "learned_run": {
+    "run_type": "LEARNED",
+    "description": "With memory hints from prior exploration of similar patterns",
+    "useful_hypothesis_rate": 0.55,
+    "repeated_path_reduction": 0.15,
+    "steps_to_valid_proof": 5,
+    "discovery_coverage": 0.62,
+    "tp": 1,
+    "fp": 0,
+    "fn": 1,
+    "research_efficiency": 0.35
+  },
+  "improvements": {
+    "useful_hypothesis_rate": 0.15000000000000002,
+    "steps_to_valid_proof": 2,
+    "discovery_coverage": 0.06999999999999995,
+    "research_efficiency": 0.09999999999999998
+  },
+  "meaningful_improvements_count": 4,
+  "learning_status": "PARTIALLY_ESTABLISHED",
+  "honest_conclusion": "Some operational improvements observed in hypothesis quality and efficiency. However, TP/FP/FN parity indicates learning does not fundamentally change detection outcomes. Memory acts as hint/ranking aid, not capability multiplier."
+}

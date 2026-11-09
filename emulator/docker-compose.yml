@@ -1,0 +1,95 @@
+# Pre-Verdict Emulator — a hostile-feeling local range.
+# Everything here is local training infrastructure. No real targets.
+version: "3.8"
+
+services:
+  # Vulnerable app 1
+  juice-shop:
+    image: bkimminich/juice-shop:latest
+    ports:
+      - "127.0.0.1:3000:3000"
+    networks:
+      - target_net
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+
+  # Vulnerable app 2
+  dvwa:
+    image: vulnerables/web-dvwa:latest
+    ports:
+      - "127.0.0.1:8080:80"
+    networks:
+      - target_net
+
+  # Custom API (for testing specific scenarios)
+  custom-api:
+    build: ./apps/custom-api/
+    ports:
+      - "127.0.0.1:9000:8000"
+    networks:
+      - target_net
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+
+  # WAF (ModSecurity + CRS) in front of Juice Shop
+  waf:
+    image: owasp/modsecurity-crs:nginx-alpine
+    ports:
+      - "127.0.0.1:80:80"
+    environment:
+      - PARANOIA=2
+      - BACKEND=http://juice-shop:3000
+      - ERRORLOG=/var/log/nginx/error.log
+    volumes:
+      - ./monitoring/nginx-logs/:/var/log/nginx/:rw
+    depends_on:
+      - juice-shop
+    networks:
+      - target_net
+
+  # Rate limiter (nginx) in front of Juice Shop
+  rate-limiter:
+    image: nginx:alpine
+    ports:
+      - "127.0.0.1:8000:80"
+    volumes:
+      - ./configs/rate_limits.conf:/etc/nginx/nginx.conf:ro
+      - ./monitoring/nginx-logs/:/var/log/nginx/:rw
+    depends_on:
+      - juice-shop
+    networks:
+      - target_net
+
+  # Fail2ban (IP banning simulation) over the shared nginx logs
+  fail2ban:
+    image: crazymax/fail2ban:latest
+    volumes:
+      - ./monitoring/nginx-logs/:/var/log/nginx/:rw
+    environment:
+      - F2B_LOG_TARGET=/var/log/nginx/fail2ban.log
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    networks:
+      - target_net
+
+  # Monitoring dashboard over the shared logs
+  monitoring:
+    build: ./monitoring/
+    ports:
+      - "127.0.0.1:9090:9090"
+    volumes:
+      - ./monitoring/nginx-logs/:/logs:ro
+    networks:
+      - target_net
+
+networks:
+  target_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

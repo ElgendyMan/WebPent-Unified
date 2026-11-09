@@ -1,0 +1,63 @@
+{
+  "version": "avi_v1_2_trust_hardening",
+  "date": "2026-09-17",
+  "primary_objective": "CONFIRMED means real security property proven, not internal observation consistency",
+  "changed_files": [
+    "src/webpent/production/autonomous_validation_v1.py",
+    "LEGACY_CONFIRMATION_PATHS.md",
+    "TEAM1_AVI_V1_2_TRUST_HARDENING.md"
+  ],
+  "source_hashes": {
+    "autonomous_validation_v1.py": "b82e34e83e72cdb953dea1f3a20ef7d422b60bfbc69c095944627f7b90d90b77",
+    "modern_spine.py": "620d8c5b92f13585bc308a702e1cc23473ec5abcb171ae5b446e96e5d470e323",
+    "real_target_qualification_v1_1.py": "290a4f65a9a159e4e7589e01b0c241a9d9e4ffd39e21a41aee41ae03ad9d485e",
+    "validators.py": "af93d2056d95f65c677507e749c6f953e1fc56c11c1786b1d61c43bf9abf24ec",
+    "proof_bundle.py": "2f429b3c4c3ef205f471d53163ccee89a773bcd8fe7154f02b6e2eca0f513110"
+  },
+  "identity_binding_fields": [
+    "actor_id",
+    "resource_id",
+    "authorization_context",
+    "baseline_access_result",
+    "candidate_access_result",
+    "negative_control_result",
+    "causal_difference",
+    "identity_bound"
+  ],
+  "promotion_gates": [
+    "real_runtime_observations",
+    "baseline_present",
+    "negative_control_present",
+    "causal_validator_confirmed",
+    "proof_bundle_signed",
+    "replay_verified",
+    "no_external_scanner_authority",
+    "semantic_identity_bound"
+  ],
+  "replay_verifies_semantic": true,
+  "security_report_requires_semantic": true,
+  "outcome_tracker_integrated": true,
+  "one_production_authority": "CausalGuard -> ProofBundle -> Replay -> PromotionPipeline",
+  "test_results": {
+    "total": 29,
+    "passed": 27,
+    "failed": 2,
+    "v1_1_real_target": "13/13 PASS",
+    "v1_synthetic": "14/16 PASS; 2 synthetic-only promotion tests correctly rejected by trust hardening",
+    "failed_tests": [
+      "test_thirty_decisions_full_pipeline (synthetic differential handler, no actor identity)",
+      "test_outcomes_include_confirmed_refuted_inconclusive (same synthetic target)"
+    ]
+  },
+  "attack_defenses": {
+    "false_idor_healthy_target": "patched -> candidate 403 -> REFUTED -> no promote",
+    "real_idor": "actor mismatch + candidate 200 -> identity_bound -> promote",
+    "actor_mismatch_absent": "identity binding fails -> CONFIRMED downgraded -> no promote",
+    "resource_mismatch": "negative control not independent -> identity binding fails",
+    "replay_tampering": "digest+outcome+semantic+seal all verified",
+    "proof_semantic_tampering": "breaks HMAC seal -> verify_seal fails -> reject",
+    "legacy_confirmation_path": "only PromotionPipeline promotes, 8 gates fail-closed"
+  },
+  "final_acceptance_performed": false,
+  "note": "STOP. TEAM-3 must independently attack again."
+}

@@ -1,0 +1,56 @@
+{
+  "strategies": {
+    "authorization_differential": {
+      "tool": "compare",
+      "in_allowed": true,
+      "passes_boundary": true
+    },
+    "object_substitution": {
+      "tool": "request",
+      "in_allowed": true,
+      "passes_boundary": true
+    },
+    "semantic_comparison": {
+      "tool": "compare",
+      "in_allowed": true,
+      "passes_boundary": true
+    },
+    "state_transition_testing": {
+      "tool": "inspect_state",
+      "in_allowed": true,
+      "passes_boundary": true
+    },
+    "workflow_manipulation": {
+      "tool": "run_workflow_step",
+      "in_allowed": true,
+      "passes_boundary": true
+    },
+    "replay_testing": {
+      "tool": "replay",
+      "in_allowed": true,
+      "passes_boundary": true
+    },
+    "invariant_probing": {
+      "tool": "request",
+      "in_allowed": true,
+      "passes_boundary": true
+    },
+    "relationship_testing": {
+      "tool": "enumerate_entity",
+      "in_allowed": true,
+      "passes_boundary": true
+    },
+    "mass_assignment_testing": {
+      "tool": "request",
+      "in_allowed": true,
+      "passes_boundary": true
+    },
+    "race_condition_probing": {
+      "tool": "run_workflow_step",
+      "in_allowed": true,
+      "passes_boundary": true
+    }
+  },
+  "all_pass": true,
+  "invented_rejected": true
+}

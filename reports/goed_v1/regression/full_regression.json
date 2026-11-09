@@ -1,0 +1,64 @@
+{
+  "phase": "15_full_regression",
+  "date": "2026-09-03T06:26:59.058707+00:00",
+  "checks": {
+    "compileall": {
+      "status": "PASS",
+      "result": true
+    },
+    "import_smoke": {
+      "status": "PASS",
+      "modules_tested": 15
+    },
+    "generic_neutrality": {
+      "status": "CONCERNS",
+      "leak_patterns_found_in_goed_core": 3,
+      "patterns": [
+        "ground-truth",
+        "ground_truth",
+        "ground-truth"
+      ]
+    },
+    "secret_scan": {
+      "status": "PASS",
+      "files_with_secrets": []
+    },
+    "governance": {
+      "status": "PASS",
+      "goed_v1_governance": {
+        "no_vulnerability_labels_used": true,
+        "no_target_specific_knowledge": true,
+        "no_benchmark_imports": true,
+        "additive_only": true,
+        "preserves_cqa_rta_irta": true,
+        "causal_guard_mandatory": true
+      },
+      "exploration_governance": {
+        "loop_can_change_direction": true,
+        "invariants_are_hypotheses_not_truth": true,
+        "information_gain_ranking": true,
+        "bounded_actions_only": true,
+        "causal_guard_mandatory_for_confirmation": true
+      },
+      "hypothesis_engine_governance": {
+        "always_generates_competing_hypotheses": true,
+        "never_immediately_selects_security": true,
+        "benign_alternatives_always_included": true,
+        "no_target_specific_patterns": true,
+        "isolation_layer_used": true
+      },
+      "vip_qualified_remains_false": true
+    },
+    "historical_milestones": {
+      "status": "PASS",
+      "files_checked": [
+        "reports/cqa_v2/GATE11_AUDIT.md",
+        "reports/cqa_v2/EXECUTIVE_SUMMARY.md",
+        "qualification_v10/phase5/qualification_decision.json",
+        "metrics/cqa_v2/pilot_metrics.json"
+      ],
+      "all_preserved": true
+    }
+  },
+  "overall": "ISSUES_FOUND"
+}

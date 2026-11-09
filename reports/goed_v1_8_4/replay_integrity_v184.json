@@ -1,0 +1,48 @@
+{
+  "test_1_confirmed_to_confirmed": {
+    "passed": true,
+    "checks": {
+      "verdict_match": true,
+      "evidence_match": true,
+      "seal_valid": true,
+      "seal_match": true,
+      "replay_executed": true,
+      "replay_valid_strict": true,
+      "original_verdict": "CONFIRMED",
+      "replay_verdict": "CONFIRMED"
+    },
+    "description": "CONFIRMED case replays to CONFIRMED \u2014 all 5 conditions must pass"
+  },
+  "test_2_confirmed_to_inconclusive": {
+    "passed": true,
+    "checks": {
+      "original_verdict": "CONFIRMED",
+      "replay_verdict": "CLEAN",
+      "verdict_changed": true,
+      "seal_valid_still": true,
+      "seal_match": true,
+      "replay_valid_FALSE": true,
+      "replay_valid_value": false
+    },
+    "description": "Tampered content changes verdict \u2014 replay_valid MUST be False"
+  },
+  "test_3_seal_alone_insufficient": {
+    "passed": true,
+    "checks": {
+      "original_seal": "0acb78c7b38290b1...",
+      "seal_valid_after_content_tamper": false,
+      "manual_seal_override_verify": false,
+      "replay_verdict": "CLEAN",
+      "verdict_match": false,
+      "seal_match": true,
+      "seal_valid": false,
+      "replay_valid": false,
+      "seal_match_but_replay_valid_false": true
+    },
+    "description": "Tampered content + matching seal claim \u2192 verify_seal catches it, replay_valid=False"
+  },
+  "overall_pass": true,
+  "phase": "5_replay_integrity",
+  "protocol_version": "v1.8.4_STRICT",
+  "strict_rule": "replay_valid = verdict_match AND evidence_match AND seal_valid AND seal_match AND replay_executed"
+}

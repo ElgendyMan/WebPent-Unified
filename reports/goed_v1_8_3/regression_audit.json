@@ -1,0 +1,45 @@
+{
+  "compileall_pass": true,
+  "v1_8_1_unchanged": false,
+  "v1_8_2_unchanged": false,
+  "causalguard_unchanged": true,
+  "proofbundle_unchanged": true,
+  "no_benchmark_hacks": true,
+  "governance_enforced": true,
+  "total_findings": 4,
+  "findings": [
+    {
+      "issue": "v1.8.1 artifact modified",
+      "files": [
+        "src/webpent/cqa_v2/replay_verifier.py"
+      ]
+    },
+    {
+      "issue": "v1.8.1 artifact missing (could not verify)",
+      "files": [
+        "release/config_schema.json",
+        "release/health_check.py",
+        "release/start_webpent.sh",
+        "release/benchmark_runner.py",
+        "release/verify_proof_bundle.py"
+      ]
+    },
+    {
+      "issue": "v1.8.2 artifact modified",
+      "files": [
+        "src/webpent/cqa_v2/replay_verifier.py"
+      ]
+    },
+    {
+      "issue": "v1.8.2 artifact missing (could not verify)",
+      "files": [
+        "release/config_schema.json",
+        "release/health_check.py",
+        "release/start_webpent.sh",
+        "release/benchmark_runner.py",
+        "release/verify_proof_bundle.py"
+      ]
+    }
+  ],
+  "audit_pass": false
+}

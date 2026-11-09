@@ -1,0 +1,52 @@
+# Test Run Evidence — 0.28.0 ROOTLESS DEPLOYMENT window (chunked full suite)
+# Date: 2026-10-30
+# Runner: pytest 8.x, python 3.12.16, webpent 0.28.0 (editable, --no-deps in sandbox)
+# Command pattern: python3 -m pytest <chunk> -q -p no:cacheprovider --tb=line
+#
+# --- CHUNK SUMMARIES (pytest tails, verbatim) ---
+# chunk 1  tests/*.py root files (all subdirs ignored):
+#          "2 failed, 4075 passed, 3 skipped, 3 xfailed, 7 warnings in 222.41s"
+#          -> the 2 failures are the known fresh-subprocess gates
+#             (test_python_dash_m_webpent_cli_is_executable,
+#              test_sdd8_rollback_flag_independence): they spawn NEW
+#             interpreters and need the package pip-installed, not just
+#             pythonpath'd — the sandbox recycle had dropped the editable
+#             install. After `pip install -e . --no-deps`: "2 passed in 5.51s".
+# chunk 2  tests/oracle tests/dojo tests/prism tests/jc:
+#          "1046 passed in 31.88s"
+# chunk 3  tests/forge tests/apex tests/deep tests/campaign tests/egaie:
+#          "698 passed in 48.23s"
+# chunk 4  tests/econ tests/vip tests/bridge tests/lab tests/team1_acceptance
+#          tests/scenario_lab tests/ground_truth:
+#          "931 passed, 4 warnings in 58.66s"
+#
+# --- TOTAL ---
+# Collected (scripts/verify_test_count.py): 6758
+# Passed:  4075 + 2 + 1046 + 698 + 931 = 6752
+# Skipped: 3   (2 optional external-source + 1 root-only entrypoint functional test)
+# Xfailed: 3   (ratified B-06/M3 strict xfails)
+# 6752 + 3 + 3 = 6758 = collected — EXACT reconciliation, 0 failed, 0 errors.
+#
+# --- 0.28.0 WINDOW GATES (docs/PRODUCTION_FIX_PLAN_0270.md D-1 window) ---
+# [GATE] deployment contract tests .. tests/test_production_deployment_contract.py: 12 tests
+#                                    (5 legacy pins kept verbatim + 6 new D-1 gates + rewritten
+#                                    dynamic Dockerfile-metadata gate) — 11 passed, 1 skipped
+#                                    (root-only drop-verification functional; runs on root hosts)
+# [GATE] functional proof .......... rootless branch executed for real on this non-root
+#                                    sandbox (ROOTLESS MODE announced, direct exec, no gosu);
+#                                    root-path drop verification is root-runner-gated with a
+#                                    stub-gosu honest/lying double case
+# [GATE] canary 7x STABLE .......... reports/canary/CANARY_7X_20261030_0.28.0.json
+#                                    stable_7x=true, 7/7 byte-identical (855 each),
+#                                    ruff_clean=true, exit 0
+# [GATE] ruff ...................... new files clean (refreeze_manifest_0280_rootless.py,
+#                                    test_production_deployment_contract.py);
+#                                    ratchet 6248 <= baseline 6250
+# [GATE] test-count floor .......... 6758 collected >= floor 1940
+# [GATE] frozen manifest ........... re-pinned by scripts/refreeze_manifest_0280_rootless.py:
+#                                    659 entries, +0 scope completion, exactly ONE declared
+#                                    change (src/webpent/__init__.py version bump; path already
+#                                    documented in MERGE_20261026_THAW_PATHS)
+# [GATE] version identity .......... pyproject = __init__ = BUILD_INFO = CURRENT_RELEASE =
+#                                    Dockerfile ARG = 0.28.0 (release-packaging gate green,
+#                                    changelog head carries 0.28.0 + date)

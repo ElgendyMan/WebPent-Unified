@@ -1,0 +1,12 @@
+{
+  "investigated_at": "2026-09-03T04:57:02.685335+00:00",
+  "fn_cases": 3,
+  "classifications": {
+    "target-beta-case-01": "EXECUTION_CAPABILITY_LIMITATION",
+    "target-gamma-case-01": "EXECUTION_CAPABILITY_LIMITATION",
+    "target-delta-case-01": "EXECUTION_CAPABILITY_LIMITATION"
+  },
+  "common_pattern": "All 3 FN cases share the same root cause: CaseExecutionSpec lacks explicit ActorContext. Execution uses a hardcoded global identity that does not exercise the specific actor/tenant/role boundary required by each vulnerability mechanism.",
+  "unified_fix_required": "Introduce explicit ActorContext model to CaseExecutionSpec, remove hardcoded global identity from CandidateExecutionLayer, and propagate actor/tenant/role from case specification through execution.",
+  "drift_status": "The original 18/50 drift is UNVERIFIED for cases outside the pilot set. Investigation focused on the 3 pilot FN cases only."
+}

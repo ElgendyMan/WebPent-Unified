@@ -1,0 +1,140 @@
+{
+  "version": "1.8.3",
+  "frozen_at": "2026-09-05T05:09:49.384880+00:00",
+  "freeze_policy": "IMMUTABLE - v1.8.4 must NOT modify these artifacts",
+  "governance_embedded": {
+    "vip_qualified": false,
+    "qualification_state": "CONDITIONAL",
+    "P10": "CLOSED",
+    "P9": "CLOSED"
+  },
+  "artifacts": {
+    "deterministic_core": {
+      "src/webpent/cqa_v2/causal_guard.py": {
+        "sha256": "b1b9cc1cdcacaf4897a2628510d6c3d7be2f451caa2fc8d4399746a30c74339f",
+        "size_bytes": 25282
+      },
+      "src/webpent/cqa_v2/proof_bundle_builder.py": {
+        "sha256": "8a7a5f04100f4c2f0ae0a3f17ad81b0069ef80bb0527293d5c501b9dee4d15b7",
+        "size_bytes": 9537
+      },
+      "src/webpent/cqa_v2/replay_verifier.py": {
+        "sha256": "1c8535577604719c4ad486bb6747eb46fb76912ce10b34d83f966a9876106913",
+        "size_bytes": 3446
+      },
+      "src/webpent/models/proof_bundle.py": {
+        "sha256": "bbd2e63b891dc540a5abd02c7e54603f3a5d1af7b9ac4d0753ba1d0ec3ef7d2f",
+        "size_bytes": 22181
+      }
+    },
+    "llm_interface_v183": {
+      "src/webpent/llm_researcher/interface.py": {
+        "sha256": "eee2709f97d087c9007f9eb723275a5afdc63ff57464916cd9f4da59938436bc",
+        "size_bytes": 18451
+      },
+      "src/webpent/llm_researcher/tool_boundary.py": {
+        "sha256": "f0280303e2d832d73e228a1966c0feaba437947d0628e6a25be495cdead32dcf",
+        "size_bytes": 7056
+      },
+      "src/webpent/llm_researcher/research_loop.py": {
+        "sha256": "23e93a258b1edf3cb9f7c5829d95b200dc662004fb059b1cd9170c71d81882d3",
+        "size_bytes": 8292
+      },
+      "src/webpent/llm_researcher/world_model.py": {
+        "sha256": "b99a7d6f789a26f8b24ef0758f0a49d23b04829e277de7c8dd7ad5e5eb123b32",
+        "size_bytes": 5242
+      },
+      "src/webpent/llm_researcher/causal_feedback_bridge.py": {
+        "sha256": "3ca4ac472e826acb43dff3e61b2493ec5410f86bfc90f06523564c7838a8d7e1",
+        "size_bytes": 18317
+      }
+    },
+    "llm_providers_v183": {
+      "src/webpent/llm_researcher/providers/__init__.py": {
+        "sha256": "d92fc36bfcd399acc4a9b4029bba69ba0ab99aa3635d65a4ea97ae65383618fe",
+        "size_bytes": 657
+      },
+      "src/webpent/llm_researcher/providers/base.py": {
+        "sha256": "75303a66db8e25913af0715d5b3f03d829a85960f58b352055e6c55ef7572e63",
+        "size_bytes": 4356
+      },
+      "src/webpent/llm_researcher/providers/mock_provider.py": {
+        "sha256": "8e397dd3b0451e21624a9d41601d835b7a8d0aea6e0334d24a566005ea208f85",
+        "size_bytes": 6043
+      },
+      "src/webpent/llm_researcher/providers/openai_compatible.py": {
+        "sha256": "3427e6446cea26c3397e5a9192ccdfc3bc9cf1cf0083a5e9c77f5ba73f654199",
+        "size_bytes": 4858
+      },
+      "src/webpent/llm_researcher/providers/factory.py": {
+        "sha256": "fc6ec994e391ac956e1c506a5a068c61a815c90727ab0647767be0e830c1f6df",
+        "size_bytes": 3860
+      }
+    },
+    "benchmark_v2": {
+      "benchmarks/differential_v2/manifest.json": {
+        "sha256": "c774640355743c236be0c1667ad4f14418607128d2803153a46f813abab7d88c",
+        "size_bytes": 25312
+      },
+      "benchmarks/differential_v2/ground_truth.json": {
+        "sha256": "bf4f05b105b59fc8cec9ff29b2e455da800b3f64fc6c90116472a2db19e6fe60",
+        "size_bytes": 28722
+      },
+      "benchmarks/differential_v2/differential_target_v2.py": {
+        "sha256": "0f4d6f2f91c6fcf0a234c5105604625f06a110b54c5d5ee1beff95768364822a",
+        "size_bytes": 8668
+      }
+    },
+    "reports_v183": {
+      "reports/goed_v1_8_3/llm_contract_trace.json": {
+        "sha256": "375fd4c510dfe3db96cb26e4ad381788116588f391b5cb57a82041ec4b6ce27e",
+        "size_bytes": 6415
+      },
+      "reports/goed_v1_8_3/differential_results.json": {
+        "sha256": "52627217c2a9970ccae58404867a6c2e04d890eba35e226971373cbdc8884c36",
+        "size_bytes": 330704
+      },
+      "reports/goed_v1_8_3/blind_evaluation.json": {
+        "sha256": "0278612b484f292f0e5c0aeede3f9ce6518f840002fbda80cf9d196d84de7cea",
+        "size_bytes": 32758
+      },
+      "reports/goed_v1_8_3/acceptance_gates.json": {
+        "sha256": "9e0686c58be3027f827e37ebde0672fe1e46f506cedd3ba0ce62e4ef4e38ae38",
+        "size_bytes": 4079
+      },
+      "reports/goed_v1_8_3/GOED_V1_8_3_FINAL_TRUTH_AUDIT.md": {
+        "sha256": "03761368a843f83aa5b760f4a6547c722169cd9743bbaa89aaf47881d7d052a5",
+        "size_bytes": 6248
+      },
+      "reports/goed_v1_8_3/governance_manifest.json": {
+        "sha256": "79c8377c6f5dba6681bf7ecf85564bdf8332d4caf79b978de5ec7fab77f78e0a",
+        "size_bytes": 333
+      }
+    },
+    "previous_manifests": {
+      "docs/archive/goed-v1.8.2/freeze_manifest.json": {
+        "sha256": "b9a2dcf8a5276be377dd4df37e096f58dc3e537582d011243205910a2c916d1d",
+        "size_bytes": 5219
+      },
+      "docs/archive/goed-v1.8.1/freeze_manifest.json": {
+        "sha256": "11612f5b7d68a48af1870abdabd3aa3844d0647b31083627c6692f4c524011ce",
+        "size_bytes": 4360
+      }
+    },
+    "delivery_v183": {
+      "WebPent-GOED-v1.8.3-RealLLM-CausalBridge.zip": {
+        "sha256": "92ffbd420cd19b64d4d0799acbe80d4f39ffdacccc68004cd41ede1d8f75e582",
+        "size_bytes": 978488
+      }
+    }
+  },
+  "aggregate_hashes": {
+    "deterministic_core": "81c252d120215d6eee19b2d5cb0d100e44a3053a75a5ef1fb39343508ee41e6a",
+    "llm_interface_v183": "fa4f0da906029a6707945a5c841b98a2032bcdfe8076957d943fc4c25d4b82a8",
+    "llm_providers_v183": "668763563e4655484eed1512e7bb2ade0dc75ddf8c27591e7fb5b4ff631fb846",
+    "benchmark_v2": "7b9d143fce2508127e2aa18b7784e5c40cb93dfefc89d2299b92ee2c4bd1a34b",
+    "reports_v183": "276eecc8de6deb47ad4add61c6e9cee56434e22b66d44353e8a8b72d11f58f5a",
+    "previous_manifests": "1876475ac2c721bf80fc9a0f07ac304541b8d8dba9f86e8f43a6aead736b977b",
+    "delivery_v183": "89537b189b9665b95c93c167c647c568ef3ea37d4bd3648c4a3aac8fa34e26c9"
+  }
+}

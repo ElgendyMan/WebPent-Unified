@@ -1,0 +1,40 @@
+{
+  "phase": "14_causal_proof_replay_audit",
+  "date": "2026-09-03",
+  "findings_audited": 2,
+  "findings": [
+    {
+      "case_id": "goed-proof-idor-01",
+      "class": "idor",
+      "causal_verdict": "INCONCLUSIVE",
+      "confidence": 0.4,
+      "has_observations": true,
+      "has_causal_reasoning": true,
+      "has_authorization_differential": true,
+      "has_negative_control": true,
+      "has_proof_bundle": true,
+      "proof_valid": true,
+      "has_deterministic_seal": true,
+      "seal": "2394922351bbf2a9",
+      "replay_verified": true
+    },
+    {
+      "case_id": "goed-proof-bac-01",
+      "class": "broken_access_control",
+      "causal_verdict": "CONFIRMED",
+      "confidence": 0.99,
+      "has_observations": true,
+      "has_causal_reasoning": true,
+      "has_authorization_differential": true,
+      "has_negative_control": true,
+      "has_proof_bundle": true,
+      "proof_valid": true,
+      "has_deterministic_seal": true,
+      "replay_verified": true
+    }
+  ],
+  "rejected_pattern_only_findings": true,
+  "rejected_observation_only_findings": true,
+  "rejected_route_exists_only_findings": true,
+  "rejected_status_code_only_findings": true
+}

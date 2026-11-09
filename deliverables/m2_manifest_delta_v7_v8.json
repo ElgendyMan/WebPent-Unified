@@ -1,0 +1,60 @@
+{
+  "baseline": "v7 (ZIP a226645e\u202690dc3; v7 manifest digest 33885034\u20262a33)",
+  "v8_manifest_digest": "0facc0f39f8880684cc8701a314dc9b362282818e73bf61d5e2fba52d7f4365d",
+  "scope_predicate": "ALL files under src/ (policy made complete this window)",
+  "scope_count": {
+    "pre": 695,
+    "post": 708
+  },
+  "findings": {
+    "NF-M2I-01": "P2 \u2014 the v7 frozen manifest never pinned 12 src/ files that shipped in v7 (cli/__main__.py, 5 integration/, production/validators.py, 2 recon/, 3 reporter/poc_*). All 12 verified byte-identical to the v7 baseline before retro-pinning. The v8 manifest completes the scope: every src/ file is pinned."
+  },
+  "modified_mapped_to_thaw": [
+    "src/webpent/graph/builder.py",
+    "src/webpent/production/advisory_registration.py",
+    "src/webpent/production/campaign_state.py",
+    "src/webpent/production/modern_spine.py",
+    "src/webpent/production/modern_spine_integration.py",
+    "src/webpent/state/state.py"
+  ],
+  "added_new_thaw_file": [
+    "src/webpent/production/spine_flag_gates.py"
+  ],
+  "added_retro_pinned_untouched": [
+    "src/webpent/cli/__main__.py",
+    "src/webpent/integration/browser_hypothesis_bridge.py",
+    "src/webpent/integration/hypothesis_priority_contract.py",
+    "src/webpent/integration/learning_ab_contract.py",
+    "src/webpent/integration/planner_enrichment_bridge.py",
+    "src/webpent/integration/session_recovery_bridge.py",
+    "src/webpent/production/validators.py",
+    "src/webpent/recon/auth_resilience.py",
+    "src/webpent/recon/session_recovery.py",
+    "src/webpent/reporter/poc_cli.py",
+    "src/webpent/reporter/poc_export.py",
+    "src/webpent/reporter/poc_recorder.py"
+  ],
+  "removed": [],
+  "mapping": {
+    "src/webpent/cli/__main__.py": "SCOPE-COMPLETION retro-pin (pre-existing v7 file, byte-identical, never pinned \u2014 finding NF-M2I-01)",
+    "src/webpent/integration/browser_hypothesis_bridge.py": "SCOPE-COMPLETION retro-pin (pre-existing v7 file, byte-identical, never pinned \u2014 finding NF-M2I-01)",
+    "src/webpent/integration/hypothesis_priority_contract.py": "SCOPE-COMPLETION retro-pin (pre-existing v7 file, byte-identical, never pinned \u2014 finding NF-M2I-01)",
+    "src/webpent/integration/learning_ab_contract.py": "SCOPE-COMPLETION retro-pin (pre-existing v7 file, byte-identical, never pinned \u2014 finding NF-M2I-01)",
+    "src/webpent/integration/planner_enrichment_bridge.py": "SCOPE-COMPLETION retro-pin (pre-existing v7 file, byte-identical, never pinned \u2014 finding NF-M2I-01)",
+    "src/webpent/integration/session_recovery_bridge.py": "SCOPE-COMPLETION retro-pin (pre-existing v7 file, byte-identical, never pinned \u2014 finding NF-M2I-01)",
+    "src/webpent/production/spine_flag_gates.py": "WP-F (new file, thaw item 7)",
+    "src/webpent/production/validators.py": "SCOPE-COMPLETION retro-pin (pre-existing v7 file, byte-identical, never pinned \u2014 finding NF-M2I-01)",
+    "src/webpent/recon/auth_resilience.py": "SCOPE-COMPLETION retro-pin (pre-existing v7 file, byte-identical, never pinned \u2014 finding NF-M2I-01)",
+    "src/webpent/recon/session_recovery.py": "SCOPE-COMPLETION retro-pin (pre-existing v7 file, byte-identical, never pinned \u2014 finding NF-M2I-01)",
+    "src/webpent/reporter/poc_cli.py": "SCOPE-COMPLETION retro-pin (pre-existing v7 file, byte-identical, never pinned \u2014 finding NF-M2I-01)",
+    "src/webpent/reporter/poc_export.py": "SCOPE-COMPLETION retro-pin (pre-existing v7 file, byte-identical, never pinned \u2014 finding NF-M2I-01)",
+    "src/webpent/reporter/poc_recorder.py": "SCOPE-COMPLETION retro-pin (pre-existing v7 file, byte-identical, never pinned \u2014 finding NF-M2I-01)",
+    "src/webpent/graph/builder.py": "window thaw",
+    "src/webpent/production/advisory_registration.py": "window thaw",
+    "src/webpent/production/campaign_state.py": "window thaw",
+    "src/webpent/production/modern_spine.py": "window thaw",
+    "src/webpent/production/modern_spine_integration.py": "window thaw",
+    "src/webpent/state/state.py": "WP-B"
+  },
+  "regen_note": "manifest regenerated twice: after G5 review, then once more after the state-contract meta-gate caught research_campaign_hypotheses_rejected (declared; gate proving its worth)"
+}

@@ -1,0 +1,240 @@
+{
+  "artifact": "TEAM1_AVI_V1_2_RELEASE_CLOSURE",
+  "generated_at": "2026-09-19T10:16:37.578438+00:00",
+  "avi_version": "autonomous_validation_intelligence_v1",
+  "trace_contract": "security_report_trace_contract_v1_2",
+  "mission": "Close only the TEAM-4 blockers; make V1.2 independently reproducible and release-verifiable.",
+  "forbidden_rules_honored": {
+    "no_new_architecture": true,
+    "no_new_authority": true,
+    "no_validation_weakened": true,
+    "no_tests_modified_to_force_pass": true,
+    "no_bypass_of_causalguard_proofbundle_replay": true,
+    "no_weakening_of_team4_requirements": true,
+    "no_fake_git_provenance": true
+  },
+  "blockers": {
+    "BLOCKER_1_security_report_trace_contract": {
+      "status": "CLOSED",
+      "change": "SecurityReport promoted findings now carry the complete 9-field proof trace sourced from the existing chain: CausalGuard identity binding as sealed in ProofBundle.causal_oracle/identity_context, ProofBundle.verify_seal() (existing dual-layer SHA-256+HMAC method), ReplayVerifier result (pass-through), PromotionPipeline decision reference, plus proof_chain pointers (bundle_id/finding_id/hypothesis_id/seal_digest). add_promoted is fail-closed: incomplete trace -> routed to rejected with trace_contract_missing.",
+      "fields": [
+        "actor_identity",
+        "resource_identity",
+        "authorization_context",
+        "baseline_result",
+        "candidate_result",
+        "negative_control",
+        "causal_difference",
+        "proof_seal",
+        "replay_verification"
+      ],
+      "authority_not_duplicated": "no new verifier created; existing ProofBundle.verify_seal() and ReplayVerifier results referenced, never re-implemented",
+      "redaction_note": "authorization_context is key-redacted inside the sealed bundle by the existing ProofBundle redaction policy; the trace reconstructs the SAME boundary from the newly sealed redaction-safe sibling field expected_owner and records the redaction note inline. No redaction weakened.",
+      "verified_by": "12/12 TEAM-3 attack-table rows incl. 7c/7d fail-closed routing; 100-decision campaign trace_contract_audit.all_promoted_have_complete_trace=true"
+    },
+    "BLOCKER_2_independent_100_decision_campaign": {
+      "status": "CLOSED",
+      "artifact": "TEAM1_AVI_V1_2_100_DECISION_RUNTIME.json",
+      "artifact_sha256": "bce58e7feb491d089425f75c089c6552197f5df8bc7c6d9f0ca569f909ad4fca",
+      "artifact_bytes": 1884469,
+      "decisions_recorded": 100,
+      "production_dispatch": "ModernOrchestrator.run_autonomous_validation_campaign -> AutonomousValidationIntelligence.run_campaign",
+      "real_target_harness": "webpent.production.real_target_qualification_v1_1 (real HTTPServer on 127.0.0.1)",
+      "targets": [
+        {
+          "target_id": "rest_0",
+          "api_type": "rest",
+          "vulnerable_families_ground_truth": [
+            "IDOR",
+            "SSRF"
+          ],
+          "target_url_digest": "5dff463c90705f61"
+        },
+        {
+          "target_id": "rest_1",
+          "api_type": "rest",
+          "vulnerable_families_ground_truth": [
+            "MASS_ASSIGNMENT",
+            "AUTH_BYPASS"
+          ],
+          "target_url_digest": "1d78566b023792e5"
+        },
+        {
+          "target_id": "gql_0",
+          "api_type": "graphql",
+          "vulnerable_families_ground_truth": [
+            "OPEN_REDIRECT",
+            "INFO_DISCLOSURE"
+          ],
+          "target_url_digest": "72f234fbfceb16bb"
+        },
+        {
+          "target_id": "gql_1",
+          "api_type": "graphql",
+          "vulnerable_families_ground_truth": [
+            "IDOR",
+            "MASS_ASSIGNMENT",
+            "INFO_DISCLOSURE"
+          ],
+          "target_url_digest": "401e65a446d18f1a"
+        }
+      ],
+      "families_covered": [
+        "AUTH_BYPASS",
+        "IDOR",
+        "INFO_DISCLOSURE",
+        "MASS_ASSIGNMENT",
+        "OPEN_REDIRECT",
+        "SSRF"
+      ],
+      "actors": [
+        "alice",
+        "bob",
+        "unauthenticated (no X-User)",
+        "bypass actor (X-Forwarded-For)"
+      ],
+      "ownership_boundaries": [
+        "alice owns order 1",
+        "bob owns order 2",
+        "profiles owned by their user"
+      ],
+      "negative_controls": "per-family independent negative control request in every hypothesis",
+      "per_decision_runtime": [
+        "selected candidate + rejected candidates (deterministic selector runner-ups)",
+        "identity binding result (full CausalGuard identity binding dict)",
+        "proof result (bundle created/sealed/seal_digest/verify via replay)",
+        "replay result (digests_match/outcome_match/seal_verified/semantic_match)",
+        "promotion result (decision/reason/gates_passed/gates_failed)",
+        "world model delta (EvidenceGraph counters + supports + information_value)",
+        "outcome tracker update (tracker history entry with justification)",
+        "proof_trace + proof_trace_contract on every promoted decision",
+        "ground truth annotation (expected_outcome/vulnerable) for TEAM-2 FP/FN review"
+      ],
+      "totals": {
+        "decisions_executed": 100,
+        "promoted_count": 25,
+        "rejected_count": 75,
+        "identity_bound_true": 27,
+        "replay_verified_true": 100,
+        "real_http_executed_true": 100,
+        "world_model_updated": 100,
+        "outcome_tracker_updates": 100,
+        "validator_outcomes": {
+          "REFUTED": 47,
+          "CONFIRMED": 25,
+          "INCONCLUSIVE": 28
+        },
+        "per_family": {
+          "OPEN_REDIRECT": {
+            "decisions": 16,
+            "promoted": 4
+          },
+          "IDOR": {
+            "decisions": 16,
+            "promoted": 4
+          },
+          "AUTH_BYPASS": {
+            "decisions": 20,
+            "promoted": 5
+          },
+          "INFO_DISCLOSURE": {
+            "decisions": 16,
+            "promoted": 8
+          },
+          "MASS_ASSIGNMENT": {
+            "decisions": 16,
+            "promoted": 0
+          },
+          "SSRF": {
+            "decisions": 16,
+            "promoted": 4
+          }
+        }
+      },
+      "outcome_level_deterministic": true,
+      "determinism": {
+        "run1_digest": "4c6502bf12736599",
+        "run2_digest": "4c6502bf12736599",
+        "mismatches": 0,
+        "method": "campaign executed twice on fresh targets+orchestrators; per-decision outcome signatures compared (timestamps/uuids/seal digests excluded by design)"
+      },
+      "known_honest_limitation": {
+        "MASS_ASSIGNMENT_promotions": 0,
+        "root_cause": "stateful target: the first candidate mutation persists (role=admin), contaminating subsequent baselines/negative controls; the pipeline fail-closes to INCONCLUSIVE/REFUTED instead of promoting. This is correct trust behavior; harness and validators were NOT modified to inflate promotions."
+      }
+    },
+    "BLOCKER_3_reproducible_environment": {
+      "status": "CLOSED",
+      "artifact": "TEAM1_AVI_V1_2_ENVIRONMENT.md",
+      "artifact_sha256": "26105755eec9cb950c6b8ad4067d4c2567beeda75e1fb8e3a069f964b15b2c26",
+      "python": "3.12.14",
+      "lock_file_used": "uv.lock (sha256 fcd0e8d544c40f033d90590aedb19ca4167116f7be3a9bf024942ea409078375)",
+      "install_command": "uv sync --frozen --all-extras",
+      "test_commands": "see TEAM1_AVI_V1_2_ENVIRONMENT.md section 6"
+    },
+    "BLOCKER_4_provenance": {
+      "status": "CLOSED",
+      "artifact": "TEAM1_AVI_V1_2_SOURCE_HASH.sha256.txt",
+      "git_metadata_available": false,
+      "git_statement": "No .git repository is present in the delivered archive. Provenance is recorded as content hashes (sha256) over source, governance, and artifact files. No git commit/branch/tag is claimed. Nothing faked."
+    }
+  },
+  "validation": {
+    "v12_tests_v1_v11_v12_semantic": {
+      "passed": 43,
+      "failed": 2,
+      "blocked": 0,
+      "failed_tests": [
+        "TestThirtyDecisionCampaign::test_outcomes_include_confirmed_refuted_inconclusive",
+        "TestThirtyDecisionCampaign::test_thirty_decisions_full_pipeline"
+      ],
+      "failed_tests_root_cause": "Both tests drive a SYNTHETIC differential handler (no actor identity, no explicit request specs). V1.2 trust hardening correctly refuses to bind identity on synthetic observations (identity_bound=False) and downgrades CONFIRMED to INCONCLUSIVE, so no promotion occurs and the synthetic-30-decision campaign yields 0 promotions. This is the INTENDED trust-hardening behavior documented in TEAM1_AVI_V1_2_TRUST_HARDENING.md section 9 (pre-existing, unchanged by this closure). Not hidden, not modified."
+    },
+    "team3_regression_attack_table": {
+      "passed": 12,
+      "failed": 0,
+      "blocked": 0,
+      "attacks_total": 12,
+      "evidence": "verification/team1_v12_closure/team3_regression_attacks.json"
+    },
+    "team3_regression_hostile_test_files": {
+      "passed": 82,
+      "failed": 0,
+      "blocked": 0,
+      "files": [
+        "tests/test_e2e_chain_promotion_locks.py",
+        "tests/team1_acceptance/test_hmac_proof_authority.py",
+        "tests/team1_acceptance/test_teamt2_hostile_fixes.py",
+        "tests/test_v10_hostile_fixes.py",
+        "tests/test_v9_hostile_audit_fixes.py",
+        "tests/test_fv1_scopelaw_poison_deny.py"
+      ]
+    },
+    "real_target_tests": {
+      "passed": 13,
+      "failed": 0,
+      "blocked": 0,
+      "note": "test_avi_v1_1_real_target_qualification.py (real HTTP REST+GraphQL targets) included in the V1.2 suite above: 8/8 passed there; plus campaign-level real-target execution 100/100 decisions real_http_executed=true."
+    },
+    "hundred_decision_campaign": {
+      "passed": 1,
+      "failed": 0,
+      "blocked": 0,
+      "note": "executed twice; 100/100 decisions, outcome-level deterministic (4c6502bf12736599)"
+    },
+    "totals": {
+      "passed": 151,
+      "failed": 2,
+      "blocked": 0
+    }
+  },
+  "changed_source_files": [
+    {
+      "file": "src/webpent/production/autonomous_validation_v1.py",
+      "change": "BLOCKER 1: SECURITY_REPORT_TRACE_CONTRACT + build_proof_trace() extraction from existing authorities + fail-closed SecurityReport.add_promoted contract enforcement + trace_contract stamping. BLOCKER 2: selector records deterministic rejected runner-up candidates; decision records carry selection/identity_binding/proof/replay/world-model-delta/outcome-tracker evidence; Stage 11b wires the EXISTING EvidenceGraph world-model seam (same API run_bounded_experiment uses) and records real per-decision world model deltas.",
+      "authority_added": "none \u2014 existing ProofBundle/ReplayVerifier/PromotionPipeline/EvidenceGraph APIs only"
+    }
+  ],
+  "stop": "No final release acceptance performed. TEAM-2 validates next.",
+  "self_digest_sha256": "9fc03eb2cc3a8d046e7ab8fc414b684920858d19dfca459154926daa2814d46b"
+}

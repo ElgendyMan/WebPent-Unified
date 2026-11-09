@@ -1,0 +1,139 @@
+name: Authorized WAPTLab nightly benchmark
+
+on:
+  schedule:
+    - cron: "41 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: waptlab-nightly-benchmark
+  cancel-in-progress: true
+
+env:
+  PYTHONPATH: src
+  WAPTLAB_REPO: https://github.com/selimwdev/WAPTLab.git
+  WAPTLAB_REF: main
+  WAPTLAB_URL: http://127.0.0.1:8000
+  LLM_ENABLED: "false"
+  EMBEDDINGS_OFFLINE: "true"
+
+jobs:
+  waptlab-benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out WebPent
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          version: "latest"
+          enable-cache: true
+
+      - name: Install locked dependencies
+        run: uv sync --locked --extra dev
+
+      - name: Clone a clean authorized WAPTLab checkout
+        run: |
+          git clone --depth 1 --branch "${WAPTLAB_REF}" "${WAPTLAB_REPO}" "$RUNNER_TEMP/waptlab"
+
+      - name: Start isolated WAPTLab
+        working-directory: ${{ runner.temp }}/waptlab
+        run: docker compose up -d --build
+
+      - name: Wait for WAPTLab readiness
+        run: |
+          for attempt in $(seq 1 60); do
+            if curl --fail --silent --show-error --max-time 3 "$WAPTLAB_URL" >/dev/null; then
+              exit 0
+            fi
+            sleep 3
+          done
+          echo "WAPTLab did not become ready" >&2
+          exit 1
+
+      - name: Run one clean WebPent qualification scan
+        run: |
+          rm -rf output benchmark-artifacts benchmark-baseline
+          mkdir -p benchmark-artifacts
+          uv run python main.py scan \
+            --url "$WAPTLAB_URL" \
+            --profile vip-qualification \
+            --auto-approve \
+            --no-llm \
+            --engagement-id "waptlab-nightly-${GITHUB_RUN_ID}" \
+            --report-format json
+
+      - name: Select the newest observed JSON report
+        run: |
+          report=$(find output -type f -name '*.json' -printf '%T@ %p\n' 2>/dev/null | sort -nr | awk 'NR==1 {$1=""; sub(/^ /,""); print}')
+          test -n "$report"
+          cp "$report" benchmark-artifacts/observed_findings.json
+
+      - name: Download the previous successful benchmark as baseline
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          previous=$(gh run list --workflow nightly_benchmark.yml --status success --limit 2 --json databaseId --jq '.[].databaseId' | awk -v current="$GITHUB_RUN_ID" '$1 != current {print; exit}')
+          if [ -n "$previous" ]; then
+            gh run download "$previous" --name "waptlab-nightly-$previous" --dir benchmark-baseline
+            baseline=$(find benchmark-baseline -type f -name observed_findings.json -print -quit)
+            test -n "$baseline"
+            cp "$baseline" benchmark-artifacts/baseline_findings.json
+            echo "Using previous successful run $previous as baseline"
+          else
+            echo "No previous successful benchmark exists; this run establishes the baseline"
+          fi
+
+      - name: Evaluate confirmed-only benchmark and detection-rate delta
+        run: |
+          if [ -f benchmark-artifacts/baseline_findings.json ]; then
+            uv run python scripts/evaluate_benchmark.py \
+              --benchmark benchmarks/vip_v1/expected_findings.json \
+              --baseline benchmark-artifacts/baseline_findings.json \
+              --observed benchmark-artifacts/observed_findings.json \
+              --max-detection-rate-drop 0.05 \
+              --output benchmark-artifacts/benchmark_result.json
+          else
+            uv run python scripts/evaluate_benchmark.py \
+              --benchmark benchmarks/vip_v1/expected_findings.json \
+              --observed benchmark-artifacts/observed_findings.json \
+              --output benchmark-artifacts/benchmark_result.json
+          fi
+          cat benchmark-artifacts/benchmark_result.json
+
+      - name: Enforce 15 of 20 confirmed benchmark floor
+        run: |
+          uv run python - <<'PY'
+          import json
+          from pathlib import Path
+
+          result = json.loads(Path("benchmark-artifacts/benchmark_result.json").read_text())
+          metrics = result["metrics"]
+          true_positives = int(metrics.get("true_positives", 0))
+          if true_positives < 15:
+              raise SystemExit(f"confirmed true-positive floor not met: {true_positives} < 15")
+          PY
+
+      - name: Upload benchmark artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: waptlab-nightly-${{ github.run_id }}
+          path: benchmark-artifacts/
+          if-no-files-found: ignore
+
+      - name: Reset and stop WAPTLab
+        if: always()
+        working-directory: ${{ runner.temp }}/waptlab
+        run: docker compose down --volumes --remove-orphans

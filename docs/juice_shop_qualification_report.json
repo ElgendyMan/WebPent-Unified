@@ -1,0 +1,172 @@
+{
+  "schema": "webpent.juice_shop_benchmark.v1",
+  "qualification_status": "not_qualified",
+  "target": {
+    "origin": "http://127.0.0.1:3000",
+    "loopback_only": true,
+    "image": "bkimminich/juice-shop:latest",
+    "image_id": "sha256:73c53fbf442e8337b3ea3d98c7e8550308854701ebdfce4cc39768f36b75430e"
+  },
+  "ground_truth": {
+    "source": "Juice Shop local /api/Challenges metadata",
+    "challenge_count": 116,
+    "challenge_id_set_digest": "sha256:48eb75e272c91e6ec03d9a33d9fa856beba4dc13eb1383bbde3fb33754aec34f",
+    "xss_catalog_matches": [
+      "localXssChallenge",
+      "reflectedXssChallenge",
+      "restfulXssChallenge",
+      "persistedXssUserChallenge",
+      "persistedXssFeedbackChallenge",
+      "usernameXssChallenge",
+      "httpHeaderXssChallenge",
+      "videoXssChallenge",
+      "xssBonusChallenge"
+    ],
+    "independent_reference_available": true,
+    "case_mapping_status": "partial_not_approved_for_recall",
+    "case_under_test": {
+      "class": "XSS",
+      "workflow": "juice-shop-mat-search",
+      "candidate_signal": "browser dialog differential plus bounded digests",
+      "ground_truth_key_not_claimed": "reflectedXssChallenge"
+    }
+  },
+  "runs": [
+    {
+      "log": "p10_juice_xss01.log",
+      "run_id": "xss01",
+      "passed": false,
+      "reason": "causal_signal_not_demonstrated",
+      "verifier_passed": false,
+      "central_store_put": false,
+      "central_verify_seal": false,
+      "central_replay": false,
+      "proof_bundle_sealed": false,
+      "replay_status": "not_reached_or_failed",
+      "target": "http://127.0.0.1:3000",
+      "workflow_id": "juice-shop-mat-search",
+      "observation_roles": [
+        "baseline",
+        "candidate",
+        "negative_control"
+      ],
+      "target_backed_all": true,
+      "replayable_all": true,
+      "raw_response_bodies_saved": false,
+      "out_of_scope_attempts": 0
+    },
+    {
+      "log": "p10_juice_xss02.log",
+      "run_id": "xss02",
+      "passed": true,
+      "reason": "verified_replay",
+      "verifier_passed": true,
+      "central_store_put": true,
+      "central_verify_seal": true,
+      "central_replay": true,
+      "proof_bundle_sealed": true,
+      "replay_status": "passed",
+      "target": "http://127.0.0.1:3000",
+      "workflow_id": "juice-shop-mat-search",
+      "observation_roles": [
+        "baseline",
+        "candidate",
+        "negative_control"
+      ],
+      "target_backed_all": true,
+      "replayable_all": true,
+      "raw_response_bodies_saved": false,
+      "out_of_scope_attempts": 0
+    },
+    {
+      "log": "p10_juice_xss03.log",
+      "run_id": "xss03",
+      "passed": true,
+      "reason": "verified_replay",
+      "verifier_passed": true,
+      "central_store_put": true,
+      "central_verify_seal": true,
+      "central_replay": true,
+      "proof_bundle_sealed": true,
+      "replay_status": "passed",
+      "target": "http://127.0.0.1:3000",
+      "workflow_id": "juice-shop-mat-search",
+      "observation_roles": [
+        "baseline",
+        "candidate",
+        "negative_control"
+      ],
+      "target_backed_all": true,
+      "replayable_all": true,
+      "raw_response_bodies_saved": false,
+      "out_of_scope_attempts": 0
+    },
+    {
+      "log": "p10_juice_xss04.log",
+      "run_id": "xss04",
+      "passed": true,
+      "reason": "verified_replay",
+      "verifier_passed": true,
+      "central_store_put": true,
+      "central_verify_seal": true,
+      "central_replay": true,
+      "proof_bundle_sealed": true,
+      "replay_status": "passed",
+      "target": "http://127.0.0.1:3000",
+      "workflow_id": "juice-shop-mat-search",
+      "observation_roles": [
+        "baseline",
+        "candidate",
+        "negative_control"
+      ],
+      "target_backed_all": true,
+      "replayable_all": true,
+      "raw_response_bodies_saved": false,
+      "out_of_scope_attempts": 0
+    }
+  ],
+  "metrics": {
+    "run_count": 4,
+    "successful_proof_runs": 3,
+    "required_successful_runs": 3,
+    "precision": null,
+    "recall": null,
+    "class_coverage": null,
+    "false_positives": null,
+    "false_negatives": null
+  },
+  "safety": {
+    "raw_response_bodies_saved": false,
+    "raw_headers_saved": false,
+    "secrets_saved": false,
+    "otp_or_mfa_bypass": false,
+    "external_oast_or_provider_io": false,
+    "out_of_scope_attempts": 0,
+    "target_mutation": "not measured_for_anonymous_search"
+  },
+  "gate": {
+    "p10_passed": false,
+    "blocking_reasons": [
+      "ground_truth case mapping is partial and recall/precision cannot be computed",
+      "only one XSS workflow/class was exercised",
+      "benchmark runs are proof runs, not a complete catalog benchmark"
+    ]
+  },
+  "provenance": {
+    "artifact_generated_by": "bounded local summary script",
+    "source_logs": [
+      "p10_juice_xss01.log",
+      "p10_juice_xss02.log",
+      "p10_juice_xss03.log",
+      "p10_juice_xss04.log"
+    ],
+    "source_log_sha256": {
+      "p10_juice_xss01.log": "8724bba5886997e93a8704994242043ef44b9eba108b573cdc401a61c82011b6",
+      "p10_juice_xss02.log": "824baeef462bb2edd3483f6cca8d48913b9d1586db73d96adeaa9f57cc4c28d1",
+      "p10_juice_xss03.log": "d17db7781a0be13785451e8f8946d962867bde33d31fe3cccf3c628f7e286bab",
+      "p10_juice_xss04.log": "c78c0f8ac99b841813bf57aa17aa7d44818987a920578fd8de66f18b216685f8"
+    },
+    "project_commit_at_capture": "26634eabb75671dcb2a89632c0e0b07f9a4e79b7",
+    "raw_payloads_retained": false
+  }
+}

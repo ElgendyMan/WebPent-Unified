@@ -1,0 +1,131 @@
+{
+  "contracts": {
+    "CampaignExecutionContract": {
+      "client_scoping_field": "engagement_id",
+      "data_type": "hypotheses",
+      "entity": "webpent.models.campaigns.CampaignExecutionContract",
+      "schema_version": "webpent-campaign-contract-v1",
+      "scope": "engagement",
+      "source_of_truth": {
+        "owner_module": "webpent.models.hypothesis",
+        "store": "graph state (LangGraph channel) + sqlite where persisted"
+      }
+    },
+    "Engagement": {
+      "client_scoping_field": "client_id",
+      "data_type": "engagement_registry",
+      "entity": "webpent.models.contracts.EngagementContract",
+      "schema_version": "webpent-engagement-v1",
+      "scope": "client",
+      "source_of_truth": {
+        "owner_module": "webpent.api.scan_registry",
+        "store": "sqlite via api/scan_registry.py (thread\u2194engagement index)"
+      }
+    },
+    "Finding": {
+      "client_scoping_field": "thread_id",
+      "data_type": "findings",
+      "entity": "webpent.models.findings.Finding",
+      "schema_version": "webpent-finding-v1",
+      "scope": "engagement",
+      "source_of_truth": {
+        "owner_module": "webpent.memory.db",
+        "store": "sqlite (memory/db.py findings table)"
+      }
+    },
+    "Hypothesis": {
+      "client_scoping_field": "engagement_id",
+      "data_type": "hypotheses",
+      "entity": "webpent.models.hypothesis.Hypothesis",
+      "schema_version": "webpent-hypothesis-v1",
+      "scope": "engagement",
+      "source_of_truth": {
+        "owner_module": "webpent.models.hypothesis",
+        "store": "graph state (LangGraph channel) + sqlite where persisted"
+      }
+    },
+    "Observation": {
+      "client_scoping_field": "engagement_id",
+      "data_type": "hypotheses",
+      "entity": "webpent.models.evidence.Observation",
+      "schema_version": "webpent-observation-v1",
+      "scope": "engagement",
+      "source_of_truth": {
+        "owner_module": "webpent.models.hypothesis",
+        "store": "graph state (LangGraph channel) + sqlite where persisted"
+      }
+    },
+    "ProofBundle": {
+      "client_scoping_field": "engagement_id",
+      "data_type": "evidence_bundles",
+      "entity": "webpent.models.proof_bundle.ProofBundle",
+      "schema_version": "webpent-proof-bundle-v1",
+      "scope": "engagement",
+      "source_of_truth": {
+        "owner_module": "webpent.models.proof_bundle",
+        "store": "sqlite findings.evidence_bundle column (hash-anchored)"
+      }
+    },
+    "Target": {
+      "client_scoping_field": "engagement_id",
+      "data_type": "findings",
+      "entity": "webpent.models.targets.Target",
+      "schema_version": "webpent-target-v1",
+      "scope": "engagement",
+      "source_of_truth": {
+        "owner_module": "webpent.memory.db",
+        "store": "sqlite (memory/db.py findings table)"
+      }
+    },
+    "ToolExecution": {
+      "client_scoping_field": "engagement_id",
+      "data_type": "campaign_state_checkpoints",
+      "entity": "webpent.models.evidence.ToolExecution",
+      "schema_version": "webpent-tool-execution-v1",
+      "scope": "engagement",
+      "source_of_truth": {
+        "owner_module": "webpent.graph.checkpoints",
+        "store": "langgraph sqlite checkpoint (graph/checkpoints.py)"
+      }
+    }
+  },
+  "schema_version": "webpent-domain-contracts-v1",
+  "source_of_truth": {
+    "campaign_state_checkpoints": {
+      "owner_module": "webpent.graph.checkpoints",
+      "store": "langgraph sqlite checkpoint (graph/checkpoints.py)"
+    },
+    "decision_log": {
+      "owner_module": "webpent.memory.decision_log",
+      "store": "sqlite via memory/decision_log.py (redaction enforced)"
+    },
+    "embeddings_vector": {
+      "owner_module": "webpent.memory.vectorstore",
+      "store": "chroma (memory/global/chroma_db) \u2014 derived, rebuildable"
+    },
+    "engagement_registry": {
+      "owner_module": "webpent.api.scan_registry",
+      "store": "sqlite via api/scan_registry.py (thread\u2194engagement index)"
+    },
+    "evidence_bundles": {
+      "owner_module": "webpent.models.proof_bundle",
+      "store": "sqlite findings.evidence_bundle column (hash-anchored)"
+    },
+    "findings": {
+      "owner_module": "webpent.memory.db",
+      "store": "sqlite (memory/db.py findings table)"
+    },
+    "hypotheses": {
+      "owner_module": "webpent.models.hypothesis",
+      "store": "graph state (LangGraph channel) + sqlite where persisted"
+    },
+    "reports": {
+      "owner_module": "webpent.agents.reporter.agent",
+      "store": "filesystem (per-target workspace output dirs)"
+    },
+    "retest_ledger": {
+      "owner_module": "webpent.vip.retest",
+      "store": "JSONL append-only (vip/retest.py RetestLedger)"
+    }
+  }
+}

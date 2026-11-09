@@ -1,0 +1,39 @@
+{
+  "adapter_used": false,
+  "budget_usd": 5.0,
+  "campaign_id": "recall-gap-llm-20261001t141713z",
+  "crawler": {
+    "max_depth": 2,
+    "max_pages": 50,
+    "per_host_min_interval_seconds": 1.0
+  },
+  "knowledge_sources": {
+    "payload_export": "docs/payload_library.json",
+    "payload_library_entries": 1421,
+    "wstg_export": "docs/wstg_catalog.json",
+    "wstg_tests": 116
+  },
+  "llm_enabled": true,
+  "max_llm_calls": 100,
+  "model": "gpt-5-mini",
+  "principal_count": 2,
+  "principal_provisioning": {
+    "aliases": [
+      "owner",
+      "foreign"
+    ],
+    "binding": "M4 vault-bound Bearer [REDACTED]; tokens never enter LLM prompts",
+    "credentials_persisted_in_artifact": "[REDACTED]",
+    "enabled": true,
+    "foreign_login_status": 200,
+    "owner_login_status": 200,
+    "user_creation_status": 201
+  },
+  "raw_target_content_policy": {
+    "length": 62,
+    "redacted": true,
+    "sha256": "aa10b07f6db76357"
+  },
+  "started_at": "2026-10-01T14:19:43.263867+00:00",
+  "target_url": "http://127.0.0.1:3000"
+}

@@ -1,0 +1,70 @@
+{
+  "baseline_timestamp": "2026-09-03T06:21:02.050699+00:00",
+  "goed_v1_files": {
+    "src/webpent/goed_v1/__init__.py": "1c67229be93cdadf692f34639f38edeecb2ae0c111278812077008a81170e266",
+    "src/webpent/goed_v1/contracts.py": "5b691cdb439c5fea2c0bab6d11df20c5e96fe3b529196949bea7e1fa9ee0cddd",
+    "src/webpent/goed_v1/exploration_loop.py": "9c18b58c29c324009fe30f3e0617c11bbc7a2e6803f06235611c5eb32d0b0667",
+    "src/webpent/goed_v1/hypothesis_engine.py": "93cd704047f4aecf194f35aa2f7d828cb2f944aa3857fadf146961e11574b494",
+    "src/webpent/goed_v1/open_world_mode.py": "800e520f27ab7b69ba92dc0bd18301f535a097e1f9ad412b8962995e807dab33",
+    "src/webpent/goed_v1/__pycache__/__init__.cpython-312.pyc": "99815c46730e6a82fc46ced32293cd2870449fd38ffbb2b02c70298636bd4850",
+    "src/webpent/goed_v1/__pycache__/contracts.cpython-312.pyc": "eedf71c2e2eead7d6cd5c0fc65df22a4e2666d137adc9c1b1fd11d8ee21a2e36",
+    "src/webpent/goed_v1/__pycache__/exploration_loop.cpython-312.pyc": "753815ad2f61af31b70dc778be77782a418a2799a0820c89c23645a59a6594d3",
+    "src/webpent/goed_v1/__pycache__/hypothesis_engine.cpython-312.pyc": "dda9c4912791942cf5580c3c2ec8a3f7214f5e6e49f450798c4da6a1a73a570d",
+    "src/webpent/goed_v1/__pycache__/open_world_mode.cpython-312.pyc": "9350954e1b324dc067ffd80f468cb1a390c8adf6ca67f3d05e67d72f9f94065a"
+  },
+  "core_metrics": {
+    "cqa_v2_gate5": {
+      "tp": 25,
+      "tn": 25,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "qualification_v10": {
+      "tp": 10,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "goed_v1_inventory": {
+      "A_generic_discovery": 1,
+      "B_target_independent": 52,
+      "C_target_specific": 28,
+      "D_benchmark_leakage_risk": 47
+    }
+  },
+  "governance_state": {
+    "vip_qualified": false,
+    "qualification_state": "CONDITIONAL",
+    "official_isolated_p10_runs_authorized": false,
+    "P10": "CLOSED",
+    "P9": "CLOSED",
+    "VIP": "NOT_QUALIFIED",
+    "Bug_Bounty": "BLOCKED"
+  },
+  "import_smoke": "PASS",
+  "preservation_verified": true,
+  "baseline_smoke": {
+    "gro_id": "GRO-3a68967d76",
+    "total_hypotheses": 4,
+    "security_hypotheses": 2,
+    "alternative_hypotheses": 3,
+    "exploration_priority": 0.5
+  },
+  "isolation_smoke": {
+    "leakage_detection_works": true,
+    "leak_patterns_found": [
+      "target-alpha",
+      "case-01",
+      "u001",
+      "tenant-b",
+      "ground_truth"
+    ],
+    "safe_context_passes": true,
+    "safe_context_leaks": []
+  }
+}

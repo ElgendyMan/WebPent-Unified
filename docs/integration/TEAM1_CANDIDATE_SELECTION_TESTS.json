@@ -1,0 +1,27 @@
+{
+  "document_id": "TEAM1_CANDIDATE_SELECTION_TESTS-1.0",
+  "focused_tests_added": 11,
+  "focused_tests_passed": 11,
+  "coverage": [
+    "receives >1 candidate",
+    "candidate_ids in prompt",
+    "selects candidate #2",
+    "selected id validated",
+    "unknown id rejected",
+    "malformed fail-closed",
+    "no secrets in context",
+    "disabled deterministic",
+    "chosen always from admissible",
+    "CausalGuard untouched",
+    "adaptive-selection synthetic A/B/C allows any choice"
+  ],
+  "adaptive_selection": {
+    "candidates": [
+      "A(previously_executed,low_IG)",
+      "B(not_executed,high_IG)",
+      "C(control)"
+    ],
+    "llm_can_select_any_of_three": true,
+    "no_forced_winner": true
+  }
+}

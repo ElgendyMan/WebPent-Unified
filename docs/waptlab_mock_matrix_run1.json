@@ -1,0 +1,322 @@
+{
+  "campaign_count": 20,
+  "campaigns": [
+    {
+      "body_markers": [
+        "MOCK_SQLI_HEADER_MARKER"
+      ],
+      "confidence": "tentative",
+      "confidence_level": "Needs Human Review",
+      "http_status": 200,
+      "label": "header_sqli",
+      "reasoning": "Controlled header differential produced the fixture marker; no SQL engine confirmation was claimed.",
+      "response_headers": {
+        "content-type": "text/plain; charset=utf-8",
+        "server": "WAPTLabMock/1.0 Elasticsearch/1.4.4 Python/3.12.3"
+      },
+      "status": "candidate-or-review",
+      "url": "http://127.0.0.1:18090/sqli/header"
+    },
+    {
+      "body_markers": [
+        "MOCK_SQLI_CSV_MARKER"
+      ],
+      "confidence": "tentative",
+      "confidence_level": "Needs Human Review",
+      "http_status": 200,
+      "label": "csv_ingestion_sqli",
+      "reasoning": "Controlled CSV payload produced the fixture marker; sqlmap was unavailable, so this remains review-only.",
+      "response_headers": {
+        "content-type": "application/json; charset=utf-8",
+        "server": "WAPTLabMock/1.0 Elasticsearch/1.4.4 Python/3.12.3"
+      },
+      "status": "candidate-or-review",
+      "url": "http://127.0.0.1:18090/csv"
+    },
+    {
+      "confidence": "confirmed",
+      "confidence_level": "Tool-Confirmed",
+      "evidence_keys": [
+        "baseline",
+        "candidate",
+        "matched_marker",
+        "parameter",
+        "payload_label",
+        "replay",
+        "validator"
+      ],
+      "label": "jwt_path_traversal",
+      "reasoning": "PATH_TRAVERSAL replay produced marker 'root:x:0:0' only after the controlled payload was injected; the baseline did not contain that marker.",
+      "status": "tool-confirmed",
+      "url": "http://127.0.0.1:18090/crm/view?path=safe"
+    },
+    {
+      "confidence": "Confidence.TENTATIVE",
+      "confidence_level": "Not Scanned",
+      "evidence_keys": [
+        "parameter",
+        "request_sent",
+        "validator"
+      ],
+      "label": "double_slash_redirect",
+      "reasoning": "Open redirect baseline/candidate replay could not be completed.",
+      "status": "candidate-or-review",
+      "url": "http://127.0.0.1:18090/oauth/authorize?redirect_uri=//evil.example/return"
+    },
+    {
+      "confidence": "Confidence.TENTATIVE",
+      "confidence_level": "Not Scanned",
+      "evidence_keys": [
+        "parameter",
+        "request_sent",
+        "validator"
+      ],
+      "label": "oauth_redirect_uri",
+      "reasoning": "Open redirect baseline/candidate replay could not be completed.",
+      "status": "candidate-or-review",
+      "url": "http://127.0.0.1:18090/oauth/authorize?redirect_uri=//evil.example/return"
+    },
+    {
+      "confidence": "Confidence.TENTATIVE",
+      "confidence_level": "Needs Human Review",
+      "evidence_keys": [
+        "negative_control_required",
+        "owner_foreign_oracle_required",
+        "unauthenticated_content_length",
+        "unauthenticated_status"
+      ],
+      "label": "download_idor",
+      "reasoning": "IDOR check: unauthenticated object access returned HTTP 200. This is a candidate signal only; owner-vs-foreign identity differential and a denial control are still required.",
+      "status": "candidate-or-review",
+      "url": "http://127.0.0.1:18090/crm/download/1"
+    },
+    {
+      "confidence": "Confidence.TENTATIVE",
+      "confidence_level": "Needs Human Review",
+      "evidence_keys": [
+        "negative_control_required",
+        "owner_foreign_oracle_required",
+        "unauthenticated_content_length",
+        "unauthenticated_status"
+      ],
+      "label": "tenant_context_switching",
+      "reasoning": "IDOR check: unauthenticated object access returned HTTP 200. This is a candidate signal only; owner-vs-foreign identity differential and a denial control are still required.",
+      "status": "candidate-or-review",
+      "url": "http://127.0.0.1:18090/dashboard/view-crm/1"
+    },
+    {
+      "confidence": "confirmed",
+      "confidence_level": "Tool-Confirmed",
+      "evidence_keys": [
+        "baseline",
+        "candidate",
+        "matched_marker",
+        "parameter",
+        "payload_label",
+        "replay",
+        "validator"
+      ],
+      "label": "training_email_ssti",
+      "reasoning": "SSTI replay evaluated a harmless arithmetic expression to 391; the baseline did not contain 391.",
+      "status": "tool-confirmed",
+      "url": "http://127.0.0.1:18090/training/send-results-email"
+    },
+    {
+      "confidence": "confirmed",
+      "confidence_level": "Tool-Confirmed",
+      "evidence_keys": [
+        "baseline",
+        "candidate",
+        "matched_marker",
+        "parameter",
+        "payload_label",
+        "replay",
+        "validator"
+      ],
+      "label": "export_blade_ssti",
+      "reasoning": "SSTI replay evaluated a harmless arithmetic expression to 391; the baseline did not contain 391.",
+      "status": "tool-confirmed",
+      "url": "http://127.0.0.1:18090/crm/export"
+    },
+    {
+      "body_markers": [],
+      "confidence": "tentative",
+      "confidence_level": "Needs Human Review",
+      "http_status": 200,
+      "label": "swagger_url_ssrf",
+      "reasoning": "Fixture returned a fetched internal preview, but no OOB callback was available; review-only.",
+      "response_headers": {
+        "content-type": "application/json; charset=utf-8",
+        "server": "WAPTLabMock/1.0 Elasticsearch/1.4.4 Python/3.12.3"
+      },
+      "status": "candidate-or-review",
+      "url": "http://127.0.0.1:18090/swagger_ui?url=http://127.0.0.1:18090/internal"
+    },
+    {
+      "body_markers": [
+        "MOCK_SSRF_MARKER"
+      ],
+      "confidence": "tentative",
+      "confidence_level": "Needs Human Review",
+      "http_status": 200,
+      "label": "image_fetch_ssrf",
+      "reasoning": "Fixture returned the supplied image URL and SSRF marker, but no OOB callback was available; review-only.",
+      "response_headers": {
+        "content-type": "application/json; charset=utf-8",
+        "server": "WAPTLabMock/1.0 Elasticsearch/1.4.4 Python/3.12.3"
+      },
+      "status": "candidate-or-review",
+      "url": "http://127.0.0.1:18090/profile/fetch-image"
+    },
+    {
+      "body_markers": [],
+      "confidence": "tentative",
+      "confidence_level": "Needs Human Review",
+      "http_status": 200,
+      "label": "stored_profile_xss",
+      "reasoning": "Controlled stored-XSS payload was accepted by the fixture; browser sink confirmation remains review-only.",
+      "response_headers": {
+        "content-type": "application/json; charset=utf-8",
+        "server": "WAPTLabMock/1.0 Elasticsearch/1.4.4 Python/3.12.3"
+      },
+      "status": "candidate-or-review",
+      "url": "http://127.0.0.1:18090/profile"
+    },
+    {
+      "body_markers": [],
+      "confidence": "tentative",
+      "confidence_level": "Needs Human Review",
+      "http_status": 200,
+      "label": "quoted_field_xss",
+      "reasoning": "Malformed-quoting payload was submitted to the fixture; browser sink confirmation remains review-only.",
+      "response_headers": {
+        "content-type": "application/json; charset=utf-8",
+        "server": "WAPTLabMock/1.0 Elasticsearch/1.4.4 Python/3.12.3"
+      },
+      "status": "candidate-or-review",
+      "url": "http://127.0.0.1:18090/profile"
+    },
+    {
+      "body_markers": [
+        "MOCK_ES_TRAVERSAL_MARKER"
+      ],
+      "confidence": "tentative",
+      "confidence_level": "Needs Human Review",
+      "http_status": 400,
+      "label": "elasticsearch_snapshot_traversal",
+      "reasoning": "Controlled Elasticsearch traversal payload produced the fixture marker; campaign remains human-review.",
+      "response_headers": {
+        "content-type": "application/json; charset=utf-8",
+        "server": "WAPTLabMock/1.0 Elasticsearch/1.4.4 Python/3.12.3"
+      },
+      "status": "candidate-or-review",
+      "url": "http://127.0.0.1:18090/elasticsearch"
+    },
+    {
+      "confidence": "confirmed",
+      "confidence_level": "Tool-Confirmed",
+      "evidence_keys": [
+        "content_length",
+        "content_type",
+        "debug_markers",
+        "path_signature",
+        "response_body_capped",
+        "status_code"
+      ],
+      "label": "public_backup_disclosure",
+      "reasoning": "Information disclosure check: a public response exposed a sensitive artifact or debug surface (including bounded error responses). The response body was capped; no broader secret inventory is claimed.",
+      "status": "tool-confirmed",
+      "url": "http://127.0.0.1:18090/composer.lock.bak"
+    },
+    {
+      "confidence": "confirmed",
+      "confidence_level": "Tool-Confirmed",
+      "evidence_keys": [
+        "content_length",
+        "content_type",
+        "debug_markers",
+        "path_signature",
+        "response_body_capped",
+        "status_code"
+      ],
+      "label": "laravel_app_debug",
+      "reasoning": "Information disclosure check: a public response exposed a sensitive artifact or debug surface (including bounded error responses). The response body was capped; no broader secret inventory is claimed.",
+      "status": "tool-confirmed",
+      "url": "http://127.0.0.1:18090/debug?trigger=1"
+    },
+    {
+      "body_markers": [
+        "markdown-editor 0.3.0"
+      ],
+      "confidence": "tentative",
+      "confidence_level": "Needs Human Review",
+      "http_status": 200,
+      "label": "frontend_dependency_exposure",
+      "reasoning": "Versioned vulnerable-component fingerprint was served; dependency exploitability requires package-specific review.",
+      "response_headers": {
+        "content-type": "application/javascript; charset=utf-8",
+        "server": "WAPTLabMock/1.0 Elasticsearch/1.4.4 Python/3.12.3"
+      },
+      "status": "candidate-or-review",
+      "url": "http://127.0.0.1:18090/js/markdown-editor-0.3.0.js"
+    },
+    {
+      "body_markers": [],
+      "confidence": "tentative",
+      "confidence_level": "Needs Human Review",
+      "http_status": 200,
+      "label": "public_elasticsearch_exposure",
+      "reasoning": "Public Elasticsearch-like service response was reachable; authorization and version impact require human review.",
+      "response_headers": {
+        "content-type": "application/json; charset=utf-8",
+        "server": "WAPTLabMock/1.0 Elasticsearch/1.4.4 Python/3.12.3"
+      },
+      "status": "candidate-or-review",
+      "url": "http://127.0.0.1:18090/es/fetch/elasticsearch:9200/_search"
+    },
+    {
+      "body_markers": [
+        "MOCK_XML_SINK_MARKER"
+      ],
+      "confidence": "tentative",
+      "confidence_level": "Needs Human Review",
+      "http_status": 200,
+      "label": "oob_xxe",
+      "reasoning": "XML sink marker was produced, but OOB callback was unavailable; no XXE confirmation is claimed.",
+      "response_headers": {
+        "content-type": "application/json; charset=utf-8",
+        "server": "WAPTLabMock/1.0 Elasticsearch/1.4.4 Python/3.12.3"
+      },
+      "status": "candidate-or-review",
+      "url": "http://127.0.0.1:18090/xml/upload"
+    },
+    {
+      "body_markers": [
+        "MOCK_XML_SINK_MARKER"
+      ],
+      "confidence": "tentative",
+      "confidence_level": "Needs Human Review",
+      "http_status": 200,
+      "label": "xslt_injection",
+      "reasoning": "XSLT document/copy-of marker was produced, but campaign remains human-review.",
+      "response_headers": {
+        "content-type": "application/json; charset=utf-8",
+        "server": "WAPTLabMock/1.0 Elasticsearch/1.4.4 Python/3.12.3"
+      },
+      "status": "candidate-or-review",
+      "url": "http://127.0.0.1:18090/xml/upload"
+    }
+  ],
+  "generated_at": "2026-08-18T13:10:51.443424+00:00",
+  "mode": "loopback-mock-detector-coverage",
+  "project": "WebPent v60",
+  "safety_statement": "This matrix exercises WebPent validators against a local synthetic fixture. It is not live WAPTLab evidence; only the Docker-blocked static ground truth and the local fixture behavior are measured.",
+  "schema_version": "waptlab-mock-matrix-v1",
+  "source_fixture": "scripts/waptlab_mock.py (not WAPTLab)",
+  "summary": {
+    "candidate-or-review": 15,
+    "tool-confirmed": 5
+  },
+  "target_contacted": false,
+  "waptlab_modified": false
+}

@@ -1,0 +1,921 @@
+{
+  "runtime_independence_verified": true,
+  "recovered_analysis": {
+    "total": 30,
+    "non_idor": 30,
+    "stateful_business_logic": 30,
+    "compositional_multi_step": 24,
+    "recovered_cases": [
+      "dv2_031",
+      "dv2_032",
+      "dv2_033",
+      "dv2_034",
+      "dv2_035",
+      "dv2_036",
+      "dv2_037",
+      "dv2_038",
+      "dv2_039",
+      "dv2_040",
+      "dv2_041",
+      "dv2_042",
+      "dv2_043",
+      "dv2_044",
+      "dv2_045",
+      "dv2_061",
+      "dv2_062",
+      "dv2_063",
+      "dv2_064",
+      "dv2_065",
+      "dv2_066",
+      "dv2_067",
+      "dv2_068",
+      "dv2_069",
+      "dv2_070",
+      "dv2_071",
+      "dv2_072",
+      "dv2_073",
+      "dv2_074",
+      "dv2_075"
+    ],
+    "non_idor_cases": [
+      "dv2_031",
+      "dv2_032",
+      "dv2_033",
+      "dv2_034",
+      "dv2_035",
+      "dv2_036",
+      "dv2_037",
+      "dv2_038",
+      "dv2_039",
+      "dv2_040",
+      "dv2_041",
+      "dv2_042",
+      "dv2_043",
+      "dv2_044",
+      "dv2_045",
+      "dv2_061",
+      "dv2_062",
+      "dv2_063",
+      "dv2_064",
+      "dv2_065",
+      "dv2_066",
+      "dv2_067",
+      "dv2_068",
+      "dv2_069",
+      "dv2_070",
+      "dv2_071",
+      "dv2_072",
+      "dv2_073",
+      "dv2_074",
+      "dv2_075"
+    ],
+    "stateful_cases": [
+      "dv2_031",
+      "dv2_032",
+      "dv2_033",
+      "dv2_034",
+      "dv2_035",
+      "dv2_036",
+      "dv2_037",
+      "dv2_038",
+      "dv2_039",
+      "dv2_040",
+      "dv2_041",
+      "dv2_042",
+      "dv2_043",
+      "dv2_044",
+      "dv2_045",
+      "dv2_061",
+      "dv2_062",
+      "dv2_063",
+      "dv2_064",
+      "dv2_065",
+      "dv2_066",
+      "dv2_067",
+      "dv2_068",
+      "dv2_069",
+      "dv2_070",
+      "dv2_071",
+      "dv2_072",
+      "dv2_073",
+      "dv2_074",
+      "dv2_075"
+    ],
+    "compositional_cases": [
+      "dv2_032",
+      "dv2_035",
+      "dv2_036",
+      "dv2_037",
+      "dv2_038",
+      "dv2_039",
+      "dv2_041",
+      "dv2_044",
+      "dv2_045",
+      "dv2_061",
+      "dv2_062",
+      "dv2_063",
+      "dv2_064",
+      "dv2_065",
+      "dv2_066",
+      "dv2_067",
+      "dv2_068",
+      "dv2_069",
+      "dv2_070",
+      "dv2_071",
+      "dv2_072",
+      "dv2_073",
+      "dv2_074",
+      "dv2_075"
+    ]
+  },
+  "minimum_gain_criteria": {
+    ">=3_recovered": true,
+    ">=1_non_idor": true,
+    ">=1_stateful": true,
+    ">=1_compositional": true,
+    "no_fp_increase": true
+  },
+  "all_criteria_pass": true,
+  "per_case_ground_truth": {
+    "dv2_001": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "c3e10dea3f0d5cc79ca214b2e16b08626165d7829a2e972f115a29433ee66d14",
+      "case_family": "easy",
+      "mechanism": "direct_header_mismatch",
+      "difficulty": 1,
+      "vulnerability_class": "direct_auth_mismatch"
+    },
+    "dv2_002": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "952bca53398572261dbe1a5fe31712998d57c969305ff1eccad8bbe5743a7eba",
+      "case_family": "easy",
+      "mechanism": "actor_echo_mismatch",
+      "difficulty": 1,
+      "vulnerability_class": "direct_auth_mismatch"
+    },
+    "dv2_003": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "085e665e8e920eec0dd13f5fc20b9ae9b9bf41bb6b7bd64bfd905790c0458233",
+      "case_family": "easy",
+      "mechanism": "resource_ref_mismatch",
+      "difficulty": 1,
+      "vulnerability_class": "direct_auth_mismatch"
+    },
+    "dv2_004": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "1e6f62a37eb02a556de49233e1a164952bfcfe7d49da9b7b8510b0af1f3c6130",
+      "case_family": "easy",
+      "mechanism": "missing_denial_header",
+      "difficulty": 1,
+      "vulnerability_class": "direct_auth_mismatch"
+    },
+    "dv2_005": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "ef37989454b4452648adf8a0a6a0b09db9428037f6f32f64123b7b28644b2107",
+      "case_family": "easy",
+      "mechanism": "method_equivalence_gap",
+      "difficulty": 1,
+      "vulnerability_class": "direct_auth_mismatch"
+    },
+    "dv2_006": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "dfa3e0f05c40f3dee681a7e0d7734e713dc1cb5b0a997be6737cdfa4e3ff4686",
+      "case_family": "easy",
+      "mechanism": "path_prefix_bypass",
+      "difficulty": 1,
+      "vulnerability_class": "direct_auth_mismatch"
+    },
+    "dv2_007": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "c3e10dea3f0d5cc79ca214b2e16b08626165d7829a2e972f115a29433ee66d14",
+      "case_family": "easy",
+      "mechanism": "direct_header_mismatch",
+      "difficulty": 1,
+      "vulnerability_class": "direct_auth_mismatch"
+    },
+    "dv2_008": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "952bca53398572261dbe1a5fe31712998d57c969305ff1eccad8bbe5743a7eba",
+      "case_family": "easy",
+      "mechanism": "actor_echo_mismatch",
+      "difficulty": 1,
+      "vulnerability_class": "direct_auth_mismatch"
+    },
+    "dv2_009": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "085e665e8e920eec0dd13f5fc20b9ae9b9bf41bb6b7bd64bfd905790c0458233",
+      "case_family": "easy",
+      "mechanism": "resource_ref_mismatch",
+      "difficulty": 1,
+      "vulnerability_class": "direct_auth_mismatch"
+    },
+    "dv2_010": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "1e6f62a37eb02a556de49233e1a164952bfcfe7d49da9b7b8510b0af1f3c6130",
+      "case_family": "easy",
+      "mechanism": "missing_denial_header",
+      "difficulty": 1,
+      "vulnerability_class": "direct_auth_mismatch"
+    },
+    "dv2_011": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "ef37989454b4452648adf8a0a6a0b09db9428037f6f32f64123b7b28644b2107",
+      "case_family": "easy",
+      "mechanism": "method_equivalence_gap",
+      "difficulty": 1,
+      "vulnerability_class": "direct_auth_mismatch"
+    },
+    "dv2_012": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "dfa3e0f05c40f3dee681a7e0d7734e713dc1cb5b0a997be6737cdfa4e3ff4686",
+      "case_family": "easy",
+      "mechanism": "path_prefix_bypass",
+      "difficulty": 1,
+      "vulnerability_class": "direct_auth_mismatch"
+    },
+    "dv2_013": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "c3e10dea3f0d5cc79ca214b2e16b08626165d7829a2e972f115a29433ee66d14",
+      "case_family": "easy",
+      "mechanism": "direct_header_mismatch",
+      "difficulty": 1,
+      "vulnerability_class": "direct_auth_mismatch"
+    },
+    "dv2_014": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "952bca53398572261dbe1a5fe31712998d57c969305ff1eccad8bbe5743a7eba",
+      "case_family": "easy",
+      "mechanism": "actor_echo_mismatch",
+      "difficulty": 1,
+      "vulnerability_class": "direct_auth_mismatch"
+    },
+    "dv2_015": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "085e665e8e920eec0dd13f5fc20b9ae9b9bf41bb6b7bd64bfd905790c0458233",
+      "case_family": "easy",
+      "mechanism": "resource_ref_mismatch",
+      "difficulty": 1,
+      "vulnerability_class": "direct_auth_mismatch"
+    },
+    "dv2_016": {
+      "expected_label": "clean",
+      "ground_truth_digest": "bce5eaec450916b448deb59655dc564ad6e50fef2b6e5633b9f1451f11ca6675",
+      "case_family": "easy",
+      "mechanism": "missing_denial_header",
+      "difficulty": 1,
+      "vulnerability_class": "direct_auth_mismatch"
+    },
+    "dv2_017": {
+      "expected_label": "clean",
+      "ground_truth_digest": "86449992a76b63de8ab5d0e8775448798b43a733c63e054fffa4f3f07bada7b7",
+      "case_family": "easy",
+      "mechanism": "method_equivalence_gap",
+      "difficulty": 1,
+      "vulnerability_class": "direct_auth_mismatch"
+    },
+    "dv2_018": {
+      "expected_label": "clean",
+      "ground_truth_digest": "1f110d04f75b33811e03b30137cb6db94ece2d390aa1bd2de3c78e17d99e3972",
+      "case_family": "easy",
+      "mechanism": "path_prefix_bypass",
+      "difficulty": 1,
+      "vulnerability_class": "direct_auth_mismatch"
+    },
+    "dv2_019": {
+      "expected_label": "clean",
+      "ground_truth_digest": "00a000de1d82b49624110d3b20e72a359e2b09d9c59034c6e6ac47804751d483",
+      "case_family": "easy",
+      "mechanism": "direct_header_mismatch",
+      "difficulty": 1,
+      "vulnerability_class": "direct_auth_mismatch"
+    },
+    "dv2_020": {
+      "expected_label": "clean",
+      "ground_truth_digest": "2324625dc0b4d06d42fcb74ab114b5e9881fb5dfe4300228870e0ef48bdef6af",
+      "case_family": "easy",
+      "mechanism": "actor_echo_mismatch",
+      "difficulty": 1,
+      "vulnerability_class": "direct_auth_mismatch"
+    },
+    "dv2_021": {
+      "expected_label": "clean",
+      "ground_truth_digest": "e60a4fc7e99e021b0d9bfad63e46bcfb5487415b7e94434be6f7715d4c2b5700",
+      "case_family": "easy",
+      "mechanism": "resource_ref_mismatch",
+      "difficulty": 1,
+      "vulnerability_class": "direct_auth_mismatch"
+    },
+    "dv2_022": {
+      "expected_label": "clean",
+      "ground_truth_digest": "bce5eaec450916b448deb59655dc564ad6e50fef2b6e5633b9f1451f11ca6675",
+      "case_family": "easy",
+      "mechanism": "missing_denial_header",
+      "difficulty": 1,
+      "vulnerability_class": "direct_auth_mismatch"
+    },
+    "dv2_023": {
+      "expected_label": "clean",
+      "ground_truth_digest": "86449992a76b63de8ab5d0e8775448798b43a733c63e054fffa4f3f07bada7b7",
+      "case_family": "easy",
+      "mechanism": "method_equivalence_gap",
+      "difficulty": 1,
+      "vulnerability_class": "direct_auth_mismatch"
+    },
+    "dv2_024": {
+      "expected_label": "clean",
+      "ground_truth_digest": "1f110d04f75b33811e03b30137cb6db94ece2d390aa1bd2de3c78e17d99e3972",
+      "case_family": "easy",
+      "mechanism": "path_prefix_bypass",
+      "difficulty": 1,
+      "vulnerability_class": "direct_auth_mismatch"
+    },
+    "dv2_025": {
+      "expected_label": "clean",
+      "ground_truth_digest": "00a000de1d82b49624110d3b20e72a359e2b09d9c59034c6e6ac47804751d483",
+      "case_family": "easy",
+      "mechanism": "direct_header_mismatch",
+      "difficulty": 1,
+      "vulnerability_class": "direct_auth_mismatch"
+    },
+    "dv2_026": {
+      "expected_label": "clean",
+      "ground_truth_digest": "2324625dc0b4d06d42fcb74ab114b5e9881fb5dfe4300228870e0ef48bdef6af",
+      "case_family": "easy",
+      "mechanism": "actor_echo_mismatch",
+      "difficulty": 1,
+      "vulnerability_class": "direct_auth_mismatch"
+    },
+    "dv2_027": {
+      "expected_label": "clean",
+      "ground_truth_digest": "e60a4fc7e99e021b0d9bfad63e46bcfb5487415b7e94434be6f7715d4c2b5700",
+      "case_family": "easy",
+      "mechanism": "resource_ref_mismatch",
+      "difficulty": 1,
+      "vulnerability_class": "direct_auth_mismatch"
+    },
+    "dv2_028": {
+      "expected_label": "clean",
+      "ground_truth_digest": "bce5eaec450916b448deb59655dc564ad6e50fef2b6e5633b9f1451f11ca6675",
+      "case_family": "easy",
+      "mechanism": "missing_denial_header",
+      "difficulty": 1,
+      "vulnerability_class": "direct_auth_mismatch"
+    },
+    "dv2_029": {
+      "expected_label": "clean",
+      "ground_truth_digest": "86449992a76b63de8ab5d0e8775448798b43a733c63e054fffa4f3f07bada7b7",
+      "case_family": "easy",
+      "mechanism": "method_equivalence_gap",
+      "difficulty": 1,
+      "vulnerability_class": "direct_auth_mismatch"
+    },
+    "dv2_030": {
+      "expected_label": "clean",
+      "ground_truth_digest": "1f110d04f75b33811e03b30137cb6db94ece2d390aa1bd2de3c78e17d99e3972",
+      "case_family": "easy",
+      "mechanism": "path_prefix_bypass",
+      "difficulty": 1,
+      "vulnerability_class": "direct_auth_mismatch"
+    },
+    "dv2_031": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "ce1b2c9a6fa4a5202bc134b0729182e71f53084b2aca2f8ca5962dc5b5f32ba8",
+      "case_family": "reasoning",
+      "mechanism": "state_transition_dependency",
+      "difficulty": 3,
+      "vulnerability_class": "stateful",
+      "requires_state_transition": true
+    },
+    "dv2_032": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "0513b5b48616216d67472e5740523a8286e0561655d0926fa496b8384ee75540",
+      "case_family": "reasoning",
+      "mechanism": "hidden_prerequisite_endpoint",
+      "difficulty": 3,
+      "vulnerability_class": "compositional",
+      "requires_state_transition": true
+    },
+    "dv2_033": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "62b5fa17c1d6da843b22da2fa62e7c21abbcfd9114064a928f0dba64e0f91dbe",
+      "case_family": "reasoning",
+      "mechanism": "cross_resource_reference",
+      "difficulty": 3,
+      "vulnerability_class": "relational",
+      "requires_state_transition": true
+    },
+    "dv2_034": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "44ac5384a223dd46b9a4a566258b3c36cdd395e0e1af11b0e7ee2ef3dac7eed2",
+      "case_family": "reasoning",
+      "mechanism": "multi_step_sequence",
+      "difficulty": 3,
+      "vulnerability_class": "business_logic",
+      "requires_state_transition": true
+    },
+    "dv2_035": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "7a2b89e6cf7541ea095d32908491a7d43dea26c7673d39a098f2187690e23205",
+      "case_family": "reasoning",
+      "mechanism": "delayed_write_effect",
+      "difficulty": 3,
+      "vulnerability_class": "compositional",
+      "requires_state_transition": true
+    },
+    "dv2_036": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "023da3a82f723c2524c1928f16abca57de540484ae047e504096d34a078385e3",
+      "case_family": "reasoning",
+      "mechanism": "indirect_reference_chain",
+      "difficulty": 3,
+      "vulnerability_class": "relational",
+      "requires_state_transition": true
+    },
+    "dv2_037": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "b503343c8fa554d4f3843f90663be7a17a0d73ef20a36f114fd7ba6741f35c5a",
+      "case_family": "reasoning",
+      "mechanism": "equivalent_path_mismatch",
+      "difficulty": 3,
+      "vulnerability_class": "compositional",
+      "requires_state_transition": true
+    },
+    "dv2_038": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "1f8d33bc858737eafeef47e480646ec9df90b2e642fac297dc70e3088dab3ffc",
+      "case_family": "reasoning",
+      "mechanism": "role_context_switch",
+      "difficulty": 3,
+      "vulnerability_class": "compositional",
+      "requires_state_transition": true
+    },
+    "dv2_039": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "b54696ff587d4a08cf256cf44c0d1b072088ed09a94dabf762febb249fcb1b70",
+      "case_family": "reasoning",
+      "mechanism": "tenant_boundary_interaction",
+      "difficulty": 3,
+      "vulnerability_class": "compositional",
+      "requires_state_transition": true
+    },
+    "dv2_040": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "a4a10aa1ce69aa2200802fe77a61f4a2a749ecc3def02a8aa7b996f68e7d0f3a",
+      "case_family": "reasoning",
+      "mechanism": "nested_process_sequence",
+      "difficulty": 3,
+      "vulnerability_class": "business_logic",
+      "requires_state_transition": true
+    },
+    "dv2_041": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "48c8d3b90dc5d7811e5b3b294eb4a3357d5de77af3f6e06a740b886702cceac3",
+      "case_family": "reasoning",
+      "mechanism": "counter_limit_invariant",
+      "difficulty": 3,
+      "vulnerability_class": "compositional",
+      "requires_state_transition": true
+    },
+    "dv2_042": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "5160bb21ee4cb591a03c763df5d79f31972c07655481b28c8fc18046afd55448",
+      "case_family": "reasoning",
+      "mechanism": "flag_propagation_bypass",
+      "difficulty": 3,
+      "vulnerability_class": "stateful",
+      "requires_state_transition": true
+    },
+    "dv2_043": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "578543f4771337ad660668a3f2d5c8d1ffad2fb26ad3be0861d56ea5653a3c17",
+      "case_family": "reasoning",
+      "mechanism": "reference_id_alias",
+      "difficulty": 3,
+      "vulnerability_class": "relational",
+      "requires_state_transition": true
+    },
+    "dv2_044": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "ed88c76f7d6ec6e5dea1c78d2fc6cb4e6d03a2c4b4a272b39933ddabaf5d32ad",
+      "case_family": "reasoning",
+      "mechanism": "context_dependent_behavior",
+      "difficulty": 3,
+      "vulnerability_class": "compositional",
+      "requires_state_transition": true
+    },
+    "dv2_045": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "bea061e281cdb35f1e79c5e0a5254cdd4a40da0e0b372d3d3bf1b14b3bcbb8bd",
+      "case_family": "reasoning",
+      "mechanism": "sequential_dependency",
+      "difficulty": 3,
+      "vulnerability_class": "compositional",
+      "requires_state_transition": true
+    },
+    "dv2_046": {
+      "expected_label": "clean",
+      "ground_truth_digest": "1324ecdca736ceac072f9c49ecc7389e9e38bbe5011f149c26117b2f2c1a7f45",
+      "case_family": "reasoning",
+      "mechanism": "state_transition_dependency",
+      "difficulty": 2,
+      "vulnerability_class": "stateful",
+      "requires_state_transition": false
+    },
+    "dv2_047": {
+      "expected_label": "clean",
+      "ground_truth_digest": "66cb3edf868d9f96bada84e90778aa292b062924d5100b88f73d7f6b97d49570",
+      "case_family": "reasoning",
+      "mechanism": "hidden_prerequisite_endpoint",
+      "difficulty": 2,
+      "vulnerability_class": "compositional",
+      "requires_state_transition": false
+    },
+    "dv2_048": {
+      "expected_label": "clean",
+      "ground_truth_digest": "83b9096b01f246293157eed256ca0bbaf179bff7643bf42d75e0f3b535d45d95",
+      "case_family": "reasoning",
+      "mechanism": "cross_resource_reference",
+      "difficulty": 2,
+      "vulnerability_class": "relational",
+      "requires_state_transition": false
+    },
+    "dv2_049": {
+      "expected_label": "clean",
+      "ground_truth_digest": "c27911e483b0f67e6adad2963b63e2004a228b77436a67be011ab9df6b34a561",
+      "case_family": "reasoning",
+      "mechanism": "multi_step_sequence",
+      "difficulty": 2,
+      "vulnerability_class": "business_logic",
+      "requires_state_transition": false
+    },
+    "dv2_050": {
+      "expected_label": "clean",
+      "ground_truth_digest": "9c982f22396e1752235b0e9c6417062dfa2daa4ba127c2bb399db089bcd91262",
+      "case_family": "reasoning",
+      "mechanism": "delayed_write_effect",
+      "difficulty": 2,
+      "vulnerability_class": "compositional",
+      "requires_state_transition": false
+    },
+    "dv2_051": {
+      "expected_label": "clean",
+      "ground_truth_digest": "f16425855b109e97635fc3c0786c45a0236035e2c6f73cc2b221f8753159ff7c",
+      "case_family": "reasoning",
+      "mechanism": "indirect_reference_chain",
+      "difficulty": 2,
+      "vulnerability_class": "relational",
+      "requires_state_transition": false
+    },
+    "dv2_052": {
+      "expected_label": "clean",
+      "ground_truth_digest": "e6b0dc0a31985d56329018df6f34a34cbd1db4ddf4fe5b2995e75a0af525fcf4",
+      "case_family": "reasoning",
+      "mechanism": "equivalent_path_mismatch",
+      "difficulty": 2,
+      "vulnerability_class": "compositional",
+      "requires_state_transition": false
+    },
+    "dv2_053": {
+      "expected_label": "clean",
+      "ground_truth_digest": "8a9c1e0c347c0828865235a19ca3ee4d8d0c15b7e3de4415082dbda8dc385fa2",
+      "case_family": "reasoning",
+      "mechanism": "role_context_switch",
+      "difficulty": 2,
+      "vulnerability_class": "compositional",
+      "requires_state_transition": false
+    },
+    "dv2_054": {
+      "expected_label": "clean",
+      "ground_truth_digest": "d476907cc6a441017e7decb4238e79ec535ef12b439242c8f10fb2d98ab9a8cf",
+      "case_family": "reasoning",
+      "mechanism": "tenant_boundary_interaction",
+      "difficulty": 2,
+      "vulnerability_class": "compositional",
+      "requires_state_transition": false
+    },
+    "dv2_055": {
+      "expected_label": "clean",
+      "ground_truth_digest": "0d24aa35d5b5d2a9ae8bb0df8b3152913f53781a9c5f7a8bc6b0e09d713a716c",
+      "case_family": "reasoning",
+      "mechanism": "nested_process_sequence",
+      "difficulty": 2,
+      "vulnerability_class": "business_logic",
+      "requires_state_transition": false
+    },
+    "dv2_056": {
+      "expected_label": "clean",
+      "ground_truth_digest": "b606f61f1383b3fd99c2ed630b671ef9696382034652e114d96c16a28e1e4d41",
+      "case_family": "reasoning",
+      "mechanism": "counter_limit_invariant",
+      "difficulty": 2,
+      "vulnerability_class": "compositional",
+      "requires_state_transition": false
+    },
+    "dv2_057": {
+      "expected_label": "clean",
+      "ground_truth_digest": "b11e237bb6d316742007642f6e6891bea3b826cbb8d1b9b64c9e7f8a8ddc2254",
+      "case_family": "reasoning",
+      "mechanism": "flag_propagation_bypass",
+      "difficulty": 2,
+      "vulnerability_class": "stateful",
+      "requires_state_transition": false
+    },
+    "dv2_058": {
+      "expected_label": "clean",
+      "ground_truth_digest": "bc57dc67825305377cd4a7cb96dd462e7b1cc1df4f4507e1e3c531aa6d69a1ca",
+      "case_family": "reasoning",
+      "mechanism": "reference_id_alias",
+      "difficulty": 2,
+      "vulnerability_class": "relational",
+      "requires_state_transition": false
+    },
+    "dv2_059": {
+      "expected_label": "clean",
+      "ground_truth_digest": "9d9942ec684b72b4e7c9c8579b76fa3563ff294a1a6d1e9f0f35eed43706fe17",
+      "case_family": "reasoning",
+      "mechanism": "context_dependent_behavior",
+      "difficulty": 2,
+      "vulnerability_class": "compositional",
+      "requires_state_transition": false
+    },
+    "dv2_060": {
+      "expected_label": "clean",
+      "ground_truth_digest": "9e2d20bd931d4f2c8cf8263307d66584aa5bb6dc9d6165ffab89e7e708814e05",
+      "case_family": "reasoning",
+      "mechanism": "sequential_dependency",
+      "difficulty": 2,
+      "vulnerability_class": "compositional",
+      "requires_state_transition": false
+    },
+    "dv2_061": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "9ba4e209316264544e41d8e1dd24081f8315e26232a07ddb006880002f54325e",
+      "case_family": "novel",
+      "mechanism": "state_plus_cross_reference",
+      "difficulty": 5,
+      "vulnerability_class": "compositional_multi_step",
+      "requires_state_transition": true
+    },
+    "dv2_062": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "91c9237dfd6c69501da742bd0034f30e2dbef8c211f97913285a93eda3bbf769",
+      "case_family": "novel",
+      "mechanism": "sequence_plus_delayed_effect",
+      "difficulty": 5,
+      "vulnerability_class": "compositional_multi_step",
+      "requires_state_transition": true
+    },
+    "dv2_063": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "83d979c07f7b1c284378906cbd9367c500905dd05d0efd56fd16a7806aa0252a",
+      "case_family": "novel",
+      "mechanism": "equivalent_plus_nested_process",
+      "difficulty": 5,
+      "vulnerability_class": "compositional_multi_step",
+      "requires_state_transition": true
+    },
+    "dv2_064": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "419ea564e1ad55a3093623fd4d6b27a932f954e46a5b5920e13453fa76f587b3",
+      "case_family": "novel",
+      "mechanism": "counter_plus_role_switch",
+      "difficulty": 5,
+      "vulnerability_class": "compositional_multi_step",
+      "requires_state_transition": true
+    },
+    "dv2_065": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "298801767a57745de7fe6ba0c5af3cde871348a80a34c178d60ea54cacb16150",
+      "case_family": "novel",
+      "mechanism": "indirect_plus_tenant_boundary",
+      "difficulty": 5,
+      "vulnerability_class": "compositional_multi_step",
+      "requires_state_transition": true
+    },
+    "dv2_066": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "32ae42712942a29c8c8a5f3c3ddb828d5b19b7b68bb532f37f2ecc4b0811861e",
+      "case_family": "novel",
+      "mechanism": "process_plus_flag_propagation",
+      "difficulty": 5,
+      "vulnerability_class": "compositional_multi_step",
+      "requires_state_transition": true
+    },
+    "dv2_067": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "f4bd100f9c5c02303d5a21c4693ed2471b85f199a31a51d48da24bce951a7536",
+      "case_family": "novel",
+      "mechanism": "reference_alias_plus_counter",
+      "difficulty": 5,
+      "vulnerability_class": "compositional_multi_step",
+      "requires_state_transition": true
+    },
+    "dv2_068": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "10f40e1aee2a7f5aba87d72fac33be8ae227a6a8578f1f13dedebd856b2b3008",
+      "case_family": "novel",
+      "mechanism": "hidden_prereq_plus_state_transition",
+      "difficulty": 5,
+      "vulnerability_class": "compositional_multi_step",
+      "requires_state_transition": true
+    },
+    "dv2_069": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "bc85f58d8a50b5f7c961f7e3d45d7df81714f91ed5d0a3c29771ccefa2233bee",
+      "case_family": "novel",
+      "mechanism": "sequential_dependency_plus_equivalent_path",
+      "difficulty": 5,
+      "vulnerability_class": "compositional_multi_step",
+      "requires_state_transition": true
+    },
+    "dv2_070": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "1f135d4f58239929fbca0b067ea38af07344b1bb726dd1b9dc31a043d912ad79",
+      "case_family": "novel",
+      "mechanism": "context_plus_indirect_chain",
+      "difficulty": 5,
+      "vulnerability_class": "compositional_multi_step",
+      "requires_state_transition": true
+    },
+    "dv2_071": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "bf9829522f28a2fa9d028f36a0ed0e8de2f46c83f239fc0b98924122c2f50d1a",
+      "case_family": "novel",
+      "mechanism": "multi_tenant_plus_nested_sequence",
+      "difficulty": 5,
+      "vulnerability_class": "compositional_multi_step",
+      "requires_state_transition": true
+    },
+    "dv2_072": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "0388b288ed09a65164628f2cc60d6d079ebcbbf0cfc66786d287bbece8d6d492",
+      "case_family": "novel",
+      "mechanism": "counter_invariant_plus_delayed",
+      "difficulty": 5,
+      "vulnerability_class": "compositional_multi_step",
+      "requires_state_transition": true
+    },
+    "dv2_073": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "c2dbfc4968e8c592a82c8c0b196f7c68901a3c8cdd4bd692394fb86068a1b1db",
+      "case_family": "novel",
+      "mechanism": "role_switch_plus_reference_alias",
+      "difficulty": 5,
+      "vulnerability_class": "compositional_multi_step",
+      "requires_state_transition": true
+    },
+    "dv2_074": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "1ad1d15d531726e0eca4fc3d3b5795b3151a868f0d0351113e6d3afd7833b97e",
+      "case_family": "novel",
+      "mechanism": "state_flag_plus_cross_resource",
+      "difficulty": 5,
+      "vulnerability_class": "compositional_multi_step",
+      "requires_state_transition": true
+    },
+    "dv2_075": {
+      "expected_label": "vulnerable",
+      "ground_truth_digest": "ede897addf9d1cdfa2d9a2e3e2e95a0c28bae4caba745414594ff109509319f2",
+      "case_family": "novel",
+      "mechanism": "process_chain_plus_context_switch",
+      "difficulty": 5,
+      "vulnerability_class": "compositional_multi_step",
+      "requires_state_transition": true
+    },
+    "dv2_076": {
+      "expected_label": "clean",
+      "ground_truth_digest": "7a7646a9a17dcf9dcc55ed511c9a4e554961d7d3f65a538993777d37aebb0643",
+      "case_family": "novel",
+      "mechanism": "state_plus_cross_reference",
+      "difficulty": 4,
+      "vulnerability_class": "compositional_multi_step",
+      "requires_state_transition": false
+    },
+    "dv2_077": {
+      "expected_label": "clean",
+      "ground_truth_digest": "026355b7d2715e68a3b48c8bfd86f5a24e511fd74c5c6bb7c6872c027b313816",
+      "case_family": "novel",
+      "mechanism": "sequence_plus_delayed_effect",
+      "difficulty": 4,
+      "vulnerability_class": "compositional_multi_step",
+      "requires_state_transition": false
+    },
+    "dv2_078": {
+      "expected_label": "clean",
+      "ground_truth_digest": "dd409903f22cd41c53383b5459bf06315a870b0a06829fe22e8b7126befd6f64",
+      "case_family": "novel",
+      "mechanism": "equivalent_plus_nested_process",
+      "difficulty": 4,
+      "vulnerability_class": "compositional_multi_step",
+      "requires_state_transition": false
+    },
+    "dv2_079": {
+      "expected_label": "clean",
+      "ground_truth_digest": "e0e589cc846e7be54f93c164de0f03e82eba92b16b6a45cfdedbc788df6fc3e4",
+      "case_family": "novel",
+      "mechanism": "counter_plus_role_switch",
+      "difficulty": 4,
+      "vulnerability_class": "compositional_multi_step",
+      "requires_state_transition": false
+    },
+    "dv2_080": {
+      "expected_label": "clean",
+      "ground_truth_digest": "3379b709bfcb53bc585204e5bff46ac3b28a96df680600d69120fc657778c652",
+      "case_family": "novel",
+      "mechanism": "indirect_plus_tenant_boundary",
+      "difficulty": 4,
+      "vulnerability_class": "compositional_multi_step",
+      "requires_state_transition": false
+    },
+    "dv2_081": {
+      "expected_label": "clean",
+      "ground_truth_digest": "67ab91c87e9f6fd44ab4f43eb9866cc243f81db6cc0ad1b398b43485327036d7",
+      "case_family": "novel",
+      "mechanism": "process_plus_flag_propagation",
+      "difficulty": 4,
+      "vulnerability_class": "compositional_multi_step",
+      "requires_state_transition": false
+    },
+    "dv2_082": {
+      "expected_label": "clean",
+      "ground_truth_digest": "30ea448dca266bfcfbfa3ae126ec8b453fb1cc0fb5787272f247cd07e3f84769",
+      "case_family": "novel",
+      "mechanism": "reference_alias_plus_counter",
+      "difficulty": 4,
+      "vulnerability_class": "compositional_multi_step",
+      "requires_state_transition": false
+    },
+    "dv2_083": {
+      "expected_label": "clean",
+      "ground_truth_digest": "68cc9eeba2ae09f092f51ce2d8bd01749cdb34df46d9926fdb304925e0514b29",
+      "case_family": "novel",
+      "mechanism": "hidden_prereq_plus_state_transition",
+      "difficulty": 4,
+      "vulnerability_class": "compositional_multi_step",
+      "requires_state_transition": false
+    },
+    "dv2_084": {
+      "expected_label": "clean",
+      "ground_truth_digest": "f14b138e065722281f733ed027c053d6f55ccac52d63681d40d9b3443338d0d6",
+      "case_family": "novel",
+      "mechanism": "sequential_dependency_plus_equivalent_path",
+      "difficulty": 4,
+      "vulnerability_class": "compositional_multi_step",
+      "requires_state_transition": false
+    },
+    "dv2_085": {
+      "expected_label": "clean",
+      "ground_truth_digest": "c8f224fbfc95914d40a8fa51c26274d4490487e05955c79dad380472f3bdfb59",
+      "case_family": "novel",
+      "mechanism": "context_plus_indirect_chain",
+      "difficulty": 4,
+      "vulnerability_class": "compositional_multi_step",
+      "requires_state_transition": false
+    },
+    "dv2_086": {
+      "expected_label": "clean",
+      "ground_truth_digest": "041e1accdfb52804c3a36edb34bea9937f6ec6dcd78f914e9498dcc06351f1d4",
+      "case_family": "novel",
+      "mechanism": "multi_tenant_plus_nested_sequence",
+      "difficulty": 4,
+      "vulnerability_class": "compositional_multi_step",
+      "requires_state_transition": false
+    },
+    "dv2_087": {
+      "expected_label": "clean",
+      "ground_truth_digest": "fba97dfff5dd53c433f45e03d897a2f75775bdee5836c7e1e8c5769c433dc0fd",
+      "case_family": "novel",
+      "mechanism": "counter_invariant_plus_delayed",
+      "difficulty": 4,
+      "vulnerability_class": "compositional_multi_step",
+      "requires_state_transition": false
+    },
+    "dv2_088": {
+      "expected_label": "clean",
+      "ground_truth_digest": "5ede9c22f9c622081eb9291808e5f80fd18cdda1a0359aaa32e822aab5cebb7b",
+      "case_family": "novel",
+      "mechanism": "role_switch_plus_reference_alias",
+      "difficulty": 4,
+      "vulnerability_class": "compositional_multi_step",
+      "requires_state_transition": false
+    },
+    "dv2_089": {
+      "expected_label": "clean",
+      "ground_truth_digest": "af97ae67d762c7f863d507c4057a266ada1595e99b3655f30ac9ec36d9965947",
+      "case_family": "novel",
+      "mechanism": "state_flag_plus_cross_resource",
+      "difficulty": 4,
+      "vulnerability_class": "compositional_multi_step",
+      "requires_state_transition": false
+    },
+    "dv2_090": {
+      "expected_label": "clean",
+      "ground_truth_digest": "c391d65ea52ce33a76888c9187a7cc4f88c2b4ce3aff25cafbfce87bca4cc774",
+      "case_family": "novel",
+      "mechanism": "process_chain_plus_context_switch",
+      "difficulty": 4,
+      "vulnerability_class": "compositional_multi_step",
+      "requires_state_transition": false
+    }
+  }
+}

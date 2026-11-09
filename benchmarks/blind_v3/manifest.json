@@ -1,0 +1,1093 @@
+{
+  "benchmark": "blind_v3",
+  "version": "1.0.0",
+  "port": 9220,
+  "total_cases": 120,
+  "design_principles": [
+    "runtime_receives_only_target_observations",
+    "no_ground_truth_exposed_to_runtime",
+    "no_mechanism_names_in_runtime"
+  ],
+  "cases": [
+    {
+      "case_id": "bv3_001",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_1",
+      "candidate": "/bv3/simp/target_1",
+      "control": "/bv3/simp/ctrl_1",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_002",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_2",
+      "candidate": "/bv3/simp/target_2",
+      "control": "/bv3/simp/ctrl_2",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_003",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_3",
+      "candidate": "/bv3/simp/target_3",
+      "control": "/bv3/simp/ctrl_3",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_004",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_4",
+      "candidate": "/bv3/simp/target_4",
+      "control": "/bv3/simp/ctrl_4",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_005",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_5",
+      "candidate": "/bv3/simp/target_5",
+      "control": "/bv3/simp/ctrl_5",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_006",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_6",
+      "candidate": "/bv3/simp/target_6",
+      "control": "/bv3/simp/ctrl_6",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_007",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_7",
+      "candidate": "/bv3/simp/target_7",
+      "control": "/bv3/simp/ctrl_7",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_008",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_8",
+      "candidate": "/bv3/simp/target_8",
+      "control": "/bv3/simp/ctrl_8",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_009",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_9",
+      "candidate": "/bv3/simp/target_9",
+      "control": "/bv3/simp/ctrl_9",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_010",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_10",
+      "candidate": "/bv3/simp/target_10",
+      "control": "/bv3/simp/ctrl_10",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_011",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_11",
+      "candidate": "/bv3/simp/target_11",
+      "control": "/bv3/simp/ctrl_11",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_012",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_12",
+      "candidate": "/bv3/simp/target_12",
+      "control": "/bv3/simp/ctrl_12",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_013",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_13",
+      "candidate": "/bv3/simp/target_13",
+      "control": "/bv3/simp/ctrl_13",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_014",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_14",
+      "candidate": "/bv3/simp/target_14",
+      "control": "/bv3/simp/ctrl_14",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_015",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_15",
+      "candidate": "/bv3/simp/target_15",
+      "control": "/bv3/simp/ctrl_15",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_016",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_16",
+      "candidate": "/bv3/simp/target_16",
+      "control": "/bv3/simp/ctrl_16",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_017",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_17",
+      "candidate": "/bv3/simp/target_17",
+      "control": "/bv3/simp/ctrl_17",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_018",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_18",
+      "candidate": "/bv3/simp/target_18",
+      "control": "/bv3/simp/ctrl_18",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_019",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_19",
+      "candidate": "/bv3/simp/target_19",
+      "control": "/bv3/simp/ctrl_19",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_020",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_20",
+      "candidate": "/bv3/simp/target_20",
+      "control": "/bv3/simp/ctrl_20",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_021",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_21",
+      "candidate": "/bv3/simp/target_21",
+      "control": "/bv3/simp/ctrl_21",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_022",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_22",
+      "candidate": "/bv3/simp/target_22",
+      "control": "/bv3/simp/ctrl_22",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_023",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_23",
+      "candidate": "/bv3/simp/target_23",
+      "control": "/bv3/simp/ctrl_23",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_024",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_24",
+      "candidate": "/bv3/simp/target_24",
+      "control": "/bv3/simp/ctrl_24",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_025",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_25",
+      "candidate": "/bv3/simp/target_25",
+      "control": "/bv3/simp/ctrl_25",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_026",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_26",
+      "candidate": "/bv3/simp/target_26",
+      "control": "/bv3/simp/ctrl_26",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_027",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_27",
+      "candidate": "/bv3/simp/target_27",
+      "control": "/bv3/simp/ctrl_27",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_028",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_28",
+      "candidate": "/bv3/simp/target_28",
+      "control": "/bv3/simp/ctrl_28",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_029",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_29",
+      "candidate": "/bv3/simp/target_29",
+      "control": "/bv3/simp/ctrl_29",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_030",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_30",
+      "candidate": "/bv3/simp/target_30",
+      "control": "/bv3/simp/ctrl_30",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_031",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_31",
+      "candidate": "/bv3/simp/target_31",
+      "control": "/bv3/simp/ctrl_31",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_032",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_32",
+      "candidate": "/bv3/simp/target_32",
+      "control": "/bv3/simp/ctrl_32",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_033",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_33",
+      "candidate": "/bv3/simp/target_33",
+      "control": "/bv3/simp/ctrl_33",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_034",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_34",
+      "candidate": "/bv3/simp/target_34",
+      "control": "/bv3/simp/ctrl_34",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_035",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_35",
+      "candidate": "/bv3/simp/target_35",
+      "control": "/bv3/simp/ctrl_35",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_036",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_36",
+      "candidate": "/bv3/simp/target_36",
+      "control": "/bv3/simp/ctrl_36",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_037",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_37",
+      "candidate": "/bv3/simp/target_37",
+      "control": "/bv3/simp/ctrl_37",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_038",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_38",
+      "candidate": "/bv3/simp/target_38",
+      "control": "/bv3/simp/ctrl_38",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_039",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_39",
+      "candidate": "/bv3/simp/target_39",
+      "control": "/bv3/simp/ctrl_39",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_040",
+      "family": "simple",
+      "baseline": "/bv3/simp/own_40",
+      "candidate": "/bv3/simp/target_40",
+      "control": "/bv3/simp/ctrl_40",
+      "requires_state_transition": false
+    },
+    {
+      "case_id": "bv3_041",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_41",
+      "candidate": "/bv3/rsng/target_41",
+      "control": "/bv3/rsng/ctrl_41",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_41"
+    },
+    {
+      "case_id": "bv3_042",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_42",
+      "candidate": "/bv3/rsng/target_42",
+      "control": "/bv3/rsng/ctrl_42",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_42"
+    },
+    {
+      "case_id": "bv3_043",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_43",
+      "candidate": "/bv3/rsng/target_43",
+      "control": "/bv3/rsng/ctrl_43",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_43"
+    },
+    {
+      "case_id": "bv3_044",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_44",
+      "candidate": "/bv3/rsng/target_44",
+      "control": "/bv3/rsng/ctrl_44",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_44"
+    },
+    {
+      "case_id": "bv3_045",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_45",
+      "candidate": "/bv3/rsng/target_45",
+      "control": "/bv3/rsng/ctrl_45",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_45"
+    },
+    {
+      "case_id": "bv3_046",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_46",
+      "candidate": "/bv3/rsng/target_46",
+      "control": "/bv3/rsng/ctrl_46",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_46"
+    },
+    {
+      "case_id": "bv3_047",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_47",
+      "candidate": "/bv3/rsng/target_47",
+      "control": "/bv3/rsng/ctrl_47",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_47"
+    },
+    {
+      "case_id": "bv3_048",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_48",
+      "candidate": "/bv3/rsng/target_48",
+      "control": "/bv3/rsng/ctrl_48",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_48"
+    },
+    {
+      "case_id": "bv3_049",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_49",
+      "candidate": "/bv3/rsng/target_49",
+      "control": "/bv3/rsng/ctrl_49",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_49"
+    },
+    {
+      "case_id": "bv3_050",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_50",
+      "candidate": "/bv3/rsng/target_50",
+      "control": "/bv3/rsng/ctrl_50",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_50"
+    },
+    {
+      "case_id": "bv3_051",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_51",
+      "candidate": "/bv3/rsng/target_51",
+      "control": "/bv3/rsng/ctrl_51",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_51"
+    },
+    {
+      "case_id": "bv3_052",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_52",
+      "candidate": "/bv3/rsng/target_52",
+      "control": "/bv3/rsng/ctrl_52",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_52"
+    },
+    {
+      "case_id": "bv3_053",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_53",
+      "candidate": "/bv3/rsng/target_53",
+      "control": "/bv3/rsng/ctrl_53",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_53"
+    },
+    {
+      "case_id": "bv3_054",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_54",
+      "candidate": "/bv3/rsng/target_54",
+      "control": "/bv3/rsng/ctrl_54",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_54"
+    },
+    {
+      "case_id": "bv3_055",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_55",
+      "candidate": "/bv3/rsng/target_55",
+      "control": "/bv3/rsng/ctrl_55",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_55"
+    },
+    {
+      "case_id": "bv3_056",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_56",
+      "candidate": "/bv3/rsng/target_56",
+      "control": "/bv3/rsng/ctrl_56",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_56"
+    },
+    {
+      "case_id": "bv3_057",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_57",
+      "candidate": "/bv3/rsng/target_57",
+      "control": "/bv3/rsng/ctrl_57",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_57"
+    },
+    {
+      "case_id": "bv3_058",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_58",
+      "candidate": "/bv3/rsng/target_58",
+      "control": "/bv3/rsng/ctrl_58",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_58"
+    },
+    {
+      "case_id": "bv3_059",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_59",
+      "candidate": "/bv3/rsng/target_59",
+      "control": "/bv3/rsng/ctrl_59",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_59"
+    },
+    {
+      "case_id": "bv3_060",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_60",
+      "candidate": "/bv3/rsng/target_60",
+      "control": "/bv3/rsng/ctrl_60",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_60"
+    },
+    {
+      "case_id": "bv3_061",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_61",
+      "candidate": "/bv3/rsng/target_61",
+      "control": "/bv3/rsng/ctrl_61",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_61"
+    },
+    {
+      "case_id": "bv3_062",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_62",
+      "candidate": "/bv3/rsng/target_62",
+      "control": "/bv3/rsng/ctrl_62",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_62"
+    },
+    {
+      "case_id": "bv3_063",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_63",
+      "candidate": "/bv3/rsng/target_63",
+      "control": "/bv3/rsng/ctrl_63",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_63"
+    },
+    {
+      "case_id": "bv3_064",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_64",
+      "candidate": "/bv3/rsng/target_64",
+      "control": "/bv3/rsng/ctrl_64",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_64"
+    },
+    {
+      "case_id": "bv3_065",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_65",
+      "candidate": "/bv3/rsng/target_65",
+      "control": "/bv3/rsng/ctrl_65",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_65"
+    },
+    {
+      "case_id": "bv3_066",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_66",
+      "candidate": "/bv3/rsng/target_66",
+      "control": "/bv3/rsng/ctrl_66",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_66"
+    },
+    {
+      "case_id": "bv3_067",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_67",
+      "candidate": "/bv3/rsng/target_67",
+      "control": "/bv3/rsng/ctrl_67",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_67"
+    },
+    {
+      "case_id": "bv3_068",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_68",
+      "candidate": "/bv3/rsng/target_68",
+      "control": "/bv3/rsng/ctrl_68",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_68"
+    },
+    {
+      "case_id": "bv3_069",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_69",
+      "candidate": "/bv3/rsng/target_69",
+      "control": "/bv3/rsng/ctrl_69",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_69"
+    },
+    {
+      "case_id": "bv3_070",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_70",
+      "candidate": "/bv3/rsng/target_70",
+      "control": "/bv3/rsng/ctrl_70",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_70"
+    },
+    {
+      "case_id": "bv3_071",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_71",
+      "candidate": "/bv3/rsng/target_71",
+      "control": "/bv3/rsng/ctrl_71",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_71"
+    },
+    {
+      "case_id": "bv3_072",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_72",
+      "candidate": "/bv3/rsng/target_72",
+      "control": "/bv3/rsng/ctrl_72",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_72"
+    },
+    {
+      "case_id": "bv3_073",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_73",
+      "candidate": "/bv3/rsng/target_73",
+      "control": "/bv3/rsng/ctrl_73",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_73"
+    },
+    {
+      "case_id": "bv3_074",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_74",
+      "candidate": "/bv3/rsng/target_74",
+      "control": "/bv3/rsng/ctrl_74",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_74"
+    },
+    {
+      "case_id": "bv3_075",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_75",
+      "candidate": "/bv3/rsng/target_75",
+      "control": "/bv3/rsng/ctrl_75",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_75"
+    },
+    {
+      "case_id": "bv3_076",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_76",
+      "candidate": "/bv3/rsng/target_76",
+      "control": "/bv3/rsng/ctrl_76",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_76"
+    },
+    {
+      "case_id": "bv3_077",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_77",
+      "candidate": "/bv3/rsng/target_77",
+      "control": "/bv3/rsng/ctrl_77",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_77"
+    },
+    {
+      "case_id": "bv3_078",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_78",
+      "candidate": "/bv3/rsng/target_78",
+      "control": "/bv3/rsng/ctrl_78",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_78"
+    },
+    {
+      "case_id": "bv3_079",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_79",
+      "candidate": "/bv3/rsng/target_79",
+      "control": "/bv3/rsng/ctrl_79",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_79"
+    },
+    {
+      "case_id": "bv3_080",
+      "family": "reasoning",
+      "baseline": "/bv3/rsng/own_80",
+      "candidate": "/bv3/rsng/target_80",
+      "control": "/bv3/rsng/ctrl_80",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/rsng/state_80"
+    },
+    {
+      "case_id": "bv3_081",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_81",
+      "candidate": "/bv3/comp/target_81",
+      "control": "/bv3/comp/ctrl_81",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_81",
+      "workflow_endpoint": "/bv3/comp/step_81"
+    },
+    {
+      "case_id": "bv3_082",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_82",
+      "candidate": "/bv3/comp/target_82",
+      "control": "/bv3/comp/ctrl_82",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_82",
+      "workflow_endpoint": "/bv3/comp/step_82"
+    },
+    {
+      "case_id": "bv3_083",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_83",
+      "candidate": "/bv3/comp/target_83",
+      "control": "/bv3/comp/ctrl_83",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_83",
+      "workflow_endpoint": "/bv3/comp/step_83"
+    },
+    {
+      "case_id": "bv3_084",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_84",
+      "candidate": "/bv3/comp/target_84",
+      "control": "/bv3/comp/ctrl_84",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_84",
+      "workflow_endpoint": "/bv3/comp/step_84"
+    },
+    {
+      "case_id": "bv3_085",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_85",
+      "candidate": "/bv3/comp/target_85",
+      "control": "/bv3/comp/ctrl_85",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_85",
+      "workflow_endpoint": "/bv3/comp/step_85"
+    },
+    {
+      "case_id": "bv3_086",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_86",
+      "candidate": "/bv3/comp/target_86",
+      "control": "/bv3/comp/ctrl_86",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_86",
+      "workflow_endpoint": "/bv3/comp/step_86"
+    },
+    {
+      "case_id": "bv3_087",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_87",
+      "candidate": "/bv3/comp/target_87",
+      "control": "/bv3/comp/ctrl_87",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_87",
+      "workflow_endpoint": "/bv3/comp/step_87"
+    },
+    {
+      "case_id": "bv3_088",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_88",
+      "candidate": "/bv3/comp/target_88",
+      "control": "/bv3/comp/ctrl_88",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_88",
+      "workflow_endpoint": "/bv3/comp/step_88"
+    },
+    {
+      "case_id": "bv3_089",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_89",
+      "candidate": "/bv3/comp/target_89",
+      "control": "/bv3/comp/ctrl_89",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_89",
+      "workflow_endpoint": "/bv3/comp/step_89"
+    },
+    {
+      "case_id": "bv3_090",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_90",
+      "candidate": "/bv3/comp/target_90",
+      "control": "/bv3/comp/ctrl_90",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_90",
+      "workflow_endpoint": "/bv3/comp/step_90"
+    },
+    {
+      "case_id": "bv3_091",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_91",
+      "candidate": "/bv3/comp/target_91",
+      "control": "/bv3/comp/ctrl_91",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_91",
+      "workflow_endpoint": "/bv3/comp/step_91"
+    },
+    {
+      "case_id": "bv3_092",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_92",
+      "candidate": "/bv3/comp/target_92",
+      "control": "/bv3/comp/ctrl_92",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_92",
+      "workflow_endpoint": "/bv3/comp/step_92"
+    },
+    {
+      "case_id": "bv3_093",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_93",
+      "candidate": "/bv3/comp/target_93",
+      "control": "/bv3/comp/ctrl_93",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_93",
+      "workflow_endpoint": "/bv3/comp/step_93"
+    },
+    {
+      "case_id": "bv3_094",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_94",
+      "candidate": "/bv3/comp/target_94",
+      "control": "/bv3/comp/ctrl_94",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_94",
+      "workflow_endpoint": "/bv3/comp/step_94"
+    },
+    {
+      "case_id": "bv3_095",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_95",
+      "candidate": "/bv3/comp/target_95",
+      "control": "/bv3/comp/ctrl_95",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_95",
+      "workflow_endpoint": "/bv3/comp/step_95"
+    },
+    {
+      "case_id": "bv3_096",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_96",
+      "candidate": "/bv3/comp/target_96",
+      "control": "/bv3/comp/ctrl_96",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_96",
+      "workflow_endpoint": "/bv3/comp/step_96"
+    },
+    {
+      "case_id": "bv3_097",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_97",
+      "candidate": "/bv3/comp/target_97",
+      "control": "/bv3/comp/ctrl_97",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_97",
+      "workflow_endpoint": "/bv3/comp/step_97"
+    },
+    {
+      "case_id": "bv3_098",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_98",
+      "candidate": "/bv3/comp/target_98",
+      "control": "/bv3/comp/ctrl_98",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_98",
+      "workflow_endpoint": "/bv3/comp/step_98"
+    },
+    {
+      "case_id": "bv3_099",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_99",
+      "candidate": "/bv3/comp/target_99",
+      "control": "/bv3/comp/ctrl_99",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_99",
+      "workflow_endpoint": "/bv3/comp/step_99"
+    },
+    {
+      "case_id": "bv3_100",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_100",
+      "candidate": "/bv3/comp/target_100",
+      "control": "/bv3/comp/ctrl_100",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_100",
+      "workflow_endpoint": "/bv3/comp/step_100"
+    },
+    {
+      "case_id": "bv3_101",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_101",
+      "candidate": "/bv3/comp/target_101",
+      "control": "/bv3/comp/ctrl_101",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_101",
+      "workflow_endpoint": "/bv3/comp/step_101"
+    },
+    {
+      "case_id": "bv3_102",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_102",
+      "candidate": "/bv3/comp/target_102",
+      "control": "/bv3/comp/ctrl_102",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_102",
+      "workflow_endpoint": "/bv3/comp/step_102"
+    },
+    {
+      "case_id": "bv3_103",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_103",
+      "candidate": "/bv3/comp/target_103",
+      "control": "/bv3/comp/ctrl_103",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_103",
+      "workflow_endpoint": "/bv3/comp/step_103"
+    },
+    {
+      "case_id": "bv3_104",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_104",
+      "candidate": "/bv3/comp/target_104",
+      "control": "/bv3/comp/ctrl_104",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_104",
+      "workflow_endpoint": "/bv3/comp/step_104"
+    },
+    {
+      "case_id": "bv3_105",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_105",
+      "candidate": "/bv3/comp/target_105",
+      "control": "/bv3/comp/ctrl_105",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_105",
+      "workflow_endpoint": "/bv3/comp/step_105"
+    },
+    {
+      "case_id": "bv3_106",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_106",
+      "candidate": "/bv3/comp/target_106",
+      "control": "/bv3/comp/ctrl_106",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_106",
+      "workflow_endpoint": "/bv3/comp/step_106"
+    },
+    {
+      "case_id": "bv3_107",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_107",
+      "candidate": "/bv3/comp/target_107",
+      "control": "/bv3/comp/ctrl_107",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_107",
+      "workflow_endpoint": "/bv3/comp/step_107"
+    },
+    {
+      "case_id": "bv3_108",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_108",
+      "candidate": "/bv3/comp/target_108",
+      "control": "/bv3/comp/ctrl_108",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_108",
+      "workflow_endpoint": "/bv3/comp/step_108"
+    },
+    {
+      "case_id": "bv3_109",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_109",
+      "candidate": "/bv3/comp/target_109",
+      "control": "/bv3/comp/ctrl_109",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_109",
+      "workflow_endpoint": "/bv3/comp/step_109"
+    },
+    {
+      "case_id": "bv3_110",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_110",
+      "candidate": "/bv3/comp/target_110",
+      "control": "/bv3/comp/ctrl_110",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_110",
+      "workflow_endpoint": "/bv3/comp/step_110"
+    },
+    {
+      "case_id": "bv3_111",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_111",
+      "candidate": "/bv3/comp/target_111",
+      "control": "/bv3/comp/ctrl_111",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_111",
+      "workflow_endpoint": "/bv3/comp/step_111"
+    },
+    {
+      "case_id": "bv3_112",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_112",
+      "candidate": "/bv3/comp/target_112",
+      "control": "/bv3/comp/ctrl_112",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_112",
+      "workflow_endpoint": "/bv3/comp/step_112"
+    },
+    {
+      "case_id": "bv3_113",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_113",
+      "candidate": "/bv3/comp/target_113",
+      "control": "/bv3/comp/ctrl_113",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_113",
+      "workflow_endpoint": "/bv3/comp/step_113"
+    },
+    {
+      "case_id": "bv3_114",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_114",
+      "candidate": "/bv3/comp/target_114",
+      "control": "/bv3/comp/ctrl_114",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_114",
+      "workflow_endpoint": "/bv3/comp/step_114"
+    },
+    {
+      "case_id": "bv3_115",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_115",
+      "candidate": "/bv3/comp/target_115",
+      "control": "/bv3/comp/ctrl_115",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_115",
+      "workflow_endpoint": "/bv3/comp/step_115"
+    },
+    {
+      "case_id": "bv3_116",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_116",
+      "candidate": "/bv3/comp/target_116",
+      "control": "/bv3/comp/ctrl_116",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_116",
+      "workflow_endpoint": "/bv3/comp/step_116"
+    },
+    {
+      "case_id": "bv3_117",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_117",
+      "candidate": "/bv3/comp/target_117",
+      "control": "/bv3/comp/ctrl_117",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_117",
+      "workflow_endpoint": "/bv3/comp/step_117"
+    },
+    {
+      "case_id": "bv3_118",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_118",
+      "candidate": "/bv3/comp/target_118",
+      "control": "/bv3/comp/ctrl_118",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_118",
+      "workflow_endpoint": "/bv3/comp/step_118"
+    },
+    {
+      "case_id": "bv3_119",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_119",
+      "candidate": "/bv3/comp/target_119",
+      "control": "/bv3/comp/ctrl_119",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_119",
+      "workflow_endpoint": "/bv3/comp/step_119"
+    },
+    {
+      "case_id": "bv3_120",
+      "family": "compositional",
+      "baseline": "/bv3/comp/own_120",
+      "candidate": "/bv3/comp/target_120",
+      "control": "/bv3/comp/ctrl_120",
+      "requires_state_transition": true,
+      "state_endpoint": "/bv3/comp/state_120",
+      "workflow_endpoint": "/bv3/comp/step_120"
+    }
+  ]
+}

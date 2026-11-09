@@ -1,0 +1,922 @@
+## GRAPH NODES AND EDGES
+27:validator when open hypotheses or findings exist. The ``route_after_hypothesis``
+28:name is the canonical name; ``route_after_recon`` remains a compatibility
+110:    route_after_wildcard_scope,
+242:def route_after_disclosed_report_intel(state: PentestState) -> str:
+249:def route_after_attack_graph(state: PentestState) -> str:
+265:def route_after_smart_campaigns_execution(state: PentestState) -> str:
+336:def route_after_autonomous_controller(state: PentestState) -> str:
+552:def route_after_recovery(state: PentestState) -> str:
+561:def route_after_research_session(state: PentestState) -> str:
+569:def route_after_active_research(state: PentestState) -> str:
+576:def route_after_causal_research(state: PentestState) -> str:
+610:def route_after_planner(state: PentestState) -> str:
+616:def route_after_pre_auth_identity(state: PentestState) -> str:
+622:def route_after_crawler(state: PentestState) -> str:
+628:def route_after_crawler_with_identity(state: PentestState) -> str:
+632:    return route_after_crawler(state)
+635:def route_after_infrastructure(state: PentestState) -> str:
+645:def route_after_auth(state: PentestState) -> str:
+660:def route_after_scope_enforcer(state: PentestState) -> str:
+673:def route_after_scope_review(state: PentestState) -> str:
+678:def route_after_hypothesis(state: PentestState) -> str:
+681:    V10 P1-3: renamed from ``route_after_recon`` — the old name was a
+685:    A backward-compat alias ``route_after_recon = route_after_hypothesis``
+767:# ``route_after_recon`` continues to work; new code should use the
+768:# renamed ``route_after_hypothesis``.
+769:route_after_recon = route_after_hypothesis
+772:def route_after_chainer(state: PentestState) -> str:
+797:def route_after_rabbit_hole(state: PentestState) -> str:
+867:def route_after_validator(state: PentestState) -> str:
+931:def route_after_devils_advocate(state: PentestState) -> str:
+961:    graph.add_node(NODE_PLANNER, planner_node)
+962:    graph.add_node(NODE_AUTH, auth_node)
+963:    graph.add_node(NODE_RECON, recon_node)
+964:    graph.add_node(NODE_CRAWLER, crawler_node)
+965:    graph.add_node(NODE_JAVASCRIPT_INTELLIGENCE, javascript_intelligence_node)
+966:    graph.add_node(NODE_SUBDOMAIN_TAKEOVER, subdomain_takeover_node)
+967:    graph.add_node(NODE_CLOUD_STORAGE, cloud_storage_node)
+968:    graph.add_node(NODE_TARGET_UNDERSTANDING, target_understanding_node)
+969:    graph.add_node(NODE_SCOPE_ENFORCER, scope_enforcer_node)
+970:    graph.add_node(NODE_SCOPE_REVIEW, scope_review_node)
+971:    graph.add_node(NODE_WAF_DETECTOR, waf_detector_node)
+972:    graph.add_node(NODE_HYPOTHESIS, hypothesis_node)
+973:    graph.add_node(NODE_PAYLOAD_GENERATOR, payload_generator_node)
+974:    graph.add_node(NODE_EXECUTION_SANDBOX, execution_sandbox_node)
+975:    graph.add_node(NODE_VALIDATOR, validator_node)
+976:    graph.add_node(NODE_DEVILS_ADVOCATE, devils_advocate_node)
+977:    graph.add_node(NODE_EXPLOIT_CHAINER, exploit_chainer_node)
+978:    graph.add_node(NODE_POST_EXPLOITATION, post_exploitation_node)
+982:    graph.add_node(NODE_RABBIT_HOLE, rabbit_hole_node)
+984:    graph.add_node(NODE_STRATEGIST, strategist_node)
+985:    graph.add_node(NODE_PAYLOAD_OPTIMIZER, payload_optimizer_node)
+986:    graph.add_node(NODE_CVSS_ENGINE, cvss_node)
+987:    graph.add_node(NODE_BUSINESS_IMPACT, business_impact_node)
+988:    graph.add_node(NODE_CROSS_REASONING, cross_reasoning_node)
+989:    graph.add_node(NODE_EXECUTIVE_SUMMARY, executive_summary_node)
+995:    graph.add_node(NODE_REPORTER, report_node)
+996:    graph.add_node(NODE_REFLECTION, reflection_node)
+1003:    graph.add_node(NODE_ACCESS_CONTROL, access_control_node)
+1004:    graph.add_node(NODE_API_TESTING, api_testing_node)
+1005:    graph.add_node(NODE_BUSINESS_LOGIC_FUZZER, business_logic_fuzzer_node)
+1006:    graph.add_node(NODE_REQUEST_SMUGGLING, request_smuggling_node)
+1007:    graph.add_node(NODE_DISCLOSED_REPORT_INTEL, disclosed_report_intel_node)
+1008:    graph.add_node(NODE_SMART_CAMPAIGNS, smart_campaigns_node)
+1009:    graph.add_node(NODE_SMART_CAMPAIGNS_EXECUTION, smart_campaigns_execution_node)
+1010:    graph.add_node(NODE_AUTONOMOUS_CONTROLLER, autonomous_controller_node)
+1011:    graph.add_node(NODE_RECOVERY, recovery_node)
+1012:    graph.add_node(NODE_WILDCARD_SCOPE, wildcard_scope_node)
+1013:    graph.add_node(NODE_IDENTITY_PROVISIONING, identity_provisioning_node)
+1014:    graph.add_node(NODE_IDENTITY_PROVISIONING_PRE_AUTH, identity_provisioning_node)
+1015:    graph.add_node(NODE_KNOWLEDGE_GAP, knowledge_gap_node)
+1016:    graph.add_node(NODE_NEXT_BEST_ACTION, next_best_action_node)
+1017:    graph.add_node(NODE_RESEARCH_SESSION, research_session_node)
+1018:    graph.add_node(NODE_ACTIVE_RESEARCH, _active_research_runtime_node)
+1019:    graph.add_node(NODE_CAUSAL_RESEARCH, causal_research_node)
+1021:        graph.add_node(NODE_ATTACK_GRAPH, attack_graph_node)
+1025:    graph.add_edge(START, NODE_WILDCARD_SCOPE)
+1026:    graph.add_conditional_edges(
+1028:        route_after_wildcard_scope,
+1031:    graph.add_conditional_edges(
+1033:        route_after_planner,
+1039:    graph.add_edge(NODE_IDENTITY_PROVISIONING_PRE_AUTH, NODE_AUTH)
+1042:    graph.add_conditional_edges(
+1043:        NODE_AUTH, route_after_auth,
+1051:    graph.add_edge(NODE_RECON, NODE_CRAWLER)
+1052:    graph.add_conditional_edges(
+1054:        route_after_crawler_with_identity,
+1061:    graph.add_conditional_edges(
+1063:        route_after_crawler,
+1069:    graph.add_edge(NODE_JAVASCRIPT_INTELLIGENCE, NODE_SUBDOMAIN_TAKEOVER)
+1070:    graph.add_edge(NODE_SUBDOMAIN_TAKEOVER, NODE_CLOUD_STORAGE)
+1071:    graph.add_conditional_edges(
+1073:        route_after_infrastructure,
+1079:    graph.add_edge(NODE_TARGET_UNDERSTANDING, NODE_SCOPE_ENFORCER)
+1080:    graph.add_conditional_edges(
+1082:        route_after_scope_enforcer,
+1085:    graph.add_conditional_edges(
+1087:        route_after_scope_review,
+1090:    graph.add_edge(NODE_WAF_DETECTOR, NODE_HYPOTHESIS)
+1092:    graph.add_conditional_edges(
+1093:        # V10 P1-3: renamed route_after_recon -> route_after_hypothesis
+1096:        NODE_HYPOTHESIS, route_after_hypothesis,
+1108:    graph.add_edge(NODE_ACCESS_CONTROL, NODE_API_TESTING)
+1109:    graph.add_edge(NODE_API_TESTING, NODE_BUSINESS_LOGIC_FUZZER)
+1110:    graph.add_edge(NODE_BUSINESS_LOGIC_FUZZER, NODE_REQUEST_SMUGGLING)
+1116:    graph.add_edge(NODE_REQUEST_SMUGGLING, NODE_DISCLOSED_REPORT_INTEL)
+1118:        graph.add_conditional_edges(
+1120:            route_after_disclosed_report_intel,
+1127:        graph.add_conditional_edges(
+1129:            route_after_attack_graph,
+1136:        graph.add_conditional_edges(
+1138:            route_after_disclosed_report_intel,
+1144:    graph.add_edge(NODE_SMART_CAMPAIGNS, NODE_SMART_CAMPAIGNS_EXECUTION)
+1145:    graph.add_conditional_edges(
+1147:        route_after_smart_campaigns_execution,
+1154:    graph.add_conditional_edges(
+1156:        route_after_autonomous_controller,
+1165:    graph.add_conditional_edges(
+1167:        route_after_recovery,
+1173:    graph.add_edge(NODE_KNOWLEDGE_GAP, NODE_NEXT_BEST_ACTION)
+1174:    graph.add_edge(NODE_NEXT_BEST_ACTION, NODE_RESEARCH_SESSION)
+1175:    graph.add_conditional_edges(
+1177:        route_after_research_session,
+1183:    graph.add_conditional_edges(
+1185:        route_after_active_research,
+1191:    graph.add_conditional_edges(
+1193:        route_after_causal_research,
+1199:    graph.add_edge(NODE_STRATEGIST, NODE_PAYLOAD_GENERATOR)
+1201:    graph.add_edge(NODE_PAYLOAD_GENERATOR, NODE_EXECUTION_SANDBOX)
+1202:    graph.add_edge(NODE_EXECUTION_SANDBOX, NODE_VALIDATOR)
+1208:    graph.add_conditional_edges(
+1209:        NODE_VALIDATOR, route_after_validator,
+1216:    graph.add_edge(NODE_PAYLOAD_OPTIMIZER, NODE_EXECUTION_SANDBOX)
+1220:    graph.add_conditional_edges(
+1222:        route_after_devils_advocate,
+1228:    graph.add_conditional_edges(
+1229:        NODE_EXPLOIT_CHAINER, route_after_chainer,
+1235:    graph.add_edge(NODE_POST_EXPLOITATION, NODE_RABBIT_HOLE)
+1264:    graph.add_conditional_edges(
+1265:        NODE_RABBIT_HOLE, route_after_rabbit_hole,
+1272:    graph.add_edge(NODE_CVSS_ENGINE, NODE_BUSINESS_IMPACT)
+1273:    graph.add_edge(NODE_BUSINESS_IMPACT, NODE_CROSS_REASONING)
+1277:    graph.add_edge(NODE_CROSS_REASONING, NODE_EXECUTIVE_SUMMARY)
+1278:    graph.add_edge(NODE_EXECUTIVE_SUMMARY, NODE_REPORTER)
+1280:    graph.add_edge(NODE_REPORTER, NODE_REFLECTION)
+1281:    graph.add_edge(NODE_REFLECTION, END)
+
+## STATE FIELDS
+60:class PentestState(TypedDict, total=False):
+76:    target: Target
+80:    additional_target_origins: list[str]
+81:    messages: Annotated[list[BaseMessage], add_messages]
+82:    findings: Annotated[list[Finding], merge_findings]
+83:    current_phase: str
+87:    hypotheses: Annotated[list[Hypothesis], merge_hypotheses]
+88:    lessons: Annotated[list[str], merge_lists]
+89:    payloads_to_test: Annotated[dict[str, list[str]], merge_payloads]
+93:    crawled_data: Annotated[dict[str, Any], merge_dicts]
+100:    auth_state: Annotated[dict[str, Any], merge_auth_state]
+101:    optimization_retries: Annotated[dict[str, int], merge_retries]
+104:    errors: Annotated[list[str], merge_lists]
+108:    session_cookies: Annotated[dict[str, str], merge_dicts]
+112:    session_headers: Annotated[dict[str, str], merge_dicts]
+116:    raw_scope_entries: list[str]
+117:    compiled_scope: Annotated[dict[str, Any], merge_dicts]
+118:    scope_compile_status: str
+119:    scope_compile_error: str
+123:    signup_forms_detected: Annotated[list[dict[str, Any]], merge_lists]
+124:    signup_submissions: Annotated[list[dict[str, Any]], merge_lists]
+125:    verification_material_events: Annotated[list[dict[str, Any]], merge_lists]
+126:    identity_records: Annotated[dict[str, Any], merge_dicts]
+127:    identity_provisioning_status: str
+133:    identity_profiles: Annotated[dict[str, Any], merge_dicts]
+134:    bac_observations: Annotated[list[dict[str, Any]], merge_lists]
+135:    bac_coverage_gaps: Annotated[list[dict[str, Any]], merge_lists]
+136:    relational_evidence: Annotated[list[dict[str, Any]], merge_lists]
+139:    authorization_matrix: Annotated[dict[str, Any], merge_dicts]
+140:    subdomain_takeover_observations: Annotated[list[dict[str, Any]], merge_lists]
+141:    subdomain_takeover_coverage_gaps: Annotated[list[dict[str, Any]], merge_lists]
+142:    cloud_storage_observations: Annotated[list[dict[str, Any]], merge_lists]
+143:    cloud_storage_coverage_gaps: Annotated[list[dict[str, Any]], merge_lists]
+144:    jwt_deep_observations: Annotated[list[dict[str, Any]], merge_lists]
+145:    jwt_deep_coverage_gaps: Annotated[list[dict[str, Any]], merge_lists]
+147:    jwt_weak_secret_candidates: list[str]
+148:    jwt_public_key_available: bool
+149:    disclosed_report_advisories: Annotated[list[dict[str, Any]], merge_lists]
+150:    advisory_coverage_gaps: Annotated[list[dict[str, Any]], merge_lists]
+152:    disclosed_report_corpus: list[Any]
+159:    credentials: Annotated[dict[str, str], merge_dicts]
+161:    secret_refs: Annotated[dict[str, str], merge_dicts]
+162:    playwright_enabled: bool  # Pre-flight health check result
+165:    stealth_mode: bool  # When True, insert jitter + rate-limit delays
+168:    stealth_telemetry: Annotated[dict[str, Any], merge_dicts]
+169:    custom_payloads: list[str]
+170:    report_formats: list[str]
+171:    llm_enabled_override: bool | None
+174:    action_ledger_path: str | None
+180:    auto_approve: bool
+183:    executive_summary: str  # C-Suite summary generated by executive_summary_node
+184:    risk_score: str  # Overall risk: "Critical" | "High" | "Medium" | "Low"
+187:    skip_recon: bool  # When True, bypass recon + crawler, go straight to hypothesis
+191:    scan_mode: str
+196:    profile: str
+197:    smart_governance: Annotated[dict[str, Any], merge_dicts]
+200:    enable_autonomous_controller: bool
+202:    autonomous_controller_runs: int
+203:    capability_manifest: Annotated[dict[str, Any], merge_dicts]
+204:    action_budget: Annotated[dict[str, Any], merge_dicts]
+207:    llm_reliability_trace: Annotated[list[dict[str, Any]], merge_lists]
+210:    devils_advocate_revalidation_count: int
+211:    devils_advocate_revalidation_ids: Annotated[list[str], merge_lists]
+212:    devils_advocate_gate_active: bool
+214:    scope_drift_detected: bool
+215:    scope_drift_events: Annotated[list[dict[str, Any]], merge_lists]
+216:    llm_budget_trace: Annotated[list[dict[str, Any]], merge_lists]
+219:    llm_usage_trace: Annotated[list[dict[str, Any]], merge_lists]
+220:    kev_catalog: list[str]
+245:    mental_model: Annotated[dict[str, Any], merge_dicts]
+253:    canonical_executions: Annotated[list[dict[str, Any]], merge_lists]
+254:    canonical_observations: Annotated[list[dict[str, Any]], merge_lists]
+258:    target_understanding: Annotated[dict[str, Any], merge_dicts]
+260:    target_knowledge: Annotated[dict[str, Any], merge_dicts]
+263:    application_intent: Annotated[dict[str, Any], merge_dicts]
+264:    policy_assumptions: Annotated[list[str], merge_lists]
+266:    pattern_hints: Annotated[list[dict[str, Any]], merge_lists]
+268:    trust_matrix: Annotated[dict[str, Any], merge_dicts]
+273:    attack_graph: Annotated[dict[str, Any], merge_dicts]
+277:    report_quality_gate: Annotated[dict[str, Any], merge_dicts]
+282:    workflow_observations: Annotated[list[dict[str, Any]], merge_lists]
+283:    workflow_coverage_gaps: Annotated[list[dict[str, Any]], merge_lists]
+317:    goal_tree: Annotated[dict[str, Any], merge_dicts]
+318:    decision_log: Annotated[list[dict[str, Any]], merge_lists]
+321:    decision_trace: Annotated[list[dict[str, Any]], merge_lists]
+323:    lifecycle_events: Annotated[list[dict[str, Any]], merge_lists]
+324:    rabbit_hole_ledger: Annotated[dict[str, Any], merge_dicts]
+327:    coverage_ledger: Annotated[dict[str, Any], merge_dicts]
+330:    campaign_ledger: Annotated[dict[str, Any], merge_dicts]
+333:    campaign_plan: Annotated[dict[str, Any], merge_dicts]
+335:    evidence_ledger: Annotated[list[dict[str, Any]], merge_lists]
+338:    positive_evidence_ledger: Annotated[list[dict[str, Any]], merge_lists]
+339:    negative_evidence_ledger: Annotated[list[dict[str, Any]], merge_lists]
+341:    proof_gap_assessments: Annotated[list[dict[str, Any]], merge_lists]
+342:    proof_plan: Annotated[dict[str, Any], merge_dicts]
+343:    proof_observability: Annotated[dict[str, Any], merge_dicts]
+344:    proof_outcomes: Annotated[list[dict[str, Any]], merge_lists]
+346:    proof_bundles: Annotated[list[dict[str, Any]], merge_lists]
+349:    campaign_task_outcomes: Annotated[list[dict[str, Any]], merge_lists]
+350:    smart_next_actions: Annotated[list[dict[str, Any]], merge_lists]
+351:    smart_replanning: Annotated[dict[str, Any], merge_dicts]
+355:    knowledge_gaps: Annotated[list[dict[str, Any]], merge_lists]
+356:    research_session: Annotated[dict[str, Any], merge_dicts]
+357:    research_decision_trace: Annotated[list[dict[str, Any]], merge_lists]
+358:    smart_information_actions: Annotated[list[dict[str, Any]], merge_lists]
+361:    research_context: Annotated[dict[str, Any], merge_dicts]
+362:    research_candidate_actions: Annotated[list[dict[str, Any]], merge_lists]
+363:    research_unified_decision_trace: Annotated[list[dict[str, Any]], merge_lists]
+364:    research_active_observations: Annotated[list[dict[str, Any]], merge_lists]
+365:    surface_coverage: Annotated[dict[str, Any], merge_dicts]
+366:    research_failed_paths: Annotated[list[dict[str, Any]], merge_lists]
+369:    research_round_artifacts: Annotated[dict[str, Any], merge_dicts]
+372:    recovery_events: Annotated[list[dict[str, Any]], merge_lists]
+373:    recovery_state: Annotated[dict[str, Any], merge_dicts]
+376:    novel_behavior_observations: Annotated[list[dict[str, Any]], merge_lists]
+377:    causal_attack_edges: Annotated[list[dict[str, Any]], merge_lists]
+378:    causal_attack_graph: Annotated[dict[str, Any], merge_dicts]
+381:    smart_http_observations: Annotated[list[dict[str, Any]], merge_lists]
+387:    adaptive_revisit_tasks: Annotated[dict[str, Any], merge_dicts]
+388:    adaptive_revisit_ledger: Annotated[dict[str, Any], merge_dicts]
+389:    adaptive_hunt: Annotated[dict[str, Any], merge_dicts]
+393:    planner_decision: Annotated[dict[str, Any], merge_dicts]
+394:    planner_gate_audits: Annotated[list[dict[str, Any]], merge_lists]
+398:    execution_gate: Annotated[dict[str, Any], merge_dicts]
+403:    javascript_intelligence: Annotated[dict[str, Any], merge_dicts]
+404:    js_targeted_tasks: Annotated[list[dict[str, Any]], merge_lists]
+408:    surface_security: Annotated[dict[str, Any], merge_dicts]
+413:    memory_summary: Annotated[dict[str, Any], merge_dicts]
+414:    memory_feedback: Annotated[list[dict[str, Any]], merge_lists]
+431:    rabbit_hole_loop_back_count: int
+445:    thread_id: str
+449:    owner_username: str | None
+450:    client_id: str | None
+451:    engagement_id: str | None
+454:    campaign_id: str
+455:    runtime_context: Any
+457:    runtime_capability_gaps: Annotated[list[dict[str, Any]], merge_lists]
+
+## RUNTIME DI
+21:from webpent.shared.action_authority import ActionAuthority
+33:from webpent.shared.safety_gate import EngagementSafetyGate
+219:class RuntimeContext:
+227:    action_authority: ActionAuthority
+239:    replay_engine: Any | None
+246:    safety_gate: EngagementSafetyGate | None = None
+249:    identity_provisioning_agent: Any | None = None
+322:class RuntimeFactory:
+331:        replay_engine: Any | None,
+352:        if replay_engine is None:
+355:                    code="replay_engine_unavailable",
+356:                    component="replay_engine",
+384:    def create(
+401:        replay_engine: Any | None = None,
+402:        identity_provisioning_agent: Any | None = None,
+424:        safety_gate = EngagementSafetyGate(
+451:            safety_gate=safety_gate,
+492:                replay_engine = control_plane_runtime.replay_engine
+499:            replay_engine=replay_engine,
+514:            action_authority=authority,
+526:            replay_engine=replay_engine,
+533:            safety_gate=safety_gate,
+534:            identity_provisioning_agent=identity_provisioning_agent,
+551:            "used_actions": int(context.action_authority.used_actions),
+552:            "used_budget": float(context.action_authority.used_budget),
+556:            "safety_gate_enabled": context.safety_gate is not None,
+558:                context.safety_gate is not None and context.safety_gate.kill_switch.tripped
+561:                context.safety_gate.kill_switch.reason
+562:                if context.safety_gate is not None
+596:            if context.safety_gate is not None and descriptor.get("kill_switch_tripped"):
+597:                context.safety_gate.kill_switch.trip(
+
+## EVIDENCE CONTRACTS
+src/webpent/agents/access_control/agent.py:7:never treated as confirmation.
+src/webpent/agents/access_control/agent.py:437:        confidence="confirmed" if confidence_level == "Tool-Confirmed" else "tentative",
+src/webpent/agents/access_control/agent.py:643:    # rather than a claimed cross-user confirmation.
+src/webpent/agents/access_control/agent.py:706:    confirmed_count = 0
+src/webpent/agents/access_control/agent.py:834:        if assessment["status"] == "confirmed":
+src/webpent/agents/access_control/agent.py:846:            negative_control = next(
+src/webpent/agents/access_control/agent.py:854:            evidence["causal_signal"] = True
+src/webpent/agents/access_control/agent.py:855:            evidence["negative_control_complete"] = negative_control is not None
+src/webpent/agents/access_control/agent.py:856:            if negative_control is None:
+src/webpent/agents/access_control/agent.py:859:                    "reason": "foreign_denied_negative_control_missing",
+src/webpent/agents/access_control/agent.py:905:                negative_control=negative_control,
+src/webpent/agents/access_control/agent.py:906:                causal_signal=True,
+src/webpent/agents/access_control/agent.py:907:                negative_control_complete=True,
+src/webpent/agents/access_control/agent.py:932:                    "negative_control_status_code": int(negative_control.get("status_code") or 0),
+src/webpent/agents/access_control/agent.py:940:                    "evidence_bundle": (
+src/webpent/agents/access_control/agent.py:941:                        verification.proof_bundle.model_dump(mode="json")
+src/webpent/agents/access_control/agent.py:942:                        if verification.proof_bundle is not None
+src/webpent/agents/access_control/agent.py:958:                confirmed_count += 1
+src/webpent/agents/access_control/agent.py:959:                audit_logger.warning("Tool-confirmed BAC differential for %s", url)
+src/webpent/agents/access_control/agent.py:1130:    confirmed_count += sum(
+src/webpent/agents/access_control/agent.py:1160:                    f"confirmed {confirmed_count}, coverage gaps {len(gaps_out)}."
+src/webpent/agents/api_testing/agent.py:389:                item.get("causal_signal") is True
+src/webpent/agents/api_testing/agent.py:390:                and item.get("negative_control_complete") is True
+src/webpent/agents/api_testing/agent.py:394:                        "type": "jwt_confirmation_proof_incomplete",
+src/webpent/agents/api_testing/agent.py:432:                negative_control=negative_observation,
+src/webpent/agents/api_testing/agent.py:433:                causal_signal=True,
+src/webpent/agents/api_testing/agent.py:434:                negative_control_complete=True,
+src/webpent/agents/api_testing/agent.py:445:                    "negative_control": "wrong_secret_rejected",
+src/webpent/agents/api_testing/agent.py:448:            if not verification.passed or verification.proof_bundle is None:
+src/webpent/agents/api_testing/agent.py:451:                        "type": "jwt_confirmation_proof_incomplete",
+src/webpent/agents/api_testing/agent.py:477:                            "causal_signal": item.get("causal_signal"),
+src/webpent/agents/api_testing/agent.py:478:                            "negative_control_complete": item.get("negative_control_complete"),
+src/webpent/agents/api_testing/agent.py:479:                            "negative_control": item.get("negative_control"),
+src/webpent/agents/api_testing/agent.py:480:                            "proof_bundle": verification.proof_bundle.model_dump(mode="json"),
+src/webpent/agents/api_testing/agent.py:483:                        evidence_bundle={
+src/webpent/agents/api_testing/agent.py:484:                            "proof_bundle": verification.proof_bundle.model_dump(mode="json"),
+src/webpent/agents/api_testing/agent.py:485:                            "causal_signal": True,
+src/webpent/agents/api_testing/agent.py:486:                            "negative_control": negative_observation,
+src/webpent/agents/authentication/agent.py:787:        access-control owner-selection gate. It never grants confirmation;
+src/webpent/agents/business_impact/agent.py:4:LangGraph node that generates business-impact statements for confirmed
+src/webpent/agents/business_impact/agent.py:60:    """Generate a business-impact statement for a single confirmed finding.
+src/webpent/agents/business_impact/agent.py:151:    V4.5 Sprint 3: Assesses ALL findings, not just confirmed ones.
+src/webpent/agents/business_impact/agent.py:178:        # V4.5 Sprint 3: Assess ALL findings, not just confirmed ones.
+src/webpent/agents/cloud_storage/agent.py:123:                row["status"] = "public_listing_confirmed"
+src/webpent/agents/cloud_storage/agent.py:143:                        evidence_bundle={
+src/webpent/agents/cloud_storage/agent.py:149:                            "causal_signal": False,
+src/webpent/agents/cloud_storage/agent.py:150:                            "negative_control_complete": False,
+src/webpent/agents/cloud_storage/agent.py:151:                            "promotion_guard": "blocked_missing_negative_control",
+src/webpent/agents/crawler/agent.py:486:                    # observations; validators still establish confirmation.
+src/webpent/agents/cross_reasoning/agent.py:28:    tool-confirmed, so it starts at the same base as a heuristic match).
+src/webpent/agents/cross_reasoning/agent.py:244:    # drafted it, but no tool has confirmed it). It must remain a proposal
+src/webpent/agents/cross_reasoning/agent.py:280:                    "via LLM narrative synthesis across confirmed findings."
+src/webpent/agents/cvss_engine/agent.py:4:LangGraph node that calculates CVSS v3.1 scores for confirmed findings.
+src/webpent/agents/cvss_engine/agent.py:167:    """Score a single confirmed finding via the LLM.
+src/webpent/agents/cvss_engine/agent.py:244:    V4.5 Sprint 3: Scores ALL findings, not just confirmed ones.
+src/webpent/agents/cvss_engine/agent.py:249:    For non-confirmed findings, the score helps prioritise manual review.
+src/webpent/agents/cvss_engine/agent.py:274:        # V4.5 Sprint 3: Score ALL findings, not just confirmed ones.
+src/webpent/agents/devils_advocate/agent.py:85:# Review" in a single pass — destroying confirmed-signal coverage and
+src/webpent/agents/devils_advocate/agent.py:159:    the finding's evidence_bundle.tool_output, the counter-argument is
+src/webpent/agents/devils_advocate/agent.py:221:    if finding.evidence_bundle and isinstance(finding.evidence_bundle, dict):
+src/webpent/agents/devils_advocate/agent.py:222:        tool_output = str(finding.evidence_bundle.get("tool_output") or "")
+src/webpent/agents/disclosed_report_intel/agent.py:77:                    f"generated {len(advisories)} advisory leads; no finding was auto-confirmed."
+src/webpent/agents/execution_sandbox/agent.py:39:_PLAYWRIGHT_CONFIRMED_MARKER = "confirmed-by:playwright-dialog"
+src/webpent/agents/execution_sandbox/agent.py:242:    Returns ``True`` if a JavaScript dialog was triggered (XSS confirmed).
+src/webpent/agents/execution_sandbox/agent.py:275:                "Dialog detected (%s) at %s — XSS confirmed with payload: %s",
+src/webpent/agents/execution_sandbox/agent.py:371:        confirmed = _test_payload_with_browser(
+src/webpent/agents/execution_sandbox/agent.py:375:        if confirmed:
+src/webpent/agents/execution_sandbox/agent.py:376:            negative_control_payload = "webpent-neutral-control"
+src/webpent/agents/execution_sandbox/agent.py:377:            negative_control_triggered = _test_payload_with_browser(
+src/webpent/agents/execution_sandbox/agent.py:380:                negative_control_payload,
+src/webpent/agents/execution_sandbox/agent.py:388:                "causal_signal": True,
+src/webpent/agents/execution_sandbox/agent.py:389:                "negative_control_payload": negative_control_payload,
+src/webpent/agents/execution_sandbox/agent.py:390:                "negative_control_complete": not negative_control_triggered,
+src/webpent/agents/execution_sandbox/agent.py:391:                "negative_control_signal": negative_control_triggered,
+src/webpent/agents/execution_sandbox/agent.py:393:            if negative_control_triggered:
+src/webpent/agents/execution_sandbox/agent.py:406:                                "reason": "negative_control_triggered",
+src/webpent/agents/execution_sandbox/agent.py:413:                "payload": negative_control_payload,
+src/webpent/agents/execution_sandbox/agent.py:422:            negative_control = {
+src/webpent/agents/execution_sandbox/agent.py:423:                "payload": negative_control_payload,
+src/webpent/agents/execution_sandbox/agent.py:424:                "triggered": bool(negative_control_triggered),
+src/webpent/agents/execution_sandbox/agent.py:425:                "control": "neutral_negative_control",
+src/webpent/agents/execution_sandbox/agent.py:431:                negative_control=negative_control,
+src/webpent/agents/execution_sandbox/agent.py:432:                causal_signal=True,
+src/webpent/agents/execution_sandbox/agent.py:433:                negative_control_complete=not negative_control_triggered,
+src/webpent/agents/execution_sandbox/agent.py:444:                    "negative_control_triggered": bool(negative_control_triggered),
+src/webpent/agents/execution_sandbox/agent.py:447:            if not verification.passed or verification.proof_bundle is None:
+src/webpent/agents/execution_sandbox/agent.py:462:            bundle = verification.proof_bundle
+src/webpent/agents/execution_sandbox/agent.py:467:            confirmed_finding = finding.model_copy(
+src/webpent/agents/execution_sandbox/agent.py:475:                        "proof_bundle_sealed": True,
+src/webpent/agents/execution_sandbox/agent.py:476:                        "proof_bundle": bundle.model_dump(mode="json"),
+src/webpent/agents/execution_sandbox/agent.py:479:                            "proof_bundle_sealed": True,
+src/webpent/agents/execution_sandbox/agent.py:485:            # V3.5 Obsidian Master Fix: Incrementally persist the confirmed
+src/webpent/agents/execution_sandbox/agent.py:488:            # worker crashes or times out after Playwright confirmation.
+src/webpent/agents/execution_sandbox/agent.py:499:                if thread_id and not getattr(confirmed_finding, "thread_id", None):
+src/webpent/agents/execution_sandbox/agent.py:500:                    confirmed_finding = confirmed_finding.model_copy(
+src/webpent/agents/execution_sandbox/agent.py:503:                get_db_manager().save_finding(confirmed_finding)
+src/webpent/agents/execution_sandbox/agent.py:505:                    "Incrementally persisted Playwright-confirmed finding %s",
+src/webpent/agents/execution_sandbox/agent.py:516:                # genuinely-confirmed finding whose DB write failed from
+src/webpent/agents/execution_sandbox/agent.py:518:                # in-memory ``confirmed_finding`` says "Tool-Confirmed"
+src/webpent/agents/execution_sandbox/agent.py:521:                confirmed_finding = confirmed_finding.model_copy(
+src/webpent/agents/execution_sandbox/agent.py:524:                            **(confirmed_finding.evidence or {}),
+src/webpent/agents/execution_sandbox/agent.py:529:            return confirmed_finding
+src/webpent/agents/execution_sandbox/agent.py:793:    confirmed_count = 0
+src/webpent/agents/execution_sandbox/agent.py:854:                confirmed_count += 1
+src/webpent/agents/execution_sandbox/agent.py:870:        f"finding(s); {confirmed_count} confirmed via dialog detection."
+src/webpent/agents/executive_summary/agent.py:60:    "When confirmed_count is 0, the overall posture is 'unconfirmed' "
+src/webpent/agents/executive_summary/agent.py:61:    "— do NOT claim High or Critical exploit risk from unconfirmed "
+src/webpent/agents/executive_summary/agent.py:70:    "Tool-Confirmed findings: {confirmed_count}\n"
+src/webpent/agents/executive_summary/agent.py:85:# V10 P0-4 (RCA follow-up): confidence levels that count as "confirmed"
+src/webpent/agents/executive_summary/agent.py:88:# Scanned / Clean are unconfirmed — they must NOT drive a High/Critical
+src/webpent/agents/executive_summary/agent.py:102:    Tool-Confirmed findings. Unconfirmed findings (AI-Assessed, Needs
+src/webpent/agents/executive_summary/agent.py:104:    count toward the executive risk posture. When confirmed_count == 0,
+src/webpent/agents/executive_summary/agent.py:105:    the risk is capped at "Low" with an explicit "Unconfirmed — zero
+src/webpent/agents/executive_summary/agent.py:106:    tool confirmations" label, regardless of how many high-severity
+src/webpent/agents/executive_summary/agent.py:108:    to publish "High" executive risk driven only by unconfirmed
+src/webpent/agents/executive_summary/agent.py:116:        "Unconfirmed — zero tool confirmations".
+src/webpent/agents/executive_summary/agent.py:121:    # V10 P0-4: filter to confirmed findings only for risk scoring.
+src/webpent/agents/executive_summary/agent.py:122:    confirmed_findings = [
+src/webpent/agents/executive_summary/agent.py:126:    if not confirmed_findings:
+src/webpent/agents/executive_summary/agent.py:127:        # Zero tool confirmations — cap at "Low" with explicit label.
+src/webpent/agents/executive_summary/agent.py:128:        return "Unconfirmed — zero tool confirmations"
+src/webpent/agents/executive_summary/agent.py:130:    severities = {str(f.severity).lower() for f in confirmed_findings}
+src/webpent/agents/executive_summary/agent.py:191:    # V10 P0-4: confirmed_count must count Tool-Confirmed findings
+src/webpent/agents/executive_summary/agent.py:196:    confirmed_count = sum(
+src/webpent/agents/executive_summary/agent.py:207:        confirmed_count=confirmed_count,
+src/webpent/agents/executive_summary/agent.py:233:    # V10 P0-4: fallback language must respect confirmed_count.
+src/webpent/agents/executive_summary/agent.py:234:    # When confirmed_count == 0, the posture is "unconfirmed" — do
+src/webpent/agents/executive_summary/agent.py:235:    # NOT claim High/Critical exploit risk from unconfirmed rows.
+src/webpent/agents/executive_summary/agent.py:236:    if confirmed_count == 0:
+src/webpent/agents/executive_summary/agent.py:240:            f"tool-confirmed — the overall risk posture is UNCONFIRMED "
+src/webpent/agents/executive_summary/agent.py:244:            f"Remediation should not be prioritised on unconfirmed "
+src/webpent/agents/executive_summary/agent.py:247:            f"is recommended to convert candidates into confirmed "
+src/webpent/agents/executive_summary/agent.py:253:        f"({confirmed_count} tool-confirmed) with an overall risk "
+src/webpent/agents/executive_summary/agent.py:254:        f"score of {risk_score}. The most critical confirmed issues "
+src/webpent/agents/executive_summary/agent.py:258:        f"severity confirmed findings identified in this report. "
+src/webpent/agents/exploit_chainer/agent.py:26:   off an unconfirmed finding compounds uncertainty, it doesn't
+src/webpent/agents/exploit_chainer/agent.py:27:   combine confirmed capabilities). The number of pairs examined and
+src/webpent/agents/exploit_chainer/agent.py:142:    """An SSRF finding chains with ANY other confirmed finding on the same
+src/webpent/agents/exploit_chainer/agent.py:144:    doesn't need a specific partner class, just a same-host confirmed
+src/webpent/agents/exploit_chainer/agent.py:186:    """Deterministically match pairs of confirmed findings against
+src/webpent/agents/exploit_chainer/agent.py:258:    "described. Do not claim the chain is confirmed — it is a proposal "
+src/webpent/agents/exploit_chainer/agent.py:312:    """LangGraph node: propose chained-exploit candidates from confirmed
+src/webpent/agents/exploit_chainer/agent.py:325:    candidate whose confirmation attempt FAILS (execution_sandbox's
+src/webpent/agents/exploit_chainer/agent.py:338:    new — each chain candidate now gets exactly one confirmation
+src/webpent/agents/exploit_chainer/agent.py:364:                            "exploit_chainer: one execution_sandbox confirmation "
+src/webpent/agents/exploit_chainer/agent.py:388:            "Exploit Chainer: downgraded %d unconfirmed candidate(s) from "
+src/webpent/agents/exploit_chainer/agent.py:479:    # and confirmed with a concrete ordering before this fix. Returning
+src/webpent/agents/hypothesis_analyzer/agent.py:88:    never alter the validator's confirmation contract.
+src/webpent/agents/hypothesis_analyzer/agent.py:1092:            rationale="A bounded baseline/probe difference is required before confirmation.",
+src/webpent/agents/hypothesis_analyzer/agent.py:1288:            # detector; confirmation still requires Dalfox/tool evidence.
+src/webpent/agents/payload_generator/agent.py:63:    "confirmed."
+src/webpent/agents/payload_generator/agent.py:209:      * **evidence quality bonus** (0-3): evidence_bundle present=+2,
+src/webpent/agents/payload_generator/agent.py:213:        present=+2 (downstream of a confirmed exploit).
+src/webpent/agents/payload_generator/agent.py:230:    if finding.evidence_bundle:
+src/webpent/agents/payload_generator/agent.py:741:                "confirmation, not payload-string injection — no "
+src/webpent/agents/payload_generator/agent.py:791:            # NOT skip validation. dalfox-based tool confirmation in
+src/webpent/agents/payload_generator/agent.py:793:            # browser-based (execution_sandbox) confirmation attempt is
+src/webpent/agents/payload_generator/agent.py:814:                    "dalfox tool confirmation in the validator is unaffected.",
+src/webpent/agents/payload_generator/agent.py:823:        f"{tool_native_count} finding(s) use tool-native confirmation "
+src/webpent/agents/payload_optimizer/agent.py:4:LangGraph node that generates WAF-bypass payloads for unconfirmed
+src/webpent/agents/payload_optimizer/agent.py:10:        -> [if unconfirmed & retries < 3] -> payload_optimizer
+src/webpent/agents/payload_optimizer/agent.py:93:    # findings entirely (handled in _is_actionable_and_unconfirmed), but
+src/webpent/agents/payload_optimizer/agent.py:111:    # _is_actionable_and_unconfirmed), but if reached, the prompt asks
+src/webpent/agents/payload_optimizer/agent.py:153:def _is_actionable_and_unconfirmed(finding: Finding) -> bool:
+src/webpent/agents/payload_optimizer/agent.py:158:    # V7 Ready-For-Kali P0 FIX (confirmed via a real production
+src/webpent/agents/payload_optimizer/agent.py:160:    # evidence["tool_infra_failure"]=True when the confirmation TOOL
+src/webpent/agents/payload_optimizer/agent.py:281:        if not _is_actionable_and_unconfirmed(finding):
+src/webpent/agents/payload_optimizer/agent.py:313:        # confirmation. Without this skip, the optimizer wastes an LLM
+src/webpent/agents/post_exploit/agent.py:164:    """Run safe SQLMap enumeration on a confirmed SQLi finding.
+src/webpent/agents/post_exploit/agent.py:281:    """Run safe RCE enumeration on a confirmed RCE finding.
+src/webpent/agents/rabbit_hole/agent.py:17:is confirmed, since that's realistically where a ``backup.zip`` or
+src/webpent/agents/rabbit_hole/agent.py:19:``exploit_chainer``'s "look at what's already confirmed and ask if
+src/webpent/agents/recon/agent.py:386:        # Recon nuclei hits are NOT tool-confirmed — they are
+src/webpent/agents/recon/agent.py:391:        # excludes from confirmed_count. Setting it explicitly here
+src/webpent/agents/recon/agent.py:393:        # not a tool_confirmed finding.
+src/webpent/agents/reflection/agent.py:367:    # Persist confirmed-finding patterns as cross-engagement intelligence
+src/webpent/agents/reflection/agent.py:374:    confirmed_findings = [
+src/webpent/agents/reflection/agent.py:377:    for cf in confirmed_findings:
+src/webpent/agents/reflection/agent.py:379:            # Build a sanitized, non-sensitive lesson from the confirmed finding.
+src/webpent/agents/reflection/agent.py:401:                f"Pattern memory: confirmed {vc} ({sev}) at route shape '{path}' "
+src/webpent/agents/reflection/agent.py:412:                "FEAT-1: persisted confirmed-finding pattern: %s",
+src/webpent/agents/reflection/agent.py:416:            logger.debug("FEAT-1: confirmed-finding harvest failed: %s", exc)
+src/webpent/agents/reporter/agent.py:22:from webpent.config.settings import get_settings, profile_requires_proof_bundle
+src/webpent/agents/reporter/agent.py:52:        getattr(settings, "smart_require_proof_bundle", False)
+src/webpent/agents/reporter/agent.py:53:        or governance.get("require_proof_bundle", False)
+src/webpent/agents/reporter/agent.py:54:        or profile_requires_proof_bundle(profile)
+src/webpent/agents/reporter/agent.py:128:def _findings_with_proof_bundles(
+src/webpent/agents/reporter/agent.py:130:    proof_bundles: Iterable[Any] | None,
+src/webpent/agents/reporter/agent.py:134:    for raw_bundle in proof_bundles or ():
+src/webpent/agents/reporter/agent.py:155:        view["proof_bundle"] = bundle
+src/webpent/agents/reporter/agent.py:325:    tool_confirmed = sum(
+src/webpent/agents/reporter/agent.py:338:        "confirmed_count": tool_confirmed,
+src/webpent/agents/reporter/agent.py:389:            confirmed_count=stats["confirmed_count"],
+src/webpent/agents/reporter/agent.py:447:    # categorical confirmation semantics.
+src/webpent/agents/reporter/agent.py:500:    report_findings = _findings_with_proof_bundles(
+src/webpent/agents/reporter/agent.py:502:        state.get("proof_bundles") or [],
+src/webpent/agents/reporter/agent.py:506:        require_proof_bundle=proof_required,
+src/webpent/agents/reporter/agent.py:682:            require_proof_bundle=proof_required,
+src/webpent/agents/reporter/agent.py:776:    report_findings = _findings_with_proof_bundles(
+src/webpent/agents/reporter/agent.py:778:        state.get("proof_bundles") or [],
+src/webpent/agents/reporter/agent.py:782:        require_proof_bundle=proof_required,
+src/webpent/agents/request_smuggling/agent.py:141:    confirmed.
+src/webpent/agents/request_smuggling/agent.py:143:    Returns ``confirmed``, ``parser_rejected``, or ``inconclusive``. The
+src/webpent/agents/request_smuggling/agent.py:144:    legacy bool wrapper below promotes only ``confirmed``.
+src/webpent/agents/request_smuggling/agent.py:216:    confirmed = (
+src/webpent/agents/request_smuggling/agent.py:222:    if confirmed:
+src/webpent/agents/request_smuggling/agent.py:223:        return "confirmed"
+src/webpent/agents/request_smuggling/agent.py:233:    return _probe_cl_te_outcome(host, port, use_tls, cookies=cookies) == "confirmed"
+src/webpent/agents/request_smuggling/agent.py:245:    Returns ``confirmed``, ``parser_rejected``, or ``inconclusive``.
+src/webpent/agents/request_smuggling/agent.py:294:            return "confirmed"
+src/webpent/agents/request_smuggling/agent.py:311:    return _probe_te_cl_outcome(host, port, use_tls, cookies=cookies) == "confirmed"
+src/webpent/agents/request_smuggling/agent.py:410:        if cl_te_outcome == "confirmed":
+src/webpent/agents/request_smuggling/agent.py:441:                        "causal_signal": True,
+src/webpent/agents/request_smuggling/agent.py:442:                        "negative_control_complete": False,
+src/webpent/agents/request_smuggling/agent.py:443:                        "proof_bundle": None,
+src/webpent/agents/request_smuggling/agent.py:444:                        "promotion_guard": "blocked_missing_negative_control_and_proof_bundle",
+src/webpent/agents/request_smuggling/agent.py:476:        if te_cl_outcome == "confirmed":
+src/webpent/agents/request_smuggling/agent.py:498:                        "causal_signal": True,
+src/webpent/agents/request_smuggling/agent.py:499:                        "negative_control_complete": False,
+src/webpent/agents/request_smuggling/agent.py:500:                        "proof_bundle": None,
+src/webpent/agents/request_smuggling/agent.py:501:                        "promotion_guard": "blocked_missing_negative_control_and_proof_bundle",
+src/webpent/agents/smart_campaigns/agent.py:60:from webpent.validators.proof_validator import validate_proof_bundle
+src/webpent/agents/smart_campaigns/agent.py:439:        negative_control=str(
+src/webpent/agents/smart_campaigns/agent.py:440:            (contract.get("negative_control") or ["required"])[0]
+src/webpent/agents/smart_campaigns/agent.py:441:            if isinstance(contract.get("negative_control"), (list, tuple))
+src/webpent/agents/smart_campaigns/agent.py:442:            else contract.get("negative_control", "required")
+src/webpent/agents/smart_campaigns/agent.py:620:    negative_control_payload = record.get("negative_control_payload")
+src/webpent/agents/smart_campaigns/agent.py:621:    if negative_control_payload is not None:
+src/webpent/agents/smart_campaigns/agent.py:622:        negative_control_payload = redact_sensitive(negative_control_payload)[0]
+src/webpent/agents/smart_campaigns/agent.py:634:        negative_control=(
+src/webpent/agents/smart_campaigns/agent.py:657:            "negative_control_payload": negative_control_payload,
+src/webpent/agents/smart_campaigns/agent.py:693:    proof_sealed = outcome.get("proof_bundle_sealed") is True
+src/webpent/agents/smart_campaigns/agent.py:695:        if outcome.get("negative_control_present") is not True and not proof_sealed:
+src/webpent/agents/smart_campaigns/agent.py:1046:    """Require independent causal and sealed proof before confirmation."""
+src/webpent/agents/smart_campaigns/agent.py:1048:    proof_bundle = state.get("proof_bundle")
+src/webpent/agents/smart_campaigns/agent.py:1049:    return validate_causal_observation(causal_observation) and validate_proof_bundle(
+src/webpent/agents/smart_campaigns/agent.py:1050:        proof_bundle,
+src/webpent/agents/smart_campaigns/agent.py:1051:        require_negative_control=True,
+src/webpent/agents/smart_campaigns/agent.py:1097:        "tool_confirmed"
+src/webpent/agents/smart_campaigns/agent.py:1099:        else "blocked_missing_causal_signal_or_negative_control"
+src/webpent/agents/smart_campaigns/agent.py:1135:                                "causal_signal": bool(
+src/webpent/agents/smart_campaigns/agent.py:1137:                                    and state["causal_observation"].get("causal_signal") is True
+src/webpent/agents/smart_campaigns/agent.py:1139:                                "negative_control_complete": bool(
+src/webpent/agents/smart_campaigns/agent.py:1142:                                        "negative_control_complete"
+src/webpent/agents/smart_campaigns/agent.py:1146:                                "proof_bundle_valid": validate_proof_bundle(
+src/webpent/agents/smart_campaigns/agent.py:1147:                                    state.get("proof_bundle"),
+src/webpent/agents/smart_campaigns/agent.py:1148:                                    require_negative_control=True,
+src/webpent/agents/smart_campaigns/agent.py:1152:                        "evidence_bundle": {
+src/webpent/agents/smart_campaigns/agent.py:1189:                "causal_signal": False,
+src/webpent/agents/smart_campaigns/agent.py:1190:                "negative_control_complete": False,
+src/webpent/agents/smart_campaigns/agent.py:1191:                "proof_bundle_valid": False,
+src/webpent/agents/smart_campaigns/agent.py:1214:        negative_control="required",
+src/webpent/agents/smart_campaigns/agent.py:1341:        negative_control = task.metadata.get("negative_control_payload")
+src/webpent/agents/smart_campaigns/agent.py:1349:            if negative_control is not None:
+src/webpent/agents/smart_campaigns/agent.py:1350:                result["negative_control"] = redact_sensitive(negative_control)[0]
+src/webpent/agents/smart_campaigns/agent.py:1604:    proof_bundles = [
+src/webpent/agents/smart_campaigns/agent.py:1605:        dict(item["proof_bundle"])
+src/webpent/agents/smart_campaigns/agent.py:1608:        and isinstance(item.get("proof_bundle"), Mapping)
+src/webpent/agents/smart_campaigns/agent.py:1609:        and item.get("proof_bundle_sealed") is True
+src/webpent/agents/smart_campaigns/agent.py:1625:        "proof_bundles": proof_bundles,
+src/webpent/agents/strategist/agent.py:437:        # confirmation: the hypothesis must already have a deterministic
+src/webpent/agents/subdomain_takeover/agent.py:121:    """Return confirmed findings, observations, and coverage gaps."""
+src/webpent/agents/subdomain_takeover/agent.py:165:                        "This is a read-only confirmation candidate; ownership must be "
+src/webpent/agents/subdomain_takeover/agent.py:176:                    evidence_bundle={
+src/webpent/agents/subdomain_takeover/agent.py:183:                        "causal_signal": False,
+src/webpent/agents/subdomain_takeover/agent.py:184:                        "negative_control_complete": False,
+src/webpent/agents/subdomain_takeover/agent.py:185:                        "promotion_guard": "blocked_missing_negative_control_and_ownership_proof",
+src/webpent/agents/team.py:51:        required_inputs=("hypothesis", "proof_bundle"),
+src/webpent/agents/team.py:52:        emitted_artifacts=("validation_result", "proof_bundle"),
+src/webpent/agents/team.py:58:        required_inputs=("validation_result", "negative_control"),
+src/webpent/agents/validator/active_checks.py:224:def _confirmed(
+src/webpent/agents/validator/active_checks.py:234:        bool(merged_evidence.get("causal_signal"))
+src/webpent/agents/validator/active_checks.py:235:        and bool(merged_evidence.get("negative_control_complete"))
+src/webpent/agents/validator/active_checks.py:239:            "reason": "causal_signal_and_negative_control_required",
+src/webpent/agents/validator/active_checks.py:259:        negative_control=baseline if isinstance(baseline, dict) else None,
+src/webpent/agents/validator/active_checks.py:260:        causal_signal=bool(merged_evidence.get("causal_signal")),
+src/webpent/agents/validator/active_checks.py:261:        negative_control_complete=bool(merged_evidence.get("negative_control_complete")),
+src/webpent/agents/validator/active_checks.py:276:    if not verification.passed or verification.proof_bundle is None:
+src/webpent/agents/validator/active_checks.py:294:            "evidence_bundle": {
+src/webpent/agents/validator/active_checks.py:329:    ) and "not confirmation" not in reasoning.lower():
+
+## SECURITY GUARDS
+src/webpent/shared/action_authority.py:44:    engagement_id: str
+src/webpent/shared/action_authority.py:80:    """Deterministic, fail-closed policy authority for one engagement."""
+src/webpent/shared/action_authority.py:138:            "engagement_id": request.engagement_id[:128],
+src/webpent/shared/action_authority.py:161:        if not request.task_id or not request.engagement_id:
+src/webpent/shared/action_authority.py:164:            reasons.append("policy:action_family_not_allowlisted")
+src/webpent/shared/action_authority.py:166:            reasons.append("scope:target_origin_mismatch")
+src/webpent/shared/action_authority.py:233:                engagement_id=request.engagement_id,
+src/webpent/shared/action_authority.py:261:                    request.engagement_id, request.idempotency_key, status="failed"
+src/webpent/shared/action_authority.py:273:                request.engagement_id, request.idempotency_key, status="executed"
+src/webpent/shared/action_ledger.py:3:The ledger is intentionally transport-agnostic.  It records only redacted action
+src/webpent/shared/action_ledger.py:48:                    engagement_id TEXT NOT NULL,
+src/webpent/shared/action_ledger.py:62:                    PRIMARY KEY (engagement_id, idempotency_key)
+src/webpent/shared/action_ledger.py:69:                ON action_ledger (engagement_id, status)
+src/webpent/shared/action_ledger.py:81:        engagement_id: str,
+src/webpent/shared/action_ledger.py:98:        if not engagement_id.strip():
+src/webpent/shared/action_ledger.py:110:                WHERE engagement_id = ? AND idempotency_key = ?
+src/webpent/shared/action_ledger.py:112:                (engagement_id, key),
+src/webpent/shared/action_ledger.py:119:                    WHERE engagement_id = ? AND status IN ('reserved', 'executed')
+src/webpent/shared/action_ledger.py:121:                    (engagement_id,),
+src/webpent/shared/action_ledger.py:135:                WHERE engagement_id = ? AND status IN ('reserved', 'executed')
+src/webpent/shared/action_ledger.py:137:                (engagement_id,),
+src/webpent/shared/action_ledger.py:155:                    idempotency_key, engagement_id, task_id, target_origin, method,
+src/webpent/shared/action_ledger.py:162:                    engagement_id[:128],
+src/webpent/shared/action_ledger.py:186:        engagement_id: str,
+src/webpent/shared/action_ledger.py:201:                    WHERE engagement_id = ? AND idempotency_key = ? AND status = 'reserved'
+src/webpent/shared/action_ledger.py:207:                        engagement_id,
+src/webpent/shared/action_ledger.py:215:    def snapshot(self, engagement_id: str) -> dict[str, Any]:
+src/webpent/shared/action_ledger.py:216:        """Return redacted usage counters for operator diagnostics."""
+src/webpent/shared/action_ledger.py:223:                    WHERE engagement_id = ? AND status IN ('reserved', 'executed')
+src/webpent/shared/action_ledger.py:225:                    (engagement_id,),
+src/webpent/shared/action_ledger.py:228:                "engagement_id": engagement_id[:128],
+src/webpent/shared/action_ledger.py:234:                "engagement_id": engagement_id[:128],
+src/webpent/shared/adaptive_hunt.py:5:HITL, scope enforcement, evidence capture, and reporting contracts are
+src/webpent/shared/adaptive_hunt.py:116:    sensitive_markers = ("token", "secret", "password", "cookie", "authorization", "bearer")
+src/webpent/shared/adaptive_hunt.py:235:    relationships.  Unknown or malformed records are ignored fail-closed.
+src/webpent/shared/adaptive_hunt.py:521:    """Read the additive feature flag fail-closed."""
+src/webpent/shared/application_intent.py:67:    """Ask one bounded question when an LLM is available; fail closed."""
+src/webpent/shared/application_intent.py:82:            "Infer the application's defensive business purpose for a scoped "
+src/webpent/shared/application_intent.py:132:    """Return a redacted, bounded intent projection for downstream agents."""
+src/webpent/shared/application_intent_graph.py:20:from webpent.models.evidence import canonical_json, redact_sensitive
+src/webpent/shared/application_intent_graph.py:22:_ROLE_KEYS = ("role", "actor_role", "user_role", "required_role", "authorization_scope")
+src/webpent/shared/application_intent_graph.py:23:_SECRET_KEY = re.compile(r"(?i)(token|secret|password|passwd|api[_-]?key|cookie|authorization|jwt)")
+src/webpent/shared/application_intent_graph.py:31:    clean, _ = redact_sensitive(str(value or ""))
+src/webpent/shared/application_intent_graph.py:41:    """Return bounded, redacted provenance labels for an inference."""
+src/webpent/shared/application_intent_graph.py:122:    if key == "authorization_scope":
+src/webpent/shared/application_intent_graph.py:123:        return "scoped_actor"
+src/webpent/shared/attack_graph.py:35:    "secret",
+src/webpent/shared/attack_graph.py:102:            or any(marker in key for marker in ("token", "secret", "password"))
+src/webpent/shared/attack_graph.py:195:            metadata={"redacted": True},
+src/webpent/shared/attack_graph.py:421:    engagement_id = str(target_knowledge.get("engagement_id") or "unscoped").strip()
+src/webpent/shared/attack_graph.py:422:    if not engagement_id:
+src/webpent/shared/attack_graph.py:423:        engagement_id = "unscoped"
+src/webpent/shared/attack_graph.py:424:    prefix = f"knowledge:{_stable_ref(engagement_id, prefix='engagement')}"
+src/webpent/shared/attack_graph.py:562:    """Project current state into a deterministic, redacted Attack Graph."""
+src/webpent/shared/authorization_matrix.py:27:    "secret",
+src/webpent/shared/authorization_matrix.py:38:    """Keep endpoint identity while removing secret-shaped query values."""
+src/webpent/shared/authorization_matrix.py:101:    ``observations`` must already have redacted response data. Invalid rows are
+src/webpent/shared/authorization_matrix.py:140:            redacted=True,
+src/webpent/shared/authorization_matrix.py:200:                        redacted=True,
+src/webpent/shared/autonomous_controller.py:64:        """Hash only redaction-safe state relevant to research convergence."""
+src/webpent/shared/autonomous_controller.py:176:                    "engagement_id": task.engagement_id,
+src/webpent/shared/autonomous_controller.py:258:                            or working.get("engagement_id")
+src/webpent/shared/autonomous_controller.py:270:                        "redacted_evidence_refs": [],
+src/webpent/shared/autonomous_controller.py:286:                            or working.get("engagement_id")
+src/webpent/shared/autonomous_controller.py:300:                        "redacted_evidence_refs": [],
+src/webpent/shared/autonomous_controller.py:317:                            or working.get("engagement_id")
+src/webpent/shared/autonomous_controller.py:332:                        "redacted_evidence_refs": [],
+src/webpent/shared/autonomous_controller.py:357:                        or working.get("engagement_id")
+src/webpent/shared/autonomous_controller.py:373:                    "redacted_evidence_refs": list(record.get("evidence_refs", ()))[:20]
+src/webpent/shared/autonomous_controller.py:403:                                "engagement_id": failed_task.engagement_id,
+src/webpent/shared/autonomous_controller.py:526:                scope_policy=G02_HTTP_SCOPE_POLICY,
+src/webpent/shared/autopentestx_adapter.py:85:    # approximation before the canonical adapter performs its own redaction.
+src/webpent/shared/autopentestx_adapter.py:145:def _invalid_result(target: str, error: str, scope_decision: ScopeDecision) -> AdapterResult:
+src/webpent/shared/autopentestx_adapter.py:157:        scope_decision=scope_decision,
+src/webpent/shared/autopentestx_adapter.py:166:    scope_decision: ScopeDecision = "not_checked",
+src/webpent/shared/autopentestx_adapter.py:196:            scope_decision=scope_decision,
+src/webpent/shared/autopentestx_adapter.py:200:        return _invalid_result(str(target)[:2048] or "invalid-target", str(exc), scope_decision)
+src/webpent/shared/autopentestx_adapter.py:215:    caller supplies an already-captured payload; the authority still owns scope,
+src/webpent/shared/autopentestx_adapter.py:217:    copied into redacted execution metadata as the immutable action reference.
+src/webpent/shared/autopentestx_adapter.py:226:            scope_decision="allowed",
+src/webpent/shared/autopentestx_adapter.py:233:            "engagement_id": bound_request.engagement_id[:128],
+src/webpent/shared/autopentestx_adapter.py:305:        "fail_closed": True,
+src/webpent/shared/bac_identity_tester.py:25:    r"x-auth-token|.*secret.*|.*password.*|.*token.*)$",
+src/webpent/shared/bac_identity_tester.py:252:            # The ID is deterministic for the same pair of redacted response
+src/webpent/shared/campaign_executor.py:5:contracts, coverage records, and decision traces are redaction-safe metadata;
+src/webpent/shared/campaign_executor.py:18:from webpent.models.evidence import canonical_json, redact_sensitive
+src/webpent/shared/campaign_executor.py:44:    engagement_id: str
+src/webpent/shared/campaign_executor.py:77:            "engagement_id": self.engagement_id,
+src/webpent/shared/campaign_executor.py:88:        clean, _ = redact_sensitive(
+src/webpent/shared/campaign_executor.py:91:                "engagement_id": self.engagement_id,
+src/webpent/shared/campaign_executor.py:251:            "engagement_id": task.engagement_id,
+src/webpent/shared/campaign_executor.py:265:            engagement_id=task.engagement_id,
+src/webpent/shared/campaign_executor.py:363:            "engagement_id": task.engagement_id,
+src/webpent/shared/campaign_executor.py:398:                    engagement_id=task.engagement_id,
+src/webpent/shared/campaign_planner.py:17:from webpent.models.evidence import redact_sensitive
+src/webpent/shared/campaign_planner.py:26:        "preconditions": ["header injection point is in scope", "baseline response captured"],
+src/webpent/shared/campaign_planner.py:46:        "preconditions": ["token-bearing path or download route", "scope allows read-only replay"],
+src/webpent/shared/campaign_planner.py:125:        "payload_strategy": ["scope-approved canary URL only"],
+src/webpent/shared/campaign_planner.py:146:        "oracle": ["sanitized vs unsanitized DOM evidence"],
+src/webpent/shared/campaign_planner.py:162:        "preconditions": ["in-scope snapshot/service surface observed", "read-only approval"],
+src/webpent/shared/campaign_planner.py:184:        "actions": ["trigger bounded harmless error", "compare redacted response"],
+src/webpent/shared/campaign_planner.py:202:        "preconditions": ["in-scope Elasticsearch service fingerprint observed"],
+src/webpent/shared/campaign_planner.py:235:    "preconditions": ["matching discovered surface is in scope", "baseline response captured"],
+src/webpent/shared/campaign_planner.py:274:    clean, _ = redact_sensitive(str(value))
+src/webpent/shared/campaign_planner.py:276:        r"(?i)\b(token|secret|password|api[-_]?key)\s*[:=]\s*[^,\s]+",
+src/webpent/shared/campaign_planner.py:321:    # execution fail-closed for unobserved campaigns while materializing the
+src/webpent/shared/capability_manifest.py:5:change scope. Callers must treat ``blocked`` capabilities as unavailable.
+src/webpent/shared/capability_manifest.py:23:    """Return a redacted availability record for one local executable."""
+src/webpent/shared/capability_manifest.py:50:    """Return non-secret version/hash metadata for a validated executable."""
+src/webpent/shared/capability_manifest.py:84:    """Lazy, redaction-safe registry for runtime capabilities and fallbacks."""
+src/webpent/shared/capability_manifest.py:120:        """Return a typed fail-closed blocker with a deterministic fallback."""
+src/webpent/shared/capability_manifest.py:128:            "fail_closed": True,
+src/webpent/shared/capability_manifest.py:137:            "fail_closed": manifest.get("fail_closed") is True,
+src/webpent/shared/capability_manifest.py:142:    """Build a non-secret capability manifest for the current scan profile."""
+src/webpent/shared/capability_manifest.py:165:            "fail_closed": True,
+src/webpent/shared/capability_manifest.py:184:            "fail_closed": True,
+src/webpent/shared/capability_manifest.py:188:            "available": bool(settings.oob_callback_base_url and settings.oob_callback_secret),
+src/webpent/shared/capability_manifest.py:191:                if settings.oob_callback_base_url and settings.oob_callback_secret
+src/webpent/shared/capability_manifest.py:239:        "fail_closed": True,
+src/webpent/shared/cognitive_components.py:255:        None,  # scope re-check handles out-of-scope hosts; not a forced HITL here
+src/webpent/shared/cognitive_components.py:319:    SCOPE_CHECK_BLOCKED_RELATED = "scope_check_blocked_related"
+src/webpent/shared/cognitive_components.py:413:        caller's Risk Manager check is the actual fail-closed gate).
+src/webpent/shared/cognitive_components.py:480:    OUT_OF_SCOPE_HOST = "out_of_scope_host"
+src/webpent/shared/copilot_boundary.py:7:from webpent.models.evidence import redact_sensitive
+src/webpent/shared/copilot_boundary.py:20:def sanitize_copilot_suggestion(value: Any) -> dict[str, Any] | None:
+src/webpent/shared/copilot_boundary.py:39:        redacted, _ = redact_sensitive(value[key])
+src/webpent/shared/copilot_boundary.py:41:            if not isinstance(redacted, (list, tuple, set)):
+src/webpent/shared/copilot_boundary.py:43:            clean[key] = [str(item)[:200] for item in redacted if str(item).strip()][:20]
+src/webpent/shared/copilot_boundary.py:46:                clean[key] = max(0.0, min(1.0, float(redacted)))
+src/webpent/shared/copilot_boundary.py:50:            clean[key] = str(redacted)[:240]
+src/webpent/shared/copilot_boundary.py:54:__all__ = ["sanitize_copilot_suggestion"]
+src/webpent/shared/coverage_ledger.py:14:from webpent.models.evidence import redact_sensitive
+src/webpent/shared/coverage_ledger.py:30:    clean, _ = redact_sensitive(str(value or ""))
+src/webpent/shared/coverage_ledger.py:51:    if raw in {"blocked_by_precondition", "blocked_by_scope"}:
+src/webpent/shared/coverage_ledger.py:247:            "client_id": _text(research_session.get("client_id")),
+src/webpent/shared/coverage_ledger.py:248:            "engagement_id": _text(research_session.get("engagement_id")),
+src/webpent/shared/disclosed_report_intel.py:6:stable source fingerprints and redacted excerpts.
+src/webpent/shared/disclosed_report_intel.py:33:    "jwt": ("jwt", "json web token", "alg=none", "key confusion", "weak secret"),
+src/webpent/shared/disclosed_report_intel.py:46:    r"(?:api[_ -]?key|secret|token)\s*[=:]\s*\S+)"
+src/webpent/shared/disclosed_report_intel.py:50:def _redact(text: str) -> str:
+src/webpent/shared/disclosed_report_intel.py:99:                "source_label": _redact(source)[:160],
+src/webpent/shared/disclosed_report_intel.py:100:                "title": _redact(title),
+src/webpent/shared/disclosed_report_intel.py:103:                "excerpt": _redact(text),
+src/webpent/shared/engagement_scope.py:1:# src/webpent/shared/engagement_scope.py
+src/webpent/shared/engagement_scope.py:2:"""webpent.shared.engagement_scope
+src/webpent/shared/engagement_scope.py:8:``shared/http.py``'s SSRF guard (httpx transports + Playwright route
+src/webpent/shared/engagement_scope.py:16:"out of scope for being private."
+src/webpent/shared/engagement_scope.py:19:engagement's own declared target". Nothing else may bypass the SSRF
+src/webpent/shared/engagement_scope.py:24:    allowlist — see :func:`set_engagement_target_hosts`.
+src/webpent/shared/engagement_scope.py:28:    ``scope_enforcer`` for newly-discovered hosts. This is what keeps
+src/webpent/shared/engagement_scope.py:29:    WebPent from becoming an open SSRF proxy.
+src/webpent/shared/engagement_scope.py:33:The allowlist is stored in a :class:`contextvars.ContextVar` so it is
+src/webpent/shared/engagement_scope.py:34:scoped to the current thread/async-task tree, not to the whole
+src/webpent/shared/engagement_scope.py:37:``resume_pentest_task``, the Typer CLI) set the allowlist immediately
+src/webpent/shared/engagement_scope.py:45:Callers that spawn raw threads which need the allowlist (there is
+src/webpent/shared/engagement_scope.py:178:def normalize_scope_host(value: str | None) -> str | None:
+src/webpent/shared/engagement_scope.py:191:    # engagement-scope comparisons only; it does not add any host to the
+src/webpent/shared/engagement_scope.py:192:    # allowlist and therefore cannot broaden an unscoped request.
+src/webpent/shared/engagement_scope.py:228:    Origins are explicit scope input, never discovered data.  Credentials,
+src/webpent/shared/engagement_scope.py:230:    than ``max_items`` values are rejected fail-closed.
+src/webpent/shared/engagement_scope.py:272:    here — that would defeat the SSRF blocklist entirely.
+src/webpent/shared/engagement_scope.py:298:        "Engagement target-host allowlist set: %s; origin policies=%s",
+src/webpent/shared/engagement_scope.py:306:    """Reset the engagement target-host allowlist.
+src/webpent/shared/engagement_scope.py:311:    carries one engagement's target allowlist into the next.
+src/webpent/shared/engagement_scope.py:316:    or the reset fails (e.g. wrong context), the allowlist is forced
+src/webpent/shared/engagement_scope.py:317:    back to empty — fail-closed.
+src/webpent/shared/engagement_scope.py:326:            "clear_engagement_target_hosts: token reset failed — forcing allowlist to empty.",
+src/webpent/shared/engagement_scope.py:334:            "clear_engagement_target_hosts: failed to clear allowlist.",
+src/webpent/shared/engagement_scope.py:362:    This is the ONLY thing that lets the SSRF guard connect to a
+src/webpent/shared/engagement_scope.py:368:    ``scope_enforcer``'s job, not this module's.
+src/webpent/shared/evidence_contract.py:5:redacted evidence produced by replay/OOB adapters and never executes a
+src/webpent/shared/evidence_contract.py:6:request itself.  Execution remains behind the existing scope, approval, and
+src/webpent/shared/evidence_contract.py:45:    scope.  Unknown/invalid contracts evaluate to unsatisfied.
+src/webpent/shared/evidence_contract.py:89:    Invalid user/LLM-shaped values fail closed to a contract generated from
+src/webpent/shared/exceptions.py:14:from webpent.shared.redaction import redact_text, redact_value
+src/webpent/shared/exceptions.py:80:        safe_cmd = redact_value(cmd)
+src/webpent/shared/exceptions.py:81:        safe_stdout = redact_text(stdout) if isinstance(stdout, str) else stdout
+src/webpent/shared/exceptions.py:82:        safe_stderr = redact_text(stderr) if isinstance(stderr, str) else stderr
+src/webpent/shared/exceptions.py:87:        safe_message = redact_text(message) if message else None
+src/webpent/shared/finding_aggregation.py:65:def default_engagement_id(target_url: str, client_id: str | None = None) -> str:
+src/webpent/shared/finding_aggregation.py:66:    """Derive a stable, non-secret scope for repeated scans of one target."""
+src/webpent/shared/finding_aggregation.py:67:    scope = f"{_normalise_url(target_url)}|{str(client_id or '').strip()}"
+src/webpent/shared/finding_aggregation.py:68:    return f"target-{sha256(scope.encode('utf-8')).hexdigest()[:24]}"
+src/webpent/shared/grounding.py:36:from webpent.shared.redaction import redact_value
+src/webpent/shared/grounding.py:50:    redacted = str(redact_value(value))
+src/webpent/shared/grounding.py:51:    if len(redacted) <= limit:
+src/webpent/shared/grounding.py:52:        return redacted
+src/webpent/shared/grounding.py:53:    return redacted[:limit] + f"...[truncated at {limit} chars]"
+src/webpent/shared/grounding.py:57:    """Return a JSON-safe, redacted copy of HTTP headers."""
+src/webpent/shared/grounding.py:61:    return dict(redact_value(bounded))
+src/webpent/shared/grounding.py:578:    # V6 Omniscient Audit Fix (P0 — SSRF): use the hardened httpx
+src/webpent/shared/grounding.py:582:    # services, turning WebPent into an SSRF proxy.
+src/webpent/shared/http.py:4:V6 Omniscient Audit Fix (P0 — SSRF via HTTP Redirects)
+src/webpent/shared/http.py:13:SSRF proxy that exfiltrates cloud metadata or probes internal services
+src/webpent/shared/http.py:21:Both return a standard httpx client augmented with TWO layers of SSRF
+src/webpent/shared/http.py:27:    :class:`SSRFRedirectBlockedError` (a subclass of
+src/webpent/shared/http.py:52:         blocked IPs raise :class:`SSRFRedirectBlockedError` before
+src/webpent/shared/http.py:66:V6 Absolute-Flawless P0 FIX (Async SSRF Bypass + DNS TOCTOU Race):
+src/webpent/shared/http.py:93:are preserved and run alongside the SSRF guard. Pre-existing
+src/webpent/shared/http.py:94:``transport`` is honored ONLY if it is also an SSRFPinningTransport
+src/webpent/shared/http.py:109:    :func:`webpent.shared.engagement_scope.is_engagement_target_host`
+src/webpent/shared/http.py:115:    ``shared/engagement_scope.py`` for how the allowlist is populated
+src/webpent/shared/http.py:116:    and scoped (one engagement's target per worker task/CLI run,
+src/webpent/shared/http.py:119:    This replaces the old Dev-Mode ``mock_target_hosts`` allowlist,
+src/webpent/shared/http.py:121:    allowlist was a separate, redundant mechanism that operators had
+src/webpent/shared/http.py:137:from webpent.shared.engagement_scope import (
+src/webpent/shared/http.py:141:    normalize_scope_host,
+src/webpent/shared/http.py:159:def sanitize_cookie_pair(name: str, value: str) -> tuple[str, str]:
+src/webpent/shared/http.py:172:    """Build a sanitized Cookie header value from a dict.
+src/webpent/shared/http.py:182:        safe_k, safe_v = sanitize_cookie_pair(k, v)
+src/webpent/shared/http.py:201:    # V10 AUDIT FIX (H7): missing IPv4 ranges that allow SSRF bypass.
+src/webpent/shared/http.py:209:    # V10 P3-10 FIX: additional missing IPv4 ranges that allow SSRF
+src/webpent/shared/http.py:213:    # routable on some networks and used for SSRF pivots.
+src/webpent/shared/http.py:219:    # V10 AUDIT FIX (H7): missing IPv6 ranges that allow SSRF bypass.
+src/webpent/shared/http.py:233:class SSRFRedirectBlockedError(httpx.RequestError):
+src/webpent/shared/http.py:238:    the SSRF block for free without changing their exception handling.
+src/webpent/shared/http.py:275:        # DNS failure is intentionally fail-closed.  A hostname that cannot
+src/webpent/shared/http.py:280:        logger.warning("SSRF host resolution failed for %s: %s", cleaned, exc)
+src/webpent/shared/http.py:314:            :func:`webpent.shared.engagement_scope.is_engagement_target_host`" —
+src/webpent/shared/http.py:325:        # fail-closed outcome rather than a fallback to httpx's resolver.
+src/webpent/shared/http.py:344:    """``response`` event-hook that blocks SSRF via redirects.
+src/webpent/shared/http.py:349:    :class:`SSRFRedirectBlockedError` if it points at a blocked
+src/webpent/shared/http.py:382:            "OriginPolicy blocked redirect from %s to out-of-scope origin %s.",
+src/webpent/shared/http.py:386:        raise SSRFRedirectBlockedError(
+src/webpent/shared/http.py:393:            "SSRF guard: blocked redirect from %s to internal/reserved "
+src/webpent/shared/http.py:399:        raise SSRFRedirectBlockedError(
+src/webpent/shared/http.py:402:            f"being abused as an SSRF proxy against cloud metadata "
+src/webpent/shared/http.py:411:class SSRFPinningTransport(httpx.BaseTransport):
+src/webpent/shared/http.py:491:            raise SSRFRedirectBlockedError(
+src/webpent/shared/http.py:498:        # webpent.shared.engagement_scope). Any OTHER host — including
+src/webpent/shared/http.py:503:        # host is ALLOWED by the engagement scope, so the operator can
+src/webpent/shared/http.py:504:        # verify the allowlist wiring works end-to-end. Without this
+src/webpent/shared/http.py:506:        # the SSRF guard was silently bypassed — operators had no
+src/webpent/shared/http.py:507:        # positive signal that the engagement-scope allowlist fired.
+src/webpent/shared/http.py:510:                "SSRF transport: ALLOWED private/reserved host %s via "
+src/webpent/shared/http.py:511:                "engagement-scope allowlist (operator-declared target). "
+src/webpent/shared/http.py:520:                "SSRF transport: blocked direct request to "
+src/webpent/shared/http.py:524:            raise SSRFRedirectBlockedError(
+src/webpent/shared/http.py:527:                f"as an SSRF proxy.",
+src/webpent/shared/http.py:554:                    "SSRF transport: refusing to connect to %s — first "
+src/webpent/shared/http.py:560:                raise SSRFRedirectBlockedError(
+src/webpent/shared/http.py:604:                #   A security component MUST fail closed. We raise
+src/webpent/shared/http.py:605:                #   ``SSRFRedirectBlockedError`` (a subclass of
+src/webpent/shared/http.py:613:                    "SSRF transport: failed to reconstruct request for "
+src/webpent/shared/http.py:619:                raise SSRFRedirectBlockedError(
+src/webpent/shared/http.py:638:                "SSRF transport: pinned %s -> %s (Host + SNI preserved)",
+src/webpent/shared/http.py:650:class AsyncSSRFPinningTransport(httpx.AsyncBaseTransport):
+src/webpent/shared/http.py:653:    V6 Absolute-Flawless P0 FIX (Async SSRF Bypass + DNS TOCTOU Race):
+src/webpent/shared/http.py:654:        The async twin of :class:`SSRFPinningTransport`. Used by
+src/webpent/shared/http.py:657:        SSRF guard as the sync paths.
+src/webpent/shared/http.py:668:            :meth:`SSRFPinningTransport.handle_request` for the full
+src/webpent/shared/http.py:682:            raise SSRFRedirectBlockedError(
+src/webpent/shared/http.py:695:                "SSRF async transport: blocked direct request to "
+src/webpent/shared/http.py:699:            raise SSRFRedirectBlockedError(
+src/webpent/shared/http.py:702:                f"as an SSRF proxy.",
+src/webpent/shared/http.py:722:                    "SSRF async transport: refusing to connect to %s — "
+src/webpent/shared/http.py:728:                raise SSRFRedirectBlockedError(
+src/webpent/shared/http.py:763:                #   A security component MUST fail closed. We raise
+src/webpent/shared/http.py:764:                #   ``SSRFRedirectBlockedError`` (a subclass of
+src/webpent/shared/http.py:770:                    "SSRF async transport: failed to reconstruct request "
+src/webpent/shared/http.py:776:                raise SSRFRedirectBlockedError(
+src/webpent/shared/http.py:787:                "SSRF async transport: pinned %s -> %s (Host + SNI preserved)",
+src/webpent/shared/http.py:840:    """Construct a hardened synchronous :class:`httpx.Client` that blocks SSRF.
+src/webpent/shared/http.py:845:    layers of SSRF defence are installed:
+src/webpent/shared/http.py:849:         :class:`SSRFRedirectBlockedError` if the redirect target
+src/webpent/shared/http.py:851:      2. A custom :class:`SSRFPinningTransport` resolves every
+src/webpent/shared/http.py:864:        ``event_hooks``, those hooks are preserved and the SSRF
+src/webpent/shared/http.py:867:        :class:`SSRFPinningTransport` so the SSRF check runs first
+src/webpent/shared/http.py:879:    SSRFRedirectBlockedError
+src/webpent/shared/http.py:899:    # first (so they observe the original 3xx), then our SSRF guard.
+src/webpent/shared/http.py:904:    # Wrap any caller-supplied transport in the SSRF-pinning transport
+src/webpent/shared/http.py:906:    # SSRFPinningTransport create its own default HTTPTransport.
+src/webpent/shared/http.py:908:    pinning_transport = SSRFPinningTransport(wrapped=user_transport)
+src/webpent/shared/http.py:918:    """Construct a hardened async :class:`httpx.AsyncClient` that blocks SSRF.
+src/webpent/shared/http.py:920:    V6 Absolute-Flawless P0 FIX (Async SSRF Bypass):
+src/webpent/shared/http.py:923:        to attacker-controllable URLs cannot be abused as an SSRF
+src/webpent/shared/http.py:925:    :class:`AsyncSSRFPinningTransport` are installed, identical to
+src/webpent/shared/http.py:944:    SSRFRedirectBlockedError
+src/webpent/shared/http.py:961:    # Wrap any caller-supplied transport in the async SSRF-pinning
+src/webpent/shared/http.py:964:    pinning_transport = AsyncSSRFPinningTransport(wrapped=user_transport)
+src/webpent/shared/http.py:974:# Playwright SSRF guard (V6 Zero-Day Patched P0-1 / V6 The-Final-Seal P0,
+src/webpent/shared/http.py:1098:        :func:`webpent.shared.engagement_scope.set_engagement_target_hosts`,
+src/webpent/shared/http.py:1103:        :func:`webpent.shared.engagement_scope.get_engagement_target_hosts`
+src/webpent/shared/http.py:1104:        (the ambient engagement-scope allowlist), read ONCE here in
+src/webpent/shared/http.py:1114:    V6 Zero-Day Patched P0-1 FIX (CISO audit — Playwright SSRF Bypass):
+src/webpent/shared/http.py:1115:        While ``httpx`` is secured against SSRF via the
+src/webpent/shared/http.py:1116:        :class:`SSRFPinningTransport` and the ``response`` event-hook
+src/webpent/shared/http.py:1122:        browser into an SSRF proxy that exfiltrates cloud metadata or
+src/webpent/shared/http.py:1130:        httpx SSRF guard. If the host resolves to a blocked internal
+src/webpent/shared/http.py:1136:    WebSocket SSRF Bypass; corrected in V6 Ready-For-Kali):
+src/webpent/shared/http.py:1239:            engagement-scope allowlist (see V7 P0 FIX note above).
+src/webpent/shared/http.py:1245:            normalized for item in target_hosts if (normalized := normalize_scope_host(str(item)))
+src/webpent/shared/http.py:1268:                # through; these cannot carry SSRF payloads.
+src/webpent/shared/http.py:1275:                    "Playwright OriginPolicy blocked request to out-of-scope origin %s.",
+src/webpent/shared/http.py:1285:            if _is_blocked_host(host) and normalize_scope_host(host) not in allowed_hosts:
+src/webpent/shared/http.py:1287:                    "Playwright SSRF guard: blocked navigation/fetch to "
+src/webpent/shared/http.py:1296:            # is ALLOWED by the engagement scope, mirroring the httpx
+src/webpent/shared/http.py:1297:            # transport's allow-log. Positive signal that the allowlist
+src/webpent/shared/http.py:1299:            if _is_blocked_host(host) and normalize_scope_host(host) in allowed_hosts:
+src/webpent/shared/http.py:1301:                    "Playwright SSRF guard: ALLOWED private/reserved host "
+src/webpent/shared/http.py:1302:                    "%s via engagement-scope allowlist (url=%s).",
+src/webpent/shared/http.py:1313:            # "fail-closed" comment. A request that crashed the handler
+src/webpent/shared/http.py:1318:            # fail-closed behavior).
+src/webpent/shared/http.py:1320:                "Playwright SSRF guard: error inspecting request %s "
+src/webpent/shared/http.py:1321:                "(%s) — aborting as accessdenied (fail-closed).",
+src/webpent/shared/http.py:1331:                    "Playwright SSRF guard: route.abort ALSO failed "
+src/webpent/shared/http.py:1332:                    "for %s (%s) — DROPPING request (fail-closed, "
+src/webpent/shared/http.py:1355:        WebSocket SSRF bypass identified in an earlier round was never
+src/webpent/shared/http.py:1378:                    "Playwright OriginPolicy blocked WebSocket to out-of-scope origin %s.",
+src/webpent/shared/http.py:1383:            if _is_blocked_host(host) and normalize_scope_host(host) not in allowed_hosts:
+src/webpent/shared/http.py:1385:                    "Playwright SSRF guard: blocked WebSocket to "
+src/webpent/shared/http.py:1397:                "Playwright SSRF guard: error inspecting WebSocket %s "
+src/webpent/shared/http.py:1398:                "(%s) — closing as policy-violation (fail-closed).",
+src/webpent/shared/http.py:1416:            "Failed to install Playwright HTTP SSRF route guard: %s — "
+src/webpent/shared/http.py:1420:        raise RuntimeError("Playwright HTTP SSRF guard installation failed") from exc
+src/webpent/shared/http.py:1435:                    "Failed to roll back Playwright HTTP SSRF guard after "
+src/webpent/shared/http.py:1440:            "Failed to install Playwright WebSocket SSRF route guard: %s — "
+src/webpent/shared/http.py:1444:        raise RuntimeError("Playwright WebSocket SSRF guard installation failed") from exc
+src/webpent/shared/http_discovery.py:21:# Route seeds must be target-scoped. The previous global list contained
+src/webpent/shared/http_discovery.py:218:# route-oriented guard, not a target-specific allowlist: it protects arbitrary

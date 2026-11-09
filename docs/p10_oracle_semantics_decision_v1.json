@@ -1,0 +1,68 @@
+{
+  "schema_version": "p10.oracle_semantics_decision.v1",
+  "reviewer_id": "independent-reviewer:grok-p10-oracle",
+  "reviewed_at_utc": "2026-08-25T23:15:00+00:00",
+  "packet_status": "oracle_decisions_recorded_not_p10_or_vip_approval",
+  "results_seen_by_reviewer": false,
+  "target_scope": "http://127.0.0.1:3000",
+  "reviewed_input_hashes": {
+    "oracle_contract": "sha256:d16e139eebcbe7e88f62058e22aa4ffa31ed96a5af8c5187cc29937304902dee",
+    "ground_truth_before_update": "sha256:c0b247da1c4aeecbdaa0785621fca9066f51df0178ec92379844e82b9dc3ff07",
+    "semantic_observations": "sha256:c42d0c5d995e03b6e043912bd535653c5394325edf24f1e9186ddd96abcf3fb6",
+    "semantic_proof_runner": "sha256:4f857ca74f0caf3528cbafa93af86580950ccf3f795ee4d01495d07410e286d2",
+    "full_runner": "sha256:afed23ead2359abed92f1f0a6a615f7f8fa1e18686de81e9909cd0541a98ab3b"
+  },
+  "common_requirements": {
+    "candidate_baseline_negative_control_target_backed": "accept",
+    "candidate_only_semantic_match": "accept",
+    "candidate_differs_from_baseline_and_negative_control": "accept",
+    "no_status_only_or_route_only_promotion": "accept",
+    "no_raw_data_retention": "accept",
+    "central_verifier_seal_and_replay": "accept",
+    "false_positive_controls": "accept_with_residual_notes"
+  },
+  "case_decisions": {
+    "juice.exposed_metrics.v1": {
+      "oracle_decision": "accept",
+      "accepted_as_official_gt_oracle": true,
+      "accepted_predicate_scope": "prometheus_publication_shape_redacted",
+      "residual_condition": "metric names, labels, and values must never enter artifacts; predicate must fail on HTML 200 and empty plain text"
+    },
+    "juice.error_handling.v1": {
+      "oracle_decision": "accept",
+      "accepted_as_official_gt_oracle": true,
+      "accepted_predicate_scope": "5xx_plus_verbose_stack_shape_redacted",
+      "residual_condition": "generic 5xx without stack shape is not a match; file paths and exception text must not be persisted"
+    },
+    "juice.local_xss.v1": {
+      "oracle_decision": "accept",
+      "accepted_as_official_gt_oracle": true,
+      "accepted_predicate_scope": "typed_search_dialog_response_differential",
+      "residual_condition": "workflow remains pinned to juice-shop-mat-search; probes remain ephemeral; no account flows"
+    }
+  },
+  "binding_non_approvals": [
+    "juice.directory_listing.v1",
+    "juice.forgotten_backup.v1",
+    "juice.access_log_disclosure.v1",
+    "juice.misplaced_signature_file.v1",
+    "juice.security_policy.v1",
+    "juice.well_known_security_policy.v1",
+    "juice.public_scoreboard_route.v1",
+    "juice.privacy_policy_proof.v1"
+  ],
+  "rejected_predicate_scope": [
+    "status_only",
+    "route_existence_only",
+    "directory_shape_alone",
+    "policy_file_existence",
+    "scoreboard_public_route_alone",
+    "privacy_page_content",
+    "generic_log_line_shape_alone",
+    "generic_signature_field_shape_alone"
+  ],
+  "approval_decision": "oracle_predicates_accepted_for_three_cases_only",
+  "full_p10_qualification_approved": false,
+  "vip_qualification_approved": false,
+  "reason": "The three implemented predicates match Juice Shop challenge semantics under redacted, baseline/negative-control, centrally verified proof rules. The other eight approved mappings remain observation or blocked without class-specific oracles. P10 still requires a documented scoring policy, three isolated runs, and full approved-set gates; P9 remains independent."
+}

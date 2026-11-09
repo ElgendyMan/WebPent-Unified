@@ -1,0 +1,186 @@
+{
+  "rule": "runtime-generated run residue = purged; deliberately authored evidence artifacts referenced by the evidence report = kept and enumerated in evidence_allowlist (Dispatch #005 rider R2). Validation-runtime and hunt_artifacts files are engagement-run outputs of pre-R3 validation hunts (RED-1 P-5.2), not referenced by EVIDENCE_REPORT v7 or the R3 dossiers; memory/global is derived state rebuilt per run (v5 .gitignore comment).",
+  "evidence_allowlist": [
+    ".env.example is exempt from C4 by design (deliberately shipped template, contract-pinned by tests/test_campaign_pack_contract.py)",
+    "deliverables/m2a_evidence/p7/p7_hunt_stderr.log",
+    "deliverables/m2a_evidence/p7/p7_repro.log",
+    "deliverables/m2a_evidence/p7/p7_scan_full_stderr.log",
+    "deliverables/m2a_evidence/p7/p7_scan_full_stdout.log",
+    "deliverables/m2a_evidence/p7/p7_scan_skiprecon_stderr.log",
+    "deliverables/m2a_evidence/p7/p7_scan_skiprecon_stdout.log",
+    "deliverables/m2a_evidence/p7/p7_scan_stderr.log",
+    "deliverables/m2a_evidence/p7/p7_scan_stdout.log",
+    ".env.llm.example",
+    ".env.minimal.example",
+    "download/econ/portfolio_transitions.jsonl",
+    "docs/reviews/round3_poc/run.log",
+    "docs/l7_gate_logs/gate_run_20261025T030834Z.log",
+    "docs/l8_gate_logs/gate_run_20261025T142459Z.log",
+    "docs/l8_gate_logs/gate_run_20261025T214601Z.log",
+    "docs/l8_gate_logs/gate_run_20261026T163316Z.log",
+    "docs/l8_gate_logs/gate_run_20261029T025128Z.log",
+    "docs/l9_gate_logs/gate_baseline_adc6a39_20261026T171521Z.log",
+    "docs/l9_gate_logs/gate_run_20261029T183832Z.log",
+    "docs/l10_gate_logs/gate_baseline_20261030T042041Z.log"
+  ],
+  "purge": {
+    "C1_hunt_artifacts": [
+      "hunt_artifacts/eng_poc_integration_test/audit/eng_poc_integration_test.audit.jsonl"
+    ],
+    "C6_jsonl_log": [
+      "validation-runtime/baseline_after_changes.txt",
+      "validation-runtime/crapi_hunt/HONEST_REPORT.md",
+      "validation-runtime/crapi_hunt/audit/ultimate-crapi-id-binding-20261004.audit.jsonl",
+      "validation-runtime/crapi_hunt/audit_verification.json",
+      "validation-runtime/crapi_hunt/audit_workspace/ultimate-crapi-id-binding-20261004.workspace.json",
+      "validation-runtime/crapi_hunt/campaign_summary.json",
+      "validation-runtime/crapi_hunt/chain_report.md",
+      "validation-runtime/crapi_hunt/chain_summary.json",
+      "validation-runtime/crapi_hunt/cost_report.json",
+      "validation-runtime/crapi_hunt/dashboard_render.md",
+      "validation-runtime/crapi_hunt/graph_trace.json",
+      "validation-runtime/crapi_hunt/hunt_notes.md",
+      "validation-runtime/crapi_hunt/hunter_state.json",
+      "validation-runtime/crapi_hunt/llm_calls.json",
+      "validation-runtime/crapi_principal_preflight.json",
+      "validation-runtime/crapi_principal_preflight_v2.json",
+      "validation-runtime/crapi_template_guard_runtime.json",
+      "validation-runtime/generic_validator_sprint_target_a.json",
+      "validation-runtime/generic_validators_webgoat/HONEST_REPORT.md",
+      "validation-runtime/generic_validators_webgoat/audit/generic-validators-webgoat-20261004.audit.jsonl",
+      "validation-runtime/generic_validators_webgoat/audit_verification.json",
+      "validation-runtime/generic_validators_webgoat/audit_workspace/generic-validators-webgoat-20261004.workspace.json",
+      "validation-runtime/generic_validators_webgoat/browser_intelligence_projection.json",
+      "validation-runtime/generic_validators_webgoat/campaign_summary.json",
+      "validation-runtime/generic_validators_webgoat/chain_report.md",
+      "validation-runtime/generic_validators_webgoat/chain_summary.json",
+      "validation-runtime/generic_validators_webgoat/cost_report.json",
+      "validation-runtime/generic_validators_webgoat/dashboard_render.md",
+      "validation-runtime/generic_validators_webgoat/graph_trace.json",
+      "validation-runtime/generic_validators_webgoat/hunt_notes.md",
+      "validation-runtime/generic_validators_webgoat/hunter_state.json",
+      "validation-runtime/generic_validators_webgoat/llm_calls.json",
+      "validation-runtime/generic_validators_webgoat_r2/HONEST_REPORT.md",
+      "validation-runtime/generic_validators_webgoat_r2/audit/generic-validators-webgoat-r2.audit.jsonl",
+      "validation-runtime/generic_validators_webgoat_r2/audit_verification.json",
+      "validation-runtime/generic_validators_webgoat_r2/audit_workspace/generic-validators-webgoat-r2.workspace.json",
+      "validation-runtime/generic_validators_webgoat_r2/campaign_summary.json",
+      "validation-runtime/generic_validators_webgoat_r2/chain_report.md",
+      "validation-runtime/generic_validators_webgoat_r2/chain_summary.json",
+      "validation-runtime/generic_validators_webgoat_r2/cost_report.json",
+      "validation-runtime/generic_validators_webgoat_r2/dashboard_render.md",
+      "validation-runtime/generic_validators_webgoat_r2/graph_trace.json",
+      "validation-runtime/generic_validators_webgoat_r2/hunt_notes.md",
+      "validation-runtime/generic_validators_webgoat_r2/hunter_state.json",
+      "validation-runtime/generic_validators_webgoat_r2/llm_calls.json",
+      "validation-runtime/generic_validators_webgoat_r3/HONEST_REPORT.md",
+      "validation-runtime/generic_validators_webgoat_r3/audit/generic-validators-webgoat-r3.audit.jsonl",
+      "validation-runtime/generic_validators_webgoat_r3/audit_verification.json",
+      "validation-runtime/generic_validators_webgoat_r3/audit_workspace/generic-validators-webgoat-r3.workspace.json",
+      "validation-runtime/generic_validators_webgoat_r3/browser_intelligence_projection.json",
+      "validation-runtime/generic_validators_webgoat_r3/campaign_summary.json",
+      "validation-runtime/generic_validators_webgoat_r3/chain_report.md",
+      "validation-runtime/generic_validators_webgoat_r3/chain_summary.json",
+      "validation-runtime/generic_validators_webgoat_r3/cost_report.json",
+      "validation-runtime/generic_validators_webgoat_r3/dashboard_render.md",
+      "validation-runtime/generic_validators_webgoat_r3/graph_trace.json",
+      "validation-runtime/generic_validators_webgoat_r3/hunt_notes.md",
+      "validation-runtime/generic_validators_webgoat_r3/hunter_state.json",
+      "validation-runtime/generic_validators_webgoat_r3/llm_calls.json",
+      "validation-runtime/juice_hunt/HONEST_REPORT.md",
+      "validation-runtime/juice_hunt/audit/ultimate-juice-xss-sqli-20261004.audit.jsonl",
+      "validation-runtime/juice_hunt/audit_verification.json",
+      "validation-runtime/juice_hunt/audit_workspace/ultimate-juice-xss-sqli-20261004.workspace.json",
+      "validation-runtime/juice_hunt/campaign_summary.json",
+      "validation-runtime/juice_hunt/chain_report.md",
+      "validation-runtime/juice_hunt/chain_summary.json",
+      "validation-runtime/juice_hunt/cost_report.json",
+      "validation-runtime/juice_hunt/dashboard_render.md",
+      "validation-runtime/juice_hunt/graph_trace.json",
+      "validation-runtime/juice_hunt/hunt_notes.md",
+      "validation-runtime/juice_hunt/hunter_state.json",
+      "validation-runtime/juice_hunt/llm_calls.json",
+      "validation-runtime/juice_manual_probes.json",
+      "validation-runtime/webgoat_browser_runtime.json",
+      "validation-runtime/webgoat_hunt/HONEST_REPORT.md",
+      "validation-runtime/webgoat_hunt/audit/ultimate-webgoat-browser-forms-20261004-r2.audit.jsonl",
+      "validation-runtime/webgoat_hunt/audit/ultimate-webgoat-browser-forms-20261004-r3.audit.jsonl",
+      "validation-runtime/webgoat_hunt/audit/ultimate-webgoat-browser-forms-20261004-r4.audit.jsonl",
+      "validation-runtime/webgoat_hunt/audit/ultimate-webgoat-browser-forms-20261004.audit.jsonl",
+      "validation-runtime/webgoat_hunt/audit/ultimate-webgoat-hunt-20261004.audit.jsonl",
+      "validation-runtime/webgoat_hunt/audit_verification.json",
+      "validation-runtime/webgoat_hunt/audit_workspace/ultimate-webgoat-browser-forms-20261004-r2.workspace.json",
+      "validation-runtime/webgoat_hunt/audit_workspace/ultimate-webgoat-browser-forms-20261004-r3.workspace.json",
+      "validation-runtime/webgoat_hunt/audit_workspace/ultimate-webgoat-browser-forms-20261004-r4.workspace.json",
+      "validation-runtime/webgoat_hunt/audit_workspace/ultimate-webgoat-browser-forms-20261004.workspace.json",
+      "validation-runtime/webgoat_hunt/audit_workspace/ultimate-webgoat-hunt-20261004.workspace.json",
+      "validation-runtime/webgoat_hunt/browser_intelligence_projection.json",
+      "validation-runtime/webgoat_hunt/campaign_summary.json",
+      "validation-runtime/webgoat_hunt/chain_report.md",
+      "validation-runtime/webgoat_hunt/chain_summary.json",
+      "validation-runtime/webgoat_hunt/cost_report.json",
+      "validation-runtime/webgoat_hunt/dashboard_render.md",
+      "validation-runtime/webgoat_hunt/graph_trace.json",
+      "validation-runtime/webgoat_hunt/hunt_notes.md",
+      "validation-runtime/webgoat_hunt/hunter_state.json",
+      "validation-runtime/webgoat_hunt/llm_calls.json",
+      "validation-runtime/webgoat_seed_crawl.json"
+    ]
+  },
+  "counts": {
+    "C1_hunt_artifacts": 1,
+    "C6_jsonl_log": 97
+  },
+  "audit_jsonl_note": "the 11 runtime audit JSONLs (10 validation-runtime/* + 1 hunt_artifacts/eng_poc_integration_test) are individually enumerated in purge lists above; disposition = purged from v7 (recoverable from R3 git history).",
+  "untracked_runtime_purge_at_build": [
+    "memory/global/chroma_db/chroma.sqlite3 (chromadb runtime recreation \u2014 suite/battery/smoke runs)",
+    "hunt_artifacts/poc_smoke/* (G1 real-browser smoke runtime outputs, 5 files)",
+    "webpent.db / webpent.db.migration.lock (suite runtime DB)",
+    "any output/ or WAL/SHM sidecars if present at build time (none in v6 baseline)"
+  ],
+  "note": " Tracked-file purge list = git-rm set (manifest-delta deletions mapped to rider R2). Untracked runtime recreations are purged by the build flow and are absent from the v6 manifest by definition.",
+  "m2_impl_addendum": [
+    {
+      "date": "2026-10-06",
+      "action": "purge completed",
+      "paths": [
+        "hunt_artifacts/eng_poc_integration_test/audit/eng_poc_integration_test.audit.jsonl"
+      ],
+      "note": "R3 classification ruled this path purge (runtime residue); the v7 ZIP still shipped it \u2014 removed from the v8 tree and index (delivery hygiene, R2-class disposition)"
+    }
+  ],
+  "team_merge_addendum_20261022": [
+    {
+      "date": "2026-10-22",
+      "action": "classify-as-evidence",
+      "paths": [
+        ".env.llm.example"
+      ],
+      "note": "TEAM-MERGE 2026-10-22: this file is a deliberately authored LLM-provider configuration template restored from the Comprehensive(1) donor lineage (C-unique path, referenced by docs/MULTI_PROVIDER_LLM_SPRINT_REPORT.md). It is the multi-provider analogue of .env.example (exempt from C4 by design) and is NOT runtime residue. v15.2 does not ship it, so its hygiene gate was green without this entry; the merged tree needed the allowlist entry to keep the v15.2-lineage resurrect/hygiene tests green without deleting the template."
+    }
+  ],
+  "m2a_reopened_addendum": [
+    {
+      "date": "2026-10-06",
+      "action": "classify-as-evidence",
+      "paths": [
+        "deliverables/m2a_evidence/p7/*.log",
+        "deliverables/m2a_evidence/p7/p7_hunt_campaign_summary_excerpt.json"
+      ],
+      "note": "Dispatch #009-A WP-J evidence: local P7 reproduction logs (exit codes, stdout/stderr, campaign_summary trace excerpt) are DELIVERABLE EVIDENCE for D-J, not run residue \u2014 referenced by deliverables/DJ_P7_ROOT_CAUSE_20261006.md \u00a78 and deliverables/m2a_evidence_index.md"
+    }
+  ],
+  "merge_addendum_20261026": [
+    {
+      "date": "2026-10-26",
+      "action": "classify-as-evidence",
+      "paths": [
+        "download/econ/portfolio_transitions.jsonl",
+        "docs/reviews/round3_poc/run.log"
+      ],
+      "note": "MERGE 2026-10-26: both files ship with the l6 release tree (webpent_l6.zip) as authored evidence - the econ engine's portfolio-transition trace (docs/econ + config/econ report references) and the Round-3 PoC run log referenced by docs/reviews/round3*. They are NOT runtime residue of this merge; the merged tree preserves them and classifies them as evidence per rider R2. See MERGE_20261026.md."
+    }
+  ],
+  "ultimate_plan_addendum_20261027": "ULTIMATE PLAN 2026-10-27, proposal 11: .env.minimal.example added to the C4 evidence allowlist \u2014 it is a deliberately shipped minimal environment template (10 lines) for the quickstart path, the same exempt-by-design class as .env.example / .env.llm.example. Referenced by README (\u0627\u0628\u062f\u0623 \u0641\u064a 3 \u062f\u0642\u0627\u0626\u0642), install.sh, and tests/test_ultimate_plan_delivery.py.",
+  "umdr26_note": "UM-DR-26 (2026-11-06): the eight committed gate-log evidence files under docs/l7..l10_gate_logs recorded per rider R2 (evidence allowlist with report reference) \u2014 they are deliberate documentation artifacts, not run residue; they were committed by earlier windows without extending this allowlist."
+}

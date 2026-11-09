@@ -1,0 +1,190 @@
+{
+  "target_id": "goed-target-05",
+  "port": 8805,
+  "naming_convention": {
+    "route_style": 5,
+    "object_style": 5,
+    "role_set": 5,
+    "tenant_style": 5
+  },
+  "route_prefix": "/app/ENTITY/api",
+  "roles": [
+    "limited",
+    "standard",
+    "power",
+    "executive"
+  ],
+  "tenants": [
+    "account-0000",
+    "account-0001"
+  ],
+  "objects": [
+    "token-cfcd2084",
+    "token-c4ca4238",
+    "token-c81e728d",
+    "token-eccbc87e",
+    "token-a87ff679",
+    "token-e4da3b7f"
+  ],
+  "cases": {
+    "goed-target-05-case-00": {
+      "case_id": "goed-target-05-case-00",
+      "target_id": "goed-target-05",
+      "class": "idor",
+      "route": "/app/objects/token-c4ca4238/api",
+      "baseline_route": "/app/objects/token-cfcd2084/api",
+      "control_route": "/patched/app/objects/token-c4ca4238/api",
+      "actor_role": "standard",
+      "actor_tenant": "account-0000",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-target-05-case-01": {
+      "case_id": "goed-target-05-case-01",
+      "target_id": "goed-target-05",
+      "class": "broken_access_control",
+      "route": "/app/admin/dashboard/api",
+      "baseline_route": "/app/profile/api",
+      "control_route": "/patched/app/admin/dashboard/api",
+      "actor_role": "standard",
+      "actor_tenant": "account-0000",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "low"
+    },
+    "goed-target-05-case-02": {
+      "case_id": "goed-target-05-case-02",
+      "target_id": "goed-target-05",
+      "class": "privilege_escalation",
+      "route": "/app/billing/account-0000/records/api",
+      "baseline_route": "/app/profile/api",
+      "control_route": "/patched/app/billing/account-0000/records/api",
+      "actor_role": "standard",
+      "actor_tenant": "account-0000",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "low"
+    },
+    "goed-target-05-case-03": {
+      "case_id": "goed-target-05-case-03",
+      "target_id": "goed-target-05",
+      "class": "business_logic_abuse",
+      "route": "/app/transfer/token-cfcd2084?to=token-c4ca4238&amount=-100/api",
+      "baseline_route": "/app/transfer/token-cfcd2084?to=token-c4ca4238&amount=10/api",
+      "control_route": "/patched/app/transfer/token-cfcd2084",
+      "actor_role": "standard",
+      "actor_tenant": "account-0000",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-05-case-04": {
+      "case_id": "goed-target-05-case-04",
+      "target_id": "goed-target-05",
+      "class": "tenant_isolation_failure",
+      "route": "/app/tenant/account-0001/internal/api",
+      "baseline_route": "/app/tenant/account-0000/internal/api",
+      "control_route": "/patched/app/tenant/account-0001/internal/api",
+      "actor_role": "standard",
+      "actor_tenant": "account-0000",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-05-case-05": {
+      "case_id": "goed-target-05-case-05",
+      "target_id": "goed-target-05",
+      "class": "workflow_authorization_failure",
+      "route": "/app/workflows/token-c81e728d/approve/api",
+      "baseline_route": "/app/workflows/token-c81e728d/view/api",
+      "control_route": "/patched/app/workflows/token-c81e728d/approve/api",
+      "actor_role": "limited",
+      "actor_tenant": "account-0000",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-05-case-06": {
+      "case_id": "goed-target-05-case-06",
+      "target_id": "goed-target-05",
+      "class": "sensitive_data_exposure",
+      "route": "/app/messages/token-c4ca4238/inbox/api",
+      "baseline_route": "/app/messages/token-cfcd2084/inbox/api",
+      "control_route": "/patched/app/messages/token-c4ca4238/inbox/api",
+      "actor_role": "standard",
+      "actor_tenant": "account-0000",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-target-05-case-07": {
+      "case_id": "goed-target-05-case-07",
+      "target_id": "goed-target-05",
+      "class": "multi_step_chain",
+      "route": "/app/auth/reset/request?for=token-c4ca4238/api",
+      "baseline_route": "/app/auth/reset/request?for=token-cfcd2084/api",
+      "control_route": "/patched/app/auth/reset/request",
+      "actor_role": "standard",
+      "actor_tenant": "account-0000",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-05-case-08": {
+      "case_id": "goed-target-05-case-08",
+      "target_id": "goed-target-05",
+      "class": "multi_step_chain",
+      "route": "/app/auth/reset/request?for=token-c4ca4238/api",
+      "baseline_route": "/app/auth/reset/request?for=token-cfcd2084/api",
+      "control_route": "/patched/app/auth/reset/request",
+      "actor_role": "standard",
+      "actor_tenant": "account-0000",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-05-case-09": {
+      "case_id": "goed-target-05-case-09",
+      "target_id": "goed-target-05",
+      "class": "broken_access_control",
+      "route": "/app/admin/dashboard/api",
+      "baseline_route": "/app/profile/api",
+      "control_route": "/patched/app/admin/dashboard/api",
+      "actor_role": "standard",
+      "actor_tenant": "account-0000",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-target-05-clean-00": {
+      "case_id": "goed-target-05-clean-00",
+      "target_id": "goed-target-05",
+      "class": "clean_public_resource",
+      "route": "/app/public/info-0/api",
+      "baseline_route": "/app/public/info-0/api",
+      "control_route": "/app/public/info-0/api",
+      "actor_role": "standard",
+      "actor_tenant": "account-0000",
+      "expected_verdict": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    },
+    "goed-target-05-clean-01": {
+      "case_id": "goed-target-05-clean-01",
+      "target_id": "goed-target-05",
+      "class": "clean_public_resource",
+      "route": "/app/public/info-1/api",
+      "baseline_route": "/app/public/info-1/api",
+      "control_route": "/app/public/info-1/api",
+      "actor_role": "standard",
+      "actor_tenant": "account-0000",
+      "expected_verdict": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    }
+  },
+  "total_cases": 12,
+  "vulnerable_cases": 10,
+  "clean_cases": 2
+}

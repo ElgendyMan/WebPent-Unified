@@ -1,0 +1,319 @@
+===== check_state_contract =====
+TEAM-1 Phase 5 state-contract report
+declared PentestState keys: 184
+node writers inspected:    53
+[OK] _active_research_runtime_node (src/webpent/graph/builder.py:531) -> 1 literal key(s) + dynamic **expansion
+[OK] _combined_recon_node (src/webpent/graph/builder.py:1338) -> 0 literal key(s)
+[OK] _cqa_v2_reporter_node (src/webpent/graph/builder.py:1279) -> 0 literal key(s)
+[OK] _evidence_for_node (src/webpent/shared/security_reasoners.py:82) -> 0 literal key(s)
+[OK] _infer_usage_node (src/webpent/shared/llm.py:238) -> 0 literal key(s)
+[OK] _node (src/webpent/shared/application_intent_graph.py:127) -> 0 literal key(s)
+[OK] _research_campaign_node (src/webpent/graph/builder.py:1375) -> 7 literal key(s)
+[OK] access_control_node (src/webpent/agents/access_control/agent.py:695) -> 0 literal key(s) + dynamic **expansion
+[OK] active_research_node (src/webpent/shared/research_contracts.py:721) -> 4 literal key(s)
+[OK] add_node (src/webpent/shared/surface_evidence_graph.py:123) -> 0 literal key(s)
+[OK] api_testing_node (src/webpent/agents/api_testing/agent.py:601) -> 6 literal key(s)
+[OK] attack_graph_node (src/webpent/agents/attack_graph/agent.py:29) -> 3 literal key(s)
+[OK] auth_node (src/webpent/agents/authentication/agent.py:778) -> 11 literal key(s) + dynamic **expansion
+[OK] autonomous_controller_node (src/webpent/shared/autonomous_controller.py:741) -> 0 literal key(s)
+[OK] business_impact_node (src/webpent/agents/business_impact/agent.py:148) -> 2 literal key(s)
+[OK] business_logic_fuzzer_node (src/webpent/agents/business_logic_fuzzer/agent.py:470) -> 0 literal key(s) + dynamic **expansion
+[OK] causal_research_node (src/webpent/graph/builder.py:668) -> 1 literal key(s)
+[OK] cloud_storage_node (src/webpent/agents/cloud_storage/agent.py:175) -> 5 literal key(s)
+[OK] crawler_node (src/webpent/agents/crawler/agent.py:360) -> 4 literal key(s) + dynamic **expansion
+[OK] cross_reasoning_node (src/webpent/agents/cross_reasoning/agent.py:159) -> 3 literal key(s)
+[OK] cvss_node (src/webpent/agents/cvss_engine/agent.py:241) -> 2 literal key(s)
+[OK] devils_advocate_node (src/webpent/agents/devils_advocate/agent.py:321) -> 6 literal key(s)
+[OK] disclosed_report_intel_node (src/webpent/agents/disclosed_report_intel/agent.py:54) -> 4 literal key(s)
+[OK] execution_sandbox_node (src/webpent/agents/execution_sandbox/agent.py:771) -> 7 literal key(s) + dynamic **expansion
+[OK] executive_summary_node (src/webpent/agents/executive_summary/agent.py:265) -> 4 literal key(s)
+[OK] exploit_chainer_node (src/webpent/agents/exploit_chainer/agent.py:407) -> 2 literal key(s)
+[OK] hypothesis_node (src/webpent/agents/hypothesis_analyzer/agent.py:1017) -> 0 literal key(s)
+[OK] identity_provisioning_node (src/webpent/shared/identity_provisioning.py:360) -> 2 literal key(s)
+[OK] javascript_intelligence_node (src/webpent/agents/javascript_intelligence/agent.py:66) -> 0 literal key(s)
+[OK] knowledge_gap_node (src/webpent/shared/research_nodes.py:29) -> 5 literal key(s)
+[OK] next_best_action_node (src/webpent/shared/research_nodes.py:123) -> 4 literal key(s)
+[OK] payload_generator_node (src/webpent/agents/payload_generator/agent.py:619) -> 4 literal key(s)
+[OK] payload_optimizer_node (src/webpent/agents/payload_optimizer/agent.py:335) -> 0 literal key(s)
+[OK] planner_node (src/webpent/agents/planner/agent.py:161) -> 0 literal key(s)
+[OK] post_exploitation_node (src/webpent/agents/post_exploit/agent.py:378) -> 4 literal key(s)
+[OK] rabbit_hole_node (src/webpent/agents/rabbit_hole/agent.py:541) -> 7 literal key(s) + dynamic **expansion
+[OK] recon_node (src/webpent/agents/recon/agent.py:814) -> 5 literal key(s)
+[OK] recovery_node (src/webpent/graph/builder.py:686) -> 1 literal key(s)
+[OK] reflection_node (src/webpent/agents/reflection/agent.py:309) -> 3 literal key(s)
+[OK] reporter_node (src/webpent/agents/reporter/agent.py:694) -> 3 literal key(s)
+[OK] request_smuggling_node (src/webpent/agents/request_smuggling/agent.py:315) -> 5 literal key(s)
+[OK] research_session_node (src/webpent/shared/research_nodes.py:198) -> 3 literal key(s)
+[OK] scope_enforcer_node (src/webpent/agents/scope_enforcer/agent.py:185) -> 6 literal key(s)
+[OK] scope_review_node (src/webpent/graph/builder.py:824) -> 2 literal key(s)
+[OK] smart_campaigns_execution_node (src/webpent/agents/smart_campaigns/agent.py:1775) -> 18 literal key(s) + dynamic **expansion
+[OK] smart_campaigns_node (src/webpent/agents/smart_campaigns/agent.py:1040) -> 17 literal key(s) + dynamic **expansion
+[OK] strategist_node (src/webpent/agents/strategist/agent.py:166) -> 4 literal key(s)
+[OK] subdomain_takeover_node (src/webpent/agents/subdomain_takeover/agent.py:214) -> 7 literal key(s)
+[OK] target_package_preflight_node (src/webpent/shared/package_preflight.py:23) -> 4 literal key(s)
+[OK] target_understanding_node (src/webpent/agents/target_understanding/agent.py:362) -> 10 literal key(s)
+[OK] validator_node (src/webpent/agents/validator/agent.py:3876) -> 0 literal key(s)
+[OK] waf_detector_node (src/webpent/agents/waf_detector/agent.py:104) -> 2 literal key(s)
+[OK] wildcard_scope_node (src/webpent/shared/wildcard_scope.py:192) -> 5 literal key(s)
+
+STATE CONTRACT: OK — all literal node-written keys are declared.
+check_state_contract_EXIT:0
+===== check_orchestrator_construction_authority =====
+OK: 'ModernOrchestrator(' appears only in src/webpent/production/production_spine.py and the approved test allowlist (24 files).
+check_orchestrator_construction_authority_EXIT:0
+===== check_isolation_denylist =====
+D-01: 0 violation(s).
+D-02: 0 violation(s).
+D-03: 0 violation(s).
+D-04: 8 call site(s) verified OK; 0 violation(s).
+A-01 closure: 0 unknown third-party import(s).
+OK: no denylist violations.
+check_isolation_denylist_EXIT:0
+===== check_vault_import_authority =====
+OK: webpent.auth.reauth_vault (and its 10 re-exported symbols) are imported only by the 8 Table 2-2 caller sites, the vault/re-export modules themselves, and the 5 approved test files. NOTE: this gate does NOT yet enforce the comparative-flow-module bar (OQ-3) — no concrete comparative-flow module list exists yet this sprint; see this script's own docstring.
+check_vault_import_authority_EXIT:0
+===== verify_test_count =====
+{
+  "ast_raw_function_count": 1892,
+  "files": {
+    "tests/lab/test_lab_policy.py": 7,
+    "tests/team1_acceptance/test_a_modern_production_path.py": 6,
+    "tests/team1_acceptance/test_avi_v1_1_real_target_qualification.py": 8,
+    "tests/team1_acceptance/test_avi_v1_production_release.py": 16,
+    "tests/team1_acceptance/test_b_legacy_containment.py": 7,
+    "tests/team1_acceptance/test_c_proof_semantic_integrity.py": 16,
+    "tests/team1_acceptance/test_closed_loop_research.py": 20,
+    "tests/team1_acceptance/test_durable_research_state.py": 17,
+    "tests/team1_acceptance/test_e_f_memory_advisory.py": 5,
+    "tests/team1_acceptance/test_fabric_automatic_dispatch.py": 11,
+    "tests/team1_acceptance/test_fabric_critical_fixes.py": 5,
+    "tests/team1_acceptance/test_fabric_graph_wiring_final.py": 8,
+    "tests/team1_acceptance/test_fabric_production_integration.py": 11,
+    "tests/team1_acceptance/test_g_openapi_injection.py": 6,
+    "tests/team1_acceptance/test_h_integrated_run.py": 2,
+    "tests/team1_acceptance/test_half1_behavioral.py": 12,
+    "tests/team1_acceptance/test_half2_production_dataflow.py": 18,
+    "tests/team1_acceptance/test_half2_proof_memory.py": 25,
+    "tests/team1_acceptance/test_hmac_proof_authority.py": 19,
+    "tests/team1_acceptance/test_i_official_entrypoint.py": 6,
+    "tests/team1_acceptance/test_production_research_loop_activation.py": 12,
+    "tests/team1_acceptance/test_production_runtime_closure.py": 22,
+    "tests/team1_acceptance/test_sprint_i1_part1_regressions.py": 11,
+    "tests/team1_acceptance/test_sprint_i1_part2_flag.py": 15,
+    "tests/team1_acceptance/test_sprint_i1_part2_s2_composition.py": 10,
+    "tests/team1_acceptance/test_sprint_i1_part2_s3_seams.py": 17,
+    "tests/team1_acceptance/test_sprint_i1_part3_audit_chain.py": 15,
+    "tests/team1_acceptance/test_sprint_i1_part4_flags.py": 19,
+    "tests/team1_acceptance/test_sprint_i1b_part2_byp05.py": 5,
+    "tests/team1_acceptance/test_sprint_i1b_part2_secrets_gate.py": 7,
+    "tests/team1_acceptance/test_sprint_i2_b12_bypass2.py": 6,
+    "tests/team1_acceptance/test_sprint_i2_context_authority.py": 13,
+    "tests/team1_acceptance/test_sprint_i2_e2e_walking_skeleton.py": 5,
+    "tests/team1_acceptance/test_sprint_i2_hotfix_regression.py": 9,
+    "tests/team1_acceptance/test_sprint_i3_e2e_flow_vertical.py": 6,
+    "tests/team1_acceptance/test_teamt2_hostile_fixes.py": 14,
+    "tests/team1_acceptance/test_validator_coverage_v1.py": 23,
+    "tests/team1_acceptance/test_validator_execution_fabric_v2.py": 16,
+    "tests/team1_acceptance/test_vulnerability_family_expansion.py": 4,
+    "tests/test_action_ledger.py": 3,
+    "tests/test_application_intent_smart_wiring.py": 1,
+    "tests/test_audit_remediation_p0.py": 5,
+    "tests/test_audit_remediation_p1.py": 7,
+    "tests/test_audit_remediation_p2.py": 5,
+    "tests/test_autonomous_recon.py": 4,
+    "tests/test_bounty_report.py": 5,
+    "tests/test_browser_readiness.py": 3,
+    "tests/test_byte_level.py": 18,
+    "tests/test_campaign_executor.py": 7,
+    "tests/test_check_isolation_denylist.py": 21,
+    "tests/test_check_vault_import_authority.py": 11,
+    "tests/test_checkpoint_redaction.py": 4,
+    "tests/test_coverage_ledger.py": 4,
+    "tests/test_e2e_chain_promotion_locks.py": 4,
+    "tests/test_e2e_dalfox_v3_url_flag.py": 4,
+    "tests/test_evidence_bounds.py": 3,
+    "tests/test_exception_redaction.py": 3,
+    "tests/test_finding_aggregation.py": 3,
+    "tests/test_finding_reducer_strength.py": 2,
+    "tests/test_fv1_scopelaw_poison_deny.py": 5,
+    "tests/test_g02_direct_io_inventory.py": 4,
+    "tests/test_hostile_audit_remediation.py": 5,
+    "tests/test_hostile_remediation_recon.py": 3,
+    "tests/test_hostile_remediation_report_binding.py": 4,
+    "tests/test_hostile_remediation_service.py": 3,
+    "tests/test_impl_p0_phase_fixes.py": 10,
+    "tests/test_impl_residuals.py": 10,
+    "tests/test_integration_auth_session_contract.py": 10,
+    "tests/test_integration_exploitation_queue.py": 11,
+    "tests/test_integration_priority_policy.py": 9,
+    "tests/test_integration_reconciliation.py": 9,
+    "tests/test_integration_research_agenda.py": 15,
+    "tests/test_integration_source_mapping.py": 7,
+    "tests/test_integration_surface_dossier.py": 8,
+    "tests/test_integration_wiring.py": 15,
+    "tests/test_live_parity_harness_contract.py": 7,
+    "tests/test_local_causal_lab_fixtures.py": 4,
+    "tests/test_local_causal_lab_option_b_approval.py": 6,
+    "tests/test_local_causal_lab_option_b_contract.py": 7,
+    "tests/test_local_causal_lab_packet.py": 3,
+    "tests/test_multi_campaign_service.py": 5,
+    "tests/test_operations_ux_upgrade.py": 7,
+    "tests/test_option_b_local_causal_lab_runner.py": 3,
+    "tests/test_orchestrator_construction_authority.py": 3,
+    "tests/test_p0_critical_fixes.py": 6,
+    "tests/test_p0_ffuf_preflight.py": 7,
+    "tests/test_p0_p1_active_validators.py": 6,
+    "tests/test_p0_secondary_identity_entrypoint.py": 4,
+    "tests/test_p0_websocket_webhook.py": 6,
+    "tests/test_p1_config_contracts.py": 4,
+    "tests/test_p1_exception_hygiene.py": 2,
+    "tests/test_p1_task_crypto_fail_closed.py": 5,
+    "tests/test_p1_tls_enforcement.py": 5,
+    "tests/test_p1_webhook_lifecycle.py": 3,
+    "tests/test_p1_xss_sqli.py": 9,
+    "tests/test_p2_execution_gate.py": 4,
+    "tests/test_persistent_finding_ledger.py": 3,
+    "tests/test_phase4_research_loop.py": 6,
+    "tests/test_phase5_coverage_intelligence.py": 2,
+    "tests/test_phase5_information_execution.py": 8,
+    "tests/test_phase5_target_understanding.py": 3,
+    "tests/test_postp0_phase10_playbooks.py": 5,
+    "tests/test_postp0_phase1_replan.py": 6,
+    "tests/test_postp0_phase2_memory_readback.py": 8,
+    "tests/test_postp0_phase3_session_liveness.py": 12,
+    "tests/test_postp0_phase4_schema_ingestion.py": 5,
+    "tests/test_postp0_phase5_validators.py": 11,
+    "tests/test_postp0_phase6_tool_first.py": 4,
+    "tests/test_postp0_phase7_chain_plan.py": 5,
+    "tests/test_postp0_phase8_flow_replay.py": 6,
+    "tests/test_postp0_phase9_operator_ux.py": 9,
+    "tests/test_product_p1.py": 6,
+    "tests/test_production_deployment_contract.py": 5,
+    "tests/test_proof_bundle.py": 3,
+    "tests/test_proof_oracles.py": 5,
+    "tests/test_rag_knowledge_pack.py": 4,
+    "tests/test_rb_budget_governor.py": 19,
+    "tests/test_rc_authority_revalidation.py": 12,
+    "tests/test_report_hash_integrity.py": 2,
+    "tests/test_rit_runtime_integration.py": 6,
+    "tests/test_sc1_markdown_default.py": 2,
+    "tests/test_sc2_identity_records.py": 4,
+    "tests/test_scenario_auth_surface_contract.py": 14,
+    "tests/test_scenario_report_contract.py": 9,
+    "tests/test_scope_file_contract.py": 18,
+    "tests/test_server_launcher.py": 2,
+    "tests/test_settings_hardening.py": 2,
+    "tests/test_smart_action_authority.py": 9,
+    "tests/test_smart_campaigns_node.py": 19,
+    "tests/test_subprocess_lifecycle.py": 3,
+    "tests/test_team1_candidate_selection.py": 11,
+    "tests/test_team1_compose_workspace_parity.py": 5,
+    "tests/test_team1_deep_recon.py": 22,
+    "tests/test_team1_final_hardening.py": 9,
+    "tests/test_team1_hypothesis_portfolio.py": 11,
+    "tests/test_team1_llm_lifecycle.py": 8,
+    "tests/test_team1_llm_live_integration.py": 8,
+    "tests/test_team1_llm_seam_fix.py": 10,
+    "tests/test_team1_llm_selection_fix.py": 13,
+    "tests/test_team1_llm_selection_v3.py": 11,
+    "tests/test_team1_llm_selection_v4.py": 10,
+    "tests/test_team1_non_dvwa_hypotheses.py": 5,
+    "tests/test_team1_oob_database_parity.py": 1,
+    "tests/test_team1_post_validation_replan.py": 8,
+    "tests/test_team1_priority_fix.py": 11,
+    "tests/test_team1_rag_knowledge.py": 8,
+    "tests/test_team1_refutation_persistence.py": 6,
+    "tests/test_team1_research_brain.py": 15,
+    "tests/test_team1_research_entity.py": 13,
+    "tests/test_team1_selection_reconciliation.py": 10,
+    "tests/test_team1_state_contract.py": 2,
+    "tests/test_team1_tool_scope.py": 6,
+    "tests/test_team1_v6_closeout.py": 7,
+    "tests/test_team1_v6_return.py": 6,
+    "tests/test_team1_wiring_fix.py": 3,
+    "tests/test_untrusted_content_boundary.py": 5,
+    "tests/test_v10_audit_fixes.py": 32,
+    "tests/test_v10_exhaustive_audit.py": 27,
+    "tests/test_v10_hostile_fixes.py": 19,
+    "tests/test_v10_p0_reauth_vault_and_emergency_persist.py": 12,
+    "tests/test_v10_p0_status_sqlmap_skiprecon_findings.py": 38,
+    "tests/test_v10_p0p1_rca_followup.py": 17,
+    "tests/test_v10_p1_rca_followup.py": 20,
+    "tests/test_v11_bac_identity.py": 5,
+    "tests/test_v12_takeover_cloud.py": 5,
+    "tests/test_v13_jwt_advisory.py": 5,
+    "tests/test_v14_entrypoint_wiring.py": 13,
+    "tests/test_v15_review_hardening.py": 7,
+    "tests/test_v16_canonical_evidence.py": 9,
+    "tests/test_v17_target_understanding.py": 3,
+    "tests/test_v18_workflow_understanding.py": 5,
+    "tests/test_v19_attack_graph.py": 2,
+    "tests/test_v20_attack_graph_wiring.py": 3,
+    "tests/test_v21_adaptive_hunt.py": 7,
+    "tests/test_v22_planner_policy.py": 8,
+    "tests/test_v23_cli_commands.py": 6,
+    "tests/test_v24_authorization_matrix.py": 4,
+    "tests/test_v25_javascript_intelligence.py": 6,
+    "tests/test_v26_report_quality.py": 5,
+    "tests/test_v27_memory_boundary.py": 4,
+    "tests/test_v28_structure_aware_triage.py": 9,
+    "tests/test_v29_surface_security.py": 10,
+    "tests/test_v30_evidence_poc_contracts.py": 7,
+    "tests/test_v57_readability_wiring.py": 7,
+    "tests/test_v58_http_discovery.py": 13,
+    "tests/test_v58_post_form_hypotheses.py": 2,
+    "tests/test_v58_structural_evidence_gate.py": 2,
+    "tests/test_v58_validator_idempotency.py": 5,
+    "tests/test_v59_p0_hardening.py": 10,
+    "tests/test_v61_cognitive_upgrade.py": 4,
+    "tests/test_v61_phase1_remediation.py": 12,
+    "tests/test_v61_phase2_bac.py": 13,
+    "tests/test_v61_phase3_remediation.py": 4,
+    "tests/test_v61_remaining_plan_artifacts.py": 36,
+    "tests/test_v62_ingest_and_memory_isolation.py": 7,
+    "tests/test_v63_vip_security_regression.py": 24,
+    "tests/test_v90_confidence_scoring.py": 3,
+    "tests/test_v90_lessons_scope_isolation.py": 3,
+    "tests/test_v90_llm_cache_wiring.py": 3,
+    "tests/test_v91_research_intelligence.py": 5,
+    "tests/test_v91_smart_campaigns_intelligence.py": 1,
+    "tests/test_v92_action_executor_proof_bundle.py": 3,
+    "tests/test_v92_proof_quality_gate.py": 4,
+    "tests/test_v92_reporter_strict_proof.py": 1,
+    "tests/test_v93_capability_registry.py": 4,
+    "tests/test_v94_autonomous_controller.py": 4,
+    "tests/test_v9_fix2_path_promotion.py": 5,
+    "tests/test_v9_hostile_audit_fixes.py": 5,
+    "tests/test_v9_p0_hotfix_sqlmap_reauth.py": 7,
+    "tests/test_v9_round2_wiring_fixes.py": 9,
+    "tests/test_validator_merge_back.py": 3,
+    "tests/test_vip_active_research.py": 3,
+    "tests/test_vip_application_intent_graph.py": 6,
+    "tests/test_vip_audit_gap_closure.py": 8,
+    "tests/test_vip_auth_posture.py": 4,
+    "tests/test_vip_baseline.py": 2,
+    "tests/test_vip_benchmark.py": 5,
+    "tests/test_vip_campaign_planner.py": 3,
+    "tests/test_vip_llm_reliability.py": 8,
+    "tests/test_vip_offline_validator_fixtures.py": 5,
+    "tests/test_vip_phase4_intelligence.py": 4,
+    "tests/test_vip_proof_engine.py": 8,
+    "tests/test_vip_research_contracts.py": 5,
+    "tests/test_vip_shared_reauth_vault.py": 4,
+    "tests/test_vip_surface_intent.py": 2,
+    "tests/test_vip_validator_plugins.py": 6,
+    "tests/test_vip_waptlab_regression.py": 2,
+    "tests/test_vip_workflow_replay.py": 3,
+    "tests/test_waptlab_catalog_manifest.py": 6,
+    "tests/test_waptlab_detector_improvements.py": 51,
+    "tests/test_waptlab_live_improvements.py": 3,
+    "tests/test_workflow_surface_wiring.py": 1
+  },
+  "minimum": 1940,
+  "pytest_collected_count": 2072
+}
+OK: pytest-collected test count 2072 >= floor 1940
+verify_test_count_EXIT:0
+===== verify_frozen_manifest =====
+FROZEN MANIFEST: OK (13 files)
+verify_frozen_manifest_EXIT:0

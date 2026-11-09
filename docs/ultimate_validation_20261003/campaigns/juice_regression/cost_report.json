@@ -1,0 +1,24 @@
+{
+  "actual_cost_usd": 0.07566325,
+  "calculation": "input_tokens*0.25/1e6 + output_tokens*2.00/1e6 for gpt-5-mini",
+  "calls_by_agent_node": {
+    "exploiter_node": 9,
+    "planner_node": 1,
+    "replan_node": 6,
+    "validator_node": 4
+  },
+  "input_tokens": 43429,
+  "model_counts": {
+    "gpt-5-mini": 20
+  },
+  "output_tokens": 32403,
+  "pricing_source": "live built-in model catalog preflight",
+  "rates_usd_per_1m_tokens": {
+    "gpt-5-mini": {
+      "input": 0.25,
+      "output": 2.0
+    }
+  },
+  "total_tokens": 75832,
+  "unpriced_provider_entries": 20
+}

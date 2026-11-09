@@ -1,0 +1,48 @@
+# THE PRISM — Wave 5 archetype library (v89).
+# PRISM-L-8: cold start under 5 minutes — a brand-new target gets a
+# plan immediately by matching its features against these archetypes.
+# Learning transfers across similar targets (PRISM-L-3), never raw
+# target data (PRISM-L-6).
+
+version: 1
+
+archetypes:
+  - name: fintech_api
+    features:
+      industry: fintech
+      api: true
+      mobile: true
+    typical_techniques: [jwt_analysis, idor_users, race_payments]
+    learned_from_campaigns: 0
+
+  - name: ecommerce_spa
+    features:
+      industry: ecommerce
+      spa: true
+      payment: true
+    typical_techniques: [xss_stored, csrf_checkout, idor_orders]
+    learned_from_campaigns: 0
+
+  - name: saas_dashboard
+    features:
+      industry: saas
+      dashboard: true
+      multi_tenant: true
+    typical_techniques: [tenant_isolation, idor_admin, xss_stored]
+    learned_from_campaigns: 0
+
+  - name: cms_legacy
+    features:
+      industry: media
+      cms: true
+      php: true
+    typical_techniques: [sqli_union, file_upload_bypass, xss_stored]
+    learned_from_campaigns: 0
+
+  - name: mobile_backend
+    features:
+      industry: mobile
+      api: true
+      grpc: true
+    typical_techniques: [grpc_introspection, jwt_analysis, idor_users]
+    learned_from_campaigns: 0

@@ -1,0 +1,86 @@
+{
+  "probes": {
+    "P1C-setup": {
+      "finding_id": "1d1be494-1b82-4f70-8885-b2617e1e783e",
+      "persisted_status": "CONFIRMED",
+      "confirmed": true
+    },
+    "P1C-llm-only-refusal": {
+      "status_after": "CONFIRMED",
+      "refused_ok": true
+    },
+    "P1C-causal-gate": {
+      "observation_valid": true
+    },
+    "P1C-refuted": {
+      "result_conf": "Refuted",
+      "persisted_status": "REFUTED",
+      "refuted": true
+    },
+    "P1C-terminal-no-resurrect": {
+      "status_after_resave": "REFUTED",
+      "terminal": true
+    },
+    "P1C-reload-survival": {
+      "reloaded_conf": "Refuted",
+      "survives_reload": true
+    },
+    "P5-forged-bundle-no-negative-control": {
+      "structure_rejected": true
+    },
+    "P5-tampered-bundle-verify": {
+      "exception": "ValidationError"
+    },
+    "P1F-scope-baseline": {
+      "engagement_hosts": [],
+      "in_scope_127": false,
+      "out_of_scope_evil": false
+    },
+    "P1F-dalfox-out-of-scope": {
+      "exception": "ToolExecutionError",
+      "scope_denial_msg": true,
+      "detail": "dalfox: target host 'evil.example.com' is outside the declared engagement scope (or the URL/scope is malformed) \u2014 denied by the engagement scope preflight. No scan performed."
+    },
+    "P1F-sqlmap-out-of-scope": {
+      "exception": "ToolExecutionError",
+      "scope_denial_msg": true,
+      "detail": "sqlmap: target host 'evil.example.com' is outside the declared engagement scope (or the URL/scope is malformed) \u2014 denied by the engagement scope preflight. No scan performed."
+    },
+    "P1F-dalfox-in-scope": {
+      "exception": "ToolExecutionError",
+      "scope_related": true,
+      "infrastructure_failure": false,
+      "detail": "dalfox: target host '127.0.0.1' is outside the declared engagement scope (or the URL/scope is malformed) \u2014 denied by the engagement scope preflight. No scan performed."
+    },
+    "P1F-scopelaw-poison": {
+      "registered_tools": [
+        "dalfox",
+        "ffuf",
+        "httpx",
+        "httpx_bounded",
+        "katana",
+        "nuclei",
+        "sqlmap",
+        "sqlmap_post_exploit"
+      ],
+      "metadata_ip_detected": true,
+      "metadata_ip_allowed": false,
+      "metadata_details": [
+        "169\\.254\\.169\\.254"
+      ],
+      "osshell_detected": true,
+      "osshell_allowed": false,
+      "unregistered_allowed": false
+    },
+    "P3-workspace-isolation": {
+      "workspace_count": 2,
+      "distinct_dbs": 2,
+      "paths": [
+        "fv-client-fv-auth-001-127.0.0.1-c8d5fe35e931ff049435",
+        "fv-client-fv-recon-002-127.0.0.1-ae8253d2cc9f2122789a"
+      ]
+    }
+  },
+  "defects_found": [],
+  "fixes_applied": []
+}

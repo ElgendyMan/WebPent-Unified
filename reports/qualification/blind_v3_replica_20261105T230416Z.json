@@ -1,0 +1,1653 @@
+{
+  "benchmark": "blind_v3_replica",
+  "replica_corpus": true,
+  "honesty_note": "The original blind_v3 target is absent from the repo; this is a same-spec replica measurement. The recorded blind baseline (reports/goed_v1_8_4/differential_v184.json: recall 0.137 / precision 0.6667) stands as-is and is NOT replaced. The production_qualified label still requires operator-deployed holdout corpora per the M11 ladder.",
+  "generated_at": "2026-11-05T23:04:16.895585+00:00",
+  "sample_size": 120,
+  "mode_a_read_only": {
+    "note": "the recorded methodology reproduced on the replica",
+    "metrics": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 73,
+      "tn": 47,
+      "recall": 0.0,
+      "precision": 0.0,
+      "by_family": {
+        "simple": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 25,
+          "tn": 15,
+          "total": 40,
+          "recall": 0.0
+        },
+        "reasoning": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 23,
+          "tn": 17,
+          "total": 40,
+          "recall": 0.0
+        },
+        "compositional": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 25,
+          "tn": 15,
+          "total": 40,
+          "recall": 0.0
+        }
+      }
+    }
+  },
+  "mode_a2_stateful_prober": {
+    "note": "deterministic stateful discovery (UM-DR-25), guarded_causal_evaluate remains the only confirmation authority",
+    "metrics": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 73,
+      "tn": 47,
+      "recall": 0.0,
+      "precision": 0.0,
+      "by_family": {
+        "simple": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 25,
+          "tn": 15,
+          "total": 40,
+          "recall": 0.0
+        },
+        "reasoning": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 23,
+          "tn": 17,
+          "total": 40,
+          "recall": 0.0
+        },
+        "compositional": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 25,
+          "tn": 15,
+          "total": 40,
+          "recall": 0.0
+        }
+      }
+    },
+    "total_requests": 2120,
+    "avg_requests_per_case": 17.67
+  },
+  "delta": {
+    "recall_gain": 0.0,
+    "precision_delta": 0.0
+  },
+  "per_case": {
+    "mode_a": {
+      "bv3_001": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_002": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_003": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_004": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_005": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_006": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_007": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_008": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_009": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_010": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_011": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_012": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_013": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_014": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_015": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_016": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_017": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_018": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_019": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_020": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_021": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_022": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_023": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_024": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_025": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_026": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_027": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_028": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_029": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_030": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_031": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_032": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_033": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_034": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_035": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_036": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_037": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_038": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_039": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_040": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_041": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_042": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_043": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_044": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_045": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_046": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_047": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_048": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_049": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_050": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_051": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_052": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_053": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_054": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_055": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_056": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_057": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_058": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_059": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_060": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_061": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_062": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_063": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_064": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_065": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_066": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_067": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_068": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_069": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_070": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_071": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_072": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_073": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_074": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_075": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_076": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_077": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_078": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_079": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_080": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_081": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_082": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_083": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_084": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_085": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_086": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_087": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_088": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_089": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_090": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_091": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_092": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_093": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_094": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_095": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_096": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_097": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_098": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_099": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_100": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_101": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_102": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_103": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_104": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_105": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_106": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_107": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_108": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_109": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_110": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_111": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_112": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_113": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_114": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_115": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_116": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_117": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_118": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_119": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      },
+      "bv3_120": {
+        "verdict": "INCONCLUSIVE",
+        "confidence": 0.4
+      }
+    },
+    "mode_a2": {
+      "bv3_001": {
+        "case_id": "bv3_001",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_002": {
+        "case_id": "bv3_002",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_003": {
+        "case_id": "bv3_003",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_004": {
+        "case_id": "bv3_004",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_005": {
+        "case_id": "bv3_005",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_006": {
+        "case_id": "bv3_006",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_007": {
+        "case_id": "bv3_007",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_008": {
+        "case_id": "bv3_008",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_009": {
+        "case_id": "bv3_009",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_010": {
+        "case_id": "bv3_010",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_011": {
+        "case_id": "bv3_011",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_012": {
+        "case_id": "bv3_012",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_013": {
+        "case_id": "bv3_013",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_014": {
+        "case_id": "bv3_014",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_015": {
+        "case_id": "bv3_015",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_016": {
+        "case_id": "bv3_016",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_017": {
+        "case_id": "bv3_017",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_018": {
+        "case_id": "bv3_018",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_019": {
+        "case_id": "bv3_019",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_020": {
+        "case_id": "bv3_020",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_021": {
+        "case_id": "bv3_021",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_022": {
+        "case_id": "bv3_022",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_023": {
+        "case_id": "bv3_023",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_024": {
+        "case_id": "bv3_024",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_025": {
+        "case_id": "bv3_025",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_026": {
+        "case_id": "bv3_026",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_027": {
+        "case_id": "bv3_027",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_028": {
+        "case_id": "bv3_028",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_029": {
+        "case_id": "bv3_029",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_030": {
+        "case_id": "bv3_030",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_031": {
+        "case_id": "bv3_031",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_032": {
+        "case_id": "bv3_032",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_033": {
+        "case_id": "bv3_033",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_034": {
+        "case_id": "bv3_034",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_035": {
+        "case_id": "bv3_035",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_036": {
+        "case_id": "bv3_036",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_037": {
+        "case_id": "bv3_037",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_038": {
+        "case_id": "bv3_038",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_039": {
+        "case_id": "bv3_039",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_040": {
+        "case_id": "bv3_040",
+        "verdict": "INCONCLUSIVE",
+        "phase": 1,
+        "requests_issued": 3,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_041": {
+        "case_id": "bv3_041",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_042": {
+        "case_id": "bv3_042",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_043": {
+        "case_id": "bv3_043",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_044": {
+        "case_id": "bv3_044",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_045": {
+        "case_id": "bv3_045",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_046": {
+        "case_id": "bv3_046",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_047": {
+        "case_id": "bv3_047",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_048": {
+        "case_id": "bv3_048",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_049": {
+        "case_id": "bv3_049",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_050": {
+        "case_id": "bv3_050",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_051": {
+        "case_id": "bv3_051",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_052": {
+        "case_id": "bv3_052",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_053": {
+        "case_id": "bv3_053",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_054": {
+        "case_id": "bv3_054",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_055": {
+        "case_id": "bv3_055",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_056": {
+        "case_id": "bv3_056",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_057": {
+        "case_id": "bv3_057",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_058": {
+        "case_id": "bv3_058",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_059": {
+        "case_id": "bv3_059",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_060": {
+        "case_id": "bv3_060",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_061": {
+        "case_id": "bv3_061",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_062": {
+        "case_id": "bv3_062",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_063": {
+        "case_id": "bv3_063",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_064": {
+        "case_id": "bv3_064",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_065": {
+        "case_id": "bv3_065",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_066": {
+        "case_id": "bv3_066",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_067": {
+        "case_id": "bv3_067",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_068": {
+        "case_id": "bv3_068",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_069": {
+        "case_id": "bv3_069",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_070": {
+        "case_id": "bv3_070",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_071": {
+        "case_id": "bv3_071",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_072": {
+        "case_id": "bv3_072",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_073": {
+        "case_id": "bv3_073",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_074": {
+        "case_id": "bv3_074",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_075": {
+        "case_id": "bv3_075",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_076": {
+        "case_id": "bv3_076",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_077": {
+        "case_id": "bv3_077",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_078": {
+        "case_id": "bv3_078",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_079": {
+        "case_id": "bv3_079",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_080": {
+        "case_id": "bv3_080",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_081": {
+        "case_id": "bv3_081",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_082": {
+        "case_id": "bv3_082",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_083": {
+        "case_id": "bv3_083",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_084": {
+        "case_id": "bv3_084",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_085": {
+        "case_id": "bv3_085",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_086": {
+        "case_id": "bv3_086",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_087": {
+        "case_id": "bv3_087",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_088": {
+        "case_id": "bv3_088",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_089": {
+        "case_id": "bv3_089",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_090": {
+        "case_id": "bv3_090",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_091": {
+        "case_id": "bv3_091",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_092": {
+        "case_id": "bv3_092",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_093": {
+        "case_id": "bv3_093",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_094": {
+        "case_id": "bv3_094",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_095": {
+        "case_id": "bv3_095",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_096": {
+        "case_id": "bv3_096",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_097": {
+        "case_id": "bv3_097",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_098": {
+        "case_id": "bv3_098",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_099": {
+        "case_id": "bv3_099",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_100": {
+        "case_id": "bv3_100",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_101": {
+        "case_id": "bv3_101",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_102": {
+        "case_id": "bv3_102",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_103": {
+        "case_id": "bv3_103",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_104": {
+        "case_id": "bv3_104",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_105": {
+        "case_id": "bv3_105",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_106": {
+        "case_id": "bv3_106",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_107": {
+        "case_id": "bv3_107",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_108": {
+        "case_id": "bv3_108",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_109": {
+        "case_id": "bv3_109",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_110": {
+        "case_id": "bv3_110",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_111": {
+        "case_id": "bv3_111",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_112": {
+        "case_id": "bv3_112",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_113": {
+        "case_id": "bv3_113",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_114": {
+        "case_id": "bv3_114",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_115": {
+        "case_id": "bv3_115",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_116": {
+        "case_id": "bv3_116",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_117": {
+        "case_id": "bv3_117",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_118": {
+        "case_id": "bv3_118",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_119": {
+        "case_id": "bv3_119",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      },
+      "bv3_120": {
+        "case_id": "bv3_120",
+        "verdict": "INCONCLUSIVE",
+        "phase": 2,
+        "requests_issued": 25,
+        "transitions_applied": [],
+        "confidence": 0.4,
+        "block_reason": null
+      }
+    }
+  }
+}

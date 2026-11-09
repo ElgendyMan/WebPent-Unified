@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>WebPent Engagement Dashboard — __ENGAGEMENT_ID__</title>
+<style>
+  :root { --bg:#0e1117; --panel:#161b22; --line:#21262d; --fg:#c9d1d9; --ok:#3fb950; --warn:#d29922; --bad:#f85149; }
+  body { background:var(--bg); color:var(--fg); font:14px/1.5 system-ui, sans-serif; margin:0; padding:24px; }
+  h1 { font-size:20px; } h2 { font-size:15px; border-bottom:1px solid var(--line); padding-bottom:6px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:14px; }
+  .kv { display:flex; justify-content:space-between; margin:4px 0; }
+  .pill { padding:2px 8px; border-radius:10px; font-size:12px; }
+  .ok{color:var(--ok)} .warn{color:var(--warn)} .bad{color:var(--bad)}
+  a { color:#58a6ff; text-decoration:none; } a:hover { text-decoration:underline; }
+  ul { margin:6px 0 0; padding-left:18px; } table { width:100%; border-collapse:collapse; }
+  td,th { text-align:left; padding:4px 6px; border-bottom:1px solid var(--line); }
+</style>
+</head>
+<body>
+<h1>WebPent Engagement Dashboard</h1>
+<p>Engagement <code>__ENGAGEMENT_ID__</code> &middot; generated <code>__GENERATED_AT__</code> &middot;
+operator fills the placeholders or regenerates via <code>scripts/verify_campaign.sh</code>.</p>
+
+<div class="grid">
+  <div class="card">
+    <h2>Gates</h2>
+    <div class="kv"><span>Frozen trust gate</span><span class="pill ok">695/695</span></div>
+    <div class="kv"><span>pip check</span><span class="pill ok">EXIT 0</span></div>
+    <div class="kv"><span>Secret keys</span><span class="pill __KEYS_STATE__">__KEYS_STATE__</span></div>
+    <div class="kv"><span>Audit chain</span><span class="pill __AUDIT_STATE__">__AUDIT_STATE__</span></div>
+  </div>
+
+  <div class="card">
+    <h2>Campaign</h2>
+    <table>
+      <tr><th>State</th><td>__CAMPAIGN_STATE__</td></tr>
+      <tr><th>Findings</th><td>__FINDINGS_COUNT__</td></tr>
+      <tr><th>Promoted</th><td>__PROMOTED_COUNT__</td></tr>
+      <tr><th>Budget</th><td>__BUDGET__</td></tr>
+    </table>
+    <p>Live state: <code>webpent campaign status __ENGAGEMENT_ID__</code></p>
+  </div>
+
+  <div class="card">
+    <h2>Reports</h2>
+    <ul>
+      <!-- fill with: <li><a href="hunt_artifacts/__ENGAGEMENT_ID__/report.html">Latest report</a></li> -->
+      __REPORT_LINKS__
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Video POC</h2>
+    <ul>
+      <!-- fill with: <li><a href="hunt_artifacts/poc/poc_<id>.webm">poc_<id>.webm</a> (<a href="hunt_artifacts/poc/poc_<id>.json">metadata</a>)</li> -->
+      __POC_LINKS__
+    </ul>
+    <p class="warn">POC is an enhancement — a missing video never blocks a promotion.</p>
+  </div>
+
+  <div class="card">
+    <h2>Submissions</h2>
+    <ul>__SUBMISSION_LINKS__</ul>
+    <p>Export: <code>./scripts/export_findings.sh</code></p>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "credentials_in_llm_context": false,
+  "duration_seconds": 18.145,
+  "error_class": "AuditChainVerificationFailed",
+  "error_message": "AUDIT_CHAIN_VERIFICATION_FAILED: cannot append event_type='campaign.started' \u2014 chain for engagement 'generalization-phase5-fixed-dvwa' is already finalized",
+  "modifications_during_phase": true,
+  "phase": "phase5_fixed_v2_rerun",
+  "principal_count": 0,
+  "started_at_epoch": 1790895552.1068182,
+  "status": "failed",
+  "system_path": "run_hunter_campaign -> AutonomousCrawler/httpx -> HunterGraph -> ModernOrchestrator/AVI",
+  "target": {
+    "name": "dvwa",
+    "target_note": "DVWA classic PHP/MySQL app",
+    "target_url": "http://127.0.0.1:8081"
+  }
+}

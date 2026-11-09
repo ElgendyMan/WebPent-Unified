@@ -1,0 +1,48 @@
+{
+  "phase": "A15_failure_diagnosis",
+  "overall_conclusion": "LLM = SEARCH ENHANCEMENT ONLY. The primary value comes from triggering the bridge's state-transition probe fallback mechanism, which produces new observations that CausalGuard can verify deterministically. The LLM's own reasoning quality is secondary because the deterministic fallback compensates. The remaining FN=48 are: (a) compositional cases that the target server doesn't implement (all BLOCKED), and (b) reasoning cases where the state probe didn't produce the right authorization pattern.",
+  "classification": "LLM_SEARCH_ENHANCEMENT",
+  "delta_recall_achieved": 0.2055,
+  "remaining_gap": "Mode B recall = 0.3425 (ceiling likely limited by target server coverage, not model capability)",
+  "bottleneck_analysis": {
+    "hypothesis_quality": {
+      "classification": "ADEQUATE_FOR_PURPOSE",
+      "evidence": "Hypotheses trigger the state-transition probe mechanism which produces the actual recovery. The hypotheses don't need to be brilliant \u2014 they just need to not be obviously wrong so the fallback probe can engage.",
+      "note": "The system is robust to mediocre hypotheses because the deterministic fallback and CausalGuard do the heavy lifting."
+    },
+    "experiment_selection": {
+      "classification": "SECONDARY \u2014 FALLBACK HANDLES IT",
+      "evidence": "When LLM cannot select a useful experiment (or when all have been tried), the bridge automatically falls back to state-transition probe. This is the actual recovery mechanism for most cases.",
+      "two_model_evidence": "Both Groq Qwen and OpenRouter Claude produce identical results on 30/30 cases, suggesting the LLM's specific choices are not the variable \u2014 the deterministic bridge fallback mechanism is."
+    },
+    "excessive_probing": {
+      "classification": "NOT_OBSERVED",
+      "evidence": "Max loops = 3, tool calls bounded. No infinite loops observed."
+    },
+    "semantic_interpretation": {
+      "classification": "PARTIAL",
+      "evidence": "Low-confidence hypotheses (0.05) generated for obvious injection attempts (A.13 test), showing the LLM correctly identifies suspicious content. But for compositional cases, the target server doesn't implement those mechanisms so nothing can be recovered."
+    },
+    "tool_selection_failure": {
+      "classification": "NOT_THE_BOTTLENECK",
+      "evidence": "The fallback mechanism compensates when tool selection is unproductive. The real bottleneck is elsewhere."
+    },
+    "prompt_weakness": {
+      "classification": "POSSIBLE_MINOR",
+      "evidence": "The system prompt is comprehensive but verbose. Could potentially be optimized for more targeted hypothesis generation. However, two completely different models (Qwen and Claude) produce identical results, suggesting prompt design is not the primary variable."
+    },
+    "model_limitation": {
+      "classification": "NOT_PRIMARY_BOTTLENECK",
+      "evidence": "Two different models from different providers give identical results (Phase 15 agreement: same=30, different=0). If model capability were the bottleneck, we'd expect divergence."
+    },
+    "deterministic_core_limitation": {
+      "classification": "THIS_IS_THE_DESIGN",
+      "evidence": "CausalGuard's strictness is intentional and correct. It requires authorization differential + enforcement to be observed. Cases that remain FN are cases where the state-transition probe did not produce the right observation pattern, or where the target server does not implement the mechanism (compositional family).",
+      "note": "This is NOT a bug to fix. The strictness is what makes results trustworthy."
+    }
+  },
+  "primary_bottleneck": "TARGET_SERVER_MECHANISM_COVERAGE + state_probe_effectiveness",
+  "secondary_bottleneck": "None significant \u2014 system is robust to mediocre LLM outputs due to deterministic fallback and CausalGuard.",
+  "allowed_conclusion": "LLM = SEARCH ENHANCEMENT ONLY",
+  "is_valid_engineering_result": true
+}

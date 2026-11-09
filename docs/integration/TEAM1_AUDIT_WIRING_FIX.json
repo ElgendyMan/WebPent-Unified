@@ -1,0 +1,13 @@
+{
+  "document_id": "TEAM1_AUDIT_WIRING_FIX-1.0",
+  "date": "2026-09-13",
+  "findings": [
+    "LOGICAL GAP: experiment_outcome_tracker recorded in selector but never passed to ResearchDecisionEngine.rank -> redundancy-aware ranking was DEAD in live path"
+  ],
+  "fix": "ActiveResearchLoop accepts experiment_outcome_tracker param (default None -> byte-identical); stores it; step passes it to rank; active_research_node passes llm_selector.outcome_tracker. Closes loop: outcomes -> deterministic ranking.",
+  "tests_added": 3,
+  "tests_passed": 3,
+  "files_deleted": 0,
+  "governance_changed": 0,
+  "statement": "TEAM-2 MUST PERFORM INDEPENDENT VALIDATION."
+}

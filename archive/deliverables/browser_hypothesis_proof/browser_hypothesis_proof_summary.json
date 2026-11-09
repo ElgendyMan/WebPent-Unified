@@ -1,0 +1,267 @@
+{
+  "surfaces": {
+    "form_with_user_id": {
+      "hypotheses": [
+        {
+          "id": "cc797dda-ebe7-42a6-af39-60a479f4a378",
+          "vuln_class": "idor",
+          "statement": "Form GET /profile parameter 'user_id' may be vulnerable to idor; browser-observed input surface.",
+          "origin": "deep_recon",
+          "origin_detail": "browser_observed:form_param:user_id",
+          "confidence": 0.4
+        },
+        {
+          "id": "af2ae5b4-107b-4735-8719-1b18c710cd32",
+          "vuln_class": "api_issue",
+          "statement": "Form GET /profile parameter 'tab' may be vulnerable to api_issue; browser-observed input surface.",
+          "origin": "deep_recon",
+          "origin_detail": "browser_observed:form_param:tab",
+          "confidence": 0.3
+        }
+      ],
+      "validator_traces": [
+        {
+          "hypothesis_id": "cc797dda-ebe7-42a6-af39-60a479f4a378",
+          "vuln_class": "idor",
+          "origin_detail": "browser_observed:form_param:user_id",
+          "validator": "validate_idor",
+          "outcome": "ValidationOutcome.CONFIRMED",
+          "is_confirmation_grade": true,
+          "discriminating_signal": "foreign principal reached owner-equivalent resource (baseline 200, candidate 200, control 404)",
+          "note": "IDOR cross-user access confirmed via responses_similar (owner==foreign, control 404)",
+          "trace": [
+            "browser_surface",
+            "bridge_hypothesis",
+            "candidate_built",
+            "M4_validator",
+            "ValidationOutcome.CONFIRMED"
+          ]
+        },
+        {
+          "hypothesis_id": "af2ae5b4-107b-4735-8719-1b18c710cd32",
+          "vuln_class": "api_issue",
+          "note": "no synthetic validator path for api_issue (recorded as hypothesis only)"
+        }
+      ]
+    },
+    "hidden_xhr_proxy_endpoint": {
+      "hypotheses": [
+        {
+          "id": "e724b85f-82f0-47b9-8a7b-4555a5ab827c",
+          "vuln_class": "open_redirect",
+          "statement": "Browser-observed XHR POST /api/internal/fetch with params ['url', 'timeout'] suggests open_redirect investigation on hidden API surface.",
+          "origin": "deep_recon",
+          "origin_detail": "browser_observed:xhr_endpoint:/api/internal/fetch",
+          "confidence": 0.45
+        },
+        {
+          "id": "7374358e-e823-427f-a6e1-45f35bf5a457",
+          "vuln_class": "ssrf",
+          "statement": "Browser-observed XHR POST /api/internal/fetch with params ['url', 'timeout'] suggests ssrf investigation on hidden API surface.",
+          "origin": "deep_recon",
+          "origin_detail": "browser_observed:xhr_endpoint:/api/internal/fetch",
+          "confidence": 0.45
+        },
+        {
+          "id": "2b2f626a-45ec-4061-98e8-0c4fa2126aa7",
+          "vuln_class": "api_issue",
+          "statement": "Browser-observed XHR POST /api/internal/fetch with params ['url', 'timeout'] suggests api_issue investigation on hidden API surface.",
+          "origin": "deep_recon",
+          "origin_detail": "browser_observed:xhr_endpoint:/api/internal/fetch",
+          "confidence": 0.45
+        }
+      ],
+      "validator_traces": [
+        {
+          "hypothesis_id": "e724b85f-82f0-47b9-8a7b-4555a5ab827c",
+          "vuln_class": "open_redirect",
+          "note": "no synthetic validator path for open_redirect (recorded as hypothesis only)"
+        },
+        {
+          "hypothesis_id": "7374358e-e823-427f-a6e1-45f35bf5a457",
+          "vuln_class": "ssrf",
+          "origin_detail": "browser_observed:xhr_endpoint:/api/internal/fetch",
+          "validator": "validate_ssrf",
+          "outcome": "ValidationOutcome.CONFIRMED",
+          "is_confirmation_grade": true,
+          "discriminating_signal": "candidate response contains 3 SSRF indicator classes",
+          "note": "SSRF confirmed: candidate reaches cloud metadata, control rejected",
+          "trace": [
+            "browser_surface",
+            "bridge_hypothesis",
+            "candidate_built",
+            "M4_validator",
+            "ValidationOutcome.CONFIRMED"
+          ]
+        },
+        {
+          "hypothesis_id": "2b2f626a-45ec-4061-98e8-0c4fa2126aa7",
+          "vuln_class": "api_issue",
+          "note": "no synthetic validator path for api_issue (recorded as hypothesis only)"
+        }
+      ]
+    },
+    "auth_flow_transition": {
+      "hypotheses": [
+        {
+          "id": "6a3323f6-550a-4908-b162-cece1f362495",
+          "vuln_class": "idor",
+          "statement": "Authenticated route '/dashboard' (principal=alice) discovered via browser state transition; test IDOR/auth-bypass with foreign principal.",
+          "origin": "deep_recon",
+          "origin_detail": "browser_observed:auth_transition:/dashboard",
+          "confidence": 0.5
+        }
+      ],
+      "validator_traces": [
+        {
+          "hypothesis_id": "6a3323f6-550a-4908-b162-cece1f362495",
+          "vuln_class": "idor",
+          "origin_detail": "browser_observed:auth_transition:/dashboard",
+          "validator": "validate_idor",
+          "outcome": "ValidationOutcome.CONFIRMED",
+          "is_confirmation_grade": true,
+          "discriminating_signal": "foreign principal reached owner-equivalent resource (baseline 200, candidate 200, control 404)",
+          "note": "IDOR cross-user access confirmed via responses_similar (owner==foreign, control 404)",
+          "trace": [
+            "browser_surface",
+            "bridge_hypothesis",
+            "candidate_built",
+            "M4_validator",
+            "ValidationOutcome.CONFIRMED"
+          ]
+        }
+      ]
+    },
+    "js_api_key_disclosure": {
+      "hypotheses": [
+        {
+          "id": "dfabd5d1-caf9-4a37-982f-bcb3580ab3ac",
+          "vuln_class": "info_disclosure",
+          "statement": "JS analysis disclosed hardcoded api_key in client-side code; information disclosure / credential exposure.",
+          "origin": "deep_recon",
+          "origin_detail": "browser_observed:js_secret:api_key",
+          "confidence": 0.6
+        }
+      ],
+      "validator_traces": [
+        {
+          "hypothesis_id": "dfabd5d1-caf9-4a37-982f-bcb3580ab3ac",
+          "vuln_class": "info_disclosure",
+          "origin_detail": "browser_observed:js_secret:api_key",
+          "validator": "validate_info_disclosure",
+          "outcome": "ValidationOutcome.CONFIRMED",
+          "is_confirmation_grade": true,
+          "discriminating_signal": "candidate leaks 3 sensitive pattern classes",
+          "note": "Info disclosure confirmed: verbose 500 leaks credential + internal host + stack trace",
+          "trace": [
+            "browser_surface",
+            "bridge_hypothesis",
+            "candidate_built",
+            "M4_validator",
+            "ValidationOutcome.CONFIRMED"
+          ]
+        }
+      ]
+    }
+  },
+  "full_traces": [
+    {
+      "hypothesis_id": "cc797dda-ebe7-42a6-af39-60a479f4a378",
+      "vuln_class": "idor",
+      "origin_detail": "browser_observed:form_param:user_id",
+      "validator": "validate_idor",
+      "outcome": "ValidationOutcome.CONFIRMED",
+      "is_confirmation_grade": true,
+      "discriminating_signal": "foreign principal reached owner-equivalent resource (baseline 200, candidate 200, control 404)",
+      "note": "IDOR cross-user access confirmed via responses_similar (owner==foreign, control 404)",
+      "trace": [
+        "browser_surface",
+        "bridge_hypothesis",
+        "candidate_built",
+        "M4_validator",
+        "ValidationOutcome.CONFIRMED"
+      ]
+    },
+    {
+      "hypothesis_id": "7374358e-e823-427f-a6e1-45f35bf5a457",
+      "vuln_class": "ssrf",
+      "origin_detail": "browser_observed:xhr_endpoint:/api/internal/fetch",
+      "validator": "validate_ssrf",
+      "outcome": "ValidationOutcome.CONFIRMED",
+      "is_confirmation_grade": true,
+      "discriminating_signal": "candidate response contains 3 SSRF indicator classes",
+      "note": "SSRF confirmed: candidate reaches cloud metadata, control rejected",
+      "trace": [
+        "browser_surface",
+        "bridge_hypothesis",
+        "candidate_built",
+        "M4_validator",
+        "ValidationOutcome.CONFIRMED"
+      ]
+    },
+    {
+      "hypothesis_id": "6a3323f6-550a-4908-b162-cece1f362495",
+      "vuln_class": "idor",
+      "origin_detail": "browser_observed:auth_transition:/dashboard",
+      "validator": "validate_idor",
+      "outcome": "ValidationOutcome.CONFIRMED",
+      "is_confirmation_grade": true,
+      "discriminating_signal": "foreign principal reached owner-equivalent resource (baseline 200, candidate 200, control 404)",
+      "note": "IDOR cross-user access confirmed via responses_similar (owner==foreign, control 404)",
+      "trace": [
+        "browser_surface",
+        "bridge_hypothesis",
+        "candidate_built",
+        "M4_validator",
+        "ValidationOutcome.CONFIRMED"
+      ]
+    },
+    {
+      "hypothesis_id": "dfabd5d1-caf9-4a37-982f-bcb3580ab3ac",
+      "vuln_class": "info_disclosure",
+      "origin_detail": "browser_observed:js_secret:api_key",
+      "validator": "validate_info_disclosure",
+      "outcome": "ValidationOutcome.CONFIRMED",
+      "is_confirmation_grade": true,
+      "discriminating_signal": "candidate leaks 3 sensitive pattern classes",
+      "note": "Info disclosure confirmed: verbose 500 leaks credential + internal host + stack trace",
+      "trace": [
+        "browser_surface",
+        "bridge_hypothesis",
+        "candidate_built",
+        "M4_validator",
+        "ValidationOutcome.CONFIRMED"
+      ]
+    }
+  ],
+  "zero_fp_guards": {
+    "fp_guard_idor_different_resource": {
+      "outcome": "ValidationOutcome.INCONCLUSIVE",
+      "confirmed": false,
+      "must_not_confirm": true
+    },
+    "fp_guard_xss_encoded_only": {
+      "outcome": "ValidationOutcome.REFUTED",
+      "confirmed": false,
+      "must_not_confirm": true
+    },
+    "fp_guard_ssrf_no_differential": {
+      "outcome": "ValidationOutcome.REFUTED",
+      "confirmed": false,
+      "must_not_confirm": true
+    },
+    "fp_guard_info_trivial_500": {
+      "outcome": "ValidationOutcome.REFUTED",
+      "confirmed": false,
+      "must_not_confirm": true
+    }
+  },
+  "totals": {
+    "surfaces": 4,
+    "hypotheses_generated": 7,
+    "full_traces_through_M4": 4,
+    "traces_ending_CONFIRMED": 4,
+    "zero_fp_guards": 4,
+    "fp_violations": 0
+  }
+}

@@ -1,0 +1,59 @@
+# ============================================================================
+# WebPent SCOPE TEMPLATE — v4 (TEAM-RED R-02 remediation)
+# ============================================================================
+# HOW TO USE
+#   1. Copy this file:  cp scope_template.yaml my_engagement.scope
+#   2. Edit the entries below to match the program's EXACT policy.
+#   3. Run with:  SCOPE_FILE=my_engagement.scope ./scripts/run_campaign.sh
+#      (M2 note: `webpent hunt` takes the worker line grammar via
+#       `webpent hunt --url <url> --scope-file engagement.scope`; THIS file's
+#       structured YAML grammar is the typed policy parsed by
+#       `webpent scope check --scope my_engagement.yaml`.)
+#
+# GRAMMAR (parsed by webpent.scope.parser.parse_scope_file — THE REAL RUNTIME
+# PARSER used by `webpent hunt`; verified by tests/test_campaign_pack_contract).
+# The document is a structured YAML object. Path rules MUST be expressed as
+# structured rule objects: the plain-text directives `include-path:` /
+# `exclude-path:` are REJECTED by the runtime parser (v3 shipped them and the
+# campaign refused to start — TEAM-RED finding R-02).
+#
+# MAPPING FROM BUG-BOUNTY PLATFORM POLICIES
+#
+# HackerOne (policy -> grammar):
+#   "In-scope: *.example.com"            ->  in_scope: [ {url: "https://*.example.com"} ]
+#   "api.example.com (v2 only)"          ->  {url: "https://api.example.com", path: "/v2"}
+#   "Out of scope: staging"              ->  out_of_scope: [ {url: "https://staging.example.com"} ]
+#   "Out of scope: /admin"               ->  out_of_scope: [ {url: "https://app.example.com", path: "/admin"} ]
+#
+# Bugcrowd (brief -> grammar):
+#   "Targets: app.example.com"           ->  in_scope: [ {url: "https://app.example.com"} ]
+#   "Only /api and /docs surfaces"       ->  path: "/api"  on the allow rule
+#
+# RULES OF THUMB
+#   - Anything NOT allow-listed is OUT OF SCOPE (fail-closed: ScopeLaw blocks
+#     the request before execution; there is no "default allow").
+#   - Copy the policy VERBATIM where possible; when in doubt, ask the program
+#     — never widen scope yourself.
+#   - Keep one scope file per engagement; commit it with the engagement notes.
+# ============================================================================
+
+description: "Replace every example entry with the program's EXACT policy before running."
+
+in_scope:
+  # --- In-scope hosts (allow-list; each rule = one entry) -------------------
+  - url: "https://app.example.com"
+  - url: "https://api.example.com"
+    path: "/v2"                      # e.g. "api host, /v2 surface only"
+  - url: "https://*.cdn.example.com" # wildcard subdomain
+
+out_of_scope:
+  # --- Explicitly excluded hosts (win over wildcards) -----------------------
+  - url: "https://staging.example.com"
+  - url: "https://internal.example.com"
+  # --- Path-level exclusion (always out of scope on the allowed host) ------
+  - url: "https://app.example.com"
+    path: "/admin"
+    allow: false
+
+limits:
+  no_destructive: true

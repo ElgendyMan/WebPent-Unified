@@ -1,0 +1,74 @@
+{
+  "benchmark_id": "vabh-core-intelligence-v2",
+  "confirmation_boundary": {
+    "blocked_or_incomplete_cases": 1,
+    "confirmed_official_qualification_granted": false,
+    "confirmed_posture": "engineering_confirmed",
+    "confirmed_proof_bundle_valid": true,
+    "confirmed_replay_verified": true,
+    "confirmed_score": 1.0,
+    "confirmed_scoring_eligible": false,
+    "engineering_confirmed_cases": 1,
+    "incomplete_missing": [
+      "causal_contract_invalid"
+    ],
+    "incomplete_posture": "blocked"
+  },
+  "discovery": {
+    "distinct_pattern_count": 10,
+    "distinct_vulnerability_classes": [
+      "auth_bypass",
+      "idor",
+      "info_disclosure",
+      "path_traversal",
+      "sqli",
+      "ssrf",
+      "xss"
+    ],
+    "expected_pattern_count": 10,
+    "hypothesis_count": 10,
+    "pattern_coverage": 1.0
+  },
+  "findings_created": 0,
+  "input": {
+    "entity_count": 9,
+    "graph_edge_count": 20,
+    "graph_node_count": 9,
+    "relation_count": 20
+  },
+  "interpretation": "Discovery and proposal coverage are measured on synthetic recorded facts; confirmation is engineering-confirmed only when recorded baseline/candidate/control observations, oracle, proof, seal, and replay are complete; offline evidence remains ineligible for official scoring or qualification.",
+  "mode": "offline_recorded_synthetic_facts",
+  "portfolio": {
+    "decision_stage": "validate",
+    "decision_status": "continue",
+    "execution_allowed": false,
+    "mutation_allowed": false,
+    "queue_size": 6,
+    "selected_task_id": "research:09dd4918eada0689959f86f1"
+  },
+  "qualification_effect": false,
+  "requests_sent": 0,
+  "target_execution": false,
+  "unified_core": {
+    "confirmation_posture": "engineering_confirmed",
+    "confirmation_score": 1.0,
+    "decision_stage": "validate",
+    "decision_status": "continue",
+    "engineering_confirmed": true,
+    "execution_allowed": false,
+    "finding_created": false,
+    "hypothesis_count": 10,
+    "mutation_allowed": false,
+    "qualification_effect": false,
+    "queue_task_count": 10,
+    "recommendations": [
+      "selected_highest_utility_unattempted_validation",
+      "selection_is_a_proposal_only",
+      "execution_remains_disabled",
+      "replayable_causal_confirmation_complete",
+      "offline_evidence_not_scoring_eligible"
+    ],
+    "scoring_eligible": false,
+    "selected_task_id": "research:09dd4918eada0689959f86f1"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "attempts": [
+    {
+      "attempt": 1,
+      "error_symbol": "hypothesis",
+      "error_type": "NameError",
+      "failure_stage": "governed_decision_evidence_serialization",
+      "note": "The first catalog-enabled run stopped before final campaign serialization because a newly added metadata filter referenced a stale local name. No result from this attempt is used as campaign success evidence.",
+      "status": "failed"
+    },
+    {
+      "actual_cost_usd": 0.0203215,
+      "attempt": 2,
+      "campaign_id": "recall-gap-llm-20261001t141713z",
+      "hypotheses_with_payload_id": 36,
+      "hypotheses_with_wstg_reference": 38,
+      "llm_calls": 6,
+      "payload_library_entries": 1421,
+      "promoted": 4,
+      "rejected": 26,
+      "status": "completed",
+      "wstg_tests": 116
+    },
+    {
+      "actual_cost_usd": 0.017244,
+      "attempt": 3,
+      "campaign_id": "recall-gap-llm-20261001t143038z",
+      "canonical_source_matched": true,
+      "hypotheses_with_payload_id": 36,
+      "hypotheses_with_wstg_reference": 38,
+      "llm_calls": 6,
+      "payload_library_entries": 1421,
+      "promoted": 3,
+      "rejected": 27,
+      "status": "completed",
+      "validator_refuted": 9,
+      "wstg_tests": 116
+    }
+  ],
+  "campaign_family": "recall_gap_llm_with_payload_wstg",
+  "canonical_attempt": 3,
+  "honesty_policy": "Only the completed source-matched retry is used for E2E acceptance claims."
+}

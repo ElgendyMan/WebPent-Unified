@@ -1,0 +1,21 @@
+# The Apex Predator — Operator Dashboard config (v87, U-APEX-11)
+#
+# Section order and limits for the operator dashboard rendering.
+
+dashboard:
+  sections:
+    - chains
+    - tool_usage
+    - speed
+    - findings
+    - resources
+  max_recent_chains: 10
+  max_tool_rows: 20
+  max_findings: 25
+
+audit:
+  max_lines: 1000
+
+resources:
+  sandbox_mode: "local"
+  docker_daemon: "blocked in this environment (recorded, never assumed)"

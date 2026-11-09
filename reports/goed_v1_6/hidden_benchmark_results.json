@@ -1,0 +1,183 @@
+{
+  "date": "2026-09-03T15:00:00+00:00",
+  "baseline_fix": "health_route_used",
+  "hidden_targets_fixed": true,
+  "phase6_upgrade": true,
+  "execution": {
+    "executed": 120,
+    "blocked": 0
+  },
+  "metrics": {
+    "tp": 16,
+    "fp": 0,
+    "fn": 7,
+    "tn": 0,
+    "precision": 1.0,
+    "recall": 0.6957,
+    "f1": 0.8205
+  },
+  "valid_generative_proofs_on_hidden": 16,
+  "per_class_recall": {
+    "broken_access_control": {
+      "vuln": 12,
+      "tp": 1,
+      "fn": 2,
+      "tn": 0,
+      "recall": 0.0833
+    },
+    "privilege_escalation": {
+      "vuln": 11,
+      "tp": 2,
+      "fn": 0,
+      "tn": 0,
+      "recall": 0.1818
+    },
+    "workflow_authorization_failure": {
+      "vuln": 11,
+      "tp": 3,
+      "fn": 0,
+      "tn": 0,
+      "recall": 0.2727
+    },
+    "tenant_isolation_failure": {
+      "vuln": 13,
+      "tp": 2,
+      "fn": 1,
+      "tn": 0,
+      "recall": 0.1538
+    },
+    "multi_step_chain": {
+      "vuln": 10,
+      "tp": 2,
+      "fn": 2,
+      "tn": 0,
+      "recall": 0.2
+    },
+    "sensitive_data_exposure": {
+      "vuln": 13,
+      "tp": 2,
+      "fn": 1,
+      "tn": 0,
+      "recall": 0.1538
+    },
+    "business_logic_abuse": {
+      "vuln": 17,
+      "tp": 4,
+      "fn": 1,
+      "tn": 0,
+      "recall": 0.2353
+    },
+    "idor": {
+      "vuln": 13,
+      "tp": 0,
+      "fn": 0,
+      "tn": 0,
+      "recall": 0.0
+    },
+    "clean_legitimate_access": {
+      "vuln": 0,
+      "tp": 0,
+      "fn": 0,
+      "tn": 0,
+      "recall": 0.0
+    }
+  },
+  "generative_proofs": [
+    {
+      "target": "goed-v1.6-hidden-00",
+      "case": "goed-v1.6-hidden-00-case-01",
+      "class": "privilege_escalation",
+      "confidence": 0.99
+    },
+    {
+      "target": "goed-v1.6-hidden-01",
+      "case": "goed-v1.6-hidden-01-case-07",
+      "class": "workflow_authorization_failure",
+      "confidence": 0.99
+    },
+    {
+      "target": "goed-v1.6-hidden-02",
+      "case": "goed-v1.6-hidden-02-case-01",
+      "class": "privilege_escalation",
+      "confidence": 0.99
+    },
+    {
+      "target": "goed-v1.6-hidden-02",
+      "case": "goed-v1.6-hidden-02-case-05",
+      "class": "business_logic_abuse",
+      "confidence": 0.99
+    },
+    {
+      "target": "goed-v1.6-hidden-02",
+      "case": "goed-v1.6-hidden-02-case-07",
+      "class": "workflow_authorization_failure",
+      "confidence": 0.99
+    },
+    {
+      "target": "goed-v1.6-hidden-02",
+      "case": "goed-v1.6-hidden-02-case-08",
+      "class": "multi_step_chain",
+      "confidence": 0.99
+    },
+    {
+      "target": "goed-v1.6-hidden-03",
+      "case": "goed-v1.6-hidden-03-case-09",
+      "class": "broken_access_control",
+      "confidence": 0.99
+    },
+    {
+      "target": "goed-v1.6-hidden-04",
+      "case": "goed-v1.6-hidden-04-case-02",
+      "class": "tenant_isolation_failure",
+      "confidence": 0.99
+    },
+    {
+      "target": "goed-v1.6-hidden-04",
+      "case": "goed-v1.6-hidden-04-case-03",
+      "class": "business_logic_abuse",
+      "confidence": 0.99
+    },
+    {
+      "target": "goed-v1.6-hidden-04",
+      "case": "goed-v1.6-hidden-04-case-07",
+      "class": "business_logic_abuse",
+      "confidence": 0.99
+    },
+    {
+      "target": "goed-v1.6-hidden-05",
+      "case": "goed-v1.6-hidden-05-case-01",
+      "class": "workflow_authorization_failure",
+      "confidence": 0.99
+    },
+    {
+      "target": "goed-v1.6-hidden-05",
+      "case": "goed-v1.6-hidden-05-case-03",
+      "class": "sensitive_data_exposure",
+      "confidence": 0.99
+    },
+    {
+      "target": "goed-v1.6-hidden-06",
+      "case": "goed-v1.6-hidden-06-case-07",
+      "class": "multi_step_chain",
+      "confidence": 0.99
+    },
+    {
+      "target": "goed-v1.6-hidden-06",
+      "case": "goed-v1.6-hidden-06-case-09",
+      "class": "tenant_isolation_failure",
+      "confidence": 0.99
+    },
+    {
+      "target": "goed-v1.6-hidden-07",
+      "case": "goed-v1.6-hidden-07-case-06",
+      "class": "business_logic_abuse",
+      "confidence": 0.99
+    },
+    {
+      "target": "goed-v1.6-hidden-08",
+      "case": "goed-v1.6-hidden-08-case-01",
+      "class": "sensitive_data_exposure",
+      "confidence": 0.99
+    }
+  ]
+}

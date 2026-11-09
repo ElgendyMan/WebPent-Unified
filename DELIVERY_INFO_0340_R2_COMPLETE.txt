@@ -1,0 +1,9 @@
+webpent 0.34.0 red-team R2 COMPLETE delivery (2026-11-02)
+git_head_live: 862b589b519ee449eb232e90e543d9b96fcd7a7a
+window: docs/RED_TEAM_ROUND2_20261102.md — fix window C1 10/10 + C2 18/18 + C3 16/17 (45/45 base findings; lesson-wiring half deferred, documented) + §8 addendum closing the §8 list with families/forge (25 findings: 1 Critical / 6 High / 10 Medium / 8 Low; all 7 Critical+High proven by direct execution — scripts/r2_families_forge_repros.py); 0.35.0 window proposed (CA/CB/CC) with hard ordering: no family-spine wiring before CA
+suite: 6844 collected = 6837 passed / 0 failed / 4 skipped / 3 xfailed
+post-addendum re-verification: freeze gate 661 passed; families+forge suites 327 passed / 2 skipped; repro script 7/7 PROVEN
+canary: 7x STABLE with collection gate (0 silent collection errors)
+manifest: 659 entries re-frozen (REDTEAM_R2_20261102_THAW_PATHS=1)
+direct-I/O: 814 -> 816 records (declared deltas only)
+ruff ratchet: 6212 == 6212 (re-baselined, zero new src findings)

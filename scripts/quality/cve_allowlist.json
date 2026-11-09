@@ -1,0 +1,30 @@
+{
+  "updated_at": "2026-11-01T00:00:00+00:00",
+  "context": "Seed allowlist for the Track-1 dependency gate. The 2026-10-27 snapshot measured 12 CVEs on the pinned 0.x langgraph family; the current lock resolves the langgraph 1.x family and the recorded scan (docs/pip_audit_release.json) reports zero open vulnerabilities, so the seed list starts EMPTY by design. Every future entry MUST carry an explicit id/package/reason/added and follow an approved risk decision (roadmap Definition of Done). 2026-11-01: the locked set was re-audited against PyPI advisories (245 packages) — 55 vulns in 11 packages were CLOSED by locked-dep upgrades (aiohttp 3.14.5, certifi 2026.10.23, filelock 4.2.6, langgraph-sdk 0.4.11, multidict 7.x, oauthlib 4.0.1, opentelemetry 1.45.2, pyasn1 0.6.5, pypdf 6.21.4, setuptools 84.2.1, urllib3 2.8.0); only chromadb remains with no upstream fix and is documented below.",
+  "allowlist": [
+    {
+      "id": "PYSEC-2026-311",
+      "package": "chromadb",
+      "reason": "chromadb 1.5.9 is the LATEST release on PyPI as of 2026-11-01 (verified via pip index versions); PYSEC-2026-311/3813/3814/3815 have NO fixed upstream version (pip-audit fix_versions empty). chromadb is the optional RAG vector store (langchain-chroma path, disabled in production CI env: DISABLE_RAG=true, offline providers only) and is never exposed to untrusted input in the shipped composition. Re-evaluate on the next chromadb release; remove these entries as soon as a patched version exists.",
+      "added": "2026-11-01"
+    },
+    {
+      "id": "PYSEC-2026-3813",
+      "package": "chromadb",
+      "reason": "chromadb 1.5.9 is the LATEST release on PyPI as of 2026-11-01 (verified via pip index versions); PYSEC-2026-311/3813/3814/3815 have NO fixed upstream version (pip-audit fix_versions empty). chromadb is the optional RAG vector store (langchain-chroma path, disabled in production CI env: DISABLE_RAG=true, offline providers only) and is never exposed to untrusted input in the shipped composition. Re-evaluate on the next chromadb release; remove these entries as soon as a patched version exists.",
+      "added": "2026-11-01"
+    },
+    {
+      "id": "PYSEC-2026-3814",
+      "package": "chromadb",
+      "reason": "chromadb 1.5.9 is the LATEST release on PyPI as of 2026-11-01 (verified via pip index versions); PYSEC-2026-311/3813/3814/3815 have NO fixed upstream version (pip-audit fix_versions empty). chromadb is the optional RAG vector store (langchain-chroma path, disabled in production CI env: DISABLE_RAG=true, offline providers only) and is never exposed to untrusted input in the shipped composition. Re-evaluate on the next chromadb release; remove these entries as soon as a patched version exists.",
+      "added": "2026-11-01"
+    },
+    {
+      "id": "PYSEC-2026-3815",
+      "package": "chromadb",
+      "reason": "chromadb 1.5.9 is the LATEST release on PyPI as of 2026-11-01 (verified via pip index versions); PYSEC-2026-311/3813/3814/3815 have NO fixed upstream version (pip-audit fix_versions empty). chromadb is the optional RAG vector store (langchain-chroma path, disabled in production CI env: DISABLE_RAG=true, offline providers only) and is never exposed to untrusted input in the shipped composition. Re-evaluate on the next chromadb release; remove these entries as soon as a patched version exists.",
+      "added": "2026-11-01"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+# The Apex Predator — Tool Selection Weights (v87, U-APEX-7)
+#
+# APEX-L-8 SPEED IS THE EDGE: at neutral context the fastest capable tool
+# wins. A high stealth requirement reweights the profile so quieter tools
+# rank up (APEX-L-3 thinking applied to tool choice). Historical accuracy
+# from the learning ledger breaks ties between equal-speed tools.
+#
+# score = w_speed*speed + w_stealth*stealth + w_accuracy*accuracy + w_resource*resource
+# all component scores are normalized to [0, 1].
+
+preamble: "advisory: selection weights shape tool ranking proposals; the operator approves what runs."
+
+profiles:
+  low:      {speed: 0.55, stealth: 0.10, accuracy: 0.25, resource: 0.10}
+  medium:   {speed: 0.45, stealth: 0.15, accuracy: 0.30, resource: 0.10}
+  high:     {speed: 0.15, stealth: 0.50, accuracy: 0.25, resource: 0.10}
+
+speed_scores:    {fast: 1.0, medium: 0.6, slow: 0.2}
+stealth_scores:  {low: 0.2, medium: 0.6, high: 1.0}
+resource_scores: {light: 1.0, medium: 0.7, heavy: 0.4}
+
+# resource fit derives from the tool's category: heavy exploitation or
+# credential tooling is less welcome on constrained hosts.
+category_resource:
+  recon: light
+  crawling: light
+  analysis: light
+  scanning: medium
+  fuzzing: medium
+  injection: medium
+  network: medium
+  exploitation: heavy
+  credentials: heavy
+
+default_accuracy: 0.5

@@ -1,0 +1,245 @@
+{
+  "target_id": "goed-v1.5-target-06",
+  "seed": 6,
+  "port": 8906,
+  "naming": {
+    "route_style_index": 6,
+    "role_set_index": 6,
+    "tenant_style_index": 6,
+    "object_style_index": 6
+  },
+  "route_prefix_example": "/data/ENTITY/access",
+  "roles": [
+    "visitor",
+    "contributor",
+    "maintainer",
+    "owner"
+  ],
+  "role_level": {
+    "visitor": 0,
+    "contributor": 1,
+    "maintainer": 2,
+    "owner": 3
+  },
+  "tenants": [
+    "group_0",
+    "group_1"
+  ],
+  "objects": [
+    "unit.00000",
+    "unit.00001",
+    "unit.00002",
+    "unit.00003",
+    "unit.00004",
+    "unit.00005",
+    "unit.00006",
+    "unit.00007"
+  ],
+  "fields": {
+    "id_field": "identity",
+    "name_field": "full_name",
+    "secret_field": "sensitive_code",
+    "email_field": "mail_address",
+    "balance_field": "funds"
+  },
+  "actors": {
+    "carol": {
+      "identity": "unit.00000",
+      "role": "visitor",
+      "tenant": "group_0"
+    },
+    "dave": {
+      "identity": "unit.00001",
+      "role": "contributor",
+      "tenant": "group_0"
+    },
+    "eve": {
+      "identity": "unit.00002",
+      "role": "visitor",
+      "tenant": "group_1"
+    },
+    "frank": {
+      "identity": "unit.00003",
+      "role": "contributor",
+      "tenant": "group_1"
+    }
+  },
+  "actor_list": [
+    "carol",
+    "dave",
+    "eve",
+    "frank"
+  ],
+  "sensitive_data": {
+    "unit.00000": {
+      "full_name": "Alice",
+      "sensitive_code": "XXX-XX-1000",
+      "mail_address": "alice@group_0.example",
+      "funds": 9501
+    },
+    "unit.00001": {
+      "full_name": "Bob",
+      "sensitive_code": "XXX-XX-1001",
+      "mail_address": "bob@group_0.example",
+      "funds": 1420
+    },
+    "unit.00002": {
+      "full_name": "Carol",
+      "sensitive_code": "XXX-XX-1002",
+      "mail_address": "carol@group_0.example",
+      "funds": 8046
+    },
+    "unit.00003": {
+      "full_name": "Dave",
+      "sensitive_code": "XXX-XX-1003",
+      "mail_address": "dave@group_1.example",
+      "funds": 4386
+    },
+    "unit.00004": {
+      "full_name": "Eve",
+      "sensitive_code": "XXX-XX-1004",
+      "mail_address": "eve@group_1.example",
+      "funds": 703
+    },
+    "unit.00005": {
+      "full_name": "Frank",
+      "sensitive_code": "XXX-XX-1005",
+      "mail_address": "frank@group_1.example",
+      "funds": 107
+    }
+  },
+  "admin_entity": "control_panel",
+  "billing_entity": "revenue_reports",
+  "transfer_entity": "credit_exchange",
+  "internal_entity": "confidential_records",
+  "wf_entity": "workflows",
+  "wf_id": "wf-unit.00002",
+  "msg_entity": "confidential_mail",
+  "auth_entity": "credential_reset",
+  "audit_entity": "event_history",
+  "cases": {
+    "goed-v1.5-target-06-case-00": {
+      "class": "idor",
+      "vulnerable_route": "/data/objects/unit.00001/access",
+      "baseline_route": "/data/objects/unit.00000/access",
+      "control_route": "/patched/data/objects/unit.00001/access",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-06-case-01": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/data/control_panel/access",
+      "baseline_route": "/data/health/access",
+      "control_route": "/patched/data/control_panel/access",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-06-case-02": {
+      "class": "privilege_escalation",
+      "vulnerable_route": "/data/revenue_reports/group_0/access",
+      "baseline_route": "/data/health/access",
+      "control_route": "/patched/data/revenue_reports/group_0/access",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-06-case-03": {
+      "class": "business_logic_abuse",
+      "vulnerable_route": "/data/credit_exchange/unit.00000?to=unit.00001&amount=-100/access",
+      "baseline_route": "/data/credit_exchange/unit.00000?to=unit.00001&amount=10/access",
+      "control_route": "/patched/data/credit_exchange/unit.00000/access",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-06-case-04": {
+      "class": "tenant_isolation_failure",
+      "vulnerable_route": "/data/tenant/group_1/confidential_records/access",
+      "baseline_route": "/data/tenant/group_0/confidential_records/access",
+      "control_route": "/patched/data/tenant/group_1/confidential_records/access",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-06-case-05": {
+      "class": "workflow_authorization_failure",
+      "vulnerable_route": "/data/workflows/wf-unit.00002/approve/access",
+      "baseline_route": "/data/workflows/wf-unit.00002/view/access",
+      "control_route": "/patched/data/workflows/wf-unit.00002/approve/access",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-06-case-06": {
+      "class": "sensitive_data_exposure",
+      "vulnerable_route": "/data/confidential_mail/unit.00001/inbox/access",
+      "baseline_route": "/data/confidential_mail/unit.00000/inbox/access",
+      "control_route": "/patched/data/confidential_mail/unit.00001/inbox/access",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-06-case-07": {
+      "class": "multi_step_chain",
+      "vulnerable_route": "/data/credential_reset/request?for=unit.00001/access",
+      "baseline_route": "/data/credential_reset/request?for=unit.00000/access",
+      "control_route": "/patched/data/credential_reset/request/access",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "critical"
+    },
+    "goed-v1.5-target-06-case-08": {
+      "class": "idor",
+      "vulnerable_route": "/data/objects/unit.00003/access",
+      "baseline_route": "/data/objects/unit.00000/access",
+      "control_route": "/patched/data/objects/unit.00003/access",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-06-case-09": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/data/event_history/access",
+      "baseline_route": "/data/health/access",
+      "control_route": "/patched/data/event_history/access",
+      "actor": "eve",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-06-case-10": {
+      "class": "clean_public_resource",
+      "vulnerable_route": "/data/health/access",
+      "baseline_route": "/data/health/access",
+      "control_route": "/data/health/access",
+      "actor": "carol",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    },
+    "goed-v1.5-target-06-case-11": {
+      "class": "clean_public_info",
+      "vulnerable_route": "/data/openapi/access",
+      "baseline_route": "/data/openapi/access",
+      "control_route": "/data/openapi/access",
+      "actor": "carol",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    }
+  },
+  "total_cases": 12,
+  "vulnerable_cases": 10,
+  "clean_cases": 2
+}

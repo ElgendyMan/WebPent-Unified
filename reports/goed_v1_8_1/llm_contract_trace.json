@@ -1,0 +1,74 @@
+{
+  "timestamp": 1788522366.5237513,
+  "target": "adversarial_v3",
+  "port": 9150,
+  "phases": {
+    "observation": {
+      "routes": [
+        "/adv3/v1/own",
+        "/adv3/v1/secrets",
+        "/patched/adv3/v1/secrets"
+      ],
+      "num_observations": 3
+    },
+    "hypothesis_generation": {
+      "num": 2,
+      "hypotheses": [
+        {
+          "id": "hyp-ac235c74",
+          "description": "Ownership boundary violation: resource accessed by non-owner actor",
+          "confidence": 0.48999999999999994,
+          "status": "proposed"
+        },
+        {
+          "id": "hyp-34a2f268",
+          "description": "Tenant isolation failure: cross-tenant resource accessible",
+          "confidence": 0.5249999999999999,
+          "status": "proposed"
+        }
+      ]
+    },
+    "tool_execution": {
+      "tool": "compare",
+      "authorized": true,
+      "error": null
+    },
+    "deterministic_validation": {
+      "verdict": "CONFIRMED",
+      "confidence": 0.99,
+      "proof_bundle_valid": true,
+      "proof_bundle_id": null,
+      "deterministic_seal": "e71030af5d1c5b6f67bfd432fbfec78dafad9ae3ede46efd9cfcb8fda9dc04ea"
+    },
+    "final_outcome": {
+      "verdict": "CONFIRMED",
+      "authority": "CausalGuard_deterministic_engine",
+      "llm_respected_boundary": true
+    }
+  },
+  "policy_hash": "bf6480007259d30e14af2685ca6e873807fe5a681e3770e99e4a69b662f2f5b4",
+  "provider_info": {
+    "type": "MockLLMProvider",
+    "model": "mock-deterministic-v1"
+  },
+  "provider_telemetry_redacted": [
+    {
+      "call_id": "401363fd-f7da-431b-a86b-0dd1db98084e",
+      "model": "mock-deterministic-v1",
+      "tokens_used": 662,
+      "latency_seconds": 0.118,
+      "finish_reason": "stop",
+      "had_error": false,
+      "timestamp": 1788522366.5836728
+    }
+  ],
+  "provider_usage": {
+    "provider": "MockLLMProvider",
+    "model": "mock-deterministic-v1",
+    "prompt_version_hash": "bf6480007259d30e14af2685ca6e873807fe5a681e3770e99e4a69b662f2f5b4",
+    "call_count": 1,
+    "total_tokens": 662,
+    "avg_latency": 0.118,
+    "error_rate": 0.0
+  }
+}

@@ -1,0 +1,138 @@
+# U-ORACLE-6: chain patterns. Every pattern is a hypothesis the Oracle
+# proposes for human review — nothing here is ever executed (ORACLE-L-10).
+# required_nodes is an ordered node-type sequence; required_edges must
+# contain exactly len(required_nodes) - 1 edge types, the relation that
+# connects each consecutive pair along the matched path.
+chain_patterns:
+  - pattern_id: CH-001
+    name: leaked credential to data access
+    description: a leaked credential authenticates to the host, which reads the leaked dataset
+    required_nodes: [credential, host, data_leak]
+    required_edges: [authenticates_with, reads_from]
+    impact_category: data_access
+    payout_delta: 0.85
+    steps:
+      - confirm the credential hash against the operator's vault records
+      - determine which service the credential guards
+      - map the service's read paths to the leaked dataset
+  - pattern_id: CH-002
+    name: subdomain takeover to credential harvest
+    description: a dangling subdomain is claimed, then phishes or intercepts flows toward the host
+    required_nodes: [subdomain, host, credential]
+    required_edges: [same_owner, authenticates_with]
+    impact_category: credential_access
+    payout_delta: 0.9
+    steps:
+      - verify the subdomain's dangling record from passive dns history
+      - classify the takeover surface
+      - trace which authentication flows touch the subdomain
+  - pattern_id: CH-003
+    name: forgotten endpoint to outdated component
+    description: an unlinked endpoint exposes an outdated component's interface
+    required_nodes: [endpoint, host, outdated_component]
+    required_edges: [serves, deploy_on]
+    impact_category: remote_exploitation
+    payout_delta: 0.8
+    steps:
+      - reconcile the endpoint against the wayback history
+      - confirm the component version evidence
+      - list known public exploits for the component version
+  - pattern_id: CH-004
+    name: leaked key to cloud bucket
+    description: a leaked key opens storage the host reads from
+    required_nodes: [credential, host, data_leak]
+    required_edges: [authenticates_with, reads_from]
+    impact_category: data_access
+    payout_delta: 0.75
+    steps:
+      - identify the storage provider from the leak evidence
+      - map the key's scope from the leak metadata
+      - correlate bucket listings already present in public archives
+  - pattern_id: CH-005
+    name: tech fingerprint to forgotten endpoint
+    description: a fingerprinted stack suggests default paths never linked in production
+    required_nodes: [tech, host, endpoint]
+    required_edges: [deploy_on, serves]
+    impact_category: surface_expansion
+    payout_delta: 0.5
+    steps:
+      - list default routes for the fingerprinted stack
+      - filter routes already seen in historical archives
+      - rank the remainder by archive frequency
+  - pattern_id: CH-006
+    name: takeover chain through sibling subdomains
+    description: one claimable subdomain parked next to another widens the interception surface
+    required_nodes: [subdomain, host, subdomain]
+    required_edges: [same_owner, same_owner]
+    impact_category: surface_expansion
+    payout_delta: 0.6
+    steps:
+      - group sibling subdomains by ownership evidence
+      - check which sibling records dangle passively
+      - estimate the traffic split from certificate transparency volume
+  - pattern_id: CH-007
+    name: public chat leak to endpoint mapping
+    description: credentials surfaced in public chat point at an endpoint that serves the host
+    required_nodes: [credential, host, endpoint]
+    required_edges: [authenticates_with, serves]
+    impact_category: credential_access
+    payout_delta: 0.7
+    steps:
+      - confirm the chat-derived credential against leak corpora
+      - identify the login surface it likely guards
+      - check the surface against archived endpoint maps
+  - pattern_id: CH-008
+    name: outdated component to data exposure
+    description: a vulnerable component on the host reads from an exposed dataset
+    required_nodes: [outdated_component, host, data_leak]
+    required_edges: [deploy_on, reads_from]
+    impact_category: data_access
+    payout_delta: 0.8
+    steps:
+      - pin the component version from passive banner evidence
+      - review known disclosures for the version
+      - map the component's data-read configuration to the leak
+  - pattern_id: CH-009
+    name: endpoint to credential reuse
+    description: an archived endpoint exposes an authentication surface guarding stored credentials
+    required_nodes: [endpoint, host, credential]
+    required_edges: [serves, authenticates_with]
+    impact_category: credential_access
+    payout_delta: 0.65
+    steps:
+      - classify the endpoint's authentication mechanism from archives
+      - match the mechanism against the credential evidence
+      - estimate reuse breadth from the leak sources
+  - pattern_id: CH-010
+    name: acquisitions widen the graph
+    description: an acquisition folds new subdomains and credentials under one owner
+    required_nodes: [subdomain, host, tech]
+    required_edges: [same_owner, deploy_on]
+    impact_category: surface_expansion
+    payout_delta: 0.45
+    steps:
+      - diff the acquired domains against the historical records
+      - fingerprint the acquired stack passively
+      - flag components with known disclosures
+  - pattern_id: CH-011
+    name: data leak to internal service map
+    description: leaked configuration data reveals services deployed on the host
+    required_nodes: [data_leak, host, tech]
+    required_edges: [reads_from, deploy_on]
+    impact_category: reconnaissance
+    payout_delta: 0.55
+    steps:
+      - extract service names from the leak evidence
+      - match them against the fingerprinted components
+      - list services absent from public disclosure
+  - pattern_id: CH-012
+    name: chained takeover to data access
+    description: a claimable subdomain and a leaked credential meet at one host holding data
+    required_nodes: [subdomain, host, credential, data_leak]
+    required_edges: [same_owner, authenticates_with, reads_from]
+    impact_category: data_access
+    payout_delta: 0.95
+    steps:
+      - confirm both evidences independently
+      - verify the host joins the takeover surface and the credential guard
+      - trace the data-read path from the guarded service

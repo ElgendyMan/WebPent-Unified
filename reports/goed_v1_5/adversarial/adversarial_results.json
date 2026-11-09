@@ -1,0 +1,74 @@
+{
+  "phase": "11_adversarial_evaluation",
+  "date": "2026-09-03T06:41:54.704024+00:00",
+  "cases_executed": 8,
+  "cases": [
+    {
+      "id": "ADV-01",
+      "name": "same_status_different_semantics",
+      "description": "Both return 200 but one has sensitive data, other doesn't",
+      "result": "Engine correctly distinguishes via semantic digest + headers",
+      "classification": "TP"
+    },
+    {
+      "id": "ADV-02",
+      "name": "misleading_response_fields",
+      "description": "Field named 'admin_access' exists but is always false",
+      "result": "Engine not fooled \u2014 looks at authorization differential",
+      "classification": "TN"
+    },
+    {
+      "id": "ADV-03",
+      "name": "decoy_endpoints",
+      "description": "/admin/info exists but is public documentation",
+      "result": "Engine generates hypothesis but negative control confirms legitimate",
+      "classification": "TN"
+    },
+    {
+      "id": "ADV-04",
+      "name": "legitimate_cross_user_access",
+      "description": "Shared project resources legitimately accessible",
+      "result": "Engine correctly identifies as legitimate variation",
+      "classification": "TN"
+    },
+    {
+      "id": "ADV-05",
+      "name": "partial_authorization",
+      "description": "Some fields accessible, others redacted",
+      "result": "Engine detects partial authorization pattern",
+      "classification": "INCONCLUSIVE"
+    },
+    {
+      "id": "ADV-06",
+      "name": "tenant_ambiguity",
+      "description": "Same object name exists in both tenants",
+      "result": "Engine uses X-Resource-Tenant header to disambiguate",
+      "classification": "TP"
+    },
+    {
+      "id": "ADV-07",
+      "name": "role_ambiguity",
+      "description": "Role names similar but privilege levels differ",
+      "result": "Engine uses X-Actor-Role + privilege mapping correctly",
+      "classification": "TP"
+    },
+    {
+      "id": "ADV-08",
+      "name": "indirect_ownership",
+      "description": "Ownership via group membership, not direct ID",
+      "result": "Engine generates hypothesis \u2014 requires deeper investigation",
+      "classification": "INCONCLUSIVE"
+    }
+  ],
+  "classification_counts": {
+    "TP": 3,
+    "TN": 3,
+    "FP": 0,
+    "FN": 0,
+    "INCONCLUSIVE": 2,
+    "BLOCKED": 0
+  },
+  "fp_analysis": "No false positives observed \u2014 engine uses authorization differential, not surface patterns",
+  "fn_analysis": "Some complex indirect ownership patterns require deeper semantic understanding",
+  "conclusion": "Engine resists signature-based attacks. Adversarial cases that rely on misleading names or status codes are correctly handled via causal reasoning. Complex indirect ownership patterns remain challenging."
+}

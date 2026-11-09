@@ -1,0 +1,554 @@
+{
+  "benchmark": "DifferentialBenchmark-v1",
+  "version": "1.0",
+  "total_cases": 60,
+  "families": {
+    "easy": 20,
+    "reasoning": 20,
+    "novel": 20
+  },
+  "vulnerable_cases": 30,
+  "clean_cases": 30,
+  "cases": {
+    "diff_001": {
+      "case_id": "diff_001",
+      "family": "easy",
+      "baseline": "/diff/v1/own_res_1",
+      "candidate": "/diff/v1/target_res_1",
+      "control": "/patched/diff/v1/target_res_1",
+      "port": 9200
+    },
+    "diff_002": {
+      "case_id": "diff_002",
+      "family": "easy",
+      "baseline": "/diff/v1/own_res_2",
+      "candidate": "/diff/v1/target_res_2",
+      "control": "/patched/diff/v1/target_res_2",
+      "port": 9200
+    },
+    "diff_003": {
+      "case_id": "diff_003",
+      "family": "easy",
+      "baseline": "/diff/v1/own_res_3",
+      "candidate": "/diff/v1/target_res_3",
+      "control": "/patched/diff/v1/target_res_3",
+      "port": 9200
+    },
+    "diff_004": {
+      "case_id": "diff_004",
+      "family": "easy",
+      "baseline": "/diff/v1/own_res_4",
+      "candidate": "/diff/v1/target_res_4",
+      "control": "/patched/diff/v1/target_res_4",
+      "port": 9200
+    },
+    "diff_005": {
+      "case_id": "diff_005",
+      "family": "easy",
+      "baseline": "/diff/v1/own_res_5",
+      "candidate": "/diff/v1/target_res_5",
+      "control": "/patched/diff/v1/target_res_5",
+      "port": 9200
+    },
+    "diff_006": {
+      "case_id": "diff_006",
+      "family": "easy",
+      "baseline": "/diff/v1/own_res_6",
+      "candidate": "/diff/v1/target_res_6",
+      "control": "/patched/diff/v1/target_res_6",
+      "port": 9200
+    },
+    "diff_007": {
+      "case_id": "diff_007",
+      "family": "easy",
+      "baseline": "/diff/v1/own_res_7",
+      "candidate": "/diff/v1/target_res_7",
+      "control": "/patched/diff/v1/target_res_7",
+      "port": 9200
+    },
+    "diff_008": {
+      "case_id": "diff_008",
+      "family": "easy",
+      "baseline": "/diff/v1/own_res_8",
+      "candidate": "/diff/v1/target_res_8",
+      "control": "/patched/diff/v1/target_res_8",
+      "port": 9200
+    },
+    "diff_009": {
+      "case_id": "diff_009",
+      "family": "easy",
+      "baseline": "/diff/v1/own_res_9",
+      "candidate": "/diff/v1/target_res_9",
+      "control": "/patched/diff/v1/target_res_9",
+      "port": 9200
+    },
+    "diff_010": {
+      "case_id": "diff_010",
+      "family": "easy",
+      "baseline": "/diff/v1/own_res_10",
+      "candidate": "/diff/v1/target_res_10",
+      "control": "/patched/diff/v1/target_res_10",
+      "port": 9200
+    },
+    "diff_011": {
+      "case_id": "diff_011",
+      "family": "easy",
+      "baseline": "/diff/v1/own_res_11",
+      "candidate": "/diff/v1/target_res_11",
+      "control": "/patched/diff/v1/target_res_11",
+      "port": 9200
+    },
+    "diff_012": {
+      "case_id": "diff_012",
+      "family": "easy",
+      "baseline": "/diff/v1/own_res_12",
+      "candidate": "/diff/v1/target_res_12",
+      "control": "/patched/diff/v1/target_res_12",
+      "port": 9200
+    },
+    "diff_013": {
+      "case_id": "diff_013",
+      "family": "easy",
+      "baseline": "/diff/v1/own_res_13",
+      "candidate": "/diff/v1/target_res_13",
+      "control": "/patched/diff/v1/target_res_13",
+      "port": 9200
+    },
+    "diff_014": {
+      "case_id": "diff_014",
+      "family": "easy",
+      "baseline": "/diff/v1/own_res_14",
+      "candidate": "/diff/v1/target_res_14",
+      "control": "/patched/diff/v1/target_res_14",
+      "port": 9200
+    },
+    "diff_015": {
+      "case_id": "diff_015",
+      "family": "easy",
+      "baseline": "/diff/v1/own_res_15",
+      "candidate": "/diff/v1/target_res_15",
+      "control": "/patched/diff/v1/target_res_15",
+      "port": 9200
+    },
+    "diff_016": {
+      "case_id": "diff_016",
+      "family": "easy",
+      "baseline": "/diff/v1/own_res_16",
+      "candidate": "/diff/v1/target_res_16",
+      "control": "/patched/diff/v1/target_res_16",
+      "port": 9200
+    },
+    "diff_017": {
+      "case_id": "diff_017",
+      "family": "easy",
+      "baseline": "/diff/v1/own_res_17",
+      "candidate": "/diff/v1/target_res_17",
+      "control": "/patched/diff/v1/target_res_17",
+      "port": 9200
+    },
+    "diff_018": {
+      "case_id": "diff_018",
+      "family": "easy",
+      "baseline": "/diff/v1/own_res_18",
+      "candidate": "/diff/v1/target_res_18",
+      "control": "/patched/diff/v1/target_res_18",
+      "port": 9200
+    },
+    "diff_019": {
+      "case_id": "diff_019",
+      "family": "easy",
+      "baseline": "/diff/v1/own_res_19",
+      "candidate": "/diff/v1/target_res_19",
+      "control": "/patched/diff/v1/target_res_19",
+      "port": 9200
+    },
+    "diff_020": {
+      "case_id": "diff_020",
+      "family": "easy",
+      "baseline": "/diff/v1/own_res_20",
+      "candidate": "/diff/v1/target_res_20",
+      "control": "/patched/diff/v1/target_res_20",
+      "port": 9200
+    },
+    "diff_021": {
+      "case_id": "diff_021",
+      "family": "reasoning",
+      "baseline": "/diff/v1/own_res_21",
+      "candidate": "/diff/v1/target_res_21",
+      "control": "/patched/diff/v1/target_res_21",
+      "port": 9200,
+      "reasoning_required": true
+    },
+    "diff_022": {
+      "case_id": "diff_022",
+      "family": "reasoning",
+      "baseline": "/diff/v1/own_res_22",
+      "candidate": "/diff/v1/target_res_22",
+      "control": "/patched/diff/v1/target_res_22",
+      "port": 9200,
+      "reasoning_required": true
+    },
+    "diff_023": {
+      "case_id": "diff_023",
+      "family": "reasoning",
+      "baseline": "/diff/v1/own_res_23",
+      "candidate": "/diff/v1/target_res_23",
+      "control": "/patched/diff/v1/target_res_23",
+      "port": 9200,
+      "reasoning_required": true
+    },
+    "diff_024": {
+      "case_id": "diff_024",
+      "family": "reasoning",
+      "baseline": "/diff/v1/own_res_24",
+      "candidate": "/diff/v1/target_res_24",
+      "control": "/patched/diff/v1/target_res_24",
+      "port": 9200,
+      "reasoning_required": true
+    },
+    "diff_025": {
+      "case_id": "diff_025",
+      "family": "reasoning",
+      "baseline": "/diff/v1/own_res_25",
+      "candidate": "/diff/v1/target_res_25",
+      "control": "/patched/diff/v1/target_res_25",
+      "port": 9200,
+      "reasoning_required": true
+    },
+    "diff_026": {
+      "case_id": "diff_026",
+      "family": "reasoning",
+      "baseline": "/diff/v1/own_res_26",
+      "candidate": "/diff/v1/target_res_26",
+      "control": "/patched/diff/v1/target_res_26",
+      "port": 9200,
+      "reasoning_required": true
+    },
+    "diff_027": {
+      "case_id": "diff_027",
+      "family": "reasoning",
+      "baseline": "/diff/v1/own_res_27",
+      "candidate": "/diff/v1/target_res_27",
+      "control": "/patched/diff/v1/target_res_27",
+      "port": 9200,
+      "reasoning_required": true
+    },
+    "diff_028": {
+      "case_id": "diff_028",
+      "family": "reasoning",
+      "baseline": "/diff/v1/own_res_28",
+      "candidate": "/diff/v1/target_res_28",
+      "control": "/patched/diff/v1/target_res_28",
+      "port": 9200,
+      "reasoning_required": true
+    },
+    "diff_029": {
+      "case_id": "diff_029",
+      "family": "reasoning",
+      "baseline": "/diff/v1/own_res_29",
+      "candidate": "/diff/v1/target_res_29",
+      "control": "/patched/diff/v1/target_res_29",
+      "port": 9200,
+      "reasoning_required": true
+    },
+    "diff_030": {
+      "case_id": "diff_030",
+      "family": "reasoning",
+      "baseline": "/diff/v1/own_res_30",
+      "candidate": "/diff/v1/target_res_30",
+      "control": "/patched/diff/v1/target_res_30",
+      "port": 9200,
+      "reasoning_required": true
+    },
+    "diff_031": {
+      "case_id": "diff_031",
+      "family": "reasoning",
+      "baseline": "/diff/v1/own_res_31",
+      "candidate": "/diff/v1/target_res_31",
+      "control": "/patched/diff/v1/target_res_31",
+      "port": 9200,
+      "reasoning_required": true
+    },
+    "diff_032": {
+      "case_id": "diff_032",
+      "family": "reasoning",
+      "baseline": "/diff/v1/own_res_32",
+      "candidate": "/diff/v1/target_res_32",
+      "control": "/patched/diff/v1/target_res_32",
+      "port": 9200,
+      "reasoning_required": true
+    },
+    "diff_033": {
+      "case_id": "diff_033",
+      "family": "reasoning",
+      "baseline": "/diff/v1/own_res_33",
+      "candidate": "/diff/v1/target_res_33",
+      "control": "/patched/diff/v1/target_res_33",
+      "port": 9200,
+      "reasoning_required": true
+    },
+    "diff_034": {
+      "case_id": "diff_034",
+      "family": "reasoning",
+      "baseline": "/diff/v1/own_res_34",
+      "candidate": "/diff/v1/target_res_34",
+      "control": "/patched/diff/v1/target_res_34",
+      "port": 9200,
+      "reasoning_required": true
+    },
+    "diff_035": {
+      "case_id": "diff_035",
+      "family": "reasoning",
+      "baseline": "/diff/v1/own_res_35",
+      "candidate": "/diff/v1/target_res_35",
+      "control": "/patched/diff/v1/target_res_35",
+      "port": 9200,
+      "reasoning_required": true
+    },
+    "diff_036": {
+      "case_id": "diff_036",
+      "family": "reasoning",
+      "baseline": "/diff/v1/own_res_36",
+      "candidate": "/diff/v1/target_res_36",
+      "control": "/patched/diff/v1/target_res_36",
+      "port": 9200,
+      "reasoning_required": true
+    },
+    "diff_037": {
+      "case_id": "diff_037",
+      "family": "reasoning",
+      "baseline": "/diff/v1/own_res_37",
+      "candidate": "/diff/v1/target_res_37",
+      "control": "/patched/diff/v1/target_res_37",
+      "port": 9200,
+      "reasoning_required": true
+    },
+    "diff_038": {
+      "case_id": "diff_038",
+      "family": "reasoning",
+      "baseline": "/diff/v1/own_res_38",
+      "candidate": "/diff/v1/target_res_38",
+      "control": "/patched/diff/v1/target_res_38",
+      "port": 9200,
+      "reasoning_required": true
+    },
+    "diff_039": {
+      "case_id": "diff_039",
+      "family": "reasoning",
+      "baseline": "/diff/v1/own_res_39",
+      "candidate": "/diff/v1/target_res_39",
+      "control": "/patched/diff/v1/target_res_39",
+      "port": 9200,
+      "reasoning_required": true
+    },
+    "diff_040": {
+      "case_id": "diff_040",
+      "family": "reasoning",
+      "baseline": "/diff/v1/own_res_40",
+      "candidate": "/diff/v1/target_res_40",
+      "control": "/patched/diff/v1/target_res_40",
+      "port": 9200,
+      "reasoning_required": true
+    },
+    "diff_041": {
+      "case_id": "diff_041",
+      "family": "novel",
+      "baseline": "/diff/v1/own_res_41",
+      "candidate": "/diff/v1/target_res_41",
+      "control": "/patched/diff/v1/target_res_41",
+      "port": 9200,
+      "reasoning_required": true,
+      "never_seen_before": true
+    },
+    "diff_042": {
+      "case_id": "diff_042",
+      "family": "novel",
+      "baseline": "/diff/v1/own_res_42",
+      "candidate": "/diff/v1/target_res_42",
+      "control": "/patched/diff/v1/target_res_42",
+      "port": 9200,
+      "reasoning_required": true,
+      "never_seen_before": true
+    },
+    "diff_043": {
+      "case_id": "diff_043",
+      "family": "novel",
+      "baseline": "/diff/v1/own_res_43",
+      "candidate": "/diff/v1/target_res_43",
+      "control": "/patched/diff/v1/target_res_43",
+      "port": 9200,
+      "reasoning_required": true,
+      "never_seen_before": true
+    },
+    "diff_044": {
+      "case_id": "diff_044",
+      "family": "novel",
+      "baseline": "/diff/v1/own_res_44",
+      "candidate": "/diff/v1/target_res_44",
+      "control": "/patched/diff/v1/target_res_44",
+      "port": 9200,
+      "reasoning_required": true,
+      "never_seen_before": true
+    },
+    "diff_045": {
+      "case_id": "diff_045",
+      "family": "novel",
+      "baseline": "/diff/v1/own_res_45",
+      "candidate": "/diff/v1/target_res_45",
+      "control": "/patched/diff/v1/target_res_45",
+      "port": 9200,
+      "reasoning_required": true,
+      "never_seen_before": true
+    },
+    "diff_046": {
+      "case_id": "diff_046",
+      "family": "novel",
+      "baseline": "/diff/v1/own_res_46",
+      "candidate": "/diff/v1/target_res_46",
+      "control": "/patched/diff/v1/target_res_46",
+      "port": 9200,
+      "reasoning_required": true,
+      "never_seen_before": true
+    },
+    "diff_047": {
+      "case_id": "diff_047",
+      "family": "novel",
+      "baseline": "/diff/v1/own_res_47",
+      "candidate": "/diff/v1/target_res_47",
+      "control": "/patched/diff/v1/target_res_47",
+      "port": 9200,
+      "reasoning_required": true,
+      "never_seen_before": true
+    },
+    "diff_048": {
+      "case_id": "diff_048",
+      "family": "novel",
+      "baseline": "/diff/v1/own_res_48",
+      "candidate": "/diff/v1/target_res_48",
+      "control": "/patched/diff/v1/target_res_48",
+      "port": 9200,
+      "reasoning_required": true,
+      "never_seen_before": true
+    },
+    "diff_049": {
+      "case_id": "diff_049",
+      "family": "novel",
+      "baseline": "/diff/v1/own_res_49",
+      "candidate": "/diff/v1/target_res_49",
+      "control": "/patched/diff/v1/target_res_49",
+      "port": 9200,
+      "reasoning_required": true,
+      "never_seen_before": true
+    },
+    "diff_050": {
+      "case_id": "diff_050",
+      "family": "novel",
+      "baseline": "/diff/v1/own_res_50",
+      "candidate": "/diff/v1/target_res_50",
+      "control": "/patched/diff/v1/target_res_50",
+      "port": 9200,
+      "reasoning_required": true,
+      "never_seen_before": true
+    },
+    "diff_051": {
+      "case_id": "diff_051",
+      "family": "novel",
+      "baseline": "/diff/v1/own_res_51",
+      "candidate": "/diff/v1/target_res_51",
+      "control": "/patched/diff/v1/target_res_51",
+      "port": 9200,
+      "reasoning_required": true,
+      "never_seen_before": true
+    },
+    "diff_052": {
+      "case_id": "diff_052",
+      "family": "novel",
+      "baseline": "/diff/v1/own_res_52",
+      "candidate": "/diff/v1/target_res_52",
+      "control": "/patched/diff/v1/target_res_52",
+      "port": 9200,
+      "reasoning_required": true,
+      "never_seen_before": true
+    },
+    "diff_053": {
+      "case_id": "diff_053",
+      "family": "novel",
+      "baseline": "/diff/v1/own_res_53",
+      "candidate": "/diff/v1/target_res_53",
+      "control": "/patched/diff/v1/target_res_53",
+      "port": 9200,
+      "reasoning_required": true,
+      "never_seen_before": true
+    },
+    "diff_054": {
+      "case_id": "diff_054",
+      "family": "novel",
+      "baseline": "/diff/v1/own_res_54",
+      "candidate": "/diff/v1/target_res_54",
+      "control": "/patched/diff/v1/target_res_54",
+      "port": 9200,
+      "reasoning_required": true,
+      "never_seen_before": true
+    },
+    "diff_055": {
+      "case_id": "diff_055",
+      "family": "novel",
+      "baseline": "/diff/v1/own_res_55",
+      "candidate": "/diff/v1/target_res_55",
+      "control": "/patched/diff/v1/target_res_55",
+      "port": 9200,
+      "reasoning_required": true,
+      "never_seen_before": true
+    },
+    "diff_056": {
+      "case_id": "diff_056",
+      "family": "novel",
+      "baseline": "/diff/v1/own_res_56",
+      "candidate": "/diff/v1/target_res_56",
+      "control": "/patched/diff/v1/target_res_56",
+      "port": 9200,
+      "reasoning_required": true,
+      "never_seen_before": true
+    },
+    "diff_057": {
+      "case_id": "diff_057",
+      "family": "novel",
+      "baseline": "/diff/v1/own_res_57",
+      "candidate": "/diff/v1/target_res_57",
+      "control": "/patched/diff/v1/target_res_57",
+      "port": 9200,
+      "reasoning_required": true,
+      "never_seen_before": true
+    },
+    "diff_058": {
+      "case_id": "diff_058",
+      "family": "novel",
+      "baseline": "/diff/v1/own_res_58",
+      "candidate": "/diff/v1/target_res_58",
+      "control": "/patched/diff/v1/target_res_58",
+      "port": 9200,
+      "reasoning_required": true,
+      "never_seen_before": true
+    },
+    "diff_059": {
+      "case_id": "diff_059",
+      "family": "novel",
+      "baseline": "/diff/v1/own_res_59",
+      "candidate": "/diff/v1/target_res_59",
+      "control": "/patched/diff/v1/target_res_59",
+      "port": 9200,
+      "reasoning_required": true,
+      "never_seen_before": true
+    },
+    "diff_060": {
+      "case_id": "diff_060",
+      "family": "novel",
+      "baseline": "/diff/v1/own_res_60",
+      "candidate": "/diff/v1/target_res_60",
+      "control": "/patched/diff/v1/target_res_60",
+      "port": 9200,
+      "reasoning_required": true,
+      "never_seen_before": true
+    }
+  }
+}

@@ -1,0 +1,245 @@
+{
+  "target_id": "goed-v1.5-target-09",
+  "seed": 9,
+  "port": 8909,
+  "naming": {
+    "route_style_index": 9,
+    "role_set_index": 9,
+    "tenant_style_index": 9,
+    "object_style_index": 9
+  },
+  "route_prefix_example": "/app/ENTITY/endpoint",
+  "roles": [
+    "observer",
+    "operator",
+    "administrator",
+    "global_admin"
+  ],
+  "role_level": {
+    "observer": 0,
+    "operator": 1,
+    "administrator": 2,
+    "global_admin": 3
+  },
+  "tenants": [
+    "partition-172",
+    "partition-419"
+  ],
+  "objects": [
+    "res_a0",
+    "res_d1",
+    "res_d2",
+    "res_g3",
+    "res_f4",
+    "res_a5",
+    "res_c6",
+    "res_a7"
+  ],
+  "fields": {
+    "id_field": "subject",
+    "name_field": "full_name",
+    "secret_field": "confidential_ref",
+    "email_field": "email",
+    "balance_field": "account_value"
+  },
+  "actors": {
+    "bob": {
+      "subject": "res_a0",
+      "role": "observer",
+      "tenant": "partition-172"
+    },
+    "carol": {
+      "subject": "res_d1",
+      "role": "operator",
+      "tenant": "partition-172"
+    },
+    "dave": {
+      "subject": "res_d2",
+      "role": "observer",
+      "tenant": "partition-419"
+    },
+    "eve": {
+      "subject": "res_g3",
+      "role": "operator",
+      "tenant": "partition-419"
+    }
+  },
+  "actor_list": [
+    "bob",
+    "carol",
+    "dave",
+    "eve"
+  ],
+  "sensitive_data": {
+    "res_a0": {
+      "full_name": "Alice",
+      "confidential_ref": "XXX-XX-1000",
+      "email": "alice@partition-172.example",
+      "account_value": 7685
+    },
+    "res_d1": {
+      "full_name": "Bob",
+      "confidential_ref": "XXX-XX-1001",
+      "email": "bob@partition-172.example",
+      "account_value": 6216
+    },
+    "res_d2": {
+      "full_name": "Carol",
+      "confidential_ref": "XXX-XX-1002",
+      "email": "carol@partition-172.example",
+      "account_value": 4476
+    },
+    "res_g3": {
+      "full_name": "Dave",
+      "confidential_ref": "XXX-XX-1003",
+      "email": "dave@partition-419.example",
+      "account_value": 2369
+    },
+    "res_f4": {
+      "full_name": "Eve",
+      "confidential_ref": "XXX-XX-1004",
+      "email": "eve@partition-419.example",
+      "account_value": 3149
+    },
+    "res_a5": {
+      "full_name": "Frank",
+      "confidential_ref": "XXX-XX-1005",
+      "email": "frank@partition-419.example",
+      "account_value": 205
+    }
+  },
+  "admin_entity": "management_console",
+  "billing_entity": "revenue_reports",
+  "transfer_entity": "funds_transfer",
+  "internal_entity": "confidential_records",
+  "wf_entity": "workflows",
+  "wf_id": "wf-res_d2",
+  "msg_entity": "personal_notifications",
+  "auth_entity": "password_recovery",
+  "audit_entity": "access_trail",
+  "cases": {
+    "goed-v1.5-target-09-case-00": {
+      "class": "idor",
+      "vulnerable_route": "/app/objects/res_d1/endpoint",
+      "baseline_route": "/app/objects/res_a0/endpoint",
+      "control_route": "/patched/app/objects/res_d1/endpoint",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-09-case-01": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/app/management_console/endpoint",
+      "baseline_route": "/app/health/endpoint",
+      "control_route": "/patched/app/management_console/endpoint",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-09-case-02": {
+      "class": "privilege_escalation",
+      "vulnerable_route": "/app/revenue_reports/partition-172/endpoint",
+      "baseline_route": "/app/health/endpoint",
+      "control_route": "/patched/app/revenue_reports/partition-172/endpoint",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-09-case-03": {
+      "class": "business_logic_abuse",
+      "vulnerable_route": "/app/funds_transfer/res_a0?to=res_d1&amount=-100/endpoint",
+      "baseline_route": "/app/funds_transfer/res_a0?to=res_d1&amount=10/endpoint",
+      "control_route": "/patched/app/funds_transfer/res_a0/endpoint",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-09-case-04": {
+      "class": "tenant_isolation_failure",
+      "vulnerable_route": "/app/tenant/partition-419/confidential_records/endpoint",
+      "baseline_route": "/app/tenant/partition-172/confidential_records/endpoint",
+      "control_route": "/patched/app/tenant/partition-419/confidential_records/endpoint",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-09-case-05": {
+      "class": "workflow_authorization_failure",
+      "vulnerable_route": "/app/workflows/wf-res_d2/approve/endpoint",
+      "baseline_route": "/app/workflows/wf-res_d2/view/endpoint",
+      "control_route": "/patched/app/workflows/wf-res_d2/approve/endpoint",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-09-case-06": {
+      "class": "sensitive_data_exposure",
+      "vulnerable_route": "/app/personal_notifications/res_d1/inbox/endpoint",
+      "baseline_route": "/app/personal_notifications/res_a0/inbox/endpoint",
+      "control_route": "/patched/app/personal_notifications/res_d1/inbox/endpoint",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-09-case-07": {
+      "class": "multi_step_chain",
+      "vulnerable_route": "/app/password_recovery/request?for=res_d1/endpoint",
+      "baseline_route": "/app/password_recovery/request?for=res_a0/endpoint",
+      "control_route": "/patched/app/password_recovery/request/endpoint",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "critical"
+    },
+    "goed-v1.5-target-09-case-08": {
+      "class": "idor",
+      "vulnerable_route": "/app/objects/res_g3/endpoint",
+      "baseline_route": "/app/objects/res_a0/endpoint",
+      "control_route": "/patched/app/objects/res_g3/endpoint",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-09-case-09": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/app/access_trail/endpoint",
+      "baseline_route": "/app/health/endpoint",
+      "control_route": "/patched/app/access_trail/endpoint",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-09-case-10": {
+      "class": "clean_public_resource",
+      "vulnerable_route": "/app/health/endpoint",
+      "baseline_route": "/app/health/endpoint",
+      "control_route": "/app/health/endpoint",
+      "actor": "bob",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    },
+    "goed-v1.5-target-09-case-11": {
+      "class": "clean_public_info",
+      "vulnerable_route": "/app/openapi/endpoint",
+      "baseline_route": "/app/openapi/endpoint",
+      "control_route": "/app/openapi/endpoint",
+      "actor": "bob",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    }
+  },
+  "total_cases": 12,
+  "vulnerable_cases": 10,
+  "clean_cases": 2
+}

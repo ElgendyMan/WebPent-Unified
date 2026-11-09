@@ -1,0 +1,85 @@
+{
+  "probes": {
+    "P3-auth-campaign": {
+      "status": "completed",
+      "findings": 0,
+      "lab_requests": 32,
+      "lab_auth_hits": 19,
+      "lab_anon_401": 0
+    },
+    "P3-auth-differential": {
+      "anonymous_downgrade": false,
+      "auth_ok": true
+    },
+    "P3-checkpoint-honesty": {
+      "cookies_in_checkpoint": {},
+      "credentials_in_checkpoint": {},
+      "hypotheses": 0,
+      "origins": {}
+    },
+    "P3-vault-roundtrip": {
+      "seal_unseal_equal": true
+    },
+    "P4-recon-campaign": {
+      "status": "completed",
+      "findings": 0,
+      "lab_requests": 113,
+      "state_keys": {
+        "world_model": null,
+        "deep_recon_summary": 14,
+        "crawled_data": 4,
+        "endpoints": null,
+        "hypotheses": 14,
+        "smart_replanning": 4,
+        "research_decisions": null
+      },
+      "origins": {
+        "heuristic": 8,
+        "deep_recon": 6
+      }
+    },
+    "P1D-nonkeyword-producers": {
+      "deep_or_heuristic_hypotheses": 14,
+      "total": 14,
+      "non_keyword_share": 1.0
+    },
+    "P7-registry": {
+      "registered": true,
+      "status": "running",
+      "engagement": "fv-auth-001",
+      "health": "{'ready': True, 'last_error': None, 'last_checked_at': '2026-09-14T18:33:56.334803+00:00'}"
+    },
+    "P7-workspace-db": {
+      "db": "/home/z/.webpent/workspaces/fv-client-fv-auth-001-127.0.0.1-c8d5fe35e931ff049435/databases/webpent.sqlite3",
+      "direct_rows": 1,
+      "sample": [
+        [
+          "unknown",
+          "Needs Human Review"
+        ]
+      ]
+    },
+    "P7-api-login": {
+      "token_obtained": true
+    },
+    "P7-api-findings-readback": {
+      "http": 200,
+      "api_count": 1,
+      "db_count": 1,
+      "parity": true,
+      "conf_levels": [
+        "Needs Human Review"
+      ]
+    },
+    "P7-api-status-readback": {
+      "http": 200,
+      "status": "completed",
+      "persisted_finding_count": null
+    },
+    "P7-api-unknown-thread": {
+      "http": 404
+    }
+  },
+  "defects_found": [],
+  "fixes_applied": []
+}

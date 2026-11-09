@@ -1,0 +1,51 @@
+# requirements.constraints.txt — single-source install pin reconciliation (0.33.0, plan item 3أ-1)
+#
+# WHY THIS FILE EXISTS (proven 2026-11-01):
+#   Installing any subset of this project's dependencies (e.g. `pip install
+#   langgraph` on a fresh environment) lets pip's resolver silently DOWNGRADE
+#   other pinned packages — observed live: langgraph pulled rich 14.3.3 over
+#   the pinned rich==15.0.0 and uvicorn 0.44.0 over uvicorn==0.54.0, leaving
+#   `pip check` red and the suite on untested versions.
+#
+# THE ONLY SUPPORTED INSTALL IS:
+#   pip install -e . -c requirements.constraints.txt
+#   (additions like celery/bcrypt during env rebuilds must ALSO carry `-c`.)
+#
+# Generated from pyproject.toml `dependencies` pins — regenerate on any
+# pyproject dependency change (same list, same order).
+
+torch==2.14.1
+langgraph==1.2.10
+langgraph-checkpoint-sqlite==3.1.1
+langchain-core==1.6.7
+langchain-community==0.4.2
+langchain-cloudflare==0.4.0
+pyyaml==6.0.3
+langchain-openai==1.6.7
+langchain-mistralai==1.1.6
+langchain-google-genai==4.4.0
+langchain-cohere==0.6.0
+langchain-anthropic==1.7.5
+langchain-chroma==1.1.0
+chromadb==1.5.9
+sentence-transformers==6.1.0
+pypdf==6.21.4
+pydantic==2.13.5
+pydantic-settings==2.15.0
+python-dotenv==1.2.4
+httpx==0.28.1
+beautifulsoup4==4.15.0
+playwright==1.57.0
+alembic==1.20.0
+docker==7.2.0
+fastapi==0.142.2
+uvicorn==0.54.0
+celery==5.6.3
+redis==5.3.1
+Jinja2==3.1.6
+rich==15.0.0
+typer==0.23.1
+python-multipart==0.0.32
+bcrypt==5.0.0
+PyJWT==2.15.1
+structlog==26.1.0

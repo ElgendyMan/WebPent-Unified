@@ -1,0 +1,125 @@
+{
+  "static_analysis": {
+    "src/webpent/goed_v1/__init__.py": {
+      "findings": {},
+      "pass": true
+    },
+    "src/webpent/goed_v1/contracts.py": {
+      "findings": {},
+      "pass": true
+    },
+    "src/webpent/goed_v1/exploration_loop.py": {
+      "findings": {},
+      "pass": true
+    },
+    "src/webpent/goed_v1/hypothesis_engine.py": {
+      "findings": {},
+      "pass": true
+    },
+    "src/webpent/goed_v1/open_world_mode.py": {
+      "findings": {},
+      "pass": true
+    }
+  },
+  "automated_isolation_tests": {
+    "tests": [
+      {
+        "input": "target-alpha",
+        "expected_leak": true,
+        "detected": true,
+        "leaks_found": [
+          "target-alpha"
+        ],
+        "passed": true
+      },
+      {
+        "input": "case-01",
+        "expected_leak": true,
+        "detected": true,
+        "leaks_found": [
+          "case-01"
+        ],
+        "passed": true
+      },
+      {
+        "input": "u001",
+        "expected_leak": true,
+        "detected": true,
+        "leaks_found": [
+          "u001"
+        ],
+        "passed": true
+      },
+      {
+        "input": "tenant-a",
+        "expected_leak": true,
+        "detected": true,
+        "leaks_found": [
+          "tenant-a"
+        ],
+        "passed": true
+      },
+      {
+        "input": "ground_truth",
+        "expected_leak": true,
+        "detected": true,
+        "leaks_found": [
+          "ground_truth"
+        ],
+        "passed": true
+      },
+      {
+        "input": "expected_findings",
+        "expected_leak": true,
+        "detected": true,
+        "leaks_found": [
+          "expected_findings"
+        ],
+        "passed": true
+      },
+      {
+        "input": "pilot-case",
+        "expected_leak": true,
+        "detected": true,
+        "leaks_found": [
+          "pilot-case"
+        ],
+        "passed": true
+      },
+      {
+        "input": "legitimate_value",
+        "expected_leak": false,
+        "detected": false,
+        "leaks_found": [],
+        "passed": true
+      },
+      {
+        "input": "/api/users",
+        "expected_leak": false,
+        "detected": false,
+        "leaks_found": [],
+        "passed": true
+      },
+      {
+        "input": "authorization",
+        "expected_leak": false,
+        "detected": false,
+        "leaks_found": [],
+        "passed": true
+      },
+      {
+        "input": "X-Actor",
+        "expected_leak": false,
+        "detected": false,
+        "leaks_found": [],
+        "passed": true
+      }
+    ],
+    "total": 11,
+    "passed": 11,
+    "failed": 0,
+    "pass": true
+  },
+  "leakage_attempts": [],
+  "conclusion": "PASS"
+}

@@ -1,0 +1,191 @@
+{
+  "benchmark_id": "ABHIE-v4-six-class-controlled-offline",
+  "classes": [
+    {
+      "case_count": 1,
+      "cases": [
+        {
+          "case_id": "controlled.idor.owner_resource.v1",
+          "evidence_basis": "historical_equivalent_fields_only",
+          "evidence_quality": 1.0,
+          "ground_truth_outcome": "confirmed",
+          "ground_truth_source": "controlled_campaign_v1_recorded_artifact",
+          "hypothesis_generated": true,
+          "proof_complete": true,
+          "recorded_proof_bundle_ref": "proof_bundle_4edc4011bfd7461d92b5f8224503eeae",
+          "requests_used": 3,
+          "target_id": "controlled_local_idor_target_v1",
+          "validation_outcome": "confirmed"
+        }
+      ],
+      "class": "idor",
+      "readiness_contract": {
+        "missing_evidence_is_blocking": true,
+        "required_semantics": [
+          "recorded candidate/control observations",
+          "causal oracle result",
+          "independent negative control",
+          "sealed proof bundle",
+          "replay verification"
+        ],
+        "target_neutral": true
+      },
+      "reason": "only historical validation, ground-truth, proof, hypothesis, request, and recorded proof-reference fields were joined",
+      "scorable": true,
+      "status": "SCORABLE_FROM_RECORDED_ARTIFACT"
+    },
+    {
+      "case_count": 0,
+      "cases": [],
+      "class": "privilege_escalation",
+      "readiness_contract": {
+        "missing_evidence_is_blocking": true,
+        "required_semantics": [
+          "recorded candidate/control observations",
+          "causal oracle result",
+          "independent negative control",
+          "sealed proof bundle",
+          "replay verification"
+        ],
+        "target_neutral": true
+      },
+      "reason": "no complete recorded candidate/control/oracle/proof/replay evidence satisfying the readiness contract",
+      "scorable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "case_count": 0,
+      "cases": [],
+      "class": "business_logic_authorization_failure",
+      "readiness_contract": {
+        "missing_evidence_is_blocking": true,
+        "required_semantics": [
+          "recorded candidate/control observations",
+          "causal oracle result",
+          "independent negative control",
+          "sealed proof bundle",
+          "replay verification"
+        ],
+        "target_neutral": true
+      },
+      "reason": "no complete recorded candidate/control/oracle/proof/replay evidence satisfying the readiness contract",
+      "scorable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "case_count": 0,
+      "cases": [],
+      "class": "tenant_isolation",
+      "readiness_contract": {
+        "missing_evidence_is_blocking": true,
+        "required_semantics": [
+          "recorded candidate/control observations",
+          "causal oracle result",
+          "independent negative control",
+          "sealed proof bundle",
+          "replay verification"
+        ],
+        "target_neutral": true
+      },
+      "reason": "no complete recorded candidate/control/oracle/proof/replay evidence satisfying the readiness contract",
+      "scorable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "case_count": 0,
+      "cases": [],
+      "class": "workflow_abuse",
+      "readiness_contract": {
+        "missing_evidence_is_blocking": true,
+        "required_semantics": [
+          "recorded candidate/control observations",
+          "causal oracle result",
+          "independent negative control",
+          "sealed proof bundle",
+          "replay verification"
+        ],
+        "target_neutral": true
+      },
+      "reason": "no complete recorded candidate/control/oracle/proof/replay evidence satisfying the readiness contract",
+      "scorable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "case_count": 0,
+      "cases": [],
+      "class": "sensitive_information_exposure",
+      "readiness_contract": {
+        "missing_evidence_is_blocking": true,
+        "required_semantics": [
+          "recorded candidate/control observations",
+          "causal oracle result",
+          "independent negative control",
+          "sealed proof bundle",
+          "replay verification"
+        ],
+        "target_neutral": true
+      },
+      "reason": "no complete recorded candidate/control/oracle/proof/replay evidence satisfying the readiness contract",
+      "scorable": false,
+      "status": "BLOCKED"
+    }
+  ],
+  "execution": {
+    "credentials_used": false,
+    "external_targets_contacted": false,
+    "mutations_performed": false,
+    "offline": true,
+    "requests_sent": 0,
+    "runner_creates_observations": false
+  },
+  "generated_at": "2026-08-27T22:13:33.232523+00:00",
+  "governance": {
+    "bug_bounty_status": "BLOCKED",
+    "human_signoff": false,
+    "official_isolated_p10_runs_authorized": false,
+    "p10_status": "NOT_QUALIFIED",
+    "p9_status": "NOT_QUALIFIED",
+    "qualification_effect": false,
+    "vip_status": "NOT_QUALIFIED"
+  },
+  "quality_score": {
+    "adaptive_efficiency": null,
+    "blocked_class_count": 5,
+    "evidence_completeness": 1.0,
+    "execution_integrity": {
+      "credentials_used": false,
+      "external_targets_contacted": false,
+      "mutations_performed": false,
+      "offline": true,
+      "requests_sent": 0
+    },
+    "f1": null,
+    "governance_integrity": {
+      "official_isolated_p10_runs_authorized": false,
+      "qualification_effect": false,
+      "vip_status": "NOT_QUALIFIED"
+    },
+    "precision": null,
+    "production_metrics_available": false,
+    "quality_claim": "recorded_evidence_coverage_only",
+    "readiness_coverage": 0.16666666666666666,
+    "real_world_detection_rate": null,
+    "reason_metrics_unavailable": "no approved multi-run ground-truth denominator and no live detection measurement; blocked and missing cases are excluded",
+    "recall": null,
+    "recorded_scorable_case_count": 1,
+    "registered_class_count": 6,
+    "research_depth": null,
+    "scorable_class_count": 1
+  },
+  "registered_classes": [
+    "idor",
+    "privilege_escalation",
+    "business_logic_authorization_failure",
+    "tenant_isolation",
+    "workflow_abuse",
+    "sensitive_information_exposure"
+  ],
+  "schema_version": "abhie-v4-controlled-benchmark-v1",
+  "source_artifact": "reports/evaluation/asros/asros_advanced_controlled_benchmark_v1.json",
+  "source_artifact_read_only": true
+}

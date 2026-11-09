@@ -1,0 +1,474 @@
+{
+  "phase": "2_fn_root_cause",
+  "date": "2026-09-03T07:04:29.564377+00:00",
+  "total_fn": 25,
+  "reason_code_distribution": {
+    "HYPOTHESIS_FAILURE": 25
+  },
+  "per_class_metrics": {
+    "broken_access_control": {
+      "total_vulnerable": 20,
+      "TP": 18,
+      "FN": 0,
+      "INCONCLUSIVE": 2,
+      "BLOCKED": 0,
+      "discovery_success": "20/20",
+      "discovery_rate": 1.0,
+      "execution_success": "20/20",
+      "proof_success": "18/20",
+      "replay_success": "18/20",
+      "recall": 0.9
+    },
+    "business_logic_abuse": {
+      "total_vulnerable": 10,
+      "TP": 0,
+      "FN": 0,
+      "INCONCLUSIVE": 5,
+      "BLOCKED": 5,
+      "discovery_success": "10/10",
+      "discovery_rate": 1.0,
+      "execution_success": "5/10",
+      "proof_success": "0/10",
+      "replay_success": "0/10",
+      "recall": 0.0
+    },
+    "clean_public_info": {
+      "total_vulnerable": 0,
+      "TP": 0,
+      "FN": 0,
+      "INCONCLUSIVE": 0,
+      "BLOCKED": 0,
+      "discovery_success": "0/0",
+      "discovery_rate": 0.0,
+      "execution_success": "0/0",
+      "proof_success": "10/10",
+      "replay_success": "10/10",
+      "recall": 0.0
+    },
+    "clean_public_resource": {
+      "total_vulnerable": 0,
+      "TP": 0,
+      "FN": 0,
+      "INCONCLUSIVE": 0,
+      "BLOCKED": 0,
+      "discovery_success": "0/0",
+      "discovery_rate": 0.0,
+      "execution_success": "0/0",
+      "proof_success": "10/10",
+      "replay_success": "10/10",
+      "recall": 0.0
+    },
+    "idor": {
+      "total_vulnerable": 20,
+      "TP": 0,
+      "FN": 10,
+      "INCONCLUSIVE": 10,
+      "BLOCKED": 0,
+      "discovery_success": "20/20",
+      "discovery_rate": 1.0,
+      "execution_success": "20/20",
+      "proof_success": "10/20",
+      "replay_success": "10/20",
+      "recall": 0.0
+    },
+    "multi_step_chain": {
+      "total_vulnerable": 10,
+      "TP": 0,
+      "FN": 5,
+      "INCONCLUSIVE": 0,
+      "BLOCKED": 5,
+      "discovery_success": "10/10",
+      "discovery_rate": 1.0,
+      "execution_success": "5/10",
+      "proof_success": "5/10",
+      "replay_success": "5/10",
+      "recall": 0.0
+    },
+    "privilege_escalation": {
+      "total_vulnerable": 10,
+      "TP": 9,
+      "FN": 0,
+      "INCONCLUSIVE": 1,
+      "BLOCKED": 0,
+      "discovery_success": "10/10",
+      "discovery_rate": 1.0,
+      "execution_success": "10/10",
+      "proof_success": "9/10",
+      "replay_success": "9/10",
+      "recall": 0.9
+    },
+    "sensitive_data_exposure": {
+      "total_vulnerable": 10,
+      "TP": 0,
+      "FN": 10,
+      "INCONCLUSIVE": 0,
+      "BLOCKED": 0,
+      "discovery_success": "10/10",
+      "discovery_rate": 1.0,
+      "execution_success": "10/10",
+      "proof_success": "10/10",
+      "replay_success": "10/10",
+      "recall": 0.0
+    },
+    "tenant_isolation_failure": {
+      "total_vulnerable": 10,
+      "TP": 10,
+      "FN": 0,
+      "INCONCLUSIVE": 0,
+      "BLOCKED": 0,
+      "discovery_success": "10/10",
+      "discovery_rate": 1.0,
+      "execution_success": "10/10",
+      "proof_success": "10/10",
+      "replay_success": "10/10",
+      "recall": 1.0
+    },
+    "workflow_authorization_failure": {
+      "total_vulnerable": 10,
+      "TP": 0,
+      "FN": 0,
+      "INCONCLUSIVE": 10,
+      "BLOCKED": 0,
+      "discovery_success": "10/10",
+      "discovery_rate": 1.0,
+      "execution_success": "10/10",
+      "proof_success": "0/10",
+      "replay_success": "0/10",
+      "recall": 0.0
+    }
+  },
+  "fn_analysis": {
+    "goed-v1.5-target-00-case-00": {
+      "case_id": "goed-v1.5-target-00-case-00",
+      "target": "goed-v1.5-target-00",
+      "class": "idor",
+      "canonical_state": "EXECUTED_CLEAN",
+      "causal_verdict": "CLEAN",
+      "discovery_success": true,
+      "confidence": 0.89,
+      "primary_reason": "HYPOTHESIS_FAILURE",
+      "secondary_reasons": [
+        "STRATEGY_FAILURE"
+      ]
+    },
+    "goed-v1.5-target-00-case-06": {
+      "case_id": "goed-v1.5-target-00-case-06",
+      "target": "goed-v1.5-target-00",
+      "class": "sensitive_data_exposure",
+      "canonical_state": "EXECUTED_CLEAN",
+      "causal_verdict": "CLEAN",
+      "discovery_success": true,
+      "confidence": 0.89,
+      "primary_reason": "HYPOTHESIS_FAILURE",
+      "secondary_reasons": [
+        "STRATEGY_FAILURE"
+      ]
+    },
+    "goed-v1.5-target-00-case-07": {
+      "case_id": "goed-v1.5-target-00-case-07",
+      "target": "goed-v1.5-target-00",
+      "class": "multi_step_chain",
+      "canonical_state": "EXECUTED_CLEAN",
+      "causal_verdict": "CLEAN",
+      "discovery_success": true,
+      "confidence": 0.91,
+      "primary_reason": "HYPOTHESIS_FAILURE",
+      "secondary_reasons": [
+        "STRATEGY_FAILURE"
+      ]
+    },
+    "goed-v1.5-target-01-case-00": {
+      "case_id": "goed-v1.5-target-01-case-00",
+      "target": "goed-v1.5-target-01",
+      "class": "idor",
+      "canonical_state": "EXECUTED_CLEAN",
+      "causal_verdict": "CLEAN",
+      "discovery_success": true,
+      "confidence": 0.89,
+      "primary_reason": "HYPOTHESIS_FAILURE",
+      "secondary_reasons": [
+        "STRATEGY_FAILURE"
+      ]
+    },
+    "goed-v1.5-target-01-case-06": {
+      "case_id": "goed-v1.5-target-01-case-06",
+      "target": "goed-v1.5-target-01",
+      "class": "sensitive_data_exposure",
+      "canonical_state": "EXECUTED_CLEAN",
+      "causal_verdict": "CLEAN",
+      "discovery_success": true,
+      "confidence": 0.89,
+      "primary_reason": "HYPOTHESIS_FAILURE",
+      "secondary_reasons": [
+        "STRATEGY_FAILURE"
+      ]
+    },
+    "goed-v1.5-target-01-case-07": {
+      "case_id": "goed-v1.5-target-01-case-07",
+      "target": "goed-v1.5-target-01",
+      "class": "multi_step_chain",
+      "canonical_state": "EXECUTED_CLEAN",
+      "causal_verdict": "CLEAN",
+      "discovery_success": true,
+      "confidence": 0.91,
+      "primary_reason": "HYPOTHESIS_FAILURE",
+      "secondary_reasons": [
+        "STRATEGY_FAILURE"
+      ]
+    },
+    "goed-v1.5-target-02-case-00": {
+      "case_id": "goed-v1.5-target-02-case-00",
+      "target": "goed-v1.5-target-02",
+      "class": "idor",
+      "canonical_state": "EXECUTED_CLEAN",
+      "causal_verdict": "CLEAN",
+      "discovery_success": true,
+      "confidence": 0.89,
+      "primary_reason": "HYPOTHESIS_FAILURE",
+      "secondary_reasons": [
+        "STRATEGY_FAILURE"
+      ]
+    },
+    "goed-v1.5-target-02-case-06": {
+      "case_id": "goed-v1.5-target-02-case-06",
+      "target": "goed-v1.5-target-02",
+      "class": "sensitive_data_exposure",
+      "canonical_state": "EXECUTED_CLEAN",
+      "causal_verdict": "CLEAN",
+      "discovery_success": true,
+      "confidence": 0.89,
+      "primary_reason": "HYPOTHESIS_FAILURE",
+      "secondary_reasons": [
+        "STRATEGY_FAILURE"
+      ]
+    },
+    "goed-v1.5-target-02-case-07": {
+      "case_id": "goed-v1.5-target-02-case-07",
+      "target": "goed-v1.5-target-02",
+      "class": "multi_step_chain",
+      "canonical_state": "EXECUTED_CLEAN",
+      "causal_verdict": "CLEAN",
+      "discovery_success": true,
+      "confidence": 0.91,
+      "primary_reason": "HYPOTHESIS_FAILURE",
+      "secondary_reasons": [
+        "STRATEGY_FAILURE"
+      ]
+    },
+    "goed-v1.5-target-03-case-00": {
+      "case_id": "goed-v1.5-target-03-case-00",
+      "target": "goed-v1.5-target-03",
+      "class": "idor",
+      "canonical_state": "EXECUTED_CLEAN",
+      "causal_verdict": "CLEAN",
+      "discovery_success": true,
+      "confidence": 0.89,
+      "primary_reason": "HYPOTHESIS_FAILURE",
+      "secondary_reasons": [
+        "STRATEGY_FAILURE"
+      ]
+    },
+    "goed-v1.5-target-03-case-06": {
+      "case_id": "goed-v1.5-target-03-case-06",
+      "target": "goed-v1.5-target-03",
+      "class": "sensitive_data_exposure",
+      "canonical_state": "EXECUTED_CLEAN",
+      "causal_verdict": "CLEAN",
+      "discovery_success": true,
+      "confidence": 0.89,
+      "primary_reason": "HYPOTHESIS_FAILURE",
+      "secondary_reasons": [
+        "STRATEGY_FAILURE"
+      ]
+    },
+    "goed-v1.5-target-04-case-00": {
+      "case_id": "goed-v1.5-target-04-case-00",
+      "target": "goed-v1.5-target-04",
+      "class": "idor",
+      "canonical_state": "EXECUTED_CLEAN",
+      "causal_verdict": "CLEAN",
+      "discovery_success": true,
+      "confidence": 0.89,
+      "primary_reason": "HYPOTHESIS_FAILURE",
+      "secondary_reasons": [
+        "STRATEGY_FAILURE"
+      ]
+    },
+    "goed-v1.5-target-04-case-06": {
+      "case_id": "goed-v1.5-target-04-case-06",
+      "target": "goed-v1.5-target-04",
+      "class": "sensitive_data_exposure",
+      "canonical_state": "EXECUTED_CLEAN",
+      "causal_verdict": "CLEAN",
+      "discovery_success": true,
+      "confidence": 0.89,
+      "primary_reason": "HYPOTHESIS_FAILURE",
+      "secondary_reasons": [
+        "STRATEGY_FAILURE"
+      ]
+    },
+    "goed-v1.5-target-04-case-07": {
+      "case_id": "goed-v1.5-target-04-case-07",
+      "target": "goed-v1.5-target-04",
+      "class": "multi_step_chain",
+      "canonical_state": "EXECUTED_CLEAN",
+      "causal_verdict": "CLEAN",
+      "discovery_success": true,
+      "confidence": 0.91,
+      "primary_reason": "HYPOTHESIS_FAILURE",
+      "secondary_reasons": [
+        "STRATEGY_FAILURE"
+      ]
+    },
+    "goed-v1.5-target-05-case-00": {
+      "case_id": "goed-v1.5-target-05-case-00",
+      "target": "goed-v1.5-target-05",
+      "class": "idor",
+      "canonical_state": "EXECUTED_CLEAN",
+      "causal_verdict": "CLEAN",
+      "discovery_success": true,
+      "confidence": 0.89,
+      "primary_reason": "HYPOTHESIS_FAILURE",
+      "secondary_reasons": [
+        "STRATEGY_FAILURE"
+      ]
+    },
+    "goed-v1.5-target-05-case-06": {
+      "case_id": "goed-v1.5-target-05-case-06",
+      "target": "goed-v1.5-target-05",
+      "class": "sensitive_data_exposure",
+      "canonical_state": "EXECUTED_CLEAN",
+      "causal_verdict": "CLEAN",
+      "discovery_success": true,
+      "confidence": 0.89,
+      "primary_reason": "HYPOTHESIS_FAILURE",
+      "secondary_reasons": [
+        "STRATEGY_FAILURE"
+      ]
+    },
+    "goed-v1.5-target-06-case-00": {
+      "case_id": "goed-v1.5-target-06-case-00",
+      "target": "goed-v1.5-target-06",
+      "class": "idor",
+      "canonical_state": "EXECUTED_CLEAN",
+      "causal_verdict": "CLEAN",
+      "discovery_success": true,
+      "confidence": 0.89,
+      "primary_reason": "HYPOTHESIS_FAILURE",
+      "secondary_reasons": [
+        "STRATEGY_FAILURE"
+      ]
+    },
+    "goed-v1.5-target-06-case-06": {
+      "case_id": "goed-v1.5-target-06-case-06",
+      "target": "goed-v1.5-target-06",
+      "class": "sensitive_data_exposure",
+      "canonical_state": "EXECUTED_CLEAN",
+      "causal_verdict": "CLEAN",
+      "discovery_success": true,
+      "confidence": 0.89,
+      "primary_reason": "HYPOTHESIS_FAILURE",
+      "secondary_reasons": [
+        "STRATEGY_FAILURE"
+      ]
+    },
+    "goed-v1.5-target-07-case-00": {
+      "case_id": "goed-v1.5-target-07-case-00",
+      "target": "goed-v1.5-target-07",
+      "class": "idor",
+      "canonical_state": "EXECUTED_CLEAN",
+      "causal_verdict": "CLEAN",
+      "discovery_success": true,
+      "confidence": 0.89,
+      "primary_reason": "HYPOTHESIS_FAILURE",
+      "secondary_reasons": [
+        "STRATEGY_FAILURE"
+      ]
+    },
+    "goed-v1.5-target-07-case-06": {
+      "case_id": "goed-v1.5-target-07-case-06",
+      "target": "goed-v1.5-target-07",
+      "class": "sensitive_data_exposure",
+      "canonical_state": "EXECUTED_CLEAN",
+      "causal_verdict": "CLEAN",
+      "discovery_success": true,
+      "confidence": 0.89,
+      "primary_reason": "HYPOTHESIS_FAILURE",
+      "secondary_reasons": [
+        "STRATEGY_FAILURE"
+      ]
+    },
+    "goed-v1.5-target-07-case-07": {
+      "case_id": "goed-v1.5-target-07-case-07",
+      "target": "goed-v1.5-target-07",
+      "class": "multi_step_chain",
+      "canonical_state": "EXECUTED_CLEAN",
+      "causal_verdict": "CLEAN",
+      "discovery_success": true,
+      "confidence": 0.91,
+      "primary_reason": "HYPOTHESIS_FAILURE",
+      "secondary_reasons": [
+        "STRATEGY_FAILURE"
+      ]
+    },
+    "goed-v1.5-target-08-case-00": {
+      "case_id": "goed-v1.5-target-08-case-00",
+      "target": "goed-v1.5-target-08",
+      "class": "idor",
+      "canonical_state": "EXECUTED_CLEAN",
+      "causal_verdict": "CLEAN",
+      "discovery_success": true,
+      "confidence": 0.89,
+      "primary_reason": "HYPOTHESIS_FAILURE",
+      "secondary_reasons": [
+        "STRATEGY_FAILURE"
+      ]
+    },
+    "goed-v1.5-target-08-case-06": {
+      "case_id": "goed-v1.5-target-08-case-06",
+      "target": "goed-v1.5-target-08",
+      "class": "sensitive_data_exposure",
+      "canonical_state": "EXECUTED_CLEAN",
+      "causal_verdict": "CLEAN",
+      "discovery_success": true,
+      "confidence": 0.89,
+      "primary_reason": "HYPOTHESIS_FAILURE",
+      "secondary_reasons": [
+        "STRATEGY_FAILURE"
+      ]
+    },
+    "goed-v1.5-target-09-case-00": {
+      "case_id": "goed-v1.5-target-09-case-00",
+      "target": "goed-v1.5-target-09",
+      "class": "idor",
+      "canonical_state": "EXECUTED_CLEAN",
+      "causal_verdict": "CLEAN",
+      "discovery_success": true,
+      "confidence": 0.89,
+      "primary_reason": "HYPOTHESIS_FAILURE",
+      "secondary_reasons": [
+        "STRATEGY_FAILURE"
+      ]
+    },
+    "goed-v1.5-target-09-case-06": {
+      "case_id": "goed-v1.5-target-09-case-06",
+      "target": "goed-v1.5-target-09",
+      "class": "sensitive_data_exposure",
+      "canonical_state": "EXECUTED_CLEAN",
+      "causal_verdict": "CLEAN",
+      "discovery_success": true,
+      "confidence": 0.89,
+      "primary_reason": "HYPOTHESIS_FAILURE",
+      "secondary_reasons": [
+        "STRATEGY_FAILURE"
+      ]
+    }
+  },
+  "key_findings": [
+    "CAUSAL_ORACLE_LIMITATION is dominant for IDOR: baseline and candidate both return granted_full \u2014 no authorization differential for CausalGuard to detect",
+    "EXECUTION_TECHNIQUE_FAILURE for business_logic: single-request execution cannot capture multi-step/stateful patterns",
+    "STATE_SETUP_FAILURE for multi_step_chain: requires stateful execution not yet implemented",
+    "STRATEGY_FAILURE for workflow: need dedicated workflow-ordering strategies",
+    "DISCOVERY_FAILURE is minimal \u2014 most routes ARE discovered via OpenAPI"
+  ]
+}

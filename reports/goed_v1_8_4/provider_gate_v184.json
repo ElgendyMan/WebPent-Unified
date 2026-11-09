@@ -1,0 +1,82 @@
+{
+  "phase": "A3_provider_gate",
+  "timestamp": 1788761195.1369078,
+  "env_check": {
+    "LLM_PROVIDER": "openai_compatible",
+    "LLM_API_KEY_set": true,
+    "LLM_BASE_URL": "https://api.groq.com/openai/v1",
+    "LLM_MODEL": "qwen/qwen3.8-27b"
+  },
+  "is_mock": false,
+  "provider_status": "REAL_API",
+  "provider_metadata": {
+    "provider_type": "REAL_API",
+    "provider_class": "OpenAICompatibleProvider",
+    "model": "qwen/qwen3.8-27b",
+    "base_url": "https://api.groq.com/openai/v1",
+    "api_key_env_var": "LLM_API_KEY",
+    "api_key_configured": true,
+    "api_key_prefix": "gsk_...",
+    "config_hash": "2182469067330bbc1d1d12238c54db4bc6b02cb679f3b7dfde66bb6df1b52227",
+    "prompt_version_hash": "provider_gate_v184",
+    "policy_hash": "bf6480007259d30e14af2685ca6e873807fe5a681e3770e99e4a69b662f2f5b4"
+  },
+  "call_count": 2,
+  "successful_calls": 2,
+  "total_tokens_used": 183,
+  "total_latency_seconds": 1.709,
+  "avg_latency_seconds": 0.855,
+  "call_results": [
+    {
+      "call_index": 0,
+      "success": true,
+      "error": null,
+      "latency_seconds": 1.33,
+      "tokens_used": 157,
+      "finish_reason": "length",
+      "model": "qwen/qwen3.8-27b",
+      "response_preview": "Based on the security observation data provided, here is the step-by-step logica"
+    },
+    {
+      "call_index": 1,
+      "success": true,
+      "error": null,
+      "latency_seconds": 0.379,
+      "tokens_used": 26,
+      "finish_reason": "stop",
+      "model": "qwen/qwen3.8-27b",
+      "response_preview": "READINESS_OK"
+    }
+  ],
+  "usage_stats": {
+    "provider": "OpenAICompatibleProvider",
+    "model": "qwen/qwen3.8-27b",
+    "prompt_version_hash": "provider_gate_v184",
+    "call_count": 2,
+    "total_tokens": 183,
+    "avg_latency": 0.854,
+    "error_rate": 0.0
+  },
+  "redacted_telemetry": [
+    {
+      "call_id": "a7b9a15d-e473-4e61-90ff-980447ebd6b6",
+      "model": "qwen/qwen3.8-27b",
+      "tokens_used": 157,
+      "latency_seconds": 1.33,
+      "finish_reason": "length",
+      "had_error": false,
+      "timestamp": 1788761196.466986
+    },
+    {
+      "call_id": "65e9a705-0356-4e1a-9a7c-03e5c7f7fbae",
+      "model": "qwen/qwen3.8-27b",
+      "tokens_used": 26,
+      "latency_seconds": 0.379,
+      "finish_reason": "stop",
+      "had_error": false,
+      "timestamp": 1788761196.8467171
+    }
+  ],
+  "first_success_evidence": null,
+  "gate_pass": true
+}

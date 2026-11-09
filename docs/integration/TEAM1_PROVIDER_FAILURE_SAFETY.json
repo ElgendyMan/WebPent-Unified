@@ -1,0 +1,19 @@
+{
+  "document_id": "TEAM1_PROVIDER_FAILURE_SAFETY-1.0",
+  "date": "2026-09-10",
+  "simulated_failures": [
+    "timeout",
+    "rate_limit",
+    "auth_error",
+    "quota_exhausted",
+    "malformed_response",
+    "provider_unavailable",
+    "all_slots_unavailable"
+  ],
+  "terminal_behavior": "SAFE_DEFER / REAL_API_UNAVAILABLE",
+  "no_infinite_retry": true,
+  "no_silent_mock_fallback": true,
+  "no_fabricated_hypothesis": true,
+  "no_corrupted_state": true,
+  "real_quota_consumed": 0
+}

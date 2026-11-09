@@ -1,0 +1,42 @@
+{
+  "team": "FINAL VERIFICATION + COMPLETION",
+  "date": "2026-09-15",
+  "base_zip": {
+    "name": "WebPent-RIT-FIXED-20260914.zip",
+    "sha256": "90542606a1622461dc91b5738ad172c7d807deed79e40ba9c7c5eb2cc03340d5",
+    "verified": true
+  },
+  "environment": {
+    "python": "3.12.14",
+    "venv": "/home/z/.venv",
+    "docker": "NOT AVAILABLE (compose parity = residual, constraint 11)",
+    "redis_broker": "NOT AVAILABLE",
+    "tool_binaries": "sqlmap/dalfox/nuclei/katana NOT installed (scope preflight proven via fail-closed denial)",
+    "llm": "disabled (WEBPENT_LLM_ENABLED=false; deterministic fallbacks exercised)",
+    "chroma": "langchain_chroma NOT installed (knowledge_ready honest 'not_ingested')"
+  },
+  "baseline_pytest": {"collected": 1313, "passed": 1313, "failed": 0, "skipped": 0},
+  "final_pytest": {"collected": 1318, "passed": 1318, "failed": 0, "skipped": 0, "new_locks": 5},
+  "compileall": {"src": "PASS", "tests": "PASS"},
+  "NEW_FAILURES": 0,
+  "focused_batches": {
+    "phase1_p0_wiring": {"files": 6, "passed": 59},
+    "phase2_research_replan": {"passed_in_combined": true},
+    "phase5_authority": {"files": 13, "passed_in_combined": 89},
+    "phase3_6_7": {"files": 15, "passed_in_combined": 78}
+  },
+  "runtime_probes": {
+    "fv_runtime_evidence.json": "P3 auth no-downgrade, checkpoint honesty, vault roundtrip, P4 deep recon live, P1D non-keyword 14/14, P7 API/DB parity=true",
+    "fv_authority_evidence.json": "P1C refutation lifecycle 6/6, P5 forgery refused, P1F scope denial, P3 workspace isolation",
+    "fv_phase2_outcome_ranking.json": "outcome history changes ranking (A 0.0219->0.0033, B unchanged)",
+    "fv_p6p7_evidence.json": "RAG cannot confirm, sanitizer redacts, lessons isolation, report honest labels, refuted visible"
+  },
+  "commands": {
+    "baseline": "python3 -m pytest tests/ -q",
+    "focused": "python3 -m pytest tests/test_team1_oob_database_parity.py tests/test_team1_refutation_persistence.py tests/test_team1_compose_workspace_parity.py tests/test_v10_p0_status_sqlmap_skiprecon_findings.py tests/test_v9_p0_hotfix_sqlmap_reauth.py tests/test_team1_state_contract.py -q",
+    "authority_batch": "python3 -m pytest tests/test_integration_research_agenda.py tests/test_phase4_research_loop.py tests/test_postp0_phase1_replan.py tests/test_team1_post_validation_replan.py tests/test_team1_research_brain.py tests/test_vip_research_contracts.py tests/test_vip_active_research.py tests/test_team1_tool_scope.py tests/test_proof_bundle.py tests/test_proof_oracles.py tests/test_vip_proof_engine.py tests/test_vip_workflow_replay.py tests/test_postp0_phase8_flow_replay.py -q",
+    "auth_rag_report_batch": "python3 -m pytest tests/test_integration_auth_session_contract.py tests/test_postp0_phase3_session_liveness.py tests/test_v24_authorization_matrix.py tests/test_vip_auth_posture.py tests/test_vip_shared_reauth_vault.py tests/test_v10_p0_reauth_vault_and_emergency_persist.py tests/test_rag_knowledge_pack.py tests/test_team1_rag_knowledge.py tests/test_v27_memory_boundary.py tests/test_v90_lessons_scope_isolation.py tests/test_persistent_finding_ledger.py tests/test_report_hash_integrity.py tests/test_v92_reporter_strict_proof.py tests/test_v92_proof_quality_gate.py tests/test_v92_action_executor_proof_bundle.py -q",
+    "fv_lock": "python3 -m pytest tests/test_fv1_scopelaw_poison_deny.py -q",
+    "compileall": "python3 -m compileall src/ tests/"
+  }
+}

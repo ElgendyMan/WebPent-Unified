@@ -1,0 +1,448 @@
+## CHECKPOINT AND STATE SERIALIZATION
+src/webpent/agents/access_control/agent.py:542:    thread_id = str(state.get("thread_id") or "")
+src/webpent/agents/access_control/agent.py:543:    if not thread_id:
+src/webpent/agents/access_control/agent.py:562:        raw_profiles = unseal_identity_profiles(thread_id)
+src/webpent/agents/access_control/agent.py:581:        password = unseal_reauth_secret(thread_id)
+src/webpent/agents/access_control/agent.py:780:                if status in {429, 503} and state.get("thread_id"):
+src/webpent/agents/authentication/agent.py:32:    reducer, checkpointed by SqliteSaver, never written to ChromaDB
+src/webpent/agents/authentication/agent.py:725:    thread_id = str(state.get("thread_id") or "")
+src/webpent/agents/authentication/agent.py:727:    if not credentials.get("password") and thread_id:
+src/webpent/agents/authentication/agent.py:728:        vaulted_password = unseal_reauth_secret(thread_id)
+src/webpent/agents/authentication/agent.py:732:    # own state key (NOT merged into credentials). A redacted checkpoint
+src/webpent/agents/authentication/agent.py:735:    if not operator_cookies and thread_id:
+src/webpent/agents/authentication/agent.py:736:        operator_cookies = unseal_session_cookies(thread_id)
+src/webpent/agents/authentication/agent.py:749:    if not raw_identity_profiles and thread_id:
+src/webpent/agents/authentication/agent.py:750:        raw_identity_profiles = unseal_identity_profiles(thread_id)
+src/webpent/agents/authentication/agent.py:859:            if thread_id:
+src/webpent/agents/authentication/agent.py:864:                    ) or thread_id,
+src/webpent/agents/authentication/agent.py:905:            if thread_id:
+src/webpent/agents/authentication/agent.py:910:                    ) or thread_id,
+src/webpent/agents/authentication/agent.py:992:    # persisted in the LangGraph checkpoint (SqliteSaver) at rest. The
+src/webpent/agents/authentication/agent.py:1001:    # the vault via unseal_reauth_secret(thread_id) when state's
+src/webpent/agents/authentication/agent.py:1035:    if thread_id and runtime_profiles:
+src/webpent/agents/authentication/agent.py:1069:            ) or thread_id,
+src/webpent/agents/business_logic_fuzzer/agent.py:439:                        f"indicates the server does not atomically serialize "
+src/webpent/agents/devils_advocate/agent.py:314:    # V10 P1-2: read thread_id from state so we can incrementally persist
+src/webpent/agents/devils_advocate/agent.py:316:    # thread_id on state at scan start (see PentestState thread_id field).
+src/webpent/agents/devils_advocate/agent.py:317:    thread_id: str | None = state.get("thread_id")
+src/webpent/agents/devils_advocate/agent.py:366:                            updated, thread_id=thread_id
+src/webpent/agents/execution_sandbox/agent.py:367:    stealth_mode: bool = False, thread_id: str | None = None,
+src/webpent/agents/execution_sandbox/agent.py:489:            # V10 P0-C: stamp thread_id so the mid-scan save is visible
+src/webpent/agents/execution_sandbox/agent.py:495:            # executed. Now `thread_id` is passed as an explicit param.
+src/webpent/agents/execution_sandbox/agent.py:498:                # V10 P0-C + AUDIT C2: stamp thread_id before saving.
+src/webpent/agents/execution_sandbox/agent.py:499:                if thread_id and not getattr(confirmed_finding, "thread_id", None):
+src/webpent/agents/execution_sandbox/agent.py:501:                        update={"thread_id": thread_id}
+src/webpent/agents/execution_sandbox/agent.py:708:    # V10 AUDIT FIX (C2): read thread_id from state so it can be passed
+src/webpent/agents/execution_sandbox/agent.py:710:    thread_id: str | None = state.get("thread_id") or None
+src/webpent/agents/execution_sandbox/agent.py:815:            # checkpointed state was written before that fix (a stale
+src/webpent/agents/execution_sandbox/agent.py:816:            # sqli/csrf/ssrf/rce/deserialization entry). Without it, a
+src/webpent/agents/execution_sandbox/agent.py:828:                    "wiring fix, or a resumed pre-fix checkpoint).",
+src/webpent/agents/execution_sandbox/agent.py:837:                thread_id=thread_id,
+src/webpent/agents/execution_sandbox/agent.py:839:                    "engagement_id": state.get("engagement_id") or thread_id,
+src/webpent/agents/exploit_chainer/agent.py:87:    """Normalize live enum and checkpoint string severities."""
+src/webpent/agents/exploit_chainer/agent.py:128:    # LangGraph checkpoint round-trip; `.url`/`.severity` on a dict
+src/webpent/agents/exploit_chainer/agent.py:374:                # checkpoint round-trip — model_copy doesn't exist on dicts.
+src/webpent/agents/hypothesis_analyzer/agent.py:989:                engagement_id=state.get("engagement_id") or state.get("thread_id"),
+src/webpent/agents/javascript_intelligence/agent.py:71:    redacted metadata, and non-destructive tasks are returned in state.
+src/webpent/agents/payload_generator/agent.py:155:#   - deserialization -> _validate_deserialization(finding,
+src/webpent/agents/post_exploit/agent.py:16:  - For XSS/SSRF/CSRF/Deserialization: no post-exploitation (the
+src/webpent/agents/post_exploit/agent.py:358:    applicable (XSS, SSRF, CSRF, Deserialization — the finding itself
+src/webpent/agents/post_exploit/agent.py:369:    # XSS, SSRF, CSRF, Deserialization, etc. — no safe post-exploitation.
+src/webpent/agents/post_exploit/agent.py:429:                # V10 P0-C: stamp thread_id from state so the mid-scan
+src/webpent/agents/post_exploit/agent.py:436:                    # V10 P0-C: stamp thread_id before saving.
+src/webpent/agents/post_exploit/agent.py:437:                    _tid = state.get("thread_id")
+src/webpent/agents/post_exploit/agent.py:438:                    if _tid and not getattr(updated, "thread_id", None):
+src/webpent/agents/post_exploit/agent.py:439:                        updated = updated.model_copy(update={"thread_id": _tid})
+src/webpent/agents/recon/agent.py:191:    "deserialization": VulnClass.DESERIALIZATION.value,
+src/webpent/agents/reflection/agent.py:372:    engagement_id = state.get("engagement_id") or state.get("thread_id")
+src/webpent/agents/reporter/agent.py:21:from webpent.api.scan_registry import get_thread_ids_by_engagement_id
+src/webpent/agents/reporter/agent.py:424:            sibling_threads = get_thread_ids_by_engagement_id(
+src/webpent/agents/reporter/agent.py:477:            # V7 Hypothesis object or checkpoint-shaped dictionary — dedupe
+src/webpent/agents/strategist/agent.py:11:    invoked at specific, well-defined checkpoints: after
+src/webpent/agents/strategist/agent.py:17:    "At each checkpoint, the Strategist consults: the Mental Model
+src/webpent/agents/strategist/agent.py:34:the primary checkpoint: after all discovery nodes (hypothesis +
+src/webpent/agents/strategist/agent.py:36:checkpoint, the Strategist:
+src/webpent/agents/strategist/agent.py:108:    """LangGraph node: the Strategist promotion checkpoint.
+src/webpent/agents/strategist/agent.py:209:        # for a dict-shaped hypothesis (post-checkpoint round-trip)
+src/webpent/agents/strategist/agent.py:284:    # Phase 1.4: run the recurring discovery-cadence checkpoint against the
+src/webpent/agents/strategist/agent.py:285:    # highest-ranked branch. The checkpoint is bounded and only changes the
+src/webpent/agents/strategist/agent.py:305:                checkpoint=SelfCritiqueCheckpoint.EVERY_N_DISCOVERIES,
+src/webpent/agents/strategist/agent.py:321:        logger.warning("Strategist: discovery-cadence checkpoint failed: %s", exc)
+src/webpent/agents/strategist/agent.py:396:        # self-critique checkpoint before entering payload generation.
+src/webpent/agents/strategist/agent.py:413:                            checkpoint=SelfCritiqueCheckpoint.BEFORE_PROMOTION,
+src/webpent/agents/strategist/agent.py:426:                    "Strategist: self-critique checkpoint failed for %s: %s",
+src/webpent/agents/validator/agent.py:40:from webpent.shared.deserialization import build_oob_command_templates
+src/webpent/agents/validator/agent.py:546:def _persist_finding_incrementally(finding: Finding, thread_id: str | None = None) -> bool:
+src/webpent/agents/validator/agent.py:566:    V10 P0-C FIX: stamp ``thread_id`` on the finding BEFORE saving.
+src/webpent/agents/validator/agent.py:568:    worker's final ``_persist_findings(final_state, thread_id=...)``
+src/webpent/agents/validator/agent.py:569:    call to stamp thread_id via ``model_copy``. But if the worker
+src/webpent/agents/validator/agent.py:573:    remain in the DB with ``thread_id=NULL`` and are invisible to
+src/webpent/agents/validator/agent.py:574:    the API's ``WHERE thread_id = ?`` query. The operator sees
+src/webpent/agents/validator/agent.py:576:    ``GET /findings`` returns ``[]`` for the same thread_id.
+src/webpent/agents/validator/agent.py:578:    Fix: accept ``thread_id`` as an optional parameter and stamp it
+src/webpent/agents/validator/agent.py:580:    now read ``thread_id`` from state (which the worker populates at
+src/webpent/agents/validator/agent.py:589:    # V10 P0-C: stamp thread_id before saving so mid-scan rows are
+src/webpent/agents/validator/agent.py:592:    if thread_id and not getattr(finding, "thread_id", None):
+src/webpent/agents/validator/agent.py:593:        finding = finding.model_copy(update={"thread_id": thread_id})
+src/webpent/agents/validator/agent.py:831:    thread_id: str | None = None,
+src/webpent/agents/validator/agent.py:995:        # V10 P0-C: pass thread_id so the finding is stamped before save.
+src/webpent/agents/validator/agent.py:996:        if not _persist_finding_incrementally(updated, thread_id=thread_id):
+src/webpent/agents/validator/agent.py:1038:        # V10 P0-C: pass thread_id so the finding is stamped before save.
+src/webpent/agents/validator/agent.py:1039:        if not _persist_finding_incrementally(updated, thread_id=thread_id):
+src/webpent/agents/validator/agent.py:1220:    thread_id: str | None = None,
+src/webpent/agents/validator/agent.py:1248:    findings. Now: persist with thread_id stamped, then fire the probe.
+src/webpent/agents/validator/agent.py:1291:        if thread_id and not getattr(finding, "thread_id", None):
+src/webpent/agents/validator/agent.py:1292:            finding = finding.model_copy(update={"thread_id": thread_id})
+src/webpent/agents/validator/agent.py:1413:# V5 Sprint 6: Deserialization validation via OOB (ysoserial + phpggc)
+src/webpent/agents/validator/agent.py:1415:# Insecure deserialization cannot be confirmed by inspecting the target's
+src/webpent/agents/validator/agent.py:1427:#      finding.url and POST it via httpx (deserialization payloads are
+src/webpent/agents/validator/agent.py:1435:def _validate_deserialization(
+src/webpent/agents/validator/agent.py:1439:    thread_id: str | None = None,
+src/webpent/agents/validator/agent.py:1441:    """V5 Sprint 6: Validate a deserialization finding via OOB callback.
+src/webpent/agents/validator/agent.py:1475:    # V6 Omniscient Audit Fix (P0 — SSRF): deserialization probes are
+src/webpent/agents/validator/agent.py:1488:                    "validator": "oob:deserialization",
+src/webpent/agents/validator/agent.py:1495:                    "is configured. Deserialization cannot be confirmed without "
+src/webpent/agents/validator/agent.py:1504:        if thread_id and not getattr(finding, "thread_id", None):
+src/webpent/agents/validator/agent.py:1505:            finding = finding.model_copy(update={"thread_id": thread_id})
+src/webpent/agents/validator/agent.py:1530:    #   on the ysoserial output. ysoserial emits raw Java serialized bytes
+src/webpent/agents/validator/agent.py:1534:    #   serialized stream — the target's deserializer would then reject
+src/webpent/agents/validator/agent.py:1541:    #   phpggc (which emits text-safe PHP-serialized strings). Stage 2
+src/webpent/agents/validator/agent.py:1557:            # Do NOT decode — Java serialized streams are binary and
+src/webpent/agents/validator/agent.py:1567:                "deserialization: generated ysoserial payload (gadget=%s, %d bytes) for finding %s",
+src/webpent/agents/validator/agent.py:1575:                "deserialization: ysoserial unavailable for finding %s: %s",
+src/webpent/agents/validator/agent.py:1581:                "deserialization: ysoserial payload generation failed for finding %s: %s",
+src/webpent/agents/validator/agent.py:1587:                "deserialization: unexpected ysoserial error for finding %s: %s",
+src/webpent/agents/validator/agent.py:1602:                "deserialization: generated phpggc payload (gadget=%s, %d chars) for finding %s",
+src/webpent/agents/validator/agent.py:1610:                "deserialization: phpggc unavailable for finding %s: %s",
+src/webpent/agents/validator/agent.py:1616:                "deserialization: phpggc payload generation failed for finding %s: %s",
+src/webpent/agents/validator/agent.py:1622:                "deserialization: unexpected phpggc error for finding %s: %s",
+src/webpent/agents/validator/agent.py:1630:            "deserialization: no payload tools available for finding %s — "
+src/webpent/agents/validator/agent.py:1639:                    "validator": "deserialization",
+src/webpent/agents/validator/agent.py:1645:                    "Deserialization validation requires ysoserial (Java) "
+src/webpent/agents/validator/agent.py:1655:    # Deserialization sinks are typically reached via POST body, but some
+src/webpent/agents/validator/agent.py:1676:        # (ysoserial Java serialized bytes) or text (phpgc PHP-serialized
+src/webpent/agents/validator/agent.py:1688:        #     deserialization sinks accept the raw stream as the body.
+src/webpent/agents/validator/agent.py:1705:                        # deserialize. The body itself is the raw bytes.
+src/webpent/agents/validator/agent.py:1711:                "deserialization: POST probe sent for finding %s via field %s "
+src/webpent/agents/validator/agent.py:1721:                "deserialization: POST probe failed (tool=%s): %s",
+src/webpent/agents/validator/agent.py:1731:        #     target's deserializer). Skip the GET probe for binary
+src/webpent/agents/validator/agent.py:1738:                "deserialization: skipping GET probe for binary "
+src/webpent/agents/validator/agent.py:1740:                "primary deserialization sink for ysoserial.",
+src/webpent/agents/validator/agent.py:1757:                    "deserialization: GET probe sent for finding %s (tool=%s, gadget=%s)",
+src/webpent/agents/validator/agent.py:1764:                    "deserialization: GET probe failed (tool=%s): %s",
+src/webpent/agents/validator/agent.py:1774:            "deserialization OOB CONFIRMED for finding %s (%s) — target called back within %.1fs.",
+src/webpent/agents/validator/agent.py:1784:        "deserialization NOT confirmed for finding %s — no callback within "
+src/webpent/agents/validator/agent.py:1795:                "validator": "deserialization",
+src/webpent/agents/validator/agent.py:1801:                f"Generated deserialization payloads using: {tools_attempted}. "
+src/webpent/agents/validator/agent.py:1822:    thread_id: str | None = None,
+src/webpent/agents/validator/agent.py:1843:    wrappers (dalfox/sqlmap) and to the deserialization validator so
+src/webpent/agents/validator/agent.py:1858:    V10 P0-2 Option A: ``thread_id`` is threaded through so the dead-
+src/webpent/agents/validator/agent.py:1863:    once the checkpointed password is gone. If the vault is also empty
+src/webpent/agents/validator/agent.py:1906:        # V10 P0-C: pass thread_id so _persist_finding_incrementally
+src/webpent/agents/validator/agent.py:1912:            thread_id=thread_id,
+src/webpent/agents/validator/agent.py:1916:        # V10 AUDIT FIX (C3): pass thread_id so the finding is persisted
+src/webpent/agents/validator/agent.py:1919:            finding, "ssrf", thread_id=thread_id, session_cookies=session_cookies
+src/webpent/agents/validator/agent.py:1923:        # V10 AUDIT FIX (C3): pass thread_id so the finding is persisted
+src/webpent/agents/validator/agent.py:1926:            finding, "rce", thread_id=thread_id, session_cookies=session_cookies
+src/webpent/agents/validator/agent.py:1928:    elif vuln_class == "deserialization":
+src/webpent/agents/validator/agent.py:1931:        # V10 AUDIT FIX (C3): pass thread_id so the finding is persisted
+src/webpent/agents/validator/agent.py:1933:        return _validate_deserialization(finding, stealth_mode=stealth_mode, thread_id=thread_id)
+src/webpent/agents/validator/agent.py:1970:            finding, "rfi", thread_id=thread_id, session_cookies=session_cookies
+src/webpent/agents/validator/agent.py:1974:        return _validate_xxe_via_oob(finding, session_cookies=session_cookies, thread_id=thread_id)
+src/webpent/agents/validator/agent.py:1980:            thread_id=thread_id,
+src/webpent/agents/validator/agent.py:2005:    # returns a finding with a deterministic confidence outcome. thread_id
+src/webpent/agents/validator/agent.py:2311:                    # persisted in the checkpoint DB) but leaves
+src/webpent/agents/validator/agent.py:2327:                    # keyed by thread_id. The vault is sealed by the
+src/webpent/agents/validator/agent.py:2338:                    if thread_id and not _state_password:
+src/webpent/agents/validator/agent.py:2344:                            _vault_password = unseal_reauth_secret(thread_id)
+src/webpent/agents/validator/agent.py:2348:                                "finding %s (thread_id=%s): %s. Falling "
+src/webpent/agents/validator/agent.py:2351:                                thread_id,
+src/webpent/agents/validator/agent.py:2496:                            "(thread_id=%s, reauth_source=%s) — password "
+src/webpent/agents/validator/agent.py:2503:                            thread_id,
+src/webpent/agents/validator/agent.py:2517:                                    f"(post-login checkpoint hygiene) and "
+src/webpent/agents/validator/agent.py:2519:                                    f"sealed secret for thread_id={thread_id} "
+src/webpent/agents/validator/agent.py:2847:    # V10 P0-C: pass thread_id so the finding is stamped before save
+src/webpent/agents/validator/agent.py:2848:    # (mid-scan saves were previously written with thread_id=NULL,
+src/webpent/agents/validator/agent.py:2850:    if not _persist_finding_incrementally(updated_finding, thread_id=thread_id):
+src/webpent/agents/validator/agent.py:3045:            checkpoint=SelfCritiqueCheckpoint.VALIDATION_FAILURE,
+src/webpent/agents/validator/agent.py:3052:            "Validator self-critique checkpoint unavailable for %s: %s",
+src/webpent/agents/validator/agent.py:3159:        state.get("engagement_id") or state.get("thread_id") or "default"
+src/webpent/agents/validator/agent.py:3169:    # V10 P0-2 Option A: read thread_id so the dead-session re-auth
+src/webpent/agents/validator/agent.py:3173:    thread_id: str | None = state.get("thread_id") or None
+src/webpent/agents/validator/agent.py:3276:                if thread_id:
+src/webpent/agents/validator/agent.py:3277:                    _persist_finding_incrementally(direct_updated, thread_id=thread_id)
+src/webpent/agents/validator/agent.py:3340:        elif vuln_class == "deserialization":
+src/webpent/agents/validator/agent.py:3353:            thread_id=thread_id,
+src/webpent/agents/validator/agent.py:3390:        if updated.confidence_level in ("Tool-Confirmed", "Not Scanned", "Clean") and thread_id:
+src/webpent/agents/validator/agent.py:3392:                _persist_finding_incrementally(updated, thread_id=thread_id)
+src/webpent/agents/validator/agent.py:3438:        f"and {deser_count} deserialization finding(s); {confirmed_count} "
+src/webpent/agents/validator/agent.py:3503:    thread_id: str | None = None,
+src/webpent/agents/validator/agent.py:3537:    if thread_id and not getattr(finding, "thread_id", None):
+src/webpent/agents/validator/agent.py:3538:        finding = finding.model_copy(update={"thread_id": thread_id})
+src/webpent/agents/validator/registry.py:31:    "deserialization": "deserialization",
+src/webpent/agents/validator/registry.py:76:    "deserialization",
+src/webpent/agents/validator/structural_checks.py:1544:    result only when the serialized bundle still satisfies the promotion
+src/webpent/api/app.py:9:  * ``GET /api/v1/scans/{thread_id}/status`` — check engagement status.
+src/webpent/api/app.py:10:  * ``POST /api/v1/scans/{thread_id}/approve`` — approve a paused engagement.
+src/webpent/api/app.py:11:  * ``GET /api/v1/scans/{thread_id}/findings`` — retrieve persisted findings.
+src/webpent/api/app.py:41:    get_thread_ids_by_engagement_id,
+src/webpent/api/app.py:47:from webpent.graph.checkpoints import get_checkpointer
+src/webpent/api/app.py:115:# and the .checkpointer reassignment from concurrent status-poll
+src/webpent/api/app.py:119:# checkpointer (which B closes on with-exit) before A calls get_state.
+src/webpent/api/app.py:123:def _get_cached_graph(checkpointer: Any) -> Any:
+src/webpent/api/app.py:127:    the graph object returned by ``build_graph(checkpointer=checkpointer)``
+src/webpent/api/app.py:129:    ``checkpointer`` argument on every subsequent call. Every caller
+src/webpent/api/app.py:130:    (``_get_graph_status``) opens its checkpointer via
+src/webpent/api/app.py:131:    ``with get_checkpointer() as checkpointer:`` — a fresh, per-request
+src/webpent/api/app.py:134:    (now-closed) checkpointer, every status poll after the first raised
+src/webpent/api/app.py:143:    but rebind the cheap ``.checkpointer`` attribute to the CURRENT,
+src/webpent/api/app.py:144:    live checkpointer on every call, cache hit or not. Verified against
+src/webpent/api/app.py:145:    langgraph 1.2.10 / langgraph-checkpoint-sqlite 3.1.1: a compiled
+src/webpent/api/app.py:146:    ``CompiledStateGraph`` exposes ``.checkpointer`` as a plain, settable
+src/webpent/api/app.py:153:    V10 AUDIT FIX (H5): the cache dict and .checkpointer reassignment
+src/webpent/api/app.py:160:            _GRAPH_CACHE[key] = build_graph(checkpointer=checkpointer)
+src/webpent/api/app.py:162:            _GRAPH_CACHE[key].checkpointer = checkpointer
+src/webpent/api/app.py:178:def _authorize_scan_resource(thread_id: str, user: User) -> dict[str, Any]:
+src/webpent/api/app.py:188:    record = get_scan_record(thread_id)
+src/webpent/api/app.py:202:        # Do not disclose whether another user's thread_id exists.
+src/webpent/api/app.py:453:        description=("Optional logical engagement scope. Defaults to the generated thread_id."),
+src/webpent/api/app.py:571:    # CR/LF/;/=/whitespace), total serialized length capped.
+src/webpent/api/app.py:596:                raise ValueError("session_cookies total serialized length exceeds 8192 chars")
+src/webpent/api/app.py:602:    thread_id: str
+src/webpent/api/app.py:607:    thread_id: str
+src/webpent/api/app.py:614:    thread_id: str
+src/webpent/api/app.py:620:    thread_id: str
+src/webpent/api/app.py:625:def _get_graph_status(thread_id: str) -> dict[str, Any]:
+src/webpent/api/app.py:626:    """Read the LangGraph checkpoint state for ``thread_id``.
+src/webpent/api/app.py:630:      (a) the engagement ran to completion (checkpoint exists, ``next == ()``)
+src/webpent/api/app.py:631:      (b) NO checkpoint exists yet for this thread_id (worker still
+src/webpent/api/app.py:633:          StateSnapshot with ``next=()``)
+src/webpent/api/app.py:639:    Fix: distinguish "no checkpoint" (``state_snapshot is None`` OR
+src/webpent/api/app.py:640:    ``not state_snapshot.values``) from "checkpoint with empty next"
+src/webpent/api/app.py:643:    no checkpoint written yet"); the latter returns ``"completed"``.
+src/webpent/api/app.py:653:        "configurable": {"thread_id": thread_id},
+src/webpent/api/app.py:657:        with get_checkpointer() as checkpointer:
+src/webpent/api/app.py:660:            # changes at runtime; only the checkpointer connection is
+src/webpent/api/app.py:662:            graph = _get_cached_graph(checkpointer)
+src/webpent/api/app.py:664:                state_snapshot = graph.get_state(config)
+src/webpent/api/app.py:672:            # V10 P0-0: distinguish "no checkpoint" from "completed".
+src/webpent/api/app.py:673:            # state_snapshot is None on older langgraph for unknown
+src/webpent/api/app.py:674:            # thread_ids; on newer langgraph it's a StateSnapshot with
+src/webpent/api/app.py:675:            # empty values + next=() for an unknown thread_id. Both
+src/webpent/api/app.py:676:            # mean the worker has NOT yet written a checkpoint for this
+src/webpent/api/app.py:678:            if state_snapshot is None or not state_snapshot.values:
+src/webpent/api/app.py:685:            next_nodes = list(state_snapshot.next) if state_snapshot else []
+src/webpent/api/app.py:687:                # Genuine completion: checkpoint exists with values AND
+src/webpent/api/app.py:699:        logger.error("Failed to initialise checkpointer for status check: %s", exc)
+src/webpent/api/app.py:777:    thread_id = str(uuid4())
+src/webpent/api/app.py:784:        "thread_id=%s client_id=%s engagement_id=%s user=%s role=%s",
+src/webpent/api/app.py:788:        thread_id,
+src/webpent/api/app.py:821:            thread_id=thread_id,
+src/webpent/api/app.py:845:    logger.info("Celery task dispatched: task_id=%s thread_id=%s", task.id, thread_id)
+src/webpent/api/app.py:847:    # V10 P0-0: persist the thread_id ↔ task_id mapping so the status
+src/webpent/api/app.py:849:    # the status endpoint only has thread_id (path param) and cannot
+src/webpent/api/app.py:858:            thread_id,
+src/webpent/api/app.py:867:                "scan_registry ownership record was not persisted for thread_id=%s",
+src/webpent/api/app.py:868:                thread_id,
+src/webpent/api/app.py:874:            "scan_registry: failed to register thread_id=%s task_id=%s: %s "
+src/webpent/api/app.py:876:            thread_id,
+src/webpent/api/app.py:881:    return ScanResponse(task_id=task.id, thread_id=thread_id, auto_approve=request.auto_approve)
+src/webpent/api/app.py:884:@app.get("/api/v1/scans/{thread_id}/status", response_model=StatusResponse)
+src/webpent/api/app.py:886:    thread_id: str,
+src/webpent/api/app.py:891:    V10 P0-0 FIX: the previous version conflated "no checkpoint yet"
+src/webpent/api/app.py:900:    Celery signal, looked up via the thread_id → task_id mapping
+src/webpent/api/app.py:910:      (trust graph — task returned but checkpoint may be mid-write)
+src/webpent/api/app.py:922:    logger.info("Status check for thread_id=%s (user=%s)", thread_id, user.username)
+src/webpent/api/app.py:923:    _authorize_scan_resource(thread_id, user)
+src/webpent/api/app.py:924:    state_info = _get_graph_status(thread_id)
+src/webpent/api/app.py:927:    # the persisted thread_id → task_id mapping.
+src/webpent/api/app.py:933:        task_id = lookup_task_id(thread_id)
+src/webpent/api/app.py:941:                "Status check thread_id=%s: AsyncResult.state=%s graph_status=%s",
+src/webpent/api/app.py:942:                thread_id,
+src/webpent/api/app.py:951:                "Status check thread_id=%s: no task_id in registry — "
+src/webpent/api/app.py:953:                thread_id,
+src/webpent/api/app.py:957:            "AsyncResult lookup failed for thread_id=%s (non-fatal): %s",
+src/webpent/api/app.py:958:            thread_id,
+src/webpent/api/app.py:968:        # forever. Fix: if the graph checkpoint has a non-empty state
+src/webpent/api/app.py:971:        # the graph over Celery's PENDING. The graph checkpoint is the
+src/webpent/api/app.py:977:                "Status check thread_id=%s: Celery PENDING but graph "
+src/webpent/api/app.py:978:                "checkpoint is completed — trusting graph (Celery "
+src/webpent/api/app.py:980:                thread_id,
+src/webpent/api/app.py:997:        # graph checkpoint. But the worker returns terminal strings
+src/webpent/api/app.py:999:        # that the graph checkpoint does NOT reflect — the checkpoint may
+src/webpent/api/app.py:1007:            # .result is safe to read when state==SUCCESS — it's already
+src/webpent/api/app.py:1014:                "Status check thread_id=%s: AsyncResult.result read failed (non-fatal): %s",
+src/webpent/api/app.py:1015:                thread_id,
+src/webpent/api/app.py:1026:        # checkpoint does not reflect.
+src/webpent/api/app.py:1033:                "Status check thread_id=%s: Celery SUCCESS with worker "
+src/webpent/api/app.py:1035:                thread_id,
+src/webpent/api/app.py:1052:            # Celery SUCCESS but graph has no checkpoint — checkpoint
+src/webpent/api/app.py:1055:                "Status check thread_id=%s: Celery SUCCESS but graph has "
+src/webpent/api/app.py:1056:                "no checkpoint — checkpoint write may have failed. "
+src/webpent/api/app.py:1058:                thread_id,
+src/webpent/api/app.py:1061:            state_info["next"] = ["(celery:SUCCESS,no_checkpoint)"]
+src/webpent/api/app.py:1063:        # the graph checkpoint is the source of truth for normal
+src/webpent/api/app.py:1088:                        "Celery inspect timed out after 5s (thread_id=%s) — "
+src/webpent/api/app.py:1090:                        thread_id,
+src/webpent/api/app.py:1097:                thread_id in str(task.get("kwargs", {})) or thread_id in str(task.get("args", []))
+src/webpent/api/app.py:1108:                # graph has no checkpoint. The task is either queued
+src/webpent/api/app.py:1110:                # already finished and the checkpoint write is in flight.
+src/webpent/api/app.py:1114:                    "Status check thread_id=%s: no active worker, no "
+src/webpent/api/app.py:1115:                    "checkpoint — reporting 'running' (task may be queued "
+src/webpent/api/app.py:1116:                    "or checkpoint may be mid-write). Re-poll in 5s.",
+src/webpent/api/app.py:1117:                    thread_id,
+src/webpent/api/app.py:1133:        thread_id=thread_id,
+src/webpent/api/app.py:1140:@app.post("/api/v1/scans/{thread_id}/approve", response_model=ApproveResponse)
+src/webpent/api/app.py:1142:    thread_id: str,
+src/webpent/api/app.py:1146:    logger.info("Approval requested for thread_id=%s (user=%s)", thread_id, user.username)
+src/webpent/api/app.py:1147:    _authorize_scan_resource(thread_id, user)
+src/webpent/api/app.py:1150:    scan_record = get_scan_record(thread_id)
+src/webpent/api/app.py:1157:        thread_id=thread_id,
+src/webpent/api/app.py:1160:        engagement_id=str(scan_record.get("engagement_id") or thread_id),
+src/webpent/api/app.py:1162:    state_info = _get_graph_status(thread_id)
+src/webpent/api/app.py:1176:    if not claim_resume_capability(thread_id, capability):
+src/webpent/api/app.py:1184:            thread_id=thread_id,
+src/webpent/api/app.py:1188:        release_resume_claim(thread_id, capability)
+src/webpent/api/app.py:1195:    logger.info("Resume task dispatched: task_id=%s thread_id=%s", task.id, thread_id)
+src/webpent/api/app.py:1197:        thread_id=thread_id,
+src/webpent/api/app.py:1203:@app.get("/api/v1/scans/{thread_id}/findings", response_model=FindingsResponse)
+src/webpent/api/app.py:1205:    thread_id: str,
+src/webpent/api/app.py:1210:    V9 P0 Fix 3: now queries by thread_id only (WHERE thread_id = ?).
+src/webpent/api/app.py:1215:    logger.info("Fetching findings for thread_id=%s (user=%s)", thread_id, user.username)
+src/webpent/api/app.py:1216:    record = _authorize_scan_resource(thread_id, user)
+src/webpent/api/app.py:1222:        sibling_threads = get_thread_ids_by_engagement_id(
+src/webpent/api/app.py:1227:        thread_ids = sibling_threads or [thread_id]
+src/webpent/api/app.py:1229:        all_findings = aggregate_findings(db.get_findings_by_threads(thread_ids))
+src/webpent/api/app.py:1245:    serialized: list[dict[str, Any]] = []
+src/webpent/api/app.py:1248:            serialized.append(finding.model_dump(mode="json"))
+src/webpent/api/app.py:1253:    return FindingsResponse(thread_id=thread_id, count=len(serialized), findings=serialized)
+src/webpent/api/app.py:1256:@app.get("/api/v1/scans/{thread_id}/risk-summary")
+src/webpent/api/app.py:1258:    thread_id: str,
+src/webpent/api/app.py:1268:    record = _authorize_scan_resource(thread_id, user)
+
+## STATE SENSITIVE FIELD CONSUMERS
+src/webpent/agents/authentication/agent.py:7:``state["credentials"]`` (populated cleanly by the Typer CLI), NOT
+src/webpent/agents/authentication/agent.py:31:    store. They live in ``state["session_cookies"]`` (merge_dicts
+src/webpent/agents/authentication/agent.py:708:    ``state["credentials"]`` instead of extracting via regex from
+src/webpent/agents/authentication/agent.py:712:    ``state["session_cookies"]``. If present, validates them via a
+src/webpent/agents/authentication/agent.py:805:    # ``state["session_cookies"]`` is declared with the ``merge_dicts``
+src/webpent/agents/authentication/agent.py:813:    # ``state["session_cookies"]`` and flow into crawler_node /
+src/webpent/agents/business_logic_fuzzer/agent.py:371:    # auth_node writes the SAME cookies to state["session_cookies"] as a
+src/webpent/agents/crawler/agent.py:408:            'into state["session_cookies"].',
+src/webpent/agents/validator/agent.py:860:        auth_cookies = auth_state["cookies"]
+src/webpent/agents/validator/agent.py:2397:                            # V9 P0-B-2 FIX: auth_state["cookies"] is a
+src/webpent/agents/validator/agent.py:2421:                                auth_state["cookies"] = [
+src/webpent/agents/validator/agent.py:3485:    # auth_state["cookies"] instead of session_cookies) never benefits
+src/webpent/agents/validator/agent.py:3487:    # refreshes auth_state["cookies"] in place on success. Harmless
+src/webpent/api/app.py:388:    # initial_state["credentials"]. If session_cookies is also provided,
+src/webpent/auth/__init__.py:8:plaintext after login — FIX-10's scrub of ``state["credentials"]``
+src/webpent/cli/__init__.py:117:    ``api/app.py``. Threaded into ``initial_state["session_cookies"]``,
+src/webpent/cli/__init__.py:546:    # V10 HOSTILE P1-2 FIX: credentials are threaded via state["credentials"]
+src/webpent/cli/__init__.py:551:    # to prevent. auth_node reads state["credentials"], NOT
+src/webpent/state/reducers.py:105:    ``auth_state["cookies"]`` is a list-of-dict (Playwright shape:
+src/webpent/state/reducers.py:116:    refreshed ``auth_state["cookies"]`` and returned it would have had
+src/webpent/state/state.py:96:    # merge_dicts concatenates auth_state["cookies"] (a list) instead
+src/webpent/utils/task_crypto.py:255:    consumer (auth_node, the reauth vault, ``initial_state["credentials"]``)
+src/webpent/workers/pentest_worker.py:550:        # state["credentials"]["password"] to "". The vault is cleared
+
+## PERSISTENCE APIs
+src/webpent/agents/authentication/agent.py:32:    reducer, checkpointed by SqliteSaver, never written to ChromaDB
+src/webpent/agents/authentication/agent.py:992:    # persisted in the LangGraph checkpoint (SqliteSaver) at rest. The
+src/webpent/agents/business_logic_fuzzer/agent.py:237:                        resp = client.put(url, data=form_data, headers=headers)
+src/webpent/agents/hypothesis_analyzer/agent.py:205:                sqlite_lessons = get_lessons_manager().search_lessons(
+src/webpent/agents/hypothesis_analyzer/agent.py:213:                    for lesson in sqlite_lessons
+src/webpent/agents/hypothesis_analyzer/agent.py:220:            source = "vectorstore:lessons+sqlite-negative-feedback"
+src/webpent/agents/validator/structural_checks.py:1184:    r"[^/]+\.(?:bak|old|orig|sql|sqlite|db|log|zip|tar|gz))$"
+src/webpent/api/app.py:135:    ``sqlite3.ProgrammingError: Cannot operate on a closed database``,
+src/webpent/api/app.py:145:    langgraph 1.2.10 / langgraph-checkpoint-sqlite 3.1.1: a compiled
+src/webpent/auth/reauth_vault.py:76:        if database_url == "sqlite://":
+src/webpent/cli/__init__.py:550:    # (SqliteSaver) as plaintext — the exact problem FIX-10 was designed
+src/webpent/config/settings.py:589:        default="sqlite:///./webpent.db",
+src/webpent/config/settings.py:593:        default=Path("~/.webpent/findings_ledger.sqlite3"),
+src/webpent/config/settings.py:605:        default=Path("~/.webpent/action_ledger.sqlite3"),
+src/webpent/graph/builder.py:881:    # findings loaded from a checkpoint (plain dicts after SqliteSaver
+src/webpent/graph/checkpoints.py:9:import sqlite3
+src/webpent/graph/checkpoints.py:15:from langgraph.checkpoint.sqlite import SqliteSaver
+src/webpent/graph/checkpoints.py:113:def _set_busy_timeout(conn: sqlite3.Connection) -> None:
+src/webpent/graph/checkpoints.py:118:    except sqlite3.Error as exc:
+src/webpent/graph/checkpoints.py:260:class RedactingSqliteSaver(SqliteSaver):
+src/webpent/graph/checkpoints.py:261:    """SqliteSaver that never serializes the designated secret channels."""
+src/webpent/graph/checkpoints.py:263:    def put(
+src/webpent/graph/checkpoints.py:270:        return super().put(
+src/webpent/graph/checkpoints.py:296:def _managed_factory_saver(factory: Any) -> Iterator[RedactingSqliteSaver]:
+src/webpent/graph/checkpoints.py:301:        yield RedactingSqliteSaver(conn=saver.conn, serde=saver.serde)
+src/webpent/graph/checkpoints.py:305:def _managed_fallback_saver(conn: sqlite3.Connection) -> Iterator[RedactingSqliteSaver]:
+src/webpent/graph/checkpoints.py:310:        yield RedactingSqliteSaver(conn=conn)
+src/webpent/graph/checkpoints.py:319:        saver_factory = SqliteSaver.from_conn_string(conn_string=db_path)
+src/webpent/graph/checkpoints.py:320:        logger.info("LangGraph SqliteSaver checkpointer factory created at %s", db_path)
+src/webpent/graph/checkpoints.py:323:        logger.warning("SqliteSaver.from_conn_string unavailable; using explicit connection")
+src/webpent/graph/checkpoints.py:324:        conn = sqlite3.connect(db_path, check_same_thread=False)
+src/webpent/memory/db.py:16:import sqlite3
+src/webpent/memory/db.py:35:def _suppress_sqlite_errors() -> Iterator[None]:
+src/webpent/memory/db.py:36:    """Swallow sqlite3.OperationalError exceptions.
+src/webpent/memory/db.py:43:    with suppress(sqlite3.Error):
+src/webpent/memory/db.py:54:    prefix = "sqlite:///"
+src/webpent/memory/db.py:55:    if database_url == "sqlite://":
+src/webpent/memory/db.py:60:            "Only 'sqlite:///' URLs are supported."
+src/webpent/memory/db.py:219:        self._memory_conn: sqlite3.Connection | None = None
+src/webpent/memory/db.py:226:    def _connect(self) -> Iterator[sqlite3.Connection]:
+src/webpent/memory/db.py:231:                self._memory_conn = sqlite3.connect(
+src/webpent/memory/db.py:237:                self._memory_conn.row_factory = sqlite3.Row
+src/webpent/memory/db.py:245:        conn = sqlite3.connect(
+src/webpent/memory/db.py:251:        conn.row_factory = sqlite3.Row
+src/webpent/memory/db.py:259:        except sqlite3.OperationalError as exc:
+src/webpent/memory/db.py:429:                with _suppress_sqlite_errors():
+src/webpent/memory/db.py:433:    def _get_alembic_version(self, conn: sqlite3.Connection) -> str | None:
+src/webpent/memory/db.py:446:        except sqlite3.OperationalError:
+src/webpent/memory/db.py:934:    def _row_to_finding(row: sqlite3.Row) -> Finding:
+src/webpent/memory/db.py:1065:            except sqlite3.OperationalError as exc:
+src/webpent/memory/db.py:1125:                with _suppress_sqlite_errors():
+src/webpent/memory/decision_log.py:29:import sqlite3
+src/webpent/memory/decision_log.py:112:    if database_url == "sqlite://":
+src/webpent/memory/decision_log.py:115:    prefix = "sqlite:///"
+src/webpent/memory/decision_log.py:144:        self._memory_conn: sqlite3.Connection | None = None
+src/webpent/memory/decision_log.py:152:    def _connect(self) -> Iterator[sqlite3.Connection]:
+src/webpent/memory/decision_log.py:160:                self._memory_conn = sqlite3.connect(
+src/webpent/memory/decision_log.py:166:                self._memory_conn.row_factory = sqlite3.Row
+src/webpent/memory/decision_log.py:175:        conn = sqlite3.connect(
+src/webpent/memory/decision_log.py:181:        conn.row_factory = sqlite3.Row
+src/webpent/memory/decision_log.py:186:        except sqlite3.OperationalError:
+src/webpent/memory/decision_log.py:286:    def _row_to_dict(row: sqlite3.Row) -> dict:
+src/webpent/memory/lessons.py:43:import sqlite3
+src/webpent/memory/lessons.py:373:    SQLAlchemy-style ``sqlite:///`` URL for backward compatibility with
+src/webpent/memory/lessons.py:398:    if database_url == "sqlite://":
+src/webpent/memory/lessons.py:401:    prefix = "sqlite:///"
+src/webpent/memory/lessons.py:529:        self._memory_conn: sqlite3.Connection | None = None
+src/webpent/memory/lessons.py:541:    def _connect(self) -> Iterator[sqlite3.Connection]:
+src/webpent/memory/lessons.py:551:                self._memory_conn = sqlite3.connect(
+src/webpent/memory/lessons.py:557:                self._memory_conn.row_factory = sqlite3.Row
+src/webpent/memory/lessons.py:567:        conn = sqlite3.connect(
+src/webpent/memory/lessons.py:573:        conn.row_factory = sqlite3.Row
+src/webpent/memory/lessons.py:580:        except sqlite3.OperationalError:
+src/webpent/models/mental_model.py:10:checkpointed by the existing SqliteSaver) and is NOT written to
+src/webpent/models/mental_model.py:47:    SqliteSaver that already handles ``crawled_data`` etc. (Phase 2
+src/webpent/persistence/backend_capability.py:17:        if scheme == "sqlite":
+src/webpent/persistence/backend_capability.py:19:                "backend": "sqlite",
+src/webpent/shared/action_ledger.py:10:import sqlite3
+src/webpent/shared/action_ledger.py:36:    def _connect(self) -> sqlite3.Connection:
+src/webpent/shared/action_ledger.py:37:        connection = sqlite3.connect(str(self.path), timeout=5.0)
+src/webpent/shared/action_ledger.py:38:        connection.row_factory = sqlite3.Row
+src/webpent/shared/action_ledger.py:178:        except sqlite3.Error:
+src/webpent/shared/action_ledger.py:212:        except sqlite3.Error:
+src/webpent/shared/action_ledger.py:232:        except sqlite3.Error:
+src/webpent/shared/campaign_executor.py:410:                        self.proof_bundle_store.put(bundle)
+src/webpent/shared/persistent_finding_ledger.py:21:import sqlite3
+src/webpent/shared/persistent_finding_ledger.py:69:    configured = os.getenv("WEBPENT_FINDINGS_LEDGER_PATH", "~/.webpent/findings_ledger.sqlite3")
+src/webpent/shared/persistent_finding_ledger.py:122:def _ensure_schema(connection: sqlite3.Connection) -> None:
+src/webpent/shared/persistent_finding_ledger.py:165:    def _connect(self) -> Iterator[sqlite3.Connection]:
+src/webpent/shared/persistent_finding_ledger.py:167:        connection = sqlite3.connect(str(self.path), timeout=30.0)
+src/webpent/shared/persistent_finding_ledger.py:168:        connection.row_factory = sqlite3.Row
+src/webpent/shared/persistent_finding_ledger.py:271:        connection: sqlite3.Connection,
+src/webpent/shared/proof_bundle_store.py:46:    def put(self, value: ProofBundle | Mapping[str, Any]) -> str:
+src/webpent/shared/control_plane_runtime.py:598:class ControlPlaneProofInput(BaseModel):
+src/webpent/shared/secret_vault.py:67:    def put(
+src/webpent/state/reducers.py:23:    V10 AUDIT FIX (C6): LangGraph's SqliteSaver serializes state to JSON
+src/webpent/state/state.py:239:    # engagement). Checkpoint-survives via the existing SqliteSaver
+src/webpent/tools/recon/ffuf.py:116:    records = _parse_ffuf_output(raw_output)
+src/webpent/tools/recon/ffuf.py:152:def _parse_ffuf_output(raw_output: str) -> list[dict[str, Any]]:
+src/webpent/utils/task_crypto.py:21:``reauth_vault`` keeps the password out of the LangGraph SqliteSaver

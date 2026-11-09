@@ -1,0 +1,94 @@
+
+### setup: init
+exit=0
+
+### setup: submission recorded
+exit=1
+Error: no report at submissions/F-1.md; run report generation first and review it before submitting
+
+### setup: watch opened
+exit=1
+Error: no submissions recorded; watch opens after submission day
+
+### setup: 5 confirmed findings, selection frozen, run recorded
+state exists: True
+
+### WG1.1  submit F-1 --auto (flag bypass)
+exit=2
+Error: No such option '--auto'.
+
+### WG1.2  auto_submit planted in state.json + --auto again
+exit=2
+Error: No such option '--auto'.
+
+### WG1.3  external script, ALL sockets blocked
+pipeline methods: ['generate_report', 'get_tracker', 'preview', 'record_submission', 'state', 'write_report', 'ws']
+network-capable methods: NONE
+
+### WG2.1  predictions set + frozen
+exit=0
+pre-registration frozen
+pre_registration.md hash: 492d20c403676cee
+
+### WG2.2  ATTACK: re-predict after freeze
+exit=0  (0 = allowed!)
+predictions recorded
+state predictions now: [1, 2], [0.9, 1.0]
+
+### WG2.3  ATTACK: edit pre_registration.md after freeze
+hash now:  4b85f14d72b980b8
+detection: NONE — file hash never recorded, flag stays True
+
+### WG3.0  FP classification needs evidence
+exit=0
+F-6 classified: false_positive
+
+### WG3.1  reclassify FP -> confirmed (should fail)
+exit=1
+Error: finding F-6 is already classified as false_positive; classifications are immutable
+
+### WG3.2  ATTACK: fresh id + NONEXISTENT evidence path -> confirmed
+exit=0
+RESULT: evidence path NOT verified — laundering possible
+
+### WG3.3  duplicate finding, same evidence as the original run
+exit=1
+RESULT: dedup enforced
+
+### WG5.1  baseline final verdict
+final verdict: NO-GO — 0 accepted — core needs redesign
+
+### WG5.2a  submit report (legit path)
+exit=0
+draft written: submissions/F-1.md — review it, then edit before submitting
+
+### WG5.2b  submit record
+exit=0
+submission recorded: F-1 -> H1-TEST-1
+
+### WG5.2c  watch start
+exit=0
+
+### WG5.2  watch F-1 accepted (legit path)
+exit=0
+F-1: accepted
+
+### WG5.3  verdict after legit accept
+final verdict: IMPROVE — 1 accepted — focus on core quality
+
+### WG5.3b  verdict with 1 legit accepted
+final verdict: IMPROVE — 1 accepted — focus on core quality
+
+### WG5.4  ATTACK: hand-edit state.json, forge 3 accepted entries
+final verdict: GO — 3+ accepted findings — tool is validated
+tamper detection: NONE — GO issued from a forged file (real path above was IMPROVE with 1 accepted)
+
+### WG5.5  ATTACK: delete the FP from state
+final verdict: GO — 3+ accepted findings — tool is validated
+FP silently removed from the FP-rate computation
+
+### DET  same state -> same report 3x
+run 1: 534935b16b506e31
+run 2: 534935b16b506e31
+run 3: 534935b16b506e31
+deterministic

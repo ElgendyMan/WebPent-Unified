@@ -1,0 +1,91 @@
+{
+  "knowledge_base": {
+    "available": true,
+    "ingestion_evidence": "artifacts/learning_ingestion_evidence_v2/knowledge_ingestion_evidence.json"
+  },
+  "lessons": {
+    "by_family": {
+      "INFO_DISCLOSURE": 8,
+      "SSRF": 2
+    },
+    "by_type": {
+      "negative": 10
+    },
+    "total": 10
+  },
+  "trends": {
+    "cost_per_finding": [
+      {
+        "campaign_id": "learning-demo-20261001t111635z-a",
+        "value": null
+      },
+      {
+        "campaign_id": "learning-demo-20261001t111635z-b",
+        "value": null
+      }
+    ],
+    "hypothesis_efficiency": [
+      {
+        "campaign_id": "learning-demo-20261001t111635z-a",
+        "value": 0.0
+      },
+      {
+        "campaign_id": "learning-demo-20261001t111635z-b",
+        "value": 0.0
+      }
+    ],
+    "metrics": [
+      {
+        "adjusted_hypotheses": 11,
+        "boosted_promoted": 0,
+        "boosted_tested": 0,
+        "campaign_id": "learning-demo-20261001t111635z-a",
+        "client_id": "learning-demo-client",
+        "cost_per_finding": null,
+        "cost_total": 0.00815175,
+        "findings_promoted": 0,
+        "findings_refuted": 5,
+        "hypotheses_generated": 11,
+        "hypotheses_inconclusive": 6,
+        "hypotheses_tested": 11,
+        "lesson_effectiveness": null,
+        "lesson_hits": 0,
+        "recorded_at": "2026-10-01T11:17:26.828553+00:00",
+        "target_type": "rest_api",
+        "time_to_first_finding": null,
+        "time_total": 22.513859
+      },
+      {
+        "adjusted_hypotheses": 11,
+        "boosted_promoted": 0,
+        "boosted_tested": 5,
+        "campaign_id": "learning-demo-20261001t111635z-b",
+        "client_id": "learning-demo-client",
+        "cost_per_finding": null,
+        "cost_total": 0.00684975,
+        "findings_promoted": 0,
+        "findings_refuted": 5,
+        "hypotheses_generated": 11,
+        "hypotheses_inconclusive": 6,
+        "hypotheses_tested": 11,
+        "lesson_effectiveness": 0.0,
+        "lesson_hits": 10,
+        "recorded_at": "2026-10-01T11:18:12.454833+00:00",
+        "target_type": "rest_api",
+        "time_to_first_finding": null,
+        "time_total": 22.434882
+      }
+    ],
+    "sample_count": 2,
+    "time_to_first_finding": [
+      {
+        "campaign_id": "learning-demo-20261001t111635z-a",
+        "value": null
+      },
+      {
+        "campaign_id": "learning-demo-20261001t111635z-b",
+        "value": null
+      }
+    ]
+  }
+}

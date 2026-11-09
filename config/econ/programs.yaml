@@ -1,0 +1,264 @@
+# config/econ/programs.yaml — MarketKB seed data (NC-ECON-1, U-ECON-1)
+#
+# Public-data only. Every entry carries the source it came from and the
+# date it was captured; anything older than 90 days is stale and
+# consumers must warn. Fresh market data enters through
+# MarketKB.ingest_snapshot() from offline operator-run snapshots with a
+# documented trusted source — never through the tool itself (L-2).
+#
+# The entries below are the shipped seed: illustrative public-data
+# baselines so the scorer works out of the box. Replace them (or add to
+# them) from real program policy pages via ingestion.
+
+programs:
+  - id: "example-corp"
+    platform: "hackerone"
+    scope_url: "https://hackerone.com/example-corp"
+    last_updated: "2026-01-15"
+    payout_curves:
+      critical: {min: 5000, max: 25000, typical: 10000}
+      high: {min: 1500, max: 5000, typical: 3000}
+      medium: {min: 500, max: 1500, typical: 800}
+      low: {min: 100, max: 500, typical: 250}
+    stats:
+      dup_rate: 0.35
+      bounty_ratio: 0.72
+      response_time_days: {typical: 3, p90: 14}
+    vuln_weights:
+      ATO: 1.0
+      SQLI: 0.8
+      SSRF: 0.6
+      XSS: 0.3
+      INFO: 0.1
+    notes: "public data only; seed baseline; source: program policy page"
+
+  - id: "example-cloud"
+    platform: "bugcrowd"
+    scope_url: "https://bugcrowd.com/example-cloud"
+    last_updated: "2026-02-02"
+    payout_curves:
+      critical: {min: 3000, max: 20000, typical: 8000}
+      high: {min: 1000, max: 3000, typical: 2000}
+      medium: {min: 300, max: 1000, typical: 600}
+      low: {min: 50, max: 300, typical: 150}
+    stats:
+      dup_rate: 0.42
+      bounty_ratio: 0.65
+      response_time_days: {typical: 5, p90: 21}
+    vuln_weights:
+      ATO: 1.0
+      SSRF: 0.9
+      SQLI: 0.7
+      XSS: 0.3
+      INFO: 0.05
+    notes: "public data only; seed baseline; source: program policy page"
+
+  - id: "example-bank"
+    platform: "private"
+    scope_url: "https://example-bank.example/security/bounty"
+    last_updated: "2026-03-10"
+    payout_curves:
+      critical: {min: 10000, max: 50000, typical: 20000}
+      high: {min: 3000, max: 10000, typical: 5000}
+      medium: {min: 1000, max: 3000, typical: 1500}
+      low: {min: 250, max: 1000, typical: 500}
+    stats:
+      dup_rate: 0.20
+      bounty_ratio: 0.80
+      response_time_days: {typical: 7, p90: 30}
+    vuln_weights:
+      ATO: 1.2
+      SQLI: 1.0
+      SSRF: 0.8
+      XSS: 0.4
+      INFO: 0.1
+    notes: "public data only; seed baseline; source: program policy page"
+
+  - id: "example-social"
+    platform: "hackerone"
+    scope_url: "https://hackerone.com/example-social"
+    last_updated: "2026-01-20"
+    payout_curves:
+      critical: {min: 5000, max: 30000, typical: 15000}
+      high: {min: 1000, max: 5000, typical: 2500}
+      medium: {min: 400, max: 1000, typical: 600}
+      low: {min: 100, max: 400, typical: 200}
+    stats:
+      dup_rate: 0.55
+      bounty_ratio: 0.60
+      response_time_days: {typical: 2, p90: 10}
+    vuln_weights:
+      ATO: 1.0
+      IDOR: 0.9
+      SSRF: 0.5
+      XSS: 0.4
+      INFO: 0.1
+    notes: "public data only; seed baseline; source: program policy page"
+
+  - id: "example-iot"
+    platform: "bugcrowd"
+    scope_url: "https://bugcrowd.com/example-iot"
+    last_updated: "2025-12-05"
+    payout_curves:
+      critical: {min: 2000, max: 15000, typical: 6000}
+      high: {min: 750, max: 2000, typical: 1200}
+      medium: {min: 250, max: 750, typical: 400}
+      low: {min: 50, max: 250, typical: 100}
+    stats:
+      dup_rate: 0.30
+      bounty_ratio: 0.55
+      response_time_days: {typical: 10, p90: 45}
+    vuln_weights:
+      ATO: 1.0
+      SSRF: 0.7
+      SQLI: 0.6
+      XSS: 0.3
+      INFO: 0.2
+    notes: "public data only; seed baseline (STALE >90d: refresh via ingest); source: program policy page"
+
+  - id: "example-gov-portal"
+    platform: "private"
+    scope_url: "https://example-gov.example/vdp"
+    last_updated: "2026-04-01"
+    payout_curves:
+      critical: {min: 5000, max: 15000, typical: 7500}
+      high: {min: 2000, max: 5000, typical: 3000}
+      medium: {min: 500, max: 2000, typical: 900}
+      low: {min: 0, max: 500, typical: 0}
+    stats:
+      dup_rate: 0.25
+      bounty_ratio: 0.90
+      response_time_days: {typical: 14, p90: 60}
+    vuln_weights:
+      ATO: 1.0
+      SQLI: 0.9
+      SSRF: 0.7
+      XSS: 0.2
+      INFO: 0.0
+    notes: "public data only; seed baseline; low is thanks-only; source: VDP policy page"
+
+  - id: "example-cdn"
+    platform: "hackerone"
+    scope_url: "https://hackerone.com/example-cdn"
+    last_updated: "2026-03-18"
+    payout_curves:
+      critical: {min: 2500, max: 10000, typical: 4000}
+      high: {min: 800, max: 2500, typical: 1200}
+      medium: {min: 200, max: 800, typical: 350}
+      low: {min: 50, max: 200, typical: 100}
+    stats:
+      dup_rate: 0.48
+      bounty_ratio: 0.50
+      response_time_days: {typical: 4, p90: 18}
+    vuln_weights:
+      ATO: 1.0
+      SSRF: 0.8
+      SQLI: 0.4
+      XSS: 0.3
+      INFO: 0.1
+    notes: "public data only; seed baseline; source: program policy page"
+
+  - id: "example-fintech"
+    platform: "bugcrowd"
+    scope_url: "https://bugcrowd.com/example-fintech"
+    last_updated: "2026-02-25"
+    payout_curves:
+      critical: {min: 8000, max: 40000, typical: 18000}
+      high: {min: 2500, max: 8000, typical: 4000}
+      medium: {min: 800, max: 2500, typical: 1200}
+      low: {min: 200, max: 800, typical: 300}
+    stats:
+      dup_rate: 0.28
+      bounty_ratio: 0.75
+      response_time_days: {typical: 6, p90: 25}
+    vuln_weights:
+      ATO: 1.2
+      SQLI: 1.0
+      SSRF: 0.8
+      XSS: 0.3
+      INFO: 0.05
+    notes: "public data only; seed baseline; source: program policy page"
+
+  - id: "example-ecom"
+    platform: "hackerone"
+    scope_url: "https://hackerone.com/example-ecom"
+    last_updated: "2026-05-12"
+    payout_curves:
+      critical: {min: 3000, max: 12000, typical: 6000}
+      high: {min: 1000, max: 3000, typical: 1800}
+      medium: {min: 300, max: 1000, typical: 500}
+      low: {min: 75, max: 300, typical: 120}
+    stats:
+      dup_rate: 0.38
+      bounty_ratio: 0.68
+      response_time_days: {typical: 3, p90: 12}
+    vuln_weights:
+      ATO: 1.0
+      SQLI: 0.8
+      SSRF: 0.6
+      XSS: 0.4
+      INFO: 0.1
+    notes: "public data only; seed baseline; source: program policy page"
+
+  - id: "example-gaming"
+    platform: "bugcrowd"
+    scope_url: "https://bugcrowd.com/example-gaming"
+    last_updated: "2026-06-01"
+    payout_curves:
+      critical: {min: 1500, max: 8000, typical: 3500}
+      high: {min: 500, max: 1500, typical: 900}
+      medium: {min: 150, max: 500, typical: 250}
+      low: {min: 25, max: 150, typical: 50}
+    stats:
+      dup_rate: 0.45
+      bounty_ratio: 0.45
+      response_time_days: {typical: 8, p90: 30}
+    vuln_weights:
+      ATO: 1.0
+      SSRF: 0.5
+      SQLI: 0.5
+      XSS: 0.4
+      INFO: 0.1
+    notes: "public data only; seed baseline; source: program policy page"
+
+  - id: "example-health"
+    platform: "private"
+    scope_url: "https://example-health.example/bounty"
+    last_updated: "2026-04-20"
+    payout_curves:
+      critical: {min: 10000, max: 35000, typical: 16000}
+      high: {min: 2500, max: 10000, typical: 4500}
+      medium: {min: 750, max: 2500, typical: 1000}
+      low: {min: 150, max: 750, typical: 250}
+    stats:
+      dup_rate: 0.22
+      bounty_ratio: 0.78
+      response_time_days: {typical: 9, p90: 35}
+    vuln_weights:
+      ATO: 1.2
+      SQLI: 1.0
+      SSRF: 0.9
+      XSS: 0.3
+      INFO: 0.1
+    notes: "public data only; seed baseline; source: program policy page"
+
+  - id: "example-telco"
+    platform: "hackerone"
+    scope_url: "https://hackerone.com/example-telco"
+    last_updated: "2026-03-30"
+    payout_curves:
+      critical: {min: 4000, max: 18000, typical: 9000}
+      high: {min: 1200, max: 4000, typical: 2200}
+      medium: {min: 400, max: 1200, typical: 700}
+      low: {min: 100, max: 400, typical: 180}
+    stats:
+      dup_rate: 0.33
+      bounty_ratio: 0.62
+      response_time_days: {typical: 5, p90: 20}
+    vuln_weights:
+      ATO: 1.0
+      SSRF: 0.8
+      SQLI: 0.7
+      XSS: 0.3
+      INFO: 0.1
+    notes: "public data only; seed baseline; source: program policy page"

@@ -1,0 +1,114 @@
+family: idor
+scenarios:
+  - scenario_id: idor-01
+    title: "First look at sequential record ids"
+    description: "The records API returns any record when asked by numeric id; find the cross-owner read."
+    difficulty: 1
+    template_id: flask_api_with_idor
+    seed: 1101
+    ground_truth: {vuln_class: idor, location: /api/record, signature: "1002"}
+    hints:
+      - "Record ids issued to you are sequential."
+      - "Ask the API for the id just above yours."
+      - "The owner field in the response tells you whose record it is."
+    lesson_tags: [idor, access-control]
+    skill_families: [idor]
+    request_budget: 16
+  - scenario_id: idor-02
+    title: "Guess the admin record"
+    description: "One privileged record sits next to yours in the id space; read it without a token."
+    difficulty: 1
+    template_id: flask_api_with_idor
+    seed: 1102
+    ground_truth: {vuln_class: idor, location: /api/record, signature: "1002"}
+    hints:
+      - "Privilege usually lives at the first or last id in the range."
+      - "Try the lowest ids you have not been issued."
+      - "The response body names the owner of whatever you read."
+    lesson_tags: [idor, enumeration]
+    skill_families: [idor]
+    request_budget: 16
+  - scenario_id: idor-03
+    title: "Read without any session"
+    description: "The record endpoint should require a session; verify it does not."
+    difficulty: 2
+    template_id: flask_api_with_idor
+    seed: 1103
+    ground_truth: {vuln_class: idor, location: /api/record, signature: "1002"}
+    hints:
+      - "Send the request with no session header at all."
+      - "Authorization is checked in the UI, not the API."
+      - "A 200 with a foreign record is the proof."
+    lesson_tags: [idor, missing-authz]
+    skill_families: [idor]
+    request_budget: 14
+  - scenario_id: idor-04
+    title: "Chain listing to reading"
+    description: "Use the listing route to learn id shape, then pull a foreign record."
+    difficulty: 2
+    template_id: flask_api_with_idor
+    seed: 1104
+    ground_truth: {vuln_class: idor, location: /api/record, signature: "1002"}
+    hints:
+      - "/api/records reveals the id pattern."
+      - "Ids continue across owners without gaps."
+      - "Pick a neighbor id and fetch it directly."
+    lesson_tags: [idor, reconnaissance]
+    skill_families: [idor]
+    request_budget: 14
+  - scenario_id: idor-05
+    title: "Quiet cross-tenant read"
+    description: "Read a foreign record in as few requests as possible; budget is tight."
+    difficulty: 3
+    template_id: flask_api_with_idor
+    seed: 1105
+    ground_truth: {vuln_class: idor, location: /api/record, signature: "1002"}
+    hints:
+      - "Skip exploration; you already know the id shape."
+      - "One request to /api/record with the neighbor id is enough."
+      - "Wasted requests lower your score."
+    lesson_tags: [idor, opsec]
+    skill_families: [idor]
+    request_budget: 10
+  - scenario_id: idor-06
+    title: "Distinguish real from filtered reads"
+    description: "Some ids look exploitable but return nothing; report only the real one."
+    difficulty: 3
+    template_id: flask_api_with_idor
+    seed: 1106
+    ground_truth: {vuln_class: idor, location: /api/record, signature: "1002"}
+    hints:
+      - "A response without record content is not a finding."
+      - "Only ids that exist return owner data."
+      - "Claiming a nonexistent id is a false positive."
+    lesson_tags: [idor, false-positive-control]
+    skill_families: [idor]
+    request_budget: 12
+  - scenario_id: idor-07
+    title: "Prove impact with the owner field"
+    description: "The finding only counts with evidence of whose data was exposed."
+    difficulty: 4
+    template_id: flask_api_with_idor
+    seed: 1107
+    ground_truth: {vuln_class: idor, location: /api/record, signature: "1002"}
+    hints:
+      - "The vuln_hit response names the affected class."
+      - "Cross-owner proof requires the owner field of the record."
+      - "A hit without owner evidence is inconclusive."
+    lesson_tags: [idor, evidence-quality]
+    skill_families: [idor]
+    request_budget: 12
+  - scenario_id: idor-08
+    title: "Minimal-footprint IDOR proof"
+    description: "Hardest tier: prove the cross-owner read with the smallest possible footprint."
+    difficulty: 5
+    template_id: flask_api_with_idor
+    seed: 1108
+    ground_truth: {vuln_class: idor, location: /api/record, signature: "1002"}
+    hints:
+      - "Two requests total: one foreign read, one confirmation."
+      - "Any 404 or filtered response burns budget you cannot spare."
+      - "Speed and precision both feed the final score."
+    lesson_tags: [idor, opsec, evidence-quality]
+    skill_families: [idor]
+    request_budget: 8

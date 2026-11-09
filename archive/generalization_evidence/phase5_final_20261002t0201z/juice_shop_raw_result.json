@@ -1,0 +1,114 @@
+{
+  "answers": {
+    "auth_mechanism_detected": "not independently asserted by untouched runner",
+    "crawler_discovered_application": true,
+    "exploiter_real_requests": "see validation counts and production trace",
+    "hypotheses_generated": 8,
+    "promoted_findings": 0,
+    "validator_confirmations": {
+      "confirmed": 0,
+      "inconclusive": 5,
+      "refuted": 1
+    }
+  },
+  "artifact_root": "/tmp/webpent_remediation_project/docs/generalization_evidence/phase5_final_20261002t0201z/juice_shop",
+  "credentials_in_llm_context": false,
+  "duration_seconds": 203.637,
+  "modifications_during_phase": true,
+  "phase": "phase5_final_rerun",
+  "principal_count": 0,
+  "started_at_epoch": 1790896066.4477208,
+  "status": "completed",
+  "summary": {
+    "agent_graph_events": 32,
+    "audit_verification": {
+      "event_count": 4,
+      "root_hash": "6ac368460faa2c16e152859bb4c02edf86be2b2e7cc7ec3b669ac656b5324949",
+      "verified": true
+    },
+    "campaign_id": "generalization-20261002t0201z-juice_shop",
+    "candidates_executable": 4,
+    "candidates_generated": 8,
+    "confirmed_findings": [],
+    "crawl_events": 42,
+    "curiosity_flags": 22,
+    "duration_seconds": 203.607,
+    "llm_calls": 12,
+    "llm_cost_usd": 0.049008,
+    "persona": {
+      "allowed_tools": [
+        "m4_principal_comparison",
+        "token_role_metadata",
+        "bounded_id_mutation"
+      ],
+      "display_name": "Stok / API Breaker",
+      "focus_areas": [
+        "idor",
+        "bola",
+        "bfla",
+        "token_role_comparison",
+        "id_parameter_fuzzing"
+      ],
+      "name": "stok",
+      "personality": "I break APIs by switching identities.",
+      "preferred_families": [
+        "IDOR",
+        "BOLA",
+        "AUTH_BYPASS"
+      ],
+      "prompt_template": "You are an API security specialist. For user-specific endpoints, compare owner, foreign, and invalid identities through the authorized M4 chain.",
+      "safety_constraints": [
+        "advisory_only",
+        "scope_law_and_tool_boundary_required",
+        "m4_credentials_only",
+        "no_external_targets_without_explicit_scope",
+        "validator_and_promotion_pipeline_authoritative"
+      ]
+    },
+    "production_trace": {
+      "complete": false,
+      "config_digest": "437059bc804aecb8",
+      "entrypoint": "direct_invoke",
+      "missing_required_stages": [
+        "replan"
+      ],
+      "spine_version": "production_spine_v1",
+      "stage_count": 17,
+      "stages_seen": [
+        "audit_event",
+        "audit_finalization",
+        "bounded_tool_execution",
+        "causal_guard_evaluation",
+        "deep_recon",
+        "entrypoint_resolve",
+        "flag_resolution",
+        "observation",
+        "outcome_recording",
+        "promotion_decision",
+        "proof_bundle_creation",
+        "research_decision",
+        "spine_activation",
+        "world_model_mutation"
+      ],
+      "trace_digest": "702717c487c88728187b4febc7e5945e014f1b915adee512b485e82d0420568d"
+    },
+    "routes_crawled": 25,
+    "security_boundary": {
+      "credentials_attached_by": "M4 only",
+      "execution_authority": "ModernOrchestrator/ScopeLaw/AVI/PromotionPipeline",
+      "raw_target_content_returned": false
+    },
+    "target_url": "http://127.0.0.1:3000",
+    "validation_counts": {
+      "confirmed": 0,
+      "inconclusive": 5,
+      "refuted": 1
+    }
+  },
+  "system_path": "run_hunter_campaign -> AutonomousCrawler/httpx -> HunterGraph -> ModernOrchestrator/AVI",
+  "target": {
+    "name": "juice_shop",
+    "target_note": "Official OWASP Juice Shop local service",
+    "target_url": "http://127.0.0.1:3000"
+  }
+}

@@ -1,0 +1,75 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.venv/
+.coverage
+coverage.xml
+
+# R-02/R-09 (TEAM-2 residuals): runtime artifacts must never be tracked.
+# These files are created by CLI/API/worker runs and by the test suite;
+# shipping them breaks fresh checkouts (un-stamped webpent.db aborts
+# Alembic init with "table findings already exists") and pollutes the
+# delivery manifest. Global memory (decision log, lessons, vector cache)
+# is derived state — it is rebuilt per run / via scripts/ingest_payloads.py.
+*.db
+*.db-wal
+*.db-shm
+*.sqlite3
+*.sqlite3-wal
+*.sqlite3-shm
+memory/global/
+output/
+.pytest_cache/
+
+# Generated artifacts / temp files
+*.sha256
+*.sha256.txt
+# Exception (v0.25.0): frozen_modules.sha256 is the AUTHORITATIVE
+# frozen-file manifest enforced by tests/test_frozen_module_gate.py —
+# it is load-bearing, not a generated artifact. The *.sha256 glob
+# swallowed it twice, losing the gate between sessions (recovered
+# from the 0.24.0 release zip both times). Version it from now on.
+!frozen_modules.sha256
+*_baseline.txt
+*_symbols.txt
+*_audit.txt
+requirements-audit-*.txt
+combined_plan_*.json
+doctor-offline.json
+REGRESSION.json
+CHANGED_FILES.txt
+GOVERNANCE.txt
+*.zip
+!docs/**/*.zip
+*.tmp
+*.bak
+.env.llm
+.llm_keys.json
+.llm_keys.*.json
+.webpent_credentials*.json
+operator_credentials*.json
+
+artifacts/
+# P2-404 (2026-11-01) — root cause of the recurring 27-file transfer loss
+# (incidents #2/#3/#4): the delivery SHIPS the manifest/evidence files below,
+# but the generated-artifact patterns above swallowed them, so every
+# git-aware transfer dropped them. Anchor-negate exactly the shipped paths.
+!/frozen_modules.sha256
+!/BASELINE.sha256.txt
+!/POST.sha256.txt
+!/CHANGED_FILES.txt
+!/REGRESSION.json
+!/TEAM1_AVI_V1_2_SOURCE_HASH.sha256.txt
+!/docs/full_project_vip_checkpoint_audit.txt
+!/docs/g02_baseline_20260821/hashes.sha256
+!/docs/integration/TEAM1_*.sha256.txt
+!/docs/operator_credentials.example.json
+!/docs/requirements-audit-release.txt
+!/verification/CHANGED_FILES.txt
+!/verification/REGRESSION.json
+!/verification/evidence/BASELINE_AUTHORITY.sha256.txt
+
+# UM-DR-09 hygiene (2026-11-04): regenerated build metadata must never be
+# committed or shipped — fresh checkouts regenerate it on `pip install -e .`.
+*.egg-info/

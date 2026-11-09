@@ -1,0 +1,190 @@
+{
+  "target_id": "goed-target-03",
+  "port": 8803,
+  "naming_convention": {
+    "route_style": 3,
+    "object_style": 3,
+    "role_set": 3,
+    "tenant_style": 3
+  },
+  "route_prefix": "/ENTITY/endpoint",
+  "roles": [
+    "read_only",
+    "read_write",
+    "admin",
+    "super_admin"
+  ],
+  "tenants": [
+    "domain-cfcd20",
+    "domain-c4ca42"
+  ],
+  "objects": [
+    "entity-ovq0",
+    "entity-wps1",
+    "entity-bfh2",
+    "entity-cgc3",
+    "entity-hqj4",
+    "entity-jfg5"
+  ],
+  "cases": {
+    "goed-target-03-case-00": {
+      "case_id": "goed-target-03-case-00",
+      "target_id": "goed-target-03",
+      "class": "idor",
+      "route": "/objects/entity-wps1/endpoint",
+      "baseline_route": "/objects/entity-ovq0/endpoint",
+      "control_route": "/patched/objects/entity-wps1/endpoint",
+      "actor_role": "read_write",
+      "actor_tenant": "domain-cfcd20",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-03-case-01": {
+      "case_id": "goed-target-03-case-01",
+      "target_id": "goed-target-03",
+      "class": "broken_access_control",
+      "route": "/admin/dashboard/endpoint",
+      "baseline_route": "/profile/endpoint",
+      "control_route": "/patched/admin/dashboard/endpoint",
+      "actor_role": "read_write",
+      "actor_tenant": "domain-cfcd20",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "low"
+    },
+    "goed-target-03-case-02": {
+      "case_id": "goed-target-03-case-02",
+      "target_id": "goed-target-03",
+      "class": "privilege_escalation",
+      "route": "/billing/domain-cfcd20/records/endpoint",
+      "baseline_route": "/profile/endpoint",
+      "control_route": "/patched/billing/domain-cfcd20/records/endpoint",
+      "actor_role": "read_write",
+      "actor_tenant": "domain-cfcd20",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-03-case-03": {
+      "case_id": "goed-target-03-case-03",
+      "target_id": "goed-target-03",
+      "class": "business_logic_abuse",
+      "route": "/transfer/entity-ovq0?to=entity-wps1&amount=-100/endpoint",
+      "baseline_route": "/transfer/entity-ovq0?to=entity-wps1&amount=10/endpoint",
+      "control_route": "/patched/transfer/entity-ovq0",
+      "actor_role": "read_write",
+      "actor_tenant": "domain-cfcd20",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-03-case-04": {
+      "case_id": "goed-target-03-case-04",
+      "target_id": "goed-target-03",
+      "class": "tenant_isolation_failure",
+      "route": "/tenant/domain-c4ca42/internal/endpoint",
+      "baseline_route": "/tenant/domain-cfcd20/internal/endpoint",
+      "control_route": "/patched/tenant/domain-c4ca42/internal/endpoint",
+      "actor_role": "read_write",
+      "actor_tenant": "domain-cfcd20",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "low"
+    },
+    "goed-target-03-case-05": {
+      "case_id": "goed-target-03-case-05",
+      "target_id": "goed-target-03",
+      "class": "workflow_authorization_failure",
+      "route": "/workflows/entity-bfh2/approve/endpoint",
+      "baseline_route": "/workflows/entity-bfh2/view/endpoint",
+      "control_route": "/patched/workflows/entity-bfh2/approve/endpoint",
+      "actor_role": "read_only",
+      "actor_tenant": "domain-cfcd20",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "low"
+    },
+    "goed-target-03-case-06": {
+      "case_id": "goed-target-03-case-06",
+      "target_id": "goed-target-03",
+      "class": "sensitive_data_exposure",
+      "route": "/messages/entity-wps1/inbox/endpoint",
+      "baseline_route": "/messages/entity-ovq0/inbox/endpoint",
+      "control_route": "/patched/messages/entity-wps1/inbox/endpoint",
+      "actor_role": "read_write",
+      "actor_tenant": "domain-cfcd20",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-target-03-case-07": {
+      "case_id": "goed-target-03-case-07",
+      "target_id": "goed-target-03",
+      "class": "multi_step_chain",
+      "route": "/auth/reset/request?for=entity-wps1/endpoint",
+      "baseline_route": "/auth/reset/request?for=entity-ovq0/endpoint",
+      "control_route": "/patched/auth/reset/request",
+      "actor_role": "read_write",
+      "actor_tenant": "domain-cfcd20",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-target-03-case-08": {
+      "case_id": "goed-target-03-case-08",
+      "target_id": "goed-target-03",
+      "class": "broken_access_control",
+      "route": "/admin/dashboard/endpoint",
+      "baseline_route": "/profile/endpoint",
+      "control_route": "/patched/admin/dashboard/endpoint",
+      "actor_role": "read_write",
+      "actor_tenant": "domain-cfcd20",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-target-03-case-09": {
+      "case_id": "goed-target-03-case-09",
+      "target_id": "goed-target-03",
+      "class": "tenant_isolation_failure",
+      "route": "/tenant/domain-c4ca42/internal/endpoint",
+      "baseline_route": "/tenant/domain-cfcd20/internal/endpoint",
+      "control_route": "/patched/tenant/domain-c4ca42/internal/endpoint",
+      "actor_role": "read_write",
+      "actor_tenant": "domain-cfcd20",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-03-clean-00": {
+      "case_id": "goed-target-03-clean-00",
+      "target_id": "goed-target-03",
+      "class": "clean_public_resource",
+      "route": "/public/info-0/endpoint",
+      "baseline_route": "/public/info-0/endpoint",
+      "control_route": "/public/info-0/endpoint",
+      "actor_role": "read_write",
+      "actor_tenant": "domain-cfcd20",
+      "expected_verdict": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    },
+    "goed-target-03-clean-01": {
+      "case_id": "goed-target-03-clean-01",
+      "target_id": "goed-target-03",
+      "class": "clean_public_resource",
+      "route": "/public/info-1/endpoint",
+      "baseline_route": "/public/info-1/endpoint",
+      "control_route": "/public/info-1/endpoint",
+      "actor_role": "read_write",
+      "actor_tenant": "domain-cfcd20",
+      "expected_verdict": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    }
+  },
+  "total_cases": 12,
+  "vulnerable_cases": 10,
+  "clean_cases": 2
+}

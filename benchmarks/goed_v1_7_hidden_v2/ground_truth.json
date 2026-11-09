@@ -1,0 +1,1490 @@
+{
+  "hidden2-00": {
+    "hidden2-00-idor-0": {
+      "class": "idor",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/orb/nexus/core",
+      "control_route": "/orb/patched/nexus/core",
+      "baseline_route": "/orb/nexus/core/authorized",
+      "mechanism": "query_param"
+    },
+    "hidden2-00-broken-1": {
+      "class": "broken_access_control",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/orb/vertex/core",
+      "control_route": "/orb/patched/vertex/core",
+      "baseline_route": "/orb/nexus/core/authorized",
+      "mechanism": "missing_role_check"
+    },
+    "hidden2-00-privil-2": {
+      "class": "privilege_escalation",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/orb/prism/core",
+      "control_route": "/orb/patched/prism/core",
+      "baseline_route": "/orb/nexus/core/authorized",
+      "mechanism": "role_inference"
+    },
+    "hidden2-00-tenant-3": {
+      "class": "tenant_isolation_failure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/orb/quanta/core",
+      "control_route": "/orb/patched/quanta/core",
+      "baseline_route": "/orb/nexus/core/authorized",
+      "mechanism": "cross_tenant_idor"
+    },
+    "hidden2-00-busine-4": {
+      "class": "business_logic_abuse",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/orb/flux/core",
+      "control_route": "/orb/patched/flux/core",
+      "baseline_route": "/orb/nexus/core/authorized",
+      "mechanism": "ordering_violation"
+    },
+    "hidden2-00-workfl-5": {
+      "class": "workflow_authorization_failure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/orb/nova/core",
+      "control_route": "/orb/patched/nova/core",
+      "baseline_route": "/orb/nexus/core/authorized",
+      "mechanism": "skipped_state"
+    },
+    "hidden2-00-sensit-6": {
+      "class": "sensitive_data_exposure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/orb/pulse/core",
+      "control_route": "/orb/patched/pulse/core",
+      "baseline_route": "/orb/nexus/core/authorized",
+      "mechanism": "body_leak"
+    },
+    "hidden2-00-multi_-7": {
+      "class": "multi_step_chain",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/orb/echo/core",
+      "control_route": "/orb/patched/echo/core",
+      "baseline_route": "/orb/nexus/core/authorized",
+      "mechanism": "skipped_verification"
+    },
+    "hidden2-00-mass_a-8": {
+      "class": "mass_assignment",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/orb/prism2/core",
+      "control_route": "/orb/patched/prism2/core",
+      "baseline_route": "/orb/nexus/core/authorized",
+      "mechanism": "role_escalation"
+    },
+    "hidden2-00-race_c-9": {
+      "class": "race_condition",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/orb/zenith/core",
+      "control_route": "/orb/patched/zenith/core",
+      "baseline_route": "/orb/nexus/core/authorized",
+      "mechanism": "limited_claim"
+    },
+    "hidden2-00-clean-0": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/orb/public0/core",
+      "control_route": "/orb/public0/core",
+      "baseline_route": "/orb/nexus/core/authorized"
+    },
+    "hidden2-00-clean-1": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/orb/public1/core",
+      "control_route": "/orb/public1/core",
+      "baseline_route": "/orb/nexus/core/authorized"
+    },
+    "hidden2-00-clean-2": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/orb/public2/core",
+      "control_route": "/orb/public2/core",
+      "baseline_route": "/orb/nexus/core/authorized"
+    },
+    "hidden2-00-clean-3": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/orb/public3/core",
+      "control_route": "/orb/public3/core",
+      "baseline_route": "/orb/nexus/core/authorized"
+    }
+  },
+  "hidden2-01": {
+    "hidden2-01-idor-0": {
+      "class": "idor",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/crystal/lattice",
+      "control_route": "/crystal/patched/lattice",
+      "baseline_route": "/crystal/lattice/authorized",
+      "mechanism": "json_body_field"
+    },
+    "hidden2-01-broken-1": {
+      "class": "broken_access_control",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/crystal/facet",
+      "control_route": "/crystal/patched/facet",
+      "baseline_route": "/crystal/lattice/authorized",
+      "mechanism": "missing_role_check"
+    },
+    "hidden2-01-privil-2": {
+      "class": "privilege_escalation",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/crystal/node",
+      "control_route": "/crystal/patched/node",
+      "baseline_route": "/crystal/lattice/authorized",
+      "mechanism": "tenant_bypass"
+    },
+    "hidden2-01-tenant-3": {
+      "class": "tenant_isolation_failure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/crystal/prong",
+      "control_route": "/crystal/patched/prong",
+      "baseline_route": "/crystal/lattice/authorized",
+      "mechanism": "tenant_header_ignored"
+    },
+    "hidden2-01-busine-4": {
+      "class": "business_logic_abuse",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/crystal/beam",
+      "control_route": "/crystal/patched/beam",
+      "baseline_route": "/crystal/lattice/authorized",
+      "mechanism": "ordering_violation"
+    },
+    "hidden2-01-workfl-5": {
+      "class": "workflow_authorization_failure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/crystal/shard",
+      "control_route": "/crystal/patched/shard",
+      "baseline_route": "/crystal/lattice/authorized",
+      "mechanism": "self_approval"
+    },
+    "hidden2-01-sensit-6": {
+      "class": "sensitive_data_exposure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/crystal/gem",
+      "control_route": "/crystal/patched/gem",
+      "baseline_route": "/crystal/lattice/authorized",
+      "mechanism": "body_leak"
+    },
+    "hidden2-01-multi_-7": {
+      "class": "multi_step_chain",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/crystal/core",
+      "control_route": "/crystal/patched/core",
+      "baseline_route": "/crystal/lattice/authorized",
+      "mechanism": "token_for_other_user"
+    },
+    "hidden2-01-mass_a-8": {
+      "class": "mass_assignment",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/crystal/edge",
+      "control_route": "/crystal/patched/edge",
+      "baseline_route": "/crystal/lattice/authorized",
+      "mechanism": "role_escalation"
+    },
+    "hidden2-01-race_c-9": {
+      "class": "race_condition",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/crystal/base",
+      "control_route": "/crystal/patched/base",
+      "baseline_route": "/crystal/lattice/authorized",
+      "mechanism": "limited_claim"
+    },
+    "hidden2-01-clean-0": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/crystal/public0",
+      "control_route": "/crystal/public0",
+      "baseline_route": "/crystal/lattice/authorized"
+    },
+    "hidden2-01-clean-1": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/crystal/public1",
+      "control_route": "/crystal/public1",
+      "baseline_route": "/crystal/lattice/authorized"
+    },
+    "hidden2-01-clean-2": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/crystal/public2",
+      "control_route": "/crystal/public2",
+      "baseline_route": "/crystal/lattice/authorized"
+    },
+    "hidden2-01-clean-3": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/crystal/public3",
+      "control_route": "/crystal/public3",
+      "baseline_route": "/crystal/lattice/authorized"
+    }
+  },
+  "hidden2-02": {
+    "hidden2-02-idor-0": {
+      "class": "idor",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/srv/alpha/io",
+      "control_route": "/srv/patched/alpha/io",
+      "baseline_route": "/srv/alpha/io/authorized",
+      "mechanism": "path_param"
+    },
+    "hidden2-02-broken-1": {
+      "class": "broken_access_control",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/srv/beta/io",
+      "control_route": "/srv/patched/beta/io",
+      "baseline_route": "/srv/alpha/io/authorized",
+      "mechanism": "bypass_via_get"
+    },
+    "hidden2-02-privil-2": {
+      "class": "privilege_escalation",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/srv/gamma/io",
+      "control_route": "/srv/patched/gamma/io",
+      "baseline_route": "/srv/alpha/io/authorized",
+      "mechanism": "tenant_bypass"
+    },
+    "hidden2-02-tenant-3": {
+      "class": "tenant_isolation_failure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/srv/delta/io",
+      "control_route": "/srv/patched/delta/io",
+      "baseline_route": "/srv/alpha/io/authorized",
+      "mechanism": "cross_tenant_idor"
+    },
+    "hidden2-02-busine-4": {
+      "class": "business_logic_abuse",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/srv/epsilon/io",
+      "control_route": "/srv/patched/epsilon/io",
+      "baseline_route": "/srv/alpha/io/authorized",
+      "mechanism": "negative_amount"
+    },
+    "hidden2-02-workfl-5": {
+      "class": "workflow_authorization_failure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/srv/zeta/io",
+      "control_route": "/srv/patched/zeta/io",
+      "baseline_route": "/srv/alpha/io/authorized",
+      "mechanism": "self_approval"
+    },
+    "hidden2-02-sensit-6": {
+      "class": "sensitive_data_exposure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/srv/eta/io",
+      "control_route": "/srv/patched/eta/io",
+      "baseline_route": "/srv/alpha/io/authorized",
+      "mechanism": "body_leak"
+    },
+    "hidden2-02-multi_-7": {
+      "class": "multi_step_chain",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/srv/theta/io",
+      "control_route": "/srv/patched/theta/io",
+      "baseline_route": "/srv/alpha/io/authorized",
+      "mechanism": "skipped_verification"
+    },
+    "hidden2-02-mass_a-8": {
+      "class": "mass_assignment",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/srv/iota/io",
+      "control_route": "/srv/patched/iota/io",
+      "baseline_route": "/srv/alpha/io/authorized",
+      "mechanism": "protected_field_update"
+    },
+    "hidden2-02-race_c-9": {
+      "class": "race_condition",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/srv/kappa/io",
+      "control_route": "/srv/patched/kappa/io",
+      "baseline_route": "/srv/alpha/io/authorized",
+      "mechanism": "check_then_act_counter"
+    },
+    "hidden2-02-clean-0": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/srv/public0/io",
+      "control_route": "/srv/public0/io",
+      "baseline_route": "/srv/alpha/io/authorized"
+    },
+    "hidden2-02-clean-1": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/srv/public1/io",
+      "control_route": "/srv/public1/io",
+      "baseline_route": "/srv/alpha/io/authorized"
+    },
+    "hidden2-02-clean-2": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/srv/public2/io",
+      "control_route": "/srv/public2/io",
+      "baseline_route": "/srv/alpha/io/authorized"
+    },
+    "hidden2-02-clean-3": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/srv/public3/io",
+      "control_route": "/srv/public3/io",
+      "baseline_route": "/srv/alpha/io/authorized"
+    }
+  },
+  "hidden2-03": {
+    "hidden2-03-idor-0": {
+      "class": "idor",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/v/pulse/run",
+      "control_route": "/v/patched/pulse/run",
+      "baseline_route": "/v/pulse/run/authorized",
+      "mechanism": "json_body_field"
+    },
+    "hidden2-03-broken-1": {
+      "class": "broken_access_control",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/v/wave/run",
+      "control_route": "/v/patched/wave/run",
+      "baseline_route": "/v/pulse/run/authorized",
+      "mechanism": "bypass_via_get"
+    },
+    "hidden2-03-privil-2": {
+      "class": "privilege_escalation",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/v/signal/run",
+      "control_route": "/v/patched/signal/run",
+      "baseline_route": "/v/pulse/run/authorized",
+      "mechanism": "role_inference"
+    },
+    "hidden2-03-tenant-3": {
+      "class": "tenant_isolation_failure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/v/tone/run",
+      "control_route": "/v/patched/tone/run",
+      "baseline_route": "/v/pulse/run/authorized",
+      "mechanism": "cross_tenant_idor"
+    },
+    "hidden2-03-busine-4": {
+      "class": "business_logic_abuse",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/v/echo/run",
+      "control_route": "/v/patched/echo/run",
+      "baseline_route": "/v/pulse/run/authorized",
+      "mechanism": "ordering_violation"
+    },
+    "hidden2-03-workfl-5": {
+      "class": "workflow_authorization_failure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/v/burst/run",
+      "control_route": "/v/patched/burst/run",
+      "baseline_route": "/v/pulse/run/authorized",
+      "mechanism": "self_approval"
+    },
+    "hidden2-03-sensit-6": {
+      "class": "sensitive_data_exposure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/v/phase/run",
+      "control_route": "/v/patched/phase/run",
+      "baseline_route": "/v/pulse/run/authorized",
+      "mechanism": "body_leak"
+    },
+    "hidden2-03-multi_-7": {
+      "class": "multi_step_chain",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/v/amp/run",
+      "control_route": "/v/patched/amp/run",
+      "baseline_route": "/v/pulse/run/authorized",
+      "mechanism": "skipped_verification"
+    },
+    "hidden2-03-mass_a-8": {
+      "class": "mass_assignment",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/v/freq/run",
+      "control_route": "/v/patched/freq/run",
+      "baseline_route": "/v/pulse/run/authorized",
+      "mechanism": "role_escalation"
+    },
+    "hidden2-03-race_c-9": {
+      "class": "race_condition",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/v/mod/run",
+      "control_route": "/v/patched/mod/run",
+      "baseline_route": "/v/pulse/run/authorized",
+      "mechanism": "check_then_act_counter"
+    },
+    "hidden2-03-clean-0": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/v/public0/run",
+      "control_route": "/v/public0/run",
+      "baseline_route": "/v/pulse/run/authorized"
+    },
+    "hidden2-03-clean-1": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/v/public1/run",
+      "control_route": "/v/public1/run",
+      "baseline_route": "/v/pulse/run/authorized"
+    },
+    "hidden2-03-clean-2": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/v/public2/run",
+      "control_route": "/v/public2/run",
+      "baseline_route": "/v/pulse/run/authorized"
+    },
+    "hidden2-03-clean-3": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/v/public3/run",
+      "control_route": "/v/public3/run",
+      "baseline_route": "/v/pulse/run/authorized"
+    }
+  },
+  "hidden2-04": {
+    "hidden2-04-idor-0": {
+      "class": "idor",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/net/node_a/mesh",
+      "control_route": "/net/patched/node_a/mesh",
+      "baseline_route": "/net/node_a/mesh/authorized",
+      "mechanism": "path_param"
+    },
+    "hidden2-04-broken-1": {
+      "class": "broken_access_control",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/net/node_b/mesh",
+      "control_route": "/net/patched/node_b/mesh",
+      "baseline_route": "/net/node_a/mesh/authorized",
+      "mechanism": "missing_role_check"
+    },
+    "hidden2-04-privil-2": {
+      "class": "privilege_escalation",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/net/node_c/mesh",
+      "control_route": "/net/patched/node_c/mesh",
+      "baseline_route": "/net/node_a/mesh/authorized",
+      "mechanism": "role_inference"
+    },
+    "hidden2-04-tenant-3": {
+      "class": "tenant_isolation_failure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/net/node_d/mesh",
+      "control_route": "/net/patched/node_d/mesh",
+      "baseline_route": "/net/node_a/mesh/authorized",
+      "mechanism": "tenant_header_ignored"
+    },
+    "hidden2-04-busine-4": {
+      "class": "business_logic_abuse",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/net/node_e/mesh",
+      "control_route": "/net/patched/node_e/mesh",
+      "baseline_route": "/net/node_a/mesh/authorized",
+      "mechanism": "negative_amount"
+    },
+    "hidden2-04-workfl-5": {
+      "class": "workflow_authorization_failure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/net/node_f/mesh",
+      "control_route": "/net/patched/node_f/mesh",
+      "baseline_route": "/net/node_a/mesh/authorized",
+      "mechanism": "self_approval"
+    },
+    "hidden2-04-sensit-6": {
+      "class": "sensitive_data_exposure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/net/node_g/mesh",
+      "control_route": "/net/patched/node_g/mesh",
+      "baseline_route": "/net/node_a/mesh/authorized",
+      "mechanism": "body_leak"
+    },
+    "hidden2-04-multi_-7": {
+      "class": "multi_step_chain",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/net/node_h/mesh",
+      "control_route": "/net/patched/node_h/mesh",
+      "baseline_route": "/net/node_a/mesh/authorized",
+      "mechanism": "skipped_verification"
+    },
+    "hidden2-04-mass_a-8": {
+      "class": "mass_assignment",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/net/node_i/mesh",
+      "control_route": "/net/patched/node_i/mesh",
+      "baseline_route": "/net/node_a/mesh/authorized",
+      "mechanism": "protected_field_update"
+    },
+    "hidden2-04-race_c-9": {
+      "class": "race_condition",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/net/node_j/mesh",
+      "control_route": "/net/patched/node_j/mesh",
+      "baseline_route": "/net/node_a/mesh/authorized",
+      "mechanism": "limited_claim"
+    },
+    "hidden2-04-clean-0": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/net/public0/mesh",
+      "control_route": "/net/public0/mesh",
+      "baseline_route": "/net/node_a/mesh/authorized"
+    },
+    "hidden2-04-clean-1": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/net/public1/mesh",
+      "control_route": "/net/public1/mesh",
+      "baseline_route": "/net/node_a/mesh/authorized"
+    },
+    "hidden2-04-clean-2": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/net/public2/mesh",
+      "control_route": "/net/public2/mesh",
+      "baseline_route": "/net/node_a/mesh/authorized"
+    },
+    "hidden2-04-clean-3": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/net/public3/mesh",
+      "control_route": "/net/public3/mesh",
+      "baseline_route": "/net/node_a/mesh/authorized"
+    }
+  },
+  "hidden2-05": {
+    "hidden2-05-idor-0": {
+      "class": "idor",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/q/qubit/exec",
+      "control_route": "/q/patched/qubit/exec",
+      "baseline_route": "/q/qubit/exec/authorized",
+      "mechanism": "json_body_field"
+    },
+    "hidden2-05-broken-1": {
+      "class": "broken_access_control",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/q/qbit/exec",
+      "control_route": "/q/patched/qbit/exec",
+      "baseline_route": "/q/qubit/exec/authorized",
+      "mechanism": "missing_role_check"
+    },
+    "hidden2-05-privil-2": {
+      "class": "privilege_escalation",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/q/quantum/exec",
+      "control_route": "/q/patched/quantum/exec",
+      "baseline_route": "/q/qubit/exec/authorized",
+      "mechanism": "role_inference"
+    },
+    "hidden2-05-tenant-3": {
+      "class": "tenant_isolation_failure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/q/qstate/exec",
+      "control_route": "/q/patched/qstate/exec",
+      "baseline_route": "/q/qubit/exec/authorized",
+      "mechanism": "cross_tenant_idor"
+    },
+    "hidden2-05-busine-4": {
+      "class": "business_logic_abuse",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/q/qop/exec",
+      "control_route": "/q/patched/qop/exec",
+      "baseline_route": "/q/qubit/exec/authorized",
+      "mechanism": "ordering_violation"
+    },
+    "hidden2-05-workfl-5": {
+      "class": "workflow_authorization_failure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/q/qproc/exec",
+      "control_route": "/q/patched/qproc/exec",
+      "baseline_route": "/q/qubit/exec/authorized",
+      "mechanism": "skipped_state"
+    },
+    "hidden2-05-sensit-6": {
+      "class": "sensitive_data_exposure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/q/qdata/exec",
+      "control_route": "/q/patched/qdata/exec",
+      "baseline_route": "/q/qubit/exec/authorized",
+      "mechanism": "body_leak"
+    },
+    "hidden2-05-multi_-7": {
+      "class": "multi_step_chain",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/q/qlink/exec",
+      "control_route": "/q/patched/qlink/exec",
+      "baseline_route": "/q/qubit/exec/authorized",
+      "mechanism": "skipped_verification"
+    },
+    "hidden2-05-mass_a-8": {
+      "class": "mass_assignment",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/q/qnet/exec",
+      "control_route": "/q/patched/qnet/exec",
+      "baseline_route": "/q/qubit/exec/authorized",
+      "mechanism": "protected_field_update"
+    },
+    "hidden2-05-race_c-9": {
+      "class": "race_condition",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/q/qapi/exec",
+      "control_route": "/q/patched/qapi/exec",
+      "baseline_route": "/q/qubit/exec/authorized",
+      "mechanism": "limited_claim"
+    },
+    "hidden2-05-clean-0": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/q/public0/exec",
+      "control_route": "/q/public0/exec",
+      "baseline_route": "/q/qubit/exec/authorized"
+    },
+    "hidden2-05-clean-1": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/q/public1/exec",
+      "control_route": "/q/public1/exec",
+      "baseline_route": "/q/qubit/exec/authorized"
+    },
+    "hidden2-05-clean-2": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/q/public2/exec",
+      "control_route": "/q/public2/exec",
+      "baseline_route": "/q/qubit/exec/authorized"
+    },
+    "hidden2-05-clean-3": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/q/public3/exec",
+      "control_route": "/q/public3/exec",
+      "baseline_route": "/q/qubit/exec/authorized"
+    }
+  },
+  "hidden2-06": {
+    "hidden2-06-idor-0": {
+      "class": "idor",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/flow/stream/pipe",
+      "control_route": "/flow/patched/stream/pipe",
+      "baseline_route": "/flow/stream/pipe/authorized",
+      "mechanism": "path_param"
+    },
+    "hidden2-06-broken-1": {
+      "class": "broken_access_control",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/flow/river/pipe",
+      "control_route": "/flow/patched/river/pipe",
+      "baseline_route": "/flow/stream/pipe/authorized",
+      "mechanism": "bypass_via_get"
+    },
+    "hidden2-06-privil-2": {
+      "class": "privilege_escalation",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/flow/creek/pipe",
+      "control_route": "/flow/patched/creek/pipe",
+      "baseline_route": "/flow/stream/pipe/authorized",
+      "mechanism": "tenant_bypass"
+    },
+    "hidden2-06-tenant-3": {
+      "class": "tenant_isolation_failure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/flow/brook/pipe",
+      "control_route": "/flow/patched/brook/pipe",
+      "baseline_route": "/flow/stream/pipe/authorized",
+      "mechanism": "tenant_header_ignored"
+    },
+    "hidden2-06-busine-4": {
+      "class": "business_logic_abuse",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/flow/tide/pipe",
+      "control_route": "/flow/patched/tide/pipe",
+      "baseline_route": "/flow/stream/pipe/authorized",
+      "mechanism": "ordering_violation"
+    },
+    "hidden2-06-workfl-5": {
+      "class": "workflow_authorization_failure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/flow/wave/pipe",
+      "control_route": "/flow/patched/wave/pipe",
+      "baseline_route": "/flow/stream/pipe/authorized",
+      "mechanism": "self_approval"
+    },
+    "hidden2-06-sensit-6": {
+      "class": "sensitive_data_exposure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/flow/surge/pipe",
+      "control_route": "/flow/patched/surge/pipe",
+      "baseline_route": "/flow/stream/pipe/authorized",
+      "mechanism": "header_leak"
+    },
+    "hidden2-06-multi_-7": {
+      "class": "multi_step_chain",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/flow/drift/pipe",
+      "control_route": "/flow/patched/drift/pipe",
+      "baseline_route": "/flow/stream/pipe/authorized",
+      "mechanism": "skipped_verification"
+    },
+    "hidden2-06-mass_a-8": {
+      "class": "mass_assignment",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/flow/eddy/pipe",
+      "control_route": "/flow/patched/eddy/pipe",
+      "baseline_route": "/flow/stream/pipe/authorized",
+      "mechanism": "role_escalation"
+    },
+    "hidden2-06-race_c-9": {
+      "class": "race_condition",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/flow/rip/pipe",
+      "control_route": "/flow/patched/rip/pipe",
+      "baseline_route": "/flow/stream/pipe/authorized",
+      "mechanism": "check_then_act_counter"
+    },
+    "hidden2-06-clean-0": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/flow/public0/pipe",
+      "control_route": "/flow/public0/pipe",
+      "baseline_route": "/flow/stream/pipe/authorized"
+    },
+    "hidden2-06-clean-1": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/flow/public1/pipe",
+      "control_route": "/flow/public1/pipe",
+      "baseline_route": "/flow/stream/pipe/authorized"
+    },
+    "hidden2-06-clean-2": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/flow/public2/pipe",
+      "control_route": "/flow/public2/pipe",
+      "baseline_route": "/flow/stream/pipe/authorized"
+    },
+    "hidden2-06-clean-3": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/flow/public3/pipe",
+      "control_route": "/flow/public3/pipe",
+      "baseline_route": "/flow/stream/pipe/authorized"
+    }
+  },
+  "hidden2-07": {
+    "hidden2-07-idor-0": {
+      "class": "idor",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/arc/arch/sys",
+      "control_route": "/arc/patched/arch/sys",
+      "baseline_route": "/arc/arch/sys/authorized",
+      "mechanism": "json_body_field"
+    },
+    "hidden2-07-broken-1": {
+      "class": "broken_access_control",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/arc/beam/sys",
+      "control_route": "/arc/patched/beam/sys",
+      "baseline_route": "/arc/arch/sys/authorized",
+      "mechanism": "missing_role_check"
+    },
+    "hidden2-07-privil-2": {
+      "class": "privilege_escalation",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/arc/col/sys",
+      "control_route": "/arc/patched/col/sys",
+      "baseline_route": "/arc/arch/sys/authorized",
+      "mechanism": "role_inference"
+    },
+    "hidden2-07-tenant-3": {
+      "class": "tenant_isolation_failure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/arc/dome/sys",
+      "control_route": "/arc/patched/dome/sys",
+      "baseline_route": "/arc/arch/sys/authorized",
+      "mechanism": "cross_tenant_idor"
+    },
+    "hidden2-07-busine-4": {
+      "class": "business_logic_abuse",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/arc/span/sys",
+      "control_route": "/arc/patched/span/sys",
+      "baseline_route": "/arc/arch/sys/authorized",
+      "mechanism": "negative_amount"
+    },
+    "hidden2-07-workfl-5": {
+      "class": "workflow_authorization_failure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/arc/truss/sys",
+      "control_route": "/arc/patched/truss/sys",
+      "baseline_route": "/arc/arch/sys/authorized",
+      "mechanism": "self_approval"
+    },
+    "hidden2-07-sensit-6": {
+      "class": "sensitive_data_exposure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/arc/vault/sys",
+      "control_route": "/arc/patched/vault/sys",
+      "baseline_route": "/arc/arch/sys/authorized",
+      "mechanism": "header_leak"
+    },
+    "hidden2-07-multi_-7": {
+      "class": "multi_step_chain",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/arc/pillar/sys",
+      "control_route": "/arc/patched/pillar/sys",
+      "baseline_route": "/arc/arch/sys/authorized",
+      "mechanism": "token_for_other_user"
+    },
+    "hidden2-07-mass_a-8": {
+      "class": "mass_assignment",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/arc/frame/sys",
+      "control_route": "/arc/patched/frame/sys",
+      "baseline_route": "/arc/arch/sys/authorized",
+      "mechanism": "protected_field_update"
+    },
+    "hidden2-07-race_c-9": {
+      "class": "race_condition",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/arc/pier/sys",
+      "control_route": "/arc/patched/pier/sys",
+      "baseline_route": "/arc/arch/sys/authorized",
+      "mechanism": "limited_claim"
+    },
+    "hidden2-07-clean-0": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/arc/public0/sys",
+      "control_route": "/arc/public0/sys",
+      "baseline_route": "/arc/arch/sys/authorized"
+    },
+    "hidden2-07-clean-1": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/arc/public1/sys",
+      "control_route": "/arc/public1/sys",
+      "baseline_route": "/arc/arch/sys/authorized"
+    },
+    "hidden2-07-clean-2": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/arc/public2/sys",
+      "control_route": "/arc/public2/sys",
+      "baseline_route": "/arc/arch/sys/authorized"
+    },
+    "hidden2-07-clean-3": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/arc/public3/sys",
+      "control_route": "/arc/public3/sys",
+      "baseline_route": "/arc/arch/sys/authorized"
+    }
+  },
+  "hidden2-08": {
+    "hidden2-08-idor-0": {
+      "class": "idor",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/grid/cell_00/cell",
+      "control_route": "/grid/patched/cell_00/cell",
+      "baseline_route": "/grid/cell_00/cell/authorized",
+      "mechanism": "json_body_field"
+    },
+    "hidden2-08-broken-1": {
+      "class": "broken_access_control",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/grid/cell_01/cell",
+      "control_route": "/grid/patched/cell_01/cell",
+      "baseline_route": "/grid/cell_00/cell/authorized",
+      "mechanism": "bypass_via_get"
+    },
+    "hidden2-08-privil-2": {
+      "class": "privilege_escalation",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/grid/cell_10/cell",
+      "control_route": "/grid/patched/cell_10/cell",
+      "baseline_route": "/grid/cell_00/cell/authorized",
+      "mechanism": "tenant_bypass"
+    },
+    "hidden2-08-tenant-3": {
+      "class": "tenant_isolation_failure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/grid/cell_11/cell",
+      "control_route": "/grid/patched/cell_11/cell",
+      "baseline_route": "/grid/cell_00/cell/authorized",
+      "mechanism": "tenant_header_ignored"
+    },
+    "hidden2-08-busine-4": {
+      "class": "business_logic_abuse",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/grid/cell_22/cell",
+      "control_route": "/grid/patched/cell_22/cell",
+      "baseline_route": "/grid/cell_00/cell/authorized",
+      "mechanism": "ordering_violation"
+    },
+    "hidden2-08-workfl-5": {
+      "class": "workflow_authorization_failure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/grid/cell_02/cell",
+      "control_route": "/grid/patched/cell_02/cell",
+      "baseline_route": "/grid/cell_00/cell/authorized",
+      "mechanism": "skipped_state"
+    },
+    "hidden2-08-sensit-6": {
+      "class": "sensitive_data_exposure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/grid/cell_20/cell",
+      "control_route": "/grid/patched/cell_20/cell",
+      "baseline_route": "/grid/cell_00/cell/authorized",
+      "mechanism": "body_leak"
+    },
+    "hidden2-08-multi_-7": {
+      "class": "multi_step_chain",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/grid/cell_12/cell",
+      "control_route": "/grid/patched/cell_12/cell",
+      "baseline_route": "/grid/cell_00/cell/authorized",
+      "mechanism": "skipped_verification"
+    },
+    "hidden2-08-mass_a-8": {
+      "class": "mass_assignment",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/grid/cell_21/cell",
+      "control_route": "/grid/patched/cell_21/cell",
+      "baseline_route": "/grid/cell_00/cell/authorized",
+      "mechanism": "role_escalation"
+    },
+    "hidden2-08-race_c-9": {
+      "class": "race_condition",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/grid/cell_33/cell",
+      "control_route": "/grid/patched/cell_33/cell",
+      "baseline_route": "/grid/cell_00/cell/authorized",
+      "mechanism": "check_then_act_counter"
+    },
+    "hidden2-08-clean-0": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/grid/public0/cell",
+      "control_route": "/grid/public0/cell",
+      "baseline_route": "/grid/cell_00/cell/authorized"
+    },
+    "hidden2-08-clean-1": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/grid/public1/cell",
+      "control_route": "/grid/public1/cell",
+      "baseline_route": "/grid/cell_00/cell/authorized"
+    },
+    "hidden2-08-clean-2": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/grid/public2/cell",
+      "control_route": "/grid/public2/cell",
+      "baseline_route": "/grid/cell_00/cell/authorized"
+    },
+    "hidden2-08-clean-3": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/grid/public3/cell",
+      "control_route": "/grid/public3/cell",
+      "baseline_route": "/grid/cell_00/cell/authorized"
+    }
+  },
+  "hidden2-09": {
+    "hidden2-09-idor-0": {
+      "class": "idor",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/x/x1",
+      "control_route": "/x/patched/x1",
+      "baseline_route": "/x/x1/authorized",
+      "mechanism": "json_body_field"
+    },
+    "hidden2-09-broken-1": {
+      "class": "broken_access_control",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/x/x2",
+      "control_route": "/x/patched/x2",
+      "baseline_route": "/x/x1/authorized",
+      "mechanism": "bypass_via_get"
+    },
+    "hidden2-09-privil-2": {
+      "class": "privilege_escalation",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/x/x3",
+      "control_route": "/x/patched/x3",
+      "baseline_route": "/x/x1/authorized",
+      "mechanism": "tenant_bypass"
+    },
+    "hidden2-09-tenant-3": {
+      "class": "tenant_isolation_failure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/x/x4",
+      "control_route": "/x/patched/x4",
+      "baseline_route": "/x/x1/authorized",
+      "mechanism": "cross_tenant_idor"
+    },
+    "hidden2-09-busine-4": {
+      "class": "business_logic_abuse",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/x/x5",
+      "control_route": "/x/patched/x5",
+      "baseline_route": "/x/x1/authorized",
+      "mechanism": "negative_amount"
+    },
+    "hidden2-09-workfl-5": {
+      "class": "workflow_authorization_failure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/x/x6",
+      "control_route": "/x/patched/x6",
+      "baseline_route": "/x/x1/authorized",
+      "mechanism": "self_approval"
+    },
+    "hidden2-09-sensit-6": {
+      "class": "sensitive_data_exposure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/x/x7",
+      "control_route": "/x/patched/x7",
+      "baseline_route": "/x/x1/authorized",
+      "mechanism": "body_leak"
+    },
+    "hidden2-09-multi_-7": {
+      "class": "multi_step_chain",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/x/x8",
+      "control_route": "/x/patched/x8",
+      "baseline_route": "/x/x1/authorized",
+      "mechanism": "skipped_verification"
+    },
+    "hidden2-09-mass_a-8": {
+      "class": "mass_assignment",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/x/x9",
+      "control_route": "/x/patched/x9",
+      "baseline_route": "/x/x1/authorized",
+      "mechanism": "role_escalation"
+    },
+    "hidden2-09-race_c-9": {
+      "class": "race_condition",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/x/x10",
+      "control_route": "/x/patched/x10",
+      "baseline_route": "/x/x1/authorized",
+      "mechanism": "limited_claim"
+    },
+    "hidden2-09-clean-0": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/x/public0",
+      "control_route": "/x/public0",
+      "baseline_route": "/x/x1/authorized"
+    },
+    "hidden2-09-clean-1": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/x/public1",
+      "control_route": "/x/public1",
+      "baseline_route": "/x/x1/authorized"
+    },
+    "hidden2-09-clean-2": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/x/public2",
+      "control_route": "/x/public2",
+      "baseline_route": "/x/x1/authorized"
+    },
+    "hidden2-09-clean-3": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/x/public3",
+      "control_route": "/x/public3",
+      "baseline_route": "/x/x1/authorized"
+    }
+  },
+  "hidden2-10": {
+    "hidden2-10-idor-0": {
+      "class": "idor",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/y/ya/op",
+      "control_route": "/y/patched/ya/op",
+      "baseline_route": "/y/ya/op/authorized",
+      "mechanism": "path_param"
+    },
+    "hidden2-10-broken-1": {
+      "class": "broken_access_control",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/y/yb/op",
+      "control_route": "/y/patched/yb/op",
+      "baseline_route": "/y/ya/op/authorized",
+      "mechanism": "bypass_via_get"
+    },
+    "hidden2-10-privil-2": {
+      "class": "privilege_escalation",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/y/yc/op",
+      "control_route": "/y/patched/yc/op",
+      "baseline_route": "/y/ya/op/authorized",
+      "mechanism": "tenant_bypass"
+    },
+    "hidden2-10-tenant-3": {
+      "class": "tenant_isolation_failure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/y/yd/op",
+      "control_route": "/y/patched/yd/op",
+      "baseline_route": "/y/ya/op/authorized",
+      "mechanism": "tenant_header_ignored"
+    },
+    "hidden2-10-busine-4": {
+      "class": "business_logic_abuse",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/y/ye/op",
+      "control_route": "/y/patched/ye/op",
+      "baseline_route": "/y/ya/op/authorized",
+      "mechanism": "negative_amount"
+    },
+    "hidden2-10-workfl-5": {
+      "class": "workflow_authorization_failure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/y/yf/op",
+      "control_route": "/y/patched/yf/op",
+      "baseline_route": "/y/ya/op/authorized",
+      "mechanism": "self_approval"
+    },
+    "hidden2-10-sensit-6": {
+      "class": "sensitive_data_exposure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/y/yg/op",
+      "control_route": "/y/patched/yg/op",
+      "baseline_route": "/y/ya/op/authorized",
+      "mechanism": "body_leak"
+    },
+    "hidden2-10-multi_-7": {
+      "class": "multi_step_chain",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/y/yh/op",
+      "control_route": "/y/patched/yh/op",
+      "baseline_route": "/y/ya/op/authorized",
+      "mechanism": "skipped_verification"
+    },
+    "hidden2-10-mass_a-8": {
+      "class": "mass_assignment",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/y/yi/op",
+      "control_route": "/y/patched/yi/op",
+      "baseline_route": "/y/ya/op/authorized",
+      "mechanism": "role_escalation"
+    },
+    "hidden2-10-race_c-9": {
+      "class": "race_condition",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/y/yj/op",
+      "control_route": "/y/patched/yj/op",
+      "baseline_route": "/y/ya/op/authorized",
+      "mechanism": "check_then_act_counter"
+    },
+    "hidden2-10-clean-0": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/y/public0/op",
+      "control_route": "/y/public0/op",
+      "baseline_route": "/y/ya/op/authorized"
+    },
+    "hidden2-10-clean-1": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/y/public1/op",
+      "control_route": "/y/public1/op",
+      "baseline_route": "/y/ya/op/authorized"
+    },
+    "hidden2-10-clean-2": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/y/public2/op",
+      "control_route": "/y/public2/op",
+      "baseline_route": "/y/ya/op/authorized"
+    },
+    "hidden2-10-clean-3": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/y/public3/op",
+      "control_route": "/y/public3/op",
+      "baseline_route": "/y/ya/op/authorized"
+    }
+  },
+  "hidden2-11": {
+    "hidden2-11-idor-0": {
+      "class": "idor",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/z/za/fn",
+      "control_route": "/z/patched/za/fn",
+      "baseline_route": "/z/za/fn/authorized",
+      "mechanism": "query_param"
+    },
+    "hidden2-11-broken-1": {
+      "class": "broken_access_control",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/z/zb/fn",
+      "control_route": "/z/patched/zb/fn",
+      "baseline_route": "/z/za/fn/authorized",
+      "mechanism": "bypass_via_get"
+    },
+    "hidden2-11-privil-2": {
+      "class": "privilege_escalation",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/z/zc/fn",
+      "control_route": "/z/patched/zc/fn",
+      "baseline_route": "/z/za/fn/authorized",
+      "mechanism": "tenant_bypass"
+    },
+    "hidden2-11-tenant-3": {
+      "class": "tenant_isolation_failure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/z/zd/fn",
+      "control_route": "/z/patched/zd/fn",
+      "baseline_route": "/z/za/fn/authorized",
+      "mechanism": "cross_tenant_idor"
+    },
+    "hidden2-11-busine-4": {
+      "class": "business_logic_abuse",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/z/ze/fn",
+      "control_route": "/z/patched/ze/fn",
+      "baseline_route": "/z/za/fn/authorized",
+      "mechanism": "ordering_violation"
+    },
+    "hidden2-11-workfl-5": {
+      "class": "workflow_authorization_failure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/z/zf/fn",
+      "control_route": "/z/patched/zf/fn",
+      "baseline_route": "/z/za/fn/authorized",
+      "mechanism": "skipped_state"
+    },
+    "hidden2-11-sensit-6": {
+      "class": "sensitive_data_exposure",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/z/zg/fn",
+      "control_route": "/z/patched/zg/fn",
+      "baseline_route": "/z/za/fn/authorized",
+      "mechanism": "header_leak"
+    },
+    "hidden2-11-multi_-7": {
+      "class": "multi_step_chain",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/z/zh/fn",
+      "control_route": "/z/patched/zh/fn",
+      "baseline_route": "/z/za/fn/authorized",
+      "mechanism": "token_for_other_user"
+    },
+    "hidden2-11-mass_a-8": {
+      "class": "mass_assignment",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/z/zi/fn",
+      "control_route": "/z/patched/zi/fn",
+      "baseline_route": "/z/za/fn/authorized",
+      "mechanism": "role_escalation"
+    },
+    "hidden2-11-race_c-9": {
+      "class": "race_condition",
+      "is_vulnerable": true,
+      "actor": "actor_b",
+      "vulnerable_route": "/z/zj/fn",
+      "control_route": "/z/patched/zj/fn",
+      "baseline_route": "/z/za/fn/authorized",
+      "mechanism": "check_then_act_counter"
+    },
+    "hidden2-11-clean-0": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/z/public0/fn",
+      "control_route": "/z/public0/fn",
+      "baseline_route": "/z/za/fn/authorized"
+    },
+    "hidden2-11-clean-1": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/z/public1/fn",
+      "control_route": "/z/public1/fn",
+      "baseline_route": "/z/za/fn/authorized"
+    },
+    "hidden2-11-clean-2": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/z/public2/fn",
+      "control_route": "/z/public2/fn",
+      "baseline_route": "/z/za/fn/authorized"
+    },
+    "hidden2-11-clean-3": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "actor_a",
+      "vulnerable_route": "/z/public3/fn",
+      "control_route": "/z/public3/fn",
+      "baseline_route": "/z/za/fn/authorized"
+    }
+  }
+}

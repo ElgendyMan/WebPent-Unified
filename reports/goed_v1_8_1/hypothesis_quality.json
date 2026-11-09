@@ -1,0 +1,85 @@
+{
+  "total": 10,
+  "classifications": {
+    "USEFUL": 1,
+    "REDUNDANT": 0,
+    "INCORRECT": 9,
+    "UNSAFE": 0,
+    "BLOCKED": 0
+  },
+  "useful_rate": 0.1,
+  "unsafe_rate": 0.0,
+  "blocked_rate": 0.0,
+  "detail": [
+    {
+      "case_id": "adv3_v1_secrets",
+      "class": "same_status_diff_semantics",
+      "hypothesis": "Ownership boundary violation: resource accessed by non-owner actor",
+      "confidence": 0.5599999999999999,
+      "classification": "INCORRECT"
+    },
+    {
+      "case_id": "adv3_v1_secrets",
+      "class": "same_status_diff_semantics",
+      "hypothesis": "Tenant isolation failure: cross-tenant resource accessible",
+      "confidence": 0.6000000000000001,
+      "classification": "INCORRECT"
+    },
+    {
+      "case_id": "adv3_v1_item-create",
+      "class": "diff_status_same_meaning",
+      "hypothesis": "Ownership boundary violation: resource accessed by non-owner actor",
+      "confidence": 0.5599999999999999,
+      "classification": "INCORRECT"
+    },
+    {
+      "case_id": "adv3_v1_item-create",
+      "class": "diff_status_same_meaning",
+      "hypothesis": "Tenant isolation failure: cross-tenant resource accessible",
+      "confidence": 0.6000000000000001,
+      "classification": "INCORRECT"
+    },
+    {
+      "case_id": "adv3_v1_other-profile",
+      "class": "identical_body_diff_ownership",
+      "hypothesis": "Ownership boundary violation: resource accessed by non-owner actor",
+      "confidence": 0.5599999999999999,
+      "classification": "USEFUL"
+    },
+    {
+      "case_id": "adv3_v1_other-profile",
+      "class": "identical_body_diff_ownership",
+      "hypothesis": "Tenant isolation failure: cross-tenant resource accessible",
+      "confidence": 0.6000000000000001,
+      "classification": "INCORRECT"
+    },
+    {
+      "case_id": "adv3_v1_opaque_47ef8735-65b9-646b-32f7-4aaa1e82cdd1",
+      "class": "opaque_identifiers",
+      "hypothesis": "Ownership boundary violation: resource accessed by non-owner actor",
+      "confidence": 0.5599999999999999,
+      "classification": "INCORRECT"
+    },
+    {
+      "case_id": "adv3_v1_opaque_47ef8735-65b9-646b-32f7-4aaa1e82cdd1",
+      "class": "opaque_identifiers",
+      "hypothesis": "Tenant isolation failure: cross-tenant resource accessible",
+      "confidence": 0.6000000000000001,
+      "classification": "INCORRECT"
+    },
+    {
+      "case_id": "adv3_v1_nested-deep",
+      "class": "nested_json_payloads",
+      "hypothesis": "Ownership boundary violation: resource accessed by non-owner actor",
+      "confidence": 0.5599999999999999,
+      "classification": "INCORRECT"
+    },
+    {
+      "case_id": "adv3_v1_nested-deep",
+      "class": "nested_json_payloads",
+      "hypothesis": "Tenant isolation failure: cross-tenant resource accessible",
+      "confidence": 0.6000000000000001,
+      "classification": "INCORRECT"
+    }
+  ]
+}

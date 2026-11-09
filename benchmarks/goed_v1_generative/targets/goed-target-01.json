@@ -1,0 +1,190 @@
+{
+  "target_id": "goed-target-01",
+  "port": 8801,
+  "naming_convention": {
+    "route_style": 1,
+    "object_style": 1,
+    "role_set": 1,
+    "tenant_style": 1
+  },
+  "route_prefix": "/v1/ENTITY",
+  "roles": [
+    "viewer",
+    "editor",
+    "manager",
+    "supervisor"
+  ],
+  "tenants": [
+    "company_ckafn",
+    "company_afqof"
+  ],
+  "objects": [
+    "res_s0",
+    "res_i1",
+    "res_z2",
+    "res_a3",
+    "res_y4",
+    "res_z5"
+  ],
+  "cases": {
+    "goed-target-01-case-00": {
+      "case_id": "goed-target-01-case-00",
+      "target_id": "goed-target-01",
+      "class": "idor",
+      "route": "/v1/objects/res_i1",
+      "baseline_route": "/v1/objects/res_s0",
+      "control_route": "/patched/v1/objects/res_i1",
+      "actor_role": "editor",
+      "actor_tenant": "company_ckafn",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-target-01-case-01": {
+      "case_id": "goed-target-01-case-01",
+      "target_id": "goed-target-01",
+      "class": "broken_access_control",
+      "route": "/v1/admin/dashboard",
+      "baseline_route": "/v1/profile",
+      "control_route": "/patched/v1/admin/dashboard",
+      "actor_role": "editor",
+      "actor_tenant": "company_ckafn",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-target-01-case-02": {
+      "case_id": "goed-target-01-case-02",
+      "target_id": "goed-target-01",
+      "class": "privilege_escalation",
+      "route": "/v1/billing/company_ckafn/records",
+      "baseline_route": "/v1/profile",
+      "control_route": "/patched/v1/billing/company_ckafn/records",
+      "actor_role": "editor",
+      "actor_tenant": "company_ckafn",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-target-01-case-03": {
+      "case_id": "goed-target-01-case-03",
+      "target_id": "goed-target-01",
+      "class": "business_logic_abuse",
+      "route": "/v1/transfer/res_s0?to=res_i1&amount=-100",
+      "baseline_route": "/v1/transfer/res_s0?to=res_i1&amount=10",
+      "control_route": "/patched/v1/transfer/res_s0",
+      "actor_role": "editor",
+      "actor_tenant": "company_ckafn",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "low"
+    },
+    "goed-target-01-case-04": {
+      "case_id": "goed-target-01-case-04",
+      "target_id": "goed-target-01",
+      "class": "tenant_isolation_failure",
+      "route": "/v1/tenant/company_afqof/internal",
+      "baseline_route": "/v1/tenant/company_ckafn/internal",
+      "control_route": "/patched/v1/tenant/company_afqof/internal",
+      "actor_role": "editor",
+      "actor_tenant": "company_ckafn",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "low"
+    },
+    "goed-target-01-case-05": {
+      "case_id": "goed-target-01-case-05",
+      "target_id": "goed-target-01",
+      "class": "workflow_authorization_failure",
+      "route": "/v1/workflows/res_z2/approve",
+      "baseline_route": "/v1/workflows/res_z2/view",
+      "control_route": "/patched/v1/workflows/res_z2/approve",
+      "actor_role": "viewer",
+      "actor_tenant": "company_ckafn",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-target-01-case-06": {
+      "case_id": "goed-target-01-case-06",
+      "target_id": "goed-target-01",
+      "class": "sensitive_data_exposure",
+      "route": "/v1/messages/res_i1/inbox",
+      "baseline_route": "/v1/messages/res_s0/inbox",
+      "control_route": "/patched/v1/messages/res_i1/inbox",
+      "actor_role": "editor",
+      "actor_tenant": "company_ckafn",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "low"
+    },
+    "goed-target-01-case-07": {
+      "case_id": "goed-target-01-case-07",
+      "target_id": "goed-target-01",
+      "class": "multi_step_chain",
+      "route": "/v1/auth/reset/request?for=res_i1",
+      "baseline_route": "/v1/auth/reset/request?for=res_s0",
+      "control_route": "/patched/v1/auth/reset/request",
+      "actor_role": "editor",
+      "actor_tenant": "company_ckafn",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "low"
+    },
+    "goed-target-01-case-08": {
+      "case_id": "goed-target-01-case-08",
+      "target_id": "goed-target-01",
+      "class": "privilege_escalation",
+      "route": "/v1/billing/company_ckafn/records",
+      "baseline_route": "/v1/profile",
+      "control_route": "/patched/v1/billing/company_ckafn/records",
+      "actor_role": "editor",
+      "actor_tenant": "company_ckafn",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-target-01-case-09": {
+      "case_id": "goed-target-01-case-09",
+      "target_id": "goed-target-01",
+      "class": "workflow_authorization_failure",
+      "route": "/v1/workflows/res_z2/approve",
+      "baseline_route": "/v1/workflows/res_z2/view",
+      "control_route": "/patched/v1/workflows/res_z2/approve",
+      "actor_role": "viewer",
+      "actor_tenant": "company_ckafn",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "low"
+    },
+    "goed-target-01-clean-00": {
+      "case_id": "goed-target-01-clean-00",
+      "target_id": "goed-target-01",
+      "class": "clean_public_resource",
+      "route": "/v1/public/info-0",
+      "baseline_route": "/v1/public/info-0",
+      "control_route": "/v1/public/info-0",
+      "actor_role": "editor",
+      "actor_tenant": "company_ckafn",
+      "expected_verdict": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    },
+    "goed-target-01-clean-01": {
+      "case_id": "goed-target-01-clean-01",
+      "target_id": "goed-target-01",
+      "class": "clean_public_resource",
+      "route": "/v1/public/info-1",
+      "baseline_route": "/v1/public/info-1",
+      "control_route": "/v1/public/info-1",
+      "actor_role": "editor",
+      "actor_tenant": "company_ckafn",
+      "expected_verdict": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    }
+  },
+  "total_cases": 12,
+  "vulnerable_cases": 10,
+  "clean_cases": 2
+}

@@ -1,0 +1,85 @@
+{
+  "window": "UM-DR-31",
+  "generated_at": "2026-11-07",
+  "version": "0.37.0",
+  "status_vocabulary": {
+    "UNIT_TESTED": "logic verified by unit tests only; no runtime path",
+    "CAMPAIGN_INTEGRATED": "wired into the production campaign graph and exercised through the real nodes/runtime",
+    "CAMPAIGN_DEMONSTRATED": "campaign-integrated AND end-to-end demonstrated on a controlled live target with ground truth",
+    "INDEPENDENTLY_VALIDATED": "validated on an operator-supplied independent holdout — NO capability holds this status",
+    "BLOCKED_EXTERNAL_DEPENDENCY": "requires an external resource the project does not control"
+  },
+  "capabilities": [
+    {
+      "capability": "adaptive_research_loop (signal inventory + hypothesis generation + dedup + bounded iteration)",
+      "implementation": [
+        "src/webpent/production/adaptive_research.py"
+      ],
+      "runtime_path": "graph/builder.py flag-gated research_loop node ahead of the strategist on six entry routes (validator/causal_research/disclosed_report_intel x2/attack_graph/vip_orchestrator/smart_campaigns_execution); flag-off = byte-comparable graph",
+      "status": "CAMPAIGN_DEMONSTRATED",
+      "evidence": "tests/test_umdr31_adaptive_research.py (27), test_umdr31_research_loop_integration.py (15), test_umdr31_campaign_e2e_ablation.py (8): full loop through the REAL research_loop + family_execution nodes against a live controlled target; the planner consumes the enriched pool; execution outcomes feed back",
+      "limitations": "demonstrated on one team-authored two-directory fixture under a constrained budget; NOT an independent holdout; no real-world recall/precision claim"
+    },
+    {
+      "capability": "coverage-gap signal consumption (ledger gaps -> planner hypotheses)",
+      "implementation": [
+        "src/webpent/production/adaptive_research.py::research_signal_inventory",
+        "src/webpent/production/adaptive_research.py::_hypothesis_from_coverage_signal"
+      ],
+      "runtime_path": "the research_loop node's coverage channel (the SAME shared ledger projection the UM-DR-30 gap report uses)",
+      "status": "CAMPAIGN_INTEGRATED",
+      "evidence": "integration test 4 (strategist consumption); ablation coverage-only arm: 1 hypothesis generated where the baseline generates none",
+      "limitations": "class-shaped ledger keys do not reorder stateful execution (pool enrichment only — recorded as a deliberate design boundary, not a defect)"
+    },
+    {
+      "capability": "invariant-review signal consumption (candidate violations -> planner hypotheses + execution priority)",
+      "implementation": [
+        "src/webpent/production/adaptive_research.py::_hypothesis_from_invariant_signal",
+        "src/webpent/production/adaptive_research.py::stateful_research_hints"
+      ],
+      "runtime_path": "the research_loop node's invariant channel + the family execution node's hint pass-through (loop-flag-gated)",
+      "status": "CAMPAIGN_DEMONSTRATED",
+      "evidence": "ablation invariant-only arm: under a 36-request ceiling the priority ordering reaches the ground-truth vulnerability the alphabetical baseline cannot; scope-denied invariants never become hypotheses (pinned)",
+      "limitations": "single-fixture population; the mechanism (ordering within the same budget) is general but the measured delta is fixture-specific"
+    },
+    {
+      "capability": "hypothesis fingerprinting + research dedup",
+      "implementation": [
+        "src/webpent/production/adaptive_research.py::hypothesis_fingerprint",
+        "src/webpent/production/adaptive_research.py::generate_research_hypotheses"
+      ],
+      "runtime_path": "deterministic uuid5 ids -> the merge_hypotheses upsert; closed pool entries never regenerate",
+      "status": "CAMPAIGN_INTEGRATED",
+      "evidence": "unit tests 2-3: fingerprint stability, security-relevant-difference preservation (principals/state/objectives never wrongly merged), conclusively-rejected/promoted never repeated, semantic invariant-covers-observation dedup",
+      "limitations": "fingerprints cover the loop's own deterministic templates; foreign-origin hypotheses are not fingerprint-reconciled (out of scope by design)"
+    },
+    {
+      "capability": "stateful research-priority hints (planner -> authorized stateful execution)",
+      "implementation": [
+        "src/webpent/production/adaptive_research.py::stateful_research_hints",
+        "src/webpent/production/stateful_discovery.py (research_hints parameter)",
+        "src/webpent/families/execution_node.py (loop-flag-gated pass-through)"
+      ],
+      "runtime_path": "family_execution node -> run_stateful_discovery: deterministic case reordering within the SAME budget, scope and authority",
+      "status": "CAMPAIGN_DEMONSTRATED",
+      "evidence": "E2E + ablation: hints applied=True arms reach the ground truth under the tight budget; research_hints_applied reported in the summary; flag-off keeps UM-DR-28 behavior byte-stable (regression test)",
+      "limitations": "ordering only — no budget/scope/authority change; derives exclusively from observed workflow boundaries"
+    },
+    {
+      "capability": "independent holdout validation of the research loop",
+      "implementation": [],
+      "runtime_path": "n/a",
+      "status": "BLOCKED_EXTERNAL_DEPENDENCY",
+      "evidence": "no operator-supplied holdout corpus exists; the Charter thresholds (M10: recall >= 0.5 AND precision >= 0.7 on an independent population) are unchanged and remain unmet-by-evidence",
+      "limitations": "the single most important open item; no recall/precision claim beyond the fixture is made anywhere in this release"
+    }
+  ],
+  "gates": {
+    "full_suite": "8702 passed / 0 failed / 7 skipped / 3 xfailed (8711 collected, chunked 10/10)",
+    "frozen_module_gate": "639 entries; 6 documented re-pins (scripts/refreeze_manifest_umdr31.py); UMDR31 thaw set added to the baseline gate",
+    "direct_io_inventory": "1155 records (+2 declared dynamic-resolution identities in the new module; scripts/regen_direct_io_inventory_umdr31.py)",
+    "broad_exception_register": "+2 documented fail-soft handlers in production/adaptive_research.py",
+    "release_packaging": "version SSOT 0.37.0 across pyproject/__init__/Dockerfile/CHANGELOG"
+  },
+  "deployment_classification": "LAB_QUALIFIED (single-tenant controlled); research loop OFF by default (fail-closed); independent qualification BLOCKED_EXTERNAL_DEPENDENCY"
+}

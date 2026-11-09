@@ -1,0 +1,148 @@
+{
+  "run_number": 1,
+  "date": "2026-09-03T10:51:58.626140+00:00",
+  "sealed_hash": "fb84b4a693691ad17e6802c90d6d6e085e7a9bca9853307ef92428dbcc78820f",
+  "metrics": {
+    "tp": 5,
+    "fp": 0,
+    "fn": 6,
+    "tn": 3,
+    "precision": 1.0,
+    "recall": 0.4545,
+    "f1": 0.625,
+    "proof_completeness": 1.0,
+    "proof_valid": 14,
+    "proof_eligible": 14
+  },
+  "thresholds": {
+    "precision_min": 0.95,
+    "recall_min": 0.7,
+    "proof_min": 0.95,
+    "precision_pass": true,
+    "recall_pass": false,
+    "proof_pass": true
+  },
+  "per_case": {
+    "case-01-idor-profile": {
+      "class": "idor",
+      "verdict": "CONFIRMED",
+      "outcome": "TP",
+      "is_vulnerable": true,
+      "confidence": 0.99,
+      "proof_valid": true
+    },
+    "case-02-idor-tenant": {
+      "class": "idor",
+      "verdict": "CLEAN",
+      "outcome": "FN",
+      "is_vulnerable": true,
+      "confidence": 0.8896,
+      "proof_valid": true
+    },
+    "case-03-bac-dashboard": {
+      "class": "broken_access_control",
+      "verdict": "CONFIRMED",
+      "outcome": "TP",
+      "is_vulnerable": true,
+      "confidence": 0.99,
+      "proof_valid": true
+    },
+    "case-04-bac-audit": {
+      "class": "broken_access_control",
+      "verdict": "CONFIRMED",
+      "outcome": "TP",
+      "is_vulnerable": true,
+      "confidence": 0.99,
+      "proof_valid": true
+    },
+    "case-05-privesc-billing": {
+      "class": "privilege_escalation",
+      "verdict": "CLEAN",
+      "outcome": "FN",
+      "is_vulnerable": true,
+      "confidence": 0.8898,
+      "proof_valid": true
+    },
+    "case-06-bizlogic-transfer": {
+      "class": "business_logic_abuse",
+      "verdict": "CLEAN",
+      "outcome": "FN",
+      "is_vulnerable": true,
+      "confidence": 0.8296,
+      "proof_valid": true
+    },
+    "case-07-tenant-isolation": {
+      "class": "tenant_isolation_failure",
+      "verdict": "CONFIRMED",
+      "outcome": "TP",
+      "is_vulnerable": true,
+      "confidence": 0.99,
+      "proof_valid": true
+    },
+    "case-08-workflow-auth": {
+      "class": "workflow_authorization_failure",
+      "verdict": "CLEAN",
+      "outcome": "FN",
+      "is_vulnerable": true,
+      "confidence": 0.8297,
+      "proof_valid": true
+    },
+    "case-09-sdata-messages": {
+      "class": "sensitive_data_exposure",
+      "verdict": "CONFIRMED",
+      "outcome": "TP",
+      "is_vulnerable": true,
+      "confidence": 0.99,
+      "proof_valid": true
+    },
+    "case-10-multistep-reset": {
+      "class": "multi_step_chain",
+      "verdict": "CLEAN",
+      "outcome": "FN",
+      "is_vulnerable": true,
+      "confidence": 0.8296,
+      "proof_valid": true
+    },
+    "case-11-mass-assignment": {
+      "class": "mass_assignment",
+      "verdict": "BLOCKED",
+      "outcome": "BLOCKED",
+      "is_vulnerable": true,
+      "confidence": 0.0,
+      "proof_valid": false
+    },
+    "case-12-race-condition": {
+      "class": "race_condition",
+      "verdict": "CLEAN",
+      "outcome": "FN",
+      "is_vulnerable": true,
+      "confidence": 0.8299,
+      "proof_valid": true
+    },
+    "case-13-clean-self": {
+      "class": "clean",
+      "verdict": "CLEAN",
+      "outcome": "TN",
+      "is_vulnerable": false,
+      "confidence": 0.8899,
+      "proof_valid": true
+    },
+    "case-14-clean-public": {
+      "class": "clean",
+      "verdict": "CLEAN",
+      "outcome": "TN",
+      "is_vulnerable": false,
+      "confidence": 0.8898,
+      "proof_valid": true
+    },
+    "case-15-clean-status": {
+      "class": "clean",
+      "verdict": "CLEAN",
+      "outcome": "TN",
+      "is_vulnerable": false,
+      "confidence": 0.8898,
+      "proof_valid": true
+    }
+  },
+  "overall_pass": false
+}

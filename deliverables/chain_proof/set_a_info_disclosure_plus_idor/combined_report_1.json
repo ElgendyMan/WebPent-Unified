@@ -1,0 +1,56 @@
+{
+  "chain_id": "chain_01255fe5402417d2",
+  "title": "[CRITICAL] Combined impact via info disclosure to idor",
+  "pattern": "info_disclosure_to_idor",
+  "steps": [
+    {
+      "step": 1,
+      "finding": "disc-userids",
+      "result": "confirmed prerequisite"
+    },
+    {
+      "step": 2,
+      "finding": "idor-profile",
+      "result": "confirmed prerequisite"
+    },
+    {
+      "step": 3,
+      "chain": "chain_01255fe5402417d2",
+      "result": "governed chain execution confirmed"
+    }
+  ],
+  "combined_severity": "CRITICAL",
+  "combined_cvss": 9.0,
+  "cvss_justification": "The info_disclosure_to_idor pattern is confirmed by the individual evidence and a successful governed chain execution; combined impact floor is 9.0, base individual score was 6.5.",
+  "impact": "The application exposes user identifiers ({disclosure_evidence}); combined with {idor_evidence}, an attacker can enumerate users and access their data.",
+  "evidence": [
+    {
+      "source": "step_1",
+      "proof_bundle_ref": "proof_bundle_2ce8032ad8854b85bf03f60facc4544a"
+    },
+    {
+      "source": "step_2",
+      "proof_bundle_ref": "proof_bundle_c07f716ac28846b0873c6af20e49501b"
+    },
+    {
+      "source": "chain_execution",
+      "evidence": {
+        "authority": "M4/AVI/PromotionPipeline",
+        "response_digest": "redacted-synthetic-proof",
+        "executor": "deterministic-stub (synthetic proof, not live)"
+      }
+    }
+  ],
+  "proof_bundle_ref": "chain-proof-chain_01255fe5402417d2",
+  "replay_verified": true,
+  "gates_passed": [
+    "g1",
+    "g2",
+    "g3",
+    "g4",
+    "g5",
+    "g6",
+    "g7",
+    "g8"
+  ]
+}

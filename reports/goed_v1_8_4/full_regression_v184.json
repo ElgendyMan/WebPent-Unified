@@ -1,0 +1,206 @@
+{
+  "phase": "18_full_regression",
+  "compileall_pass": true,
+  "v183_historical_manifest_untouched": true,
+  "total_frozen_artifacts": 26,
+  "unchanged_count": 19,
+  "changed_count": 6,
+  "superseded_documented_count": 6,
+  "unresolved_violation_count": 0,
+  "missing_count": 1,
+  "changed_files": [
+    {
+      "category": "deterministic_core",
+      "path": "src/webpent/cqa_v2/replay_verifier.py",
+      "frozen_sha256": "1c8535577604719c4ad486bb6747eb46fb76912ce10b34d83f966a9876106913",
+      "current_sha256": "2a9a4bf387d0cef4af3e55fcc0b3f5935bfe23b65a7c976b8359effaba442ef3",
+      "frozen_size": 3446,
+      "current_size": 4364
+    },
+    {
+      "category": "llm_interface_v183",
+      "path": "src/webpent/llm_researcher/interface.py",
+      "frozen_sha256": "eee2709f97d087c9007f9eb723275a5afdc63ff57464916cd9f4da59938436bc",
+      "current_sha256": "d72d165e3f0602e941ff6969f53a4d2967af5f3072e51f33c7f5b0addbf567c8",
+      "frozen_size": 18451,
+      "current_size": 19277
+    },
+    {
+      "category": "llm_interface_v183",
+      "path": "src/webpent/llm_researcher/tool_boundary.py",
+      "frozen_sha256": "f0280303e2d832d73e228a1966c0feaba437947d0628e6a25be495cdead32dcf",
+      "current_sha256": "4c2ef961c47ef889680ea115fdbbdb74450342607664fa54cb9aeba6bb24c1f8",
+      "frozen_size": 7056,
+      "current_size": 9119
+    },
+    {
+      "category": "llm_providers_v183",
+      "path": "src/webpent/llm_researcher/providers/__init__.py",
+      "frozen_sha256": "d92fc36bfcd399acc4a9b4029bba69ba0ab99aa3635d65a4ea97ae65383618fe",
+      "current_sha256": "fce1fcd49a453ca8e335ba127a80449f51c1598045ae4e777b33e0456bced750",
+      "frozen_size": 657,
+      "current_size": 763
+    },
+    {
+      "category": "llm_providers_v183",
+      "path": "src/webpent/llm_researcher/providers/base.py",
+      "frozen_sha256": "75303a66db8e25913af0715d5b3f03d829a85960f58b352055e6c55ef7572e63",
+      "current_sha256": "d55dc0f6207079999801c85b04d631e5f2efe6f4fa13e4409bcf46e22ce8cb6c",
+      "frozen_size": 4356,
+      "current_size": 4522
+    },
+    {
+      "category": "llm_providers_v183",
+      "path": "src/webpent/llm_researcher/providers/factory.py",
+      "frozen_sha256": "fc6ec994e391ac956e1c506a5a068c61a815c90727ab0647767be0e830c1f6df",
+      "current_sha256": "8971570739fcc24adb0fcff7e3075ad9deeda51557c4042b2b67303eb108f3a1",
+      "frozen_size": 3860,
+      "current_size": 4849
+    }
+  ],
+  "superseded_documented_files": [
+    {
+      "category": "deterministic_core",
+      "path": "src/webpent/cqa_v2/replay_verifier.py",
+      "frozen_sha256": "1c8535577604719c4ad486bb6747eb46fb76912ce10b34d83f966a9876106913",
+      "current_sha256": "2a9a4bf387d0cef4af3e55fcc0b3f5935bfe23b65a7c976b8359effaba442ef3",
+      "frozen_size": 3446,
+      "current_size": 4364,
+      "v184_reason": "v1.8.4 STRICT replay protocol: seal equality alone no longer counts as replay success; now requires verdict_match AND evidence_match AND seal_valid AND seal_match AND replay_executed together, else downgrades CONFIRMED to INCONCLUSIVE (replay_valid=false). Documented in the file's own module docstring."
+    },
+    {
+      "category": "llm_interface_v183",
+      "path": "src/webpent/llm_researcher/interface.py",
+      "frozen_sha256": "eee2709f97d087c9007f9eb723275a5afdc63ff57464916cd9f4da59938436bc",
+      "current_sha256": "d72d165e3f0602e941ff6969f53a4d2967af5f3072e51f33c7f5b0addbf567c8",
+      "frozen_size": 18451,
+      "current_size": 19277,
+      "v184_reason": "Added get_policy_hash() and apply_hypothesis_weights() methods, plus _hypothesis_weights initialization. Required to enable real LLM execution path in learning experiments and contract trace. The pre-existing LLM safety boundary (system_prompt_hash, prompt_injection_resistance, generate_hypotheses/select_experiment split) remains intact and unchanged."
+    },
+    {
+      "category": "llm_interface_v183",
+      "path": "src/webpent/llm_researcher/tool_boundary.py",
+      "frozen_sha256": "f0280303e2d832d73e228a1966c0feaba437947d0628e6a25be495cdead32dcf",
+      "current_sha256": "4c2ef961c47ef889680ea115fdbbdb74450342607664fa54cb9aeba6bb24c1f8",
+      "frozen_size": 7056,
+      "current_size": 9119,
+      "v184_reason": "SSRF guard added (Phase 14 finding, referenced inline at the fix site): an absolute URL in tool-call params bypassed httpx.Client base_url scoping entirely (verified empirically able to reach 169.254.169.254-style metadata hosts). Fix enforces the requested host must match the client's base_url host before the request is sent. This is a security fix, not scope creep -- Mohamed's decision explicitly keeps it."
+    },
+    {
+      "category": "llm_providers_v183",
+      "path": "src/webpent/llm_researcher/providers/__init__.py",
+      "frozen_sha256": "d92fc36bfcd399acc4a9b4029bba69ba0ab99aa3635d65a4ea97ae65383618fe",
+      "current_sha256": "fce1fcd49a453ca8e335ba127a80449f51c1598045ae4e777b33e0456bced750",
+      "frozen_size": 657,
+      "current_size": 763,
+      "v184_reason": "Now also exports ProviderPool, LLMRouter, ProviderSlot, SlotStatus, FailureCategory from the new sibling module pool.py, to support multi-provider failover exercised by Phase 17 (reports/goed_v1_8_4/failover_integrity_test.json, 8/8 scenarios passed)."
+    },
+    {
+      "category": "llm_providers_v183",
+      "path": "src/webpent/llm_researcher/providers/base.py",
+      "frozen_sha256": "75303a66db8e25913af0715d5b3f03d829a85960f58b352055e6c55ef7572e63",
+      "current_sha256": "d55dc0f6207079999801c85b04d631e5f2efe6f4fa13e4409bcf46e22ce8cb6c",
+      "frozen_size": 4356,
+      "current_size": 4522,
+      "v184_reason": "Added mock_provider property as alias for is_mock property. Backward compatibility fix: existing script code checks getattr(provider, 'mock_provider', True) to detect real vs mock providers. The property existed only in get_provider_metadata() dict, not as a direct attribute, causing real providers to be misdetected as mock. The is_mock property itself and all provider behavior remain unchanged."
+    },
+    {
+      "category": "llm_providers_v183",
+      "path": "src/webpent/llm_researcher/providers/factory.py",
+      "frozen_sha256": "fc6ec994e391ac956e1c506a5a068c61a815c90727ab0647767be0e830c1f6df",
+      "current_sha256": "8971570739fcc24adb0fcff7e3075ad9deeda51557c4042b2b67303eb108f3a1",
+      "frozen_size": 3860,
+      "current_size": 4849,
+      "v184_reason": "Adds a new get_provider_status() function (line 78) exposing runtime provider/pool health for the failover feature above. The pre-existing v1.8.3 strict real-API gate function names (get_provider, get_provider_from_env, get_runtime_gate_status) are still present with the same docstring language; a true byte-level behavioral diff of those functions was NOT possible this session -- see limitation note in GOED_V1_8_4_FREEZE_DIFF.md."
+    }
+  ],
+  "unresolved_violation_files": [],
+  "missing_files": [
+    {
+      "category": "delivery_v183",
+      "path": "WebPent-GOED-v1.8.3-RealLLM-CausalBridge.zip"
+    }
+  ],
+  "causalguard_unchanged": true,
+  "proofbundle_unchanged": true,
+  "governance_unchanged": true,
+  "findings": [
+    {
+      "issue": "FROZEN ARTIFACT MODIFIED vs v1.8.3 \u2014 but re-frozen and documented in docs/archive/goed-v1.8.4/GOED_V1_8_4_FREEZE_MANIFEST.json per Mohamed's RE-FREEZE (DOCUMENTED) decision. Not a violation.",
+      "severity": "documented_not_a_violation",
+      "category": "deterministic_core",
+      "path": "src/webpent/cqa_v2/replay_verifier.py",
+      "frozen_sha256": "1c8535577604719c4ad486bb6747eb46fb76912ce10b34d83f966a9876106913",
+      "current_sha256": "2a9a4bf387d0cef4af3e55fcc0b3f5935bfe23b65a7c976b8359effaba442ef3",
+      "frozen_size": 3446,
+      "current_size": 4364,
+      "v184_reason": "v1.8.4 STRICT replay protocol: seal equality alone no longer counts as replay success; now requires verdict_match AND evidence_match AND seal_valid AND seal_match AND replay_executed together, else downgrades CONFIRMED to INCONCLUSIVE (replay_valid=false). Documented in the file's own module docstring."
+    },
+    {
+      "issue": "FROZEN ARTIFACT MODIFIED vs v1.8.3 \u2014 but re-frozen and documented in docs/archive/goed-v1.8.4/GOED_V1_8_4_FREEZE_MANIFEST.json per Mohamed's RE-FREEZE (DOCUMENTED) decision. Not a violation.",
+      "severity": "documented_not_a_violation",
+      "category": "llm_interface_v183",
+      "path": "src/webpent/llm_researcher/interface.py",
+      "frozen_sha256": "eee2709f97d087c9007f9eb723275a5afdc63ff57464916cd9f4da59938436bc",
+      "current_sha256": "d72d165e3f0602e941ff6969f53a4d2967af5f3072e51f33c7f5b0addbf567c8",
+      "frozen_size": 18451,
+      "current_size": 19277,
+      "v184_reason": "Added get_policy_hash() and apply_hypothesis_weights() methods, plus _hypothesis_weights initialization. Required to enable real LLM execution path in learning experiments and contract trace. The pre-existing LLM safety boundary (system_prompt_hash, prompt_injection_resistance, generate_hypotheses/select_experiment split) remains intact and unchanged."
+    },
+    {
+      "issue": "FROZEN ARTIFACT MODIFIED vs v1.8.3 \u2014 but re-frozen and documented in docs/archive/goed-v1.8.4/GOED_V1_8_4_FREEZE_MANIFEST.json per Mohamed's RE-FREEZE (DOCUMENTED) decision. Not a violation.",
+      "severity": "documented_not_a_violation",
+      "category": "llm_interface_v183",
+      "path": "src/webpent/llm_researcher/tool_boundary.py",
+      "frozen_sha256": "f0280303e2d832d73e228a1966c0feaba437947d0628e6a25be495cdead32dcf",
+      "current_sha256": "4c2ef961c47ef889680ea115fdbbdb74450342607664fa54cb9aeba6bb24c1f8",
+      "frozen_size": 7056,
+      "current_size": 9119,
+      "v184_reason": "SSRF guard added (Phase 14 finding, referenced inline at the fix site): an absolute URL in tool-call params bypassed httpx.Client base_url scoping entirely (verified empirically able to reach 169.254.169.254-style metadata hosts). Fix enforces the requested host must match the client's base_url host before the request is sent. This is a security fix, not scope creep -- Mohamed's decision explicitly keeps it."
+    },
+    {
+      "issue": "FROZEN ARTIFACT MODIFIED vs v1.8.3 \u2014 but re-frozen and documented in docs/archive/goed-v1.8.4/GOED_V1_8_4_FREEZE_MANIFEST.json per Mohamed's RE-FREEZE (DOCUMENTED) decision. Not a violation.",
+      "severity": "documented_not_a_violation",
+      "category": "llm_providers_v183",
+      "path": "src/webpent/llm_researcher/providers/__init__.py",
+      "frozen_sha256": "d92fc36bfcd399acc4a9b4029bba69ba0ab99aa3635d65a4ea97ae65383618fe",
+      "current_sha256": "fce1fcd49a453ca8e335ba127a80449f51c1598045ae4e777b33e0456bced750",
+      "frozen_size": 657,
+      "current_size": 763,
+      "v184_reason": "Now also exports ProviderPool, LLMRouter, ProviderSlot, SlotStatus, FailureCategory from the new sibling module pool.py, to support multi-provider failover exercised by Phase 17 (reports/goed_v1_8_4/failover_integrity_test.json, 8/8 scenarios passed)."
+    },
+    {
+      "issue": "FROZEN ARTIFACT MODIFIED vs v1.8.3 \u2014 but re-frozen and documented in docs/archive/goed-v1.8.4/GOED_V1_8_4_FREEZE_MANIFEST.json per Mohamed's RE-FREEZE (DOCUMENTED) decision. Not a violation.",
+      "severity": "documented_not_a_violation",
+      "category": "llm_providers_v183",
+      "path": "src/webpent/llm_researcher/providers/base.py",
+      "frozen_sha256": "75303a66db8e25913af0715d5b3f03d829a85960f58b352055e6c55ef7572e63",
+      "current_sha256": "d55dc0f6207079999801c85b04d631e5f2efe6f4fa13e4409bcf46e22ce8cb6c",
+      "frozen_size": 4356,
+      "current_size": 4522,
+      "v184_reason": "Added mock_provider property as alias for is_mock property. Backward compatibility fix: existing script code checks getattr(provider, 'mock_provider', True) to detect real vs mock providers. The property existed only in get_provider_metadata() dict, not as a direct attribute, causing real providers to be misdetected as mock. The is_mock property itself and all provider behavior remain unchanged."
+    },
+    {
+      "issue": "FROZEN ARTIFACT MODIFIED vs v1.8.3 \u2014 but re-frozen and documented in docs/archive/goed-v1.8.4/GOED_V1_8_4_FREEZE_MANIFEST.json per Mohamed's RE-FREEZE (DOCUMENTED) decision. Not a violation.",
+      "severity": "documented_not_a_violation",
+      "category": "llm_providers_v183",
+      "path": "src/webpent/llm_researcher/providers/factory.py",
+      "frozen_sha256": "fc6ec994e391ac956e1c506a5a068c61a815c90727ab0647767be0e830c1f6df",
+      "current_sha256": "8971570739fcc24adb0fcff7e3075ad9deeda51557c4042b2b67303eb108f3a1",
+      "frozen_size": 3860,
+      "current_size": 4849,
+      "v184_reason": "Adds a new get_provider_status() function (line 78) exposing runtime provider/pool health for the failover feature above. The pre-existing v1.8.3 strict real-API gate function names (get_provider, get_provider_from_env, get_runtime_gate_status) are still present with the same docstring language; a true byte-level behavioral diff of those functions was NOT possible this session -- see limitation note in GOED_V1_8_4_FREEZE_DIFF.md."
+    },
+    {
+      "issue": "frozen artifact missing from tree",
+      "files": [
+        {
+          "category": "delivery_v183",
+          "path": "WebPent-GOED-v1.8.3-RealLLM-CausalBridge.zip"
+        }
+      ]
+    }
+  ],
+  "audit_pass": false,
+  "note": "audit_pass reflects ONLY the freeze-integrity gate (v1.8.3 historical freeze intact, and the 4 superseded files match their documented v1.8.4 re-freeze). It does NOT mean 'missing_count' is ignored -- a non-zero missing_count still fails this gate, see missing_files for what still needs a decision."
+}

@@ -1,0 +1,389 @@
+{
+  "campaign_ledger": {
+    "entries": [
+      {
+        "disposition": "not_observed",
+        "evidence_complete": false,
+        "human_review_only": false,
+        "id": 1,
+        "key": "header_sqli",
+        "negative_control": null,
+        "oracle_family": null,
+        "proof_contract": null,
+        "status": "not_observed",
+        "surfaces": [
+          "headers",
+          "query",
+          "logging"
+        ],
+        "validator": "sqli",
+        "validator_id": "sqli"
+      },
+      {
+        "disposition": "not_observed",
+        "evidence_complete": false,
+        "human_review_only": false,
+        "id": 2,
+        "key": "csv_ingestion_sqli",
+        "negative_control": "inert_csv_control",
+        "oracle_family": "csv_sqli",
+        "proof_contract": "controlled_parser_dataflow_differential",
+        "status": "not_observed",
+        "surfaces": [
+          "multipart",
+          "csv",
+          "worker"
+        ],
+        "validator": "sqli",
+        "validator_id": "sqli"
+      },
+      {
+        "disposition": "not_observed",
+        "evidence_complete": false,
+        "human_review_only": false,
+        "id": 3,
+        "key": "jwt_path_traversal",
+        "negative_control": null,
+        "oracle_family": null,
+        "proof_contract": null,
+        "status": "not_observed",
+        "surfaces": [
+          "jwt",
+          "path",
+          "download"
+        ],
+        "validator": "path_traversal",
+        "validator_id": "path_traversal"
+      },
+      {
+        "disposition": "not_observed",
+        "evidence_complete": false,
+        "human_review_only": false,
+        "id": 4,
+        "key": "double_slash_redirect",
+        "negative_control": null,
+        "oracle_family": null,
+        "proof_contract": null,
+        "status": "not_observed",
+        "surfaces": [
+          "redirect",
+          "path"
+        ],
+        "validator": "open_redirect",
+        "validator_id": "open_redirect"
+      },
+      {
+        "disposition": "not_observed",
+        "evidence_complete": false,
+        "human_review_only": false,
+        "id": 5,
+        "key": "oauth_redirect_uri",
+        "negative_control": null,
+        "oracle_family": null,
+        "proof_contract": null,
+        "status": "not_observed",
+        "surfaces": [
+          "oauth",
+          "redirect",
+          "callback"
+        ],
+        "validator": "open_redirect",
+        "validator_id": "open_redirect"
+      },
+      {
+        "disposition": "not_observed",
+        "evidence_complete": false,
+        "human_review_only": false,
+        "id": 6,
+        "key": "download_idor",
+        "negative_control": "foreign_denied_control",
+        "oracle_family": "idor",
+        "proof_contract": "owner_foreign_access",
+        "status": "not_observed",
+        "surfaces": [
+          "download",
+          "object",
+          "identity"
+        ],
+        "validator": "idor",
+        "validator_id": "idor"
+      },
+      {
+        "disposition": "not_observed",
+        "evidence_complete": false,
+        "human_review_only": false,
+        "id": 7,
+        "key": "tenant_context_switching",
+        "negative_control": "same_tenant_authorized_control",
+        "oracle_family": "idor",
+        "proof_contract": "tenant_owner_foreign_access",
+        "status": "not_observed",
+        "surfaces": [
+          "tenant",
+          "identity",
+          "object"
+        ],
+        "validator": "idor",
+        "validator_id": "idor"
+      },
+      {
+        "disposition": "not_observed",
+        "evidence_complete": false,
+        "human_review_only": false,
+        "id": 8,
+        "key": "training_email_ssti",
+        "negative_control": null,
+        "oracle_family": null,
+        "proof_contract": null,
+        "status": "not_observed",
+        "surfaces": [
+          "template",
+          "email",
+          "workflow"
+        ],
+        "validator": "ssti",
+        "validator_id": "ssti"
+      },
+      {
+        "disposition": "not_observed",
+        "evidence_complete": false,
+        "human_review_only": false,
+        "id": 9,
+        "key": "export_blade_ssti",
+        "negative_control": null,
+        "oracle_family": null,
+        "proof_contract": null,
+        "status": "not_observed",
+        "surfaces": [
+          "export",
+          "template",
+          "download"
+        ],
+        "validator": "ssti",
+        "validator_id": "ssti"
+      },
+      {
+        "disposition": "not_observed",
+        "evidence_complete": false,
+        "human_review_only": false,
+        "id": 10,
+        "key": "swagger_url_ssrf",
+        "negative_control": null,
+        "oracle_family": null,
+        "proof_contract": null,
+        "status": "not_observed",
+        "surfaces": [
+          "swagger",
+          "openapi",
+          "url"
+        ],
+        "validator": "ssrf",
+        "validator_id": "ssrf"
+      },
+      {
+        "disposition": "not_observed",
+        "evidence_complete": false,
+        "human_review_only": false,
+        "id": 11,
+        "key": "image_fetch_ssrf",
+        "negative_control": "absent_control_callback",
+        "oracle_family": "ssrf",
+        "proof_contract": "correlated_oob_callback",
+        "status": "not_observed",
+        "surfaces": [
+          "profile",
+          "image",
+          "url"
+        ],
+        "validator": "ssrf",
+        "validator_id": "ssrf"
+      },
+      {
+        "disposition": "not_observed",
+        "evidence_complete": false,
+        "human_review_only": false,
+        "id": 12,
+        "key": "stored_profile_xss",
+        "negative_control": "encoded_and_literal_safe_controls",
+        "oracle_family": "stored_xss",
+        "proof_contract": "browser_execution_marker",
+        "status": "not_observed",
+        "surfaces": [
+          "profile",
+          "stored",
+          "browser"
+        ],
+        "validator": "xss",
+        "validator_id": "xss"
+      },
+      {
+        "disposition": "not_observed",
+        "evidence_complete": false,
+        "human_review_only": false,
+        "id": 13,
+        "key": "quoted_field_xss",
+        "negative_control": null,
+        "oracle_family": null,
+        "proof_contract": null,
+        "status": "not_observed",
+        "surfaces": [
+          "profile",
+          "form",
+          "attribute"
+        ],
+        "validator": "xss",
+        "validator_id": "xss"
+      },
+      {
+        "disposition": "human_review_only",
+        "evidence_complete": false,
+        "human_review_only": true,
+        "id": 14,
+        "key": "elasticsearch_snapshot_traversal",
+        "negative_control": null,
+        "oracle_family": null,
+        "proof_contract": null,
+        "status": "missing-validator",
+        "surfaces": [
+          "elasticsearch",
+          "snapshot",
+          "service"
+        ],
+        "validator": null,
+        "validator_id": null
+      },
+      {
+        "disposition": "not_observed",
+        "evidence_complete": false,
+        "human_review_only": false,
+        "id": 15,
+        "key": "public_backup_disclosure",
+        "negative_control": null,
+        "oracle_family": null,
+        "proof_contract": null,
+        "status": "not_observed",
+        "surfaces": [
+          "backup",
+          "artifact",
+          "download"
+        ],
+        "validator": "info_disclosure",
+        "validator_id": "info_disclosure"
+      },
+      {
+        "disposition": "not_observed",
+        "evidence_complete": false,
+        "human_review_only": false,
+        "id": 16,
+        "key": "laravel_app_debug",
+        "negative_control": null,
+        "oracle_family": null,
+        "proof_contract": null,
+        "status": "not_observed",
+        "surfaces": [
+          "error",
+          "debug",
+          "laravel"
+        ],
+        "validator": "info_disclosure",
+        "validator_id": "info_disclosure"
+      },
+      {
+        "disposition": "not_observed",
+        "evidence_complete": false,
+        "human_review_only": false,
+        "id": 17,
+        "key": "frontend_dependency_exposure",
+        "negative_control": null,
+        "oracle_family": null,
+        "proof_contract": null,
+        "status": "not_observed",
+        "surfaces": [
+          "javascript",
+          "sbom",
+          "bundle"
+        ],
+        "validator": "javascript",
+        "validator_id": "javascript"
+      },
+      {
+        "disposition": "not_observed",
+        "evidence_complete": false,
+        "human_review_only": false,
+        "id": 18,
+        "key": "public_elasticsearch_exposure",
+        "negative_control": null,
+        "oracle_family": null,
+        "proof_contract": null,
+        "status": "not_observed",
+        "surfaces": [
+          "elasticsearch",
+          "service",
+          "network"
+        ],
+        "validator": "info_disclosure",
+        "validator_id": "info_disclosure"
+      },
+      {
+        "disposition": "not_observed",
+        "evidence_complete": false,
+        "human_review_only": false,
+        "id": 19,
+        "key": "oob_xxe",
+        "negative_control": null,
+        "oracle_family": null,
+        "proof_contract": null,
+        "status": "not_observed",
+        "surfaces": [
+          "xml",
+          "multipart",
+          "oob"
+        ],
+        "validator": "xxe",
+        "validator_id": "xxe"
+      },
+      {
+        "disposition": "human_review_only",
+        "evidence_complete": false,
+        "human_review_only": true,
+        "id": 20,
+        "key": "xslt_injection",
+        "negative_control": null,
+        "oracle_family": null,
+        "proof_contract": null,
+        "status": "missing-validator",
+        "surfaces": [
+          "xml",
+          "xslt",
+          "multipart"
+        ],
+        "validator": null,
+        "validator_id": null
+      }
+    ],
+    "source": "waptlab_audit_campaign_matrix",
+    "summary": {
+      "missing-validator": 2,
+      "not_observed": 18
+    },
+    "version": 1
+  },
+  "captured_at": "2026-09-30T21:06:22.413849+00:00",
+  "platform": "Linux-6.18.38+-x86_64-with-glibc2.39",
+  "project": "WebPent v60",
+  "project_root": "/tmp/m10_corrected/project/webpent-goed-FIX",
+  "pytest": "pytest 9.1.1",
+  "python": "3.12.3",
+  "root_file_sha256": {
+    "pyproject.toml": "c44b0fb2d795e410bd364d5f853e6dd333ad19487d97beaff73ae6a0be581e8f",
+    "uv.lock": "fcd0e8d544c40f033d90590aedb19ca4167116f7be3a9bf024942ea409078375"
+  },
+  "ruff": null,
+  "safety_statement": "This baseline is inventory/evidence accounting only. It does not claim that unobserved campaigns are negative or confirmed.",
+  "schema_version": "vip-baseline-v1",
+  "test_function_count": 2011,
+  "waptlab_fixture": {
+    "available": false,
+    "reason": "No local WAPTLab fixture directory is present; no remote target was contacted."
+  }
+}

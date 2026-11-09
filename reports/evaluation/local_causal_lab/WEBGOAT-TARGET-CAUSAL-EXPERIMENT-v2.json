@@ -1,0 +1,61 @@
+{
+  "artifact": "webgoat-target-causal-experiment-v2",
+  "case_id": "webgoat.idor.view_other_profile.causal-vnext",
+  "execution_mode": "target_backed_preflight_only",
+  "method": "GET",
+  "status": "BLOCKED",
+  "historical_flow_reused": false,
+  "profile": {
+    "baseline": "authorized owner identity reads its own disposable protected profile",
+    "candidate": "distinct attacker identity requests the same owner-owned profile",
+    "negative_control": "attacker identity requests an unrelated protected/nonexistent profile",
+    "expected_invariant": "an attacker identity cannot receive the owner-owned profile semantic identity",
+    "violated_invariant": "attacker receives the owner-owned profile semantic identity",
+    "required_observables": [
+      "owner identity and attacker identity are independently target-controlled",
+      "same owner resource is referenced by baseline and candidate",
+      "owner baseline is semantically authorized",
+      "candidate response is semantically distinguishable from owner baseline",
+      "negative control is independently denied or unrelated",
+      "snapshot restore returns the same target state hash"
+    ]
+  },
+  "preflight": {
+    "preconditions_ready": false,
+    "identity_model_ready": false,
+    "fixture_ready": false,
+    "ownership_relation_ready": false,
+    "reset_verified": false,
+    "semantic_observation_ready": false,
+    "runtime_digest_verified": true,
+    "network_scope_verified": true,
+    "network_allowed": false,
+    "network_attempted": false,
+    "requests_sent": 0
+  },
+  "blocker": {
+    "code": "WEBGOAT_LESSON_SESSION_OWNER_FIXTURE_UNAVAILABLE",
+    "reason": "The current WebGoat source uses a LessonSession-controlled identity and does not expose an approved target-local mechanism for two independently controlled sessions, a disposable owner-owned resource, and reset/state-hash verification. The login endpoint mutates LessonSession and is outside the approved GET-only/no-login boundary.",
+    "required_capability": "An explicitly approved target-local fixture/session mechanism providing synthetic owner and attacker identities, an opaque owner-owned resource, ownership relation, deterministic reset, and bounded semantic authorization observations."
+  },
+  "outputs": {
+    "observations": [],
+    "evidence_references": [],
+    "oracle_decision": "BLOCKED",
+    "target_backed_proof_bundle": false,
+    "scoring_promotion": false,
+    "replay_success": false
+  },
+  "governance": {
+    "official_isolated_p10_runs_authorized": false,
+    "p10": "NOT_QUALIFIED",
+    "p9": "NOT_QUALIFIED",
+    "vip": "NOT_QUALIFIED",
+    "bug_bounty": "BLOCKED",
+    "human_independent_signoff_obtained": false
+  },
+  "validation": {
+    "tests": "tests/test_webgoat_causal_experiment.py and tests/test_target_evidence_readiness.py: 6 passed",
+    "interpretation": "The profile contract and preflight gate are validated; no target-backed detection-quality claim is made."
+  }
+}

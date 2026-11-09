@@ -1,0 +1,190 @@
+{
+  "target_id": "goed-target-02",
+  "port": 8802,
+  "naming_convention": {
+    "route_style": 2,
+    "object_style": 2,
+    "role_set": 2,
+    "tenant_style": 2
+  },
+  "route_prefix": "/services/ENTITY/rest",
+  "roles": [
+    "anonymous",
+    "basic",
+    "privileged",
+    "root"
+  ],
+  "tenants": [
+    "workspace-0",
+    "workspace-1"
+  ],
+  "objects": [
+    "item.0",
+    "item.1",
+    "item.2",
+    "item.3",
+    "item.4",
+    "item.5"
+  ],
+  "cases": {
+    "goed-target-02-case-00": {
+      "case_id": "goed-target-02-case-00",
+      "target_id": "goed-target-02",
+      "class": "idor",
+      "route": "/services/objects/item.1/rest",
+      "baseline_route": "/services/objects/item.0/rest",
+      "control_route": "/patched/services/objects/item.1/rest",
+      "actor_role": "basic",
+      "actor_tenant": "workspace-0",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-target-02-case-01": {
+      "case_id": "goed-target-02-case-01",
+      "target_id": "goed-target-02",
+      "class": "broken_access_control",
+      "route": "/services/admin/dashboard/rest",
+      "baseline_route": "/services/profile/rest",
+      "control_route": "/patched/services/admin/dashboard/rest",
+      "actor_role": "basic",
+      "actor_tenant": "workspace-0",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-02-case-02": {
+      "case_id": "goed-target-02-case-02",
+      "target_id": "goed-target-02",
+      "class": "privilege_escalation",
+      "route": "/services/billing/workspace-0/records/rest",
+      "baseline_route": "/services/profile/rest",
+      "control_route": "/patched/services/billing/workspace-0/records/rest",
+      "actor_role": "basic",
+      "actor_tenant": "workspace-0",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-target-02-case-03": {
+      "case_id": "goed-target-02-case-03",
+      "target_id": "goed-target-02",
+      "class": "business_logic_abuse",
+      "route": "/services/transfer/item.0?to=item.1&amount=-100/rest",
+      "baseline_route": "/services/transfer/item.0?to=item.1&amount=10/rest",
+      "control_route": "/patched/services/transfer/item.0",
+      "actor_role": "basic",
+      "actor_tenant": "workspace-0",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "low"
+    },
+    "goed-target-02-case-04": {
+      "case_id": "goed-target-02-case-04",
+      "target_id": "goed-target-02",
+      "class": "tenant_isolation_failure",
+      "route": "/services/tenant/workspace-1/internal/rest",
+      "baseline_route": "/services/tenant/workspace-0/internal/rest",
+      "control_route": "/patched/services/tenant/workspace-1/internal/rest",
+      "actor_role": "basic",
+      "actor_tenant": "workspace-0",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-02-case-05": {
+      "case_id": "goed-target-02-case-05",
+      "target_id": "goed-target-02",
+      "class": "workflow_authorization_failure",
+      "route": "/services/workflows/item.2/approve/rest",
+      "baseline_route": "/services/workflows/item.2/view/rest",
+      "control_route": "/patched/services/workflows/item.2/approve/rest",
+      "actor_role": "anonymous",
+      "actor_tenant": "workspace-0",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-target-02-case-06": {
+      "case_id": "goed-target-02-case-06",
+      "target_id": "goed-target-02",
+      "class": "sensitive_data_exposure",
+      "route": "/services/messages/item.1/inbox/rest",
+      "baseline_route": "/services/messages/item.0/inbox/rest",
+      "control_route": "/patched/services/messages/item.1/inbox/rest",
+      "actor_role": "basic",
+      "actor_tenant": "workspace-0",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-02-case-07": {
+      "case_id": "goed-target-02-case-07",
+      "target_id": "goed-target-02",
+      "class": "multi_step_chain",
+      "route": "/services/auth/reset/request?for=item.1/rest",
+      "baseline_route": "/services/auth/reset/request?for=item.0/rest",
+      "control_route": "/patched/services/auth/reset/request",
+      "actor_role": "basic",
+      "actor_tenant": "workspace-0",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "low"
+    },
+    "goed-target-02-case-08": {
+      "case_id": "goed-target-02-case-08",
+      "target_id": "goed-target-02",
+      "class": "workflow_authorization_failure",
+      "route": "/services/workflows/item.2/approve/rest",
+      "baseline_route": "/services/workflows/item.2/view/rest",
+      "control_route": "/patched/services/workflows/item.2/approve/rest",
+      "actor_role": "anonymous",
+      "actor_tenant": "workspace-0",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-target-02-case-09": {
+      "case_id": "goed-target-02-case-09",
+      "target_id": "goed-target-02",
+      "class": "sensitive_data_exposure",
+      "route": "/services/messages/item.1/inbox/rest",
+      "baseline_route": "/services/messages/item.0/inbox/rest",
+      "control_route": "/patched/services/messages/item.1/inbox/rest",
+      "actor_role": "basic",
+      "actor_tenant": "workspace-0",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "low"
+    },
+    "goed-target-02-clean-00": {
+      "case_id": "goed-target-02-clean-00",
+      "target_id": "goed-target-02",
+      "class": "clean_public_resource",
+      "route": "/services/public/info-0/rest",
+      "baseline_route": "/services/public/info-0/rest",
+      "control_route": "/services/public/info-0/rest",
+      "actor_role": "basic",
+      "actor_tenant": "workspace-0",
+      "expected_verdict": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    },
+    "goed-target-02-clean-01": {
+      "case_id": "goed-target-02-clean-01",
+      "target_id": "goed-target-02",
+      "class": "clean_public_resource",
+      "route": "/services/public/info-1/rest",
+      "baseline_route": "/services/public/info-1/rest",
+      "control_route": "/services/public/info-1/rest",
+      "actor_role": "basic",
+      "actor_tenant": "workspace-0",
+      "expected_verdict": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    }
+  },
+  "total_cases": 12,
+  "vulnerable_cases": 10,
+  "clean_cases": 2
+}

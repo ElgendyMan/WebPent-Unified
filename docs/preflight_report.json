@@ -1,0 +1,181 @@
+{
+  "capability_manifest": {
+    "blockers": [
+      {
+        "capability": "oob",
+        "reason": "blocked_by_precondition"
+      },
+      {
+        "capability": "active_workflow",
+        "reason": "disabled_by_profile"
+      }
+    ],
+    "capabilities": {
+      "active_workflow": {
+        "available": false,
+        "policy": "read-only",
+        "status": "disabled_by_profile"
+      },
+      "autopentestx_observation": {
+        "authority": "webpent_validator",
+        "available": true,
+        "cleanup": "not_applicable_import_only",
+        "concurrency_limit": 1,
+        "execution_available": false,
+        "fail_closed": true,
+        "max_input_bytes": 524288,
+        "max_records": 256,
+        "network_io": false,
+        "partial_output_supported": true,
+        "retry_budget": 0,
+        "source_commit": "c324bc5b8aa68b549652c403fd674b142617f211",
+        "status": "adapter_only",
+        "subprocess_io": false,
+        "timeout_seconds": 0
+      },
+      "browser": {
+        "available": true,
+        "browser_executable_available": true,
+        "executable_path": "/usr/bin/chromium",
+        "package_available": true,
+        "sha256": "36cbbb620daeb933ae7861de07fcff05b5e1f7527303b5992459b8aa6707b845",
+        "status": "available",
+        "version": "Chromium 151.0.7922.71 built on Ubuntu 24.04.4 LTS"
+      },
+      "ffuf": {
+        "available": false,
+        "status": "disabled"
+      },
+      "http_read": {
+        "available": true,
+        "status": "available"
+      },
+      "httpx": {
+        "available": true,
+        "configured": "httpx-pd",
+        "status": "available"
+      },
+      "katana": {
+        "available": true,
+        "configured": "katana",
+        "status": "available"
+      },
+      "llm": {
+        "available": true,
+        "status": "available"
+      },
+      "nettacker_observation": {
+        "authority": "webpent_validator",
+        "available": true,
+        "cleanup": "not_applicable_import_only",
+        "concurrency_limit": 1,
+        "execution_available": false,
+        "fail_closed": true,
+        "max_input_bytes": 524288,
+        "max_records": 256,
+        "network_io": false,
+        "partial_output_supported": true,
+        "retry_budget": 0,
+        "source_commit": "d274c40a276076c7d40260489d06943b756bd9d1",
+        "source_project": "Nettacker",
+        "source_version": "0.4.1",
+        "status": "adapter_only",
+        "subprocess_io": false,
+        "timeout_seconds": 0
+      },
+      "nuclei": {
+        "available": true,
+        "configured": "nuclei",
+        "status": "available"
+      },
+      "oob": {
+        "available": false,
+        "status": "blocked_by_precondition"
+      }
+    },
+    "environment_profile": "lab",
+    "fail_closed": true,
+    "profile": "legacy",
+    "status": "degraded"
+  },
+  "checks": {
+    "alembic": {
+      "available": true,
+      "ini_present": false,
+      "status": "degraded (alembic.ini missing)",
+      "version": "1.19.1"
+    },
+    "celery_payload_key": {
+      "posture": "dev default (acceptable for local lab)",
+      "status": "ok for dev — set CELERY_PAYLOAD_KEY for any non-local deployment"
+    },
+    "embeddings": {
+      "cache_present": false,
+      "mode": "online (first-run may download ~80MB from huggingface.co)",
+      "status": "degraded — model NOT cached; first RAG query will hit huggingface.co (set EMBEDDINGS_OFFLINE=true to skip, or pre-populate the cache)"
+    },
+    "llm": {
+      "configured_count": 1,
+      "configured_providers": [
+        "openai"
+      ],
+      "dead_providers": [],
+      "effective_endpoints": {
+        "openai": "https://api.manus.im/api/llm-proxy/v1"
+      },
+      "enabled": true,
+      "fallback_chains": {
+        "analysis": [
+          "openai:gpt-4o"
+        ],
+        "automation": [
+          "openai:gpt-4o-mini"
+        ],
+        "code": [
+          "openai:gpt-4o"
+        ],
+        "fast": [
+          "openai:gpt-4o-mini"
+        ],
+        "general": [
+          "openai:gpt-4o"
+        ]
+      },
+      "status": "ok — at least one configured provider"
+    },
+    "playwright_ws_guard": {
+      "status": "ok (WebSocket SSRF guard active)",
+      "version": "1.48.0",
+      "ws_guard_available": true
+    },
+    "profile_security": {
+      "fail_closed": true,
+      "profile": "lab",
+      "status": "ok — local security defaults preserved"
+    },
+    "redis_security": {
+      "broker": {
+        "acl_identity_present": false,
+        "configured": true,
+        "scheme": "redis",
+        "status": "DEGRADED — Celery broker uses plaintext Redis transport",
+        "tls": false
+      },
+      "rate_limit": {
+        "configured": false,
+        "status": "not configured"
+      },
+      "status": "DEGRADED — plaintext Redis transport detected"
+    }
+  },
+  "environment_profile": "lab",
+  "host_evaluated": "127.0.0.1",
+  "posture": {
+    "allowed_to_start": true,
+    "fail_closed": true,
+    "profile": "lab",
+    "state": "READY_WITH_WARNING",
+    "status": "READY_WITH_WARNING"
+  },
+  "schema_version": "webpent-preflight-v1"
+}

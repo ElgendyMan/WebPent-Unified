@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<!-- webpent/dashboard/workers_page.html — Ultimate plan 2026-10-27, proposal 9 (Phase 2).
+     Self-contained workers monitoring page (no CDN, no external assets).
+     Polls GET /api/v1/workers/status every 5 seconds and renders a live table. -->
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WebPent — مراقبة العاملين | Workers Monitor</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Tahoma, sans-serif; background: #0f1419; color: #d8dee6; }
+  header { padding: 16px 24px; background: #161b22; border-bottom: 1px solid #21262d; display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; }
+  h1 { font-size: 18px; margin: 0; color: #e6edf3; }
+  #checked { font-size: 12px; color: #768390; direction: ltr; }
+  main { padding: 20px 24px; max-width: 980px; margin: 0 auto; }
+  #banner { display: none; background: #3d2b00; color: #ffb86b; border: 1px solid #6b4d00; border-radius: 6px; padding: 10px 14px; margin-bottom: 16px; }
+  table { width: 100%; border-collapse: collapse; background: #161b22; border: 1px solid #21262d; border-radius: 8px; overflow: hidden; }
+  th, td { padding: 10px 14px; text-align: right; font-size: 14px; border-bottom: 1px solid #21262d; }
+  th { background: #1c2129; color: #9aa4b2; font-weight: 600; font-size: 13px; }
+  td.data { direction: ltr; text-align: left; font-family: Consolas, monospace; color: #c9d1d9; }
+  tr:last-child td { border-bottom: none; }
+  .badge { display: inline-block; padding: 2px 12px; border-radius: 12px; font-size: 12px; font-weight: 700; font-family: Consolas, monospace; }
+  .running  { background: #0f3320; color: #3fb950; border: 1px solid #196c2e; }
+  .stalled  { background: #3d2b00; color: #d29922; border: 1px solid #6b4d00; }
+  .failed   { background: #3d0d0d; color: #f85149; border: 1px solid #6e2121; }
+  #empty { color: #768390; padding: 22px; text-align: center; font-size: 14px; }
+  footer { padding: 12px 24px; color: #556070; font-size: 12px; border-top: 1px solid #21262d; margin-top: 24px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>لوحة مراقبة العاملين — WebPent Workers</h1>
+  <span id="checked">—</span>
+</header>
+<main>
+  <div id="banner">⚠ المراقبة غير متاحة — monitoring unavailable (تعذّر الوصول إلى /api/v1/workers/status)</div>
+  <table>
+    <thead>
+      <tr>
+        <th>اسم العامل<br><span style="font-weight:400">Worker name</span></th>
+        <th>الحالة<br><span style="font-weight:400">Status</span></th>
+        <th>الارتباطات النشطة<br><span style="font-weight:400">Active engagements</span></th>
+        <th>مدة التشغيل<br><span style="font-weight:400">Uptime</span></th>
+        <th>آخر فحص<br><span style="font-weight:400">Last checked</span></th>
+      </tr>
+    </thead>
+    <tbody id="rows"></tbody>
+  </table>
+  <div id="empty" hidden>لا يوجد عاملون للعرض — no workers to display</div>
+</main>
+<footer>تحديث تلقائي كل ٥ ثوانٍ — auto-refresh every 5s · للقراءة فقط — read-only monitoring</footer>
+<script>
+"use strict";
+const STATUS_AR = { running: "يعمل", stalled: "متوقف جزئيًا", failed: "فاشل" };
+
+function fmtUptime(seconds) {
+  if (seconds === null || seconds === undefined) return "—";
+  if (seconds < 60) return seconds + "s";
+  if (seconds < 3600) return Math.floor(seconds / 60) + "m " + (seconds % 60) + "s";
+  if (seconds < 86400) return Math.floor(seconds / 3600) + "h " + Math.floor((seconds % 3600) / 60) + "m";
+  return Math.floor(seconds / 86400) + "d " + Math.floor((seconds % 86400) / 3600) + "h";
+}
+
+function esc(value) {
+  const div = document.createElement("div");
+  div.textContent = String(value);
+  return div.innerHTML;
+}
+
+function render(data) {
+  const banner = document.getElementById("banner");
+  const rows = document.getElementById("rows");
+  const empty = document.getElementById("empty");
+  const checked = document.getElementById("checked");
+  rows.innerHTML = "";
+  const unavailable = !data || data.available === false;
+  banner.style.display = unavailable ? "block" : "none";
+  if (unavailable) {
+    empty.hidden = false;
+    empty.textContent = "المراقبة غير متاحة — " + ((data && (data.degraded_reason || data.reason)) || "monitoring unavailable");
+    checked.textContent = "—";
+    return;
+  }
+  const workers = Array.isArray(data.workers) ? data.workers : [];
+  empty.hidden = workers.length > 0;
+  for (const w of workers) {
+    const tr = document.createElement("tr");
+    const st = w.status || "failed";
+    tr.innerHTML =
+      "<td class='data'>" + esc(w.name || "?") + "</td>" +
+      "<td><span class='badge " + esc(st) + "'>" + esc(STATUS_AR[st] || st) + "</span></td>" +
+      "<td class='data'>" + esc(w.active_engagements ?? 0) + "</td>" +
+      "<td class='data'>" + esc(fmtUptime(w.started_seconds_ago)) + "</td>" +
+      "<td class='data'>" + esc(data.checked_at || "—") + "</td>";
+    rows.appendChild(tr);
+  }
+  checked.textContent = data.checked_at || "—";
+}
+
+async function refresh() {
+  try {
+    const response = await fetch("/api/v1/workers/status", { headers: { "Accept": "application/json" } });
+    if (!response.ok) throw new Error("HTTP " + response.status);
+    render(await response.json());
+  } catch (error) {
+    render({ available: false, degraded_reason: "monitoring unavailable: " + error.message });
+  }
+}
+
+refresh();
+setInterval(refresh, 5000);
+</script>
+</body>
+</html>

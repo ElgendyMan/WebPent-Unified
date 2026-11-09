@@ -1,0 +1,80 @@
+{
+  "benchmark_id": "ABHC-v3-six-class-controlled-offline",
+  "classes": [
+    {
+      "case_count": 1,
+      "class": "idor",
+      "reason": "complete recorded causal/control/proof/replay evidence or equivalent sealed historical fields found",
+      "scorable": true,
+      "status": "SCORABLE_FROM_RECORDED_ARTIFACT"
+    },
+    {
+      "case_count": 0,
+      "class": "privilege_escalation",
+      "reason": "no complete recorded causal candidate/control/proof/replay evidence for this class",
+      "scorable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "case_count": 0,
+      "class": "business_logic",
+      "reason": "no complete recorded causal candidate/control/proof/replay evidence for this class",
+      "scorable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "case_count": 0,
+      "class": "information_disclosure",
+      "reason": "no complete recorded causal candidate/control/proof/replay evidence for this class",
+      "scorable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "case_count": 0,
+      "class": "authentication_boundary",
+      "reason": "no complete recorded causal candidate/control/proof/replay evidence for this class",
+      "scorable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "case_count": 0,
+      "class": "workflow_state_boundary",
+      "reason": "no complete recorded causal candidate/control/proof/replay evidence for this class",
+      "scorable": false,
+      "status": "BLOCKED"
+    }
+  ],
+  "execution": {
+    "credentials_used": false,
+    "external_targets_contacted": false,
+    "mutations_performed": false,
+    "offline": true,
+    "requests_sent": 0
+  },
+  "generated_at": "2026-08-27T21:48:24.071044+00:00",
+  "governance": {
+    "bug_bounty_status": "BLOCKED",
+    "official_isolated_p10_runs_authorized": false,
+    "p10_status": "NOT_QUALIFIED",
+    "p9_status": "NOT_QUALIFIED",
+    "qualification_effect": false,
+    "vip_status": "NOT_QUALIFIED"
+  },
+  "metrics": {
+    "adaptive_efficiency": null,
+    "blocked_class_count": 5,
+    "f1": null,
+    "precision": null,
+    "real_world_detection_rate": null,
+    "reason_unavailable": "recorded artifact does not establish an independent ABHC ground truth and multi-run denominator",
+    "recall": null,
+    "registered_class_count": 6,
+    "research_depth": null,
+    "scorable_class_count": 1
+  },
+  "recorded_complete_case_ids": [
+    "controlled.idor.owner_resource.v1"
+  ],
+  "source_artifact": "reports/evaluation/asros/asros_advanced_controlled_benchmark_v1.json",
+  "source_artifact_read_only": true
+}

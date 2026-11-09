@@ -1,0 +1,44 @@
+{
+  "schema": "webpent-cqa-v1-release-manifest",
+  "milestone": "WebPent CQA v1 — Causal Quality Activation",
+  "source_commit": "35ba55df368dcbb8d0daaaabd0740a73ec74a6cf",
+  "scope": "additive CQA evidence activation and audit artifacts",
+  "targets": 5,
+  "cases": 50,
+  "measured": {
+    "baseline_observations": 50,
+    "candidate_observations": 50,
+    "negative_control_observations": 50,
+    "proof_bundles": 0,
+    "scored_cases": 0,
+    "blocked_cases": 50
+  },
+  "quality_gates": {
+    "focused_tests": "22 passed",
+    "ruff": "passed",
+    "compileall": "passed",
+    "external_scope_scan": "passed",
+    "full_regression": "2288 passed, 11 preserved failures"
+  },
+  "governance": {
+    "qualification_status": "NOT_QUALIFIED",
+    "official_isolated_p10_runs_authorized": false,
+    "thresholds_changed": false,
+    "frozen_ground_truth_changed": false,
+    "legacy_validators_changed": false,
+    "external_targets_used": false,
+    "real_credentials_used": false,
+    "state_mutation_used": false
+  },
+  "deliverables": [
+    "src/",
+    "tests/",
+    "benchmarks/",
+    "reports/",
+    "metrics/",
+    "release/",
+    "provenance/",
+    "CQA_FINAL_AUDIT.md",
+    "SHA256SUMS"
+  ]
+}

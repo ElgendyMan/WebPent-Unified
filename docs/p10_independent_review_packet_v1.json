@@ -1,0 +1,224 @@
+{
+  "schema_version": "p10.independent_review_packet.v1",
+  "benchmark_id": "juice-shop-p10-v1",
+  "purpose": "Mapping-only independent review record for bounded local case mappings; this packet does not approve live metrics, P10 qualification, or VIP qualification.",
+  "target": {
+    "base_url": "http://127.0.0.1:3000",
+    "image_digest": "sha256:73c53fbf442e8337b3ea3d98c7e8550308854701ebdfce4cc39768f36b75430e",
+    "catalog_snapshot_sha256": "sha256:dcfcd99711749f8354b78e1f2025c654a6db52174b674e9781489af440624c19"
+  },
+  "independence": {
+    "source_is_webpent_output": false,
+    "source_refs": [
+      "https://owasp.org/www-project-juice-shop/",
+      "https://github.com/juice-shop/juice-shop/blob/master/data/static/challenges.yml",
+      "https://github.com/juice-shop/juice-shop/tree/master/routes"
+    ],
+    "results_seen_by_reviewer": false,
+    "oracle_contracts_source": "src/webpent/benchmark/juice_shop_oracles.py",
+    "canonical_mapping_sha256": "sha256:602b2411df9b259911b1ae0757e5e26fabdc86b928fb5b43b040750182762ad5",
+    "canonical_oracle_contract_sha256": "sha256:63977f8451f0709abff5671d1ac24943abe35b0bb0a4f399791e2c1f66aeb71c",
+    "review_status": "mapping_approved_pending_oracle_freeze_and_full_runs",
+    "mapping_review_approved": true,
+    "full_p10_qualification_approved": false,
+    "reviewer_id": "independent-reviewer:grok-p10-mapping",
+    "reviewed_at_utc": "2026-08-25T21:00:00+00:00",
+    "approval_scope": "case_mapping_and_safety_posture_only",
+    "mapping_sha256": "sha256:602b2411df9b259911b1ae0757e5e26fabdc86b928fb5b43b040750182762ad5",
+    "oracle_contract_sha256": "sha256:63977f8451f0709abff5671d1ac24943abe35b0bb0a4f399791e2c1f66aeb71c"
+  },
+  "safety_contract": {
+    "allowed_origin": "http://127.0.0.1:3000",
+    "allowed_methods": [
+      "GET"
+    ],
+    "credentials_used": false,
+    "account_actions": false,
+    "external_destinations": false,
+    "raw_bodies_retained": false,
+    "raw_headers_retained": false,
+    "cookies_retained": false,
+    "secrets_retained": false
+  },
+  "minimum_acceptance": {
+    "minimum_approved_cases": 10,
+    "minimum_approved_classes": 6,
+    "minimum_isolated_runs": 3
+  },
+  "candidate_cases": [
+    {
+      "case_id": "juice.directory_listing.v1",
+      "challenge_key": "directoryListingChallenge",
+      "category": "Sensitive Data Exposure",
+      "surface": "/ftp",
+      "operation": "navigate",
+      "oracle_id": "http.read_only.resource_existence_and_metadata",
+      "source_ref": "https://github.com/juice-shop/juice-shop/tree/master/routes",
+      "review_decision": "approved_mapping"
+    },
+    {
+      "case_id": "juice.forgotten_backup.v1",
+      "challenge_key": "forgottenBackupChallenge",
+      "category": "Sensitive Data Exposure",
+      "surface": "/ftp/coupons_2013.md.bak",
+      "operation": "navigate",
+      "oracle_id": "http.read_only.resource_existence_and_metadata",
+      "source_ref": "https://github.com/juice-shop/juice-shop/tree/master/routes",
+      "review_decision": "approved_mapping"
+    },
+    {
+      "case_id": "juice.access_log_disclosure.v1",
+      "challenge_key": "accessLogDisclosureChallenge",
+      "category": "Observability Failures",
+      "surface": "/ftp/access.log",
+      "operation": "navigate",
+      "oracle_id": "http.read_only.log_resource_metadata",
+      "source_ref": "https://github.com/juice-shop/juice-shop/tree/master/routes",
+      "review_decision": "approved_mapping"
+    },
+    {
+      "case_id": "juice.misplaced_signature_file.v1",
+      "challenge_key": "misplacedSignatureFileChallenge",
+      "category": "Observability Failures",
+      "surface": "/ftp/suspicious_errors.yml",
+      "operation": "navigate",
+      "oracle_id": "http.read_only.signature_resource_metadata",
+      "source_ref": "https://github.com/juice-shop/juice-shop/tree/master/routes",
+      "review_decision": "approved_mapping"
+    },
+    {
+      "case_id": "juice.exposed_metrics.v1",
+      "challenge_key": "exposedMetricsChallenge",
+      "category": "Observability Failures",
+      "surface": "/metrics",
+      "operation": "navigate",
+      "oracle_id": "http.read_only.metrics_publication",
+      "source_ref": "https://github.com/juice-shop/juice-shop/tree/master/routes",
+      "review_decision": "approved_mapping"
+    },
+    {
+      "case_id": "juice.security_policy.v1",
+      "challenge_key": "securityPolicyChallenge",
+      "category": "Miscellaneous",
+      "surface": "/security.txt",
+      "operation": "navigate",
+      "oracle_id": "http.read_only.policy_resource_metadata",
+      "source_ref": "https://github.com/juice-shop/juice-shop/tree/master/routes",
+      "review_decision": "approved_mapping"
+    },
+    {
+      "case_id": "juice.error_handling.v1",
+      "challenge_key": "errorHandlingChallenge",
+      "category": "Security Misconfiguration",
+      "surface": "/rest/qwertz",
+      "operation": "navigate",
+      "oracle_id": "http.read_only.error_disclosure_metadata",
+      "source_ref": "https://github.com/juice-shop/juice-shop/tree/master/routes",
+      "review_decision": "approved_mapping"
+    },
+    {
+      "case_id": "juice.redirect_local.v1",
+      "challenge_key": "redirectCryptoCurrencyChallenge",
+      "category": "Unvalidated Redirects",
+      "surface": "/redirect?to=http://127.0.0.1:3000/",
+      "operation": "navigate",
+      "oracle_id": "out_of_scope.external_destination_control",
+      "source_ref": "https://github.com/juice-shop/juice-shop/tree/master/routes",
+      "review_decision": "out_of_scope",
+      "review_reason": "external_destination_control_not_in_local_only_contract"
+    },
+    {
+      "case_id": "juice.privacy_policy_proof.v1",
+      "challenge_key": "privacyPolicyProofChallenge",
+      "category": "Security through Obscurity",
+      "surface": "/we/may/also/instruct/you/to/refuse/all/reasonably/necessary/responsibility",
+      "operation": "navigate",
+      "oracle_id": "http.read_only.policy_resource_metadata",
+      "source_ref": "https://github.com/juice-shop/juice-shop/tree/master/routes",
+      "review_decision": "approved_mapping"
+    },
+    {
+      "case_id": "juice.local_xss.v1",
+      "challenge_key": "localXssChallenge",
+      "category": "XSS",
+      "surface": "/",
+      "operation": "typed_search",
+      "oracle_id": "dom.safe_search_sink_observation",
+      "source_ref": "https://github.com/juice-shop/juice-shop/blob/master/frontend/src/app/search-result/search-result.component.ts",
+      "review_decision": "approved_mapping"
+    },
+    {
+      "case_id": "juice.well_known_security_policy.v1",
+      "challenge_key": "securityPolicyChallenge",
+      "category": "Miscellaneous",
+      "surface": "/.well-known/security.txt",
+      "operation": "navigate",
+      "oracle_id": "http.read_only.policy_resource_metadata",
+      "source_ref": "https://github.com/juice-shop/juice-shop/blob/master/server.ts",
+      "review_decision": "approved_mapping"
+    },
+    {
+      "case_id": "juice.public_scoreboard_route.v1",
+      "challenge_key": "scoreBoardChallenge",
+      "category": "Miscellaneous",
+      "surface": "/score-board",
+      "operation": "navigate",
+      "oracle_id": "http.read_only.public_route_metadata",
+      "source_ref": "https://github.com/juice-shop/juice-shop/blob/master/server.ts",
+      "review_decision": "approved_mapping"
+    },
+    {
+      "case_id": "juice.application_version_surface.v1",
+      "challenge_key": "adminSectionChallenge",
+      "category": "Sensitive Data Exposure",
+      "surface": "/rest/admin/application-version",
+      "operation": "navigate",
+      "oracle_id": "http.read_only.version_disclosure_metadata",
+      "source_ref": "https://github.com/juice-shop/juice-shop/blob/master/server.ts",
+      "review_decision": "out_of_scope",
+      "review_reason": "authenticated_admin_surface_not_in_local_read_only_contract"
+    }
+  ],
+  "approval_record": {
+    "reviewer_id": "independent-reviewer:grok-p10-mapping",
+    "reviewed_at": "2026-08-25T21:00:00+00:00",
+    "mapping_hash": "sha256:602b2411df9b259911b1ae0757e5e26fabdc86b928fb5b43b040750182762ad5",
+    "oracle_contract_hash": "sha256:63977f8451f0709abff5671d1ac24943abe35b0bb0a4f399791e2c1f66aeb71c",
+    "approved_case_count": 11,
+    "approved_class_count": 6,
+    "approved": true,
+    "approval_scope": "case_mapping_and_safety_posture_only",
+    "full_p10_qualification_approved": false,
+    "explicitly_not_approving": [
+      "live_precision_recall",
+      "p10_qualification",
+      "vip_qualification",
+      "http_200_as_finding",
+      "blocked_inventory_rows_as_tp"
+    ],
+    "out_of_scope_confirmed": [
+      "juice.application_version_surface.v1",
+      "juice.redirect_local.v1"
+    ],
+    "conditions": [
+      "Oracles remain metadata/DOM-safe; no raw body/header/cookie retention",
+      "Ground truth flips only approved cases to mapping_status=approved and freezes oracle_status",
+      "Metrics require reruns covering approved cases under unique workspace namespaces",
+      "P9 remains independent fail-closed"
+    ],
+    "reviewer_type": "external_mapping_reviewer_non_human_identifier",
+    "approved_case_ids": [
+      "juice.access_log_disclosure.v1",
+      "juice.directory_listing.v1",
+      "juice.error_handling.v1",
+      "juice.exposed_metrics.v1",
+      "juice.forgotten_backup.v1",
+      "juice.local_xss.v1",
+      "juice.misplaced_signature_file.v1",
+      "juice.privacy_policy_proof.v1",
+      "juice.public_scoreboard_route.v1",
+      "juice.security_policy.v1",
+      "juice.well_known_security_policy.v1"
+    ]
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "case_id": "target-delta-case-01",
+  "vulnerability_class": "Tenant Isolation Failure",
+  "causal_trace": {
+    "case_specification": "User from tenant-delta-A accesses resource in tenant-delta-B",
+    "target_route": "/api/tenants/delta-B/data/records",
+    "actor_identity_current": "delta-A-user",
+    "actor_identity_required": "delta-A-user",
+    "tenant_context_current": "tenant-delta-A (but not propagated to execution)",
+    "tenant_context_required": "tenant-delta-A (cross-tenant access to delta-B resource)",
+    "role_current": "user",
+    "role_required": "user",
+    "baseline_observation": "GET /api/health \u2014 200 OK",
+    "candidate_observation_current": "GET /api/tenants/delta-B/data/records \u2014 executed in default tenant context, returns 403 (no cross-tenant signal)",
+    "candidate_observation_required": "GET /api/tenants/delta-B/data/records with X-Tenant: delta-A \u2014 200 OK (CROSS-TENANT LEAK)",
+    "negative_control_current": "/patched/... \u2014 403 (same-tenant enforcement works, but wrong context)",
+    "negative_control_required": "/patched/... \u2014 403 with proper cross-tenant enforcement",
+    "observed_response_current": "Both return 403 because tenant context not propagated",
+    "causal_predicate_current": "No differential \u2192 CLEAN",
+    "causal_predicate_required": "Cross-tenant access succeeds in candidate but blocked in control \u2192 CONFIRMED",
+    "proof_bundle_eligibility": "Eligible but built without tenant propagation",
+    "replay_eligibility": "Replays without tenant header"
+  },
+  "identity_matrix_tested": [
+    {
+      "identity": "delta-A-user",
+      "tenant": "tenant-delta-A",
+      "role": "user",
+      "route": "/api/tenants/delta-A/data/records",
+      "status": 200,
+      "semantic": "AUTHORIZED"
+    },
+    {
+      "identity": "delta-A-user",
+      "tenant": "tenant-delta-A",
+      "route": "/api/tenants/delta-B/data/records",
+      "status": 200,
+      "semantic": "CROSS-TENANT LEAK \u2014 VULNERABLE"
+    },
+    {
+      "identity": "delta-B-user",
+      "tenant": "tenant-delta-B",
+      "route": "/api/tenants/delta-B/data/records",
+      "status": 200,
+      "semantic": "AUTHORIZED"
+    }
+  ],
+  "object_matrix": [
+    {
+      "object": "delta-B-records",
+      "owner_tenant": "tenant-delta-B",
+      "expected_boundary": "tenant-B_only",
+      "observed_without_tenant_header": 403,
+      "observed_with_tenant_A_header": 200
+    }
+  ],
+  "root_cause_classification": "EXECUTION_CAPABILITY_LIMITATION",
+  "specific_issue": "CaseExecutionSpec lacks ActorContext with tenant propagation \u2014 X-Tenant header not sent, so cross-tenant access is never exercised",
+  "evidence": "When X-Tenant: delta-A header is included, cross-tenant leak is observable and detectable"
+}

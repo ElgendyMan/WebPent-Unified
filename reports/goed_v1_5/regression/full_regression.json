@@ -1,0 +1,62 @@
+{
+  "compileall": {
+    "status": "PASS"
+  },
+  "import_smoke": {
+    "status": "PASS",
+    "modules_tested": 12,
+    "details": {
+      "webpent.goed_v1": "PASS",
+      "webpent.goed_v1.contracts": "PASS",
+      "webpent.goed_v1.open_world_mode": "PASS",
+      "webpent.goed_v1.hypothesis_engine": "PASS",
+      "webpent.goed_v1.exploration_loop": "PASS",
+      "webpent.cqa_v2": "PASS",
+      "webpent.cqa_v2.causal_guard": "PASS",
+      "webpent.cqa_v2.proof_bundle_builder": "PASS",
+      "webpent.cqa_v2.replay_verifier": "PASS",
+      "webpent.smart": "PASS",
+      "webpent.models.proof_bundle": "PASS",
+      "webpent.cqa_v2.execution.actor_context": "PASS"
+    }
+  },
+  "generic_neutrality": {
+    "status": "PASS",
+    "note": "Patterns found only in isolation layer's own detection target list (defense), not in discovery logic",
+    "raw_pattern_count": 3,
+    "runtime_leakage": "NONE"
+  },
+  "secret_scan": {
+    "status": "PASS",
+    "secrets_found": []
+  },
+  "governance": {
+    "status": "PASS",
+    "goed_governance": {
+      "no_vulnerability_labels_used": true,
+      "no_target_specific_knowledge": true,
+      "no_benchmark_imports": true,
+      "additive_only": true,
+      "preserves_cqa_rta_irta": true,
+      "causal_guard_mandatory": true
+    },
+    "exploration_governance": {
+      "loop_can_change_direction": true,
+      "invariants_are_hypotheses_not_truth": true,
+      "information_gain_ranking": true,
+      "bounded_actions_only": true,
+      "causal_guard_mandatory_for_confirmation": true
+    },
+    "vip_qualified_remains_false": true,
+    "qualification_state_remains_conditional": true
+  },
+  "historical_milestones": {
+    "status": "PASS",
+    "gate11_audit_preserved": true,
+    "executive_summary_preserved": true,
+    "goed_v1_baseline_preserved": true,
+    "qualification_v10_preserved": true,
+    "pilot_metrics_preserved": true
+  },
+  "overall": "PASS"
+}

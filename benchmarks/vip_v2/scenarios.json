@@ -1,0 +1,34 @@
+{
+  "schema_version": 2,
+  "execution_mode": "offline_fixture_only",
+  "scenarios": [
+    {
+      "scenario_id": "surface_inventory",
+      "purpose": "Compare deterministic surface inventory proposals",
+      "expected_external_effect": "none",
+      "requires_live_target": false
+    },
+    {
+      "scenario_id": "identity_differential",
+      "purpose": "Evaluate supplied owner/foreign authorization observations",
+      "expected_external_effect": "none",
+      "requires_live_target": false,
+      "required_artifacts": ["redacted_authorization_observations", "negative_control"]
+    },
+    {
+      "scenario_id": "workflow_invariant",
+      "purpose": "Evaluate supplied workflow state transitions and invariant candidates",
+      "expected_external_effect": "none",
+      "requires_live_target": false,
+      "required_artifacts": ["state_before", "state_after", "evidence_refs"]
+    },
+    {
+      "scenario_id": "proof_replay_accounting",
+      "purpose": "Measure proof and replay agreement from supplied QualificationRun records",
+      "expected_external_effect": "none",
+      "requires_live_target": false,
+      "required_artifacts": ["proof_case_ids", "replay_case_ids", "evidence_artifact"]
+    }
+  ],
+  "unrecorded_results": true
+}

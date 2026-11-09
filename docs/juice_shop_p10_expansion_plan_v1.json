@@ -1,0 +1,171 @@
+{
+  "schema_version": "p10.juice_shop.expansion_plan.v1",
+  "status": "draft_pending_independent_review",
+  "purpose": "Close the 10-case/6-class gap only through target-backed causal contracts; this plan is not an approval record and does not modify frozen ground truth.",
+  "source_revisions": {
+    "webpent_commit": "31d0707dc896697a7bd17a83ce1e0114d4a3b24d",
+    "webpent_tree": "9f65039c90c19353f94b8b68bca95bfd5f44c6d0",
+    "juice_shop_source_commit": "1618a611b173b4bf114028e6e02549950606e29d",
+    "juice_shop_version": "20.2.0"
+  },
+  "current_gate": {
+    "governance_status": "PENDING_INDEPENDENT_GOVERNANCE_SIGNOFF",
+    "official_isolated_p10_runs_authorized": false,
+    "p10_status": "NOT_QUALIFIED",
+    "p9_status": "NOT_QUALIFIED",
+    "vip_status": "NOT_QUALIFIED"
+  },
+  "thresholds": {
+    "minimum_approved_cases": 10,
+    "minimum_approved_classes": 6,
+    "minimum_isolated_runs": 3
+  },
+  "current_oracle_approved_set": {
+    "case_count": 3,
+    "class_count": 3,
+    "case_ids": [
+      "juice.error_handling.v1",
+      "juice.exposed_metrics.v1",
+      "juice.local_xss.v1"
+    ],
+    "class_names": [
+      "Security Misconfiguration",
+      "Observability Failures",
+      "XSS"
+    ]
+  },
+  "gap": {
+    "additional_cases_required": 7,
+    "additional_classes_required": 3,
+    "qualification_math": "Theoretical only: 7 additional approved cases and 3 additional approved classes are required. No candidate below the evidence gates counts toward this math."
+  },
+  "case_disposition_plan": [
+    {
+      "registry_case_id": "juice.access_log_disclosure.v1",
+      "current_disposition": "implemented_pending_governance_confirmation",
+      "class": "Observability Failures",
+      "next_gate": "independent reviewer resolves /ftp/access.log versus /support/logs/access.log.<date> mapping and re-approves the current oracle contract",
+      "counts_now": false
+    },
+    {
+      "registry_case_id": "juice.directory_listing.v1",
+      "current_disposition": "blocked",
+      "class": "Sensitive Data Exposure",
+      "next_gate": "No promotion unless a target-backed semantic causal predicate, safe precondition, negative control, central verification, and replayable proof are demonstrated",
+      "counts_now": false
+    },
+    {
+      "registry_case_id": "juice.forgotten_backup.v1",
+      "current_disposition": "blocked",
+      "class": "Sensitive Data Exposure",
+      "next_gate": "Anonymous-read precondition must be safely and reproducibly available; no filter bypass or auth bypass is allowed",
+      "counts_now": false
+    },
+    {
+      "registry_case_id": "juice.misplaced_signature_file.v1",
+      "current_disposition": "blocked",
+      "class": "Observability Failures",
+      "next_gate": "Mapped target resource must be present and anonymously readable under a read-only contract; source presence alone is insufficient",
+      "counts_now": false
+    },
+    {
+      "registry_case_id": "juice.privacy_policy_proof.v1",
+      "current_disposition": "out_of_scope",
+      "class": "Security through Obscurity",
+      "next_gate": "No promotion; policy completion behavior is not a vulnerability predicate under the current benchmark contract",
+      "counts_now": false
+    },
+    {
+      "registry_case_id": "juice.public_scoreboard_route.v1",
+      "current_disposition": "out_of_scope",
+      "class": "Miscellaneous",
+      "next_gate": "No promotion; route reachability alone is not a vulnerability predicate",
+      "counts_now": false
+    },
+    {
+      "registry_case_id": "juice.security_policy.v1",
+      "current_disposition": "out_of_scope",
+      "class": "Miscellaneous",
+      "next_gate": "No promotion; policy-resource existence alone is not a vulnerability predicate",
+      "counts_now": false
+    },
+    {
+      "registry_case_id": "juice.well_known_security_policy.v1",
+      "current_disposition": "out_of_scope",
+      "class": "Miscellaneous",
+      "next_gate": "No promotion; duplicate policy-resource semantics do not create an independent vulnerability case",
+      "counts_now": false
+    }
+  ],
+  "new_candidate_tracks": [
+    {
+      "candidate_key": "frontend_typosquatting_static_dependency",
+      "potential_class": "Vulnerable Components",
+      "initial_safety": "read_only_candidate",
+      "required_evidence": [
+        "target-local source proof of the exact served asset",
+        "bounded GET observation with no payload or submission",
+        "baseline asset/control asset comparison",
+        "semantic causal predicate stronger than asset existence",
+        "independent negative control",
+        "central verifier",
+        "sealed and replayable ProofBundle",
+        "independent governance approval"
+      ],
+      "status": "needs_profile_and_source_proof",
+      "counts_now": false
+    },
+    {
+      "candidate_key": "sql_injection_read_only_probe",
+      "potential_class": "Injection",
+      "initial_safety": "blocked",
+      "reason": "A meaningful SQL-injection predicate requires crafted input and is not currently covered by the local read-only no-payload contract.",
+      "status": "blocked_no_safe_contract",
+      "counts_now": false
+    },
+    {
+      "candidate_key": "broken_access_control_state_boundary",
+      "potential_class": "Broken Access Control",
+      "initial_safety": "blocked",
+      "reason": "The challenge semantics require another user's state or a state-changing action; no credentials, auth bypass, or mutation is allowed in this phase.",
+      "status": "blocked_precondition_or_mutation",
+      "counts_now": false
+    },
+    {
+      "candidate_key": "sensitive_document_static_resource",
+      "potential_class": "Sensitive Data Exposure",
+      "initial_safety": "candidate_only",
+      "reason": "A static document can add a case but cannot add a new class; it must prove a vulnerability predicate rather than public reachability.",
+      "status": "needs_target_mapping_and_oracle_review",
+      "counts_now": false
+    }
+  ],
+  "mandatory_contract_gates_for_any_promotion": [
+    "independent mapping and oracle decision",
+    "safe precondition verified without bypass",
+    "baseline/candidate/independent negative control",
+    "semantic causal predicate",
+    "central verifier",
+    "redacted sealed ProofBundle",
+    "verify_seal success",
+    "replay success",
+    "target-local adapter/profile placement",
+    "regression test and before/after comparison"
+  ],
+  "prohibited_shortcuts": [
+    "Do not modify frozen ground truth to increase counts",
+    "Do not count blocked, out_of_scope, or observation-only rows as TP, FP, or FN",
+    "Do not promote candidate keys to approved case IDs administratively",
+    "Do not change Generic Core for a Juice Shop-only need",
+    "Do not start official isolated P10 runs while authorization is false"
+  ],
+  "candidate_review_artifacts": [
+    "reports/evaluation/p10_candidates/CANDIDATE-01-vulnerable-components-diagnosis-and-oracle-proposal-v1.md",
+    "reports/evaluation/p10_candidates/CANDIDATE-02-sql-injection-diagnosis-and-oracle-proposal-v1.md",
+    "reports/evaluation/p10_candidates/CANDIDATE-03-broken-access-control-diagnosis-and-oracle-proposal-v1.md",
+    "reports/evaluation/p10_candidates/CANDIDATE-04-sensitive-document-diagnosis-and-oracle-proposal-v1.md",
+    "reports/evaluation/p10_candidates/README.md",
+    "reports/evaluation/JUICE-SHOP-P10-COVERAGE-EXPANSION-RESULT-v1.md"
+  ],
+  "next_decision": "Remain fail-closed. Execute only offline candidate-contract design and bounded local read-only feasibility checks; require independent governance review before any new case enters the final scoring set."
+}

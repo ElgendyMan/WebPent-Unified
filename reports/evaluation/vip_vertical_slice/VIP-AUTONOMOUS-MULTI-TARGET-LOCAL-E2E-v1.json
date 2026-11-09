@@ -1,0 +1,1044 @@
+{
+  "acceptance_checks": {
+    "all_targets_have_negative_control": true,
+    "all_targets_observation_only": true,
+    "lifecycle_complete_for_each_target": true,
+    "no_credentials": true,
+    "no_external_contact": true,
+    "no_quality_scoring_without_admitted_ground_truth": true,
+    "no_state_mutation": true,
+    "official_p10_gate_closed": true,
+    "qualification_claim_absent": true,
+    "three_target_campaigns_present": true
+  },
+  "generated_at": "2026-08-27T05:47:03.987196+00:00",
+  "governance": {
+    "bug_bounty": "BLOCKED",
+    "human_independent_signoff_obtained": false,
+    "official_isolated_p10_runs_authorized": false,
+    "p10": "NOT_QUALIFIED",
+    "p9": "NOT_QUALIFIED",
+    "scoring_promotion": false,
+    "vip": "NOT_QUALIFIED"
+  },
+  "limitations": [
+    "All three campaigns are passive anonymous GET-only observations classified as observation_only.",
+    "No vulnerability case was promoted without an admitted target-specific ground truth and causal oracle.",
+    "WebGoat and crAPI have no approved scoring set in the current governance packet.",
+    "No credentials, payloads, mutations, external targets, official P10 runs, or qualification actions were attempted."
+  ],
+  "schema": "vip-autonomous-multitarget-local-e2e-v1",
+  "targets": {
+    "crapi-loopback": {
+      "cases": [
+        {
+          "case_id": "crapi-loopback-live-root-observation",
+          "failure_record": {
+            "case_id": "crapi-loopback-live-root-observation",
+            "causal_signal": false,
+            "failure_id": "failure:crapi-loopback-live-root-observation",
+            "negative_control_complete": true,
+            "observed_status": "observation_only",
+            "oracle_decision": "inconclusive",
+            "recorded_as": "failure_or_inconclusive_evidence",
+            "target": "http://127.0.0.1:8888"
+          },
+          "improvement": null,
+          "improvement_proposal": {
+            "change_class": "generic_candidate_requires_owner_review",
+            "failure_record": {
+              "case_id": "crapi-loopback-live-root-observation",
+              "causal_signal": false,
+              "failure_id": "failure:crapi-loopback-live-root-observation",
+              "negative_control_complete": true,
+              "observed_status": "observation_only",
+              "oracle_decision": "inconclusive",
+              "recorded_as": "failure_or_inconclusive_evidence",
+              "target": "http://127.0.0.1:8888"
+            },
+            "proposed_action": "prepare owner decision packet; do not implement",
+            "root_cause": "missing_or_insufficient_causal_contract_evidence",
+            "safety_scope": "gated change; no implementation without explicit owner approval",
+            "status": "proposed"
+          },
+          "oracle": {
+            "baseline_present": true,
+            "causal_signal": false,
+            "decision": "inconclusive",
+            "negative_control_complete": true,
+            "predicate_match": true,
+            "requires_target_backed": true,
+            "verifier_id": "vip_vertical_slice_central_verifier",
+            "verifier_version": "1"
+          },
+          "owner_decision_packet": {
+            "decision_requested": "owner approval required for any gated improvement",
+            "evidence": [
+              "decision:inconclusive",
+              "target:http://127.0.0.1:8888",
+              "case:crapi-loopback-live-root-observation"
+            ],
+            "files_or_commits_affected": [
+              "target-local adapter/profile only"
+            ],
+            "options": [
+              "leave blocked/inconclusive",
+              "implement bounded local improvement"
+            ],
+            "recommended_decision": "keep gate closed until explicit owner approval",
+            "risk": [
+              "no network escalation",
+              "no credentials",
+              "no mutation",
+              "no frozen artifact changes"
+            ],
+            "rollback": [
+              "revert isolated commit",
+              "discard metadata-only campaign artifact"
+            ],
+            "status": "pending_owner_approval",
+            "why_it_is_needed": "crapi-loopback-live-root-observation ended as observation_only; causal evidence was insufficient"
+          },
+          "proof": {
+            "promotion_ready": false,
+            "replay_status": "not_run",
+            "sealed": false,
+            "verify_seal": false
+          },
+          "raw_payloads_persisted": false,
+          "scoring_promotion": false,
+          "status": "observation_only",
+          "vulnerability_class": "local_vip_passive_observation"
+        }
+      ],
+      "engagement_id": "vip-crapi-loopback-local-e2e-v1",
+      "hash": "sha256:26b7518e724a81c268fa2632e830a0057b59186ba476a289be3f13601aff2a15",
+      "lifecycle": [
+        {
+          "engagement_id": "vip-crapi-loopback-local-e2e-v1",
+          "stage": "CREATE_CAMPAIGN",
+          "status": "completed"
+        },
+        {
+          "authorization_ref": "[REDACTED]",
+          "stage": "VALIDATE_SCOPE",
+          "status": "completed"
+        },
+        {
+          "readiness": {
+            "external_contact": false,
+            "mutation": false,
+            "ready": true
+          },
+          "stage": "CHECK_TARGET_READINESS",
+          "status": "completed"
+        },
+        {
+          "capabilities": {
+            "http_read": {
+              "available": true
+            }
+          },
+          "stage": "DISCOVER_CAPABILITIES",
+          "status": "completed"
+        },
+        {
+          "rejected": [],
+          "selected": [
+            "crapi-loopback-live-root-observation"
+          ],
+          "stage": "SELECT_SAFE_CASES",
+          "status": "completed"
+        },
+        {
+          "case_id": "crapi-loopback-live-root-observation",
+          "stage": "RUN_BASELINE",
+          "status": "completed"
+        },
+        {
+          "case_id": "crapi-loopback-live-root-observation",
+          "stage": "EXECUTE_BOUNDED_ACTIONS",
+          "status": "completed"
+        },
+        {
+          "case_id": "crapi-loopback-live-root-observation",
+          "stage": "COLLECT_REDACTED_OBSERVATIONS",
+          "status": "completed"
+        },
+        {
+          "case_id": "crapi-loopback-live-root-observation",
+          "stage": "RUN_INDEPENDENT_NEGATIVE_CONTROL",
+          "status": "completed"
+        },
+        {
+          "case_id": "crapi-loopback-live-root-observation",
+          "oracle": {
+            "baseline_present": true,
+            "causal_signal": false,
+            "decision": "inconclusive",
+            "negative_control_complete": true,
+            "predicate_match": true,
+            "requires_target_backed": true,
+            "verifier_id": "vip_vertical_slice_central_verifier",
+            "verifier_version": "1"
+          },
+          "stage": "EVALUATE_CENTRAL_ORACLE",
+          "status": "completed"
+        },
+        {
+          "bundle_id": null,
+          "case_id": "crapi-loopback-live-root-observation",
+          "stage": "CREATE_PROOFBUNDLE",
+          "status": "completed"
+        },
+        {
+          "case_id": "crapi-loopback-live-root-observation",
+          "stage": "VERIFY_SEAL",
+          "status": "completed",
+          "verify_seal": false
+        },
+        {
+          "case_id": "crapi-loopback-live-root-observation",
+          "replay_status": "not_run",
+          "stage": "REPLAY",
+          "status": "completed"
+        },
+        {
+          "case_id": "crapi-loopback-live-root-observation",
+          "quality": {
+            "causal_signal": false,
+            "proof": {
+              "promotion_ready": false,
+              "replay_status": "not_run",
+              "sealed": false,
+              "verify_seal": false
+            },
+            "status": "observation_only"
+          },
+          "stage": "EVALUATE_DETECTION_QUALITY",
+          "status": "completed"
+        },
+        {
+          "case_id": "crapi-loopback-live-root-observation",
+          "failure_record": {
+            "case_id": "crapi-loopback-live-root-observation",
+            "causal_signal": false,
+            "failure_id": "failure:crapi-loopback-live-root-observation",
+            "negative_control_complete": true,
+            "observed_status": "observation_only",
+            "oracle_decision": "inconclusive",
+            "recorded_as": "failure_or_inconclusive_evidence",
+            "target": "http://127.0.0.1:8888"
+          },
+          "root_cause": "missing_or_insufficient_causal_contract_evidence",
+          "stage": "DIAGNOSE_FAILURES",
+          "status": "completed"
+        },
+        {
+          "case_id": "crapi-loopback-live-root-observation",
+          "owner_decision_packet": {
+            "decision_requested": "owner approval required for any gated improvement",
+            "evidence": [
+              "decision:inconclusive",
+              "target:http://127.0.0.1:8888",
+              "case:crapi-loopback-live-root-observation"
+            ],
+            "files_or_commits_affected": [
+              "target-local adapter/profile only"
+            ],
+            "options": [
+              "leave blocked/inconclusive",
+              "implement bounded local improvement"
+            ],
+            "recommended_decision": "keep gate closed until explicit owner approval",
+            "risk": [
+              "no network escalation",
+              "no credentials",
+              "no mutation",
+              "no frozen artifact changes"
+            ],
+            "rollback": [
+              "revert isolated commit",
+              "discard metadata-only campaign artifact"
+            ],
+            "status": "pending_owner_approval",
+            "why_it_is_needed": "crapi-loopback-live-root-observation ended as observation_only; causal evidence was insufficient"
+          },
+          "proposal": {
+            "change_class": "generic_candidate_requires_owner_review",
+            "failure_record": {
+              "case_id": "crapi-loopback-live-root-observation",
+              "causal_signal": false,
+              "failure_id": "failure:crapi-loopback-live-root-observation",
+              "negative_control_complete": true,
+              "observed_status": "observation_only",
+              "oracle_decision": "inconclusive",
+              "recorded_as": "failure_or_inconclusive_evidence",
+              "target": "http://127.0.0.1:8888"
+            },
+            "proposed_action": "prepare owner decision packet; do not implement",
+            "root_cause": "missing_or_insufficient_causal_contract_evidence",
+            "safety_scope": "gated change; no implementation without explicit owner approval",
+            "status": "proposed"
+          },
+          "stage": "CREATE_IMPROVEMENT_PROPOSAL",
+          "status": "completed"
+        },
+        {
+          "case_id": "crapi-loopback-live-root-observation",
+          "change_class": "generic_candidate_requires_review",
+          "stage": "CLASSIFY_CHANGE",
+          "status": "completed"
+        },
+        {
+          "case_id": "crapi-loopback-live-root-observation",
+          "reason": "owner_approval_required",
+          "stage": "IMPLEMENT_SAFE_LOCAL_CHANGE",
+          "status": "blocked"
+        },
+        {
+          "case_id": "crapi-loopback-live-root-observation",
+          "reason": "no_approved_implementation",
+          "stage": "RUN_REGRESSION",
+          "status": "blocked"
+        },
+        {
+          "case_id": "crapi-loopback-live-root-observation",
+          "reason": "no_approved_implementation",
+          "stage": "RE-TEST",
+          "status": "blocked"
+        },
+        {
+          "case_id": "crapi-loopback-live-root-observation",
+          "comparison": {
+            "after": "not_run",
+            "before": "observation_only",
+            "scoring_promotion": false
+          },
+          "stage": "COMPARE_BEFORE_AFTER",
+          "status": "skipped"
+        },
+        {
+          "final_status": "completed",
+          "stage": "GENERATE_REPORT",
+          "status": "completed"
+        }
+      ],
+      "safety": {
+        "credentials_used": false,
+        "external_contact": false,
+        "loopback_only": true,
+        "official_isolated_p10_runs_authorized": false,
+        "qualification_claim": null,
+        "raw_bodies_persisted": false,
+        "raw_headers_persisted": false,
+        "state_mutation": false
+      },
+      "schema": "vip-autonomous-vertical-slice-v1",
+      "status": "completed",
+      "target": {
+        "authorization_ref": "[REDACTED]",
+        "canonical_origin": "http://127.0.0.1:8888",
+        "expires_at": "2026-08-27T06:07:03.983176+00:00",
+        "method_policy": [
+          "GET"
+        ],
+        "redirect_policy": "same_origin_only",
+        "request_budget": 8,
+        "scope": [
+          "/health"
+        ],
+        "target_id": "crapi-loopback"
+      },
+      "target_metadata": {
+        "approved_cases": 0,
+        "approved_classes": 0,
+        "campaign_id": "vip-crapi-loopback-local-e2e-v1",
+        "canonical_origin": "http://127.0.0.1:8888",
+        "ground_truth_ref": null,
+        "ground_truth_status": "not_admitted_for_scoring",
+        "quality_scoring_eligible": false,
+        "scope": [
+          "/health"
+        ],
+        "source_path": "/tmp/crapi-source",
+        "source_revision": "73d309cc8f28bbdeed31dbb35f05dba8354de3c9",
+        "target_id": "crapi-loopback"
+      }
+    },
+    "juice-shop-loopback": {
+      "cases": [
+        {
+          "case_id": "juice-shop-loopback-live-root-observation",
+          "failure_record": {
+            "case_id": "juice-shop-loopback-live-root-observation",
+            "causal_signal": false,
+            "failure_id": "failure:juice-shop-loopback-live-root-observation",
+            "negative_control_complete": true,
+            "observed_status": "observation_only",
+            "oracle_decision": "inconclusive",
+            "recorded_as": "failure_or_inconclusive_evidence",
+            "target": "http://127.0.0.1:3000"
+          },
+          "improvement": null,
+          "improvement_proposal": {
+            "change_class": "generic_candidate_requires_owner_review",
+            "failure_record": {
+              "case_id": "juice-shop-loopback-live-root-observation",
+              "causal_signal": false,
+              "failure_id": "failure:juice-shop-loopback-live-root-observation",
+              "negative_control_complete": true,
+              "observed_status": "observation_only",
+              "oracle_decision": "inconclusive",
+              "recorded_as": "failure_or_inconclusive_evidence",
+              "target": "http://127.0.0.1:3000"
+            },
+            "proposed_action": "prepare owner decision packet; do not implement",
+            "root_cause": "missing_or_insufficient_causal_contract_evidence",
+            "safety_scope": "gated change; no implementation without explicit owner approval",
+            "status": "proposed"
+          },
+          "oracle": {
+            "baseline_present": true,
+            "causal_signal": false,
+            "decision": "inconclusive",
+            "negative_control_complete": true,
+            "predicate_match": true,
+            "requires_target_backed": true,
+            "verifier_id": "vip_vertical_slice_central_verifier",
+            "verifier_version": "1"
+          },
+          "owner_decision_packet": {
+            "decision_requested": "owner approval required for any gated improvement",
+            "evidence": [
+              "decision:inconclusive",
+              "target:http://127.0.0.1:3000",
+              "case:juice-shop-loopback-live-root-observation"
+            ],
+            "files_or_commits_affected": [
+              "target-local adapter/profile only"
+            ],
+            "options": [
+              "leave blocked/inconclusive",
+              "implement bounded local improvement"
+            ],
+            "recommended_decision": "keep gate closed until explicit owner approval",
+            "risk": [
+              "no network escalation",
+              "no credentials",
+              "no mutation",
+              "no frozen artifact changes"
+            ],
+            "rollback": [
+              "revert isolated commit",
+              "discard metadata-only campaign artifact"
+            ],
+            "status": "pending_owner_approval",
+            "why_it_is_needed": "juice-shop-loopback-live-root-observation ended as observation_only; causal evidence was insufficient"
+          },
+          "proof": {
+            "promotion_ready": false,
+            "replay_status": "not_run",
+            "sealed": false,
+            "verify_seal": false
+          },
+          "raw_payloads_persisted": false,
+          "scoring_promotion": false,
+          "status": "observation_only",
+          "vulnerability_class": "local_vip_passive_observation"
+        }
+      ],
+      "engagement_id": "vip-juice-shop-loopback-local-e2e-v1",
+      "hash": "sha256:c2b0285c0f678ed513742556353573ff1cf8437c852fd9c4b8fe4d1814c1f7c3",
+      "lifecycle": [
+        {
+          "engagement_id": "vip-juice-shop-loopback-local-e2e-v1",
+          "stage": "CREATE_CAMPAIGN",
+          "status": "completed"
+        },
+        {
+          "authorization_ref": "[REDACTED]",
+          "stage": "VALIDATE_SCOPE",
+          "status": "completed"
+        },
+        {
+          "readiness": {
+            "external_contact": false,
+            "mutation": false,
+            "ready": true
+          },
+          "stage": "CHECK_TARGET_READINESS",
+          "status": "completed"
+        },
+        {
+          "capabilities": {
+            "http_read": {
+              "available": true
+            }
+          },
+          "stage": "DISCOVER_CAPABILITIES",
+          "status": "completed"
+        },
+        {
+          "rejected": [],
+          "selected": [
+            "juice-shop-loopback-live-root-observation"
+          ],
+          "stage": "SELECT_SAFE_CASES",
+          "status": "completed"
+        },
+        {
+          "case_id": "juice-shop-loopback-live-root-observation",
+          "stage": "RUN_BASELINE",
+          "status": "completed"
+        },
+        {
+          "case_id": "juice-shop-loopback-live-root-observation",
+          "stage": "EXECUTE_BOUNDED_ACTIONS",
+          "status": "completed"
+        },
+        {
+          "case_id": "juice-shop-loopback-live-root-observation",
+          "stage": "COLLECT_REDACTED_OBSERVATIONS",
+          "status": "completed"
+        },
+        {
+          "case_id": "juice-shop-loopback-live-root-observation",
+          "stage": "RUN_INDEPENDENT_NEGATIVE_CONTROL",
+          "status": "completed"
+        },
+        {
+          "case_id": "juice-shop-loopback-live-root-observation",
+          "oracle": {
+            "baseline_present": true,
+            "causal_signal": false,
+            "decision": "inconclusive",
+            "negative_control_complete": true,
+            "predicate_match": true,
+            "requires_target_backed": true,
+            "verifier_id": "vip_vertical_slice_central_verifier",
+            "verifier_version": "1"
+          },
+          "stage": "EVALUATE_CENTRAL_ORACLE",
+          "status": "completed"
+        },
+        {
+          "bundle_id": null,
+          "case_id": "juice-shop-loopback-live-root-observation",
+          "stage": "CREATE_PROOFBUNDLE",
+          "status": "completed"
+        },
+        {
+          "case_id": "juice-shop-loopback-live-root-observation",
+          "stage": "VERIFY_SEAL",
+          "status": "completed",
+          "verify_seal": false
+        },
+        {
+          "case_id": "juice-shop-loopback-live-root-observation",
+          "replay_status": "not_run",
+          "stage": "REPLAY",
+          "status": "completed"
+        },
+        {
+          "case_id": "juice-shop-loopback-live-root-observation",
+          "quality": {
+            "causal_signal": false,
+            "proof": {
+              "promotion_ready": false,
+              "replay_status": "not_run",
+              "sealed": false,
+              "verify_seal": false
+            },
+            "status": "observation_only"
+          },
+          "stage": "EVALUATE_DETECTION_QUALITY",
+          "status": "completed"
+        },
+        {
+          "case_id": "juice-shop-loopback-live-root-observation",
+          "failure_record": {
+            "case_id": "juice-shop-loopback-live-root-observation",
+            "causal_signal": false,
+            "failure_id": "failure:juice-shop-loopback-live-root-observation",
+            "negative_control_complete": true,
+            "observed_status": "observation_only",
+            "oracle_decision": "inconclusive",
+            "recorded_as": "failure_or_inconclusive_evidence",
+            "target": "http://127.0.0.1:3000"
+          },
+          "root_cause": "missing_or_insufficient_causal_contract_evidence",
+          "stage": "DIAGNOSE_FAILURES",
+          "status": "completed"
+        },
+        {
+          "case_id": "juice-shop-loopback-live-root-observation",
+          "owner_decision_packet": {
+            "decision_requested": "owner approval required for any gated improvement",
+            "evidence": [
+              "decision:inconclusive",
+              "target:http://127.0.0.1:3000",
+              "case:juice-shop-loopback-live-root-observation"
+            ],
+            "files_or_commits_affected": [
+              "target-local adapter/profile only"
+            ],
+            "options": [
+              "leave blocked/inconclusive",
+              "implement bounded local improvement"
+            ],
+            "recommended_decision": "keep gate closed until explicit owner approval",
+            "risk": [
+              "no network escalation",
+              "no credentials",
+              "no mutation",
+              "no frozen artifact changes"
+            ],
+            "rollback": [
+              "revert isolated commit",
+              "discard metadata-only campaign artifact"
+            ],
+            "status": "pending_owner_approval",
+            "why_it_is_needed": "juice-shop-loopback-live-root-observation ended as observation_only; causal evidence was insufficient"
+          },
+          "proposal": {
+            "change_class": "generic_candidate_requires_owner_review",
+            "failure_record": {
+              "case_id": "juice-shop-loopback-live-root-observation",
+              "causal_signal": false,
+              "failure_id": "failure:juice-shop-loopback-live-root-observation",
+              "negative_control_complete": true,
+              "observed_status": "observation_only",
+              "oracle_decision": "inconclusive",
+              "recorded_as": "failure_or_inconclusive_evidence",
+              "target": "http://127.0.0.1:3000"
+            },
+            "proposed_action": "prepare owner decision packet; do not implement",
+            "root_cause": "missing_or_insufficient_causal_contract_evidence",
+            "safety_scope": "gated change; no implementation without explicit owner approval",
+            "status": "proposed"
+          },
+          "stage": "CREATE_IMPROVEMENT_PROPOSAL",
+          "status": "completed"
+        },
+        {
+          "case_id": "juice-shop-loopback-live-root-observation",
+          "change_class": "generic_candidate_requires_review",
+          "stage": "CLASSIFY_CHANGE",
+          "status": "completed"
+        },
+        {
+          "case_id": "juice-shop-loopback-live-root-observation",
+          "reason": "owner_approval_required",
+          "stage": "IMPLEMENT_SAFE_LOCAL_CHANGE",
+          "status": "blocked"
+        },
+        {
+          "case_id": "juice-shop-loopback-live-root-observation",
+          "reason": "no_approved_implementation",
+          "stage": "RUN_REGRESSION",
+          "status": "blocked"
+        },
+        {
+          "case_id": "juice-shop-loopback-live-root-observation",
+          "reason": "no_approved_implementation",
+          "stage": "RE-TEST",
+          "status": "blocked"
+        },
+        {
+          "case_id": "juice-shop-loopback-live-root-observation",
+          "comparison": {
+            "after": "not_run",
+            "before": "observation_only",
+            "scoring_promotion": false
+          },
+          "stage": "COMPARE_BEFORE_AFTER",
+          "status": "skipped"
+        },
+        {
+          "final_status": "completed",
+          "stage": "GENERATE_REPORT",
+          "status": "completed"
+        }
+      ],
+      "safety": {
+        "credentials_used": false,
+        "external_contact": false,
+        "loopback_only": true,
+        "official_isolated_p10_runs_authorized": false,
+        "qualification_claim": null,
+        "raw_bodies_persisted": false,
+        "raw_headers_persisted": false,
+        "state_mutation": false
+      },
+      "schema": "vip-autonomous-vertical-slice-v1",
+      "status": "completed",
+      "target": {
+        "authorization_ref": "[REDACTED]",
+        "canonical_origin": "http://127.0.0.1:3000",
+        "expires_at": "2026-08-27T06:07:03.958577+00:00",
+        "method_policy": [
+          "GET"
+        ],
+        "redirect_policy": "same_origin_only",
+        "request_budget": 8,
+        "scope": [
+          "/"
+        ],
+        "target_id": "juice-shop-loopback"
+      },
+      "target_metadata": {
+        "approved_cases": 3,
+        "approved_classes": 3,
+        "campaign_id": "vip-juice-shop-loopback-local-e2e-v1",
+        "canonical_origin": "http://127.0.0.1:3000",
+        "ground_truth_ref": "docs/juice_shop_source_ground_truth_manifest_v1.json",
+        "ground_truth_status": "available_but_this_campaign_observation_only",
+        "quality_scoring_eligible": false,
+        "scope": [
+          "/"
+        ],
+        "source_path": "/tmp/juice-shop-source",
+        "source_revision": "1618a611b173b4bf114028e6e02549950606e29d",
+        "target_id": "juice-shop-loopback"
+      }
+    },
+    "webgoat-loopback": {
+      "cases": [
+        {
+          "case_id": "webgoat-loopback-live-root-observation",
+          "failure_record": {
+            "case_id": "webgoat-loopback-live-root-observation",
+            "causal_signal": false,
+            "failure_id": "failure:webgoat-loopback-live-root-observation",
+            "negative_control_complete": true,
+            "observed_status": "observation_only",
+            "oracle_decision": "inconclusive",
+            "recorded_as": "failure_or_inconclusive_evidence",
+            "target": "http://127.0.0.1:8080"
+          },
+          "improvement": null,
+          "improvement_proposal": {
+            "change_class": "generic_candidate_requires_owner_review",
+            "failure_record": {
+              "case_id": "webgoat-loopback-live-root-observation",
+              "causal_signal": false,
+              "failure_id": "failure:webgoat-loopback-live-root-observation",
+              "negative_control_complete": true,
+              "observed_status": "observation_only",
+              "oracle_decision": "inconclusive",
+              "recorded_as": "failure_or_inconclusive_evidence",
+              "target": "http://127.0.0.1:8080"
+            },
+            "proposed_action": "prepare owner decision packet; do not implement",
+            "root_cause": "missing_or_insufficient_causal_contract_evidence",
+            "safety_scope": "gated change; no implementation without explicit owner approval",
+            "status": "proposed"
+          },
+          "oracle": {
+            "baseline_present": true,
+            "causal_signal": false,
+            "decision": "inconclusive",
+            "negative_control_complete": true,
+            "predicate_match": true,
+            "requires_target_backed": true,
+            "verifier_id": "vip_vertical_slice_central_verifier",
+            "verifier_version": "1"
+          },
+          "owner_decision_packet": {
+            "decision_requested": "owner approval required for any gated improvement",
+            "evidence": [
+              "decision:inconclusive",
+              "target:http://127.0.0.1:8080",
+              "case:webgoat-loopback-live-root-observation"
+            ],
+            "files_or_commits_affected": [
+              "target-local adapter/profile only"
+            ],
+            "options": [
+              "leave blocked/inconclusive",
+              "implement bounded local improvement"
+            ],
+            "recommended_decision": "keep gate closed until explicit owner approval",
+            "risk": [
+              "no network escalation",
+              "no credentials",
+              "no mutation",
+              "no frozen artifact changes"
+            ],
+            "rollback": [
+              "revert isolated commit",
+              "discard metadata-only campaign artifact"
+            ],
+            "status": "pending_owner_approval",
+            "why_it_is_needed": "webgoat-loopback-live-root-observation ended as observation_only; causal evidence was insufficient"
+          },
+          "proof": {
+            "promotion_ready": false,
+            "replay_status": "not_run",
+            "sealed": false,
+            "verify_seal": false
+          },
+          "raw_payloads_persisted": false,
+          "scoring_promotion": false,
+          "status": "observation_only",
+          "vulnerability_class": "local_vip_passive_observation"
+        }
+      ],
+      "engagement_id": "vip-webgoat-loopback-local-e2e-v1",
+      "hash": "sha256:5a32d501e2d7af929c9a8a40343888318ea6b48d20a0007db7526356b311ed06",
+      "lifecycle": [
+        {
+          "engagement_id": "vip-webgoat-loopback-local-e2e-v1",
+          "stage": "CREATE_CAMPAIGN",
+          "status": "completed"
+        },
+        {
+          "authorization_ref": "[REDACTED]",
+          "stage": "VALIDATE_SCOPE",
+          "status": "completed"
+        },
+        {
+          "readiness": {
+            "external_contact": false,
+            "mutation": false,
+            "ready": true
+          },
+          "stage": "CHECK_TARGET_READINESS",
+          "status": "completed"
+        },
+        {
+          "capabilities": {
+            "http_read": {
+              "available": true
+            }
+          },
+          "stage": "DISCOVER_CAPABILITIES",
+          "status": "completed"
+        },
+        {
+          "rejected": [],
+          "selected": [
+            "webgoat-loopback-live-root-observation"
+          ],
+          "stage": "SELECT_SAFE_CASES",
+          "status": "completed"
+        },
+        {
+          "case_id": "webgoat-loopback-live-root-observation",
+          "stage": "RUN_BASELINE",
+          "status": "completed"
+        },
+        {
+          "case_id": "webgoat-loopback-live-root-observation",
+          "stage": "EXECUTE_BOUNDED_ACTIONS",
+          "status": "completed"
+        },
+        {
+          "case_id": "webgoat-loopback-live-root-observation",
+          "stage": "COLLECT_REDACTED_OBSERVATIONS",
+          "status": "completed"
+        },
+        {
+          "case_id": "webgoat-loopback-live-root-observation",
+          "stage": "RUN_INDEPENDENT_NEGATIVE_CONTROL",
+          "status": "completed"
+        },
+        {
+          "case_id": "webgoat-loopback-live-root-observation",
+          "oracle": {
+            "baseline_present": true,
+            "causal_signal": false,
+            "decision": "inconclusive",
+            "negative_control_complete": true,
+            "predicate_match": true,
+            "requires_target_backed": true,
+            "verifier_id": "vip_vertical_slice_central_verifier",
+            "verifier_version": "1"
+          },
+          "stage": "EVALUATE_CENTRAL_ORACLE",
+          "status": "completed"
+        },
+        {
+          "bundle_id": null,
+          "case_id": "webgoat-loopback-live-root-observation",
+          "stage": "CREATE_PROOFBUNDLE",
+          "status": "completed"
+        },
+        {
+          "case_id": "webgoat-loopback-live-root-observation",
+          "stage": "VERIFY_SEAL",
+          "status": "completed",
+          "verify_seal": false
+        },
+        {
+          "case_id": "webgoat-loopback-live-root-observation",
+          "replay_status": "not_run",
+          "stage": "REPLAY",
+          "status": "completed"
+        },
+        {
+          "case_id": "webgoat-loopback-live-root-observation",
+          "quality": {
+            "causal_signal": false,
+            "proof": {
+              "promotion_ready": false,
+              "replay_status": "not_run",
+              "sealed": false,
+              "verify_seal": false
+            },
+            "status": "observation_only"
+          },
+          "stage": "EVALUATE_DETECTION_QUALITY",
+          "status": "completed"
+        },
+        {
+          "case_id": "webgoat-loopback-live-root-observation",
+          "failure_record": {
+            "case_id": "webgoat-loopback-live-root-observation",
+            "causal_signal": false,
+            "failure_id": "failure:webgoat-loopback-live-root-observation",
+            "negative_control_complete": true,
+            "observed_status": "observation_only",
+            "oracle_decision": "inconclusive",
+            "recorded_as": "failure_or_inconclusive_evidence",
+            "target": "http://127.0.0.1:8080"
+          },
+          "root_cause": "missing_or_insufficient_causal_contract_evidence",
+          "stage": "DIAGNOSE_FAILURES",
+          "status": "completed"
+        },
+        {
+          "case_id": "webgoat-loopback-live-root-observation",
+          "owner_decision_packet": {
+            "decision_requested": "owner approval required for any gated improvement",
+            "evidence": [
+              "decision:inconclusive",
+              "target:http://127.0.0.1:8080",
+              "case:webgoat-loopback-live-root-observation"
+            ],
+            "files_or_commits_affected": [
+              "target-local adapter/profile only"
+            ],
+            "options": [
+              "leave blocked/inconclusive",
+              "implement bounded local improvement"
+            ],
+            "recommended_decision": "keep gate closed until explicit owner approval",
+            "risk": [
+              "no network escalation",
+              "no credentials",
+              "no mutation",
+              "no frozen artifact changes"
+            ],
+            "rollback": [
+              "revert isolated commit",
+              "discard metadata-only campaign artifact"
+            ],
+            "status": "pending_owner_approval",
+            "why_it_is_needed": "webgoat-loopback-live-root-observation ended as observation_only; causal evidence was insufficient"
+          },
+          "proposal": {
+            "change_class": "generic_candidate_requires_owner_review",
+            "failure_record": {
+              "case_id": "webgoat-loopback-live-root-observation",
+              "causal_signal": false,
+              "failure_id": "failure:webgoat-loopback-live-root-observation",
+              "negative_control_complete": true,
+              "observed_status": "observation_only",
+              "oracle_decision": "inconclusive",
+              "recorded_as": "failure_or_inconclusive_evidence",
+              "target": "http://127.0.0.1:8080"
+            },
+            "proposed_action": "prepare owner decision packet; do not implement",
+            "root_cause": "missing_or_insufficient_causal_contract_evidence",
+            "safety_scope": "gated change; no implementation without explicit owner approval",
+            "status": "proposed"
+          },
+          "stage": "CREATE_IMPROVEMENT_PROPOSAL",
+          "status": "completed"
+        },
+        {
+          "case_id": "webgoat-loopback-live-root-observation",
+          "change_class": "generic_candidate_requires_review",
+          "stage": "CLASSIFY_CHANGE",
+          "status": "completed"
+        },
+        {
+          "case_id": "webgoat-loopback-live-root-observation",
+          "reason": "owner_approval_required",
+          "stage": "IMPLEMENT_SAFE_LOCAL_CHANGE",
+          "status": "blocked"
+        },
+        {
+          "case_id": "webgoat-loopback-live-root-observation",
+          "reason": "no_approved_implementation",
+          "stage": "RUN_REGRESSION",
+          "status": "blocked"
+        },
+        {
+          "case_id": "webgoat-loopback-live-root-observation",
+          "reason": "no_approved_implementation",
+          "stage": "RE-TEST",
+          "status": "blocked"
+        },
+        {
+          "case_id": "webgoat-loopback-live-root-observation",
+          "comparison": {
+            "after": "not_run",
+            "before": "observation_only",
+            "scoring_promotion": false
+          },
+          "stage": "COMPARE_BEFORE_AFTER",
+          "status": "skipped"
+        },
+        {
+          "final_status": "completed",
+          "stage": "GENERATE_REPORT",
+          "status": "completed"
+        }
+      ],
+      "safety": {
+        "credentials_used": false,
+        "external_contact": false,
+        "loopback_only": true,
+        "official_isolated_p10_runs_authorized": false,
+        "qualification_claim": null,
+        "raw_bodies_persisted": false,
+        "raw_headers_persisted": false,
+        "state_mutation": false
+      },
+      "schema": "vip-autonomous-vertical-slice-v1",
+      "status": "completed",
+      "target": {
+        "authorization_ref": "[REDACTED]",
+        "canonical_origin": "http://127.0.0.1:8080",
+        "expires_at": "2026-08-27T06:07:03.978143+00:00",
+        "method_policy": [
+          "GET"
+        ],
+        "redirect_policy": "same_origin_only",
+        "request_budget": 8,
+        "scope": [
+          "/WebGoat"
+        ],
+        "target_id": "webgoat-loopback"
+      },
+      "target_metadata": {
+        "approved_cases": 0,
+        "approved_classes": 0,
+        "campaign_id": "vip-webgoat-loopback-local-e2e-v1",
+        "canonical_origin": "http://127.0.0.1:8080",
+        "ground_truth_ref": null,
+        "ground_truth_status": "not_admitted_for_scoring",
+        "quality_scoring_eligible": false,
+        "scope": [
+          "/WebGoat"
+        ],
+        "source_path": "/tmp/webgoat-source",
+        "source_revision": "7517acca95d9851da706452454c223dd13545ef4",
+        "target_id": "webgoat-loopback"
+      }
+    }
+  }
+}

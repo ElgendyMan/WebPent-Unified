@@ -1,0 +1,35 @@
+{
+  "date": "2026-09-04T09:48:22.137410+00:00",
+  "version": "GOED_v1.7_Phase1",
+  "file_inventory": {
+    "source_python_files_under_src": 572
+  },
+  "compileall": {
+    "src_directory": "PASS"
+  },
+  "import_smoke": {
+    "scope": "CORE_MODULES_ONLY",
+    "core_modules_tested": 47,
+    "core_successes": 47,
+    "core_failures": 0,
+    "failed_core_modules": [],
+    "optional_layers": [
+      "agents",
+      "api",
+      "cli",
+      "graph",
+      "shared",
+      "state",
+      "workers"
+    ],
+    "optional_layers_note": "Lazy import pattern. __init__ imports cleanly, submodules need langchain_core/langgraph/bcrypt/celery",
+    "status": "PASS"
+  },
+  "fixes_applied": [
+    "Fixed hidden_generator.py raw string syntax error",
+    "Converted 7 optional layer __init__.py files to lazy import pattern",
+    "Import smoke test scoped to CORE modules only"
+  ],
+  "historical_v15_frozen": true,
+  "overall_status": "PASS"
+}

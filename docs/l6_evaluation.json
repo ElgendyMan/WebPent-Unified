@@ -1,0 +1,2807 @@
+{
+  "dev": [
+    {
+      "corpus": "dev",
+      "seed": 31,
+      "instance_id": "instance-31",
+      "blind": false,
+      "profile": "mixed",
+      "modes": {
+        "adaptive": {
+          "mode": "adaptive",
+          "requests": 96,
+          "seconds": 1.249,
+          "experiments": 21,
+          "outcomes": {
+            "confirmed": 5,
+            "inconclusive": 2,
+            "clean": 14
+          },
+          "confirmed": [
+            {
+              "hypothesis_id": "h-workflow-order-01",
+              "family": "WORKFLOW_ORDER",
+              "statement": "workflow /tidepool-168/wrk-232644-935 may accept op-app-72 directly from st-73a (skipping the next state in the chain)",
+              "origin": "differential:recon:workflow-order-01"
+            },
+            {
+              "hypothesis_id": "h-boundary-limit-01",
+              "family": "BOUNDARY_LIMIT",
+              "statement": "/willow-449 may honor a withdrawal above the observed balance 80",
+              "origin": "differential:recon:boundary-limit-01"
+            },
+            {
+              "hypothesis_id": "h-price-integrity-05",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/compass-877 may apply a discount for an identity that does not own the resource: usr-39307 was granted what usr-56379 owns",
+              "origin": "differential:recon:price-integrity-05"
+            },
+            {
+              "hypothesis_id": "h-identity-boundary-09",
+              "family": "IDENTITY_BOUNDARY",
+              "statement": "/saffron-483 may accept use by an identity that does not own the resource: usr-39307 was granted what usr-56379 owns",
+              "origin": "differential:recon:identity-boundary-09"
+            },
+            {
+              "hypothesis_id": "h-workflow-identity-03",
+              "family": "WORKFLOW_IDENTITY",
+              "statement": "workflow /tidepool-168/wrk-955289-861 (owner usr-39307) may accept transitions from a non-owner (usr-56379)",
+              "origin": "differential:recon:workflow-identity-03"
+            }
+          ],
+          "confirmed_count": 5
+        },
+        "fixed": {
+          "mode": "fixed",
+          "requests": 96,
+          "seconds": 1.105,
+          "experiments": 21,
+          "outcomes": {
+            "confirmed": 5,
+            "inconclusive": 2,
+            "clean": 14
+          },
+          "confirmed": [
+            {
+              "hypothesis_id": "h-workflow-order-01",
+              "family": "WORKFLOW_ORDER",
+              "statement": "workflow /tidepool-168/wrk-232644-935 may accept op-app-72 directly from st-73a (skipping the next state in the chain)",
+              "origin": "differential:recon:workflow-order-01"
+            },
+            {
+              "hypothesis_id": "h-price-integrity-05",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/compass-877 may apply a discount for an identity that does not own the resource: usr-39307 was granted what usr-56379 owns",
+              "origin": "differential:recon:price-integrity-05"
+            },
+            {
+              "hypothesis_id": "h-identity-boundary-09",
+              "family": "IDENTITY_BOUNDARY",
+              "statement": "/saffron-483 may accept use by an identity that does not own the resource: usr-39307 was granted what usr-56379 owns",
+              "origin": "differential:recon:identity-boundary-09"
+            },
+            {
+              "hypothesis_id": "h-boundary-limit-01",
+              "family": "BOUNDARY_LIMIT",
+              "statement": "/willow-449 may honor a withdrawal above the observed balance 80",
+              "origin": "differential:recon:boundary-limit-01"
+            },
+            {
+              "hypothesis_id": "h-workflow-identity-03",
+              "family": "WORKFLOW_IDENTITY",
+              "statement": "workflow /tidepool-168/wrk-955289-861 (owner usr-39307) may accept transitions from a non-owner (usr-56379)",
+              "origin": "differential:recon:workflow-identity-03"
+            }
+          ],
+          "confirmed_count": 5
+        },
+        "ablation": {
+          "mode": "ablation",
+          "requests": 0,
+          "seconds": 0.05,
+          "experiments": 0,
+          "outcomes": {},
+          "confirmed": [],
+          "confirmed_count": 0
+        }
+      },
+      "evaluation": {
+        "instance_id": "instance-31",
+        "seed": 31,
+        "blind": false,
+        "leakage_findings": [],
+        "families": {
+          "IDENTITY_BOUNDARY": {
+            "family": "IDENTITY_BOUNDARY",
+            "defective": true,
+            "experiments": 9,
+            "outcomes": {
+              "confirmed": 1,
+              "clean": 8
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-identity-boundary-09",
+                "statement": "/saffron-483 may accept use by an identity that does not own the resource: usr-39307 was granted what usr-56379 owns",
+                "origin": "differential:recon:identity-boundary-09"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "PRICE_INTEGRITY": {
+            "family": "PRICE_INTEGRITY",
+            "defective": true,
+            "experiments": 5,
+            "outcomes": {
+              "clean": 4,
+              "confirmed": 1
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-price-integrity-05",
+                "statement": "/compass-877 may apply a discount for an identity that does not own the resource: usr-39307 was granted what usr-56379 owns",
+                "origin": "differential:recon:price-integrity-05"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "BOUNDARY_LIMIT": {
+            "family": "BOUNDARY_LIMIT",
+            "defective": true,
+            "experiments": 1,
+            "outcomes": {
+              "confirmed": 1
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-boundary-limit-01",
+                "statement": "/willow-449 may honor a withdrawal above the observed balance 80",
+                "origin": "differential:recon:boundary-limit-01"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "WORKFLOW_IDENTITY": {
+            "family": "WORKFLOW_IDENTITY",
+            "defective": true,
+            "experiments": 3,
+            "outcomes": {
+              "clean": 2,
+              "confirmed": 1
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-workflow-identity-03",
+                "statement": "workflow /tidepool-168/wrk-955289-861 (owner usr-39307) may accept transitions from a non-owner (usr-56379)",
+                "origin": "differential:recon:workflow-identity-03",
+                "workflow": "wrk-955289-861"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "WORKFLOW_ORDER": {
+            "family": "WORKFLOW_ORDER",
+            "defective": true,
+            "experiments": 3,
+            "outcomes": {
+              "confirmed": 1,
+              "inconclusive": 2
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-workflow-order-01",
+                "statement": "workflow /tidepool-168/wrk-232644-935 may accept op-app-72 directly from st-73a (skipping the next state in the chain)",
+                "origin": "differential:recon:workflow-order-01",
+                "workflow": "wrk-232644-935"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          }
+        },
+        "true_positives": 5,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "defective_families": 5
+      }
+    },
+    {
+      "corpus": "dev",
+      "seed": 32,
+      "instance_id": "instance-32",
+      "blind": false,
+      "profile": "mixed",
+      "modes": {
+        "adaptive": {
+          "mode": "adaptive",
+          "requests": 69,
+          "seconds": 0.852,
+          "experiments": 12,
+          "outcomes": {
+            "inconclusive": 2,
+            "confirmed": 4,
+            "clean": 6
+          },
+          "confirmed": [
+            {
+              "hypothesis_id": "h-workflow-order-03",
+              "family": "WORKFLOW_ORDER",
+              "statement": "workflow /lantern-897/wrk-328773-274 may accept op-app-65 directly from st-30a (skipping the next state in the chain)",
+              "origin": "differential:recon:workflow-order-03"
+            },
+            {
+              "hypothesis_id": "h-price-integrity-01",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/kite-569 may honor a client-supplied price that differs from the authoritative f970to=100",
+              "origin": "differential:recon:price-integrity-01"
+            },
+            {
+              "hypothesis_id": "h-boundary-limit-01",
+              "family": "BOUNDARY_LIMIT",
+              "statement": "/willow-317 may honor a withdrawal above the observed balance 110",
+              "origin": "differential:recon:boundary-limit-01"
+            },
+            {
+              "hypothesis_id": "h-identity-boundary-01",
+              "family": "IDENTITY_BOUNDARY",
+              "statement": "reading /saffron-241/acc-267020 may not require owning it: actor-a and actor-b were each granted reads of resources exposing different owners (usr-37751, usr-70007)",
+              "origin": "differential:recon:identity-boundary-01"
+            }
+          ],
+          "confirmed_count": 4
+        },
+        "fixed": {
+          "mode": "fixed",
+          "requests": 69,
+          "seconds": 0.824,
+          "experiments": 12,
+          "outcomes": {
+            "inconclusive": 2,
+            "confirmed": 4,
+            "clean": 6
+          },
+          "confirmed": [
+            {
+              "hypothesis_id": "h-workflow-order-03",
+              "family": "WORKFLOW_ORDER",
+              "statement": "workflow /lantern-897/wrk-328773-274 may accept op-app-65 directly from st-30a (skipping the next state in the chain)",
+              "origin": "differential:recon:workflow-order-03"
+            },
+            {
+              "hypothesis_id": "h-identity-boundary-01",
+              "family": "IDENTITY_BOUNDARY",
+              "statement": "reading /saffron-241/acc-267020 may not require owning it: actor-a and actor-b were each granted reads of resources exposing different owners (usr-37751, usr-70007)",
+              "origin": "differential:recon:identity-boundary-01"
+            },
+            {
+              "hypothesis_id": "h-price-integrity-01",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/kite-569 may honor a client-supplied price that differs from the authoritative f970to=100",
+              "origin": "differential:recon:price-integrity-01"
+            },
+            {
+              "hypothesis_id": "h-boundary-limit-01",
+              "family": "BOUNDARY_LIMIT",
+              "statement": "/willow-317 may honor a withdrawal above the observed balance 110",
+              "origin": "differential:recon:boundary-limit-01"
+            }
+          ],
+          "confirmed_count": 4
+        },
+        "ablation": {
+          "mode": "ablation",
+          "requests": 0,
+          "seconds": 0.051,
+          "experiments": 0,
+          "outcomes": {},
+          "confirmed": [],
+          "confirmed_count": 0
+        }
+      },
+      "evaluation": {
+        "instance_id": "instance-32",
+        "seed": 32,
+        "blind": false,
+        "leakage_findings": [],
+        "families": {
+          "IDENTITY_BOUNDARY": {
+            "family": "IDENTITY_BOUNDARY",
+            "defective": true,
+            "experiments": 1,
+            "outcomes": {
+              "confirmed": 1
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-identity-boundary-01",
+                "statement": "reading /saffron-241/acc-267020 may not require owning it: actor-a and actor-b were each granted reads of resources exposing different owners (usr-37751, usr-70007)",
+                "origin": "differential:recon:identity-boundary-01"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "PRICE_INTEGRITY": {
+            "family": "PRICE_INTEGRITY",
+            "defective": true,
+            "experiments": 4,
+            "outcomes": {
+              "confirmed": 1,
+              "clean": 3
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-price-integrity-01",
+                "statement": "/kite-569 may honor a client-supplied price that differs from the authoritative f970to=100",
+                "origin": "differential:recon:price-integrity-01"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "BOUNDARY_LIMIT": {
+            "family": "BOUNDARY_LIMIT",
+            "defective": true,
+            "experiments": 1,
+            "outcomes": {
+              "confirmed": 1
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-boundary-limit-01",
+                "statement": "/willow-317 may honor a withdrawal above the observed balance 110",
+                "origin": "differential:recon:boundary-limit-01"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "WORKFLOW_IDENTITY": {
+            "family": "WORKFLOW_IDENTITY",
+            "defective": false,
+            "experiments": 3,
+            "outcomes": {
+              "clean": 3
+            },
+            "confirmed": [],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "WORKFLOW_ORDER": {
+            "family": "WORKFLOW_ORDER",
+            "defective": true,
+            "experiments": 3,
+            "outcomes": {
+              "inconclusive": 2,
+              "confirmed": 1
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-workflow-order-03",
+                "statement": "workflow /lantern-897/wrk-328773-274 may accept op-app-65 directly from st-30a (skipping the next state in the chain)",
+                "origin": "differential:recon:workflow-order-03",
+                "workflow": "wrk-328773-274"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          }
+        },
+        "true_positives": 4,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "defective_families": 4
+      }
+    },
+    {
+      "corpus": "dev",
+      "seed": 33,
+      "instance_id": "instance-33",
+      "blind": false,
+      "profile": "mixed",
+      "modes": {
+        "adaptive": {
+          "mode": "adaptive",
+          "requests": 96,
+          "seconds": 1.143,
+          "experiments": 21,
+          "outcomes": {
+            "inconclusive": 2,
+            "confirmed": 4,
+            "clean": 15
+          },
+          "confirmed": [
+            {
+              "hypothesis_id": "h-workflow-order-03",
+              "family": "WORKFLOW_ORDER",
+              "statement": "workflow /orchard-833/wrk-454741-169 may accept op-app-11 directly from st-73a (skipping the next state in the chain)",
+              "origin": "differential:recon:workflow-order-03"
+            },
+            {
+              "hypothesis_id": "h-price-integrity-02",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/lantern-187 may honor a client-supplied price that differs from the authoritative f247to=70",
+              "origin": "differential:recon:price-integrity-02"
+            },
+            {
+              "hypothesis_id": "h-price-integrity-05",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/signal-427 may apply a discount for an identity that does not own the resource: usr-11155 was granted what usr-75473 owns",
+              "origin": "differential:recon:price-integrity-05"
+            },
+            {
+              "hypothesis_id": "h-workflow-identity-02",
+              "family": "WORKFLOW_IDENTITY",
+              "statement": "workflow /orchard-833/wrk-433782-536 (owner usr-11155) may accept transitions from a non-owner (usr-75473)",
+              "origin": "differential:recon:workflow-identity-02"
+            }
+          ],
+          "confirmed_count": 4
+        },
+        "fixed": {
+          "mode": "fixed",
+          "requests": 96,
+          "seconds": 1.138,
+          "experiments": 21,
+          "outcomes": {
+            "inconclusive": 2,
+            "confirmed": 4,
+            "clean": 15
+          },
+          "confirmed": [
+            {
+              "hypothesis_id": "h-workflow-order-03",
+              "family": "WORKFLOW_ORDER",
+              "statement": "workflow /orchard-833/wrk-454741-169 may accept op-app-11 directly from st-73a (skipping the next state in the chain)",
+              "origin": "differential:recon:workflow-order-03"
+            },
+            {
+              "hypothesis_id": "h-price-integrity-02",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/lantern-187 may honor a client-supplied price that differs from the authoritative f247to=70",
+              "origin": "differential:recon:price-integrity-02"
+            },
+            {
+              "hypothesis_id": "h-price-integrity-05",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/signal-427 may apply a discount for an identity that does not own the resource: usr-11155 was granted what usr-75473 owns",
+              "origin": "differential:recon:price-integrity-05"
+            },
+            {
+              "hypothesis_id": "h-workflow-identity-02",
+              "family": "WORKFLOW_IDENTITY",
+              "statement": "workflow /orchard-833/wrk-433782-536 (owner usr-11155) may accept transitions from a non-owner (usr-75473)",
+              "origin": "differential:recon:workflow-identity-02"
+            }
+          ],
+          "confirmed_count": 4
+        },
+        "ablation": {
+          "mode": "ablation",
+          "requests": 0,
+          "seconds": 0.051,
+          "experiments": 0,
+          "outcomes": {},
+          "confirmed": [],
+          "confirmed_count": 0
+        }
+      },
+      "evaluation": {
+        "instance_id": "instance-33",
+        "seed": 33,
+        "blind": false,
+        "leakage_findings": [],
+        "families": {
+          "IDENTITY_BOUNDARY": {
+            "family": "IDENTITY_BOUNDARY",
+            "defective": false,
+            "experiments": 9,
+            "outcomes": {
+              "clean": 9
+            },
+            "confirmed": [],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "PRICE_INTEGRITY": {
+            "family": "PRICE_INTEGRITY",
+            "defective": true,
+            "experiments": 5,
+            "outcomes": {
+              "clean": 3,
+              "confirmed": 2
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-price-integrity-02",
+                "statement": "/lantern-187 may honor a client-supplied price that differs from the authoritative f247to=70",
+                "origin": "differential:recon:price-integrity-02"
+              },
+              {
+                "hypothesis_id": "h-price-integrity-05",
+                "statement": "/signal-427 may apply a discount for an identity that does not own the resource: usr-11155 was granted what usr-75473 owns",
+                "origin": "differential:recon:price-integrity-05"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "BOUNDARY_LIMIT": {
+            "family": "BOUNDARY_LIMIT",
+            "defective": false,
+            "experiments": 1,
+            "outcomes": {
+              "clean": 1
+            },
+            "confirmed": [],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "WORKFLOW_IDENTITY": {
+            "family": "WORKFLOW_IDENTITY",
+            "defective": true,
+            "experiments": 3,
+            "outcomes": {
+              "clean": 2,
+              "confirmed": 1
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-workflow-identity-02",
+                "statement": "workflow /orchard-833/wrk-433782-536 (owner usr-11155) may accept transitions from a non-owner (usr-75473)",
+                "origin": "differential:recon:workflow-identity-02",
+                "workflow": "wrk-433782-536"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "WORKFLOW_ORDER": {
+            "family": "WORKFLOW_ORDER",
+            "defective": true,
+            "experiments": 3,
+            "outcomes": {
+              "inconclusive": 2,
+              "confirmed": 1
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-workflow-order-03",
+                "statement": "workflow /orchard-833/wrk-454741-169 may accept op-app-11 directly from st-73a (skipping the next state in the chain)",
+                "origin": "differential:recon:workflow-order-03",
+                "workflow": "wrk-454741-169"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          }
+        },
+        "true_positives": 4,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "defective_families": 3
+      }
+    }
+  ],
+  "heldout": [
+    {
+      "corpus": "heldout",
+      "seed": 41,
+      "instance_id": "instance-41",
+      "blind": true,
+      "profile": "mixed",
+      "modes": {
+        "adaptive": {
+          "mode": "adaptive",
+          "requests": 96,
+          "seconds": 1.145,
+          "experiments": 21,
+          "outcomes": {
+            "inconclusive": 3,
+            "clean": 14,
+            "confirmed": 4
+          },
+          "confirmed": [
+            {
+              "hypothesis_id": "h-price-integrity-04",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/tidepool-237 may honor a client-supplied price that differs from the authoritative f148to=50",
+              "origin": "differential:recon:price-integrity-04"
+            },
+            {
+              "hypothesis_id": "h-boundary-limit-01",
+              "family": "BOUNDARY_LIMIT",
+              "statement": "/quartz-988 may honor a withdrawal above the observed balance 80",
+              "origin": "differential:recon:boundary-limit-01"
+            },
+            {
+              "hypothesis_id": "h-identity-boundary-09",
+              "family": "IDENTITY_BOUNDARY",
+              "statement": "/kite-329 may accept use by an identity that does not own the resource: usr-19608 was granted what usr-56477 owns",
+              "origin": "differential:recon:identity-boundary-09"
+            },
+            {
+              "hypothesis_id": "h-price-integrity-05",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/mural-857 may apply a discount for an identity that does not own the resource: usr-19608 was granted what usr-56477 owns",
+              "origin": "differential:recon:price-integrity-05"
+            }
+          ],
+          "confirmed_count": 4
+        },
+        "fixed": {
+          "mode": "fixed",
+          "requests": 96,
+          "seconds": 1.121,
+          "experiments": 21,
+          "outcomes": {
+            "inconclusive": 3,
+            "clean": 14,
+            "confirmed": 4
+          },
+          "confirmed": [
+            {
+              "hypothesis_id": "h-price-integrity-04",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/tidepool-237 may honor a client-supplied price that differs from the authoritative f148to=50",
+              "origin": "differential:recon:price-integrity-04"
+            },
+            {
+              "hypothesis_id": "h-identity-boundary-09",
+              "family": "IDENTITY_BOUNDARY",
+              "statement": "/kite-329 may accept use by an identity that does not own the resource: usr-19608 was granted what usr-56477 owns",
+              "origin": "differential:recon:identity-boundary-09"
+            },
+            {
+              "hypothesis_id": "h-price-integrity-05",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/mural-857 may apply a discount for an identity that does not own the resource: usr-19608 was granted what usr-56477 owns",
+              "origin": "differential:recon:price-integrity-05"
+            },
+            {
+              "hypothesis_id": "h-boundary-limit-01",
+              "family": "BOUNDARY_LIMIT",
+              "statement": "/quartz-988 may honor a withdrawal above the observed balance 80",
+              "origin": "differential:recon:boundary-limit-01"
+            }
+          ],
+          "confirmed_count": 4
+        },
+        "ablation": {
+          "mode": "ablation",
+          "requests": 0,
+          "seconds": 0.05,
+          "experiments": 0,
+          "outcomes": {},
+          "confirmed": [],
+          "confirmed_count": 0
+        }
+      },
+      "evaluation": {
+        "instance_id": "instance-41",
+        "seed": 41,
+        "blind": true,
+        "leakage_findings": [],
+        "families": {
+          "IDENTITY_BOUNDARY": {
+            "family": "IDENTITY_BOUNDARY",
+            "defective": true,
+            "experiments": 9,
+            "outcomes": {
+              "confirmed": 1,
+              "clean": 8
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-identity-boundary-09",
+                "statement": "/kite-329 may accept use by an identity that does not own the resource: usr-19608 was granted what usr-56477 owns",
+                "origin": "differential:recon:identity-boundary-09"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "PRICE_INTEGRITY": {
+            "family": "PRICE_INTEGRITY",
+            "defective": true,
+            "experiments": 5,
+            "outcomes": {
+              "clean": 3,
+              "confirmed": 2
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-price-integrity-04",
+                "statement": "/tidepool-237 may honor a client-supplied price that differs from the authoritative f148to=50",
+                "origin": "differential:recon:price-integrity-04"
+              },
+              {
+                "hypothesis_id": "h-price-integrity-05",
+                "statement": "/mural-857 may apply a discount for an identity that does not own the resource: usr-19608 was granted what usr-56477 owns",
+                "origin": "differential:recon:price-integrity-05"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "BOUNDARY_LIMIT": {
+            "family": "BOUNDARY_LIMIT",
+            "defective": true,
+            "experiments": 1,
+            "outcomes": {
+              "confirmed": 1
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-boundary-limit-01",
+                "statement": "/quartz-988 may honor a withdrawal above the observed balance 80",
+                "origin": "differential:recon:boundary-limit-01"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "WORKFLOW_IDENTITY": {
+            "family": "WORKFLOW_IDENTITY",
+            "defective": false,
+            "experiments": 3,
+            "outcomes": {
+              "clean": 3
+            },
+            "confirmed": [],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "WORKFLOW_ORDER": {
+            "family": "WORKFLOW_ORDER",
+            "defective": false,
+            "experiments": 3,
+            "outcomes": {
+              "inconclusive": 3
+            },
+            "confirmed": [],
+            "false_positives": [],
+            "false_negatives": []
+          }
+        },
+        "true_positives": 4,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "defective_families": 3
+      }
+    },
+    {
+      "corpus": "heldout",
+      "seed": 42,
+      "instance_id": "instance-42",
+      "blind": true,
+      "profile": "mixed",
+      "modes": {
+        "adaptive": {
+          "mode": "adaptive",
+          "requests": 69,
+          "seconds": 0.865,
+          "experiments": 12,
+          "outcomes": {
+            "inconclusive": 3,
+            "clean": 6,
+            "confirmed": 3
+          },
+          "confirmed": [
+            {
+              "hypothesis_id": "h-price-integrity-03",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/saffron-424 may honor a client-supplied price that differs from the authoritative f710to=100",
+              "origin": "differential:recon:price-integrity-03"
+            },
+            {
+              "hypothesis_id": "h-identity-boundary-01",
+              "family": "IDENTITY_BOUNDARY",
+              "statement": "reading /pebble-253/acc-538287 may not require owning it: actor-a and actor-b were each granted reads of resources exposing different owners (usr-42844, usr-76338)",
+              "origin": "differential:recon:identity-boundary-01"
+            },
+            {
+              "hypothesis_id": "h-workflow-identity-01",
+              "family": "WORKFLOW_IDENTITY",
+              "statement": "workflow /quartz-945/wrk-509494-820 (owner usr-42844) may accept transitions from a non-owner (usr-76338)",
+              "origin": "differential:recon:workflow-identity-01"
+            }
+          ],
+          "confirmed_count": 3
+        },
+        "fixed": {
+          "mode": "fixed",
+          "requests": 69,
+          "seconds": 0.831,
+          "experiments": 12,
+          "outcomes": {
+            "inconclusive": 3,
+            "confirmed": 3,
+            "clean": 6
+          },
+          "confirmed": [
+            {
+              "hypothesis_id": "h-identity-boundary-01",
+              "family": "IDENTITY_BOUNDARY",
+              "statement": "reading /pebble-253/acc-538287 may not require owning it: actor-a and actor-b were each granted reads of resources exposing different owners (usr-42844, usr-76338)",
+              "origin": "differential:recon:identity-boundary-01"
+            },
+            {
+              "hypothesis_id": "h-price-integrity-03",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/saffron-424 may honor a client-supplied price that differs from the authoritative f710to=100",
+              "origin": "differential:recon:price-integrity-03"
+            },
+            {
+              "hypothesis_id": "h-workflow-identity-01",
+              "family": "WORKFLOW_IDENTITY",
+              "statement": "workflow /quartz-945/wrk-509494-820 (owner usr-42844) may accept transitions from a non-owner (usr-76338)",
+              "origin": "differential:recon:workflow-identity-01"
+            }
+          ],
+          "confirmed_count": 3
+        },
+        "ablation": {
+          "mode": "ablation",
+          "requests": 0,
+          "seconds": 0.05,
+          "experiments": 0,
+          "outcomes": {},
+          "confirmed": [],
+          "confirmed_count": 0
+        }
+      },
+      "evaluation": {
+        "instance_id": "instance-42",
+        "seed": 42,
+        "blind": true,
+        "leakage_findings": [],
+        "families": {
+          "IDENTITY_BOUNDARY": {
+            "family": "IDENTITY_BOUNDARY",
+            "defective": true,
+            "experiments": 1,
+            "outcomes": {
+              "confirmed": 1
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-identity-boundary-01",
+                "statement": "reading /pebble-253/acc-538287 may not require owning it: actor-a and actor-b were each granted reads of resources exposing different owners (usr-42844, usr-76338)",
+                "origin": "differential:recon:identity-boundary-01"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "PRICE_INTEGRITY": {
+            "family": "PRICE_INTEGRITY",
+            "defective": true,
+            "experiments": 4,
+            "outcomes": {
+              "clean": 3,
+              "confirmed": 1
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-price-integrity-03",
+                "statement": "/saffron-424 may honor a client-supplied price that differs from the authoritative f710to=100",
+                "origin": "differential:recon:price-integrity-03"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "BOUNDARY_LIMIT": {
+            "family": "BOUNDARY_LIMIT",
+            "defective": false,
+            "experiments": 1,
+            "outcomes": {
+              "clean": 1
+            },
+            "confirmed": [],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "WORKFLOW_IDENTITY": {
+            "family": "WORKFLOW_IDENTITY",
+            "defective": true,
+            "experiments": 3,
+            "outcomes": {
+              "confirmed": 1,
+              "clean": 2
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-workflow-identity-01",
+                "statement": "workflow /quartz-945/wrk-509494-820 (owner usr-42844) may accept transitions from a non-owner (usr-76338)",
+                "origin": "differential:recon:workflow-identity-01",
+                "workflow": "wrk-509494-820"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "WORKFLOW_ORDER": {
+            "family": "WORKFLOW_ORDER",
+            "defective": false,
+            "experiments": 3,
+            "outcomes": {
+              "inconclusive": 3
+            },
+            "confirmed": [],
+            "false_positives": [],
+            "false_negatives": []
+          }
+        },
+        "true_positives": 3,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "defective_families": 3
+      }
+    },
+    {
+      "corpus": "heldout",
+      "seed": 43,
+      "instance_id": "instance-43",
+      "blind": true,
+      "profile": "mixed",
+      "modes": {
+        "adaptive": {
+          "mode": "adaptive",
+          "requests": 96,
+          "seconds": 1.141,
+          "experiments": 21,
+          "outcomes": {
+            "inconclusive": 2,
+            "confirmed": 5,
+            "clean": 14
+          },
+          "confirmed": [
+            {
+              "hypothesis_id": "h-workflow-order-02",
+              "family": "WORKFLOW_ORDER",
+              "statement": "workflow /cobalt-403/wrk-934224-815 may accept op-app-10 directly from st-49a (skipping the next state in the chain)",
+              "origin": "differential:recon:workflow-order-02"
+            },
+            {
+              "hypothesis_id": "h-boundary-limit-01",
+              "family": "BOUNDARY_LIMIT",
+              "statement": "/tidepool-501 may honor a withdrawal above the observed balance 100",
+              "origin": "differential:recon:boundary-limit-01"
+            },
+            {
+              "hypothesis_id": "h-identity-boundary-09",
+              "family": "IDENTITY_BOUNDARY",
+              "statement": "/juniper-604 may accept use by an identity that does not own the resource: usr-64887 was granted what usr-42108 owns",
+              "origin": "differential:recon:identity-boundary-09"
+            },
+            {
+              "hypothesis_id": "h-price-integrity-05",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/quartz-604 may apply a discount for an identity that does not own the resource: usr-64887 was granted what usr-42108 owns",
+              "origin": "differential:recon:price-integrity-05"
+            },
+            {
+              "hypothesis_id": "h-workflow-identity-03",
+              "family": "WORKFLOW_IDENTITY",
+              "statement": "workflow /cobalt-403/wrk-942244-101 (owner usr-42108) may accept transitions from a non-owner (usr-64887)",
+              "origin": "differential:recon:workflow-identity-03"
+            }
+          ],
+          "confirmed_count": 5
+        },
+        "fixed": {
+          "mode": "fixed",
+          "requests": 96,
+          "seconds": 1.107,
+          "experiments": 21,
+          "outcomes": {
+            "inconclusive": 2,
+            "confirmed": 5,
+            "clean": 14
+          },
+          "confirmed": [
+            {
+              "hypothesis_id": "h-workflow-order-02",
+              "family": "WORKFLOW_ORDER",
+              "statement": "workflow /cobalt-403/wrk-934224-815 may accept op-app-10 directly from st-49a (skipping the next state in the chain)",
+              "origin": "differential:recon:workflow-order-02"
+            },
+            {
+              "hypothesis_id": "h-identity-boundary-09",
+              "family": "IDENTITY_BOUNDARY",
+              "statement": "/juniper-604 may accept use by an identity that does not own the resource: usr-64887 was granted what usr-42108 owns",
+              "origin": "differential:recon:identity-boundary-09"
+            },
+            {
+              "hypothesis_id": "h-price-integrity-05",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/quartz-604 may apply a discount for an identity that does not own the resource: usr-64887 was granted what usr-42108 owns",
+              "origin": "differential:recon:price-integrity-05"
+            },
+            {
+              "hypothesis_id": "h-boundary-limit-01",
+              "family": "BOUNDARY_LIMIT",
+              "statement": "/tidepool-501 may honor a withdrawal above the observed balance 100",
+              "origin": "differential:recon:boundary-limit-01"
+            },
+            {
+              "hypothesis_id": "h-workflow-identity-03",
+              "family": "WORKFLOW_IDENTITY",
+              "statement": "workflow /cobalt-403/wrk-942244-101 (owner usr-42108) may accept transitions from a non-owner (usr-64887)",
+              "origin": "differential:recon:workflow-identity-03"
+            }
+          ],
+          "confirmed_count": 5
+        },
+        "ablation": {
+          "mode": "ablation",
+          "requests": 0,
+          "seconds": 0.051,
+          "experiments": 0,
+          "outcomes": {},
+          "confirmed": [],
+          "confirmed_count": 0
+        }
+      },
+      "evaluation": {
+        "instance_id": "instance-43",
+        "seed": 43,
+        "blind": true,
+        "leakage_findings": [],
+        "families": {
+          "IDENTITY_BOUNDARY": {
+            "family": "IDENTITY_BOUNDARY",
+            "defective": true,
+            "experiments": 9,
+            "outcomes": {
+              "confirmed": 1,
+              "clean": 8
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-identity-boundary-09",
+                "statement": "/juniper-604 may accept use by an identity that does not own the resource: usr-64887 was granted what usr-42108 owns",
+                "origin": "differential:recon:identity-boundary-09"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "PRICE_INTEGRITY": {
+            "family": "PRICE_INTEGRITY",
+            "defective": true,
+            "experiments": 5,
+            "outcomes": {
+              "clean": 4,
+              "confirmed": 1
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-price-integrity-05",
+                "statement": "/quartz-604 may apply a discount for an identity that does not own the resource: usr-64887 was granted what usr-42108 owns",
+                "origin": "differential:recon:price-integrity-05"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "BOUNDARY_LIMIT": {
+            "family": "BOUNDARY_LIMIT",
+            "defective": true,
+            "experiments": 1,
+            "outcomes": {
+              "confirmed": 1
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-boundary-limit-01",
+                "statement": "/tidepool-501 may honor a withdrawal above the observed balance 100",
+                "origin": "differential:recon:boundary-limit-01"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "WORKFLOW_IDENTITY": {
+            "family": "WORKFLOW_IDENTITY",
+            "defective": true,
+            "experiments": 3,
+            "outcomes": {
+              "clean": 2,
+              "confirmed": 1
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-workflow-identity-03",
+                "statement": "workflow /cobalt-403/wrk-942244-101 (owner usr-42108) may accept transitions from a non-owner (usr-64887)",
+                "origin": "differential:recon:workflow-identity-03",
+                "workflow": "wrk-942244-101"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "WORKFLOW_ORDER": {
+            "family": "WORKFLOW_ORDER",
+            "defective": true,
+            "experiments": 3,
+            "outcomes": {
+              "inconclusive": 2,
+              "confirmed": 1
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-workflow-order-02",
+                "statement": "workflow /cobalt-403/wrk-934224-815 may accept op-app-10 directly from st-49a (skipping the next state in the chain)",
+                "origin": "differential:recon:workflow-order-02",
+                "workflow": "wrk-934224-815"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          }
+        },
+        "true_positives": 5,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "defective_families": 5
+      }
+    },
+    {
+      "corpus": "heldout",
+      "seed": 51,
+      "instance_id": "instance-51",
+      "blind": true,
+      "profile": "mixed",
+      "modes": {
+        "adaptive": {
+          "mode": "adaptive",
+          "requests": 96,
+          "seconds": 1.165,
+          "experiments": 21,
+          "outcomes": {
+            "inconclusive": 2,
+            "confirmed": 4,
+            "clean": 15
+          },
+          "confirmed": [
+            {
+              "hypothesis_id": "h-workflow-order-02",
+              "family": "WORKFLOW_ORDER",
+              "statement": "workflow /basil-582/wrk-561918-445 may accept op-app-40 directly from st-11a (skipping the next state in the chain)",
+              "origin": "differential:recon:workflow-order-02"
+            },
+            {
+              "hypothesis_id": "h-price-integrity-04",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/mural-602 may honor a client-supplied price that differs from the authoritative f681to=70",
+              "origin": "differential:recon:price-integrity-04"
+            },
+            {
+              "hypothesis_id": "h-price-integrity-05",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/harbor-584 may apply a discount for an identity that does not own the resource: usr-71828 was granted what usr-80578 owns",
+              "origin": "differential:recon:price-integrity-05"
+            },
+            {
+              "hypothesis_id": "h-workflow-identity-03",
+              "family": "WORKFLOW_IDENTITY",
+              "statement": "workflow /basil-582/wrk-702326-127 (owner usr-71828) may accept transitions from a non-owner (usr-80578)",
+              "origin": "differential:recon:workflow-identity-03"
+            }
+          ],
+          "confirmed_count": 4
+        },
+        "fixed": {
+          "mode": "fixed",
+          "requests": 96,
+          "seconds": 1.11,
+          "experiments": 21,
+          "outcomes": {
+            "inconclusive": 2,
+            "confirmed": 4,
+            "clean": 15
+          },
+          "confirmed": [
+            {
+              "hypothesis_id": "h-workflow-order-02",
+              "family": "WORKFLOW_ORDER",
+              "statement": "workflow /basil-582/wrk-561918-445 may accept op-app-40 directly from st-11a (skipping the next state in the chain)",
+              "origin": "differential:recon:workflow-order-02"
+            },
+            {
+              "hypothesis_id": "h-price-integrity-04",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/mural-602 may honor a client-supplied price that differs from the authoritative f681to=70",
+              "origin": "differential:recon:price-integrity-04"
+            },
+            {
+              "hypothesis_id": "h-price-integrity-05",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/harbor-584 may apply a discount for an identity that does not own the resource: usr-71828 was granted what usr-80578 owns",
+              "origin": "differential:recon:price-integrity-05"
+            },
+            {
+              "hypothesis_id": "h-workflow-identity-03",
+              "family": "WORKFLOW_IDENTITY",
+              "statement": "workflow /basil-582/wrk-702326-127 (owner usr-71828) may accept transitions from a non-owner (usr-80578)",
+              "origin": "differential:recon:workflow-identity-03"
+            }
+          ],
+          "confirmed_count": 4
+        },
+        "ablation": {
+          "mode": "ablation",
+          "requests": 0,
+          "seconds": 0.05,
+          "experiments": 0,
+          "outcomes": {},
+          "confirmed": [],
+          "confirmed_count": 0
+        }
+      },
+      "evaluation": {
+        "instance_id": "instance-51",
+        "seed": 51,
+        "blind": true,
+        "leakage_findings": [],
+        "families": {
+          "IDENTITY_BOUNDARY": {
+            "family": "IDENTITY_BOUNDARY",
+            "defective": false,
+            "experiments": 9,
+            "outcomes": {
+              "clean": 9
+            },
+            "confirmed": [],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "PRICE_INTEGRITY": {
+            "family": "PRICE_INTEGRITY",
+            "defective": true,
+            "experiments": 5,
+            "outcomes": {
+              "clean": 3,
+              "confirmed": 2
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-price-integrity-04",
+                "statement": "/mural-602 may honor a client-supplied price that differs from the authoritative f681to=70",
+                "origin": "differential:recon:price-integrity-04"
+              },
+              {
+                "hypothesis_id": "h-price-integrity-05",
+                "statement": "/harbor-584 may apply a discount for an identity that does not own the resource: usr-71828 was granted what usr-80578 owns",
+                "origin": "differential:recon:price-integrity-05"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "BOUNDARY_LIMIT": {
+            "family": "BOUNDARY_LIMIT",
+            "defective": false,
+            "experiments": 1,
+            "outcomes": {
+              "clean": 1
+            },
+            "confirmed": [],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "WORKFLOW_IDENTITY": {
+            "family": "WORKFLOW_IDENTITY",
+            "defective": true,
+            "experiments": 3,
+            "outcomes": {
+              "clean": 2,
+              "confirmed": 1
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-workflow-identity-03",
+                "statement": "workflow /basil-582/wrk-702326-127 (owner usr-71828) may accept transitions from a non-owner (usr-80578)",
+                "origin": "differential:recon:workflow-identity-03",
+                "workflow": "wrk-702326-127"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "WORKFLOW_ORDER": {
+            "family": "WORKFLOW_ORDER",
+            "defective": true,
+            "experiments": 3,
+            "outcomes": {
+              "inconclusive": 2,
+              "confirmed": 1
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-workflow-order-02",
+                "statement": "workflow /basil-582/wrk-561918-445 may accept op-app-40 directly from st-11a (skipping the next state in the chain)",
+                "origin": "differential:recon:workflow-order-02",
+                "workflow": "wrk-561918-445"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          }
+        },
+        "true_positives": 4,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "defective_families": 3
+      }
+    },
+    {
+      "corpus": "heldout",
+      "seed": 52,
+      "instance_id": "instance-52",
+      "blind": true,
+      "profile": "mixed",
+      "modes": {
+        "adaptive": {
+          "mode": "adaptive",
+          "requests": 69,
+          "seconds": 0.809,
+          "experiments": 12,
+          "outcomes": {
+            "inconclusive": 2,
+            "confirmed": 4,
+            "clean": 6
+          },
+          "confirmed": [
+            {
+              "hypothesis_id": "h-workflow-order-03",
+              "family": "WORKFLOW_ORDER",
+              "statement": "workflow /juniper-209/wrk-778567-402 may accept op-app-89 directly from st-46a (skipping the next state in the chain)",
+              "origin": "differential:recon:workflow-order-03"
+            },
+            {
+              "hypothesis_id": "h-price-integrity-02",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/kite-895 may honor a client-supplied price that differs from the authoritative f642to=60",
+              "origin": "differential:recon:price-integrity-02"
+            },
+            {
+              "hypothesis_id": "h-boundary-limit-01",
+              "family": "BOUNDARY_LIMIT",
+              "statement": "/harbor-912 may honor a withdrawal above the observed balance 110",
+              "origin": "differential:recon:boundary-limit-01"
+            },
+            {
+              "hypothesis_id": "h-identity-boundary-01",
+              "family": "IDENTITY_BOUNDARY",
+              "statement": "reading /ripple-880/acc-440087 may not require owning it: actor-a and actor-b were each granted reads of resources exposing different owners (usr-37648, usr-69448)",
+              "origin": "differential:recon:identity-boundary-01"
+            }
+          ],
+          "confirmed_count": 4
+        },
+        "fixed": {
+          "mode": "fixed",
+          "requests": 69,
+          "seconds": 0.814,
+          "experiments": 12,
+          "outcomes": {
+            "inconclusive": 2,
+            "confirmed": 4,
+            "clean": 6
+          },
+          "confirmed": [
+            {
+              "hypothesis_id": "h-workflow-order-03",
+              "family": "WORKFLOW_ORDER",
+              "statement": "workflow /juniper-209/wrk-778567-402 may accept op-app-89 directly from st-46a (skipping the next state in the chain)",
+              "origin": "differential:recon:workflow-order-03"
+            },
+            {
+              "hypothesis_id": "h-identity-boundary-01",
+              "family": "IDENTITY_BOUNDARY",
+              "statement": "reading /ripple-880/acc-440087 may not require owning it: actor-a and actor-b were each granted reads of resources exposing different owners (usr-37648, usr-69448)",
+              "origin": "differential:recon:identity-boundary-01"
+            },
+            {
+              "hypothesis_id": "h-price-integrity-02",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/kite-895 may honor a client-supplied price that differs from the authoritative f642to=60",
+              "origin": "differential:recon:price-integrity-02"
+            },
+            {
+              "hypothesis_id": "h-boundary-limit-01",
+              "family": "BOUNDARY_LIMIT",
+              "statement": "/harbor-912 may honor a withdrawal above the observed balance 110",
+              "origin": "differential:recon:boundary-limit-01"
+            }
+          ],
+          "confirmed_count": 4
+        },
+        "ablation": {
+          "mode": "ablation",
+          "requests": 0,
+          "seconds": 0.051,
+          "experiments": 0,
+          "outcomes": {},
+          "confirmed": [],
+          "confirmed_count": 0
+        }
+      },
+      "evaluation": {
+        "instance_id": "instance-52",
+        "seed": 52,
+        "blind": true,
+        "leakage_findings": [],
+        "families": {
+          "IDENTITY_BOUNDARY": {
+            "family": "IDENTITY_BOUNDARY",
+            "defective": true,
+            "experiments": 1,
+            "outcomes": {
+              "confirmed": 1
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-identity-boundary-01",
+                "statement": "reading /ripple-880/acc-440087 may not require owning it: actor-a and actor-b were each granted reads of resources exposing different owners (usr-37648, usr-69448)",
+                "origin": "differential:recon:identity-boundary-01"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "PRICE_INTEGRITY": {
+            "family": "PRICE_INTEGRITY",
+            "defective": true,
+            "experiments": 4,
+            "outcomes": {
+              "clean": 3,
+              "confirmed": 1
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-price-integrity-02",
+                "statement": "/kite-895 may honor a client-supplied price that differs from the authoritative f642to=60",
+                "origin": "differential:recon:price-integrity-02"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "BOUNDARY_LIMIT": {
+            "family": "BOUNDARY_LIMIT",
+            "defective": true,
+            "experiments": 1,
+            "outcomes": {
+              "confirmed": 1
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-boundary-limit-01",
+                "statement": "/harbor-912 may honor a withdrawal above the observed balance 110",
+                "origin": "differential:recon:boundary-limit-01"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "WORKFLOW_IDENTITY": {
+            "family": "WORKFLOW_IDENTITY",
+            "defective": false,
+            "experiments": 3,
+            "outcomes": {
+              "clean": 3
+            },
+            "confirmed": [],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "WORKFLOW_ORDER": {
+            "family": "WORKFLOW_ORDER",
+            "defective": true,
+            "experiments": 3,
+            "outcomes": {
+              "inconclusive": 2,
+              "confirmed": 1
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-workflow-order-03",
+                "statement": "workflow /juniper-209/wrk-778567-402 may accept op-app-89 directly from st-46a (skipping the next state in the chain)",
+                "origin": "differential:recon:workflow-order-03",
+                "workflow": "wrk-778567-402"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          }
+        },
+        "true_positives": 4,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "defective_families": 4
+      }
+    },
+    {
+      "corpus": "heldout",
+      "seed": 53,
+      "instance_id": "instance-53",
+      "blind": true,
+      "profile": "mixed",
+      "modes": {
+        "adaptive": {
+          "mode": "adaptive",
+          "requests": 96,
+          "seconds": 1.095,
+          "experiments": 21,
+          "outcomes": {
+            "inconclusive": 3,
+            "confirmed": 4,
+            "clean": 14
+          },
+          "confirmed": [
+            {
+              "hypothesis_id": "h-price-integrity-01",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/ember-731 may honor a client-supplied price that differs from the authoritative f598to=50",
+              "origin": "differential:recon:price-integrity-01"
+            },
+            {
+              "hypothesis_id": "h-boundary-limit-01",
+              "family": "BOUNDARY_LIMIT",
+              "statement": "/quartz-373 may honor a withdrawal above the observed balance 80",
+              "origin": "differential:recon:boundary-limit-01"
+            },
+            {
+              "hypothesis_id": "h-identity-boundary-09",
+              "family": "IDENTITY_BOUNDARY",
+              "statement": "/orchard-972 may accept use by an identity that does not own the resource: usr-15950 was granted what usr-52971 owns",
+              "origin": "differential:recon:identity-boundary-09"
+            },
+            {
+              "hypothesis_id": "h-price-integrity-05",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/pebble-169 may apply a discount for an identity that does not own the resource: usr-15950 was granted what usr-52971 owns",
+              "origin": "differential:recon:price-integrity-05"
+            }
+          ],
+          "confirmed_count": 4
+        },
+        "fixed": {
+          "mode": "fixed",
+          "requests": 96,
+          "seconds": 1.155,
+          "experiments": 21,
+          "outcomes": {
+            "inconclusive": 3,
+            "clean": 14,
+            "confirmed": 4
+          },
+          "confirmed": [
+            {
+              "hypothesis_id": "h-price-integrity-01",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/ember-731 may honor a client-supplied price that differs from the authoritative f598to=50",
+              "origin": "differential:recon:price-integrity-01"
+            },
+            {
+              "hypothesis_id": "h-identity-boundary-09",
+              "family": "IDENTITY_BOUNDARY",
+              "statement": "/orchard-972 may accept use by an identity that does not own the resource: usr-15950 was granted what usr-52971 owns",
+              "origin": "differential:recon:identity-boundary-09"
+            },
+            {
+              "hypothesis_id": "h-price-integrity-05",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/pebble-169 may apply a discount for an identity that does not own the resource: usr-15950 was granted what usr-52971 owns",
+              "origin": "differential:recon:price-integrity-05"
+            },
+            {
+              "hypothesis_id": "h-boundary-limit-01",
+              "family": "BOUNDARY_LIMIT",
+              "statement": "/quartz-373 may honor a withdrawal above the observed balance 80",
+              "origin": "differential:recon:boundary-limit-01"
+            }
+          ],
+          "confirmed_count": 4
+        },
+        "ablation": {
+          "mode": "ablation",
+          "requests": 0,
+          "seconds": 0.051,
+          "experiments": 0,
+          "outcomes": {},
+          "confirmed": [],
+          "confirmed_count": 0
+        }
+      },
+      "evaluation": {
+        "instance_id": "instance-53",
+        "seed": 53,
+        "blind": true,
+        "leakage_findings": [],
+        "families": {
+          "IDENTITY_BOUNDARY": {
+            "family": "IDENTITY_BOUNDARY",
+            "defective": true,
+            "experiments": 9,
+            "outcomes": {
+              "confirmed": 1,
+              "clean": 8
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-identity-boundary-09",
+                "statement": "/orchard-972 may accept use by an identity that does not own the resource: usr-15950 was granted what usr-52971 owns",
+                "origin": "differential:recon:identity-boundary-09"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "PRICE_INTEGRITY": {
+            "family": "PRICE_INTEGRITY",
+            "defective": true,
+            "experiments": 5,
+            "outcomes": {
+              "confirmed": 2,
+              "clean": 3
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-price-integrity-01",
+                "statement": "/ember-731 may honor a client-supplied price that differs from the authoritative f598to=50",
+                "origin": "differential:recon:price-integrity-01"
+              },
+              {
+                "hypothesis_id": "h-price-integrity-05",
+                "statement": "/pebble-169 may apply a discount for an identity that does not own the resource: usr-15950 was granted what usr-52971 owns",
+                "origin": "differential:recon:price-integrity-05"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "BOUNDARY_LIMIT": {
+            "family": "BOUNDARY_LIMIT",
+            "defective": true,
+            "experiments": 1,
+            "outcomes": {
+              "confirmed": 1
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-boundary-limit-01",
+                "statement": "/quartz-373 may honor a withdrawal above the observed balance 80",
+                "origin": "differential:recon:boundary-limit-01"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "WORKFLOW_IDENTITY": {
+            "family": "WORKFLOW_IDENTITY",
+            "defective": false,
+            "experiments": 3,
+            "outcomes": {
+              "clean": 3
+            },
+            "confirmed": [],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "WORKFLOW_ORDER": {
+            "family": "WORKFLOW_ORDER",
+            "defective": false,
+            "experiments": 3,
+            "outcomes": {
+              "inconclusive": 3
+            },
+            "confirmed": [],
+            "false_positives": [],
+            "false_negatives": []
+          }
+        },
+        "true_positives": 4,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "defective_families": 3
+      }
+    },
+    {
+      "corpus": "heldout",
+      "seed": 61,
+      "instance_id": "instance-61",
+      "blind": true,
+      "profile": "mixed",
+      "modes": {
+        "adaptive": {
+          "mode": "adaptive",
+          "requests": 96,
+          "seconds": 1.113,
+          "experiments": 21,
+          "outcomes": {
+            "inconclusive": 2,
+            "confirmed": 5,
+            "clean": 14
+          },
+          "confirmed": [
+            {
+              "hypothesis_id": "h-workflow-order-03",
+              "family": "WORKFLOW_ORDER",
+              "statement": "workflow /kite-524/wrk-912788-322 may accept op-app-76 directly from st-83a (skipping the next state in the chain)",
+              "origin": "differential:recon:workflow-order-03"
+            },
+            {
+              "hypothesis_id": "h-boundary-limit-01",
+              "family": "BOUNDARY_LIMIT",
+              "statement": "/harbor-551 may honor a withdrawal above the observed balance 100",
+              "origin": "differential:recon:boundary-limit-01"
+            },
+            {
+              "hypothesis_id": "h-price-integrity-05",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/compass-552 may apply a discount for an identity that does not own the resource: usr-83511 was granted what usr-30803 owns",
+              "origin": "differential:recon:price-integrity-05"
+            },
+            {
+              "hypothesis_id": "h-identity-boundary-09",
+              "family": "IDENTITY_BOUNDARY",
+              "statement": "/willow-661 may accept use by an identity that does not own the resource: usr-83511 was granted what usr-30803 owns",
+              "origin": "differential:recon:identity-boundary-09"
+            },
+            {
+              "hypothesis_id": "h-workflow-identity-02",
+              "family": "WORKFLOW_IDENTITY",
+              "statement": "workflow /kite-524/wrk-576725-209 (owner usr-83511) may accept transitions from a non-owner (usr-30803)",
+              "origin": "differential:recon:workflow-identity-02"
+            }
+          ],
+          "confirmed_count": 5
+        },
+        "fixed": {
+          "mode": "fixed",
+          "requests": 96,
+          "seconds": 1.157,
+          "experiments": 21,
+          "outcomes": {
+            "inconclusive": 2,
+            "confirmed": 5,
+            "clean": 14
+          },
+          "confirmed": [
+            {
+              "hypothesis_id": "h-workflow-order-03",
+              "family": "WORKFLOW_ORDER",
+              "statement": "workflow /kite-524/wrk-912788-322 may accept op-app-76 directly from st-83a (skipping the next state in the chain)",
+              "origin": "differential:recon:workflow-order-03"
+            },
+            {
+              "hypothesis_id": "h-price-integrity-05",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/compass-552 may apply a discount for an identity that does not own the resource: usr-83511 was granted what usr-30803 owns",
+              "origin": "differential:recon:price-integrity-05"
+            },
+            {
+              "hypothesis_id": "h-identity-boundary-09",
+              "family": "IDENTITY_BOUNDARY",
+              "statement": "/willow-661 may accept use by an identity that does not own the resource: usr-83511 was granted what usr-30803 owns",
+              "origin": "differential:recon:identity-boundary-09"
+            },
+            {
+              "hypothesis_id": "h-boundary-limit-01",
+              "family": "BOUNDARY_LIMIT",
+              "statement": "/harbor-551 may honor a withdrawal above the observed balance 100",
+              "origin": "differential:recon:boundary-limit-01"
+            },
+            {
+              "hypothesis_id": "h-workflow-identity-02",
+              "family": "WORKFLOW_IDENTITY",
+              "statement": "workflow /kite-524/wrk-576725-209 (owner usr-83511) may accept transitions from a non-owner (usr-30803)",
+              "origin": "differential:recon:workflow-identity-02"
+            }
+          ],
+          "confirmed_count": 5
+        },
+        "ablation": {
+          "mode": "ablation",
+          "requests": 0,
+          "seconds": 0.05,
+          "experiments": 0,
+          "outcomes": {},
+          "confirmed": [],
+          "confirmed_count": 0
+        }
+      },
+      "evaluation": {
+        "instance_id": "instance-61",
+        "seed": 61,
+        "blind": true,
+        "leakage_findings": [],
+        "families": {
+          "IDENTITY_BOUNDARY": {
+            "family": "IDENTITY_BOUNDARY",
+            "defective": true,
+            "experiments": 9,
+            "outcomes": {
+              "confirmed": 1,
+              "clean": 8
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-identity-boundary-09",
+                "statement": "/willow-661 may accept use by an identity that does not own the resource: usr-83511 was granted what usr-30803 owns",
+                "origin": "differential:recon:identity-boundary-09"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "PRICE_INTEGRITY": {
+            "family": "PRICE_INTEGRITY",
+            "defective": true,
+            "experiments": 5,
+            "outcomes": {
+              "clean": 4,
+              "confirmed": 1
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-price-integrity-05",
+                "statement": "/compass-552 may apply a discount for an identity that does not own the resource: usr-83511 was granted what usr-30803 owns",
+                "origin": "differential:recon:price-integrity-05"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "BOUNDARY_LIMIT": {
+            "family": "BOUNDARY_LIMIT",
+            "defective": true,
+            "experiments": 1,
+            "outcomes": {
+              "confirmed": 1
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-boundary-limit-01",
+                "statement": "/harbor-551 may honor a withdrawal above the observed balance 100",
+                "origin": "differential:recon:boundary-limit-01"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "WORKFLOW_IDENTITY": {
+            "family": "WORKFLOW_IDENTITY",
+            "defective": true,
+            "experiments": 3,
+            "outcomes": {
+              "clean": 2,
+              "confirmed": 1
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-workflow-identity-02",
+                "statement": "workflow /kite-524/wrk-576725-209 (owner usr-83511) may accept transitions from a non-owner (usr-30803)",
+                "origin": "differential:recon:workflow-identity-02",
+                "workflow": "wrk-576725-209"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "WORKFLOW_ORDER": {
+            "family": "WORKFLOW_ORDER",
+            "defective": true,
+            "experiments": 3,
+            "outcomes": {
+              "inconclusive": 2,
+              "confirmed": 1
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-workflow-order-03",
+                "statement": "workflow /kite-524/wrk-912788-322 may accept op-app-76 directly from st-83a (skipping the next state in the chain)",
+                "origin": "differential:recon:workflow-order-03",
+                "workflow": "wrk-912788-322"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          }
+        },
+        "true_positives": 5,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "defective_families": 5
+      }
+    },
+    {
+      "corpus": "heldout",
+      "seed": 62,
+      "instance_id": "instance-62",
+      "blind": true,
+      "profile": "mixed",
+      "modes": {
+        "adaptive": {
+          "mode": "adaptive",
+          "requests": 69,
+          "seconds": 0.845,
+          "experiments": 12,
+          "outcomes": {
+            "inconclusive": 2,
+            "confirmed": 4,
+            "clean": 6
+          },
+          "confirmed": [
+            {
+              "hypothesis_id": "h-workflow-order-02",
+              "family": "WORKFLOW_ORDER",
+              "statement": "workflow /harbor-766/wrk-621271-559 may accept op-app-70 directly from st-37a (skipping the next state in the chain)",
+              "origin": "differential:recon:workflow-order-02"
+            },
+            {
+              "hypothesis_id": "h-price-integrity-01",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/cedar-786 may honor a client-supplied price that differs from the authoritative f229to=60",
+              "origin": "differential:recon:price-integrity-01"
+            },
+            {
+              "hypothesis_id": "h-boundary-limit-01",
+              "family": "BOUNDARY_LIMIT",
+              "statement": "/willow-607 may honor a withdrawal above the observed balance 100",
+              "origin": "differential:recon:boundary-limit-01"
+            },
+            {
+              "hypothesis_id": "h-identity-boundary-01",
+              "family": "IDENTITY_BOUNDARY",
+              "statement": "reading /ember-706/acc-233848 may not require owning it: actor-a and actor-b were each granted reads of resources exposing different owners (usr-35212, usr-92787)",
+              "origin": "differential:recon:identity-boundary-01"
+            }
+          ],
+          "confirmed_count": 4
+        },
+        "fixed": {
+          "mode": "fixed",
+          "requests": 69,
+          "seconds": 0.817,
+          "experiments": 12,
+          "outcomes": {
+            "inconclusive": 2,
+            "confirmed": 4,
+            "clean": 6
+          },
+          "confirmed": [
+            {
+              "hypothesis_id": "h-workflow-order-02",
+              "family": "WORKFLOW_ORDER",
+              "statement": "workflow /harbor-766/wrk-621271-559 may accept op-app-70 directly from st-37a (skipping the next state in the chain)",
+              "origin": "differential:recon:workflow-order-02"
+            },
+            {
+              "hypothesis_id": "h-identity-boundary-01",
+              "family": "IDENTITY_BOUNDARY",
+              "statement": "reading /ember-706/acc-233848 may not require owning it: actor-a and actor-b were each granted reads of resources exposing different owners (usr-35212, usr-92787)",
+              "origin": "differential:recon:identity-boundary-01"
+            },
+            {
+              "hypothesis_id": "h-price-integrity-01",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/cedar-786 may honor a client-supplied price that differs from the authoritative f229to=60",
+              "origin": "differential:recon:price-integrity-01"
+            },
+            {
+              "hypothesis_id": "h-boundary-limit-01",
+              "family": "BOUNDARY_LIMIT",
+              "statement": "/willow-607 may honor a withdrawal above the observed balance 100",
+              "origin": "differential:recon:boundary-limit-01"
+            }
+          ],
+          "confirmed_count": 4
+        },
+        "ablation": {
+          "mode": "ablation",
+          "requests": 0,
+          "seconds": 0.05,
+          "experiments": 0,
+          "outcomes": {},
+          "confirmed": [],
+          "confirmed_count": 0
+        }
+      },
+      "evaluation": {
+        "instance_id": "instance-62",
+        "seed": 62,
+        "blind": true,
+        "leakage_findings": [],
+        "families": {
+          "IDENTITY_BOUNDARY": {
+            "family": "IDENTITY_BOUNDARY",
+            "defective": true,
+            "experiments": 1,
+            "outcomes": {
+              "confirmed": 1
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-identity-boundary-01",
+                "statement": "reading /ember-706/acc-233848 may not require owning it: actor-a and actor-b were each granted reads of resources exposing different owners (usr-35212, usr-92787)",
+                "origin": "differential:recon:identity-boundary-01"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "PRICE_INTEGRITY": {
+            "family": "PRICE_INTEGRITY",
+            "defective": true,
+            "experiments": 4,
+            "outcomes": {
+              "confirmed": 1,
+              "clean": 3
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-price-integrity-01",
+                "statement": "/cedar-786 may honor a client-supplied price that differs from the authoritative f229to=60",
+                "origin": "differential:recon:price-integrity-01"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "BOUNDARY_LIMIT": {
+            "family": "BOUNDARY_LIMIT",
+            "defective": true,
+            "experiments": 1,
+            "outcomes": {
+              "confirmed": 1
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-boundary-limit-01",
+                "statement": "/willow-607 may honor a withdrawal above the observed balance 100",
+                "origin": "differential:recon:boundary-limit-01"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "WORKFLOW_IDENTITY": {
+            "family": "WORKFLOW_IDENTITY",
+            "defective": false,
+            "experiments": 3,
+            "outcomes": {
+              "clean": 3
+            },
+            "confirmed": [],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "WORKFLOW_ORDER": {
+            "family": "WORKFLOW_ORDER",
+            "defective": true,
+            "experiments": 3,
+            "outcomes": {
+              "inconclusive": 2,
+              "confirmed": 1
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-workflow-order-02",
+                "statement": "workflow /harbor-766/wrk-621271-559 may accept op-app-70 directly from st-37a (skipping the next state in the chain)",
+                "origin": "differential:recon:workflow-order-02",
+                "workflow": "wrk-621271-559"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          }
+        },
+        "true_positives": 4,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "defective_families": 4
+      }
+    },
+    {
+      "corpus": "heldout",
+      "seed": 63,
+      "instance_id": "instance-63",
+      "blind": true,
+      "profile": "mixed",
+      "modes": {
+        "adaptive": {
+          "mode": "adaptive",
+          "requests": 96,
+          "seconds": 1.13,
+          "experiments": 21,
+          "outcomes": {
+            "inconclusive": 2,
+            "confirmed": 4,
+            "clean": 15
+          },
+          "confirmed": [
+            {
+              "hypothesis_id": "h-workflow-order-02",
+              "family": "WORKFLOW_ORDER",
+              "statement": "workflow /orchard-625/wrk-562278-206 may accept op-app-72 directly from st-17a (skipping the next state in the chain)",
+              "origin": "differential:recon:workflow-order-02"
+            },
+            {
+              "hypothesis_id": "h-price-integrity-02",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/pebble-490 may honor a client-supplied price that differs from the authoritative f435to=80",
+              "origin": "differential:recon:price-integrity-02"
+            },
+            {
+              "hypothesis_id": "h-price-integrity-05",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/marble-250 may apply a discount for an identity that does not own the resource: usr-19449 was granted what usr-91162 owns",
+              "origin": "differential:recon:price-integrity-05"
+            },
+            {
+              "hypothesis_id": "h-workflow-identity-01",
+              "family": "WORKFLOW_IDENTITY",
+              "statement": "workflow /orchard-625/wrk-214290-773 (owner usr-91162) may accept transitions from a non-owner (usr-19449)",
+              "origin": "differential:recon:workflow-identity-01"
+            }
+          ],
+          "confirmed_count": 4
+        },
+        "fixed": {
+          "mode": "fixed",
+          "requests": 96,
+          "seconds": 1.13,
+          "experiments": 21,
+          "outcomes": {
+            "inconclusive": 2,
+            "confirmed": 4,
+            "clean": 15
+          },
+          "confirmed": [
+            {
+              "hypothesis_id": "h-workflow-order-02",
+              "family": "WORKFLOW_ORDER",
+              "statement": "workflow /orchard-625/wrk-562278-206 may accept op-app-72 directly from st-17a (skipping the next state in the chain)",
+              "origin": "differential:recon:workflow-order-02"
+            },
+            {
+              "hypothesis_id": "h-price-integrity-02",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/pebble-490 may honor a client-supplied price that differs from the authoritative f435to=80",
+              "origin": "differential:recon:price-integrity-02"
+            },
+            {
+              "hypothesis_id": "h-price-integrity-05",
+              "family": "PRICE_INTEGRITY",
+              "statement": "/marble-250 may apply a discount for an identity that does not own the resource: usr-19449 was granted what usr-91162 owns",
+              "origin": "differential:recon:price-integrity-05"
+            },
+            {
+              "hypothesis_id": "h-workflow-identity-01",
+              "family": "WORKFLOW_IDENTITY",
+              "statement": "workflow /orchard-625/wrk-214290-773 (owner usr-91162) may accept transitions from a non-owner (usr-19449)",
+              "origin": "differential:recon:workflow-identity-01"
+            }
+          ],
+          "confirmed_count": 4
+        },
+        "ablation": {
+          "mode": "ablation",
+          "requests": 0,
+          "seconds": 0.051,
+          "experiments": 0,
+          "outcomes": {},
+          "confirmed": [],
+          "confirmed_count": 0
+        }
+      },
+      "evaluation": {
+        "instance_id": "instance-63",
+        "seed": 63,
+        "blind": true,
+        "leakage_findings": [],
+        "families": {
+          "IDENTITY_BOUNDARY": {
+            "family": "IDENTITY_BOUNDARY",
+            "defective": false,
+            "experiments": 9,
+            "outcomes": {
+              "clean": 9
+            },
+            "confirmed": [],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "PRICE_INTEGRITY": {
+            "family": "PRICE_INTEGRITY",
+            "defective": true,
+            "experiments": 5,
+            "outcomes": {
+              "clean": 3,
+              "confirmed": 2
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-price-integrity-02",
+                "statement": "/pebble-490 may honor a client-supplied price that differs from the authoritative f435to=80",
+                "origin": "differential:recon:price-integrity-02"
+              },
+              {
+                "hypothesis_id": "h-price-integrity-05",
+                "statement": "/marble-250 may apply a discount for an identity that does not own the resource: usr-19449 was granted what usr-91162 owns",
+                "origin": "differential:recon:price-integrity-05"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "BOUNDARY_LIMIT": {
+            "family": "BOUNDARY_LIMIT",
+            "defective": false,
+            "experiments": 1,
+            "outcomes": {
+              "clean": 1
+            },
+            "confirmed": [],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "WORKFLOW_IDENTITY": {
+            "family": "WORKFLOW_IDENTITY",
+            "defective": true,
+            "experiments": 3,
+            "outcomes": {
+              "confirmed": 1,
+              "clean": 2
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-workflow-identity-01",
+                "statement": "workflow /orchard-625/wrk-214290-773 (owner usr-91162) may accept transitions from a non-owner (usr-19449)",
+                "origin": "differential:recon:workflow-identity-01",
+                "workflow": "wrk-214290-773"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "WORKFLOW_ORDER": {
+            "family": "WORKFLOW_ORDER",
+            "defective": true,
+            "experiments": 3,
+            "outcomes": {
+              "inconclusive": 2,
+              "confirmed": 1
+            },
+            "confirmed": [
+              {
+                "hypothesis_id": "h-workflow-order-02",
+                "statement": "workflow /orchard-625/wrk-562278-206 may accept op-app-72 directly from st-17a (skipping the next state in the chain)",
+                "origin": "differential:recon:workflow-order-02",
+                "workflow": "wrk-562278-206"
+              }
+            ],
+            "false_positives": [],
+            "false_negatives": []
+          }
+        },
+        "true_positives": 4,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "defective_families": 3
+      }
+    }
+  ],
+  "negative": [
+    {
+      "corpus": "negative",
+      "seed": 71,
+      "instance_id": "instance-71",
+      "blind": true,
+      "profile": "secured",
+      "modes": {
+        "adaptive": {
+          "mode": "adaptive",
+          "requests": 96,
+          "seconds": 1.146,
+          "experiments": 21,
+          "outcomes": {
+            "inconclusive": 3,
+            "clean": 18
+          },
+          "confirmed": [],
+          "confirmed_count": 0
+        },
+        "fixed": {
+          "mode": "fixed",
+          "requests": 96,
+          "seconds": 1.161,
+          "experiments": 21,
+          "outcomes": {
+            "inconclusive": 3,
+            "clean": 18
+          },
+          "confirmed": [],
+          "confirmed_count": 0
+        },
+        "ablation": {
+          "mode": "ablation",
+          "requests": 0,
+          "seconds": 0.051,
+          "experiments": 0,
+          "outcomes": {},
+          "confirmed": [],
+          "confirmed_count": 0
+        }
+      },
+      "evaluation": {
+        "instance_id": "instance-71",
+        "seed": 71,
+        "blind": true,
+        "leakage_findings": [],
+        "families": {
+          "IDENTITY_BOUNDARY": {
+            "family": "IDENTITY_BOUNDARY",
+            "defective": false,
+            "experiments": 9,
+            "outcomes": {
+              "clean": 9
+            },
+            "confirmed": [],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "PRICE_INTEGRITY": {
+            "family": "PRICE_INTEGRITY",
+            "defective": false,
+            "experiments": 5,
+            "outcomes": {
+              "clean": 5
+            },
+            "confirmed": [],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "BOUNDARY_LIMIT": {
+            "family": "BOUNDARY_LIMIT",
+            "defective": false,
+            "experiments": 1,
+            "outcomes": {
+              "clean": 1
+            },
+            "confirmed": [],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "WORKFLOW_IDENTITY": {
+            "family": "WORKFLOW_IDENTITY",
+            "defective": false,
+            "experiments": 3,
+            "outcomes": {
+              "clean": 3
+            },
+            "confirmed": [],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "WORKFLOW_ORDER": {
+            "family": "WORKFLOW_ORDER",
+            "defective": false,
+            "experiments": 3,
+            "outcomes": {
+              "inconclusive": 3
+            },
+            "confirmed": [],
+            "false_positives": [],
+            "false_negatives": []
+          }
+        },
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "defective_families": 0
+      }
+    },
+    {
+      "corpus": "negative",
+      "seed": 72,
+      "instance_id": "instance-72",
+      "blind": true,
+      "profile": "secured",
+      "modes": {
+        "adaptive": {
+          "mode": "adaptive",
+          "requests": 96,
+          "seconds": 1.14,
+          "experiments": 21,
+          "outcomes": {
+            "inconclusive": 3,
+            "clean": 18
+          },
+          "confirmed": [],
+          "confirmed_count": 0
+        },
+        "fixed": {
+          "mode": "fixed",
+          "requests": 96,
+          "seconds": 1.09,
+          "experiments": 21,
+          "outcomes": {
+            "inconclusive": 3,
+            "clean": 18
+          },
+          "confirmed": [],
+          "confirmed_count": 0
+        },
+        "ablation": {
+          "mode": "ablation",
+          "requests": 0,
+          "seconds": 0.05,
+          "experiments": 0,
+          "outcomes": {},
+          "confirmed": [],
+          "confirmed_count": 0
+        }
+      },
+      "evaluation": {
+        "instance_id": "instance-72",
+        "seed": 72,
+        "blind": true,
+        "leakage_findings": [],
+        "families": {
+          "IDENTITY_BOUNDARY": {
+            "family": "IDENTITY_BOUNDARY",
+            "defective": false,
+            "experiments": 9,
+            "outcomes": {
+              "clean": 9
+            },
+            "confirmed": [],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "PRICE_INTEGRITY": {
+            "family": "PRICE_INTEGRITY",
+            "defective": false,
+            "experiments": 5,
+            "outcomes": {
+              "clean": 5
+            },
+            "confirmed": [],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "BOUNDARY_LIMIT": {
+            "family": "BOUNDARY_LIMIT",
+            "defective": false,
+            "experiments": 1,
+            "outcomes": {
+              "clean": 1
+            },
+            "confirmed": [],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "WORKFLOW_IDENTITY": {
+            "family": "WORKFLOW_IDENTITY",
+            "defective": false,
+            "experiments": 3,
+            "outcomes": {
+              "clean": 3
+            },
+            "confirmed": [],
+            "false_positives": [],
+            "false_negatives": []
+          },
+          "WORKFLOW_ORDER": {
+            "family": "WORKFLOW_ORDER",
+            "defective": false,
+            "experiments": 3,
+            "outcomes": {
+              "inconclusive": 3
+            },
+            "confirmed": [],
+            "false_positives": [],
+            "false_negatives": []
+          }
+        },
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "defective_families": 0
+      }
+    }
+  ],
+  "dev_summary": {
+    "summary": {
+      "instances": 3,
+      "true_positives": 13,
+      "false_positives": 0,
+      "false_negatives": 0,
+      "recall": 1.0,
+      "precision": 1.0,
+      "per_family": {
+        "IDENTITY_BOUNDARY": {
+          "confirmed": 2,
+          "false_positives": 0,
+          "false_negatives": 0
+        },
+        "PRICE_INTEGRITY": {
+          "confirmed": 4,
+          "false_positives": 0,
+          "false_negatives": 0
+        },
+        "BOUNDARY_LIMIT": {
+          "confirmed": 2,
+          "false_positives": 0,
+          "false_negatives": 0
+        },
+        "WORKFLOW_IDENTITY": {
+          "confirmed": 2,
+          "false_positives": 0,
+          "false_negatives": 0
+        },
+        "WORKFLOW_ORDER": {
+          "confirmed": 3,
+          "false_positives": 0,
+          "false_negatives": 0
+        }
+      },
+      "causal_failures": {},
+      "leakage_findings": 0
+    },
+    "per_mode": {
+      "adaptive": {
+        "confirmed": 13,
+        "requests": 261,
+        "seconds": 3.244
+      },
+      "fixed": {
+        "confirmed": 13,
+        "requests": 261,
+        "seconds": 3.067
+      },
+      "ablation": {
+        "confirmed": 0,
+        "requests": 0,
+        "seconds": 0.152
+      }
+    }
+  },
+  "heldout_summary": {
+    "summary": {
+      "instances": 9,
+      "true_positives": 37,
+      "false_positives": 0,
+      "false_negatives": 0,
+      "recall": 1.0,
+      "precision": 1.0,
+      "per_family": {
+        "IDENTITY_BOUNDARY": {
+          "confirmed": 7,
+          "false_positives": 0,
+          "false_negatives": 0
+        },
+        "PRICE_INTEGRITY": {
+          "confirmed": 13,
+          "false_positives": 0,
+          "false_negatives": 0
+        },
+        "BOUNDARY_LIMIT": {
+          "confirmed": 6,
+          "false_positives": 0,
+          "false_negatives": 0
+        },
+        "WORKFLOW_IDENTITY": {
+          "confirmed": 5,
+          "false_positives": 0,
+          "false_negatives": 0
+        },
+        "WORKFLOW_ORDER": {
+          "confirmed": 6,
+          "false_positives": 0,
+          "false_negatives": 0
+        }
+      },
+      "causal_failures": {},
+      "leakage_findings": 0
+    },
+    "per_mode": {
+      "adaptive": {
+        "confirmed": 37,
+        "requests": 783,
+        "seconds": 9.308
+      },
+      "fixed": {
+        "confirmed": 37,
+        "requests": 783,
+        "seconds": 9.242
+      },
+      "ablation": {
+        "confirmed": 0,
+        "requests": 0,
+        "seconds": 0.454
+      }
+    }
+  },
+  "negative_summary": {
+    "summary": {
+      "instances": 2,
+      "true_positives": 0,
+      "false_positives": 0,
+      "false_negatives": 0,
+      "recall": 0.0,
+      "precision": 0.0,
+      "per_family": {
+        "IDENTITY_BOUNDARY": {
+          "confirmed": 0,
+          "false_positives": 0,
+          "false_negatives": 0
+        },
+        "PRICE_INTEGRITY": {
+          "confirmed": 0,
+          "false_positives": 0,
+          "false_negatives": 0
+        },
+        "BOUNDARY_LIMIT": {
+          "confirmed": 0,
+          "false_positives": 0,
+          "false_negatives": 0
+        },
+        "WORKFLOW_IDENTITY": {
+          "confirmed": 0,
+          "false_positives": 0,
+          "false_negatives": 0
+        },
+        "WORKFLOW_ORDER": {
+          "confirmed": 0,
+          "false_positives": 0,
+          "false_negatives": 0
+        }
+      },
+      "causal_failures": {},
+      "leakage_findings": 0
+    },
+    "per_mode": {
+      "adaptive": {
+        "confirmed": 0,
+        "requests": 192,
+        "seconds": 2.286
+      },
+      "fixed": {
+        "confirmed": 0,
+        "requests": 192,
+        "seconds": 2.251
+      },
+      "ablation": {
+        "confirmed": 0,
+        "requests": 0,
+        "seconds": 0.101
+      }
+    }
+  },
+  "repeatability_by_block": {
+    "A": {
+      "instances": 3,
+      "true_positives": 12,
+      "false_positives": 0,
+      "false_negatives": 0,
+      "recall": 1.0,
+      "precision": 1.0,
+      "per_family": {
+        "IDENTITY_BOUNDARY": {
+          "confirmed": 3,
+          "false_positives": 0,
+          "false_negatives": 0
+        },
+        "PRICE_INTEGRITY": {
+          "confirmed": 4,
+          "false_positives": 0,
+          "false_negatives": 0
+        },
+        "BOUNDARY_LIMIT": {
+          "confirmed": 2,
+          "false_positives": 0,
+          "false_negatives": 0
+        },
+        "WORKFLOW_IDENTITY": {
+          "confirmed": 2,
+          "false_positives": 0,
+          "false_negatives": 0
+        },
+        "WORKFLOW_ORDER": {
+          "confirmed": 1,
+          "false_positives": 0,
+          "false_negatives": 0
+        }
+      },
+      "causal_failures": {},
+      "leakage_findings": 0
+    },
+    "B": {
+      "instances": 3,
+      "true_positives": 12,
+      "false_positives": 0,
+      "false_negatives": 0,
+      "recall": 1.0,
+      "precision": 1.0,
+      "per_family": {
+        "IDENTITY_BOUNDARY": {
+          "confirmed": 2,
+          "false_positives": 0,
+          "false_negatives": 0
+        },
+        "PRICE_INTEGRITY": {
+          "confirmed": 5,
+          "false_positives": 0,
+          "false_negatives": 0
+        },
+        "BOUNDARY_LIMIT": {
+          "confirmed": 2,
+          "false_positives": 0,
+          "false_negatives": 0
+        },
+        "WORKFLOW_IDENTITY": {
+          "confirmed": 1,
+          "false_positives": 0,
+          "false_negatives": 0
+        },
+        "WORKFLOW_ORDER": {
+          "confirmed": 2,
+          "false_positives": 0,
+          "false_negatives": 0
+        }
+      },
+      "causal_failures": {},
+      "leakage_findings": 0
+    },
+    "C": {
+      "instances": 3,
+      "true_positives": 13,
+      "false_positives": 0,
+      "false_negatives": 0,
+      "recall": 1.0,
+      "precision": 1.0,
+      "per_family": {
+        "IDENTITY_BOUNDARY": {
+          "confirmed": 2,
+          "false_positives": 0,
+          "false_negatives": 0
+        },
+        "PRICE_INTEGRITY": {
+          "confirmed": 4,
+          "false_positives": 0,
+          "false_negatives": 0
+        },
+        "BOUNDARY_LIMIT": {
+          "confirmed": 2,
+          "false_positives": 0,
+          "false_negatives": 0
+        },
+        "WORKFLOW_IDENTITY": {
+          "confirmed": 2,
+          "false_positives": 0,
+          "false_negatives": 0
+        },
+        "WORKFLOW_ORDER": {
+          "confirmed": 3,
+          "false_positives": 0,
+          "false_negatives": 0
+        }
+      },
+      "causal_failures": {},
+      "leakage_findings": 0
+    }
+  }
+}

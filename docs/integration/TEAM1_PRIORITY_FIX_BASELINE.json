@@ -1,0 +1,21 @@
+{
+  "document_id": "TEAM1_PRIORITY_FIX_BASELINE-1.0",
+  "date": "2026-09-10",
+  "affected_file": "src/webpent/integration/research_agenda.py",
+  "before_sha256": "8b720e76d8cb24add22867f166c68be80baf07eed6acce8b0406847e9ad1d8cc",
+  "after_sha256": "2856e576839123662ef932624e4334bf073493e1d228e7a608af2a98a6b67b77",
+  "defect_location": "ResearchAgenda.ingest_signal() existing-branch update path: after compute_priority(), branch.priority was not updated with decision.priority (only experiments_allocated was). New-branch path already persisted correctly.",
+  "baseline_evidence": {
+    "old_priority": 32,
+    "computed_priority": 74,
+    "stored_priority": 32,
+    "priority_delta": 42,
+    "computed_equals_stored": false
+  },
+  "fix": "one additive line: branch = branch.model_copy(update={'priority': decision.priority}) in the existing-branch path",
+  "post_fix_evidence": {
+    "computed_priority": 74,
+    "stored_priority": 74,
+    "computed_equals_stored": true
+  }
+}

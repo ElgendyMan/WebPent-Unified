@@ -1,0 +1,32 @@
+{
+  "release": "WebPent-IRTA-v2-Autonomous-Research-Hardening-Full",
+  "source_commit": "3459a4a55ec0914ff6b15c2a115a51909ca72cca",
+  "scope": "additive_local_bounded_validation",
+  "included": [
+    "src/webpent/irta/",
+    "tests/irta/",
+    "reports/baseline/irta_v2_start/",
+    "reports/IRTA-v2-Autonomous-Research-Hardening-Report.md",
+    "metrics/irta_v2_metrics.json",
+    "README_FINAL.md"
+  ],
+  "not_modified": [
+    "existing validators",
+    "frozen ground truth",
+    "qualification thresholds",
+    "official P10 authorization"
+  ],
+  "governance": {
+    "qualification": "NOT_QUALIFIED",
+    "official_isolated_p10_runs_authorized": false,
+    "external_targets": false,
+    "real_credentials": false,
+    "destructive_actions": false
+  },
+  "verification": {
+    "focused_irta_tests": "13 passed",
+    "ruff": "PASS",
+    "compileall": "PASS",
+    "full_suite": "2270 passed, 7 preserved legacy/local-lab failures"
+  }
+}

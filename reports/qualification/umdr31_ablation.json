@@ -1,0 +1,110 @@
+{
+  "window": "UM-DR-31",
+  "level": "campaign ablation (research_loop + family_execution_node, real state, real executor, live controlled target)",
+  "population": "campaign_research_target (team-authored, author-known two-directory fixture) \u2014 NOT an independent holdout",
+  "conditions": {
+    "request_budget": 36,
+    "cases_mined": 8,
+    "scope_refused": 2,
+    "arms_differ_only_in": "which research evidence channels are populated + the loop flag"
+  },
+  "arms": {
+    "baseline": {
+      "signals": "none",
+      "loop": false,
+      "hypotheses_generated": 0,
+      "hypothesis_origins": [],
+      "cases_mined": 8,
+      "cases_probed": 6,
+      "cases_scope_refused": 0,
+      "confirmed": 0,
+      "confirmed_paths": [],
+      "requests_issued": 36,
+      "request_budget": 36,
+      "research_hints_applied": false,
+      "findings_count": 0,
+      "finding_urls": []
+    },
+    "coverage_only": {
+      "signals": "coverage",
+      "loop": true,
+      "hypotheses_generated": 1,
+      "hypothesis_origins": [
+        "coverage_gap"
+      ],
+      "cases_mined": 8,
+      "cases_probed": 6,
+      "cases_scope_refused": 2,
+      "confirmed": 1,
+      "confirmed_paths": [
+        "/api/zzz/vaults/vlt_3"
+      ],
+      "requests_issued": 36,
+      "request_budget": 36,
+      "research_hints_applied": true,
+      "findings_count": 1,
+      "finding_urls": [
+        "http://127.0.0.1:33837/api/zzz/vaults/vlt_3"
+      ]
+    },
+    "invariant_only": {
+      "signals": "invariant",
+      "loop": true,
+      "hypotheses_generated": 1,
+      "hypothesis_origins": [
+        "invariant"
+      ],
+      "cases_mined": 8,
+      "cases_probed": 6,
+      "cases_scope_refused": 2,
+      "confirmed": 1,
+      "confirmed_paths": [
+        "/api/zzz/vaults/vlt_3"
+      ],
+      "requests_issued": 36,
+      "request_budget": 36,
+      "research_hints_applied": true,
+      "findings_count": 1,
+      "finding_urls": [
+        "http://127.0.0.1:33837/api/zzz/vaults/vlt_3"
+      ]
+    },
+    "full_loop": {
+      "signals": "full",
+      "loop": true,
+      "hypotheses_generated": 2,
+      "hypothesis_origins": [
+        "coverage_gap",
+        "invariant"
+      ],
+      "cases_mined": 8,
+      "cases_probed": 6,
+      "cases_scope_refused": 2,
+      "confirmed": 1,
+      "confirmed_paths": [
+        "/api/zzz/vaults/vlt_3"
+      ],
+      "requests_issued": 36,
+      "request_budget": 36,
+      "research_hints_applied": true,
+      "findings_count": 1,
+      "finding_urls": [
+        "http://127.0.0.1:33837/api/zzz/vaults/vlt_3"
+      ]
+    }
+  },
+  "ground_truth": {
+    "/api/zzz/vaults/vlt_3": "vulnerable (IDOR after seal)",
+    "rec_2/rec_3/rec_4/vlt_2/vlt_4": "safe (never confirmed in any arm)",
+    "internal/*": "out of scope (refused before any request)"
+  },
+  "finding": "Under a budget that cannot cover both directories, the invariant/workflow input's priority ordering reaches the ground truth (1 confirmed) where the alphabetical baseline confirms nothing; the coverage input's measurable is BOTH pool enrichment AND \u2014 the UM-DR-31.1 scheduling fix \u2014 execution priority via the coverage surface hint (the UM-DR-31 window measured this arm at 0 confirmed; the identical budget now reaches the ground truth). Same cases, same ceiling, same scope checks \u2014 ordering only.",
+  "limitations": [
+    "team-authored fixture (the honesty boundary)",
+    "single-fixture population \u2014 no generalization claim",
+    "a full 45-node LLM campaign run requires operator credentials; the LangGraph-level proof covers the runtime integration through the real wiring function"
+  ],
+  "generated_by": "scripts/build_umdr31_ablation_artifact.py (explicit release-time command, UM-DR-31.1 R2)",
+  "generated_at_utc": "2026-11-08T19:00:09.824183+00:00",
+  "git_head": "914061c199fe97bf7c14cfa1bbf006364df39ca1"
+}

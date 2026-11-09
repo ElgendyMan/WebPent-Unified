@@ -1,0 +1,356 @@
+{
+  "target_id": "goed-v1.6-hidden-04",
+  "seed": 4,
+  "port": 9004,
+  "route_style_index": 4,
+  "route_prefix_example": "/_/ENTITY",
+  "roles": [
+    "cohort_alpha",
+    "cohort_beta",
+    "cohort_gamma",
+    "cohort_delta"
+  ],
+  "role_level": {
+    "cohort_alpha": 0,
+    "cohort_beta": 1,
+    "cohort_gamma": 2,
+    "cohort_delta": 3
+  },
+  "tenants": [
+    "sector_djeg",
+    "sector_sejf"
+  ],
+  "objects": [
+    "ref_b39c7c08",
+    "ref_e4b71ac1",
+    "ref_629b0b75",
+    "ref_9a8cdbf6",
+    "ref_f2572206",
+    "ref_198e9828",
+    "ref_e23d66fe",
+    "ref_6ed2ace3"
+  ],
+  "fields": {
+    "id_field": "handle",
+    "name_field": "tag",
+    "secret_field": "restricted_id",
+    "contact_field": "link",
+    "value_field": "magnitude"
+  },
+  "actors": {
+    "x001": {
+      "handle": "ref_b39c7c08",
+      "role": "cohort_alpha",
+      "tenant": "sector_djeg"
+    },
+    "x002": {
+      "handle": "ref_e4b71ac1",
+      "role": "cohort_beta",
+      "tenant": "sector_djeg"
+    },
+    "x003": {
+      "handle": "ref_629b0b75",
+      "role": "cohort_alpha",
+      "tenant": "sector_sejf"
+    },
+    "x004": {
+      "handle": "ref_9a8cdbf6",
+      "role": "cohort_beta",
+      "tenant": "sector_sejf"
+    }
+  },
+  "actor_list": [
+    "x001",
+    "x002",
+    "x003",
+    "x004"
+  ],
+  "sensitive_data": {
+    "ref_b39c7c08": {
+      "tag": "Entity-0",
+      "restricted_id": "INT-10000",
+      "link": "ch000@internal",
+      "magnitude": 5268
+    },
+    "ref_e4b71ac1": {
+      "tag": "Entity-1",
+      "restricted_id": "INT-10001",
+      "link": "ch001@internal",
+      "magnitude": 6202
+    },
+    "ref_629b0b75": {
+      "tag": "Entity-2",
+      "restricted_id": "INT-10002",
+      "link": "ch002@internal",
+      "magnitude": 8423
+    },
+    "ref_9a8cdbf6": {
+      "tag": "Entity-3",
+      "restricted_id": "INT-10003",
+      "link": "ch003@internal",
+      "magnitude": 1535
+    },
+    "ref_f2572206": {
+      "tag": "Entity-4",
+      "restricted_id": "INT-10004",
+      "link": "ch004@internal",
+      "magnitude": 6537
+    },
+    "ref_198e9828": {
+      "tag": "Entity-5",
+      "restricted_id": "INT-10005",
+      "link": "ch005@internal",
+      "magnitude": 4799
+    }
+  },
+  "endpoint_names": [
+    "rho",
+    "quanta",
+    "gamma",
+    "kappa",
+    "echo",
+    "lambda",
+    "flux",
+    "omega",
+    "delta",
+    "cipher",
+    "pulse",
+    "lattice"
+  ],
+  "decoy_endpoints": [
+    "prism",
+    "theta",
+    "vector"
+  ],
+  "normal_privileged_looking": [
+    "admin",
+    "root",
+    "super",
+    "secret"
+  ],
+  "hide_from_openapi_indices": [
+    7,
+    1
+  ],
+  "cases": {
+    "goed-v1.6-hidden-04-case-00": {
+      "class": "privilege_escalation",
+      "endpoint_name": "rho",
+      "vulnerable_route": "/_/rho",
+      "control_route": "/ctrl/_/rho",
+      "baseline_route": "/_/quanta",
+      "http_method": "PATCH",
+      "param_location": "header",
+      "status_vuln": 200,
+      "status_patched": 404,
+      "actor": "x001",
+      "target_object": "ref_e4b71ac1",
+      "baseline_object": "ref_b39c7c08",
+      "in_openapi": true,
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "critical"
+    },
+    "goed-v1.6-hidden-04-case-01": {
+      "class": "idor",
+      "endpoint_name": "quanta",
+      "vulnerable_route": "/_/quanta",
+      "control_route": "/ctrl/_/quanta",
+      "baseline_route": "/_/gamma",
+      "http_method": "PUT",
+      "param_location": "header",
+      "status_vuln": 201,
+      "status_patched": 403,
+      "actor": "x002",
+      "target_object": "ref_629b0b75",
+      "baseline_object": "ref_e4b71ac1",
+      "in_openapi": false,
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "critical"
+    },
+    "goed-v1.6-hidden-04-case-02": {
+      "class": "tenant_isolation_failure",
+      "endpoint_name": "gamma",
+      "vulnerable_route": "/_/gamma",
+      "control_route": "/ctrl/_/gamma",
+      "baseline_route": "/_/kappa",
+      "http_method": "GET",
+      "param_location": "form",
+      "status_vuln": 200,
+      "status_patched": 403,
+      "actor": "x001",
+      "target_object": "ref_9a8cdbf6",
+      "baseline_object": "ref_629b0b75",
+      "in_openapi": true,
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "critical"
+    },
+    "goed-v1.6-hidden-04-case-03": {
+      "class": "business_logic_abuse",
+      "endpoint_name": "kappa",
+      "vulnerable_route": "/_/kappa",
+      "control_route": "/ctrl/_/kappa",
+      "baseline_route": "/_/echo",
+      "http_method": "GET",
+      "param_location": "query",
+      "status_vuln": 200,
+      "status_patched": 401,
+      "actor": "x002",
+      "target_object": "ref_f2572206",
+      "baseline_object": "ref_9a8cdbf6",
+      "in_openapi": true,
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.6-hidden-04-case-04": {
+      "class": "sensitive_data_exposure",
+      "endpoint_name": "echo",
+      "vulnerable_route": "/_/echo",
+      "control_route": "/ctrl/_/echo",
+      "baseline_route": "/_/lambda",
+      "http_method": "PATCH",
+      "param_location": "query",
+      "status_vuln": 200,
+      "status_patched": 403,
+      "actor": "x002",
+      "target_object": "ref_198e9828",
+      "baseline_object": "ref_f2572206",
+      "in_openapi": true,
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.6-hidden-04-case-05": {
+      "class": "multi_step_chain",
+      "endpoint_name": "lambda",
+      "vulnerable_route": "/_/lambda",
+      "control_route": "/ctrl/_/lambda",
+      "baseline_route": "/_/flux",
+      "http_method": "POST",
+      "param_location": "header",
+      "status_vuln": 200,
+      "status_patched": 401,
+      "actor": "x002",
+      "target_object": "ref_b39c7c08",
+      "baseline_object": "ref_198e9828",
+      "in_openapi": true,
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.6-hidden-04-case-06": {
+      "class": "idor",
+      "endpoint_name": "flux",
+      "vulnerable_route": "/_/flux",
+      "control_route": "/ctrl/_/flux",
+      "baseline_route": "/_/omega",
+      "http_method": "PUT",
+      "param_location": "form",
+      "status_vuln": 200,
+      "status_patched": 403,
+      "actor": "x002",
+      "target_object": "ref_e4b71ac1",
+      "baseline_object": "ref_b39c7c08",
+      "in_openapi": true,
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.6-hidden-04-case-07": {
+      "class": "business_logic_abuse",
+      "endpoint_name": "omega",
+      "vulnerable_route": "/_/omega",
+      "control_route": "/ctrl/_/omega",
+      "baseline_route": "/_/delta",
+      "http_method": "GET",
+      "param_location": "json_body",
+      "status_vuln": 200,
+      "status_patched": 200,
+      "actor": "x001",
+      "target_object": "ref_629b0b75",
+      "baseline_object": "ref_e4b71ac1",
+      "in_openapi": false,
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "low"
+    },
+    "goed-v1.6-hidden-04-case-08": {
+      "class": "workflow_authorization_failure",
+      "endpoint_name": "delta",
+      "vulnerable_route": "/_/delta",
+      "control_route": "/ctrl/_/delta",
+      "baseline_route": "/_/cipher",
+      "http_method": "PATCH",
+      "param_location": "path",
+      "status_vuln": 200,
+      "status_patched": 404,
+      "actor": "x002",
+      "target_object": "ref_9a8cdbf6",
+      "baseline_object": "ref_629b0b75",
+      "in_openapi": true,
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "low"
+    },
+    "goed-v1.6-hidden-04-case-09": {
+      "class": "broken_access_control",
+      "endpoint_name": "cipher",
+      "vulnerable_route": "/_/cipher",
+      "control_route": "/ctrl/_/cipher",
+      "baseline_route": "/_/rho",
+      "http_method": "POST",
+      "param_location": "query",
+      "status_vuln": 200,
+      "status_patched": 403,
+      "actor": "x001",
+      "target_object": "ref_f2572206",
+      "baseline_object": "ref_9a8cdbf6",
+      "in_openapi": true,
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.6-hidden-04-case-10": {
+      "class": "clean_legitimate_access",
+      "endpoint_name": "pulse",
+      "vulnerable_route": "/_/pulse",
+      "control_route": "/_/pulse",
+      "baseline_route": "/_/pulse",
+      "http_method": "GET",
+      "param_location": "path",
+      "status_vuln": 200,
+      "status_patched": 200,
+      "actor": "x001",
+      "target_object": "ref_b39c7c08",
+      "baseline_object": "ref_b39c7c08",
+      "in_openapi": true,
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    },
+    "goed-v1.6-hidden-04-case-11": {
+      "class": "clean_legitimate_access",
+      "endpoint_name": "lattice",
+      "vulnerable_route": "/_/lattice",
+      "control_route": "/_/lattice",
+      "baseline_route": "/_/lattice",
+      "http_method": "GET",
+      "param_location": "path",
+      "status_vuln": 200,
+      "status_patched": 200,
+      "actor": "x001",
+      "target_object": "ref_b39c7c08",
+      "baseline_object": "ref_b39c7c08",
+      "in_openapi": true,
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    }
+  },
+  "total_cases": 12,
+  "vulnerable_cases": 10,
+  "clean_cases": 2
+}

@@ -1,0 +1,161 @@
+{
+ "window": "UM-DR-31.1",
+ "generated_at_utc": "2026-11-08T19:31:16Z",
+ "git_head": "21f591ae96d73b7e12cff88f59c6b0efb939b2fe",
+ "git_tag": "v0.37.1-umdr31.1",
+ "collected_tests": 8744,
+ "chunked_runs": {
+  "runner": "scripts/run_suite_chunks_umdr31_1.sh (55-file chunks, whole tests/ tree)",
+  "chunks": 13,
+  "per_chunk": [
+   {
+    "tail": "587 passed, 2 warnings in 29.62s",
+    "passed": 587,
+    "failed": 0,
+    "skipped": 0,
+    "xfailed": 0,
+    "xpassed": 0,
+    "errors": 0
+   },
+   {
+    "tail": "496 passed, 1 skipped, 2 warnings in 82.15s (0:01:22)",
+    "passed": 496,
+    "failed": 0,
+    "skipped": 1,
+    "xfailed": 0,
+    "xpassed": 0,
+    "errors": 0
+   },
+   {
+    "tail": "801 passed, 4 warnings in 27.66s",
+    "passed": 801,
+    "failed": 0,
+    "skipped": 0,
+    "xfailed": 0,
+    "xpassed": 0,
+    "errors": 0
+   },
+   {
+    "tail": "921 passed, 6 warnings in 56.13s",
+    "passed": 921,
+    "failed": 0,
+    "skipped": 0,
+    "xfailed": 0,
+    "xpassed": 0,
+    "errors": 0
+   },
+   {
+    "tail": "727 passed, 2 warnings in 46.35s",
+    "passed": 727,
+    "failed": 0,
+    "skipped": 0,
+    "xfailed": 0,
+    "xpassed": 0,
+    "errors": 0
+   },
+   {
+    "tail": "1436 passed, 3 skipped, 2 warnings in 72.82s (0:01:12)",
+    "passed": 1436,
+    "failed": 0,
+    "skipped": 3,
+    "xfailed": 0,
+    "xpassed": 0,
+    "errors": 0
+   },
+   {
+    "tail": "470 passed, 1 skipped, 4 warnings in 28.32s",
+    "passed": 470,
+    "failed": 0,
+    "skipped": 1,
+    "xfailed": 0,
+    "xpassed": 0,
+    "errors": 0
+   },
+   {
+    "tail": "614 passed, 4 warnings in 36.31s",
+    "passed": 614,
+    "failed": 0,
+    "skipped": 0,
+    "xfailed": 0,
+    "xpassed": 0,
+    "errors": 0
+   },
+   {
+    "tail": "678 passed, 1 skipped, 3 xfailed, 4 warnings in 35.61s",
+    "passed": 678,
+    "failed": 0,
+    "skipped": 1,
+    "xfailed": 3,
+    "xpassed": 0,
+    "errors": 0
+   },
+   {
+    "tail": "639 passed, 5 warnings in 23.25s",
+    "passed": 639,
+    "failed": 0,
+    "skipped": 0,
+    "xfailed": 0,
+    "xpassed": 0,
+    "errors": 0
+   },
+   {
+    "tail": "711 passed, 5 warnings in 83.87s (0:01:23)",
+    "passed": 711,
+    "failed": 0,
+    "skipped": 0,
+    "xfailed": 0,
+    "xpassed": 0,
+    "errors": 0
+   },
+   {
+    "tail": "471 passed, 9 warnings in 58.45s",
+    "passed": 471,
+    "failed": 0,
+    "skipped": 0,
+    "xfailed": 0,
+    "xpassed": 0,
+    "errors": 0
+   },
+   {
+    "tail": "184 passed in 12.99s",
+    "passed": 184,
+    "failed": 0,
+    "skipped": 0,
+    "xfailed": 0,
+    "xpassed": 0,
+    "errors": 0
+   }
+  ]
+ },
+ "outcomes": {
+  "passed": 8735,
+  "failed": 0,
+  "skipped": 6,
+  "xfailed": 3,
+  "xpassed": 0,
+  "errors": 0
+ },
+ "reconciliation": {
+  "passed_plus_skipped_plus_xfailed": 8744,
+  "collected": 8744,
+  "delta": 0,
+  "explanation": "exact: every collected test id produced exactly one outcome record; zero collection errors, zero module-level skips beyond the 6 reported skips"
+ },
+ "security_critical_gates": {
+  "frozen_module_gate": "641 passed (639 entries; 3 re-pinned per DR-009: __init__.py, coverage/gap_detector.py, shared/coverage_ledger.py)",
+  "umdr31_research_unit": "60 passed",
+  "umdr31_research_integration": "16 passed",
+  "umdr31_e2e_ablation": "8 passed",
+  "broad_exception_register": "3 passed (REGISTERED_TOTAL 19)",
+  "release_deployment_compliance": "10 passed, 1 skipped (root-path drop needs a root runner)",
+  "coverage_and_gap_report_suites": "passed (incl. the F20 end-to-end and the pinned producer aliases)"
+ },
+ "window_test_delta": {
+  "baseline_collected": 8711,
+  "final_collected": 8744,
+  "new_tests_added": "31 net new unit tests in test_umdr31_adaptive_research.py (R3 x9, R4 x8, R6 x7, R7 x7, R5 rewrite +2) + ablation/integration updates"
+ },
+ "pre_change_spot_check": {
+  "note": "the environment was verified against the audited baseline before the first edit: frozen gate 641 green, UM-DR-31 research suites 42 green on the untouched tree; the audit's own full-suite record (8711 -> 8702 passed / 0 failed) is the authoritative v0.37.0 baseline accounting"
+ }
+}

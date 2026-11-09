@@ -1,0 +1,29 @@
+{
+  "document_id": "TEAM1_FINAL_HARDENING_BASELINE-1.0",
+  "date": "2026-09-10",
+  "file_count": 1879,
+  "test_counts": {
+    "passed": 995,
+    "failed": 4,
+    "errors": 0
+  },
+  "known_failures": [
+    "option_b approval_source_missing x4 (pre-existing baseline subset)"
+  ],
+  "governance": {
+    "vip_qualified": false,
+    "qualification_state": "CONDITIONAL",
+    "P10": "CLOSED",
+    "P9": "CLOSED"
+  },
+  "canonical_hashes_sha16": {
+    "src/webpent/cqa_v2/causal_guard.py": "e08dfae5b67a2067",
+    "src/webpent/models/proof_bundle.py": "bbd2e63b891dc540",
+    "src/webpent/cqa_v2/replay_verifier.py": "ba16d252e598e940",
+    "src/webpent/integration/research_agenda.py": "2856e57683912366",
+    "src/webpent/research_engine/evidence_aware_loop.py": "07082280edc1c00c",
+    "src/webpent/config/settings.py": "bb4f61b90f32e16a"
+  },
+  "priority_fix_applied": true,
+  "priority_fix_sha16": "2856e57683912366"
+}

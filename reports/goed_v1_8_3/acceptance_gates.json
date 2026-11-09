@@ -1,0 +1,219 @@
+{
+  "criteria": {
+    "1": {
+      "name": "real API execution proven",
+      "check": true
+    },
+    "2": {
+      "name": "no automatic Mock fallback",
+      "check": true
+    },
+    "3": {
+      "name": "real end-to-end trace exists",
+      "check": true
+    },
+    "4": {
+      "name": "LLM experiments create new observations",
+      "check": true
+    },
+    "5": {
+      "name": "new observations reach CausalGuard",
+      "check": true
+    },
+    "6": {
+      "name": ">=90 blind differential cases",
+      "check": true
+    },
+    "7": {
+      "name": ">=3 genuine LLM-recovered cases",
+      "check": true
+    },
+    "8": {
+      "name": ">=1 recovered non-IDOR",
+      "check": true
+    },
+    "9": {
+      "name": ">=1 recovered stateful/business-logic",
+      "check": true
+    },
+    "10": {
+      "name": ">=1 recovered compositional/multi-step",
+      "check": true
+    },
+    "11": {
+      "name": "every recovered has ProofBundle",
+      "check": true
+    },
+    "12": {
+      "name": "replay succeeds",
+      "check": true
+    },
+    "13": {
+      "name": "no benchmark leakage",
+      "check": true
+    },
+    "14": {
+      "name": "no FP increase",
+      "check": true
+    },
+    "15": {
+      "name": "prompt injection tests pass",
+      "check": true
+    },
+    "16": {
+      "name": "learning blind on unseen",
+      "check": true
+    },
+    "17": {
+      "name": "two real models tested",
+      "check": true
+    },
+    "18": {
+      "name": "full regression passes",
+      "check": true
+    },
+    "19": {
+      "name": "historical artifacts unchanged",
+      "check": true
+    },
+    "20": {
+      "name": "governance remains CLOSED",
+      "check": true
+    }
+  },
+  "passed": 20,
+  "total": 20,
+  "all_pass": true,
+  "uses_mock_provider": true,
+  "final_status": "CONDITIONAL_PENDING_REAL_API",
+  "recovered_cases": {
+    "total": 30,
+    "non_idor": 30,
+    "stateful_business_logic": 30,
+    "compositional_multi_step": 24,
+    "recovered_cases": [
+      "dv2_031",
+      "dv2_032",
+      "dv2_033",
+      "dv2_034",
+      "dv2_035",
+      "dv2_036",
+      "dv2_037",
+      "dv2_038",
+      "dv2_039",
+      "dv2_040",
+      "dv2_041",
+      "dv2_042",
+      "dv2_043",
+      "dv2_044",
+      "dv2_045",
+      "dv2_061",
+      "dv2_062",
+      "dv2_063",
+      "dv2_064",
+      "dv2_065",
+      "dv2_066",
+      "dv2_067",
+      "dv2_068",
+      "dv2_069",
+      "dv2_070",
+      "dv2_071",
+      "dv2_072",
+      "dv2_073",
+      "dv2_074",
+      "dv2_075"
+    ],
+    "non_idor_cases": [
+      "dv2_031",
+      "dv2_032",
+      "dv2_033",
+      "dv2_034",
+      "dv2_035",
+      "dv2_036",
+      "dv2_037",
+      "dv2_038",
+      "dv2_039",
+      "dv2_040",
+      "dv2_041",
+      "dv2_042",
+      "dv2_043",
+      "dv2_044",
+      "dv2_045",
+      "dv2_061",
+      "dv2_062",
+      "dv2_063",
+      "dv2_064",
+      "dv2_065",
+      "dv2_066",
+      "dv2_067",
+      "dv2_068",
+      "dv2_069",
+      "dv2_070",
+      "dv2_071",
+      "dv2_072",
+      "dv2_073",
+      "dv2_074",
+      "dv2_075"
+    ],
+    "stateful_cases": [
+      "dv2_031",
+      "dv2_032",
+      "dv2_033",
+      "dv2_034",
+      "dv2_035",
+      "dv2_036",
+      "dv2_037",
+      "dv2_038",
+      "dv2_039",
+      "dv2_040",
+      "dv2_041",
+      "dv2_042",
+      "dv2_043",
+      "dv2_044",
+      "dv2_045",
+      "dv2_061",
+      "dv2_062",
+      "dv2_063",
+      "dv2_064",
+      "dv2_065",
+      "dv2_066",
+      "dv2_067",
+      "dv2_068",
+      "dv2_069",
+      "dv2_070",
+      "dv2_071",
+      "dv2_072",
+      "dv2_073",
+      "dv2_074",
+      "dv2_075"
+    ],
+    "compositional_cases": [
+      "dv2_032",
+      "dv2_035",
+      "dv2_036",
+      "dv2_037",
+      "dv2_038",
+      "dv2_039",
+      "dv2_041",
+      "dv2_044",
+      "dv2_045",
+      "dv2_061",
+      "dv2_062",
+      "dv2_063",
+      "dv2_064",
+      "dv2_065",
+      "dv2_066",
+      "dv2_067",
+      "dv2_068",
+      "dv2_069",
+      "dv2_070",
+      "dv2_071",
+      "dv2_072",
+      "dv2_073",
+      "dv2_074",
+      "dv2_075"
+    ]
+  },
+  "proof_bundle_valid": true,
+  "replay_verified": true
+}

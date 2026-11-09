@@ -1,0 +1,996 @@
+{
+  "target_url": "http://127.0.0.1:8000",
+  "generated_at": "2026-08-18T17:40:34.795629+00:00",
+  "total_findings": 2,
+  "confirmed_count": 0,
+  "severity_counts": {
+    "critical": 0,
+    "high": 1,
+    "medium": 1,
+    "low": 0,
+    "info": 0
+  },
+  "risk_score": "Unconfirmed \u2014 zero tool confirmations",
+  "executive_summary": "Automated penetration testing of http://127.0.0.1:8000 identified 2 candidate finding(s). None have been tool-confirmed \u2014 the overall risk posture is UNCONFIRMED and requires verification before drawing exploit-risk conclusions. The candidate findings should be triaged manually to determine which warrant deeper validation.\n\nRemediation should not be prioritised on unconfirmed rows alone. A follow-up engagement with the target's authentication context (or with OOB callback enabled) is recommended to convert candidates into confirmed findings and establish a verified risk baseline.",
+  "findings": [
+    {
+      "id": "c2c37095-d5fc-46d7-b7a5-4891c4ab05b0",
+      "title": "Potential RCE at http://127.0.0.1:8000/csv/upload",
+      "severity": "high",
+      "description": "Promoted from hypothesis a145a855-e919-4d7f-a353-87585d3d1a87.\n\nStatement: Potential RCE at http://127.0.0.1:8000/csv/upload\n\nOrigin detail: Heuristic match from hypothesis_analyzer_node.\n\nHeuristic (path-based): URL path contains 'upload' \u2014 file upload endpoint (potential RCE via webshell)",
+      "tool_name": "dynamic_prioritization",
+      "payload": null,
+      "url": "http://127.0.0.1:8000/csv/upload",
+      "confidence": "tentative",
+      "confidence_level": "Needs Human Review",
+      "cvss_score": null,
+      "business_impact": null,
+      "vuln_class": "rce",
+      "reasoning": "OOB validation is unavailable because the operator has not enabled a callback channel. No automated confirmation is claimed; human review is required.",
+      "canary_token": "[REDACTED]",
+      "compliance_tags": [
+        "OWASP-A03:2021",
+        "CWE-78",
+        "PCI-DSS-6.5.1"
+      ],
+      "evidence_bundle": null,
+      "evidence_hash": null,
+      "created_at": "2026-08-18T17:40:34.388421+00:00",
+      "strategic_confidence_score": 0.6,
+      "hypothesis_id": "a145a855-e919-4d7f-a353-87585d3d1a87",
+      "post_exploitation_data": null,
+      "lifecycle_stage": "Evidence"
+    },
+    {
+      "id": "d48a4cf0-27af-491b-a430-d0029d8d084d",
+      "title": "Potential IDOR at http://127.0.0.1:8000/user_profile/1",
+      "severity": "medium",
+      "description": "Promoted from hypothesis 3821b27c-755d-47cd-b816-f224d23f82e6.\n\nStatement: Potential IDOR at http://127.0.0.1:8000/user_profile/1\n\nOrigin detail: Heuristic match from hypothesis_analyzer_node.\n\nHeuristic (path-based): URL path contains 'user_profile' \u2014 object authorization surface",
+      "tool_name": "dynamic_prioritization",
+      "payload": null,
+      "url": "http://127.0.0.1:8000/user_profile/1",
+      "confidence": "tentative",
+      "confidence_level": "Clean",
+      "cvss_score": null,
+      "business_impact": null,
+      "vuln_class": "idor",
+      "reasoning": "IDOR check: no unauthenticated successful object response was observed; authenticated owner-vs-foreign proof was not attempted.",
+      "canary_token": "[REDACTED]",
+      "compliance_tags": [],
+      "evidence_bundle": null,
+      "evidence_hash": null,
+      "created_at": "2026-08-18T17:40:34.397645+00:00",
+      "strategic_confidence_score": 0.6,
+      "hypothesis_id": "3821b27c-755d-47cd-b816-f224d23f82e6",
+      "post_exploitation_data": null,
+      "lifecycle_stage": "Clean"
+    }
+  ],
+  "quality_gate": {
+    "status": "blocked",
+    "finding_count": 2,
+    "ready_finding_count": 1,
+    "blocked_finding_count": 1,
+    "findings": [
+      {
+        "finding_id": "c2c37095-d5fc-46d7-b7a5-4891c4ab05b0",
+        "lifecycle_stage": "Evidence",
+        "blocking_issues": [
+          "business_impact",
+          "cvss",
+          "reproduction"
+        ],
+        "advisory_issues": [
+          "related_findings_or_paths",
+          "scope_or_policy_result"
+        ]
+      },
+      {
+        "finding_id": "d48a4cf0-27af-491b-a430-d0029d8d084d",
+        "lifecycle_stage": "Clean",
+        "blocking_issues": [],
+        "advisory_issues": [
+          "non-finding lifecycle status"
+        ]
+      }
+    ]
+  },
+  "hypotheses": [
+    "Potential XSS at http://127.0.0.1:8000",
+    "Potential XSS at http://127.0.0.1:8000/",
+    "Potential XSS at http://127.0.0.1:8000/dashboard",
+    "Potential XSS at http://127.0.0.1:8000/dashboard?db=hr",
+    "Potential XSS at http://127.0.0.1:8000/attributes",
+    "Potential XSS at http://127.0.0.1:8000/entity-values/create",
+    "Potential RCE at http://127.0.0.1:8000/csv/upload",
+    "Potential XSS at http://127.0.0.1:8000/csv/upload",
+    "Potential XSS at http://127.0.0.1:8000/users",
+    "Potential IDOR at http://127.0.0.1:8000/user_profile/1",
+    "Potential XSS at http://127.0.0.1:8000/user_profile/1",
+    "Potential XSS at http://127.0.0.1:8000/profile/edit",
+    "Potential XSS at http://127.0.0.1:8000/otp-settings",
+    "Potential XSS at http://127.0.0.1:8000/dashboard?db=support",
+    "Potential XSS at http://127.0.0.1:8000/logout",
+    "Potential XSS at http://127.0.0.1:8000/entity-values",
+    "Potential XSS at http://127.0.0.1:8000/csv",
+    "Potential XSS at http://127.0.0.1:8000/profile"
+  ],
+  "decision_log": [
+    {
+      "decision_type": "hypothesis_promoted",
+      "rule_fired": "deterministic_match=True (path-classified, validator-available) \u2014 promotion threshold bypassed; score=0.2875 (informational, not gating)",
+      "outcome": "promoted to finding c2c37095-d5fc-46d7-b7a5-4891c4ab05b0",
+      "entity_refs": [
+        "a145a855-e919-4d7f-a353-87585d3d1a87",
+        "c2c37095-d5fc-46d7-b7a5-4891c4ab05b0"
+      ]
+    },
+    {
+      "decision_type": "hypothesis_promoted",
+      "rule_fired": "deterministic_match=True (path-classified, validator-available) \u2014 promotion threshold bypassed; score=0.2250 (informational, not gating)",
+      "outcome": "promoted to finding d48a4cf0-27af-491b-a430-d0029d8d084d",
+      "entity_refs": [
+        "3821b27c-755d-47cd-b816-f224d23f82e6",
+        "d48a4cf0-27af-491b-a430-d0029d8d084d"
+      ]
+    }
+  ],
+  "bac_observations": [],
+  "bac_coverage_gaps": [],
+  "relational_evidence": [],
+  "bac_report_gate": {
+    "status": "ready",
+    "requires_human_review": false,
+    "coverage_gap_count": 0,
+    "observation_count": 0,
+    "relational_edge_count": 0
+  },
+  "subdomain_takeover_observations": [
+    {
+      "host": "example.test",
+      "status": "out_of_scope",
+      "evidence": {}
+    }
+  ],
+  "subdomain_takeover_coverage_gaps": [],
+  "cloud_storage_observations": [
+    {
+      "url": "http://127.0.0.1:8000",
+      "status": "not_cloud_storage_candidate"
+    },
+    {
+      "url": "http://127.0.0.1:8000/attributes",
+      "status": "not_cloud_storage_candidate"
+    },
+    {
+      "url": "http://127.0.0.1:8000/csv",
+      "status": "not_cloud_storage_candidate"
+    },
+    {
+      "url": "http://127.0.0.1:8000/csv/upload",
+      "status": "not_cloud_storage_candidate"
+    },
+    {
+      "url": "http://127.0.0.1:8000/dashboard",
+      "status": "not_cloud_storage_candidate"
+    },
+    {
+      "url": "http://127.0.0.1:8000/dashboard?db=hr",
+      "status": "not_cloud_storage_candidate"
+    },
+    {
+      "url": "http://127.0.0.1:8000/dashboard?db=support",
+      "status": "not_cloud_storage_candidate"
+    },
+    {
+      "url": "http://127.0.0.1:8000/entity-values",
+      "status": "not_cloud_storage_candidate"
+    },
+    {
+      "url": "http://127.0.0.1:8000/entity-values/create",
+      "status": "not_cloud_storage_candidate"
+    },
+    {
+      "url": "http://127.0.0.1:8000/logout",
+      "status": "not_cloud_storage_candidate"
+    },
+    {
+      "url": "http://127.0.0.1:8000/otp-settings",
+      "status": "not_cloud_storage_candidate"
+    },
+    {
+      "url": "http://127.0.0.1:8000/profile",
+      "status": "not_cloud_storage_candidate"
+    },
+    {
+      "url": "http://127.0.0.1:8000/profile/edit",
+      "status": "not_cloud_storage_candidate"
+    },
+    {
+      "url": "http://127.0.0.1:8000/user_profile/1",
+      "status": "not_cloud_storage_candidate"
+    },
+    {
+      "url": "http://127.0.0.1:8000/users",
+      "status": "not_cloud_storage_candidate"
+    }
+  ],
+  "cloud_storage_coverage_gaps": [],
+  "jwt_deep_observations": "[REDACTED]",
+  "jwt_deep_coverage_gaps": "[REDACTED]",
+  "jwt_report_gate": "[REDACTED]",
+  "disclosed_report_advisories": [],
+  "advisory_coverage_gaps": [
+    {
+      "type": "disclosed_report_corpus_missing",
+      "reason": "No operator-supplied local report corpus was provided; advisory intelligence was skipped."
+    }
+  ],
+  "advisory_report_gate": {
+    "status": "partial",
+    "requires_human_review": true,
+    "coverage_gap_count": 1,
+    "advisory_count": 0
+  },
+  "smart_coverage": {
+    "request_smuggling": {
+      "status": "tested",
+      "probes": [
+        {
+          "probe": "CL.TE",
+          "status": "inconclusive"
+        },
+        {
+          "probe": "TE.CL",
+          "status": "inconclusive"
+        }
+      ],
+      "finding_count": 0
+    },
+    "schema_version": 1,
+    "selection_policy": "coverage-based-no-fixed-top-n",
+    "candidate_count": 18,
+    "status_counts": {
+      "tested": 2,
+      "missing-validator": 0,
+      "blocked": 16
+    },
+    "entries": {
+      "a145a855-e919-4d7f-a353-87585d3d1a87": {
+        "hypothesis_id": "a145a855-e919-4d7f-a353-87585d3d1a87",
+        "vuln_class": "rce",
+        "status": "tested",
+        "action": "promote",
+        "reason": "promoted_to_validator_pipeline",
+        "validator_route": "rce",
+        "score": 0.2875
+      },
+      "3821b27c-755d-47cd-b816-f224d23f82e6": {
+        "hypothesis_id": "3821b27c-755d-47cd-b816-f224d23f82e6",
+        "vuln_class": "idor",
+        "status": "tested",
+        "action": "promote",
+        "reason": "promoted_to_validator_pipeline",
+        "validator_route": "idor",
+        "score": 0.225
+      },
+      "9cdd64bc-a559-4557-92d2-4c8c85234de4": {
+        "hypothesis_id": "9cdd64bc-a559-4557-92d2-4c8c85234de4",
+        "vuln_class": "xss",
+        "status": "blocked",
+        "action": "defer",
+        "reason": "prioritization_gate_deferred",
+        "validator_route": "xss",
+        "score": 0.2675
+      },
+      "c01fa0ce-37e2-4153-bf00-27688c7448c9": {
+        "hypothesis_id": "c01fa0ce-37e2-4153-bf00-27688c7448c9",
+        "vuln_class": "xss",
+        "status": "blocked",
+        "action": "defer",
+        "reason": "prioritization_gate_deferred",
+        "validator_route": "xss",
+        "score": 0.2675
+      },
+      "4dc054ea-477c-4b65-94d4-66b8d004472e": {
+        "hypothesis_id": "4dc054ea-477c-4b65-94d4-66b8d004472e",
+        "vuln_class": "xss",
+        "status": "blocked",
+        "action": "defer",
+        "reason": "prioritization_gate_deferred",
+        "validator_route": "xss",
+        "score": 0.2675
+      },
+      "feee78cc-455a-4805-8a42-6a117e19ab54": {
+        "hypothesis_id": "feee78cc-455a-4805-8a42-6a117e19ab54",
+        "vuln_class": "xss",
+        "status": "blocked",
+        "action": "defer",
+        "reason": "prioritization_gate_deferred",
+        "validator_route": "xss",
+        "score": 0.2675
+      },
+      "2789df60-61ec-43c6-9fe1-79e908f2b745": {
+        "hypothesis_id": "2789df60-61ec-43c6-9fe1-79e908f2b745",
+        "vuln_class": "xss",
+        "status": "blocked",
+        "action": "defer",
+        "reason": "prioritization_gate_deferred",
+        "validator_route": "xss",
+        "score": 0.2675
+      },
+      "73681c9b-dc8e-46f5-ab56-1ad62ec92404": {
+        "hypothesis_id": "73681c9b-dc8e-46f5-ab56-1ad62ec92404",
+        "vuln_class": "xss",
+        "status": "blocked",
+        "action": "defer",
+        "reason": "prioritization_gate_deferred",
+        "validator_route": "xss",
+        "score": 0.2675
+      },
+      "434158df-fc9c-4a42-938a-8d45d7bb13fa": {
+        "hypothesis_id": "434158df-fc9c-4a42-938a-8d45d7bb13fa",
+        "vuln_class": "xss",
+        "status": "blocked",
+        "action": "defer",
+        "reason": "prioritization_gate_deferred",
+        "validator_route": "xss",
+        "score": 0.2675
+      },
+      "6fa8008a-e9ff-4438-837c-8eccb030ccf0": {
+        "hypothesis_id": "6fa8008a-e9ff-4438-837c-8eccb030ccf0",
+        "vuln_class": "xss",
+        "status": "blocked",
+        "action": "defer",
+        "reason": "prioritization_gate_deferred",
+        "validator_route": "xss",
+        "score": 0.2675
+      },
+      "01bbe9a4-5106-4621-b133-697fcd0c01c1": {
+        "hypothesis_id": "01bbe9a4-5106-4621-b133-697fcd0c01c1",
+        "vuln_class": "xss",
+        "status": "blocked",
+        "action": "defer",
+        "reason": "prioritization_gate_deferred",
+        "validator_route": "xss",
+        "score": 0.2675
+      },
+      "364ac8b5-bb17-4a42-8f21-9cc8b1151452": {
+        "hypothesis_id": "364ac8b5-bb17-4a42-8f21-9cc8b1151452",
+        "vuln_class": "xss",
+        "status": "blocked",
+        "action": "defer",
+        "reason": "prioritization_gate_deferred",
+        "validator_route": "xss",
+        "score": 0.2675
+      },
+      "fe1d91af-b9cb-4aed-832e-efc901eb6476": {
+        "hypothesis_id": "fe1d91af-b9cb-4aed-832e-efc901eb6476",
+        "vuln_class": "xss",
+        "status": "blocked",
+        "action": "defer",
+        "reason": "prioritization_gate_deferred",
+        "validator_route": "xss",
+        "score": 0.2675
+      },
+      "830148f8-f80d-4ebe-9fc1-bdc97558fba1": {
+        "hypothesis_id": "830148f8-f80d-4ebe-9fc1-bdc97558fba1",
+        "vuln_class": "xss",
+        "status": "blocked",
+        "action": "defer",
+        "reason": "prioritization_gate_deferred",
+        "validator_route": "xss",
+        "score": 0.2675
+      },
+      "409455b5-e6c4-4200-8a07-da0d1ecc15be": {
+        "hypothesis_id": "409455b5-e6c4-4200-8a07-da0d1ecc15be",
+        "vuln_class": "xss",
+        "status": "blocked",
+        "action": "defer",
+        "reason": "prioritization_gate_deferred",
+        "validator_route": "xss",
+        "score": 0.2675
+      },
+      "10212673-17cf-4fea-8c79-c29548f809f8": {
+        "hypothesis_id": "10212673-17cf-4fea-8c79-c29548f809f8",
+        "vuln_class": "xss",
+        "status": "blocked",
+        "action": "defer",
+        "reason": "prioritization_gate_deferred",
+        "validator_route": "xss",
+        "score": 0.2675
+      },
+      "6ac85b3a-d380-4daf-943c-9bc9b3763887": {
+        "hypothesis_id": "6ac85b3a-d380-4daf-943c-9bc9b3763887",
+        "vuln_class": "xss",
+        "status": "blocked",
+        "action": "defer",
+        "reason": "prioritization_gate_deferred",
+        "validator_route": "xss",
+        "score": 0.2675
+      },
+      "c6e769bc-56f7-40f9-a5d2-ba5e856f5545": {
+        "hypothesis_id": "c6e769bc-56f7-40f9-a5d2-ba5e856f5545",
+        "vuln_class": "xss",
+        "status": "blocked",
+        "action": "defer",
+        "reason": "prioritization_gate_deferred",
+        "validator_route": "xss",
+        "score": 0.2675
+      }
+    }
+  },
+  "campaign_ledger": {
+    "version": 1,
+    "source": "waptlab_audit_campaign_matrix",
+    "entries": [
+      {
+        "id": 1,
+        "key": "header_sqli",
+        "surfaces": [
+          "headers",
+          "query",
+          "logging"
+        ],
+        "validator": "sqli",
+        "validator_id": "sqli",
+        "status": "not_observed",
+        "evidence_complete": false
+      },
+      {
+        "id": 2,
+        "key": "csv_ingestion_sqli",
+        "surfaces": [
+          "multipart",
+          "csv",
+          "worker"
+        ],
+        "validator": "sqli",
+        "validator_id": "sqli",
+        "status": "not_observed",
+        "evidence_complete": false
+      },
+      {
+        "id": 3,
+        "key": "jwt_path_traversal",
+        "surfaces": [
+          "jwt",
+          "path",
+          "download"
+        ],
+        "validator": "path_traversal",
+        "validator_id": "path_traversal",
+        "status": "not_observed",
+        "evidence_complete": false
+      },
+      {
+        "id": 4,
+        "key": "double_slash_redirect",
+        "surfaces": [
+          "redirect",
+          "path"
+        ],
+        "validator": "open_redirect",
+        "validator_id": "open_redirect",
+        "status": "not_observed",
+        "evidence_complete": false
+      },
+      {
+        "id": 5,
+        "key": "oauth_redirect_uri",
+        "surfaces": [
+          "oauth",
+          "redirect",
+          "callback"
+        ],
+        "validator": "open_redirect",
+        "validator_id": "open_redirect",
+        "status": "not_observed",
+        "evidence_complete": false
+      },
+      {
+        "id": 6,
+        "key": "download_idor",
+        "surfaces": [
+          "download",
+          "object",
+          "identity"
+        ],
+        "validator": "idor",
+        "validator_id": "idor",
+        "status": "missing-validator",
+        "evidence_complete": false
+      },
+      {
+        "id": 7,
+        "key": "tenant_context_switching",
+        "surfaces": [
+          "tenant",
+          "identity",
+          "object"
+        ],
+        "validator": "idor",
+        "validator_id": "idor",
+        "status": "missing-validator",
+        "evidence_complete": false
+      },
+      {
+        "id": 8,
+        "key": "training_email_ssti",
+        "surfaces": [
+          "template",
+          "email",
+          "workflow"
+        ],
+        "validator": "ssti",
+        "validator_id": "ssti",
+        "status": "not_observed",
+        "evidence_complete": false
+      },
+      {
+        "id": 9,
+        "key": "export_blade_ssti",
+        "surfaces": [
+          "export",
+          "template",
+          "download"
+        ],
+        "validator": "ssti",
+        "validator_id": "ssti",
+        "status": "not_observed",
+        "evidence_complete": false
+      },
+      {
+        "id": 10,
+        "key": "swagger_url_ssrf",
+        "surfaces": [
+          "swagger",
+          "openapi",
+          "url"
+        ],
+        "validator": "ssrf",
+        "validator_id": "ssrf",
+        "status": "not_observed",
+        "evidence_complete": false
+      },
+      {
+        "id": 11,
+        "key": "image_fetch_ssrf",
+        "surfaces": [
+          "profile",
+          "image",
+          "url"
+        ],
+        "validator": "ssrf",
+        "validator_id": "ssrf",
+        "status": "not_observed",
+        "evidence_complete": false
+      },
+      {
+        "id": 12,
+        "key": "stored_profile_xss",
+        "surfaces": [
+          "profile",
+          "stored",
+          "browser"
+        ],
+        "validator": "xss",
+        "validator_id": "xss",
+        "status": "not_observed",
+        "evidence_complete": false
+      },
+      {
+        "id": 13,
+        "key": "quoted_field_xss",
+        "surfaces": [
+          "profile",
+          "form",
+          "attribute"
+        ],
+        "validator": "xss",
+        "validator_id": "xss",
+        "status": "not_observed",
+        "evidence_complete": false
+      },
+      {
+        "id": 14,
+        "key": "elasticsearch_snapshot_traversal",
+        "surfaces": [
+          "elasticsearch",
+          "snapshot",
+          "service"
+        ],
+        "validator": null,
+        "validator_id": null,
+        "status": "missing-validator",
+        "evidence_complete": false
+      },
+      {
+        "id": 15,
+        "key": "public_backup_disclosure",
+        "surfaces": [
+          "backup",
+          "artifact",
+          "download"
+        ],
+        "validator": "info_disclosure",
+        "validator_id": "info_disclosure",
+        "status": "missing-validator",
+        "evidence_complete": false
+      },
+      {
+        "id": 16,
+        "key": "laravel_app_debug",
+        "surfaces": [
+          "error",
+          "debug",
+          "laravel"
+        ],
+        "validator": "info_disclosure",
+        "validator_id": "info_disclosure",
+        "status": "missing-validator",
+        "evidence_complete": false
+      },
+      {
+        "id": 17,
+        "key": "frontend_dependency_exposure",
+        "surfaces": [
+          "javascript",
+          "sbom",
+          "bundle"
+        ],
+        "validator": "javascript",
+        "validator_id": "javascript",
+        "status": "not_observed",
+        "evidence_complete": false
+      },
+      {
+        "id": 18,
+        "key": "public_elasticsearch_exposure",
+        "surfaces": [
+          "elasticsearch",
+          "service",
+          "network"
+        ],
+        "validator": "info_disclosure",
+        "validator_id": "info_disclosure",
+        "status": "missing-validator",
+        "evidence_complete": false
+      },
+      {
+        "id": 19,
+        "key": "oob_xxe",
+        "surfaces": [
+          "xml",
+          "multipart",
+          "oob"
+        ],
+        "validator": "xxe",
+        "validator_id": "xxe",
+        "status": "not_observed",
+        "evidence_complete": false
+      },
+      {
+        "id": 20,
+        "key": "xslt_injection",
+        "surfaces": [
+          "xml",
+          "xslt",
+          "multipart"
+        ],
+        "validator": null,
+        "validator_id": null,
+        "status": "missing-validator",
+        "evidence_complete": false
+      }
+    ],
+    "summary": {
+      "not_observed": 13,
+      "missing-validator": 7
+    },
+    "coverage_projection": {
+      "version": 1,
+      "source": "proof_engine_projection",
+      "entries": [
+        {
+          "id": 1,
+          "key": "header_sqli",
+          "status": "not_scanned",
+          "attempts": 0,
+          "evidence_complete": false,
+          "proof_action_id": null,
+          "task_id": null,
+          "reason": null,
+          "gaps": [
+            "no-executor-outcome"
+          ]
+        },
+        {
+          "id": 2,
+          "key": "csv_ingestion_sqli",
+          "status": "not_scanned",
+          "attempts": 0,
+          "evidence_complete": false,
+          "proof_action_id": null,
+          "task_id": null,
+          "reason": null,
+          "gaps": [
+            "no-executor-outcome"
+          ]
+        },
+        {
+          "id": 3,
+          "key": "jwt_path_traversal",
+          "status": "not_scanned",
+          "attempts": 0,
+          "evidence_complete": false,
+          "proof_action_id": null,
+          "task_id": null,
+          "reason": null,
+          "gaps": [
+            "no-executor-outcome"
+          ]
+        },
+        {
+          "id": 4,
+          "key": "double_slash_redirect",
+          "status": "not_scanned",
+          "attempts": 0,
+          "evidence_complete": false,
+          "proof_action_id": null,
+          "task_id": null,
+          "reason": null,
+          "gaps": [
+            "no-executor-outcome"
+          ]
+        },
+        {
+          "id": 5,
+          "key": "oauth_redirect_uri",
+          "status": "not_scanned",
+          "attempts": 0,
+          "evidence_complete": false,
+          "proof_action_id": null,
+          "task_id": null,
+          "reason": null,
+          "gaps": [
+            "no-executor-outcome"
+          ]
+        },
+        {
+          "id": 6,
+          "key": "download_idor",
+          "status": "missing-validator",
+          "attempts": 0,
+          "evidence_complete": false,
+          "proof_action_id": null,
+          "task_id": null,
+          "reason": null,
+          "gaps": [
+            "deterministic-validator-unavailable"
+          ]
+        },
+        {
+          "id": 7,
+          "key": "tenant_context_switching",
+          "status": "missing-validator",
+          "attempts": 0,
+          "evidence_complete": false,
+          "proof_action_id": null,
+          "task_id": null,
+          "reason": null,
+          "gaps": [
+            "deterministic-validator-unavailable"
+          ]
+        },
+        {
+          "id": 8,
+          "key": "training_email_ssti",
+          "status": "not_scanned",
+          "attempts": 0,
+          "evidence_complete": false,
+          "proof_action_id": null,
+          "task_id": null,
+          "reason": null,
+          "gaps": [
+            "no-executor-outcome"
+          ]
+        },
+        {
+          "id": 9,
+          "key": "export_blade_ssti",
+          "status": "not_scanned",
+          "attempts": 0,
+          "evidence_complete": false,
+          "proof_action_id": null,
+          "task_id": null,
+          "reason": null,
+          "gaps": [
+            "no-executor-outcome"
+          ]
+        },
+        {
+          "id": 10,
+          "key": "swagger_url_ssrf",
+          "status": "not_scanned",
+          "attempts": 0,
+          "evidence_complete": false,
+          "proof_action_id": null,
+          "task_id": null,
+          "reason": null,
+          "gaps": [
+            "no-executor-outcome"
+          ]
+        },
+        {
+          "id": 11,
+          "key": "image_fetch_ssrf",
+          "status": "not_scanned",
+          "attempts": 0,
+          "evidence_complete": false,
+          "proof_action_id": null,
+          "task_id": null,
+          "reason": null,
+          "gaps": [
+            "no-executor-outcome"
+          ]
+        },
+        {
+          "id": 12,
+          "key": "stored_profile_xss",
+          "status": "not_scanned",
+          "attempts": 0,
+          "evidence_complete": false,
+          "proof_action_id": null,
+          "task_id": null,
+          "reason": null,
+          "gaps": [
+            "no-executor-outcome"
+          ]
+        },
+        {
+          "id": 13,
+          "key": "quoted_field_xss",
+          "status": "not_scanned",
+          "attempts": 0,
+          "evidence_complete": false,
+          "proof_action_id": null,
+          "task_id": null,
+          "reason": null,
+          "gaps": [
+            "no-executor-outcome"
+          ]
+        },
+        {
+          "id": 14,
+          "key": "elasticsearch_snapshot_traversal",
+          "status": "missing-validator",
+          "attempts": 0,
+          "evidence_complete": false,
+          "proof_action_id": null,
+          "task_id": null,
+          "reason": null,
+          "gaps": [
+            "deterministic-validator-unavailable"
+          ]
+        },
+        {
+          "id": 15,
+          "key": "public_backup_disclosure",
+          "status": "missing-validator",
+          "attempts": 0,
+          "evidence_complete": false,
+          "proof_action_id": null,
+          "task_id": null,
+          "reason": null,
+          "gaps": [
+            "deterministic-validator-unavailable"
+          ]
+        },
+        {
+          "id": 16,
+          "key": "laravel_app_debug",
+          "status": "missing-validator",
+          "attempts": 0,
+          "evidence_complete": false,
+          "proof_action_id": null,
+          "task_id": null,
+          "reason": null,
+          "gaps": [
+            "deterministic-validator-unavailable"
+          ]
+        },
+        {
+          "id": 17,
+          "key": "frontend_dependency_exposure",
+          "status": "not_scanned",
+          "attempts": 0,
+          "evidence_complete": false,
+          "proof_action_id": null,
+          "task_id": null,
+          "reason": null,
+          "gaps": [
+            "no-executor-outcome"
+          ]
+        },
+        {
+          "id": 18,
+          "key": "public_elasticsearch_exposure",
+          "status": "missing-validator",
+          "attempts": 0,
+          "evidence_complete": false,
+          "proof_action_id": null,
+          "task_id": null,
+          "reason": null,
+          "gaps": [
+            "deterministic-validator-unavailable"
+          ]
+        },
+        {
+          "id": 19,
+          "key": "oob_xxe",
+          "status": "not_scanned",
+          "attempts": 0,
+          "evidence_complete": false,
+          "proof_action_id": null,
+          "task_id": null,
+          "reason": null,
+          "gaps": [
+            "no-executor-outcome"
+          ]
+        },
+        {
+          "id": 20,
+          "key": "xslt_injection",
+          "status": "missing-validator",
+          "attempts": 0,
+          "evidence_complete": false,
+          "proof_action_id": null,
+          "task_id": null,
+          "reason": null,
+          "gaps": [
+            "deterministic-validator-unavailable"
+          ]
+        }
+      ],
+      "summary": {
+        "not_scanned": 13,
+        "missing-validator": 7
+      },
+      "attempt_count": 0
+    },
+    "task_outcome_count": 0,
+    "http_observation_count": 0
+  },
+  "proof_observability": {},
+  "smart_coverage_gate": {
+    "status": "ready",
+    "requires_human_review": false,
+    "campaign_count": 20,
+    "attempt_count": 0
+  },
+  "infrastructure_report_gate": {
+    "status": "ready",
+    "requires_human_review": false,
+    "coverage_gap_count": 0,
+    "takeover_observation_count": 1,
+    "cloud_observation_count": 15
+  },
+  "audit_trail": {
+    "per_finding_hashes": [
+      {
+        "finding_id": "c2c37095-d5fc-46d7-b7a5-4891c4ab05b0",
+        "title": "Potential RCE at http://127.0.0.1:8000/csv/upload",
+        "evidence_hash": null
+      },
+      {
+        "finding_id": "d48a4cf0-27af-491b-a430-d0029d8d084d",
+        "title": "Potential IDOR at http://127.0.0.1:8000/user_profile/1",
+        "evidence_hash": null
+      }
+    ],
+    "algorithm": "HMAC-SHA256",
+    "note": "These hashes are computed using HMAC-SHA256 with a secret key (audit_secret_key). Recompute with the same key to verify no post-exploitation tampering has occurred. An attacker cannot forge a valid hash without the key.",
+    "master_report_hash": "b67f780e6338625b3bc67da00c8e7894587ad4b7cfd676c59652359cd587e6de"
+  }
+}

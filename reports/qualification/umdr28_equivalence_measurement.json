@@ -1,0 +1,53 @@
+{
+  "window": "UM-DR-28",
+  "population": "equivalence fixture (blind_v3 replica corpus, body-represented authorization semantics, unguessable token routes) \u2014 REPLICA-CORPUS measurement, NOT the recorded blind baseline, NOT an independent holdout",
+  "denominator": 120,
+  "ground_truth": {
+    "vulnerable": 73,
+    "safe": 47
+  },
+  "modes": {
+    "E1_legacy_observations_grammar_fallback": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 73,
+      "tn": 47,
+      "requests": 2120
+    },
+    "E2_legacy_observations_observed_source": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 73,
+      "tn": 47,
+      "requests": 1400
+    },
+    "E3_oracle_observations_observed_source": {
+      "tp": 73,
+      "fp": 0,
+      "fn": 0,
+      "tn": 47,
+      "requests": 1068
+    }
+  },
+  "metrics": {
+    "E1": {
+      "recall": 0.0,
+      "precision": null
+    },
+    "E2": {
+      "recall": 0.0,
+      "precision": null
+    },
+    "E3": {
+      "recall": 1.0,
+      "precision": 1.0
+    }
+  },
+  "requests_per_case_average": {
+    "E3": 8.9
+  },
+  "limitations": [
+    "author-known fixture (the honesty boundary \u2014 the original blind_v3 target is absent, so the exact 15 miss bytes are unrecoverable; this fixture reproduces the miss CLASS)",
+    "production_qualified still requires operator-deployed independent holdout corpora"
+  ]
+}

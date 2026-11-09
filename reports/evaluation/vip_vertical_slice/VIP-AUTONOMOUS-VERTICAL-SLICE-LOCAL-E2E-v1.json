@@ -1,0 +1,700 @@
+{
+  "acceptance_checks": {
+    "fixture_before_after_completed": true,
+    "fixture_failure_record_and_proposal": true,
+    "fixture_proof_sealed_verified_replayed": true,
+    "juice_shop_is_observation_only": true,
+    "juice_shop_owner_packet_gated": true,
+    "lifecycle_complete": true,
+    "lifecycle_reported": true,
+    "no_credentials": true,
+    "no_external_contact": true,
+    "no_raw_payloads_persisted": true,
+    "no_state_mutation": true,
+    "official_p10_gate_closed": true,
+    "owner_packet_schema_complete": true,
+    "qualification_claim_absent": true
+  },
+  "campaigns": {
+    "juice_shop_loopback_get_only": {
+      "cases": [
+        {
+          "case_id": "juice-shop-live-observation-only",
+          "failure_record": {
+            "case_id": "juice-shop-live-observation-only",
+            "causal_signal": false,
+            "failure_id": "failure:juice-shop-live-observation-only",
+            "negative_control_complete": true,
+            "observed_status": "inconclusive",
+            "oracle_decision": "inconclusive",
+            "recorded_as": "failure_or_inconclusive_evidence",
+            "target": "http://127.0.0.1:3000"
+          },
+          "improvement": null,
+          "improvement_proposal": {
+            "change_class": "generic_candidate_requires_owner_review",
+            "failure_record": {
+              "case_id": "juice-shop-live-observation-only",
+              "causal_signal": false,
+              "failure_id": "failure:juice-shop-live-observation-only",
+              "negative_control_complete": true,
+              "observed_status": "inconclusive",
+              "oracle_decision": "inconclusive",
+              "recorded_as": "failure_or_inconclusive_evidence",
+              "target": "http://127.0.0.1:3000"
+            },
+            "proposed_action": "prepare owner decision packet; do not implement",
+            "root_cause": "missing_or_insufficient_causal_contract_evidence",
+            "safety_scope": "gated change; no implementation without explicit owner approval",
+            "status": "proposed"
+          },
+          "oracle": {
+            "baseline_present": true,
+            "causal_signal": false,
+            "decision": "inconclusive",
+            "negative_control_complete": true,
+            "predicate_match": true,
+            "requires_target_backed": true,
+            "verifier_id": "vip_vertical_slice_central_verifier",
+            "verifier_version": "1"
+          },
+          "owner_decision_packet": {
+            "decision_requested": "owner approval required for any gated improvement",
+            "evidence": [
+              "decision:inconclusive",
+              "target:http://127.0.0.1:3000",
+              "case:juice-shop-live-observation-only"
+            ],
+            "files_or_commits_affected": [
+              "target-local adapter/profile only"
+            ],
+            "options": [
+              "leave blocked/inconclusive",
+              "implement bounded local improvement"
+            ],
+            "recommended_decision": "keep gate closed until explicit owner approval",
+            "risk": [
+              "no network escalation",
+              "no credentials",
+              "no mutation",
+              "no frozen artifact changes"
+            ],
+            "rollback": [
+              "revert isolated commit",
+              "discard metadata-only campaign artifact"
+            ],
+            "status": "pending_owner_approval",
+            "why_it_is_needed": "juice-shop-live-observation-only ended as inconclusive; causal evidence was insufficient"
+          },
+          "proof": {
+            "promotion_ready": false,
+            "replay_status": "not_run",
+            "sealed": false,
+            "verify_seal": false
+          },
+          "raw_payloads_persisted": false,
+          "scoring_promotion": false,
+          "status": "inconclusive",
+          "vulnerability_class": "local_vip_vertical_slice_contract"
+        }
+      ],
+      "engagement_id": "juice-shop-loopback-passive-e2e-v1",
+      "hash": "sha256:4cdb084d641e9f1c0f592fe864e45509da6a402a394b8d66796246dedbcae074",
+      "lifecycle": [
+        {
+          "engagement_id": "juice-shop-loopback-passive-e2e-v1",
+          "stage": "CREATE_CAMPAIGN",
+          "status": "completed"
+        },
+        {
+          "authorization_ref": "[REDACTED]",
+          "stage": "VALIDATE_SCOPE",
+          "status": "completed"
+        },
+        {
+          "readiness": {
+            "external_contact": false,
+            "mutation": false,
+            "ready": true
+          },
+          "stage": "CHECK_TARGET_READINESS",
+          "status": "completed"
+        },
+        {
+          "capabilities": {
+            "http_read": {
+              "available": true
+            }
+          },
+          "stage": "DISCOVER_CAPABILITIES",
+          "status": "completed"
+        },
+        {
+          "rejected": [],
+          "selected": [
+            "juice-shop-live-observation-only"
+          ],
+          "stage": "SELECT_SAFE_CASES",
+          "status": "completed"
+        },
+        {
+          "case_id": "juice-shop-live-observation-only",
+          "stage": "RUN_BASELINE",
+          "status": "completed"
+        },
+        {
+          "case_id": "juice-shop-live-observation-only",
+          "stage": "EXECUTE_BOUNDED_ACTIONS",
+          "status": "completed"
+        },
+        {
+          "case_id": "juice-shop-live-observation-only",
+          "stage": "COLLECT_REDACTED_OBSERVATIONS",
+          "status": "completed"
+        },
+        {
+          "case_id": "juice-shop-live-observation-only",
+          "stage": "RUN_INDEPENDENT_NEGATIVE_CONTROL",
+          "status": "completed"
+        },
+        {
+          "case_id": "juice-shop-live-observation-only",
+          "oracle": {
+            "baseline_present": true,
+            "causal_signal": false,
+            "decision": "inconclusive",
+            "negative_control_complete": true,
+            "predicate_match": true,
+            "requires_target_backed": true,
+            "verifier_id": "vip_vertical_slice_central_verifier",
+            "verifier_version": "1"
+          },
+          "stage": "EVALUATE_CENTRAL_ORACLE",
+          "status": "completed"
+        },
+        {
+          "bundle_id": null,
+          "case_id": "juice-shop-live-observation-only",
+          "stage": "CREATE_PROOFBUNDLE",
+          "status": "completed"
+        },
+        {
+          "case_id": "juice-shop-live-observation-only",
+          "stage": "VERIFY_SEAL",
+          "status": "completed",
+          "verify_seal": false
+        },
+        {
+          "case_id": "juice-shop-live-observation-only",
+          "replay_status": "not_run",
+          "stage": "REPLAY",
+          "status": "completed"
+        },
+        {
+          "case_id": "juice-shop-live-observation-only",
+          "quality": {
+            "causal_signal": false,
+            "proof": {
+              "promotion_ready": false,
+              "replay_status": "not_run",
+              "sealed": false,
+              "verify_seal": false
+            },
+            "status": "inconclusive"
+          },
+          "stage": "EVALUATE_DETECTION_QUALITY",
+          "status": "completed"
+        },
+        {
+          "case_id": "juice-shop-live-observation-only",
+          "failure_record": {
+            "case_id": "juice-shop-live-observation-only",
+            "causal_signal": false,
+            "failure_id": "failure:juice-shop-live-observation-only",
+            "negative_control_complete": true,
+            "observed_status": "inconclusive",
+            "oracle_decision": "inconclusive",
+            "recorded_as": "failure_or_inconclusive_evidence",
+            "target": "http://127.0.0.1:3000"
+          },
+          "root_cause": "missing_or_insufficient_causal_contract_evidence",
+          "stage": "DIAGNOSE_FAILURES",
+          "status": "completed"
+        },
+        {
+          "case_id": "juice-shop-live-observation-only",
+          "owner_decision_packet": {
+            "decision_requested": "owner approval required for any gated improvement",
+            "evidence": [
+              "decision:inconclusive",
+              "target:http://127.0.0.1:3000",
+              "case:juice-shop-live-observation-only"
+            ],
+            "files_or_commits_affected": [
+              "target-local adapter/profile only"
+            ],
+            "options": [
+              "leave blocked/inconclusive",
+              "implement bounded local improvement"
+            ],
+            "recommended_decision": "keep gate closed until explicit owner approval",
+            "risk": [
+              "no network escalation",
+              "no credentials",
+              "no mutation",
+              "no frozen artifact changes"
+            ],
+            "rollback": [
+              "revert isolated commit",
+              "discard metadata-only campaign artifact"
+            ],
+            "status": "pending_owner_approval",
+            "why_it_is_needed": "juice-shop-live-observation-only ended as inconclusive; causal evidence was insufficient"
+          },
+          "proposal": {
+            "change_class": "generic_candidate_requires_owner_review",
+            "failure_record": {
+              "case_id": "juice-shop-live-observation-only",
+              "causal_signal": false,
+              "failure_id": "failure:juice-shop-live-observation-only",
+              "negative_control_complete": true,
+              "observed_status": "inconclusive",
+              "oracle_decision": "inconclusive",
+              "recorded_as": "failure_or_inconclusive_evidence",
+              "target": "http://127.0.0.1:3000"
+            },
+            "proposed_action": "prepare owner decision packet; do not implement",
+            "root_cause": "missing_or_insufficient_causal_contract_evidence",
+            "safety_scope": "gated change; no implementation without explicit owner approval",
+            "status": "proposed"
+          },
+          "stage": "CREATE_IMPROVEMENT_PROPOSAL",
+          "status": "completed"
+        },
+        {
+          "case_id": "juice-shop-live-observation-only",
+          "change_class": "generic_candidate_requires_review",
+          "stage": "CLASSIFY_CHANGE",
+          "status": "completed"
+        },
+        {
+          "case_id": "juice-shop-live-observation-only",
+          "reason": "owner_approval_required",
+          "stage": "IMPLEMENT_SAFE_LOCAL_CHANGE",
+          "status": "blocked"
+        },
+        {
+          "case_id": "juice-shop-live-observation-only",
+          "reason": "no_approved_implementation",
+          "stage": "RUN_REGRESSION",
+          "status": "blocked"
+        },
+        {
+          "case_id": "juice-shop-live-observation-only",
+          "reason": "no_approved_implementation",
+          "stage": "RE-TEST",
+          "status": "blocked"
+        },
+        {
+          "case_id": "juice-shop-live-observation-only",
+          "comparison": {
+            "after": "not_run",
+            "before": "inconclusive",
+            "scoring_promotion": false
+          },
+          "stage": "COMPARE_BEFORE_AFTER",
+          "status": "skipped"
+        },
+        {
+          "final_status": "completed",
+          "stage": "GENERATE_REPORT",
+          "status": "completed"
+        }
+      ],
+      "safety": {
+        "credentials_used": false,
+        "external_contact": false,
+        "loopback_only": true,
+        "official_isolated_p10_runs_authorized": false,
+        "qualification_claim": null,
+        "raw_bodies_persisted": false,
+        "raw_headers_persisted": false,
+        "state_mutation": false
+      },
+      "schema": "vip-autonomous-vertical-slice-v1",
+      "status": "completed",
+      "target": {
+        "authorization_ref": "[REDACTED]",
+        "canonical_origin": "http://127.0.0.1:3000",
+        "expires_at": "2026-08-27T05:50:30.631572+00:00",
+        "method_policy": [
+          "GET"
+        ],
+        "redirect_policy": "same_origin_only",
+        "request_budget": 8,
+        "scope": [
+          "/"
+        ],
+        "target_id": "juice-shop-loopback"
+      }
+    },
+    "local_fixture": {
+      "cases": [
+        {
+          "case_id": "local-fixture-causal-case",
+          "failure_record": {
+            "case_id": "local-fixture-causal-case",
+            "causal_signal": false,
+            "failure_id": "failure:local-fixture-causal-case",
+            "negative_control_complete": true,
+            "observed_status": "inconclusive",
+            "oracle_decision": "inconclusive",
+            "recorded_as": "failure_or_inconclusive_evidence",
+            "target": "http://127.0.0.1:3000"
+          },
+          "improvement": {
+            "after_oracle": {
+              "baseline_present": true,
+              "causal_signal": true,
+              "decision": "confirmed",
+              "negative_control_complete": true,
+              "predicate_match": true,
+              "requires_target_backed": true,
+              "verifier_id": "vip_vertical_slice_central_verifier",
+              "verifier_version": "1"
+            },
+            "after_status": "confirmed",
+            "before_oracle": {
+              "baseline_present": true,
+              "causal_signal": false,
+              "decision": "inconclusive",
+              "negative_control_complete": true,
+              "predicate_match": true,
+              "requires_target_backed": true,
+              "verifier_id": "vip_vertical_slice_central_verifier",
+              "verifier_version": "1"
+            },
+            "before_status": "inconclusive",
+            "change_scope": "local_fixture_metadata_only",
+            "changed": true,
+            "regression_passed": true,
+            "retest": {
+              "oracle": {
+                "baseline_present": true,
+                "causal_signal": true,
+                "decision": "confirmed",
+                "negative_control_complete": true,
+                "predicate_match": true,
+                "requires_target_backed": true,
+                "verifier_id": "vip_vertical_slice_central_verifier",
+                "verifier_version": "1"
+              },
+              "proof": {
+                "bundle_id": "proof_bundle_61b92b7ef9b14ea1917a1458d2e67890",
+                "promotion_ready": true,
+                "replay_status": "passed",
+                "sealed": true,
+                "verify_seal": true
+              },
+              "status": "completed"
+            },
+            "rollback": "discard_campaign_artifact",
+            "scoring_promotion": false,
+            "status": "completed"
+          },
+          "improvement_proposal": {
+            "change_class": "target_local",
+            "failure_record": {
+              "case_id": "local-fixture-causal-case",
+              "causal_signal": false,
+              "failure_id": "failure:local-fixture-causal-case",
+              "negative_control_complete": true,
+              "observed_status": "inconclusive",
+              "oracle_decision": "inconclusive",
+              "recorded_as": "failure_or_inconclusive_evidence",
+              "target": "http://127.0.0.1:3000"
+            },
+            "proposed_action": "implement bounded local improvement and repeat regression/retest",
+            "root_cause": "missing_or_insufficient_causal_contract_evidence",
+            "safety_scope": "bounded local read-only fixture change",
+            "status": "proposed"
+          },
+          "oracle": {
+            "baseline_present": true,
+            "causal_signal": true,
+            "decision": "confirmed",
+            "negative_control_complete": true,
+            "predicate_match": true,
+            "requires_target_backed": true,
+            "verifier_id": "vip_vertical_slice_central_verifier",
+            "verifier_version": "1"
+          },
+          "owner_decision_packet": null,
+          "proof": {
+            "bundle_id": "proof_bundle_61b92b7ef9b14ea1917a1458d2e67890",
+            "promotion_ready": true,
+            "replay_status": "passed",
+            "sealed": true,
+            "verify_seal": true
+          },
+          "raw_payloads_persisted": false,
+          "scoring_promotion": false,
+          "status": "confirmed",
+          "vulnerability_class": "local_vip_vertical_slice_contract"
+        }
+      ],
+      "engagement_id": "vip-local-fixture-e2e-v1",
+      "hash": "sha256:a8ffe1c1b008233b11704e7da239da47aebf96cc20211603fab2cee853dbbb7b",
+      "lifecycle": [
+        {
+          "engagement_id": "vip-local-fixture-e2e-v1",
+          "stage": "CREATE_CAMPAIGN",
+          "status": "completed"
+        },
+        {
+          "authorization_ref": "[REDACTED]",
+          "stage": "VALIDATE_SCOPE",
+          "status": "completed"
+        },
+        {
+          "readiness": {
+            "external_contact": false,
+            "mutation": false,
+            "ready": true
+          },
+          "stage": "CHECK_TARGET_READINESS",
+          "status": "completed"
+        },
+        {
+          "capabilities": {
+            "http_read": {
+              "available": true
+            }
+          },
+          "stage": "DISCOVER_CAPABILITIES",
+          "status": "completed"
+        },
+        {
+          "rejected": [],
+          "selected": [
+            "local-fixture-causal-case"
+          ],
+          "stage": "SELECT_SAFE_CASES",
+          "status": "completed"
+        },
+        {
+          "case_id": "local-fixture-causal-case",
+          "stage": "RUN_BASELINE",
+          "status": "completed"
+        },
+        {
+          "case_id": "local-fixture-causal-case",
+          "stage": "EXECUTE_BOUNDED_ACTIONS",
+          "status": "completed"
+        },
+        {
+          "case_id": "local-fixture-causal-case",
+          "stage": "COLLECT_REDACTED_OBSERVATIONS",
+          "status": "completed"
+        },
+        {
+          "case_id": "local-fixture-causal-case",
+          "stage": "RUN_INDEPENDENT_NEGATIVE_CONTROL",
+          "status": "completed"
+        },
+        {
+          "case_id": "local-fixture-causal-case",
+          "oracle": {
+            "baseline_present": true,
+            "causal_signal": false,
+            "decision": "inconclusive",
+            "negative_control_complete": true,
+            "predicate_match": true,
+            "requires_target_backed": true,
+            "verifier_id": "vip_vertical_slice_central_verifier",
+            "verifier_version": "1"
+          },
+          "stage": "EVALUATE_CENTRAL_ORACLE",
+          "status": "completed"
+        },
+        {
+          "bundle_id": null,
+          "case_id": "local-fixture-causal-case",
+          "stage": "CREATE_PROOFBUNDLE",
+          "status": "completed"
+        },
+        {
+          "case_id": "local-fixture-causal-case",
+          "stage": "VERIFY_SEAL",
+          "status": "completed",
+          "verify_seal": false
+        },
+        {
+          "case_id": "local-fixture-causal-case",
+          "replay_status": "not_run",
+          "stage": "REPLAY",
+          "status": "completed"
+        },
+        {
+          "case_id": "local-fixture-causal-case",
+          "quality": {
+            "causal_signal": false,
+            "proof": {
+              "promotion_ready": false,
+              "replay_status": "not_run",
+              "sealed": false,
+              "verify_seal": false
+            },
+            "status": "inconclusive"
+          },
+          "stage": "EVALUATE_DETECTION_QUALITY",
+          "status": "completed"
+        },
+        {
+          "case_id": "local-fixture-causal-case",
+          "failure_record": {
+            "case_id": "local-fixture-causal-case",
+            "causal_signal": false,
+            "failure_id": "failure:local-fixture-causal-case",
+            "negative_control_complete": true,
+            "observed_status": "inconclusive",
+            "oracle_decision": "inconclusive",
+            "recorded_as": "failure_or_inconclusive_evidence",
+            "target": "http://127.0.0.1:3000"
+          },
+          "root_cause": "missing_or_insufficient_causal_contract_evidence",
+          "stage": "DIAGNOSE_FAILURES",
+          "status": "completed"
+        },
+        {
+          "case_id": "local-fixture-causal-case",
+          "owner_decision_packet": null,
+          "proposal": {
+            "change_class": "target_local",
+            "failure_record": {
+              "case_id": "local-fixture-causal-case",
+              "causal_signal": false,
+              "failure_id": "failure:local-fixture-causal-case",
+              "negative_control_complete": true,
+              "observed_status": "inconclusive",
+              "oracle_decision": "inconclusive",
+              "recorded_as": "failure_or_inconclusive_evidence",
+              "target": "http://127.0.0.1:3000"
+            },
+            "proposed_action": "implement bounded local improvement and repeat regression/retest",
+            "root_cause": "missing_or_insufficient_causal_contract_evidence",
+            "safety_scope": "bounded local read-only fixture change",
+            "status": "proposed"
+          },
+          "stage": "CREATE_IMPROVEMENT_PROPOSAL",
+          "status": "completed"
+        },
+        {
+          "case_id": "local-fixture-causal-case",
+          "change_class": "target_local",
+          "stage": "CLASSIFY_CHANGE",
+          "status": "completed"
+        },
+        {
+          "case_id": "local-fixture-causal-case",
+          "result": {
+            "change_scope": "local_fixture_metadata_only",
+            "changed": true,
+            "regression_passed": true,
+            "rollback": "discard_campaign_artifact"
+          },
+          "stage": "IMPLEMENT_SAFE_LOCAL_CHANGE",
+          "status": "completed"
+        },
+        {
+          "case_id": "local-fixture-causal-case",
+          "stage": "RUN_REGRESSION",
+          "status": "passed"
+        },
+        {
+          "case_id": "local-fixture-causal-case",
+          "result": {
+            "oracle": {
+              "baseline_present": true,
+              "causal_signal": true,
+              "decision": "confirmed",
+              "negative_control_complete": true,
+              "predicate_match": true,
+              "requires_target_backed": true,
+              "verifier_id": "vip_vertical_slice_central_verifier",
+              "verifier_version": "1"
+            },
+            "proof": {
+              "bundle_id": "proof_bundle_61b92b7ef9b14ea1917a1458d2e67890",
+              "promotion_ready": true,
+              "replay_status": "passed",
+              "sealed": true,
+              "verify_seal": true
+            },
+            "status": "completed"
+          },
+          "stage": "RE-TEST",
+          "status": "completed"
+        },
+        {
+          "case_id": "local-fixture-causal-case",
+          "comparison": {
+            "after": "confirmed",
+            "before": "inconclusive",
+            "evidence_changed": true,
+            "scoring_promotion": false
+          },
+          "stage": "COMPARE_BEFORE_AFTER",
+          "status": "completed"
+        },
+        {
+          "final_status": "completed",
+          "stage": "GENERATE_REPORT",
+          "status": "completed"
+        }
+      ],
+      "safety": {
+        "credentials_used": false,
+        "external_contact": false,
+        "loopback_only": true,
+        "official_isolated_p10_runs_authorized": false,
+        "qualification_claim": null,
+        "raw_bodies_persisted": false,
+        "raw_headers_persisted": false,
+        "state_mutation": false
+      },
+      "schema": "vip-autonomous-vertical-slice-v1",
+      "status": "completed",
+      "target": {
+        "authorization_ref": "[REDACTED]",
+        "canonical_origin": "http://127.0.0.1:3000",
+        "expires_at": "2026-08-27T05:50:30.626523+00:00",
+        "method_policy": [
+          "GET"
+        ],
+        "redirect_policy": "same_origin_only",
+        "request_budget": 8,
+        "scope": [
+          "/fixture"
+        ],
+        "target_id": "vip-local-fixture"
+      }
+    }
+  },
+  "generated_at": "2026-08-27T05:35:30.641448+00:00",
+  "governance": {
+    "bug_bounty": "BLOCKED",
+    "human_independent_signoff_obtained": false,
+    "official_isolated_p10_runs_authorized": false,
+    "p10": "NOT_QUALIFIED",
+    "p9": "NOT_QUALIFIED",
+    "scoring_promotion": false,
+    "vip": "NOT_QUALIFIED"
+  },
+  "limitations": [
+    "The fixture proof is a bounded regression artifact, not official P10 evidence.",
+    "Juice Shop campaign is passive GET-only observation and remains non-scoring.",
+    "No external target, credentials, payloads, mutation, or qualification action was attempted."
+  ],
+  "schema": "vip-autonomous-vertical-slice-local-e2e-v1"
+}

@@ -1,0 +1,58 @@
+# TEAM1_AVI_V1_2_SOURCE_HASH.sha256.txt
+# Generated: 2026-09-19T10:17:14.674450+00:00
+# Generator : scripts/team1_v12_source_hash.py (TEAM-1 AVI V1.2 release closure, BLOCKER 4)
+# Tool      : Python hashlib sha256 (content hashes; no git metadata used)
+#
+# GIT PROVENANCE STATEMENT
+#   Git metadata is NOT available: the delivered archive contains no .git
+#   repository (no commits, branches, tags or remotes can be claimed).
+#   Provenance below is therefore CONTENT-BASED (sha256 over files).
+#   No git provenance is faked.
+
+# ===================================================================
+# 1. CHANGED FILES (this closure)
+# ===================================================================
+# change: BLOCKER 1+2 closure: SecurityReport trace contract + fail-closed add_promoted + per-decision runtime evidence + world-model seam wiring
+5d525fa8af73b5e506a6fd5d20cf25e235b7b69e354813fc7be514813ad3e704  src/webpent/production/autonomous_validation_v1.py
+
+# --- V1.2 trust hardening files (changed earlier, unchanged by this closure;
+# --- hashed for chain continuity with TEAM1_AVI_V1_2_TRUST_HARDENING.md) ---
+620d8c5b92f13585bc308a702e1cc23473ec5abcb171ae5b446e96e5d470e323  src/webpent/production/modern_spine.py
+290a4f65a9a159e4e7589e01b0c241a9d9e4ffd39e21a41aee41ae03ad9d485e  src/webpent/production/real_target_qualification_v1_1.py
+af93d2056d95f65c677507e749c6f953e1fc56c11c1786b1d61c43bf9abf24ec  src/webpent/production/validators.py
+2f429b3c4c3ef205f471d53163ccee89a773bcd8fe7154f02b6e2eca0f513110  src/webpent/models/proof_bundle.py
+
+# ===================================================================
+# 2. SOURCE HASH (full source-tree manifest)
+#    Manifest: sha256 over 'sha256<two spaces>relpath\n' lines of every
+#    *.py under src/webpent (sorted by path), then sha256 of that manifest.
+# ===================================================================
+# source files in manifest: 629
+# SOURCE_MANIFEST_SHA256: 195dbf88d258b8bdb95f568bf332c986d586cb23a0cc713a52ec39355e44a0d6
+195dbf88d258b8bdb95f568bf332c986d586cb23a0cc713a52ec39355e44a0d6  <source-tree-manifest-sha256>
+
+# ===================================================================
+# 3. GOVERNANCE HASH (baseline / governance manifest chain)
+# ===================================================================
+76d49cf79d9aeb6dbd79a892589217ea0b5d8528a4d893f77e1cea6affdfdeb0  BASELINE.sha256.txt
+a90211a930fe4b93ac043fb91b95de09158f1bb8247ca38204c09d7d8c93be60  POST.sha256.txt
+d11ab30e3275a490b0a673688c21b05fd6b6c4e5717020aca155108536eb173d  CHANGED_FILES.txt
+cf36971abdfa1102ac8dc5796fa5cf46572ba6c11d6f259a4bb6d8aa65d98933  TEAM1_AVI_V1_2_TRUST_HARDENING.md
+d2bcf18614e35bdcebbdb4590f5cc25346d4e5b79b090d48030a2143c84a5f34  TEAM1_AVI_V1_2_TRUST_HARDENING.json
+a609e82c4b7f6c04c2d5a0d781290c5db65e160b8e8867d0da0f8cdcb8184ef4  LEGACY_CONFIRMATION_PATHS.md
+d7235842b4fdd5ce505596b5463510e4d412e77241452fd75bbfd81bc7649e23  verification/evidence/BASELINE_AUTHORITY.sha256.txt
+fcd0e8d544c40f033d90590aedb19ca4167116f7be3a9bf024942ea409078375  uv.lock
+0840839bfb709f24c45beb18141f54f3d848cbe5b5eeca9c403a3d40e8a71a5c  pyproject.toml
+# GOVERNANCE_MANIFEST_SHA256 (sha256 of the lines above): 95fa8b4b0128ff309662eb711fc8d74b2dd00dfb587a05b01f0c18cd6b762f1d
+
+# ===================================================================
+# 4. GENERATED ARTIFACTS HASH
+# ===================================================================
+bce58e7feb491d089425f75c089c6552197f5df8bc7c6d9f0ca569f909ad4fca  TEAM1_AVI_V1_2_100_DECISION_RUNTIME.json
+26105755eec9cb950c6b8ad4067d4c2567beeda75e1fb8e3a069f964b15b2c26  TEAM1_AVI_V1_2_ENVIRONMENT.md
+e876999ea250d0d04d1c14fc2bb0e877d96d63ee371157b84db03f1db5aa9798  TEAM1_AVI_V1_2_RELEASE_CLOSURE.md
+d3b04b50e4b14026d6d4456ab149043289b9862807cf8f0c181d3f20b3c473ea  TEAM1_AVI_V1_2_RELEASE_CLOSURE.json
+# NOTE: this provenance file cannot contain its own hash (self-reference).
+#       Verify it by re-running the generator or sha256sum -c on the lines above.
+
+# END OF PROVENANCE — TEAM-1 AVI V1.2 closure. No final release acceptance performed (TEAM-2 validates next).

@@ -1,0 +1,29 @@
+# competition_params.yaml — U-ECON-7/8/9 thresholds (NC-ECON-1)
+# Corrupt/missing file -> documented defaults (fail-soft).
+
+# U-ECON-7 CompetitiveRadar
+opportunity_window_days: 90
+
+# Vuln classes watched for coverage gaps; a class with no public finding
+# on a program inside the window is an Opportunity.
+watched_classes:
+  - IDOR
+  - SSRF
+  - SQLI
+  - XSS
+  - RCE
+  - AUTH_BYPASS
+  - ACCESS_CONTROL
+  - INFO_DISCLOSURE
+
+# U-ECON-8 SaturationEstimator normalization references
+saturation:
+  findings_reference_per_30d: 5    # >= this many findings/30d scores 1.0
+  mentions_reference: 20           # >= this many mentions scores 1.0
+  reporters_reference: 10          # >= this many reporters scores 1.0
+
+# U-ECON-9 BlindSpotLocator
+blind_spots:
+  min_data_volume_for_high_confidence: 10   # findings observed for full confidence
+  region_ev_base_usd: 400                   # per uncovered scope entry
+  class_ev_base_usd: 800                    # per uncovered vuln class

@@ -1,0 +1,35 @@
+F....F...F..F.....                                                       [100%]
+=================================== FAILURES ===================================
+______ test_g02_inventory_is_generated_from_current_source_without_drift _______
+tests/test_g02_direct_io_inventory.py:26: in test_g02_inventory_is_generated_from_current_source_without_drift
+    assert inventory["records"] == scan_direct_io(PROJECT_ROOT / "src")
+E   AssertionError: assert [{'approval_s...y', ...}, ...] == [{'file': 'sr...n', ...}, ...]
+E     
+E     At index 196 diff: {'approval_status': 'not_applicable', 'classification': 'dynamic_resolution', 'column': 21, 'file': 'src/webpent/memory/db.py', 'kind': 'dynamic_resolution', 'line': 845, 'normalized_symbol': 'getattr(finding, ... )', 'reason': 'dynamic attribute access observed without a transport signal', 'symbol': 'getattr', 'transport': 'dynamic_resolution', 'transport_family': 'non_transport'} != {'file': 'src/webpent/irta/v3/campaign.py', 'line': 8, 'column': 1, 'kind': 'import', 'symbol': 'httpx', 'normalized_symbol': 'httpx', 'transport': 'http_implementation'...
+E     
+E     ...Full output truncated (3 lines hidden), use '-vv' to show
+________ test_precommit_checker_accepts_current_deterministic_artifacts ________
+tests/test_g02_precommit_enforcement.py:84: in test_precommit_checker_accepts_current_deterministic_artifacts
+    assert check_repository(project_root=ROOT) == []
+E   AssertionError: assert ['JSON artifa...ampaign.py:8'] == []
+E     
+E     Left contains 5 more items, first extra item: 'JSON artifact is not the deterministic scanner output'
+E     Use -v to get more diff
+_____ test_g02_primary_inventory_has_no_unapproved_or_unclassified_records _____
+tests/test_g02_scanner_expansion.py:22: in test_g02_primary_inventory_has_no_unapproved_or_unclassified_records
+    assert all(record["approval_status"] != "not_approved" for record in records)
+E   assert False
+E    +  where False = all(<generator object test_g02_primary_inventory_has_no_unapproved_or_unclassified_records.<locals>.<genexpr> at 0x7f2828bf53c0>)
+_________________ test_g02_inventory_contract_helper_is_clean __________________
+tests/test_g02_scanner_expansion.py:59: in test_g02_inventory_contract_helper_is_clean
+    assert inventory_contract_errors(artifact, SOURCE_ROOT) == []
+E   AssertionError: assert ['artifact re... source scan'] == []
+E     
+E     Left contains one more item: 'artifact records drift from current source scan'
+E     Use -v to get more diff
+=========================== short test summary info ============================
+FAILED tests/test_g02_direct_io_inventory.py::test_g02_inventory_is_generated_from_current_source_without_drift
+FAILED tests/test_g02_precommit_enforcement.py::test_precommit_checker_accepts_current_deterministic_artifacts
+FAILED tests/test_g02_scanner_expansion.py::test_g02_primary_inventory_has_no_unapproved_or_unclassified_records
+FAILED tests/test_g02_scanner_expansion.py::test_g02_inventory_contract_helper_is_clean
+4 failed, 14 passed in 27.69s

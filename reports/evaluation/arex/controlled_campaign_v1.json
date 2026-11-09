@@ -1,0 +1,208 @@
+{
+  "boundedness": {
+    "actual_target_requests": 3,
+    "callbacks": false,
+    "credentials": false,
+    "external_network": false,
+    "max_scheduler_steps": 1,
+    "max_target_requests": 3,
+    "persistent_service": false,
+    "shell_execution": false,
+    "state_mutation": false
+  },
+  "campaign_id": "arex-controlled-local-idor-campaign-v1",
+  "campaign_state": {
+    "active_hypotheses": [
+      "controlled.idor.owner_resource.v1:foreign-owner-read"
+    ],
+    "blocked_tasks": [],
+    "campaign_id": "arex-controlled-local-idor-campaign-v1",
+    "completed_tasks": [
+      "arex-controlled-local-idor-task-v1"
+    ],
+    "current_objectives": [
+      "bounded_causal_validation",
+      "evidence_completeness"
+    ],
+    "discovered_assets": [],
+    "evidence_summary": {
+      "case_status": "confirmed",
+      "proof_bundle_sealed": "False",
+      "scheduler_route": "observation",
+      "task_outcome": "completed"
+    },
+    "failed_tasks": [],
+    "knowledge_model_version": "arex-v1",
+    "lineage": {
+      "event_id": "evidence:arex-controlled-local-idor-task-v1",
+      "parent_snapshot_digest": "d233f9b3e8a8130c8c714f0a83c7da9b469c9495578b99b72dc9c74c53239129",
+      "recorded_at": "2026-08-27T18:27:26.608721Z",
+      "sequence": 2
+    },
+    "research_budget": {
+      "max_browser_actions": 0,
+      "max_depth": 1,
+      "max_hypotheses": 1,
+      "max_requests": 3,
+      "max_runtime_minutes": 5
+    },
+    "schema_version": 1,
+    "scope_digest": "ff84117549d2431dffc291a90340b60df01fc66208e2274623de436b2b98ef4b",
+    "target_identity": "controlled_local_idor_target_v1",
+    "time_budget": 300000
+  },
+  "case_result": {
+    "case_id": "controlled.idor.owner_resource.v1",
+    "contract_version": "generic-case.v1",
+    "metadata": {
+      "cleanup_status": "not_applicable",
+      "negative_control_independent": "True",
+      "proof_bundle_sealed": "True",
+      "replay_verified": "True",
+      "target_backed": "True",
+      "target_classification": "controlled_local_target_backed_validation",
+      "validator_id": "controlled-local-idor-verifier",
+      "validator_version": "1.0"
+    },
+    "negative_control_ref": "target:arex-controlled-local-idor-run-v1:negative_control",
+    "observation_refs": [
+      "target:arex-controlled-local-idor-run-v1:baseline",
+      "target:arex-controlled-local-idor-run-v1:candidate",
+      "target:arex-controlled-local-idor-run-v1:negative_control"
+    ],
+    "proof_bundle_ref": "proof_bundle_4edc4011bfd7461d92b5f8224503eeae",
+    "reason": "verified_replay",
+    "status": "confirmed"
+  },
+  "engagement_id": "arex-controlled-local-idor-engagement-v1",
+  "evaluation": {
+    "case_count": 1,
+    "cases": [
+      {
+        "case_id": "controlled.idor.owner_resource.v1",
+        "evidence_quality": 1.0,
+        "expected_rank": 1,
+        "ground_truth_outcome": "confirmed",
+        "hypothesis_generated": true,
+        "information_gain": 0.9,
+        "proof_complete": true,
+        "rank": 1,
+        "requests_used": 3,
+        "target_id": "controlled_local_idor_target_v1",
+        "validation_outcome": "confirmed"
+      }
+    ],
+    "controlled_experiment": true,
+    "engagement_id": "arex-controlled-local-idor-engagement-v1",
+    "evidence_quality": 1.0,
+    "hypothesis_quality": 1.0,
+    "proof_completeness": 1.0,
+    "qualification_effect": false,
+    "real_world_detection_rate_measured": false,
+    "requests_used": 3,
+    "research_efficiency": 0.225,
+    "schema_version": "research-intelligence-evaluation-v1",
+    "target_ids": [
+      "controlled_local_idor_target_v1"
+    ],
+    "validation_accuracy": 1.0
+  },
+  "execution": {
+    "audit_event": {
+      "action_family": "http_read",
+      "engagement_id": "arex-controlled-local-idor-engagement-v1",
+      "identity_ref": "synthetic_opaque_identities",
+      "method": "GET",
+      "reasons": [],
+      "risk": "read_only",
+      "status": "executed",
+      "task_id": "arex-controlled-local-idor-task-v1"
+    },
+    "engagement_id": "arex-controlled-local-idor-engagement-v1",
+    "g02_execution": {
+      "adapter_name": "controlled_local_idor",
+      "confirmation_requires": [
+        "causal_signal",
+        "negative_control",
+        "sealed_proof_bundle"
+      ],
+      "inventory_ref": "",
+      "proof_contract": "",
+      "proof_required": true
+    },
+    "handler_reason": "verified_replay",
+    "handler_status": "confirmed",
+    "hypothesis_id": "controlled.idor.owner_resource.v1:foreign-owner-read",
+    "idempotency_key": "task:30886e12cfa1a075bc22a11e884cecf3",
+    "observation_refs": [
+      "target:arex-controlled-local-idor-run-v1:baseline",
+      "target:arex-controlled-local-idor-run-v1:candidate",
+      "target:arex-controlled-local-idor-run-v1:negative_control"
+    ],
+    "output_available": true,
+    "proof_bundle": null,
+    "proof_bundle_sealed": false,
+    "reason": "executed",
+    "status": "executed",
+    "task_id": "arex-controlled-local-idor-task-v1",
+    "vulnerability_class": "idor"
+  },
+  "governance": {
+    "bug_bounty_status": "BLOCKED",
+    "controlled_experiment": true,
+    "human_signoff": false,
+    "official_isolated_p10_runs_authorized": false,
+    "p10_status": "NOT_QUALIFIED",
+    "p9_status": "NOT_QUALIFIED",
+    "qualification_effect": false,
+    "real_world_detection_rate_measured": false,
+    "vip_status": "NOT_QUALIFIED"
+  },
+  "memory": {
+    "authoritative": false,
+    "by_kind": {
+      "experience_lesson": 1,
+      "security_knowledge": 0,
+      "target_fact": 0
+    },
+    "engagement_id": "arex-controlled-local-idor-engagement-v1",
+    "engagement_scope": "arex-controlled-local-idor-engagement-v1:controlled_local_idor_target_v1",
+    "execution_capability": false,
+    "feedback_records": 1,
+    "isolated": true,
+    "records": 1,
+    "retrieval_budget_remaining": 50,
+    "retrievals": 0,
+    "target_id": "controlled_local_idor_target_v1"
+  },
+  "readiness": {
+    "fixture_ready": true,
+    "identity_model_ready": true,
+    "network_scope_verified": true,
+    "preconditions_ready": true,
+    "reset_verified": true,
+    "runtime_digest_verified": true
+  },
+  "scheduler": {
+    "reasons": [
+      "coverage_value"
+    ],
+    "route": "observation",
+    "score": 1.1,
+    "status": "selected",
+    "task_id": "arex-controlled-local-idor-task-v1"
+  },
+  "schema_version": "arex-controlled-campaign-v1",
+  "target": {
+    "allowed_method": "GET",
+    "fixture_disposable": "True",
+    "intentional_vulnerability": "idor",
+    "network_scope": "loopback_127.0.0.1_ephemeral_port",
+    "raw_response_persistence": "False",
+    "state_hash": "sha256:096b3bb8665a0f662808e5978a1a6cf8f46a16f1634cd8bcc886c32c6a89a0a8",
+    "target_classification": "controlled_local_target_backed_validation",
+    "target_id": "controlled_local_idor_target_v1",
+    "target_origin": "http://127.0.0.1:37169",
+    "target_version": "1.0"
+  }
+}

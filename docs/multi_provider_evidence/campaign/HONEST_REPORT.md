@@ -1,0 +1,81 @@
+# Recall-Gap LLM Campaign
+
+{
+  "campaign_id": "recall-gap-llm-20261001t135458z",
+  "crawl_events": 50,
+  "decision_status_counts": {
+    "PROMOTED": 5,
+    "REJECTED": 25
+  },
+  "duration_seconds": 158.553,
+  "family_counts": {
+    "AUTH_BYPASS": {
+      "deferred": 0,
+      "executable": 4,
+      "generated": 4
+    },
+    "BOLA": {
+      "deferred": 0,
+      "executable": 9,
+      "generated": 9
+    },
+    "IDOR": {
+      "deferred": 0,
+      "executable": 1,
+      "generated": 1
+    },
+    "INFO_DISCLOSURE": {
+      "deferred": 0,
+      "executable": 16,
+      "generated": 16
+    },
+    "OPEN_REDIRECT": {
+      "deferred": 0,
+      "executable": 1,
+      "generated": 1
+    },
+    "SQLI": {
+      "deferred": 0,
+      "executable": 3,
+      "generated": 3
+    },
+    "SSRF": {
+      "deferred": 0,
+      "executable": 1,
+      "generated": 1
+    },
+    "XSS": {
+      "deferred": 0,
+      "executable": 4,
+      "generated": 4
+    }
+  },
+  "hypotheses_executable": 39,
+  "hypotheses_generated": 39,
+  "llm_calls": 6,
+  "llm_cost_usd": 0.0238695,
+  "payload_advice_accepted": 14,
+  "principal_provisioning": {
+    "aliases": [
+      "owner",
+      "foreign"
+    ],
+    "binding": "M4 vault-bound bearer attachment; tokens never enter LLM prompts",
+    "credentials_persisted_in_artifact": false,
+    "enabled": true,
+    "foreign_login_status": 200,
+    "owner_login_status": 200,
+    "user_creation_status": 201
+  },
+  "promoted_count": 5,
+  "routes_crawled": 33,
+  "security_boundary": {
+    "authority": "ModernOrchestrator/ScopeLaw/AVI/PromotionPipeline",
+    "credentials_attached_by": "M4 only",
+    "raw_target_content_returned": false
+  },
+  "target_url": "http://127.0.0.1:3000",
+  "total_wall_seconds": 163.331,
+  "validator_refuted_count": 8,
+  "verdict": "PASS"
+}

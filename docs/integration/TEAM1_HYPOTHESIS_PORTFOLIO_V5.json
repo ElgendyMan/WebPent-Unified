@@ -1,0 +1,14 @@
+{
+  "document_id": "TEAM1_HYPOTHESIS_PORTFOLIO_V5-1.0",
+  "date": "2026-09-13",
+  "changes": [
+    "ADDED: src/webpent/integration/hypothesis_portfolio.py (HypothesisPortfolio + BranchState: confidence, exploration_pressure, exploitation_value, saturation_state, structural only)",
+    "MODIFIED: llm_research_adapter.py: session-scoped portfolio; record_outcome updates portfolio; branch_portfolio_signal exposed to LLM in candidate context (value-only advisory)"
+  ],
+  "anti_forcing": "no branch rotation, no hard filter, no reorder after ranking, no LLM override; exploration pressure modifies displayed value only",
+  "tests_added": 11,
+  "tests_passed": 11,
+  "files_deleted": 0,
+  "governance_changed": 0,
+  "statement": "TEAM-2 MUST PERFORM INDEPENDENT VALIDATION."
+}

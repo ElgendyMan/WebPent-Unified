@@ -1,0 +1,23 @@
+{
+  "generated_at": "2026-09-06T15:47:00+00:00",
+  "generated_by": "re-running goed_v1_8_4/full_regression_v184.py this session (patched), not narrative",
+  "historical_v1_8_3_hashes_unchanged": true,
+  "historical_v1_8_3_files_unchanged": true,
+  "v1_8_4_freeze_hashes_reproducible": true,
+  "freeze_boundary_explicit": true,
+  "phase_2_3_5_changes_documented": true,
+  "freeze_contradiction_from_master_plan_A1": "RESOLVED — 4/4 changed files now match their documented v1.8.4 re-freeze hash exactly (0 unresolved violations)",
+  "remaining_phase_18_blocker": {
+    "reason": "missing_delivery_artifact",
+    "path": "WebPent-GOED-v1.8.3-RealLLM-CausalBridge.zip",
+    "category": "delivery_v183",
+    "detail": "This file is listed in the v1.8.3 freeze manifest but does not exist anywhere in this snapshot. Discovered when Phase 18 was re-run this session -- NOT mentioned in the master plan text, NOT covered by Mohamed's RE-FREEZE decision (which only addressed the 4 source-code paths).",
+    "status": "OPEN — needs Mohamed's decision, not decided by the executing agent",
+    "options_for_mohamed": [
+      "(a) The delivery zip was intentionally excluded from this narrower snapshot (it's a large binary delivery artifact, not source) -- if so, exempt this ONE path from the v1.8.3 freeze check with a one-line documented reason, same pattern as the re-freeze above.",
+      "(b) The delivery zip's absence is itself a real problem (e.g. it should have been archived alongside the source freeze and wasn't) -- if so, this is a data-loss finding, not something to be worked around, and needs its own investigation outside this snapshot.",
+      "(c) Leave Phase 18 correctly reporting FAIL until (a) or (b) is decided -- this agent's default, since Part 0 Rule 7 forbids silently exempting a failing check."
+    ]
+  },
+  "raw_phase18_result_file": "reports/goed_v1_8_4/full_regression_v184.json"
+}

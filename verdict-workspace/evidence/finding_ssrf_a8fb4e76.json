@@ -1,0 +1,117 @@
+{
+  "bridge_version": "verdict_bridge_v1",
+  "bundle_id": "proof_bundle_64b2c451f8814955897f35d473aa36ce",
+  "evidence_quality": 2,
+  "finding_id": "finding_ssrf_a8fb4e76",
+  "promotion": {
+    "decision": "PROMOTED",
+    "finding_id": "finding_ssrf_a8fb4e76",
+    "gates_failed": [],
+    "gates_passed": [
+      "real_runtime_observations",
+      "baseline_present",
+      "negative_control_present",
+      "causal_validator_confirmed",
+      "proof_bundle_signed",
+      "replay_verified",
+      "no_external_scanner_authority",
+      "semantic_identity_bound"
+    ],
+    "pipeline": "PromotionPipeline_v1",
+    "reason": "all_anti_fake_gates_passed",
+    "vulnerability_class": "SSRF"
+  },
+  "proof_trace": {
+    "actor_identity": {
+      "actor_id": "unauthenticated",
+      "baseline_actor_id": "unauthenticated",
+      "identity_bound": true,
+      "identity_bound_reason": "ssrf_internal_fetch_proven",
+      "source": "CausalGuard_identity_binding sealed in ProofBundle.causal_oracle.actor_id"
+    },
+    "authorization_context": {
+      "redaction_note": "direct authorization_context key is redacted by the ProofBundle redaction policy (key-name based); boundary value reconstructed from the sealed expected_owner sibling field",
+      "sealed_field": "[REDACTED]",
+      "source": "CausalGuard_identity_binding sealed in ProofBundle.causal_oracle (authorization_context / expected_owner)",
+      "value": "owner=unauthenticated"
+    },
+    "baseline_result": {
+      "access_result": 200,
+      "evidence_digest": "sha256:15c9cc95a293d7b9d3a57d65e23684053afdd6caf24222b8730734e32effaf12",
+      "evidence_ref": "obs_9a7a31fa5081c984",
+      "source": "ProofBundle.causal_oracle.baseline_access_result + ProofBundle.baseline_digest"
+    },
+    "candidate_result": {
+      "access_result": 200,
+      "evidence_digest": "sha256:5d6c56f3affe67c5e85f4d911d15fe7d816d658de2949e3bf549960b50cab6c9",
+      "evidence_ref": "obs_1780a30c35a2203b",
+      "source": "ProofBundle.causal_oracle.candidate_access_result + ProofBundle.evidence_digests[1]"
+    },
+    "causal_difference": {
+      "discriminating_signal": "candidate response contains 2 SSRF indicator classes",
+      "source": "CausalGuard validator + identity binding sealed in ProofBundle.causal_oracle.causal_difference",
+      "validator_outcome": "CONFIRMED",
+      "value": "attacker-controlled URL parameter produced 2 internal indicator classes"
+    },
+    "negative_control": {
+      "access_result": 400,
+      "evidence_digest": "sha256:ba68c060132a44a2c22de1b34cfc56a7de37f211403eca8018c26dbc27a2ccc6",
+      "independent": true,
+      "source": "ProofBundle.causal_oracle.negative_control_result + ProofBundle.negative_control_digest"
+    },
+    "promotion_reference": {
+      "decision": "PROMOTED",
+      "gates_passed": [
+        "real_runtime_observations",
+        "baseline_present",
+        "negative_control_present",
+        "causal_validator_confirmed",
+        "proof_bundle_signed",
+        "replay_verified",
+        "no_external_scanner_authority",
+        "semantic_identity_bound"
+      ],
+      "pipeline": "PromotionPipeline_v1",
+      "reason": "all_anti_fake_gates_passed",
+      "source": "PromotionPipeline (sole promotion authority) decision dict"
+    },
+    "proof_chain": {
+      "bundle_id": "proof_bundle_64b2c451f8814955897f35d473aa36ce",
+      "engagement_id": "eng_long_horizon_100",
+      "evidence_origin": "target_runtime",
+      "finding_id": "finding_ssrf_a8fb4e76",
+      "hypothesis_id": "t0_h_rest_ssrf_vuln_v4",
+      "note": "verify against the sealed ProofBundle \u2014 the report references, it does not replace, the proof chain",
+      "seal_digest": "sha256:a6a503ba19cc7a2e68f61eddd7d79782f0c58b6fa6460ba1cd7d40fee396c218",
+      "vulnerability_class": "SSRF"
+    },
+    "proof_seal": {
+      "authenticity_algorithm": "hmac_sha256_v1",
+      "authenticity_tag_present": true,
+      "bundle_id": "proof_bundle_64b2c451f8814955897f35d473aa36ce",
+      "seal_digest": "sha256:a6a503ba19cc7a2e68f61eddd7d79782f0c58b6fa6460ba1cd7d40fee396c218",
+      "seal_verified": true,
+      "sealed": true,
+      "verifier": "ProofBundle.verify_seal() (existing dual-layer SHA-256 + HMAC-SHA256 authority)"
+    },
+    "replay_verification": {
+      "digests_match": true,
+      "outcome_match": true,
+      "replay_component": "ReplayVerifier_v1_2_semantic",
+      "replay_verified": true,
+      "replayed_outcome": "CONFIRMED",
+      "seal_verified": true,
+      "semantic_match": true,
+      "verifier": "ReplayVerifier (existing deterministic re-derivation authority \u2014 result passed through, not re-computed)"
+    },
+    "resource_identity": {
+      "resource_id": "/api/fetch?url=http://169.254.169.254/latest/meta-data/",
+      "resource_owner": "unauthenticated",
+      "source": "CausalGuard_identity_binding sealed in ProofBundle.causal_oracle.resource_id"
+    }
+  },
+  "replay_verified": true,
+  "seal_digest": "sha256:a6a503ba19cc7a2e68f61eddd7d79782f0c58b6fa6460ba1cd7d40fee396c218",
+  "source": "avi_campaign",
+  "vulnerability_class": "SSRF"
+}

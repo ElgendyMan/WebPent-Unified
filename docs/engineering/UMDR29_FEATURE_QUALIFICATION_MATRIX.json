@@ -1,0 +1,163 @@
+{
+  "window": "UM-DR-29",
+  "generated_at": "2026-11-07",
+  "version": "0.35.0",
+  "status_vocabulary": [
+    "PROPOSED", "IMPLEMENTED", "UNIT_TESTED", "INTEGRATION_TESTED",
+    "CAMPAIGN_INTEGRATED", "TARGET_VALIDATED", "INDEPENDENTLY_VALIDATED",
+    "PRODUCTION_QUALIFIED", "BLOCKED", "DEPRECATED"
+  ],
+  "capabilities": [
+    {
+      "capability": "stateful_discovery (source-driven case mining + scope-validating executor)",
+      "implementation": ["src/webpent/production/stateful_discovery.py", "src/webpent/production/stateful_probe.py"],
+      "runtime_path": "families/execution_node.py wired invocation behind fail-closed enable_stateful_discovery",
+      "status": "CAMPAIGN_INTEGRATED",
+      "evidence": "tests/test_umdr28_stateful_discovery.py, test_umdr28_campaign_stateful_e2e.py (3/3 ground-truth vulns on structurally different live target; safe/decoy/out-of-scope refused)",
+      "limitations": "validated on internal fixtures + one live authorized target; no independent holdout"
+    },
+    {
+      "capability": "representation_equivalence_oracle",
+      "implementation": ["src/webpent/cqa_v2/representation_oracle.py"],
+      "runtime_path": "cqa_v2 causal guard four header-only channels + standard fallback",
+      "status": "CAMPAIGN_INTEGRATED",
+      "evidence": "tests/test_umdr28_representation_oracle.py (comparator miss class 0.0->1.0 at 0 FP; adversarial no-over-normalization pins)",
+      "limitations": "internal fixture population only"
+    },
+    {
+      "capability": "causal_validation (CausalGuard sole confirmation authority)",
+      "implementation": ["src/webpent/cqa_v2/causal_guard.py"],
+      "runtime_path": "guard invoked by families execution path before CONFIRMED",
+      "status": "CAMPAIGN_INTEGRATED",
+      "evidence": "tests/test_blind_v3_replica.py (20), frozen gate pin",
+      "limitations": "deterministic validators; LLM never confirms alone"
+    },
+    {
+      "capability": "proof_bundle + replay",
+      "implementation": ["src/webpent/models/proof_bundle.py", "src/webpent/families/execution_node.py::_seal_proof_bundle", "src/webpent/validators/replay_validator.py", "src/webpent/validators/proof_validator.py"],
+      "runtime_path": "sealing in families execution node; replay via validators + reporter poc export",
+      "status": "CAMPAIGN_INTEGRATED",
+      "evidence": "profile_requires_proof_bundle gates in config/settings.py; poc_cli console script; tests/test_release_packaging.py",
+      "limitations": "replay determinism measured only on internal fixtures"
+    },
+    {
+      "capability": "scope_enforcement (final-boundary)",
+      "implementation": ["src/webpent/scope/enforcer.py", "src/webpent/scope/parser.py", "src/webpent/agents/scope_enforcer/agent.py"],
+      "runtime_path": "graph builder scope_enforcer node + workers/pentest_worker + api/app + hunter_runner",
+      "status": "CAMPAIGN_INTEGRATED",
+      "evidence": "UM-DR-29 reachability audit confirms runtime wiring (previously mis-audited as test-only due to analysis tooling bug, corrected this window)",
+      "limitations": ""
+    },
+    {
+      "capability": "blind_v3 recall (production generalization)",
+      "implementation": ["src/webpent/irta/v3/blind.py (frozen lineage)"],
+      "runtime_path": "benchmark measurement harness, not a campaign component",
+      "status": "BLOCKED",
+      "evidence": "internal replica: recall 1.0 / precision 1.0 (73/73); REAL blind holdout measured 0.137 (~14% detection)",
+      "limitations": "M10 remains closed; reopening requires recall >= 0.5 AND precision >= 0.7 on an independent blind population; production_qualified corpus must come from the operator (BLOCKED_EXTERNAL_DEPENDENCY)"
+    },
+    {
+      "capability": "attack_surface_knowledge_graph",
+      "implementation": ["src/webpent/attack_graph/", "src/webpent/ekg/", "src/webpent/shared/surface_evidence_graph.py"],
+      "runtime_path": "partially wired (attack_graph agent node in graph builder); ekg + surface_evidence_graph not campaign-wired",
+      "status": "UNIT_TESTED",
+      "evidence": "package-level tests; no campaign E2E evidence that graph facts change planning decisions",
+      "limitations": "UM-DR-29 section 5 success criterion (graph changes real discovery decisions) NOT met"
+    },
+    {
+      "capability": "adaptive_research_planner (information-gain ranking)",
+      "implementation": ["src/webpent/campaign/ (U-CAMPAIGN-1..15 strategist/executor/historian/warroom)", "src/webpent/research_engine/"],
+      "runtime_path": "NOT wired: runtime campaign execution uses shared/campaign_executor.py; the isolated campaign research layer has zero runtime importers",
+      "status": "UNIT_TESTED",
+      "evidence": "self-contained package with its own laws (L-1..L-9) and tests; import-graph audit: runtime-unreachable",
+      "limitations": "designed-but-unwired research layer; wiring is roadmap work, deliberately NOT claimed as integrated"
+    },
+    {
+      "capability": "business_invariant reasoning",
+      "implementation": ["src/webpent/business_logic/value_fuzzer.py (test-only)", "abuse_case_generator/invariant_checker/state_transition/workflow_analyzer (orphan)"],
+      "runtime_path": "value_fuzzer imported only by tests; the four analysis modules have zero importers",
+      "status": "PROPOSED",
+      "evidence": "code exists; no runtime integration, no campaign evidence",
+      "limitations": "UM-DR-29 section 7.2 target capability; honest status is PROPOSED (code present) not IMPLEMENTED"
+    },
+    {
+      "capability": "coverage_intelligence (gap map)",
+      "implementation": ["src/webpent/coverage/cell_model.py (wired)", "src/webpent/coverage/coverage_map.py + gap_detector.py (orphan)"],
+      "runtime_path": "cell_model reachable; coverage_map/gap_detector have zero importers",
+      "status": "UNIT_TESTED",
+      "evidence": "coverage/cell_model tests; gap_detector orphaned",
+      "limitations": "Coverage Gap Map not produced by campaign runtime today"
+    },
+    {
+      "capability": "remediation_retest",
+      "implementation": ["src/webpent/vip/retest.py", "src/webpent/cli/retest.py"],
+      "runtime_path": "cli retest command (webpent retest)",
+      "status": "INTEGRATION_TESTED",
+      "evidence": "tests/test_*retest*; retest dispatch plan docs",
+      "limitations": "fixed/partially-fixed/still-vulnerable outcome taxonomy documented; no operator evidence on real remediations"
+    },
+    {
+      "capability": "webpent.application api + workers",
+      "implementation": ["src/webpent/api/", "src/webpent/workers/pentest_worker.py", "server.py", "worker.py"],
+      "runtime_path": "server.py -> uvicorn app; worker.py -> celery_app",
+      "status": "INTEGRATION_TESTED",
+      "evidence": "api tests, worker claim lease tests, production_deployment_contract tests",
+      "limitations": "single-tenant deployment boundary documented; multi-tenant NOT claimed"
+    },
+    {
+      "capability": "notification_transports (webhook/email/etc.)",
+      "implementation": ["src/webpent/integrations/notifications/dispatch.py"],
+      "runtime_path": "partial",
+      "status": "UNIT_TESTED",
+      "evidence": "dispatch tests",
+      "limitations": "operator-side configuration pending (deferred from 0.34.x)"
+    },
+    {
+      "capability": "competitive_validation_vs_xbow",
+      "implementation": [],
+      "runtime_path": "",
+      "status": "BLOCKED",
+      "evidence": "no authorized XBOW access available in this window",
+      "limitations": "BLOCKED_EXTERNAL_DEPENDENCY: requires licensed competitor access + identical-target protocol; documentation-based comparison only would not support numerical claims"
+    }
+  ],
+  "dead_code_disposition": {
+    "removed_from_src": {
+      "completed_ultimate_plan_archive_move": [
+        "abhc", "abhie", "abhie_v6", "abhip", "adi", "asros", "avde",
+        "avrip", "avrp", "cqa", "dcvu", "goed_v1", "rta",
+        "vabhfil_v8", "vabhfqr_v10", "vabhfqr_v9", "vabhic_v7"
+      ],
+      "umdr29_frozen_dead_archive": [
+        "contracts", "copilot", "experience", "persistence",
+        "profiles", "security_models", "validation"
+      ],
+      "verification": "import-graph reachability audit (scripts/umdr29_dead_code_audit2.py): zero runtime importers, zero test importers, zero script/config references; canonical copies in archive/"
+    },
+    "kept_documented_not_removed": {
+      "irta": "frozen benchmark lineage (blind_v3); 2 modules test-referenced",
+      "adapters/{juice_shop,crapi,webgoat,mock_target,generic_web,local_causal_lab}": "frozen target-adapter inventory (selection-time wiring by design)",
+      "unwired_agent_modules": "agents/{dom_xss,graphql_testing,oauth_hunter,multi_step_auth,sourcemap_analysis,role_matrix,tenant_isolation,chain_planner,specialists,team,advanced_web_vulns,...}: 18 modules runtime-unwired (graph builder imports a fixed node set); retained as documented inventory for the recall program",
+      "egaie/forge/deep/research_engine submodules": "research subsystems with tests but no runtime wiring (test-only islands); retained, honestly labeled"
+    },
+    "weak_wiring_fixed": [
+      "BUILD_INFO.git_head pointed to nonexistent commit ab97ab3... (pre-re-init history) -> corrected to the actual window commit",
+      "6 frozen __init__.py docstrings claimed goed_v1 as the core engine (false after archive) -> corrected",
+      "Ultimate-Plan proposal-4 archive move was a COPY not a MOVE (src duplicates persisted 11 days) -> completed",
+      "direct_io_inventory.json pin counted 2 unapproved identities in archived cqa/execution.py that the prior window documented as removed but never physically removed -> realized + pin updated 36->34 records / 30->28 identities",
+      "repo-root junk commit b547dc4 tracked operator upload/download artifacts in git -> untracked via .gitignore (files preserved on disk)"
+    ]
+  },
+  "gates": {
+    "A_repository_release_integrity": "PASS (version sources agree; manifest 639 entries >= 630 floor; SBOM/release manifest regenerated at delivery)",
+    "B_functional": "PASS for wired capabilities; knowledge-graph/planner/coverage-gap capabilities honestly NOT campaign-integrated (see matrix)",
+    "C_safety": "PASS (scope gate chain tests green; no safety assertion weakened this window)",
+    "D_security": "PASS-WITH-NOTES (no new unresolved critical; dependency posture unchanged from 0.34.x; langgraph CVE adjudication carried forward)",
+    "E_evidence": "PASS (frozen gate + evidence integrity suites green)",
+    "F_operational": "PASS-WITH-NOTES (runbooks exist; backup/restore documented; worker recovery tested at unit/integration level)",
+    "G_independent_discovery": "BLOCKED_EXTERNAL_DEPENDENCY (no independent custodian/holdout corpus) -> M10 stays closed",
+    "H_competitive": "BLOCKED_EXTERNAL_DEPENDENCY (no authorized competitor access)"
+  },
+  "deployment_classification": "LAB_QUALIFIED",
+  "deployment_classification_rationale": "All wired capabilities are campaign-integrated and internally validated; independent holdout and competitor comparison are blocked on external dependencies; single-tenant controlled deployment only."
+}

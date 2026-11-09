@@ -1,0 +1,94 @@
+{
+  "models": [
+    {
+      "capabilities": {
+        "context_window": 400000,
+        "max_output_tokens": 128000,
+        "supports_response_format_json_schema": true,
+        "supports_streaming": false,
+        "supports_thinking": true,
+        "supports_tools": true,
+        "supports_vision": true,
+        "thinking_example": {
+          "effort": "minimal"
+        },
+        "thinking_param": "reasoning"
+      },
+      "id": "gpt-5-nano",
+      "pricing": {
+        "credits_per_usd": 150,
+        "input_credits_per_1m_tokens": 7.5,
+        "input_per_1m_usd": 0.05,
+        "output_credits_per_1m_tokens": 60,
+        "output_per_1m_usd": 0.4
+      }
+    },
+    {
+      "capabilities": {
+        "context_window": 400000,
+        "max_output_tokens": 128000,
+        "supports_response_format_json_schema": true,
+        "supports_streaming": false,
+        "supports_thinking": true,
+        "supports_tools": true,
+        "supports_vision": true,
+        "thinking_example": {
+          "effort": "minimal"
+        },
+        "thinking_param": "reasoning"
+      },
+      "id": "gpt-5-mini",
+      "pricing": {
+        "credits_per_usd": 150,
+        "input_credits_per_1m_tokens": 37.5,
+        "input_per_1m_usd": 0.25,
+        "output_credits_per_1m_tokens": 300,
+        "output_per_1m_usd": 2
+      }
+    },
+    {
+      "capabilities": {
+        "context_window": 400000,
+        "max_output_tokens": 128000,
+        "supports_response_format_json_schema": true,
+        "supports_streaming": false,
+        "supports_thinking": true,
+        "supports_tools": true,
+        "supports_vision": true,
+        "thinking_example": {
+          "effort": "minimal"
+        },
+        "thinking_param": "reasoning"
+      },
+      "id": "gpt-5",
+      "pricing": {
+        "credits_per_usd": 150,
+        "input_credits_per_1m_tokens": 187.5,
+        "input_per_1m_usd": 1.25,
+        "output_credits_per_1m_tokens": 1500,
+        "output_per_1m_usd": 10
+      }
+    },
+    {
+      "capabilities": {
+        "supports_response_format_json_schema": true,
+        "supports_streaming": false,
+        "supports_thinking": true,
+        "supports_tools": true,
+        "supports_vision": true,
+        "thinking_example": {
+          "budget_tokens": 1024
+        },
+        "thinking_param": "thinking"
+      },
+      "id": "gemini-3-flash-preview",
+      "pricing": {
+        "credits_per_usd": 150,
+        "input_credits_per_1m_tokens": 75,
+        "input_per_1m_usd": 0.5,
+        "output_credits_per_1m_tokens": 450,
+        "output_per_1m_usd": 3
+      }
+    }
+  ]
+}

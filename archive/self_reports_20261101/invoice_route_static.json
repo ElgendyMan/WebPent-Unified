@@ -1,0 +1,35 @@
+{
+  "fixture_format_version": "static_json/v1",
+  "source_type": "static_json",
+  "declared_non_proof": "NON_PROOF_ADVISORY_SOURCE",
+  "capture_context": {
+    "capturer_tool": "operator-manual-export",
+    "capturer_version": "1.0",
+    "lab_session_authorization_ref": "labauth-redacted-ref-only",
+    "operator_alias": "lab-operator-01"
+  },
+  "route_shape": {
+    "endpoint_template": "/api/invoices/{id}",
+    "method": "GET",
+    "parameter_names": ["id"],
+    "response_shape": "redacted:invoice-object-with-id-status-amount-fields",
+    "authorization_hints": "principal-bound-resource: invoices appear owner-scoped in captured metadata",
+    "candidate_rationale": "static-fixture-route-shape: GET /api/invoices/{id} with principal-bound object pattern — advisory-only, requires execution-backed comparative validation",
+    "defect_family_hint": "IDOR"
+  },
+  "object_reference_plan": {
+    "owner_object_ref": "INV-B-204",
+    "candidate_object_ref": "INV-B-204",
+    "negative_control_object_ref": "INV-X-000",
+    "resource_owner_principal": "User_B_Ref",
+    "foreign_principal": "User_A_Ref"
+  },
+  "baseline_candidate_control_plan": {
+    "matrix_row": "MX-P1-IDOR-GET-invoice-owner-vs-foreign",
+    "baseline_role": "owner User_B_Ref reads owner_object_ref",
+    "candidate_role": "foreign User_A_Ref requests same object identity",
+    "negative_control_role": "foreign User_A_Ref requests known-denied/non-existent object",
+    "required_principal_aliases": ["User_A_Ref", "User_B_Ref"]
+  },
+  "redaction_note": "All request/response bodies, cookies, authorization headers, and session material redacted. No secrets, no credentials, no usable session material retained (M5 §2.3 seven-category clean)."
+}

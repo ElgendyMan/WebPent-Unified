@@ -1,0 +1,89 @@
+{
+  "benchmark_id": "goed_v1.6_hidden",
+  "date": "2026-09-03T07:06:20.273591+00:00",
+  "description": "GOED v1.6 Hidden Target Family \u2014 structurally independent from v1.5",
+  "independence_guarantees": [
+    "Route prefixes completely different from v1.5",
+    "Opaque endpoint names (no admin/billing/audit/messages/workflow/auth)",
+    "Vulnerability placement randomized (no correlation with case index)",
+    "HTTP methods randomized",
+    "Parameter locations randomized (path/query/JSON/form/header)",
+    "Response status patterns randomized (not just 200/403)",
+    "Control routes use /ctrl/ NOT /patched/",
+    "Actor names NOT alice/bob/carol",
+    "Role sets completely different from v1.5",
+    "Some vulnerable endpoints NOT in OpenAPI",
+    "Decoy security-looking endpoints included",
+    "Normal endpoints with privileged-looking names included"
+  ],
+  "total_targets": 10,
+  "total_cases": 120,
+  "vulnerable_cases": 100,
+  "clean_cases": 20,
+  "unique_route_prefixes": 10,
+  "unique_role_sets": 10,
+  "class_distribution": {
+    "broken_access_control": 12,
+    "privilege_escalation": 11,
+    "workflow_authorization_failure": 11,
+    "tenant_isolation_failure": 13,
+    "multi_step_chain": 10,
+    "sensitive_data_exposure": 13,
+    "business_logic_abuse": 17,
+    "idor": 13,
+    "clean_legitimate_access": 20
+  },
+  "num_classes": 9,
+  "targets": [
+    {
+      "id": "goed-v1.6-hidden-00",
+      "port": 9000,
+      "route": "/ENTITY/_"
+    },
+    {
+      "id": "goed-v1.6-hidden-01",
+      "port": 9001,
+      "route": "/x/ENTITY"
+    },
+    {
+      "id": "goed-v1.6-hidden-02",
+      "port": 9002,
+      "route": "/zones/ENTITY/ops"
+    },
+    {
+      "id": "goed-v1.6-hidden-03",
+      "port": 9003,
+      "route": "/modules/ENTITY/exec"
+    },
+    {
+      "id": "goed-v1.6-hidden-04",
+      "port": 9004,
+      "route": "/_/ENTITY"
+    },
+    {
+      "id": "goed-v1.6-hidden-05",
+      "port": 9005,
+      "route": "/ctx/ENTITY/run"
+    },
+    {
+      "id": "goed-v1.6-hidden-06",
+      "port": 9006,
+      "route": "/e/ENTITY/action"
+    },
+    {
+      "id": "goed-v1.6-hidden-07",
+      "port": 9007,
+      "route": "/nodes/ENTITY/call"
+    },
+    {
+      "id": "goed-v1.6-hidden-08",
+      "port": 9008,
+      "route": "/sys/ENTITY/do"
+    },
+    {
+      "id": "goed-v1.6-hidden-09",
+      "port": 9009,
+      "route": "/io/ENTITY/process"
+    }
+  ]
+}

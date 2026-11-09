@@ -1,0 +1,1881 @@
+== make test-count ==
+{
+  "ast_raw_function_count": 4149,
+  "files": {
+    "tests/apex/test_apex_integration.py": 4,
+    "tests/apex/test_u_apex_1.py": 20,
+    "tests/apex/test_u_apex_10.py": 6,
+    "tests/apex/test_u_apex_11.py": 6,
+    "tests/apex/test_u_apex_12.py": 7,
+    "tests/apex/test_u_apex_13.py": 15,
+    "tests/apex/test_u_apex_14.py": 16,
+    "tests/apex/test_u_apex_2.py": 21,
+    "tests/apex/test_u_apex_3.py": 12,
+    "tests/apex/test_u_apex_4.py": 15,
+    "tests/apex/test_u_apex_5.py": 12,
+    "tests/apex/test_u_apex_6.py": 6,
+    "tests/apex/test_u_apex_7.py": 8,
+    "tests/apex/test_u_apex_8.py": 6,
+    "tests/apex/test_u_apex_9.py": 6,
+    "tests/bridge/test_deep_bridge.py": 11,
+    "tests/bridge/test_forge_bridge.py": 6,
+    "tests/campaign/executor/test_budget_guard.py": 10,
+    "tests/campaign/executor/test_phase_runner.py": 10,
+    "tests/campaign/executor/test_pivot_engine.py": 13,
+    "tests/campaign/strategist/test_handoff.py": 8,
+    "tests/campaign/strategist/test_phase_planner.py": 10,
+    "tests/campaign/strategist/test_thesis_builder.py": 10,
+    "tests/campaign/test_campaign_memory.py": 8,
+    "tests/campaign/test_cross_campaign_learner.py": 6,
+    "tests/campaign/test_retrospective.py": 8,
+    "tests/campaign/test_storyteller.py": 14,
+    "tests/campaign/test_warroom.py": 27,
+    "tests/deep/test_business_logic.py": 10,
+    "tests/deep/test_cache_deception.py": 8,
+    "tests/deep/test_client_path_traversal.py": 8,
+    "tests/deep/test_deserialization.py": 10,
+    "tests/deep/test_dom_clobbering.py": 8,
+    "tests/deep/test_host_header.py": 8,
+    "tests/deep/test_jwt.py": 12,
+    "tests/deep/test_mass_assignment.py": 11,
+    "tests/deep/test_nosql.py": 10,
+    "tests/deep/test_prototype_pollution.py": 10,
+    "tests/deep/test_race_condition.py": 10,
+    "tests/deep/test_rate_limit_bypass.py": 8,
+    "tests/deep/test_saml.py": 11,
+    "tests/deep/test_smuggling.py": 10,
+    "tests/dojo/test_dojo_integration.py": 10,
+    "tests/dojo/test_u_dojo_1.py": 10,
+    "tests/dojo/test_u_dojo_10.py": 5,
+    "tests/dojo/test_u_dojo_11.py": 5,
+    "tests/dojo/test_u_dojo_12.py": 5,
+    "tests/dojo/test_u_dojo_13.py": 15,
+    "tests/dojo/test_u_dojo_14.py": 15,
+    "tests/dojo/test_u_dojo_15.py": 16,
+    "tests/dojo/test_u_dojo_16.py": 15,
+    "tests/dojo/test_u_dojo_17.py": 18,
+    "tests/dojo/test_u_dojo_18.py": 12,
+    "tests/dojo/test_u_dojo_19.py": 12,
+    "tests/dojo/test_u_dojo_2.py": 7,
+    "tests/dojo/test_u_dojo_20.py": 14,
+    "tests/dojo/test_u_dojo_21.py": 14,
+    "tests/dojo/test_u_dojo_22.py": 15,
+    "tests/dojo/test_u_dojo_23.py": 15,
+    "tests/dojo/test_u_dojo_24.py": 20,
+    "tests/dojo/test_u_dojo_25.py": 19,
+    "tests/dojo/test_u_dojo_3.py": 6,
+    "tests/dojo/test_u_dojo_4.py": 7,
+    "tests/dojo/test_u_dojo_5.py": 5,
+    "tests/dojo/test_u_dojo_6.py": 6,
+    "tests/dojo/test_u_dojo_7.py": 4,
+    "tests/dojo/test_u_dojo_8.py": 7,
+    "tests/dojo/test_u_dojo_9.py": 5,
+    "tests/econ/test_blind_spots.py": 6,
+    "tests/econ/test_budget_mapper.py": 5,
+    "tests/econ/test_competitive.py": 6,
+    "tests/econ/test_dashboard.py": 6,
+    "tests/econ/test_learning_loop.py": 6,
+    "tests/econ/test_market_kb.py": 6,
+    "tests/econ/test_portfolio.py": 6,
+    "tests/econ/test_redteam_v84.py": 13,
+    "tests/econ/test_roi_optimizer.py": 6,
+    "tests/econ/test_saturation.py": 5,
+    "tests/econ/test_scope_negotiator.py": 5,
+    "tests/econ/test_target_scorer.py": 6,
+    "tests/econ/test_timing_advisor.py": 6,
+    "tests/egaie/test_ablation_strategies.py": 4,
+    "tests/egaie/test_benchmark.py": 5,
+    "tests/egaie/test_blind_discovery.py": 14,
+    "tests/egaie/test_causal_wiring.py": 4,
+    "tests/egaie/test_differential_discovery.py": 17,
+    "tests/egaie/test_http_execution.py": 10,
+    "tests/egaie/test_http_state_change.py": 9,
+    "tests/egaie/test_logic_benchmark_integrity.py": 19,
+    "tests/egaie/test_logic_price_integrity.py": 12,
+    "tests/egaie/test_negative_controls.py": 2,
+    "tests/egaie/test_orchestrator.py": 9,
+    "tests/egaie/test_provenance_records.py": 4,
+    "tests/egaie/test_schemas.py": 5,
+    "tests/egaie/test_selection.py": 7,
+    "tests/egaie/test_strategy_instrumentation.py": 4,
+    "tests/forge/test_adversarial.py": 10,
+    "tests/forge/test_chaining.py": 10,
+    "tests/forge/test_contextualizer.py": 13,
+    "tests/forge/test_cross_target.py": 8,
+    "tests/forge/test_encoding_engine.py": 12,
+    "tests/forge/test_evolution.py": 10,
+    "tests/forge/test_indexer.py": 8,
+    "tests/forge/test_ingester.py": 10,
+    "tests/forge/test_integration.py": 13,
+    "tests/forge/test_mutation.py": 11,
+    "tests/forge/test_normalizer.py": 10,
+    "tests/forge/test_outcome_tracker.py": 8,
+    "tests/forge/test_payload_cli.py": 6,
+    "tests/forge/test_payload_dashboard.py": 5,
+    "tests/forge/test_quality_gate.py": 8,
+    "tests/forge/test_query_engine.py": 12,
+    "tests/forge/test_synthesizer.py": 10,
+    "tests/jc/test_jc_integration.py": 14,
+    "tests/jc/test_u_jc_1.py": 16,
+    "tests/jc/test_u_jc_10.py": 11,
+    "tests/jc/test_u_jc_11.py": 15,
+    "tests/jc/test_u_jc_12.py": 20,
+    "tests/jc/test_u_jc_2.py": 16,
+    "tests/jc/test_u_jc_3.py": 16,
+    "tests/jc/test_u_jc_4.py": 15,
+    "tests/jc/test_u_jc_5.py": 16,
+    "tests/jc/test_u_jc_6.py": 12,
+    "tests/jc/test_u_jc_7.py": 12,
+    "tests/jc/test_u_jc_8.py": 17,
+    "tests/jc/test_u_jc_9.py": 16,
+    "tests/jc/test_v85_rt.py": 9,
+    "tests/lab/test_lab_policy.py": 7,
+    "tests/labsuite/test_labsuite_isolation.py": 12,
+    "tests/oracle/test_oracle_integration.py": 13,
+    "tests/oracle/test_rt_v88.py": 21,
+    "tests/oracle/test_u_oracle_1.py": 18,
+    "tests/oracle/test_u_oracle_10.py": 10,
+    "tests/oracle/test_u_oracle_11.py": 8,
+    "tests/oracle/test_u_oracle_12.py": 10,
+    "tests/oracle/test_u_oracle_2.py": 10,
+    "tests/oracle/test_u_oracle_3.py": 8,
+    "tests/oracle/test_u_oracle_4.py": 10,
+    "tests/oracle/test_u_oracle_5.py": 11,
+    "tests/oracle/test_u_oracle_6.py": 13,
+    "tests/oracle/test_u_oracle_7.py": 12,
+    "tests/oracle/test_u_oracle_8.py": 12,
+    "tests/oracle/test_u_oracle_9.py": 12,
+    "tests/prism/test_prism_cli.py": 10,
+    "tests/prism/test_prism_edge_cases.py": 67,
+    "tests/prism/test_redteam_fixes_regression.py": 17,
+    "tests/prism/test_uprism_11_12_13_14_15.py": 37,
+    "tests/prism/test_uprism_1_2.py": 34,
+    "tests/prism/test_uprism_3_4.py": 24,
+    "tests/prism/test_uprism_5_6_7.py": 27,
+    "tests/prism/test_uprism_8_9_10.py": 30,
+    "tests/team1_acceptance/test_a_modern_production_path.py": 6,
+    "tests/team1_acceptance/test_avi_v1_1_real_target_qualification.py": 8,
+    "tests/team1_acceptance/test_avi_v1_production_release.py": 16,
+    "tests/team1_acceptance/test_b_legacy_containment.py": 7,
+    "tests/team1_acceptance/test_c_proof_semantic_integrity.py": 16,
+    "tests/team1_acceptance/test_closed_loop_research.py": 20,
+    "tests/team1_acceptance/test_durable_research_state.py": 17,
+    "tests/team1_acceptance/test_e_f_memory_advisory.py": 5,
+    "tests/team1_acceptance/test_fabric_automatic_dispatch.py": 11,
+    "tests/team1_acceptance/test_fabric_critical_fixes.py": 5,
+    "tests/team1_acceptance/test_fabric_graph_wiring_final.py": 8,
+    "tests/team1_acceptance/test_fabric_production_integration.py": 11,
+    "tests/team1_acceptance/test_g_openapi_injection.py": 6,
+    "tests/team1_acceptance/test_h_integrated_run.py": 2,
+    "tests/team1_acceptance/test_half1_behavioral.py": 12,
+    "tests/team1_acceptance/test_half2_production_dataflow.py": 18,
+    "tests/team1_acceptance/test_half2_proof_memory.py": 25,
+    "tests/team1_acceptance/test_hmac_proof_authority.py": 19,
+    "tests/team1_acceptance/test_i_official_entrypoint.py": 6,
+    "tests/team1_acceptance/test_production_research_loop_activation.py": 12,
+    "tests/team1_acceptance/test_production_runtime_closure.py": 22,
+    "tests/team1_acceptance/test_sprint_i1_part1_regressions.py": 11,
+    "tests/team1_acceptance/test_sprint_i1_part2_flag.py": 15,
+    "tests/team1_acceptance/test_sprint_i1_part2_s2_composition.py": 10,
+    "tests/team1_acceptance/test_sprint_i1_part2_s3_seams.py": 17,
+    "tests/team1_acceptance/test_sprint_i1_part3_audit_chain.py": 15,
+    "tests/team1_acceptance/test_sprint_i1_part4_flags.py": 19,
+    "tests/team1_acceptance/test_sprint_i1b_part2_byp05.py": 5,
+    "tests/team1_acceptance/test_sprint_i1b_part2_secrets_gate.py": 7,
+    "tests/team1_acceptance/test_sprint_i2_b12_bypass2.py": 6,
+    "tests/team1_acceptance/test_sprint_i2_context_authority.py": 13,
+    "tests/team1_acceptance/test_sprint_i2_e2e_walking_skeleton.py": 5,
+    "tests/team1_acceptance/test_sprint_i2_hotfix_regression.py": 9,
+    "tests/team1_acceptance/test_sprint_i3_e2e_flow_vertical.py": 6,
+    "tests/team1_acceptance/test_teamt2_hostile_fixes.py": 14,
+    "tests/team1_acceptance/test_validator_coverage_v1.py": 23,
+    "tests/team1_acceptance/test_validator_execution_fabric_v2.py": 16,
+    "tests/team1_acceptance/test_vulnerability_family_expansion.py": 4,
+    "tests/test_action_ledger.py": 3,
+    "tests/test_agent_evolution.py": 5,
+    "tests/test_amplifiers_cloud_storage.py": 7,
+    "tests/test_amplifiers_ct_mining.py": 4,
+    "tests/test_amplifiers_intuition.py": 20,
+    "tests/test_amplifiers_js_analyzer.py": 4,
+    "tests/test_amplifiers_operational.py": 12,
+    "tests/test_amplifiers_quality.py": 15,
+    "tests/test_amplifiers_runtime_entry.py": 4,
+    "tests/test_amplifiers_takeover.py": 5,
+    "tests/test_amplifiers_wayback.py": 4,
+    "tests/test_application_intent_smart_wiring.py": 1,
+    "tests/test_audit_remediation_p0.py": 5,
+    "tests/test_audit_remediation_p1.py": 7,
+    "tests/test_audit_remediation_p2.py": 5,
+    "tests/test_autonomous_hunt_cli.py": 12,
+    "tests/test_autonomous_hunt_discovery.py": 49,
+    "tests/test_autonomous_hunt_knowledge.py": 6,
+    "tests/test_autonomous_hunt_memory.py": 7,
+    "tests/test_autonomous_hunt_orchestrator.py": 17,
+    "tests/test_autonomous_hunt_replanning.py": 13,
+    "tests/test_autonomous_hunt_runtime.py": 10,
+    "tests/test_autonomous_recon.py": 4,
+    "tests/test_bounty_report.py": 5,
+    "tests/test_browser_hunter.py": 6,
+    "tests/test_browser_readiness.py": 3,
+    "tests/test_byte_level.py": 18,
+    "tests/test_campaign_bridge.py": 12,
+    "tests/test_campaign_executor.py": 7,
+    "tests/test_campaign_wiring.py": 4,
+    "tests/test_cem_cli.py": 10,
+    "tests/test_cem_cycle.py": 12,
+    "tests/test_cem_deployment_rhythm.py": 7,
+    "tests/test_cem_diff_engine.py": 12,
+    "tests/test_cem_digest.py": 9,
+    "tests/test_cem_dormant_pool.py": 7,
+    "tests/test_cem_reactor.py": 11,
+    "tests/test_cem_regression_watch.py": 10,
+    "tests/test_cem_scheduler.py": 11,
+    "tests/test_cem_scope_drift.py": 11,
+    "tests/test_cem_snapshot.py": 10,
+    "tests/test_cem_temporal_lessons.py": 14,
+    "tests/test_cem_wake_up.py": 6,
+    "tests/test_check_isolation_denylist.py": 21,
+    "tests/test_check_vault_import_authority.py": 11,
+    "tests/test_checkpoint_redaction.py": 4,
+    "tests/test_coverage_ledger.py": 4,
+    "tests/test_coverage_packs.py": 5,
+    "tests/test_e2e_chain_promotion_locks.py": 4,
+    "tests/test_e2e_dalfox_v3_url_flag.py": 4,
+    "tests/test_engagement_authorization.py": 13,
+    "tests/test_engagement_report.py": 10,
+    "tests/test_evidence_bounds.py": 3,
+    "tests/test_exception_redaction.py": 3,
+    "tests/test_finding_aggregation.py": 3,
+    "tests/test_finding_reducer_strength.py": 2,
+    "tests/test_fv1_scopelaw_poison_deny.py": 5,
+    "tests/test_g02_direct_io_inventory.py": 4,
+    "tests/test_generalization_systemic_fixes.py": 4,
+    "tests/test_hostile_audit_remediation.py": 5,
+    "tests/test_hostile_remediation_recon.py": 3,
+    "tests/test_hostile_remediation_report_binding.py": 4,
+    "tests/test_hostile_remediation_service.py": 3,
+    "tests/test_hunt_budget.py": 5,
+    "tests/test_hunt_deadends.py": 9,
+    "tests/test_hunt_intel.py": 21,
+    "tests/test_impl_p0_phase_fixes.py": 10,
+    "tests/test_impl_residuals.py": 10,
+    "tests/test_integration_auth_session_contract.py": 10,
+    "tests/test_integration_exploitation_queue.py": 11,
+    "tests/test_integration_priority_policy.py": 9,
+    "tests/test_integration_reconciliation.py": 9,
+    "tests/test_integration_research_agenda.py": 15,
+    "tests/test_integration_source_mapping.py": 7,
+    "tests/test_integration_surface_dossier.py": 8,
+    "tests/test_integration_wiring.py": 15,
+    "tests/test_learning_loop.py": 7,
+    "tests/test_live_parity_harness_contract.py": 7,
+    "tests/test_local_causal_lab_fixtures.py": 4,
+    "tests/test_local_causal_lab_option_b_approval.py": 6,
+    "tests/test_local_causal_lab_option_b_contract.py": 7,
+    "tests/test_local_causal_lab_packet.py": 3,
+    "tests/test_multi_campaign_service.py": 5,
+    "tests/test_multi_provider_llm.py": 6,
+    "tests/test_operations_ux_upgrade.py": 7,
+    "tests/test_option_b_local_causal_lab_runner.py": 3,
+    "tests/test_orchestrator_construction_authority.py": 3,
+    "tests/test_p0_critical_fixes.py": 6,
+    "tests/test_p0_ffuf_preflight.py": 7,
+    "tests/test_p0_p1_active_validators.py": 6,
+    "tests/test_p0_secondary_identity_entrypoint.py": 4,
+    "tests/test_p0_websocket_webhook.py": 6,
+    "tests/test_p1_config_contracts.py": 4,
+    "tests/test_p1_exception_hygiene.py": 2,
+    "tests/test_p1_task_crypto_fail_closed.py": 5,
+    "tests/test_p1_tls_enforcement.py": 5,
+    "tests/test_p1_webhook_lifecycle.py": 3,
+    "tests/test_p1_xss_sqli.py": 9,
+    "tests/test_p2_execution_gate.py": 4,
+    "tests/test_payload_wstg_integration.py": 9,
+    "tests/test_persistent_finding_ledger.py": 3,
+    "tests/test_phase4_research_loop.py": 6,
+    "tests/test_phase5_coverage_intelligence.py": 2,
+    "tests/test_phase5_information_execution.py": 8,
+    "tests/test_phase5_target_understanding.py": 3,
+    "tests/test_postp0_phase10_playbooks.py": 5,
+    "tests/test_postp0_phase1_replan.py": 6,
+    "tests/test_postp0_phase2_memory_readback.py": 8,
+    "tests/test_postp0_phase3_session_liveness.py": 12,
+    "tests/test_postp0_phase4_schema_ingestion.py": 5,
+    "tests/test_postp0_phase5_validators.py": 11,
+    "tests/test_postp0_phase6_tool_first.py": 4,
+    "tests/test_postp0_phase7_chain_plan.py": 5,
+    "tests/test_postp0_phase8_flow_replay.py": 6,
+    "tests/test_postp0_phase9_operator_ux.py": 9,
+    "tests/test_principal_provisioning_completion.py": 11,
+    "tests/test_product_p1.py": 6,
+    "tests/test_production_deployment_contract.py": 5,
+    "tests/test_proof_bundle.py": 3,
+    "tests/test_proof_oracles.py": 5,
+    "tests/test_rag_knowledge_pack.py": 4,
+    "tests/test_rb_budget_governor.py": 19,
+    "tests/test_rc_authority_revalidation.py": 12,
+    "tests/test_recall_gap_fixes.py": 3,
+    "tests/test_release_packaging.py": 3,
+    "tests/test_remediation_editor.py": 43,
+    "tests/test_report_hash_integrity.py": 2,
+    "tests/test_rit_runtime_integration.py": 6,
+    "tests/test_sc1_markdown_default.py": 2,
+    "tests/test_sc2_identity_records.py": 4,
+    "tests/test_scenario_auth_surface_contract.py": 14,
+    "tests/test_scenario_report_contract.py": 9,
+    "tests/test_scope_file_contract.py": 18,
+    "tests/test_server_launcher.py": 2,
+    "tests/test_settings_hardening.py": 2,
+    "tests/test_smart_action_authority.py": 9,
+    "tests/test_smart_campaigns_node.py": 19,
+    "tests/test_subprocess_lifecycle.py": 3,
+    "tests/test_team1_candidate_selection.py": 11,
+    "tests/test_team1_compose_workspace_parity.py": 5,
+    "tests/test_team1_deep_recon.py": 22,
+    "tests/test_team1_final_hardening.py": 9,
+    "tests/test_team1_hypothesis_portfolio.py": 11,
+    "tests/test_team1_llm_lifecycle.py": 8,
+    "tests/test_team1_llm_live_integration.py": 8,
+    "tests/test_team1_llm_seam_fix.py": 10,
+    "tests/test_team1_llm_selection_fix.py": 13,
+    "tests/test_team1_llm_selection_v3.py": 11,
+    "tests/test_team1_llm_selection_v4.py": 10,
+    "tests/test_team1_non_dvwa_hypotheses.py": 5,
+    "tests/test_team1_oob_database_parity.py": 1,
+    "tests/test_team1_post_validation_replan.py": 8,
+    "tests/test_team1_priority_fix.py": 11,
+    "tests/test_team1_rag_knowledge.py": 8,
+    "tests/test_team1_refutation_persistence.py": 6,
+    "tests/test_team1_research_brain.py": 15,
+    "tests/test_team1_research_entity.py": 13,
+    "tests/test_team1_selection_reconciliation.py": 10,
+    "tests/test_team1_state_contract.py": 2,
+    "tests/test_team1_tool_scope.py": 6,
+    "tests/test_team1_v6_closeout.py": 7,
+    "tests/test_team1_v6_return.py": 6,
+    "tests/test_team1_wiring_fix.py": 3,
+    "tests/test_untrusted_content_boundary.py": 5,
+    "tests/test_v10_audit_fixes.py": 32,
+    "tests/test_v10_exhaustive_audit.py": 27,
+    "tests/test_v10_hostile_fixes.py": 19,
+    "tests/test_v10_p0_reauth_vault_and_emergency_persist.py": 12,
+    "tests/test_v10_p0_status_sqlmap_skiprecon_findings.py": 38,
+    "tests/test_v10_p0p1_rca_followup.py": 17,
+    "tests/test_v10_p1_rca_followup.py": 20,
+    "tests/test_v11_bac_identity.py": 5,
+    "tests/test_v12_takeover_cloud.py": 5,
+    "tests/test_v13_jwt_advisory.py": 5,
+    "tests/test_v14_entrypoint_wiring.py": 13,
+    "tests/test_v15_review_hardening.py": 7,
+    "tests/test_v16_canonical_evidence.py": 9,
+    "tests/test_v17_target_understanding.py": 3,
+    "tests/test_v18_workflow_understanding.py": 5,
+    "tests/test_v19_attack_graph.py": 2,
+    "tests/test_v20_attack_graph_wiring.py": 3,
+    "tests/test_v21_adaptive_hunt.py": 7,
+    "tests/test_v22_planner_policy.py": 8,
+    "tests/test_v23_cli_commands.py": 6,
+    "tests/test_v24_authorization_matrix.py": 4,
+    "tests/test_v25_javascript_intelligence.py": 6,
+    "tests/test_v26_report_quality.py": 5,
+    "tests/test_v27_memory_boundary.py": 4,
+    "tests/test_v28_structure_aware_triage.py": 9,
+    "tests/test_v29_surface_security.py": 10,
+    "tests/test_v30_evidence_poc_contracts.py": 7,
+    "tests/test_v57_readability_wiring.py": 7,
+    "tests/test_v58_http_discovery.py": 13,
+    "tests/test_v58_post_form_hypotheses.py": 2,
+    "tests/test_v58_structural_evidence_gate.py": 2,
+    "tests/test_v58_validator_idempotency.py": 5,
+    "tests/test_v59_p0_hardening.py": 10,
+    "tests/test_v61_cognitive_upgrade.py": 4,
+    "tests/test_v61_phase1_remediation.py": 12,
+    "tests/test_v61_phase2_bac.py": 13,
+    "tests/test_v61_phase3_remediation.py": 4,
+    "tests/test_v61_remaining_plan_artifacts.py": 36,
+    "tests/test_v62_ingest_and_memory_isolation.py": 7,
+    "tests/test_v63_vip_security_regression.py": 24,
+    "tests/test_v90_confidence_scoring.py": 3,
+    "tests/test_v90_lessons_scope_isolation.py": 3,
+    "tests/test_v90_llm_cache_wiring.py": 3,
+    "tests/test_v91_research_intelligence.py": 5,
+    "tests/test_v91_smart_campaigns_intelligence.py": 1,
+    "tests/test_v92_action_executor_proof_bundle.py": 3,
+    "tests/test_v92_proof_quality_gate.py": 4,
+    "tests/test_v92_reporter_strict_proof.py": 1,
+    "tests/test_v93_capability_registry.py": 4,
+    "tests/test_v94_autonomous_controller.py": 4,
+    "tests/test_v9_fix2_path_promotion.py": 5,
+    "tests/test_v9_hostile_audit_fixes.py": 5,
+    "tests/test_v9_p0_hotfix_sqlmap_reauth.py": 7,
+    "tests/test_v9_round2_wiring_fixes.py": 9,
+    "tests/test_validator_coverage_engine.py": 16,
+    "tests/test_validator_merge_back.py": 3,
+    "tests/test_verdict_bridge.py": 27,
+    "tests/test_vip_active_research.py": 3,
+    "tests/test_vip_application_intent_graph.py": 6,
+    "tests/test_vip_audit_gap_closure.py": 8,
+    "tests/test_vip_auth_posture.py": 4,
+    "tests/test_vip_baseline.py": 2,
+    "tests/test_vip_benchmark.py": 5,
+    "tests/test_vip_campaign_planner.py": 3,
+    "tests/test_vip_llm_reliability.py": 8,
+    "tests/test_vip_offline_validator_fixtures.py": 5,
+    "tests/test_vip_phase4_intelligence.py": 4,
+    "tests/test_vip_proof_engine.py": 8,
+    "tests/test_vip_research_contracts.py": 5,
+    "tests/test_vip_shared_reauth_vault.py": 4,
+    "tests/test_vip_surface_intent.py": 2,
+    "tests/test_vip_validator_plugins.py": 6,
+    "tests/test_vip_waptlab_regression.py": 2,
+    "tests/test_vip_workflow_replay.py": 3,
+    "tests/test_waptlab_catalog_manifest.py": 6,
+    "tests/test_waptlab_detector_improvements.py": 51,
+    "tests/test_waptlab_live_improvements.py": 3,
+    "tests/test_workflow_surface_wiring.py": 1
+  },
+  "minimum": 1940,
+  "pytest_collected_count": 4477
+}
+OK: pytest-collected test count 4477 >= floor 1940
+
+== make lint ==
+All checks passed!
+
+== make security ==
+Running Bandit high-severity security gate...
+
+== make coverage ==
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.7.0
+rootdir: /home/thaura/webpent_review
+configfile: pyproject.toml
+testpaths: tests
+plugins: langsmith-0.14.11, anyio-4.15.1, asyncio-1.4.0, cov-7.1.0, platformdirs-4.13.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 4477 items
+
+tests/apex/test_apex_integration.py ....                                 [  0%]
+tests/apex/test_u_apex_1.py ....................                         [  0%]
+tests/apex/test_u_apex_10.py ......                                      [  0%]
+tests/apex/test_u_apex_11.py ......                                      [  0%]
+tests/apex/test_u_apex_12.py .......                                     [  0%]
+tests/apex/test_u_apex_13.py ...............                             [  1%]
+tests/apex/test_u_apex_14.py ................                            [  1%]
+tests/apex/test_u_apex_2.py .....................                        [  2%]
+tests/apex/test_u_apex_3.py ............                                 [  2%]
+tests/apex/test_u_apex_4.py ...............                              [  2%]
+tests/apex/test_u_apex_5.py ............                                 [  2%]
+tests/apex/test_u_apex_6.py ......                                       [  3%]
+tests/apex/test_u_apex_7.py ........                                     [  3%]
+tests/apex/test_u_apex_8.py ......                                       [  3%]
+tests/apex/test_u_apex_9.py ......                                       [  3%]
+tests/bridge/test_deep_bridge.py ...........                             [  3%]
+tests/bridge/test_forge_bridge.py ......                                 [  3%]
+tests/campaign/executor/test_budget_guard.py ..........                  [  4%]
+tests/campaign/executor/test_phase_runner.py ..........                  [  4%]
+tests/campaign/executor/test_pivot_engine.py .............               [  4%]
+tests/campaign/strategist/test_handoff.py ........                       [  4%]
+tests/campaign/strategist/test_phase_planner.py ..........               [  5%]
+tests/campaign/strategist/test_thesis_builder.py ..........              [  5%]
+tests/campaign/test_campaign_memory.py ........                          [  5%]
+tests/campaign/test_cross_campaign_learner.py ......                     [  5%]
+tests/campaign/test_retrospective.py ........                            [  5%]
+tests/campaign/test_storyteller.py ..............                        [  6%]
+tests/campaign/test_warroom.py ...........................               [  6%]
+tests/deep/test_business_logic.py ..........                             [  6%]
+tests/deep/test_cache_deception.py ........                              [  7%]
+tests/deep/test_client_path_traversal.py ........                        [  7%]
+tests/deep/test_deserialization.py ..........                            [  7%]
+tests/deep/test_dom_clobbering.py ........                               [  7%]
+tests/deep/test_host_header.py ........                                  [  7%]
+tests/deep/test_jwt.py ............                                      [  8%]
+tests/deep/test_mass_assignment.py ...........                           [  8%]
+tests/deep/test_nosql.py ..........                                      [  8%]
+tests/deep/test_prototype_pollution.py ..........                        [  8%]
+tests/deep/test_race_condition.py ..........                             [  9%]
+tests/deep/test_rate_limit_bypass.py ........                            [  9%]
+tests/deep/test_saml.py ...........                                      [  9%]
+tests/deep/test_smuggling.py ..........                                  [  9%]
+tests/dojo/test_dojo_integration.py ..........                           [  9%]
+tests/dojo/test_u_dojo_1.py ..........                                   [ 10%]
+tests/dojo/test_u_dojo_10.py .....                                       [ 10%]
+tests/dojo/test_u_dojo_11.py .....                                       [ 10%]
+tests/dojo/test_u_dojo_12.py .....                                       [ 10%]
+tests/dojo/test_u_dojo_13.py ...............                             [ 10%]
+tests/dojo/test_u_dojo_14.py ...............                             [ 11%]
+tests/dojo/test_u_dojo_15.py ................                            [ 11%]
+tests/dojo/test_u_dojo_16.py ...............                             [ 11%]
+tests/dojo/test_u_dojo_17.py ..................                          [ 12%]
+tests/dojo/test_u_dojo_18.py ............                                [ 12%]
+tests/dojo/test_u_dojo_19.py ............                                [ 12%]
+tests/dojo/test_u_dojo_2.py .......                                      [ 12%]
+tests/dojo/test_u_dojo_20.py ..............                              [ 13%]
+tests/dojo/test_u_dojo_21.py ..............                              [ 13%]
+tests/dojo/test_u_dojo_22.py ...............                             [ 13%]
+tests/dojo/test_u_dojo_23.py ...............                             [ 14%]
+tests/dojo/test_u_dojo_24.py ....................                        [ 14%]
+tests/dojo/test_u_dojo_25.py ...................                         [ 15%]
+tests/dojo/test_u_dojo_3.py ......                                       [ 15%]
+tests/dojo/test_u_dojo_4.py .......                                      [ 15%]
+tests/dojo/test_u_dojo_5.py .....                                        [ 15%]
+tests/dojo/test_u_dojo_6.py ......                                       [ 15%]
+tests/dojo/test_u_dojo_7.py ....                                         [ 15%]
+tests/dojo/test_u_dojo_8.py .......                                      [ 15%]
+tests/dojo/test_u_dojo_9.py .....                                        [ 16%]
+tests/econ/test_blind_spots.py ......                                    [ 16%]
+tests/econ/test_budget_mapper.py .....                                   [ 16%]
+tests/econ/test_competitive.py ......                                    [ 16%]
+tests/econ/test_dashboard.py ......                                      [ 16%]
+tests/econ/test_learning_loop.py ......                                  [ 16%]
+tests/econ/test_market_kb.py ......                                      [ 16%]
+tests/econ/test_portfolio.py ......                                      [ 16%]
+tests/econ/test_redteam_v84.py .............                             [ 17%]
+tests/econ/test_roi_optimizer.py ......                                  [ 17%]
+tests/econ/test_saturation.py .....                                      [ 17%]
+tests/econ/test_scope_negotiator.py .....                                [ 17%]
+tests/econ/test_target_scorer.py ......                                  [ 17%]
+tests/econ/test_timing_advisor.py ......                                 [ 17%]
+tests/egaie/test_ablation_strategies.py ....                             [ 17%]
+tests/egaie/test_benchmark.py .....                                      [ 18%]
+tests/egaie/test_blind_discovery.py ..............                       [ 18%]
+tests/egaie/test_causal_wiring.py ....                                   [ 18%]
+tests/egaie/test_differential_discovery.py .................             [ 18%]
+tests/egaie/test_http_execution.py ..........                            [ 19%]
+tests/egaie/test_http_state_change.py .........                          [ 19%]
+tests/egaie/test_logic_benchmark_integrity.py ......................     [ 19%]
+tests/egaie/test_logic_price_integrity.py ............                   [ 20%]
+tests/egaie/test_negative_controls.py ..                                 [ 20%]
+tests/egaie/test_orchestrator.py .........                               [ 20%]
+tests/egaie/test_provenance_records.py ....                              [ 20%]
+tests/egaie/test_schemas.py .....                                        [ 20%]
+tests/egaie/test_selection.py .......                                    [ 20%]
+tests/egaie/test_strategy_instrumentation.py ....                        [ 20%]
+tests/forge/test_adversarial.py ..........                               [ 20%]
+tests/forge/test_chaining.py ..........                                  [ 21%]
+tests/forge/test_contextualizer.py .............                         [ 21%]
+tests/forge/test_cross_target.py ........                                [ 21%]
+tests/forge/test_encoding_engine.py ............                         [ 21%]
+tests/forge/test_evolution.py ..........                                 [ 22%]
+tests/forge/test_indexer.py ........                                     [ 22%]
+tests/forge/test_ingester.py ..........                                  [ 22%]
+tests/forge/test_integration.py .............                            [ 22%]
+tests/forge/test_mutation.py ...........                                 [ 23%]
+tests/forge/test_normalizer.py ..........                                [ 23%]
+tests/forge/test_outcome_tracker.py ........                             [ 23%]
+tests/forge/test_payload_cli.py ......                                   [ 23%]
+tests/forge/test_payload_dashboard.py .....                              [ 23%]
+tests/forge/test_quality_gate.py ........                                [ 23%]
+tests/forge/test_query_engine.py ............                            [ 24%]
+tests/forge/test_synthesizer.py ..........                               [ 24%]
+tests/jc/test_jc_integration.py ..............                           [ 24%]
+tests/jc/test_u_jc_1.py ................                                 [ 25%]
+tests/jc/test_u_jc_10.py ...........                                     [ 25%]
+tests/jc/test_u_jc_11.py ...............                                 [ 25%]
+tests/jc/test_u_jc_12.py ....................                            [ 26%]
+tests/jc/test_u_jc_2.py ..................................               [ 26%]
+tests/jc/test_u_jc_3.py ................                                 [ 27%]
+tests/jc/test_u_jc_4.py ..................                               [ 27%]
+tests/jc/test_u_jc_5.py .......................                          [ 28%]
+tests/jc/test_u_jc_6.py ............                                     [ 28%]
+tests/jc/test_u_jc_7.py ............                                     [ 28%]
+tests/jc/test_u_jc_8.py .................                                [ 29%]
+tests/jc/test_u_jc_9.py ................                                 [ 29%]
+tests/jc/test_v85_rt.py .........                                        [ 29%]
+tests/lab/test_lab_policy.py .......                                     [ 29%]
+tests/labsuite/test_labsuite_isolation.py ............                   [ 29%]
+tests/oracle/test_oracle_integration.py ................................ [ 30%]
+.........................                                                [ 31%]
+tests/oracle/test_rt_v88.py .....................                        [ 31%]
+tests/oracle/test_u_oracle_1.py .................................        [ 32%]
+tests/oracle/test_u_oracle_10.py ...........                             [ 32%]
+tests/oracle/test_u_oracle_11.py ........                                [ 32%]
+tests/oracle/test_u_oracle_12.py ..........                              [ 33%]
+tests/oracle/test_u_oracle_2.py .......................                  [ 33%]
+tests/oracle/test_u_oracle_3.py ..............                           [ 33%]
+tests/oracle/test_u_oracle_4.py ..............                           [ 34%]
+tests/oracle/test_u_oracle_5.py ...............                          [ 34%]
+tests/oracle/test_u_oracle_6.py ........................                 [ 35%]
+tests/oracle/test_u_oracle_7.py ..................                       [ 35%]
+tests/oracle/test_u_oracle_8.py .................                        [ 35%]
+tests/oracle/test_u_oracle_9.py ....................                     [ 36%]
+tests/prism/test_prism_cli.py ..........                                 [ 36%]
+tests/prism/test_prism_edge_cases.py ................................... [ 37%]
+................................                                         [ 38%]
+tests/prism/test_redteam_fixes_regression.py .................           [ 38%]
+tests/prism/test_uprism_11_12_13_14_15.py .............................. [ 39%]
+.......                                                                  [ 39%]
+tests/prism/test_uprism_1_2.py ..................................        [ 40%]
+tests/prism/test_uprism_3_4.py ........................                  [ 40%]
+tests/prism/test_uprism_5_6_7.py ...........................             [ 41%]
+tests/prism/test_uprism_8_9_10.py ..............................         [ 41%]
+tests/team1_acceptance/test_a_modern_production_path.py ......           [ 41%]
+tests/team1_acceptance/test_avi_v1_1_real_target_qualification.py ...... [ 42%]
+.......                                                                  [ 42%]
+tests/team1_acceptance/test_avi_v1_production_release.py ............... [ 42%]
+.                                                                        [ 42%]
+tests/team1_acceptance/test_b_legacy_containment.py .......              [ 42%]
+tests/team1_acceptance/test_c_proof_semantic_integrity.py .............. [ 43%]
+..                                                                       [ 43%]
+tests/team1_acceptance/test_closed_loop_research.py .................... [ 43%]
+......                                                                   [ 43%]
+tests/team1_acceptance/test_durable_research_state.py .................  [ 44%]
+tests/team1_acceptance/test_e_f_memory_advisory.py .....                 [ 44%]
+tests/team1_acceptance/test_fabric_automatic_dispatch.py ...........     [ 44%]
+tests/team1_acceptance/test_fabric_critical_fixes.py .....               [ 44%]
+tests/team1_acceptance/test_fabric_graph_wiring_final.py ........        [ 44%]
+tests/team1_acceptance/test_fabric_production_integration.py ........... [ 45%]
+                                                                         [ 45%]
+tests/team1_acceptance/test_g_openapi_injection.py ......                [ 45%]
+tests/team1_acceptance/test_h_integrated_run.py ..                       [ 45%]
+tests/team1_acceptance/test_half1_behavioral.py ............             [ 45%]
+tests/team1_acceptance/test_half2_production_dataflow.py ............... [ 45%]
+..........                                                               [ 46%]
+tests/team1_acceptance/test_half2_proof_memory.py ...................... [ 46%]
+..............................                                           [ 47%]
+tests/team1_acceptance/test_hmac_proof_authority.py ...................  [ 47%]
+tests/team1_acceptance/test_i_official_entrypoint.py ......              [ 47%]
+tests/team1_acceptance/test_production_research_loop_activation.py ..... [ 47%]
+.......                                                                  [ 48%]
+tests/team1_acceptance/test_production_runtime_closure.py .............. [ 48%]
+...........                                                              [ 48%]
+tests/team1_acceptance/test_sprint_i1_part1_regressions.py ............. [ 48%]
+                                                                         [ 48%]
+tests/team1_acceptance/test_sprint_i1_part2_flag.py .................... [ 49%]
+..                                                                       [ 49%]
+tests/team1_acceptance/test_sprint_i1_part2_s2_composition.py .......... [ 49%]
+                                                                         [ 49%]
+tests/team1_acceptance/test_sprint_i1_part2_s3_seams.py ................ [ 49%]
+...                                                                      [ 49%]
+tests/team1_acceptance/test_sprint_i1_part3_audit_chain.py ............. [ 50%]
+..                                                                       [ 50%]
+tests/team1_acceptance/test_sprint_i1_part4_flags.py ................... [ 50%]
+...................                                                      [ 51%]
+tests/team1_acceptance/test_sprint_i1b_part2_byp05.py .........          [ 51%]
+tests/team1_acceptance/test_sprint_i1b_part2_secrets_gate.py .......     [ 51%]
+tests/team1_acceptance/test_sprint_i2_b12_bypass2.py ......              [ 51%]
+tests/team1_acceptance/test_sprint_i2_context_authority.py ............. [ 51%]
+                                                                         [ 51%]
+tests/team1_acceptance/test_sprint_i2_e2e_walking_skeleton.py .....      [ 52%]
+tests/team1_acceptance/test_sprint_i2_hotfix_regression.py .........     [ 52%]
+tests/team1_acceptance/test_sprint_i3_e2e_flow_vertical.py ......        [ 52%]
+tests/team1_acceptance/test_teamt2_hostile_fixes.py .................... [ 52%]
+..........                                                               [ 53%]
+tests/team1_acceptance/test_validator_coverage_v1.py ................... [ 53%]
+....                                                                     [ 53%]
+tests/team1_acceptance/test_validator_execution_fabric_v2.py ........... [ 53%]
+..............                                                           [ 54%]
+tests/team1_acceptance/test_vulnerability_family_expansion.py ......     [ 54%]
+tests/test_action_ledger.py ...                                          [ 54%]
+tests/test_agent_evolution.py .....                                      [ 54%]
+tests/test_amplifiers_cloud_storage.py .......                           [ 54%]
+tests/test_amplifiers_ct_mining.py ....                                  [ 54%]
+tests/test_amplifiers_intuition.py ....................                  [ 55%]
+tests/test_amplifiers_js_analyzer.py ....                                [ 55%]
+tests/test_amplifiers_operational.py ............                        [ 55%]
+tests/test_amplifiers_quality.py ...............                         [ 55%]
+tests/test_amplifiers_runtime_entry.py ....                              [ 55%]
+tests/test_amplifiers_takeover.py .....                                  [ 56%]
+tests/test_amplifiers_wayback.py ....                                    [ 56%]
+tests/test_application_intent_smart_wiring.py .                          [ 56%]
+tests/test_audit_remediation_p0.py ..........                            [ 56%]
+tests/test_audit_remediation_p1.py .......                               [ 56%]
+tests/test_audit_remediation_p2.py .....                                 [ 56%]
+tests/test_autonomous_hunt_cli.py ............                           [ 56%]
+tests/test_autonomous_hunt_discovery.py ................................ [ 57%]
+.................                                                        [ 58%]
+tests/test_autonomous_hunt_knowledge.py ......                           [ 58%]
+tests/test_autonomous_hunt_memory.py .......                             [ 58%]
+tests/test_autonomous_hunt_orchestrator.py .................             [ 58%]
+tests/test_autonomous_hunt_replanning.py .............                   [ 58%]
+tests/test_autonomous_hunt_runtime.py ..........                         [ 59%]
+tests/test_autonomous_recon.py ....                                      [ 59%]
+tests/test_bounty_report.py .....                                        [ 59%]
+tests/test_browser_hunter.py ......                                      [ 59%]
+tests/test_browser_readiness.py ...                                      [ 59%]
+tests/test_byte_level.py ..................                              [ 59%]
+tests/test_campaign_bridge.py ............                               [ 60%]
+tests/test_campaign_executor.py .......                                  [ 60%]
+tests/test_campaign_wiring.py ....                                       [ 60%]
+tests/test_cem_cli.py ..........                                         [ 60%]
+tests/test_cem_cycle.py ............                                     [ 61%]
+tests/test_cem_deployment_rhythm.py .......                              [ 61%]
+tests/test_cem_diff_engine.py ............                               [ 61%]
+tests/test_cem_digest.py .........                                       [ 61%]
+tests/test_cem_dormant_pool.py .......                                   [ 61%]
+tests/test_cem_reactor.py ...........                                    [ 62%]
+tests/test_cem_regression_watch.py ..........                            [ 62%]
+tests/test_cem_scheduler.py ...........                                  [ 62%]
+tests/test_cem_scope_drift.py ...........                                [ 62%]
+tests/test_cem_snapshot.py ..........                                    [ 62%]
+tests/test_cem_temporal_lessons.py ..............                        [ 63%]
+tests/test_cem_wake_up.py ......                                         [ 63%]
+tests/test_check_isolation_denylist.py .....................             [ 63%]
+tests/test_check_vault_import_authority.py ...........                   [ 64%]
+tests/test_checkpoint_redaction.py ....                                  [ 64%]
+tests/test_coverage_ledger.py ....                                       [ 64%]
+tests/test_coverage_packs.py .....                                       [ 64%]
+tests/test_e2e_chain_promotion_locks.py ....                             [ 64%]
+tests/test_e2e_dalfox_v3_url_flag.py ....                                [ 64%]
+tests/test_engagement_authorization.py .............                     [ 64%]
+tests/test_engagement_report.py ..........                               [ 65%]
+tests/test_evidence_bounds.py ...                                        [ 65%]
+tests/test_exception_redaction.py ...                                    [ 65%]
+tests/test_finding_aggregation.py ...                                    [ 65%]
+tests/test_finding_reducer_strength.py ..                                [ 65%]
+tests/test_fv1_scopelaw_poison_deny.py .....                             [ 65%]
+tests/test_g02_direct_io_inventory.py ....                               [ 65%]
+tests/test_generalization_systemic_fixes.py ....                         [ 65%]
+tests/test_hostile_audit_remediation.py .....                            [ 65%]
+tests/test_hostile_remediation_recon.py ...                              [ 65%]
+tests/test_hostile_remediation_report_binding.py ....                    [ 65%]
+tests/test_hostile_remediation_service.py ...                            [ 65%]
+tests/test_hunt_budget.py .....                                          [ 66%]
+tests/test_hunt_deadends.py .........                                    [ 66%]
+tests/test_hunt_intel.py .....................                           [ 66%]
+tests/test_impl_p0_phase_fixes.py ..........                             [ 66%]
+tests/test_impl_residuals.py ..........                                  [ 67%]
+tests/test_integration_auth_session_contract.py ..........               [ 67%]
+tests/test_integration_exploitation_queue.py ...........                 [ 67%]
+tests/test_integration_priority_policy.py .........                      [ 67%]
+tests/test_integration_reconciliation.py .........                       [ 68%]
+tests/test_integration_research_agenda.py ...............                [ 68%]
+tests/test_integration_source_mapping.py .......                         [ 68%]
+tests/test_integration_surface_dossier.py ........                       [ 68%]
+tests/test_integration_wiring.py ................                        [ 69%]
+tests/test_learning_loop.py .......                                      [ 69%]
+tests/test_live_parity_harness_contract.py .......                       [ 69%]
+tests/test_local_causal_lab_fixtures.py ....                             [ 69%]
+tests/test_local_causal_lab_option_b_approval.py ..........              [ 69%]
+tests/test_local_causal_lab_option_b_contract.py .......                 [ 69%]
+tests/test_local_causal_lab_packet.py ...                                [ 69%]
+tests/test_multi_campaign_service.py .....                               [ 70%]
+tests/test_multi_provider_llm.py ......                                  [ 70%]
+tests/test_operations_ux_upgrade.py .......                              [ 70%]
+tests/test_option_b_local_causal_lab_runner.py ...                       [ 70%]
+tests/test_orchestrator_construction_authority.py ...                    [ 70%]
+tests/test_p0_critical_fixes.py ......                                   [ 70%]
+tests/test_p0_ffuf_preflight.py .......                                  [ 70%]
+tests/test_p0_p1_active_validators.py ......                             [ 70%]
+tests/test_p0_secondary_identity_entrypoint.py ....                      [ 71%]
+tests/test_p0_websocket_webhook.py ......                                [ 71%]
+tests/test_p1_config_contracts.py ....                                   [ 71%]
+tests/test_p1_exception_hygiene.py ..                                    [ 71%]
+tests/test_p1_task_crypto_fail_closed.py .....                           [ 71%]
+tests/test_p1_tls_enforcement.py .....                                   [ 71%]
+tests/test_p1_webhook_lifecycle.py ...                                   [ 71%]
+tests/test_p1_xss_sqli.py .........                                      [ 71%]
+tests/test_p2_execution_gate.py ....                                     [ 71%]
+tests/test_payload_wstg_integration.py .........                         [ 72%]
+tests/test_persistent_finding_ledger.py ...                              [ 72%]
+tests/test_phase4_research_loop.py ......                                [ 72%]
+tests/test_phase5_coverage_intelligence.py ..                            [ 72%]
+tests/test_phase5_information_execution.py ..................            [ 72%]
+tests/test_phase5_target_understanding.py ...                            [ 72%]
+tests/test_postp0_phase10_playbooks.py .....                             [ 72%]
+tests/test_postp0_phase1_replan.py ......                                [ 73%]
+tests/test_postp0_phase2_memory_readback.py ........                     [ 73%]
+tests/test_postp0_phase3_session_liveness.py ............                [ 73%]
+tests/test_postp0_phase4_schema_ingestion.py .....                       [ 73%]
+tests/test_postp0_phase5_validators.py ...........                       [ 73%]
+tests/test_postp0_phase6_tool_first.py ....                              [ 73%]
+tests/test_postp0_phase7_chain_plan.py .....                             [ 74%]
+tests/test_postp0_phase8_flow_replay.py ......                           [ 74%]
+tests/test_postp0_phase9_operator_ux.py .........                        [ 74%]
+tests/test_principal_provisioning_completion.py ...........              [ 74%]
+tests/test_product_p1.py ......                                          [ 74%]
+tests/test_production_deployment_contract.py .....                       [ 74%]
+tests/test_proof_bundle.py ...                                           [ 74%]
+tests/test_proof_oracles.py .....                                        [ 75%]
+tests/test_rag_knowledge_pack.py ....                                    [ 75%]
+tests/test_rb_budget_governor.py ........................                [ 75%]
+tests/test_rc_authority_revalidation.py ............                     [ 75%]
+tests/test_recall_gap_fixes.py ...                                       [ 75%]
+tests/test_release_packaging.py ...                                      [ 76%]
+tests/test_remediation_editor.py ....................................... [ 76%]
+....                                                                     [ 77%]
+tests/test_report_hash_integrity.py ..                                   [ 77%]
+tests/test_rit_runtime_integration.py ......                             [ 77%]
+tests/test_sc1_markdown_default.py ...                                   [ 77%]
+tests/test_sc2_identity_records.py ....                                  [ 77%]
+tests/test_scenario_auth_surface_contract.py ..............              [ 77%]
+tests/test_scenario_report_contract.py .........                         [ 77%]
+tests/test_scope_file_contract.py ..................                     [ 78%]
+tests/test_server_launcher.py ..                                         [ 78%]
+tests/test_settings_hardening.py ..                                      [ 78%]
+tests/test_smart_action_authority.py .........                           [ 78%]
+tests/test_smart_campaigns_node.py ...................                   [ 78%]
+tests/test_subprocess_lifecycle.py ...                                   [ 79%]
+tests/test_team1_candidate_selection.py ...........                      [ 79%]
+tests/test_team1_compose_workspace_parity.py .....                       [ 79%]
+tests/test_team1_deep_recon.py ......................                    [ 79%]
+tests/test_team1_final_hardening.py ....................                 [ 80%]
+tests/test_team1_hypothesis_portfolio.py ...........                     [ 80%]
+tests/test_team1_llm_lifecycle.py ........                               [ 80%]
+tests/test_team1_llm_live_integration.py ........                        [ 80%]
+tests/test_team1_llm_seam_fix.py ..........                              [ 81%]
+tests/test_team1_llm_selection_fix.py .............                      [ 81%]
+tests/test_team1_llm_selection_v3.py ...........                         [ 81%]
+tests/test_team1_llm_selection_v4.py ..........                          [ 81%]
+tests/test_team1_non_dvwa_hypotheses.py .....                            [ 82%]
+tests/test_team1_oob_database_parity.py .                                [ 82%]
+tests/test_team1_post_validation_replan.py ........                      [ 82%]
+tests/test_team1_priority_fix.py ...........                             [ 82%]
+tests/test_team1_rag_knowledge.py ........                               [ 82%]
+tests/test_team1_refutation_persistence.py ......                        [ 82%]
+tests/test_team1_research_brain.py ...............                       [ 83%]
+tests/test_team1_research_entity.py .............                        [ 83%]
+tests/test_team1_selection_reconciliation.py ..........                  [ 83%]
+tests/test_team1_state_contract.py ..                                    [ 83%]
+tests/test_team1_tool_scope.py ......                                    [ 83%]
+tests/test_team1_v6_closeout.py .......                                  [ 83%]
+tests/test_team1_v6_return.py ......                                     [ 84%]
+tests/test_team1_wiring_fix.py ...                                       [ 84%]
+tests/test_untrusted_content_boundary.py .....                           [ 84%]
+tests/test_v10_audit_fixes.py ................................           [ 85%]
+tests/test_v10_exhaustive_audit.py ...........................           [ 85%]
+tests/test_v10_hostile_fixes.py ...................                      [ 86%]
+tests/test_v10_p0_reauth_vault_and_emergency_persist.py ............     [ 86%]
+tests/test_v10_p0_status_sqlmap_skiprecon_findings.py .................. [ 86%]
+....................                                                     [ 87%]
+tests/test_v10_p0p1_rca_followup.py .................                    [ 87%]
+tests/test_v10_p1_rca_followup.py ...................................... [ 88%]
+.........                                                                [ 88%]
+tests/test_v11_bac_identity.py .....                                     [ 88%]
+tests/test_v12_takeover_cloud.py .....                                   [ 88%]
+tests/test_v13_jwt_advisory.py .....                                     [ 88%]
+tests/test_v14_entrypoint_wiring.py .............                        [ 89%]
+tests/test_v15_review_hardening.py .......                               [ 89%]
+tests/test_v16_canonical_evidence.py .........                           [ 89%]
+tests/test_v17_target_understanding.py ...                               [ 89%]
+tests/test_v18_workflow_understanding.py .....                           [ 89%]
+tests/test_v19_attack_graph.py ..                                        [ 89%]
+tests/test_v20_attack_graph_wiring.py ...                                [ 89%]
+tests/test_v21_adaptive_hunt.py .......                                  [ 90%]
+tests/test_v22_planner_policy.py ........                                [ 90%]
+tests/test_v23_cli_commands.py ......                                    [ 90%]
+tests/test_v24_authorization_matrix.py ....                              [ 90%]
+tests/test_v25_javascript_intelligence.py ......                         [ 90%]
+tests/test_v26_report_quality.py .....                                   [ 90%]
+tests/test_v27_memory_boundary.py ....                                   [ 90%]
+tests/test_v28_structure_aware_triage.py .........                       [ 90%]
+tests/test_v29_surface_security.py ..........                            [ 91%]
+tests/test_v30_evidence_poc_contracts.py .......                         [ 91%]
+tests/test_v57_readability_wiring.py .......                             [ 91%]
+tests/test_v58_http_discovery.py .............                           [ 91%]
+tests/test_v58_post_form_hypotheses.py ..                                [ 91%]
+tests/test_v58_structural_evidence_gate.py ..                            [ 91%]
+tests/test_v58_validator_idempotency.py .....                            [ 91%]
+tests/test_v59_p0_hardening.py ...........                               [ 92%]
+tests/test_v61_cognitive_upgrade.py ....                                 [ 92%]
+tests/test_v61_phase1_remediation.py ............                        [ 92%]
+tests/test_v61_phase2_bac.py .............                               [ 92%]
+tests/test_v61_phase3_remediation.py ....                                [ 92%]
+tests/test_v61_remaining_plan_artifacts.py ............................. [ 93%]
+.......                                                                  [ 93%]
+tests/test_v62_ingest_and_memory_isolation.py .......                    [ 93%]
+tests/test_v63_vip_security_regression.py .........................      [ 94%]
+tests/test_v90_confidence_scoring.py ...                                 [ 94%]
+tests/test_v90_lessons_scope_isolation.py ...                            [ 94%]
+tests/test_v90_llm_cache_wiring.py ...                                   [ 94%]
+tests/test_v91_research_intelligence.py .....                            [ 94%]
+tests/test_v91_smart_campaigns_intelligence.py .                         [ 94%]
+tests/test_v92_action_executor_proof_bundle.py ...                       [ 94%]
+tests/test_v92_proof_quality_gate.py ....                                [ 94%]
+tests/test_v92_reporter_strict_proof.py .                                [ 94%]
+tests/test_v93_capability_registry.py ....                               [ 95%]
+tests/test_v94_autonomous_controller.py ....                             [ 95%]
+tests/test_v9_fix2_path_promotion.py ..........                          [ 95%]
+tests/test_v9_hostile_audit_fixes.py .....                               [ 95%]
+tests/test_v9_p0_hotfix_sqlmap_reauth.py .......                         [ 95%]
+tests/test_v9_round2_wiring_fixes.py .........                           [ 95%]
+tests/test_validator_coverage_engine.py ................                 [ 96%]
+tests/test_validator_merge_back.py ...                                   [ 96%]
+tests/test_verdict_bridge.py ...........................                 [ 96%]
+tests/test_vip_active_research.py ...                                    [ 96%]
+tests/test_vip_application_intent_graph.py ......                        [ 97%]
+tests/test_vip_audit_gap_closure.py ........                             [ 97%]
+tests/test_vip_auth_posture.py ....                                      [ 97%]
+tests/test_vip_baseline.py ..                                            [ 97%]
+tests/test_vip_benchmark.py .....                                        [ 97%]
+tests/test_vip_campaign_planner.py ...                                   [ 97%]
+tests/test_vip_llm_reliability.py ........                               [ 97%]
+tests/test_vip_offline_validator_fixtures.py .....                       [ 97%]
+tests/test_vip_phase4_intelligence.py ....                               [ 97%]
+tests/test_vip_proof_engine.py ........                                  [ 98%]
+tests/test_vip_research_contracts.py .....                               [ 98%]
+tests/test_vip_shared_reauth_vault.py ....                               [ 98%]
+tests/test_vip_surface_intent.py ..                                      [ 98%]
+tests/test_vip_validator_plugins.py ......                               [ 98%]
+tests/test_vip_waptlab_regression.py ..                                  [ 98%]
+tests/test_vip_workflow_replay.py ...                                    [ 98%]
+tests/test_waptlab_catalog_manifest.py ......                            [ 98%]
+tests/test_waptlab_detector_improvements.py ............................ [ 99%]
+.......................                                                  [ 99%]
+tests/test_waptlab_live_improvements.py ...                              [ 99%]
+tests/test_workflow_surface_wiring.py .                                  [100%]
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/pydantic/main.py:280
+tests/team1_acceptance/test_sprint_i1b_part2_secrets_gate.py::TestDevModeWarns::test_dev_mode_still_boots_despite_warning
+tests/test_v10_exhaustive_audit.py::TestCeleryPayloadKeyEnvAlias::test_neither_set_keeps_the_documented_insecure_dev_default
+  /usr/local/lib/python3.12/dist-packages/pydantic/main.py:280: UserWarning: INSECURE celery_payload_key in dev mode — task passwords are encrypted with a publicly-known key and can be decrypted by anyone with Redis access. Set CELERY_PAYLOAD_KEY to a strong random value for any non-local deployment.
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+
+src/webpent/memory/embeddings.py:138
+  /home/thaura/webpent_review/src/webpent/memory/embeddings.py:138: DeprecationWarning: `langchain-community` is being sunset and is no longer actively maintained. See https://github.com/langchain-ai/langchain-community/issues/674 for details and migration guidance toward standalone integration packages.
+    from langchain_community.embeddings import HuggingFaceEmbeddings
+
+src/webpent/memory/embeddings.py:159
+  /home/thaura/webpent_review/src/webpent/memory/embeddings.py:159: LangChainDeprecationWarning: The class `HuggingFaceEmbeddings` was deprecated in LangChain 0.2.2 and will be removed in 1.0. An updated version of the class exists in the `langchain-huggingface package and should be used instead. To use it run `pip install -U `langchain-huggingface` and import as `from `langchain_huggingface import HuggingFaceEmbeddings``.
+    embeddings = HuggingFaceEmbeddings(**kwargs)
+
+tests/team1_acceptance/test_sprint_i1b_part2_secrets_gate.py::TestDevModeWarns::test_dev_mode_still_boots_despite_warning
+  /usr/local/lib/python3.12/dist-packages/pydantic/main.py:280: UserWarning: INSECURE audit_secret_key in dev mode — evidence hashes are HMAC'd with a publicly-known key and can be forged. Set AUDIT_SECRET_KEY to a strong random value for any non-local deployment.
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+
+tests/test_postp0_phase6_tool_first.py::test_xss_llm_failure_still_seeds_payloads_and_invokes_dalfox
+tests/test_postp0_phase8_flow_replay.py::test_flow_replay_emits_observations_with_session
+tests/test_scenario_auth_surface_contract.py::test_auth_node_snapshots_anonymously_before_login
+tests/test_v58_http_discovery.py::test_crawler_uses_http_fallback_when_katana_is_missing
+  /usr/local/lib/python3.12/dist-packages/httpx/_client.py:1053: DeprecationWarning: Setting per-request cookies=<...> is being deprecated, because the expected behaviour on cookie persistence is ambiguous. Set cookies directly on the client instance instead.
+    return self.request(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================================ tests coverage ================================
+_______________ coverage: platform linux, python 3.12.3-final-0 ________________
+
+Name                                                           Stmts   Miss  Cover   Missing
+--------------------------------------------------------------------------------------------
+src/webpent/__init__.py                                            1      0   100%
+src/webpent/abhc/__init__.py                                      11     11     0%   3-31
+src/webpent/abhc/boundaries.py                                    79     79     0%   3-158
+src/webpent/abhc/chains.py                                        20     20     0%   3-77
+src/webpent/abhc/contracts.py                                    285    285     0%   8-394
+src/webpent/abhc/core.py                                          42     42     0%   3-106
+src/webpent/abhc/director.py                                     108    108     0%   3-222
+src/webpent/abhc/experiments.py                                   37     37     0%   3-98
+src/webpent/abhc/exploration.py                                   89     89     0%   3-183
+src/webpent/abhc/hypotheses.py                                    43     43     0%   3-87
+src/webpent/abhc/quality.py                                       23     23     0%   3-65
+src/webpent/abhc/review.py                                        29     29     0%   3-74
+src/webpent/abhie/__init__.py                                     11     11     0%   3-33
+src/webpent/abhie/boundaries.py                                   41     41     0%   3-106
+src/webpent/abhie/brain.py                                        61     61     0%   3-156
+src/webpent/abhie/chains.py                                       15     15     0%   3-40
+src/webpent/abhie/competition.py                                  21     21     0%   3-123
+src/webpent/abhie/contracts.py                                   205    205     0%   7-297
+src/webpent/abhie/core.py                                         51     51     0%   3-168
+src/webpent/abhie/discovery.py                                    31     31     0%   3-104
+src/webpent/abhie/reflection.py                                   27     27     0%   3-76
+src/webpent/abhie/review.py                                       18     18     0%   3-37
+src/webpent/abhie/strategy.py                                     11     11     0%   3-74
+src/webpent/abhie_v6/__init__.py                                  11     11     0%   3-28
+src/webpent/abhie_v6/agent_core.py                                31     31     0%   3-111
+src/webpent/abhie_v6/architect.py                                 20     20     0%   3-93
+src/webpent/abhie_v6/chains.py                                    23     23     0%   3-94
+src/webpent/abhie_v6/contracts.py                                209    209     0%   3-274
+src/webpent/abhie_v6/core.py                                      53     53     0%   3-145
+src/webpent/abhie_v6/creativity.py                                14     14     0%   3-65
+src/webpent/abhie_v6/differential.py                              18     18     0%   3-65
+src/webpent/abhie_v6/discovery.py                                 21     21     0%   3-69
+src/webpent/abhie_v6/invariants.py                                23     23     0%   3-62
+src/webpent/abhie_v6/learning.py                                  28     28     0%   3-91
+src/webpent/abhip/__init__.py                                     10     10     0%   3-36
+src/webpent/abhip/contracts.py                                   287    287     0%   8-482
+src/webpent/abhip/differential.py                                 47     47     0%   7-165
+src/webpent/abhip/loop.py                                         51     51     0%   3-178
+src/webpent/abhip/memory.py                                       33     33     0%   3-110
+src/webpent/abhip/orchestrator.py                                 44     44     0%   3-131
+src/webpent/abhip/questions.py                                    71     71     0%   3-165
+src/webpent/abhip/reasoning.py                                    18     18     0%   3-72
+src/webpent/abhip/reviewer.py                                     32     32     0%   3-62
+src/webpent/abhip/target_graph.py                                 22     22     0%   3-51
+src/webpent/adapters/__init__.py                                   0      0   100%
+src/webpent/adapters/controlled_target/__init__.py                 2      2     0%   3-12
+src/webpent/adapters/controlled_target/adapter.py                323    323     0%   9-813
+src/webpent/adapters/crapi/__init__.py                             0      0   100%
+src/webpent/adapters/crapi/context_provider.py                    72     72     0%   7-207
+src/webpent/adapters/crapi/option_b.py                            18      0   100%
+src/webpent/adapters/generic_web/__init__.py                       2      2     0%   3-11
+src/webpent/adapters/generic_web/adapter.py                      336    336     0%   9-719
+src/webpent/adapters/juice_shop/__init__.py                        0      0   100%
+src/webpent/adapters/juice_shop/adapter.py                        72     72     0%   7-191
+src/webpent/adapters/juice_shop/context_provider.py               20     20     0%   7-72
+src/webpent/adapters/juice_shop/oracles.py                        18     18     0%   7-182
+src/webpent/adapters/local_causal_lab/fixtures.py                120     44    63%   40, 42, 60-77, 93, 95, 97, 103, 125-134, 146-163, 167-170, 214
+src/webpent/adapters/local_causal_lab/option_b_contract.py       142     41    71%   31-39, 43, 50-56, 91, 93, 95, 99, 103, 125, 142, 148, 169, 171, 173, 175, 178-181, 218-248
+src/webpent/adapters/mock_target/__init__.py                       0      0   100%
+src/webpent/adapters/mock_target/adapter.py                      110    110     0%   8-375
+src/webpent/adapters/mock_target/context_provider.py              79     79     0%   3-169
+src/webpent/adapters/webgoat/__init__.py                           0      0   100%
+src/webpent/adapters/webgoat/causal_experiment.py                 28     28     0%   9-91
+src/webpent/adapters/webgoat/context_provider.py                  22     22     0%   9-76
+src/webpent/adapters/webgoat/option_b.py                          17      0   100%
+src/webpent/adi/__init__.py                                        2      2     0%   3-15
+src/webpent/adi/intelligence.py                                  192    192     0%   8-463
+src/webpent/agents/__init__.py                                    10      2    80%   20-21
+src/webpent/agents/access_control/__init__.py                      0      0   100%
+src/webpent/agents/access_control/agent.py                       561    177    68%   62, 66, 75, 84-88, 108-109, 120, 130, 139-140, 144, 147, 152, 158, 195-200, 207, 213, 217, 241, 261, 274-275, 293-297, 379, 385-392, 435, 524, 530-532, 553-554, 557-565, 578-599, 614-683, 708-714, 728-737, 739-747, 770-773, 783-784, 834, 851, 878, 896-917, 983-998, 1025, 1124, 1137-1139, 1182, 1187, 1208, 1213, 1221, 1280-1281
+src/webpent/agents/api_testing/__init__.py                         0      0   100%
+src/webpent/agents/api_testing/agent.py                          179    124    31%   53, 121-126, 140-236, 250-334, 362-372, 381, 387, 392-399, 450-457, 495-496, 511-597, 608-696
+src/webpent/agents/attack_graph/__init__.py                        2      0   100%
+src/webpent/agents/attack_graph/agent.py                          19     11    42%   19-22, 31-54
+src/webpent/agents/authentication/__init__.py                      0      0   100%
+src/webpent/agents/authentication/agent.py                       422    135    68%   63, 66-77, 178-179, 182-195, 219-230, 251-256, 276-277, 335-336, 345-347, 357-358, 366-379, 390-406, 424-425, 428-429, 437-439, 448-453, 491-492, 503, 536-538, 583, 649-680, 699, 710, 718, 736, 804, 826, 849, 863, 913, 915, 977-1032, 1041-1089, 1130, 1244, 1261
+src/webpent/agents/business_impact/__init__.py                     0      0   100%
+src/webpent/agents/business_impact/agent.py                       57     44    23%   65-140, 165-194
+src/webpent/agents/business_logic_fuzzer/__init__.py               0      0   100%
+src/webpent/agents/business_logic_fuzzer/agent.py                276     92    67%   61-63, 67-69, 83-127, 230-231, 242-252, 310-339, 354, 357, 398, 454, 490-496, 516-530, 580, 598-662, 688-689, 695-696, 721-722, 736
+src/webpent/agents/cloud_storage/__init__.py                       0      0   100%
+src/webpent/agents/cloud_storage/agent.py                         91     36    60%   29-50, 63, 65, 78, 80, 97, 101-102, 160-163, 176-183
+src/webpent/agents/crawler/__init__.py                             0      0   100%
+src/webpent/agents/crawler/agent.py                              368    164    55%   110-126, 158-227, 239-280, 307, 325-330, 389-395, 424, 442-447, 468-470, 498-546, 549-577, 599-602, 624-627, 637-638, 645-647, 677-679, 712, 715, 729, 752-759, 774-798, 825-827, 834-835, 854-860, 881, 889-890, 905, 925-933, 956, 958
+src/webpent/agents/cross_reasoning/__init__.py                     0      0   100%
+src/webpent/agents/cross_reasoning/agent.py                       90     72    20%   96-111, 120-156, 177-302
+src/webpent/agents/curiosity_engine.py                            70     14    80%   33-34, 38, 49, 103, 115, 121, 127, 134-137, 145, 147
+src/webpent/agents/cvss_engine/__init__.py                         0      0   100%
+src/webpent/agents/cvss_engine/agent.py                           86     30    65%   81, 85-90, 95-96, 157, 175, 199-205, 209-213, 260-291
+src/webpent/agents/devils_advocate/__init__.py                     0      0   100%
+src/webpent/agents/devils_advocate/agent.py                      114     58    49%   125, 223-228, 233-237, 244, 246-256, 296-316, 334-461
+src/webpent/agents/disclosed_report_intel/__init__.py              0      0   100%
+src/webpent/agents/disclosed_report_intel/agent.py                43     19    56%   22, 24-30, 33-47
+src/webpent/agents/execution_sandbox/__init__.py                   0      0   100%
+src/webpent/agents/execution_sandbox/agent.py                    431    280    35%   104-109, 115, 124-167, 183-229, 239-240, 251-332, 356-477, 486-502, 559-565, 601-666, 682-683, 699-767, 908-913, 964-968, 980-985, 996-1001, 1005-1009, 1011-1014, 1102
+src/webpent/agents/executive_summary/__init__.py                   0      0   100%
+src/webpent/agents/executive_summary/agent.py                     62     36    42%   134, 139-151, 156-177, 196-250, 272-286
+src/webpent/agents/exploit_chainer/__init__.py                     0      0   100%
+src/webpent/agents/exploit_chainer/agent.py                      160     49    69%   128-129, 132, 146, 148, 154, 198-199, 230-232, 244, 317, 333-334, 380-404, 453-479, 483, 508-587
+src/webpent/agents/hunter_contracts.py                           159      8    95%   58, 88, 114-118, 230
+src/webpent/agents/hunter_graph.py                               250     68    73%   46, 54, 58, 65, 68, 70, 114, 118, 121-122, 141, 150-151, 189-197, 228, 233-235, 251-252, 259-260, 266-267, 272-284, 291-292, 299-300, 313-316, 318, 345-347, 349, 363, 366-368, 384-385, 398-414
+src/webpent/agents/hunter_runner.py                              238    153    36%   35-41, 45-53, 57-58, 85-89, 93-97, 101-113, 146, 152, 179-184, 193-196, 225-227, 235-326, 348-511
+src/webpent/agents/hypothesis_analyzer/__init__.py                 0      0   100%
+src/webpent/agents/hypothesis_analyzer/agent.py                  635    138    78%   150-169, 230-231, 246-279, 451-452, 715-716, 839-840, 880, 885, 888, 944, 950-951, 970-971, 990-991, 998, 1058, 1060, 1069, 1078-1079, 1081, 1085, 1118, 1120, 1136, 1174, 1180, 1189, 1216, 1234, 1236, 1238, 1250-1267, 1282-1316, 1332-1335, 1409, 1411-1420, 1423, 1427, 1463, 1523, 1526, 1630, 1653, 1656, 1670, 1673, 1753, 1786-1787, 1870-1871, 1886-1926, 1947, 1982-1989, 2032, 2051-2052, 2065, 2069, 2075, 2096-2097, 2107-2108
+src/webpent/agents/javascript_intelligence/__init__.py             2      0   100%
+src/webpent/agents/javascript_intelligence/agent.py              117     22    81%   37, 40, 45, 48, 50, 79, 83, 87-88, 106-107, 110-122, 134-139, 163-164, 217
+src/webpent/agents/note_taker.py                                  70      8    89%   66-67, 72, 95-99
+src/webpent/agents/payload_generator/__init__.py                   0      0   100%
+src/webpent/agents/payload_generator/agent.py                    216    103    52%   231, 233, 235, 239, 241, 262, 264, 283-294, 362-433, 484-616, 662, 739-741, 748-750, 820-826, 864
+src/webpent/agents/payload_optimizer/__init__.py                   0      0   100%
+src/webpent/agents/payload_optimizer/agent.py                    142     49    65%   157, 161-163, 169, 184, 227, 229, 239, 254, 259-268, 274-332, 354, 356, 360-362, 369-375, 392-398, 429
+src/webpent/agents/personas.py                                    38     10    74%   23-28, 79, 82-83, 94
+src/webpent/agents/planner/__init__.py                             0      0   100%
+src/webpent/agents/planner/agent.py                               93      9    90%   114, 117-119, 126-132, 211-212
+src/webpent/agents/post_exploit/__init__.py                        0      0   100%
+src/webpent/agents/post_exploit/agent.py                         176    154    12%   123, 147-155, 175-276, 289-350, 365-371, 390-527, 549-562
+src/webpent/agents/rabbit_hole/__init__.py                         0      0   100%
+src/webpent/agents/rabbit_hole/agent.py                          258    204    21%   186, 193, 227-304, 341-360, 388-397, 449-480, 492-512, 520-535, 570-878, 895, 900, 905, 922-948
+src/webpent/agents/recon/__init__.py                               0      0   100%
+src/webpent/agents/recon/agent.py                                332    221    33%   56-57, 60-61, 64-65, 69-70, 115, 119-120, 133-144, 159, 162-163, 169, 258-261, 263-265, 271, 299-342, 391, 398, 400, 465-484, 513-572, 581-593, 607-620, 642-667, 712-714, 720, 769, 775, 784-803, 806, 832-1006
+src/webpent/agents/reflection/__init__.py                          0      0   100%
+src/webpent/agents/reflection/agent.py                           145    124    14%   103-121, 130-148, 158-201, 226-302, 328-446
+src/webpent/agents/reporter/__init__.py                            0      0   100%
+src/webpent/agents/reporter/agent.py                             413    125    70%   145-156, 175, 180-191, 219, 244-258, 298-302, 334, 568-587, 592-595, 648-691, 713-730, 745, 761-779, 826-845, 914-920, 967, 1057-1082, 1094, 1158, 1171-1195
+src/webpent/agents/request_smuggling/__init__.py                   0      0   100%
+src/webpent/agents/request_smuggling/agent.py                    180    146    19%   87-123, 126-127, 150-226, 233, 251-304, 311, 333-543
+src/webpent/agents/scope_enforcer/__init__.py                      0      0   100%
+src/webpent/agents/scope_enforcer/agent.py                       120     80    33%   46-50, 59-67, 92-106, 117, 121-126, 130-132, 136-137, 158-159, 171-173, 203-300
+src/webpent/agents/smart_campaigns/__init__.py                     2      0   100%
+src/webpent/agents/smart_campaigns/agent.py                      929    301    68%   109, 133-134, 146, 156-159, 166-179, 202, 219-220, 255, 257, 271, 275, 280-286, 288, 291, 309, 326-367, 385-389, 414, 439, 452, 466, 486, 493-494, 520, 522, 527, 529, 667, 687-696, 699-708, 742, 746, 749-750, 755-756, 759, 764, 769, 821, 823, 844-856, 858-865, 879-885, 919-920, 969-1022, 1031-1034, 1036, 1067, 1116-1121, 1193-1213, 1244, 1329, 1365, 1378-1399, 1428-1430, 1436, 1439-1457, 1488, 1501-1502, 1529, 1533, 1551, 1553, 1557, 1560, 1563, 1570, 1573, 1587, 1595-1597, 1608-1613, 1629-1635, 1664-1772, 1783, 1811-1812, 1816-1819, 1829-1862, 1874-1876, 1895, 1903, 1912, 1951, 1955, 1957, 1997, 2010, 2017-2033, 2085-2086, 2089-2090, 2153-2154
+src/webpent/agents/specialists/__init__.py                         2      2     0%   3-11
+src/webpent/agents/specialists/passive_planner.py                 42     42     0%   7-122
+src/webpent/agents/strategist/__init__.py                          0      0   100%
+src/webpent/agents/strategist/agent.py                           216     84    61%   130-132, 150-151, 207-209, 223-224, 229-231, 269-315, 332-339, 371-390, 404, 428-429, 446-462, 479-501, 526-527, 537-540, 571-585, 621-622, 629, 639-668, 700-701, 734, 736
+src/webpent/agents/subdomain_takeover/__init__.py                  0      0   100%
+src/webpent/agents/subdomain_takeover/agent.py                   127     72    43%   49-77, 82-98, 103, 108, 137-139, 199-202, 215-266
+src/webpent/agents/target_understanding/__init__.py                2      0   100%
+src/webpent/agents/target_understanding/agent.py                 287     62    78%   66-71, 76, 80, 104, 113, 123, 125, 128, 154, 193-201, 237, 252, 278-293, 309, 313, 335, 346, 368, 406-407, 431, 433, 436, 438-457, 515-517, 550, 552, 557-558
+src/webpent/agents/team.py                                        31     31     0%   8-173
+src/webpent/agents/validator/__init__.py                           0      0   100%
+src/webpent/agents/validator/active_checks.py                    252    104    59%   106, 109, 111, 119-145, 150-155, 164-210, 270-274, 317, 408, 455, 469-491, 506-599, 645, 671, 688, 704, 728, 751-752
+src/webpent/agents/validator/agent.py                           1177    625    47%   96-97, 111-122, 211-253, 365, 368-372, 451, 455, 458, 512-518, 530-537, 541-547, 662, 669-683, 718-858, 888-928, 943-955, 973-1040, 1063-1084, 1119-1333, 1426-1432, 1436-1441, 1445-1450, 1454, 1471, 1478, 1504-1507, 1512, 1578-1583, 1620-1621, 1639-1660, 1669-1671, 1677, 1695-1733, 1754-1761, 1869, 1906-1907, 1953-1966, 1973-1980, 1994-2001, 2008-2015, 2053-2239, 2306, 2391-2392, 2399-2400, 2409, 2419, 2426, 2434, 2485-2487, 2495-2497, 2505-2507, 2515-2517, 2525-2527, 2540-2639, 2743-2808, 2857-2886, 3028-3037, 3062-3063, 3099-3104, 3217-3225, 3232-3257, 3281-3290, 3296-3303, 3312-3319, 3359-3365, 3498-3515, 3577-3583, 3632, 3657-3715, 3762, 3766, 3775, 3786-3787, 3797, 3801, 3831-3832, 3887-3895, 3928-3930, 4061-4068, 4071-4096, 4104-4142, 4149-4158, 4198, 4209-4212, 4231-4245, 4260, 4265, 4274-4279, 4289, 4291, 4300, 4308, 4331-4493, 4530, 4532, 4553, 4555, 4560, 4580-4582, 4662-4666
+src/webpent/agents/validator/postp0_checks.py                    335     64    81%   107-129, 142-167, 189, 201, 225, 294, 322-327, 355, 407, 421, 427-429, 456, 468-473, 566, 598, 644, 770, 792, 846, 901, 924, 936, 975, 1034, 1044-1045
+src/webpent/agents/validator/registry.py                          32      3    91%   150, 157, 173
+src/webpent/agents/validator/structural_checks.py                383    287    25%   84-109, 122-136, 148-157, 177-191, 212-278, 308-401, 444, 452, 472-486, 510, 543-760, 794, 802, 822, 846, 875-925, 954-1010, 1037-1167, 1211, 1224, 1294, 1333-1499, 1551-1583
+src/webpent/agents/waf_detector/__init__.py                        0      0   100%
+src/webpent/agents/waf_detector/agent.py                          59     45    24%   64-81, 86-101, 117-170
+src/webpent/apex/__init__.py                                       0      0   100%
+src/webpent/apex/dashboard.py                                     41      0   100%
+src/webpent/apex/executor.py                                     112      6    95%   125, 181, 195, 198-199, 213
+src/webpent/apex/learning.py                                     130      7    95%   78, 84, 95, 198, 238, 252, 268
+src/webpent/apex/mcp_server.py                                    78      4    95%   67, 70, 81, 84
+src/webpent/apex/orchestrator.py                                  81      0   100%
+src/webpent/apex/parallel_runner.py                              134      7    95%   83, 105, 115, 176, 198-199, 231
+src/webpent/apex/result_fusion.py                                 72      2    97%   55, 155
+src/webpent/apex/sandbox.py                                      134      9    93%   85, 106, 113, 201-202, 267, 316, 319, 322
+src/webpent/apex/speed_optimizer.py                              110      7    94%   89, 104, 109-111, 167, 186
+src/webpent/apex/tool_chain_builder.py                           105      8    92%   84, 100, 110, 157, 160-161, 163, 202
+src/webpent/apex/tool_registry.py                                 91      9    90%   79, 115, 127, 130, 134, 136, 140, 173, 196
+src/webpent/apex/tool_selector.py                                 72      5    93%   38, 79, 82-83, 85
+src/webpent/api/__init__.py                                        9      3    67%   11-13
+src/webpent/api/app.py                                           753    347    54%   199, 214-215, 230, 250, 294-296, 344-391, 408-418, 554-566, 571-574, 579-586, 592, 598, 608, 610, 613, 615, 623, 632-655, 680-702, 727-730, 832-837, 842-843, 863-871, 877, 891-910, 931-1103, 1117-1123, 1136-1142, 1154-1156, 1165-1167, 1179-1181, 1248-1250, 1265-1266, 1283-1310, 1315-1316, 1329-1385, 1428-1429, 1437-1454, 1489-1535, 1554-1596, 1611-1670, 1758-1762, 1767-1768, 1781-1789, 1827, 1898-1903, 1947-1952, 1969-1970, 1982-1988, 2024, 2039-2044, 2047-2051, 2067-2073, 2075-2076, 2107-2117, 2121-2125, 2132-2138
+src/webpent/api/auth.py                                          240    100    58%   79, 88-101, 113-119, 128-137, 146-151, 185-197, 222, 226-253, 260-264, 283, 285, 288, 290, 326, 371, 391-392, 402, 416-417, 434-440, 495-503, 510-521, 527-534, 538-545, 579-594
+src/webpent/api/rate_limit.py                                     95     23    76%   93, 109-123, 147, 161, 163, 169, 178, 180, 184, 195, 198-204
+src/webpent/api/scan_registry.py                                 196     72    63%   208, 212-215, 241, 267-275, 281, 285, 301-303, 318, 326, 330-335, 339-345, 358-364, 384, 392, 402, 405, 409-410, 424-426, 441, 470-472, 477-498, 508-516, 525-539
+src/webpent/asros/__init__.py                                      8      8     0%   3-37
+src/webpent/asros/adaptive_strategy.py                            72     72     0%   7-180
+src/webpent/asros/attack_surface.py                               88     88     0%   8-154
+src/webpent/asros/knowledge_graph.py                              97     97     0%   7-155
+src/webpent/asros/quality_controller.py                          136    136     0%   9-292
+src/webpent/asros/reasoning.py                                   108    108     0%   8-247
+src/webpent/asros/world_model.py                                 144    144     0%   8-258
+src/webpent/attack_graph/__init__.py                               7      0   100%
+src/webpent/attack_graph/builder.py                                8      0   100%
+src/webpent/attack_graph/chain_reasoning.py                       95     15    84%   43, 46, 77, 81, 90, 94, 145, 156-162, 171-172
+src/webpent/attack_graph/engine.py                               102     30    71%   46, 53-54, 74-75, 77-78, 80-81, 122-127, 139-143, 153, 160, 178, 187-196, 205-208
+src/webpent/attack_graph/path_ranker.py                           11      4    64%   21-31
+src/webpent/attack_graph/reasoner.py                              75     47    37%   22-34, 60, 69-70, 76, 78-111, 114, 123-156, 160
+src/webpent/attack_graph/source_lane.py                           72      2    97%   83, 126
+src/webpent/auth/__init__.py                                       2      0   100%
+src/webpent/auth/reauth_vault.py                                 251     56    78%   79-80, 87-89, 98-100, 109-110, 119, 121-123, 129, 139, 146-147, 165-166, 175-176, 178, 186, 191-193, 203, 215-225, 235, 251, 257, 265, 268, 279, 284, 289, 294-295, 297, 305, 308, 319, 324, 329, 334-335, 342
+src/webpent/autonomous/__init__.py                                35      0   100%
+src/webpent/autonomous/amplifiers/__init__.py                      0      0   100%
+src/webpent/autonomous/amplifiers/cloud_storage.py                53      1    98%   68
+src/webpent/autonomous/amplifiers/ct_mining.py                    52      6    88%   48-53
+src/webpent/autonomous/amplifiers/fp_autopsy.py                   87     13    85%   64-65, 75, 86-91, 97, 103-104, 130
+src/webpent/autonomous/amplifiers/intuition.py                   157     13    92%   46, 136, 165, 168, 191-196, 203, 209, 217
+src/webpent/autonomous/amplifiers/js_analyzer.py                  31      0   100%
+src/webpent/autonomous/amplifiers/operational.py                  97      6    94%   43, 98, 109, 115, 143, 158
+src/webpent/autonomous/amplifiers/skeptic.py                      51      0   100%
+src/webpent/autonomous/amplifiers/swarm.py                        64      0   100%
+src/webpent/autonomous/amplifiers/takeover.py                     51      6    88%   48, 58-59, 61, 64, 84
+src/webpent/autonomous/amplifiers/triager_sim.py                  32      1    97%   89
+src/webpent/autonomous/amplifiers/wayback.py                      43      3    93%   43, 52, 71
+src/webpent/autonomous/authorization.py                           89      8    91%   41, 79-80, 90, 94, 113, 122, 154
+src/webpent/autonomous/cem/__init__.py                            14      0   100%
+src/webpent/autonomous/cem/cycle.py                              117     11    91%   75, 97-102, 107, 259-261
+src/webpent/autonomous/cem/deployment_rhythm.py                   83      5    94%   57-58, 70-71, 87
+src/webpent/autonomous/cem/diff_engine.py                        142     14    90%   118, 133-137, 211, 221-222, 235, 240-241, 243, 261
+src/webpent/autonomous/cem/digest.py                             105      9    91%   33-34, 40, 43, 129, 186-189
+src/webpent/autonomous/cem/dormant_pool.py                        96      8    92%   51-52, 67-72
+src/webpent/autonomous/cem/reactor.py                             88      8    91%   80-85, 100, 124
+src/webpent/autonomous/cem/regression_watch.py                   146     15    90%   66-70, 89-90, 105-110, 143-144
+src/webpent/autonomous/cem/scheduler.py                          168     13    92%   103-108, 167, 186-191
+src/webpent/autonomous/cem/scope_drift.py                         65      2    97%   37, 160
+src/webpent/autonomous/cem/snapshot.py                            97      3    97%   122, 125, 172
+src/webpent/autonomous/cem/temporal_lessons.py                   130      9    93%   58-59, 74-79, 136
+src/webpent/autonomous/cem/wake_up.py                             80      7    91%   62-67, 82
+src/webpent/autonomous/coverage_packs.py                          31      0   100%
+src/webpent/autonomous/hunt_budget.py                             14      0   100%
+src/webpent/autonomous/hunt_contracts.py                          69      1    99%   113
+src/webpent/autonomous/hunt_deadends.py                          168     20    88%   54, 57, 99-100, 105, 116-121, 130, 133, 137, 169, 182, 195, 226, 247, 260
+src/webpent/autonomous/hunt_discovery.py                         339     21    94%   192, 201, 210, 265, 444, 479, 534, 539, 575, 579, 594, 614, 627, 641, 654, 705, 722, 747, 751, 821, 835
+src/webpent/autonomous/hunt_intel.py                             140     20    86%   39, 42, 45, 84, 95-100, 118, 138, 149, 173-180, 188, 198, 221
+src/webpent/autonomous/hunt_knowledge.py                          85     12    86%   69, 92, 169-170, 172, 203-204, 222, 234-235, 265-266
+src/webpent/autonomous/hunt_memory.py                             93     13    86%   59-60, 62, 65, 77-78, 87, 107, 140, 168, 179, 194-195
+src/webpent/autonomous/hunt_orchestrator.py                      461     48    90%   193-199, 217, 298, 343-349, 364-365, 375-376, 396, 434, 457-458, 520, 616, 625-631, 738-739, 763-764, 781-782, 784, 790-792, 798-799, 839, 863, 920, 925-926, 931, 938-939, 960-961, 1005-1006, 1009
+src/webpent/autonomous/hunt_replanning.py                         95      4    96%   76, 110, 162, 215
+src/webpent/autonomous/hunt_runtime.py                           108      7    94%   54, 95, 139, 176, 195, 295-296
+src/webpent/autonomous/hunt_state.py                              76      1    99%   198
+src/webpent/avde/__init__.py                                       6      6     0%   3-30
+src/webpent/avde/behavior.py                                      70     70     0%   3-172
+src/webpent/avde/discovery.py                                    108    108     0%   8-275
+src/webpent/avde/exploration.py                                   76     76     0%   3-159
+src/webpent/avde/pipeline.py                                      42     42     0%   3-109
+src/webpent/avde/review.py                                        55     55     0%   3-125
+src/webpent/avrip/__init__.py                                     10     10     0%   3-60
+src/webpent/avrip/assumptions.py                                  77     77     0%   7-174
+src/webpent/avrip/core.py                                         59     59     0%   3-159
+src/webpent/avrip/cross_domain.py                                103    103     0%   7-218
+src/webpent/avrip/evidence.py                                     88     88     0%   3-140
+src/webpent/avrip/intent.py                                      111    111     0%   8-268
+src/webpent/avrip/memory.py                                       54     54     0%   3-132
+src/webpent/avrip/optimizer.py                                    71     71     0%   3-174
+src/webpent/avrip/reasoning.py                                    95     95     0%   3-224
+src/webpent/avrip/review.py                                       40     40     0%   7-93
+src/webpent/avrp/__init__.py                                       9      9     0%   3-22
+src/webpent/avrp/chains.py                                        65     65     0%   7-160
+src/webpent/avrp/correlation.py                                  112    112     0%   7-251
+src/webpent/avrp/coverage.py                                      90     90     0%   3-147
+src/webpent/avrp/improvement.py                                  105    105     0%   3-211
+src/webpent/avrp/loop.py                                         138    138     0%   3-396
+src/webpent/avrp/patterns.py                                      64     64     0%   7-225
+src/webpent/avrp/review.py                                        59     59     0%   3-113
+src/webpent/avrp/state.py                                        118    118     0%   7-223
+src/webpent/benchmark/__init__.py                                  7      0   100%
+src/webpent/benchmark/generic_test_target_adapter.py              39     39     0%   7-107
+src/webpent/benchmark/golden.py                                   34     11    68%   31, 42, 60, 69, 105-111
+src/webpent/benchmark/juice_shop_oracles.py                        2      2     0%   5-6
+src/webpent/benchmark/juice_shop_safe_cases.py                     2      2     0%   6-7
+src/webpent/benchmark/juice_shop_target_adapter.py                 2      2     0%   5-6
+src/webpent/benchmark/metrics.py                                  38     15    61%   30, 68-90
+src/webpent/benchmark/p10.py                                      92     92     0%   8-199
+src/webpent/benchmark/p10_coverage.py                             37     37     0%   8-85
+src/webpent/benchmark/p10_review.py                               54     54     0%   6-95
+src/webpent/benchmark/profiles.py                                 41     22    46%   30-45, 49-63, 71, 88, 98
+src/webpent/benchmark/qualification.py                           175    108    38%   29-31, 35-48, 52-62, 66-80, 93, 130, 152-164, 167-174, 187-188, 204-207, 210-245, 279, 295, 315-345, 355-358
+src/webpent/benchmark/research_intelligence.py                    53     11    79%   64-88
+src/webpent/benchmark/vip_v2.py                                   31     14    55%   33, 49-51, 64-81
+src/webpent/benchmark/waptlab_campaign_profile.py                 17      0   100%
+src/webpent/benchmark/waptlab_offline_validator_fixtures.py       35      8    77%   56, 72, 74, 76, 78, 80, 82, 84
+src/webpent/benchmark/waptlab_target_adapter.py                   98     98     0%   8-345
+src/webpent/business_logic/__init__.py                             5      5     0%   8-13
+src/webpent/business_logic/abuse_case_generator.py                26     26     0%   3-67
+src/webpent/business_logic/invariant_checker.py                   38     38     0%   3-97
+src/webpent/business_logic/state_transition.py                    50     50     0%   3-128
+src/webpent/business_logic/workflow_analyzer.py                   28     28     0%   3-65
+src/webpent/campaign/__init__.py                                   3      0   100%
+src/webpent/campaign/errors.py                                     9      0   100%
+src/webpent/campaign/executor/__init__.py                          0      0   100%
+src/webpent/campaign/executor/budget_guard.py                     54      0   100%
+src/webpent/campaign/executor/phase_runner.py                     80      2    98%   203-204
+src/webpent/campaign/executor/pivot_engine.py                     44      1    98%   76
+src/webpent/campaign/historian/__init__.py                         0      0   100%
+src/webpent/campaign/historian/campaign_memory.py                 68      1    99%   96
+src/webpent/campaign/historian/cross_campaign_learner.py          25      1    96%   50
+src/webpent/campaign/historian/retrospective.py                   32      0   100%
+src/webpent/campaign/schemas.py                                  127      1    99%   239
+src/webpent/campaign/storage/__init__.py                           0      0   100%
+src/webpent/campaign/storage/campaign_store.py                    42      0   100%
+src/webpent/campaign/storyteller/__init__.py                       0      0   100%
+src/webpent/campaign/storyteller/narrative_generator.py           31      1    97%   95
+src/webpent/campaign/storyteller/report_generator.py              24      0   100%
+src/webpent/campaign/strategist/__init__.py                        0      0   100%
+src/webpent/campaign/strategist/handoff.py                        61      8    87%   39-45, 109, 118-120, 124
+src/webpent/campaign/strategist/phase_planner.py                  49      2    96%   55, 91
+src/webpent/campaign/strategist/phase_templates.py                16      0   100%
+src/webpent/campaign/strategist/thesis_builder.py                 94      3    97%   106, 129, 140
+src/webpent/campaign/strategist/thesis_evidence.py                54      3    94%   127-128, 141
+src/webpent/campaign/strategist/validators.py                     36      5    86%   37, 54, 57, 62, 67
+src/webpent/campaign/warroom/__init__.py                           0      0   100%
+src/webpent/campaign/warroom/cli.py                               33      2    94%   29, 35
+src/webpent/campaign/warroom/dashboard.py                         10      0   100%
+src/webpent/campaign/warroom/integration.py                       22      0   100%
+src/webpent/campaign/warroom/truth_validator.py                   21      0   100%
+src/webpent/cli/__init__.py                                       13      3    77%   22-24
+src/webpent/cli/apex.py                                          207     14    93%   56, 105, 146-147, 226, 282-283, 448-466
+src/webpent/cli/cem.py                                           143     11    92%   46, 50, 83-88, 150, 160, 239
+src/webpent/cli/commands.py                                      804    505    37%   101-115, 126-142, 151-159, 165-179, 190-195, 203, 213, 223-224, 229, 242-248, 254-258, 264-268, 274-278, 284-288, 294-296, 301-307, 312-340, 353-373, 405-408, 419-434, 599-1035, 1052-1101, 1109-1111, 1115, 1133-1135, 1150-1151, 1154-1156, 1186-1187, 1204-1214, 1247-1262, 1268-1269, 1285-1287, 1295, 1404-1406, 1476-1478, 1483-1487, 1499, 1543-1551, 1565, 1571, 1577, 1586-1601, 1614-1627, 1672-1673, 1679-1686, 1706-1731, 1748-1768
+src/webpent/cli/dojo.py                                          142      1    99%   55
+src/webpent/cli/econ.py                                          211     28    87%   65-66, 95-100, 164-165, 174-175, 182, 196-197, 219-220, 223-224, 265-266, 304, 358-359, 390-393
+src/webpent/cli/git_source.py                                     42     11    74%   31, 50, 84-89, 92-97
+src/webpent/cli/ingest.py                                        176    136    23%   42-43, 112-129, 133-139, 149-165, 169-177, 181-189, 194-207, 216-244, 248-306, 310
+src/webpent/cli/jc.py                                            122     16    87%   43, 70-75, 139-148, 173, 175, 221, 247
+src/webpent/cli/loaders.py                                       169     65    62%   46, 49-50, 52, 55-56, 61, 66, 68, 74-92, 97, 100-101, 106, 124-127, 130-133, 135, 139-144, 147, 163-164, 167, 169, 171, 173, 175, 180, 192-196, 208, 211, 225, 230
+src/webpent/cli/manifest.py                                      114     27    76%   35, 37, 44, 63, 69, 77-80, 82, 85, 94, 102-105, 110, 139, 144, 165, 171-177, 181-182
+src/webpent/cli/oracle.py                                        268     17    94%   170, 216-219, 226-229, 233, 255-259, 297, 451-452, 510, 658, 661, 669, 673
+src/webpent/cli/prism.py                                         158      9    94%   122-123, 150-153, 184-188, 201, 221-222
+src/webpent/config/__init__.py                                     0      0   100%
+src/webpent/config/policies.py                                    67     30    55%   142-148, 159-169, 337-363, 373-375
+src/webpent/config/settings.py                                   335     24    93%   77, 84-86, 101, 108-109, 1644, 1646, 1648, 1650, 1652, 1669, 1674, 1679, 1684, 1703, 1756, 1802, 1814, 1821, 1825, 1833-1834
+src/webpent/contracts/__init__.py                                  5      5     0%   7-25
+src/webpent/copilot/__init__.py                                    4      4     0%   3-7
+src/webpent/copilot/critic.py                                     18     18     0%   3-46
+src/webpent/copilot/explainer.py                                  10     10     0%   3-39
+src/webpent/copilot/planner.py                                    18     18     0%   3-46
+src/webpent/coverage/__init__.py                                   3      3     0%   3-6
+src/webpent/coverage/coverage_map.py                              15     15     0%   3-32
+src/webpent/coverage/gap_detector.py                              12     12     0%   3-36
+src/webpent/cqa/__init__.py                                        2      2     0%   20-28
+src/webpent/cqa/execution.py                                      72     72     0%   5-121
+src/webpent/cqa_v2/__init__.py                                     7      0   100%
+src/webpent/cqa_v2/autonomous_loop.py                            145     95    34%   86-87, 90-94, 98-104, 146, 151-180, 199-300
+src/webpent/cqa_v2/causal_guard.py                               338     85    75%   58, 69, 73, 104, 106, 112, 125, 133, 139-141, 154, 171, 186, 191, 208, 216, 219, 229, 231, 234, 243, 266, 280, 286-295, 303, 307, 312, 318, 322, 326, 333-342, 347-348, 353-354, 359-360, 364-365, 389, 394, 397-410, 440-441, 447-448, 462-467, 481, 483, 535, 564-567, 595-605
+src/webpent/cqa_v2/execution/__init__.py                           1      1     0%   2
+src/webpent/cqa_v2/execution/actor_context.py                     60     60     0%   16-178
+src/webpent/cqa_v2/pipeline.py                                    72     48    33%   59-83, 91-214
+src/webpent/cqa_v2/pipeline_integration.py                        28     23    18%   44-103
+src/webpent/cqa_v2/proof_bundle_builder.py                        73      2    97%   109, 111
+src/webpent/cqa_v2/replay_verifier.py                             44      1    98%   41
+src/webpent/dcvu/__init__.py                                       7      7     0%   3-29
+src/webpent/dcvu/campaign.py                                      35     35     0%   3-65
+src/webpent/dcvu/contracts.py                                    155    155     0%   8-202
+src/webpent/dcvu/engine.py                                        66     66     0%   3-200
+src/webpent/dcvu/fixtures.py                                      88     88     0%   8-225
+src/webpent/dcvu/ground_truth.py                                  57     57     0%   3-117
+src/webpent/dcvu/metrics.py                                       26     26     0%   3-78
+src/webpent/deep/__init__.py                                       0      0   100%
+src/webpent/deep/bridge.py                                        44      1    98%   83
+src/webpent/deep/business_logic.py                               158     32    80%   160-205, 209-211, 241-242, 247, 252, 270, 279, 288, 300, 308, 319, 324, 336
+src/webpent/deep/cache_deception.py                               46      0   100%
+src/webpent/deep/client_path_traversal.py                         53      8    85%   74-77, 90, 104, 107-108
+src/webpent/deep/deserialization.py                               88      3    97%   136, 150-151
+src/webpent/deep/dom_clobbering.py                                61      3    95%   117, 120-121
+src/webpent/deep/host_header.py                                   78      3    96%   100, 135, 137
+src/webpent/deep/jwt_advanced.py                                  84      1    99%   175
+src/webpent/deep/mass_assignment.py                               54      2    96%   157-158
+src/webpent/deep/nosql_injection.py                               46      0   100%
+src/webpent/deep/prototype_pollution.py                           47      0   100%
+src/webpent/deep/race_condition.py                                97      8    92%   148-149, 237, 240-241, 250-251, 265
+src/webpent/deep/rate_limit_bypass.py                            114     13    89%   120, 123-124, 128-131, 227, 237, 241, 264, 266, 270
+src/webpent/deep/saml.py                                          69      2    97%   52, 161
+src/webpent/deep/smuggling.py                                     66      0   100%
+src/webpent/dojo/__init__.py                                       3      0   100%
+src/webpent/dojo/case_study.py                                    22      0   100%
+src/webpent/dojo/counter_adapter.py                               80      3    96%   37, 57, 78
+src/webpent/dojo/defender.py                                      62      1    98%   26
+src/webpent/dojo/engine.py                                       105      0   100%
+src/webpent/dojo/lab_generator.py                                 96      0   100%
+src/webpent/dojo/practice_generator.py                            65      5    92%   75, 78, 113, 153, 155
+src/webpent/dojo/practice_runner.py                               80      0   100%
+src/webpent/dojo/progress.py                                      64      0   100%
+src/webpent/dojo/scenario_library.py                              90      0   100%
+src/webpent/dojo/skill_assessor.py                                48      0   100%
+src/webpent/dojo/sparring.py                                      50      0   100%
+src/webpent/dojo/tournament.py                                   115      5    96%   45, 52, 57, 94, 146
+src/webpent/dojo/trainer.py                                       96      0   100%
+src/webpent/dojo/weakness_identifier.py                          113      2    98%   77, 100
+src/webpent/econ/__init__.py                                       3      0   100%
+src/webpent/econ/blind_spots.py                                  103      9    91%   82-86, 88, 92, 105, 152
+src/webpent/econ/budget_mapper.py                                 94     19    80%   66-83, 141, 183
+src/webpent/econ/competitive.py                                  178     37    79%   97-101, 103, 127, 135, 146, 169, 182, 186, 190, 192, 195-196, 233-236, 238, 280-282, 289, 291, 301-303, 323-325, 337-339, 344, 360
+src/webpent/econ/dashboard.py                                    124      6    95%   64, 122, 167, 275, 279-280
+src/webpent/econ/learning_loop.py                                219     15    93%   71, 123, 126, 132-134, 167, 174-178, 249, 375-376
+src/webpent/econ/market_kb.py                                    253     52    79%   56, 134, 151-152, 160, 170-171, 174-175, 180-181, 187-188, 233-237, 240, 253-257, 260, 301-302, 319-322, 324, 350, 360-361, 374, 384, 389-426
+src/webpent/econ/portfolio.py                                    175     13    93%   148, 156, 168, 171, 178, 181, 229-232, 245, 266-267
+src/webpent/econ/roi_optimizer.py                                119      1    99%   68
+src/webpent/econ/saturation.py                                    94     10    89%   74, 85, 90-94, 96, 100, 161
+src/webpent/econ/scope_negotiator.py                             128     11    91%   58, 79, 93, 116, 123-124, 140, 142, 146, 210, 244
+src/webpent/econ/target_scorer.py                                 73      3    96%   173-175
+src/webpent/econ/timing_advisor.py                               104      7    93%   63-67, 69, 73
+src/webpent/egaie/__init__.py                                      0      0   100%
+src/webpent/egaie/benchmark/__init__.py                            0      0   100%
+src/webpent/egaie/benchmark/baseline.py                           12      0   100%
+src/webpent/egaie/benchmark/fixture.py                            64      0   100%
+src/webpent/egaie/benchmark/ground_truth.py                        3      0   100%
+src/webpent/egaie/benchmark/http_ground_truth.py                  21      0   100%
+src/webpent/egaie/benchmark/http_runner.py                       209     11    95%   75-76, 101, 119-129, 277, 380, 453, 456
+src/webpent/egaie/benchmark/instrumentation.py                    38      2    95%   114-115
+src/webpent/egaie/benchmark/provenance.py                         40      0   100%
+src/webpent/egaie/benchmark/runner.py                             97      4    96%   187, 216, 218-219
+src/webpent/egaie/benchmark/strategies.py                        472     67    86%   179, 187, 218, 224-225, 231, 291, 297, 301, 379, 428, 431, 439, 508, 511, 520, 527, 531, 538, 541, 621, 626, 628, 631, 638, 711, 715, 797, 800, 803, 807, 872, 876, 957, 991, 994, 1039, 1048, 1052, 1094, 1114, 1152, 1155, 1163, 1223, 1239, 1243, 1250, 1253, 1303, 1316, 1320, 1324, 1333-1336, 1377, 1392, 1395, 1438, 1455, 1460, 1462, 1465, 1472, 1573
+src/webpent/egaie/causal_adapter.py                               28      2    93%   68-69
+src/webpent/egaie/differential.py                               1220    144    88%   196-197, 212, 383, 467, 474, 488, 590, 598, 611, 617-618, 691, 833, 915, 994, 1027, 1031, 1037, 1041, 1147, 1151, 1224, 1227, 1315, 1397, 1400, 1428, 1514, 1516, 1522, 1533, 1606, 1609, 1623, 1626, 1765, 1795, 1888-1890, 1906-1908, 1929, 1932, 1935, 1942, 1945, 1987, 1993, 2066, 2077, 2085, 2127, 2144, 2151, 2168, 2171, 2175, 2203-2207, 2212, 2217, 2222, 2226, 2231, 2235, 2244, 2247, 2252, 2277-2281, 2285, 2293, 2297, 2301, 2305, 2311, 2315, 2321, 2367, 2372, 2393-2397, 2403, 2427, 2432, 2438, 2443, 2453, 2458, 2463, 2467, 2471, 2476, 2482, 2485, 2508-2512, 2516, 2522, 2526, 2533, 2542, 2547, 2550, 2572, 2583-2587, 2591, 2604, 2609, 2615, 2620, 2635, 2646, 2665-2668, 2672, 2677, 2681-2685, 2688, 2692, 2695, 2704, 2717, 2740-2744, 2749, 2759, 2762, 2778, 2783-2785, 2794, 2986
+src/webpent/egaie/discovery_ground_truth.py                       60      8    87%   62, 88, 242, 246, 252-255
+src/webpent/egaie/discovery_runner.py                            287     34    88%   87, 146, 158, 238, 251, 259, 262-263, 265, 269, 313, 386-388, 395-400, 490, 537, 545, 554, 580, 583-584, 586, 618, 636, 643, 651, 657, 665, 743
+src/webpent/egaie/discovery_target.py                            181     11    94%   200, 210, 322, 325-326, 342, 355-364, 367-368, 391
+src/webpent/egaie/eval_instances.py                              305     23    92%   261, 445, 448, 456, 458, 467-473, 492, 496, 512, 530, 541, 571, 590, 621, 625, 628, 648
+src/webpent/egaie/finding_bridge.py                               41      5    88%   58, 60, 62, 92, 94
+src/webpent/egaie/http_port.py                                   181      9    95%   282-284, 335-337, 364, 386-387
+src/webpent/egaie/http_target.py                                 437     52    88%   149-150, 168, 174-175, 244-245, 282-283, 308-309, 320, 325, 330, 335, 340, 345, 350, 355, 360, 365, 370, 375-376, 414-415, 444-445, 458, 475-476, 489-490, 496-498, 530-531, 541-543, 579-580, 661, 666, 675, 680, 689, 724-725, 760-761
+src/webpent/egaie/logic_port.py                                  161      2    99%   249, 258
+src/webpent/egaie/orchestrator.py                                 94      0   100%
+src/webpent/egaie/persistence.py                                   9      0   100%
+src/webpent/egaie/repetition.py                                   13      0   100%
+src/webpent/egaie/schemas.py                                     120      0   100%
+src/webpent/egaie/seeds.py                                         8      0   100%
+src/webpent/egaie/selection.py                                    27      0   100%
+src/webpent/evalsuite/__init__.py                                  0      0   100%
+src/webpent/evalsuite/evaluator.py                               131     20    85%   70, 104-112, 134, 141, 166, 175, 200-201, 210, 223, 265-266
+src/webpent/experience/__init__.py                                 2      2     0%   3-5
+src/webpent/experience/store.py                                   45     45     0%   8-125
+src/webpent/forge/__init__.py                                      0      0   100%
+src/webpent/forge/adversarial.py                                  17      0   100%
+src/webpent/forge/bridge.py                                       17      1    94%   25
+src/webpent/forge/chaining.py                                     33      2    94%   91, 107
+src/webpent/forge/contextualizer.py                               55      0   100%
+src/webpent/forge/cross_target.py                                 64      5    92%   54, 94, 121-123
+src/webpent/forge/encoding_engine.py                              30      0   100%
+src/webpent/forge/evolution.py                                    89      9    90%   93-99, 144-145, 159, 178, 181
+src/webpent/forge/indexer.py                                      92      2    98%   225, 234
+src/webpent/forge/ingester.py                                    101      8    92%   64, 152, 162-167
+src/webpent/forge/integration.py                                  91     11    88%   65, 71-72, 118-119, 126, 171-172, 198-199, 213
+src/webpent/forge/mutation.py                                     39      0   100%
+src/webpent/forge/normalizer.py                                   63      1    98%   153
+src/webpent/forge/outcome_tracker.py                              47      0   100%
+src/webpent/forge/payload_cli.py                                 158     20    87%   34, 61, 118-129, 155, 168, 175, 193, 206, 232, 242, 278, 286
+src/webpent/forge/payload_dashboard.py                            71      2    97%   73, 77
+src/webpent/forge/quality_gate.py                                 24      0   100%
+src/webpent/forge/query_engine.py                                 49      0   100%
+src/webpent/forge/schemas.py                                     101      0   100%
+src/webpent/forge/sources.py                                       8      2    75%   70-71
+src/webpent/forge/synthesizer.py                                  37      1    97%   94
+src/webpent/goed_v1/__init__.py                                   11     11     0%   21-122
+src/webpent/goed_v1/business_logic_evaluator.py                  243    243     0%   30-592
+src/webpent/goed_v1/business_logic_strategies.py                 206    206     0%   21-418
+src/webpent/goed_v1/contracts.py                                  64     64     0%   11-171
+src/webpent/goed_v1/exploration_loop.py                          130    130     0%   9-306
+src/webpent/goed_v1/hypothesis_engine.py                          90     90     0%   8-242
+src/webpent/goed_v1/integrated_evaluator.py                      232    232     0%   17-510
+src/webpent/goed_v1/open_world_mode.py                           152    152     0%   19-273
+src/webpent/goed_v1/real_stateful_executor.py                    322    322     0%   25-780
+src/webpent/goed_v1/stateful_executor.py                         163    163     0%   22-345
+src/webpent/graph/__init__.py                                      9      3    67%   11-13
+src/webpent/graph/budget_governor.py                              38      0   100%
+src/webpent/graph/builder.py                                     721    237    67%   114-116, 122-123, 254-255, 261, 264, 304-305, 338, 344-346, 353, 356-357, 377, 383-384, 398-399, 416-425, 433, 437-438, 444-445, 460-472, 477-499, 533-665, 670-674, 688-695, 704-706, 717, 728, 737-740, 748-749, 757-758, 763-766, 771-772, 777-778, 789-791, 816, 821, 826, 834, 841, 899-900, 931, 1015-1017, 1022-1023, 1027, 1051, 1081-1082, 1090-1091, 1116-1117, 1120-1121, 1184, 1186, 1210, 1224, 1229-1234, 1261-1266, 1279-1312, 1340, 1363-1364, 1376-1480, 1525
+src/webpent/graph/checkpoints.py                                 198     52    74%   70-71, 73, 81, 85, 87, 89, 97, 99, 107-108, 135, 142-149, 160-172, 201, 214, 219, 237, 252-254, 266, 269-275, 279, 320-321, 339, 353-362, 364, 371-374
+src/webpent/integration/__init__.py                                8      0   100%
+src/webpent/integration/auth_session_contract.py                  54      0   100%
+src/webpent/integration/exploitation_queue.py                    111      6    95%   78, 80, 83, 123, 131, 203
+src/webpent/integration/hypothesis_portfolio.py                   63      2    97%   100, 104
+src/webpent/integration/llm_research_adapter.py                  206     22    89%   115, 118-119, 122-125, 171-172, 178-179, 290, 292, 297, 327, 349, 386-391
+src/webpent/integration/priority_policy.py                        88      1    99%   90
+src/webpent/integration/reconciliation.py                        112      1    99%   88
+src/webpent/integration/research_agenda.py                       246     22    91%   93, 95, 127, 157, 187, 269, 356, 364, 420-435, 459, 492, 506-511, 542, 544, 573, 608
+src/webpent/integration/source_mapping.py                         70      0   100%
+src/webpent/integration/surface_dossier.py                       134     15    89%   56, 183-184, 193-194, 210-211, 220-221, 230-231, 241-242, 253-254
+src/webpent/integration/target_adapter.py                         30      5    83%   69-76
+src/webpent/integrations/__init__.py                               0      0   100%
+src/webpent/integrations/webhook.py                              114     48    58%   77-105, 114-135, 149-156, 167-168, 170, 172, 174, 189, 191, 237-238, 271-280, 298-303, 324
+src/webpent/intelligence/__init__.py                               7      0   100%
+src/webpent/intelligence/application_model.py                     32      9    72%   41, 56-62, 72
+src/webpent/intelligence/contracts.py                             86      9    90%   79-91, 95, 99-102, 184-185
+src/webpent/intelligence/entity_graph.py                          40      8    80%   23, 39, 54, 57-60, 63
+src/webpent/intelligence/hypothesis_bridge.py                     45      7    84%   26, 60, 63-64, 74, 84, 96
+src/webpent/intelligence/permission_graph.py                      33      9    73%   25, 39-40, 44-48, 51
+src/webpent/intelligence/state_model.py                           42      9    79%   20, 38, 53, 56-62, 66, 69
+src/webpent/intelligence/target_brain.py                          51      2    96%   57, 76
+src/webpent/intelligence/workflow_graph.py                        42     10    76%   21, 37, 52, 55-61, 65-66, 69
+src/webpent/irta/__init__.py                                       0      0   100%
+src/webpent/irta/business/__init__.py                              2      2     0%   1-3
+src/webpent/irta/business/workflows.py                            49     49     0%   3-73
+src/webpent/irta/generator/__init__.py                             4      4     0%   3-14
+src/webpent/irta/generator/generator.py                           29     29     0%   3-122
+src/webpent/irta/generator/models.py                              98     98     0%   7-148
+src/webpent/irta/generator/mutations.py                           31     31     0%   7-58
+src/webpent/irta/metrics/__init__.py                               3      3     0%   1-11
+src/webpent/irta/metrics/benchmark.py                             43     43     0%   3-72
+src/webpent/irta/metrics/scoring.py                               45     45     0%   3-62
+src/webpent/irta/negative/__init__.py                              2      2     0%   1-3
+src/webpent/irta/negative/intelligence.py                         32     32     0%   3-68
+src/webpent/irta/research/__init__.py                              2      2     0%   1-3
+src/webpent/irta/research/loop.py                                 47     47     0%   7-86
+src/webpent/irta/v3/__init__.py                                    7      0   100%
+src/webpent/irta/v3/blind.py                                      63     26    59%   59-63, 66-70, 73, 86-98, 104-113
+src/webpent/irta/v3/campaign.py                                   53     25    53%   41, 44-57, 60-84
+src/webpent/irta/v3/proof.py                                      27      8    70%   21-23, 26, 38, 43, 46-53
+src/webpent/irta/v3/scoring.py                                    52     23    56%   40-60, 64-79
+src/webpent/irta/v3/stress.py                                     30      6    80%   34, 72-78
+src/webpent/irta/v3/targets.py                                    67     45    33%   80-153, 158-170
+src/webpent/jc/__init__.py                                        10      0   100%
+src/webpent/jc/advocates.py                                      125      7    94%   39, 95-96, 180-181, 350-351
+src/webpent/jc/bias_detector.py                                  138      6    96%   229, 254-255, 260, 263-264
+src/webpent/jc/calibration.py                                     94      3    97%   78-79, 134
+src/webpent/jc/chamber.py                                        116     15    87%   65, 71, 79-83, 88-89, 159, 161, 172-174, 180, 198-199
+src/webpent/jc/contracts.py                                      163      6    96%   48-49, 51, 60, 193, 255
+src/webpent/jc/dashboard.py                                      112      7    94%   110, 188-189, 205-208
+src/webpent/jc/dissent.py                                         78      3    96%   86, 148-149
+src/webpent/jc/explainer.py                                       89      1    99%   127
+src/webpent/jc/judge.py                                           72      0   100%
+src/webpent/jc/memory.py                                         133      4    97%   141-142, 187-188
+src/webpent/jc/override.py                                        80      3    96%   142, 170-171
+src/webpent/jc/skeptic.py                                         60      0   100%
+src/webpent/jc/verdict.py                                         70      6    91%   69, 75, 82-83, 90-91
+src/webpent/jc/weigher.py                                         41      0   100%
+src/webpent/knowledge/__init__.py                                  9      0   100%
+src/webpent/knowledge/auth_model.py                               19      8    58%   12, 16, 19, 22-23, 26-27, 30
+src/webpent/knowledge/builder.py                                 177     34    81%   35, 59, 72, 84-86, 97, 108, 124-125, 148, 152-153, 168, 183, 221, 224, 271, 283-298, 310-317
+src/webpent/knowledge/data_flow_model.py                          15      5    67%   12, 16, 19, 22, 29
+src/webpent/knowledge/entity_graph.py                             36     21    42%   14, 18, 22, 26, 29, 32-38, 41-49
+src/webpent/knowledge/model_v2.py                                217     56    74%   82, 115, 149, 179, 188, 199, 214, 219-227, 240, 249, 251, 253, 260-261, 273-311, 322-347
+src/webpent/knowledge/target_knowledge.py                         91      1    99%   128
+src/webpent/knowledge/target_model.py                              8      1    88%   28
+src/webpent/knowledge/workflow_model.py                           16      6    62%   12, 16, 19, 22-23, 26
+src/webpent/labsuite/__init__.py                                   0      0   100%
+src/webpent/labsuite/corpus.py                                    17      0   100%
+src/webpent/labsuite/evaluator.py                                 71      6    92%   70, 119, 153-158, 163
+src/webpent/labsuite/lab_target.py                               422     27    94%   293, 412, 418-419, 429, 436, 448, 457-458, 516, 526, 550, 568, 582, 597, 602, 620, 643, 645, 667, 680, 699, 703, 706, 713, 735, 780
+src/webpent/live_hunter/__init__.py                                7      0   100%
+src/webpent/live_hunter/deep_recon.py                            279     11    96%   85, 219, 254-256, 373-383, 399, 403
+src/webpent/live_hunter/profile.py                                45      2    96%   42, 49
+src/webpent/live_hunter/research_loop.py                         123     33    73%   32-37, 52-57, 71, 86-91, 130-139, 152-155
+src/webpent/live_hunter/tool_scope.py                             29      0   100%
+src/webpent/live_hunter/world_model.py                           127      2    98%   107, 130
+src/webpent/llm_researcher/__init__.py                             8      0   100%
+src/webpent/llm_researcher/causal_feedback_bridge.py             179    165     8%   26, 34-38, 41-44, 50-59, 62-68, 72-89, 95-102, 132-344
+src/webpent/llm_researcher/experiment_outcome_tracker.py          91     13    86%   45, 47, 50, 134, 166, 172-180, 184
+src/webpent/llm_researcher/interface.py                          215     91    58%   96-97, 190-194, 227-229, 240-293, 303-316, 331, 363-402, 420, 433-468, 547, 549, 554, 561
+src/webpent/llm_researcher/key_pool.py                           206     41    80%   87, 125, 135, 139, 142, 145, 162-165, 169, 172-176, 208-210, 236-240, 243-250, 268, 280-283, 288-289, 300-301
+src/webpent/llm_researcher/mock_llm.py                            29     22    24%   28-32, 36-91, 95
+src/webpent/llm_researcher/providers/__init__.py                   7      0   100%
+src/webpent/llm_researcher/providers/base.py                      60     16    73%   61-83, 87, 99, 116, 121, 126, 130
+src/webpent/llm_researcher/providers/factory.py                   55     27    51%   36-47, 58-63, 72, 79-93, 105
+src/webpent/llm_researcher/providers/mock_provider.py             47     31    34%   20-73, 80, 84, 87
+src/webpent/llm_researcher/providers/openai_compatible.py         55     41    25%   18-25, 28-46, 49-81, 86, 90, 94-95
+src/webpent/llm_researcher/providers/pool.py                     215    155    28%   62-73, 76-82, 85-100, 103, 106-108, 128-132, 136-156, 159, 162, 165-174, 177-188, 192-243, 249, 258-259, 275-279, 282-310, 313-318, 321-326
+src/webpent/llm_researcher/research_loop.py                       87     66    24%   60-63, 67-172, 176-182, 187-192, 204-207
+src/webpent/llm_researcher/semantic_fingerprint.py                55      9    84%   33, 38-41, 48-50, 65
+src/webpent/llm_researcher/task_router.py                         49      4    92%   32, 76, 85, 92
+src/webpent/llm_researcher/tool_boundary.py                      104     22    79%   88-89, 102-123, 136, 139, 179-184, 194-195, 199
+src/webpent/llm_researcher/world_model.py                         59     28    53%   22-23, 28-29, 48-49, 54-70, 75, 79, 83, 86, 89, 103, 109, 114, 118, 122, 125, 129
+src/webpent/memory/__init__.py                                     0      0   100%
+src/webpent/memory/advisory_memory.py                             97     17    82%   130, 137-138, 158-160, 165, 197, 221, 231-233, 239, 252, 259, 264-265
+src/webpent/memory/db.py                                         529    159    70%   48-49, 61, 63, 304-316, 333-334, 358, 370-371, 440, 468, 515-518, 568, 572, 575, 627-628, 664-673, 700-702, 719-720, 730-731, 733-734, 736-737, 739-740, 742-743, 745-746, 748-749, 751-754, 756-757, 759-760, 762-763, 770-771, 773-774, 777-778, 780-783, 785-786, 788-789, 909-930, 1030-1034, 1048-1066, 1083-1087, 1096-1130, 1142-1143, 1250-1255, 1264-1273, 1282-1283, 1348-1349, 1361-1366, 1433-1439, 1445-1446, 1451-1452, 1467-1469, 1510-1511, 1522-1525, 1551-1556, 1608-1609
+src/webpent/memory/decision_log.py                               148     59    60%   104-110, 113, 117, 159-172, 186-187, 205, 264-268, 272-276, 280-284, 289-302, 319-320, 324, 343-349, 419-423
+src/webpent/memory/embeddings.py                                  56     17    70%   51-55, 62, 122-126, 130-135, 139-140, 158, 160-161, 164
+src/webpent/memory/improvement_tracker.py                         88      1    99%   25
+src/webpent/memory/knowledge_ingest.py                            61     23    62%   81-101, 105-114
+src/webpent/memory/learning_lifecycle.py                          30     22    27%   19-57, 64-74
+src/webpent/memory/lesson_consultant.py                           92     20    78%   24-28, 35, 38, 54-55, 70-71, 84, 86, 96-99, 108-111, 137
+src/webpent/memory/lesson_extractor.py                            84      9    89%   33, 79, 88, 109, 114-116, 137-138
+src/webpent/memory/lesson_models.py                              108     16    85%   37, 39, 135, 149-176
+src/webpent/memory/lessons.py                                    332     74    78%   238, 245, 301, 331, 335, 388-396, 399, 608-609, 636, 648, 737, 749, 768, 848, 850, 900-901, 913-914, 924-928, 937-945, 965-990, 999-1003, 1043-1051, 1148-1149, 1163, 1175-1176, 1217-1218, 1220, 1229-1235
+src/webpent/memory/vectorstore.py                                265    106    60%   83-87, 138, 144-154, 158, 185, 188-193, 198, 203-207, 216-228, 236-238, 242-245, 250, 287, 298, 307-308, 327, 346-348, 352-363, 387, 390, 397, 412-415, 424-437, 477, 481-510, 555-556, 558, 570-581, 593-595
+src/webpent/memory/writeup_parser.py                              69     12    83%   58, 102-106, 116-121
+src/webpent/models/__init__.py                                     0      0   100%
+src/webpent/models/adaptive_hunt.py                              100      1    99%   132
+src/webpent/models/application_intent.py                          69      0   100%
+src/webpent/models/attack_graph.py                                48      0   100%
+src/webpent/models/authorization_matrix.py                        56      1    98%   77
+src/webpent/models/campaigns.py                                   71      0   100%
+src/webpent/models/decision_log.py                                37      3    92%   165, 167, 176
+src/webpent/models/evidence.py                                   207     10    95%   97, 104, 125-130, 304-305
+src/webpent/models/evidence_ledger.py                             37      0   100%
+src/webpent/models/findings.py                                   132      6    95%   431, 447, 458, 516, 527, 540
+src/webpent/models/goal_tree.py                                  149     94    37%   187, 189, 195-199, 208, 212, 248, 286, 313, 329-336, 341-345, 350-354, 359-368, 379-415, 437-464, 481-510
+src/webpent/models/hypothesis.py                                  85      6    93%   325, 334, 343, 364, 378, 403
+src/webpent/models/javascript_intelligence.py                     70      0   100%
+src/webpent/models/memory.py                                      83      1    99%   74
+src/webpent/models/mental_model.py                               417    119    71%   250, 259, 261, 316, 370, 490, 497, 499, 506-507, 513, 517, 531, 538, 556, 637-638, 645, 648, 671, 674, 681, 684, 736-737, 742-768, 777-803, 812-819, 831-841, 855, 862, 893, 905, 946, 953, 958, 1025, 1028, 1030, 1032, 1042, 1079, 1081, 1083, 1092, 1095-1096, 1100-1106, 1135-1164, 1193-1196, 1226, 1229, 1241-1246
+src/webpent/models/planner.py                                     72      3    96%   64, 76, 78
+src/webpent/models/proof_bundle.py                               266     42    84%   60-67, 69, 74-75, 187-191, 275, 304, 312, 319, 350, 358, 375, 378, 382, 384, 390, 394, 396-397, 399-400, 404, 416, 418, 429, 433, 435, 563, 565, 611, 613
+src/webpent/models/proof_engine.py                               125      2    98%   152-153
+src/webpent/models/proof_semantics.py                            152      9    94%   128, 165, 170, 172, 204-205, 265-266, 277
+src/webpent/models/research.py                                   160      2    99%   176-177
+src/webpent/models/surface_graph.py                               61      1    98%   99
+src/webpent/models/surface_security.py                            71      0   100%
+src/webpent/models/targets.py                                     60      9    85%   78, 82, 91-92, 124, 138-139, 142, 162
+src/webpent/models/workflow_replay.py                             83      0   100%
+src/webpent/models/workflows.py                                   58      0   100%
+src/webpent/oracle/__init__.py                                     3      0   100%
+src/webpent/oracle/chain_composer.py                             115      7    94%   60, 65, 71, 84, 88, 125, 175
+src/webpent/oracle/dashboard.py                                   52      4    92%   78, 100-101, 112
+src/webpent/oracle/graph_builder.py                              116      2    98%   101-104
+src/webpent/oracle/impact_maximizer.py                            77      6    92%   47, 51, 64, 68, 74, 119
+src/webpent/oracle/kill_chain.py                                  69      2    97%   78, 101
+src/webpent/oracle/models.py                                      73      4    95%   90, 129-131
+src/webpent/oracle/osint.py                                      160      7    96%   59, 166, 172, 187, 211, 214, 251
+src/webpent/oracle/path_predictor.py                              93      3    97%   84, 138, 141
+src/webpent/oracle/perspectives.py                                63      4    94%   47, 51, 57, 72
+src/webpent/oracle/reporter.py                                   106      3    97%   75, 78, 276
+src/webpent/oracle/signal_aggregator.py                           80      4    95%   67, 94, 139, 158
+src/webpent/oracle/stack_inferrer.py                              96      3    97%   60, 126-127
+src/webpent/oracle/validator.py                                   77      3    96%   50, 65, 77
+src/webpent/persistence/__init__.py                                3      3     0%   3-11
+src/webpent/persistence/backend_capability.py                     19     19     0%   3-48
+src/webpent/persistence/distributed_contracts.py                  52     52     0%   8-134
+src/webpent/prism/__init__.py                                      4      0   100%
+src/webpent/prism/anomaly_filter.py                               85      3    96%   80, 87, 92
+src/webpent/prism/classifier.py                                   94     12    87%   43, 60, 63, 65-67, 69-70, 112, 128, 133, 143
+src/webpent/prism/cold_start.py                                   80      3    96%   68, 74, 83
+src/webpent/prism/compliance.py                                  113      2    98%   188, 196
+src/webpent/prism/dashboard.py                                    54      2    96%   56-57
+src/webpent/prism/errors.py                                        7      0   100%
+src/webpent/prism/integration.py                                  90      0   100%
+src/webpent/prism/ledger.py                                       90      1    99%   118
+src/webpent/prism/metrics.py                                     120      2    98%   89, 232
+src/webpent/prism/patterns.py                                     97      4    96%   90, 96, 123, 193
+src/webpent/prism/priors.py                                       48      1    98%   64
+src/webpent/prism/rabbit_hole.py                                  84      4    95%   85, 92, 98, 117
+src/webpent/prism/scorer.py                                       83      6    93%   88, 102, 110, 118, 124, 135
+src/webpent/prism/taxonomy.py                                    120      8    93%   149, 156, 162, 169, 176, 183, 193, 201
+src/webpent/prism/tiering.py                                     110      5    95%   77, 91, 100, 117, 199
+src/webpent/prism/value_weighter.py                               88      5    94%   93, 101, 108, 117, 163
+src/webpent/production/__init__.py                                 2      0   100%
+src/webpent/production/advisory_registration.py                  114     23    80%   49-53, 77-78, 99-101, 104-106, 183-188, 201-206
+src/webpent/production/autonomous_recon.py                        89     27    70%   61, 63, 65, 67, 76-79, 90, 117, 130-137, 166-169, 172, 187, 223-233
+src/webpent/production/autonomous_validation_v1.py               651     70    89%   173, 180, 320-322, 328-329, 448, 478, 485-486, 488, 572, 576, 607-608, 706, 709, 711, 714, 716, 718, 720, 722, 725, 727, 760-767, 827, 928-929, 966, 968, 970, 994, 1057, 1140-1143, 1202-1204, 1213-1215, 1240, 1379-1392, 1442, 1444, 1460-1463, 1608-1609, 1660-1661, 1746, 1748, 1758-1759
+src/webpent/production/campaign_bridge.py                         66      0   100%
+src/webpent/production/campaign_state.py                          99     15    85%   59-60, 71, 75, 99-104, 108-113, 116-122, 151
+src/webpent/production/campaign_worker.py                         57     57     0%   10-133
+src/webpent/production/context_authority.py                      248     30    88%   77, 122, 179-180, 217, 244, 253, 306, 312, 346, 355-358, 438, 473-479, 483-488, 535-536, 540-544, 547, 570-574, 597-600, 616
+src/webpent/production/experiment_fabric.py                       86      4    95%   264, 267, 297-298
+src/webpent/production/external_observation_adapter.py            39      0   100%
+src/webpent/production/fixture_intake.py                          95     15    84%   40, 85, 94-97, 128, 131, 135, 139, 143, 149, 197, 199, 201
+src/webpent/production/modern_spine.py                           406     47    88%   63, 98, 185, 235, 242-243, 247-263, 334, 348-357, 414, 499-500, 623, 634, 677-678, 784-785, 856-857, 874-875, 935, 937, 969-976, 991-992, 1051, 1058, 1099
+src/webpent/production/modern_spine_integration.py                98     16    84%   110, 112, 136, 143-144, 182-183, 203-205, 235, 246-256
+src/webpent/production/product_layer.py                           78      7    91%   46, 48, 70-72, 87, 91
+src/webpent/production/production_spine.py                       134      5    96%   85, 143, 145, 249, 322
+src/webpent/production/qualification.py                           35      7    80%   59, 69-74
+src/webpent/production/real_target_qualification_v1_1.py         278     52    81%   79, 84, 102, 105-106, 108, 115, 125, 128, 149, 152-195, 310, 340, 369, 391
+src/webpent/production/validators.py                             319     26    92%   78-79, 100-101, 147, 168, 220, 226, 333, 358-361, 374, 382, 450-453, 461-462, 489-492, 561
+src/webpent/production/verdict_bridge.py                         190     12    94%   64, 98-99, 186, 190, 195, 284-286, 296-297, 416, 419
+src/webpent/production/vulnerability_family_contracts.py          42      6    86%   85-86, 124-131, 149
+src/webpent/profiles/__init__.py                                   0      0   100%
+src/webpent/profiles/juice_shop/__init__.py                        0      0   100%
+src/webpent/profiles/juice_shop/cases.py                          59     59     0%   7-234
+src/webpent/recon/__init__.py                                      8      0   100%
+src/webpent/recon/auth_detector.py                               183     49    73%   50, 80, 83-84, 102, 107-110, 136, 140, 142, 147-153, 192, 235-239, 241-262, 270-271
+src/webpent/recon/auth_handler.py                                 25     25     0%   1-25
+src/webpent/recon/autonomous_crawler.py                          458     70    85%   70, 72, 75, 77, 226, 236, 310-311, 313, 325-326, 338-361, 380, 385, 400, 402-404, 409, 411-412, 423-424, 439-441, 475-478, 504-506, 510-511, 544, 551, 553, 557-558, 564, 636, 638, 655-656, 663-664
+src/webpent/recon/browser_crawler.py                              38     10    74%   29-39
+src/webpent/recon/browser_farm.py                                 55      4    93%   19, 40, 47, 52
+src/webpent/recon/hypothesis_generator.py                        295     25    92%   88, 90, 142-144, 168, 174-175, 189, 197, 229, 263, 392, 408-410, 444, 456-460, 477, 481, 485
+src/webpent/recon/js_analyzer.py                                  25      0   100%
+src/webpent/recon/login_executor.py                              287     84    71%   44-52, 118, 123, 125, 143, 151-152, 164-169, 178, 185, 190-192, 195-197, 202, 204-206, 225, 227, 248-252, 265, 268, 284, 286-287, 293, 296, 305-306, 312, 315-317, 322-336, 351-355, 360-365, 368, 370-371, 374-377
+src/webpent/recon/payload_advisor.py                             147     28    81%   76, 89-90, 104, 116, 144, 146, 185-187, 191-212
+src/webpent/recon/payload_library.py                             200     28    86%   40, 69, 83, 85, 88, 90, 101-102, 165, 168, 183, 202, 212, 231, 237, 239, 272-281, 293, 297, 301
+src/webpent/recon/payloads.py                                     23      3    87%   22, 59-60
+src/webpent/recon/principal_provisioning.py                      140    100    29%   28-39, 51, 55, 58, 76-79, 85-89, 96-99, 107-242
+src/webpent/recon/state_graph.py                                  32      0   100%
+src/webpent/recon/traffic_interceptor.py                          31      4    87%   13, 27-29
+src/webpent/recon/wstg_catalog.py                                155     37    76%   51, 70-83, 139, 177-185, 210, 218-224, 236, 240, 244, 248
+src/webpent/remediation/__init__.py                               14      0   100%
+src/webpent/remediation/_fields.py                                26      2    92%   86-87
+src/webpent/remediation/action_plan.py                            39      0   100%
+src/webpent/remediation/context_guide.py                          23      0   100%
+src/webpent/remediation/developer_report.py                       34      0   100%
+src/webpent/remediation/executive_summary.py                      34      1    97%   47
+src/webpent/remediation/exploit_scenario.py                       13      0   100%
+src/webpent/remediation/fix_templates.py                          23      2    91%   330-331
+src/webpent/remediation/impact_explainer.py                       15      0   100%
+src/webpent/remediation/locator.py                                31      1    97%   55
+src/webpent/remediation/patterns_db.py                            41      0   100%
+src/webpent/remediation/priority_dashboard.py                     40      1    98%   50
+src/webpent/remediation/root_cause_mapper.py                      24      0   100%
+src/webpent/remediation/verification_steps.py                     13      0   100%
+src/webpent/reporter/__init__.py                                   2      0   100%
+src/webpent/reporter/bounty_report.py                            307     57    81%   82, 159-163, 176, 192-193, 196, 208-210, 217, 229-230, 240, 245, 248, 254, 257-261, 273, 294-302, 317, 319, 323, 325, 327, 329, 333, 341, 344, 348-349, 365, 379, 397, 399, 429, 445, 458-461, 498
+src/webpent/reporter/export.py                                   208     56    73%   74-75, 91, 139, 228-230, 257, 446-479, 528, 550-575, 578-582, 630-632, 726-794, 940, 966, 971, 976
+src/webpent/reporting/__init__.py                                  3      0   100%
+src/webpent/reporting/engagement_report.py                       132      5    96%   63, 72, 101, 222, 247
+src/webpent/research/__init__.py                                   7      0   100%
+src/webpent/research/decision_loop.py                             60     22    63%   71-141, 160, 173
+src/webpent/research/experiment_manager.py                        60     42    30%   44-45, 49-58, 63-73, 82, 93-120, 139-174, 178
+src/webpent/research/hypothesis_engine.py                         63     40    37%   60-64, 68, 80-119, 133-200
+src/webpent/research/hypothesis_generator.py                      91      4    96%   265, 279, 289, 389
+src/webpent/research/hypothesis_ranker.py                         15      6    60%   16-18, 28-30
+src/webpent/research/planner.py                                   61     34    44%   20, 33, 50, 62-130, 133-141, 153-154
+src/webpent/research_engine/__init__.py                           66     39    41%   38-40, 42-44, 46-50, 52-54, 56-60, 62-64, 66-68, 70-72, 74-76, 78-80, 82-84, 86-88, 90-92, 97-113
+src/webpent/research_engine/agenda_bridge.py                      92      5    95%   91, 188, 217-219
+src/webpent/research_engine/autonomous_scheduler.py               69     69     0%   3-160
+src/webpent/research_engine/campaign_hypothesis_lifecycle.py      76     76     0%   8-213
+src/webpent/research_engine/campaign_state.py                     93     93     0%   3-156
+src/webpent/research_engine/confidence_engine.py                  25      8    68%   29-54
+src/webpent/research_engine/evidence_aware_loop.py                61      5    92%   88, 103, 109, 116, 131
+src/webpent/research_engine/execution_router.py                   44     44     0%   8-92
+src/webpent/research_engine/feedback_loop.py                      95     95     0%   7-208
+src/webpent/research_engine/hypothesis_manager.py                 30     30     0%   3-71
+src/webpent/research_engine/knowledge_gap.py                      17      2    88%   33-63
+src/webpent/research_engine/orchestrator.py                       41     20    51%   40, 54-130, 142-144
+src/webpent/research_engine/priority_engine.py                    13      2    85%   20-26
+src/webpent/research_engine/projection_adapter.py                 63     39    38%   23-26, 30-35, 39-47, 66, 69, 88-111
+src/webpent/research_engine/research_budget.py                    41      4    90%   39, 61, 69, 77
+src/webpent/research_engine/research_state.py                     61     13    79%   61, 73-80, 86-88, 91
+src/webpent/rta/__init__.py                                        7      7     0%   3-33
+src/webpent/rta/auth_campaign.py                                  84     84     0%   1-159
+src/webpent/rta/contracts.py                                     125    125     0%   9-177
+src/webpent/rta/discovery.py                                      61     61     0%   1-156
+src/webpent/rta/harness.py                                       127    127     0%   8-304
+src/webpent/rta/local_server.py                                   28     28     0%   3-45
+src/webpent/rta/validation.py                                     93     93     0%   3-233
+src/webpent/security_models/__init__.py                            0      0   100%
+src/webpent/security_models/identity/__init__.py                   3      3     0%   7-19
+src/webpent/security_models/identity/matrix.py                    64     64     0%   3-168
+src/webpent/security_models/identity/models.py                    69     69     0%   7-110
+src/webpent/service/__init__.py                                    8      0   100%
+src/webpent/service/api.py                                        81     40    51%   35, 39-44, 49-65, 70-71, 77-81, 86-90, 95-99, 104-105, 110-111, 116-117, 122-124
+src/webpent/service/cost_alerts.py                               152     20    87%   28, 32, 35-37, 67, 90-92, 180, 184, 198, 222-223, 229-237
+src/webpent/service/facade.py                                     81     32    60%   52, 69-72, 84-85, 88-91, 96-99, 105, 113-129, 134
+src/webpent/service/health.py                                     89     13    85%   36-41, 51-52, 73-74, 82, 111-114, 120-121
+src/webpent/service/manager.py                                    75     16    79%   32, 34, 36, 43, 46, 51-57, 62, 72, 89, 116
+src/webpent/service/models.py                                    160      9    94%   44-46, 86, 90, 92, 94, 102, 137
+src/webpent/service/scheduler.py                                  65     12    82%   26, 44, 48-50, 52-54, 62, 74-76
+src/webpent/service/store.py                                     138     20    86%   150, 156-158, 162-164, 170, 177, 183-184, 234-242
+src/webpent/shared/__init__.py                                     9      3    67%   11-13
+src/webpent/shared/action_authority.py                           189     31    84%   199, 201-249, 251, 262, 270, 290, 292
+src/webpent/shared/action_ledger.py                              127     22    83%   88, 118, 120, 122, 219-221, 238-239, 245, 260-261, 276-277, 288-290, 302, 304, 322-323, 342-343
+src/webpent/shared/adaptive_hunt.py                              279     69    75%   71, 87, 91, 95-99, 101-102, 124, 207, 253, 273, 311, 322, 334, 356-387, 412, 414, 429-439, 542, 546-548, 554-557, 559, 561, 571, 587, 602-606, 619-620, 641
+src/webpent/shared/agent_harness.py                              332    189    43%   29-53, 74-83, 105-131, 134-156, 175, 177, 179, 181, 183, 185, 198-204, 217, 220, 224-234, 239-254, 257, 306-312, 315-331, 351-368, 371-386, 401-413, 420, 423-425, 442, 452-455, 469-593, 603-617, 642-646, 686-713
+src/webpent/shared/application_intent.py                          56     18    68%   36, 53, 55, 81-120, 153
+src/webpent/shared/application_intent_graph.py                   156     11    93%   43, 65, 112, 119, 231, 310-317, 325, 364, 366-367
+src/webpent/shared/attack_graph.py                               302     96    68%   55-56, 69-70, 72, 76, 78, 96, 105, 108, 113-114, 144, 152, 161, 176, 179, 183, 191-192, 222, 226, 245, 253, 273, 288-290, 297, 337-357, 372, 375, 402-404, 429, 436, 441, 464, 493, 496, 500, 514-526, 540-546, 557-596, 607-613, 645
+src/webpent/shared/auth_surface.py                               119      9    92%   73-74, 131, 146, 163-164, 208, 210, 213
+src/webpent/shared/authorization_matrix.py                       125     20    84%   41, 56-57, 84, 111-112, 115-116, 125-127, 161, 165-166, 179-182, 204, 216, 225
+src/webpent/shared/autonomous_controller.py                      339    105    69%   102, 105, 107, 115-139, 201-202, 221, 231, 255-259, 273, 276, 283, 300, 302, 318-319, 335-337, 351, 400-401, 476-501, 507-508, 558, 590-591, 614-644, 646-653, 656-659, 661-664, 669-671, 692, 743-812
+src/webpent/shared/autonomy_contracts.py                         101     26    74%   40-41, 47-48, 88, 90-92, 94-96, 101, 107-108, 111-113, 118-124, 127-128
+src/webpent/shared/autopentestx_adapter.py                       127    101    20%   72, 76-80, 86, 90-111, 115-142, 146-155, 177-200, 220-246, 261-290, 295
+src/webpent/shared/bac_identity_tester.py                        154     27    82%   66, 69, 89-102, 132, 165, 177, 193-198, 257, 393
+src/webpent/shared/bbscout_bridge.py                              89     57    36%   59, 76-78, 82-89, 104-136, 151, 165-171, 181-190
+src/webpent/shared/behavior_scenarios/__init__.py                128    128     0%   3-384
+src/webpent/shared/browser_proof_runner.py                       205    153    25%   51, 54, 59-64, 86-93, 99-101, 105-129, 136-143, 165-192, 196, 205-206, 222-224, 234-255, 259-291, 300-315, 333-456
+src/webpent/shared/campaign_executor.py                          303     69    77%   162, 223-233, 239-240, 245-246, 296, 317, 320, 350-369, 372-373, 386-389, 397, 403-406, 414, 480, 486, 496, 498, 503-504, 508, 510, 513, 583-588, 595-599, 605-621
+src/webpent/shared/campaign_manager.py                            94     22    77%   35, 57-65, 105, 117, 120, 129, 152-154, 156-158, 181-182
+src/webpent/shared/campaign_planner.py                           136     20    85%   50-52, 110-111, 152, 175, 177, 179, 182, 185, 220, 228-229, 231, 238, 244-245, 247, 263
+src/webpent/shared/campaigns.py                                   33      1    97%   98
+src/webpent/shared/capability_manifest.py                         97     10    90%   26, 44, 57, 72, 80, 87, 91-92, 99-100
+src/webpent/shared/causal_research.py                            132    115    13%   27-36, 40, 44-45, 49, 60-74, 78-104, 114-146, 151-315
+src/webpent/shared/cognitive_components.py                        79     14    82%   273-275, 415-419, 447-453
+src/webpent/shared/confidence.py                                 102     16    84%   197, 207-208, 214-215, 232-233, 274-281, 372-373
+src/webpent/shared/confirmation_intelligence.py                  149    149     0%   11-369
+src/webpent/shared/console.py                                     76     76     0%   28-314
+src/webpent/shared/control_plane.py                              433    158    64%   49-62, 68, 74, 81, 88-89, 92, 141, 154, 183, 191, 202, 204, 208-209, 226, 241, 246-252, 256-257, 269-293, 312, 316, 318, 321-322, 324, 328, 359, 402-459, 482-486, 505-509, 514-517, 536-541, 563, 568-570, 599-618, 663-664, 667-674, 683-697, 700-704, 707-708
+src/webpent/shared/control_plane_runtime.py                      412    263    36%   65-74, 78-80, 145-146, 159-178, 186-207, 213-228, 245-251, 267-269, 283-290, 294-300, 317-392, 419-441, 444-450, 453-458, 471-473, 476-478, 481-482, 504-563, 577-579, 586-608, 618-620, 655-685, 697-746, 749-757, 760-764, 797-803, 812-847
+src/webpent/shared/control_plane_spine.py                        104     40    62%   53, 59-75, 78-79, 82-86, 120, 136-201, 235-241, 259-269, 306
+src/webpent/shared/copilot_boundary.py                            33     33     0%   3-54
+src/webpent/shared/coverage_ledger.py                            108     16    85%   46, 50, 54, 56, 97-113, 135, 143, 146, 200, 208
+src/webpent/shared/deserialization.py                             73      8    89%   18-19, 35, 80, 94, 96, 106-107
+src/webpent/shared/differential_workflow.py                      133    133     0%   8-289
+src/webpent/shared/direct_io_inventory.py                        282     48    83%   362, 364, 366, 399, 407, 409, 411, 422-426, 501, 505, 507, 582-583, 643, 710-711, 714-716, 718, 723, 742-779
+src/webpent/shared/disclosed_report_intel.py                      71      5    93%   76, 90, 93, 159, 176
+src/webpent/shared/engagement_audit.py                           128      8    94%   214, 234, 243, 248, 269, 273, 279, 290
+src/webpent/shared/engagement_factory.py                         121     87    28%   36, 62-66, 69-71, 74-75, 92-96, 104-140, 148-187, 204-217, 229-236, 248-271
+src/webpent/shared/engagement_scope.py                           161     41    75%   122, 127, 130, 151, 155, 166-167, 187, 200-201, 207, 210, 217, 234, 238-256, 282, 324-325, 332-333, 373, 376-377
+src/webpent/shared/ensemble.py                                    64     37    42%   19, 23-38, 42-52, 76-77, 81-82, 86-112
+src/webpent/shared/evaluation.py                                 106    106     0%   7-359
+src/webpent/shared/evaluation_runner.py                            9      9     0%   7-30
+src/webpent/shared/evidence_contract.py                          116     34    71%   70, 72, 74, 76, 94-100, 106, 108, 111-117, 127-128, 146-153, 155-157, 183, 197-200
+src/webpent/shared/evidence_ledger.py                             26      0   100%
+src/webpent/shared/evidence_quality.py                           163     20    88%   82-83, 99, 142, 155-180, 276, 295, 300, 343-345
+src/webpent/shared/exceptions.py                                  32      3    91%   57-59
+src/webpent/shared/exploration.py                                 75     75     0%   7-165
+src/webpent/shared/finding_aggregation.py                         63      6    90%   61-62, 125-128
+src/webpent/shared/finding_reviewer.py                             2      2     0%   8-10
+src/webpent/shared/fixture_registry.py                           313     75    76%   162-165, 170, 172, 174, 177-178, 180, 182, 184, 194-197, 203, 205, 207, 209, 216, 220-221, 225-226, 235, 245-246, 259, 267, 269, 280-281, 284-285, 297, 302, 309-315, 329, 332-334, 339, 342-343, 345-346, 348, 356-357, 362, 380-381, 386-387, 398, 401, 431-438, 459, 466, 469, 474
+src/webpent/shared/fixture_store.py                              143     45    69%   92-110, 120, 124, 127, 130, 139, 141, 144, 156, 164-178, 185-191, 203-206, 211-214, 247-253
+src/webpent/shared/g02_contract.py                                16      0   100%
+src/webpent/shared/generic_case_lifecycle.py                      54     43    20%   33-43, 47-56, 73-105
+src/webpent/shared/generic_case_runner.py                        157    132    16%   62-210, 220-223, 227-242, 246-251, 255-260, 269-270, 287-294
+src/webpent/shared/generic_web_contracts.py                      192     92    52%   63-74, 77, 91-96, 99-101, 118-127, 130-132, 149-161, 164-166, 181-190, 193, 214-216, 219, 241-250, 253, 280-291, 294-296
+src/webpent/shared/governed_artifacts.py                         158    158     0%   8-328
+src/webpent/shared/grounding.py                                  223     90    60%   124, 148, 193-194, 197, 392-399, 403-406, 416, 474-479, 539, 606, 629-631, 642-699, 767-876
+src/webpent/shared/hitl_policy.py                                 64     64     0%   7-204
+src/webpent/shared/http.py                                       326    105    68%   203-228, 300, 305, 317-324, 330-331, 334, 366-370, 375-376, 408, 414-417, 421, 424-429, 435-442, 461-462, 547, 612-619, 650-678, 738, 741, 765-852, 869-870, 877-883, 887-888, 1064, 1121, 1124, 1138-1139, 1149, 1307, 1334-1335, 1350-1395, 1439-1440, 1460-1468, 1498-1499, 1521, 1524, 1529
+src/webpent/shared/http_discovery.py                             404     91    77%   37-49, 56, 61-67, 72, 131, 149-152, 154-157, 163, 167, 172-174, 176-178, 197-198, 203, 206, 216-217, 246-247, 274, 295, 376-377, 426-427, 445-446, 488-492, 518-523, 539-540, 542, 544, 546, 550, 558-560, 601-611, 643-645, 687-688, 698, 700
+src/webpent/shared/identity_provisioning.py                      228    147    36%   84-88, 114-115, 118-124, 128-131, 135-138, 142-143, 160-169, 172-262, 303-342, 347-357, 367-437
+src/webpent/shared/javascript_intelligence.py                    188     37    80%   121, 149, 155-165, 182, 185-195, 219, 228, 232, 249, 251, 253, 263, 272, 294, 314-320, 335, 359, 373, 395
+src/webpent/shared/jwt_deep_testing.py                           112     20    82%   56-57, 73, 76, 80, 102, 109, 114, 119, 128, 131, 137-138, 157, 163-173, 222-233, 277, 284
+src/webpent/shared/kev.py                                         23     14    39%   14, 19-41
+src/webpent/shared/knowledge_gap_manager.py                        2      2     0%   8-10
+src/webpent/shared/knowledge_retrieval.py                        102     18    82%   42-43, 81, 106, 114-118, 129, 139, 179-180, 198-202, 212, 215
+src/webpent/shared/learned_context.py                             97     15    85%   101-103, 127-129, 135, 141-142, 191-192, 240-249, 251
+src/webpent/shared/legacy_containment.py                         119     23    81%   151, 154-155, 158-159, 162-163, 166-167, 171-181, 209-213
+src/webpent/shared/llm.py                                        593    310    48%   106-107, 119-135, 140-161, 166-177, 186-198, 211-216, 221-225, 230-236, 246-254, 258-262, 267-288, 301-327, 335-339, 356-367, 392, 395, 419-420, 595-596, 637-661, 675-677, 696-698, 725-727, 763-765, 785-787, 819-866, 896-899, 902-909, 912-921, 924-933, 936-961, 969-992, 1004, 1014, 1050-1053, 1057-1062, 1069, 1076, 1080, 1084, 1091-1131, 1151, 1154, 1158, 1258-1271, 1319-1333, 1358, 1401-1409, 1431, 1435, 1444-1452, 1458-1464, 1549-1556, 1573-1577, 1594-1601, 1783, 1815, 1906, 1933-1936, 1955-1963, 2004-2006
+src/webpent/shared/llm_reliability.py                            177     47    73%   58-85, 124-127, 165-166, 168, 233, 235, 237, 247, 267, 306-315
+src/webpent/shared/memory_boundary.py                             95     13    86%   42, 46, 57, 59, 74, 164-166, 185-186, 189-190, 214, 242
+src/webpent/shared/nettacker_adapter.py                          156    125    20%   96, 100-104, 108, 112-122, 126-146, 150, 154-188, 192-201, 205-207, 211-220, 237-261, 275-301, 311-344, 349
+src/webpent/shared/novel_behavior.py                              46     13    72%   33-35, 39-40, 42, 44, 51, 81, 85, 88-91
+src/webpent/shared/offline_validator_fixtures.py                  57      4    93%   67, 73, 77, 79
+src/webpent/shared/oob_provider.py                               156    104    33%   78-83, 87, 90-148, 153-164, 167-171, 177-195, 199-226, 230-235, 243-246, 258-269
+src/webpent/shared/p9_qualification.py                            80     53    34%   31-48, 65-68, 72, 80-121, 130-147, 150-162, 165-177, 198-219, 223-234, 243-244
+src/webpent/shared/package_capabilities.py                        90     73    19%   28, 37-43, 47-72, 77-99, 113-152
+src/webpent/shared/package_execution_intake.py                   159    121    24%   44, 48, 52, 57-70, 74-77, 82-109, 114-126, 131-140, 144-154, 164-177, 189-205, 214-218, 227-240
+src/webpent/shared/package_preflight.py                           36     25    31%   13, 29-102
+src/webpent/shared/package_scope.py                              176    120    32%   35, 41, 68, 72, 88, 115-117, 121-127, 131-134, 138-141, 155-191, 194-217, 228-300
+src/webpent/shared/persistent_finding_ledger.py                  120     22    82%   69-70, 77, 82-83, 105-106, 139-154, 189, 197, 219-220, 222, 224, 264, 293-303
+src/webpent/shared/plan_review.py                                 67     67     0%   3-111
+src/webpent/shared/plan_reviewer.py                                2      2     0%   7-9
+src/webpent/shared/planner_decisions.py                          169     21    88%   50, 54, 57, 63-64, 70, 103, 106, 109, 112, 115, 169, 201, 204, 207, 228, 236, 244, 246, 254, 261
+src/webpent/shared/playwright_adapter.py                         265    265     0%   8-524
+src/webpent/shared/poc_policy.py                                  52      2    96%   109, 115
+src/webpent/shared/preflight.py                                  276     51    82%   58-59, 84-85, 93-94, 105-106, 121, 126, 182, 192, 195, 197, 200-203, 229-231, 247, 257, 301-306, 391-392, 397, 441-453, 498-513, 546, 558, 726-731
+src/webpent/shared/prioritization.py                             246     53    78%   82-83, 196-197, 200, 206, 211, 215-216, 252-253, 260-261, 269-272, 281-282, 297-298, 428, 436-437, 453-457, 507-520, 662, 666-668, 732, 747-748, 763-764, 769-770, 774-775, 785-786, 874-876, 937-942
+src/webpent/shared/proof_bundle_store.py                          54     24    56%   33, 42-44, 50, 54-56, 58, 64-70, 74-78, 82, 88-89
+src/webpent/shared/proof_engine.py                               177     31    82%   113, 201-204, 229, 291, 302, 407, 413, 438, 443, 449, 451, 456, 461, 535-549
+src/webpent/shared/proof_oracles.py                              238     97    59%   84-85, 90-94, 99-100, 105, 115, 120, 143-144, 171-172, 177-178, 182, 186, 190, 194, 242-262, 279-342, 377, 379, 386, 388, 395, 397, 408, 414-450, 475-480
+src/webpent/shared/provider_boundary.py                           73     73     0%   8-169
+src/webpent/shared/rate_governor.py                               95     32    66%   91-98, 172-175, 178-183, 190-204, 239, 247-253, 261-262, 266-270, 274-276, 320-323
+src/webpent/shared/recon_triage.py                               114      5    96%   86, 172, 176, 226, 237
+src/webpent/shared/recovery.py                                   108    108     0%   8-190
+src/webpent/shared/redaction.py                                   20      0   100%
+src/webpent/shared/reference_lookup.py                            84     84     0%   3-144
+src/webpent/shared/report_quality.py                             146     11    92%   88-89, 125, 127, 142, 171, 175-176, 254, 261, 294
+src/webpent/shared/research_contracts.py                         284     50    82%   53, 74, 132, 143-144, 209-210, 218, 283, 308-309, 421, 443-445, 453, 476-497, 590, 649-650, 677-678, 687, 689, 738, 743-744, 762-766, 787-788, 807-808
+src/webpent/shared/research_intelligence.py                      440     66    85%   64-65, 209, 214, 230-295, 318, 380-389, 522-524, 526, 640-646, 651, 654-655, 670, 674, 678, 680, 689, 725, 731, 789-792, 806-807, 956
+src/webpent/shared/research_nodes.py                              67     54    19%   26, 31-73, 92-120, 125-175, 200-211
+src/webpent/shared/resume_capability.py                           78     12    85%   29, 40, 46, 49, 59, 73, 75, 111, 115-116, 120, 130
+src/webpent/shared/runtime.py                                    360    108    70%   133, 137-138, 190-191, 195-199, 204, 228, 230, 232, 239, 247, 345-353, 365-372, 394-423, 445-499, 507, 632, 667-672, 740-743, 781-782, 784-793, 850-851, 905-973, 977, 1001-1023
+src/webpent/shared/safety_gate.py                                133     26    80%   53-54, 64, 70, 115, 117, 121-122, 134, 154, 156, 158, 160, 176-179, 186, 194, 196, 198, 204, 207, 209-210, 216
+src/webpent/shared/schema_ingestion.py                           213     47    78%   68, 72, 75-77, 83, 87-92, 102, 104-105, 121, 124, 127-128, 134, 137, 139, 145, 147, 149, 153, 156, 183, 208, 210, 240, 247-248, 253, 257, 259, 263, 284, 371, 418-421, 425, 435, 438, 440, 454
+src/webpent/shared/scope_drift.py                                 16      9    44%   10-15, 22-30
+src/webpent/shared/scope_file.py                                 161     25    84%   92, 99, 108, 192-193, 195, 214-215, 244-245, 250, 259-265, 270, 275-277, 308, 329-330
+src/webpent/shared/secondary_io_scanner.py                       104    104     0%   8-252
+src/webpent/shared/secret_vault.py                                95     59    38%   36-40, 50-54, 62, 75-96, 99-110, 113-117, 120-128, 131-132, 135-138
+src/webpent/shared/security_reasoners.py                         122     34    72%   66, 69, 73, 83-84, 105-152, 164, 169, 173, 235, 246, 249, 258-261, 303
+src/webpent/shared/security_reasoning_memory.py                   71     71     0%   8-250
+src/webpent/shared/self_critique.py                              207    100    52%   264-265, 269-270, 283-284, 296, 302, 320-326, 336, 339-342, 349-359, 397-485, 575-637, 657-675, 692-695, 713-714
+src/webpent/shared/semantic_observations.py                       91     64    30%   26-33, 38-39, 43, 82-83, 87-93, 97-104, 109-130, 147-191
+src/webpent/shared/semantic_proof_runner.py                      120    120     0%   9-364
+src/webpent/shared/session_liveness.py                           123     16    87%   87-89, 104-106, 121-122, 159-161, 198-200, 260-261
+src/webpent/shared/skill_selector.py                              48     31    35%   14-22, 28-42, 63, 76-101
+src/webpent/shared/stealth.py                                    114     68    40%   58-64, 100-105, 126, 130, 155-166, 192, 205-224, 235-261, 271-275, 283-284
+src/webpent/shared/surface_evidence_graph.py                     126     30    76%   22, 27-28, 36, 43-49, 60, 65, 72-89, 107, 184
+src/webpent/shared/surface_security.py                           181     19    90%   50, 57-58, 64-68, 81, 92-93, 280, 407, 420, 435, 506, 518, 566, 620
+src/webpent/shared/target_adapter_review.py                      250    250     0%   7-377
+src/webpent/shared/target_adapters.py                            460    327    29%   42-53, 87, 89, 91, 93, 96, 123-143, 250-269, 272, 300, 304, 307-312, 315-487, 494, 497-503, 506, 509-525, 528-531, 534-538, 541, 567-582, 596-607, 616-627, 646-673, 685-702, 714-727, 735-766, 770-781
+src/webpent/shared/target_context.py                             349    164    53%   60, 64, 78-85, 89, 92, 113-121, 124, 144-147, 150, 177-180, 193, 213-216, 219, 241-246, 258, 261, 280, 283, 286, 307, 310, 332, 335, 353-360, 372, 440-443, 446-461, 464-468, 482-485, 490-561, 564-576, 585-591, 594-610
+src/webpent/shared/target_package_context.py                     130     84    35%   38-41, 45-59, 63-68, 95, 122-127, 131-132, 142-190, 242, 273-280
+src/webpent/shared/target_spec.py                                223    223     0%   8-311
+src/webpent/shared/target_workspace.py                            86      5    94%   24, 119, 124, 128, 144
+src/webpent/shared/target_workspace_context.py                    18      1    94%   37
+src/webpent/shared/tool_adapters.py                              112     38    66%   45, 111-121, 126, 196-198, 202-204, 208-210, 214-216, 220-227, 231-233, 237-239, 286-289, 305-311
+src/webpent/shared/trajectory_store.py                            11     11     0%   3-36
+src/webpent/shared/trust_matrix.py                                55      4    93%   16, 25, 58, 95
+src/webpent/shared/untrusted_content.py                          132     15    89%   74-75, 202-208, 239, 260, 266-269
+src/webpent/shared/validator_plugins.py                           57      2    96%   89, 133
+src/webpent/shared/verifier.py                                   125     47    62%   50-53, 68, 127-135, 145-149, 151-155, 158-171, 177-181, 189-193, 203-207, 217-221, 227-231, 241-245, 264-268, 350, 382, 389, 391, 393, 395, 397, 399, 408-412, 414-418, 424-428
+src/webpent/shared/vip_vertical_slice.py                         316    316     0%   8-950
+src/webpent/shared/wildcard_scope.py                             122     39    68%   43, 65, 69-75, 83-86, 90, 96, 99, 106, 111, 113, 115, 118-119, 122, 150, 162, 176-178, 186-189, 202-214
+src/webpent/shared/workflow_contracts.py                          21     21     0%   8-55
+src/webpent/shared/workflow_replay.py                             16      0   100%
+src/webpent/shared/workflow_understanding.py                     235     28    88%   74, 79, 83-85, 112, 125, 130-133, 190, 192, 194, 196, 198, 232, 246, 280, 290, 311, 316-317, 332, 387, 458, 519, 572, 582
+src/webpent/smart/__init__.py                                      6      0   100%
+src/webpent/smart/integration.py                                  34     21    38%   47-53, 68-70, 81-97, 109, 117, 121, 125
+src/webpent/smart/memory_engine.py                                75     42    44%   63, 67-69, 72, 76-79, 83-99, 103-109, 116-131, 140
+src/webpent/smart/prioritizer.py                                  52     34    35%   62, 69-95, 98-105, 116-134
+src/webpent/smart/reporter.py                                     59     49    17%   91-92, 96-116, 120-131, 139-145, 153-174
+src/webpent/smart/strategy_engine.py                              48     32    33%   52-53, 57-61, 65-69, 77-115
+src/webpent/state/__init__.py                                      9      3    67%   11-13
+src/webpent/state/initial_state.py                               124     46    63%   76-77, 133, 138-141, 150, 158, 165-176, 179, 205-210, 215-227, 237-266, 274-279, 335-336
+src/webpent/state/reducers.py                                    144     71    51%   80, 105, 113, 147-161, 187, 225-226, 231, 234-235, 244-252, 264-273, 314-330, 345-372
+src/webpent/state/state.py                                       199      0   100%
+src/webpent/tools/__init__.py                                      2      0   100%
+src/webpent/tools/exploitation/__init__.py                         0      0   100%
+src/webpent/tools/exploitation/dalfox.py                          90     36    60%   79-85, 138-144, 172-175, 184-185, 237, 240-259, 266-291, 301-307, 317, 319
+src/webpent/tools/exploitation/phpggc.py                          55     15    73%   74, 78, 82, 142-150, 191-194, 211-212
+src/webpent/tools/exploitation/sqlmap.py                         159     38    76%   140-142, 168, 255-259, 288-289, 346-347, 420-427, 467-469, 472-478, 490-491, 494-519, 523-529, 534
+src/webpent/tools/exploitation/ysoserial.py                       57     24    58%   83, 94-111, 171-181, 197-200, 220-221
+src/webpent/tools/recon/__init__.py                                0      0   100%
+src/webpent/tools/recon/ffuf.py                                  103     33    68%   45-46, 56-57, 60, 63-66, 87-89, 93-94, 97-102, 110-120, 128, 131-132, 148, 150, 152, 162, 171, 173
+src/webpent/tools/recon/httpx.py                                 110     55    50%   34-91, 124-133, 154-155, 181, 218-230, 234-242, 251-255
+src/webpent/tools/recon/katana.py                                 85     72    15%   53-63, 95-271
+src/webpent/tools/recon/nuclei.py                                149     46    69%   45, 52-53, 55, 57, 78, 81-82, 103-111, 115-137, 154, 156, 161-162, 209-216, 222-228, 259-262, 265-266, 281-282, 295, 307-320, 326
+src/webpent/tools/recon/subfinder.py                              34     25    26%   43-92
+src/webpent/tools/registry.py                                     76      7    91%   122, 139-140, 164-165, 239-240
+src/webpent/tools/utils/__init__.py                                0      0   100%
+src/webpent/tools/utils/subprocess.py                             84     24    71%   135-137, 151, 159, 162, 180-195, 245-246, 256, 311, 315-316, 328-334
+src/webpent/utils/__init__.py                                      0      0   100%
+src/webpent/utils/compliance.py                                   24      6    75%   130, 156, 173-180
+src/webpent/utils/crypto.py                                       52     10    81%   68, 87, 105, 136, 183-188
+src/webpent/utils/task_crypto.py                                 161     37    77%   109-110, 116, 135-137, 142, 152, 165, 173, 192-206, 225, 228, 233-244, 295, 301-302, 305-311, 340
+src/webpent/vabhfil_v8/__init__.py                                11     11     0%   3-32
+src/webpent/vabhfil_v8/analytics_review.py                        21     21     0%   3-98
+src/webpent/vabhfil_v8/benchmark.py                               17     17     0%   3-87
+src/webpent/vabhfil_v8/contracts.py                              264    264     0%   7-391
+src/webpent/vabhfil_v8/core.py                                    34     34     0%   3-126
+src/webpent/vabhfil_v8/executive.py                               29     29     0%   3-91
+src/webpent/vabhfil_v8/hypotheses.py                              41     41     0%   3-127
+src/webpent/vabhfil_v8/memory.py                                  20     20     0%   3-68
+src/webpent/vabhfil_v8/reasoning.py                               22     22     0%   3-83
+src/webpent/vabhfil_v8/skepticism.py                              21     21     0%   3-54
+src/webpent/vabhfil_v8/strategy_graph.py                          40     40     0%   3-118
+src/webpent/vabhfil_v8/utils.py                                   37     37     0%   3-67
+src/webpent/vabhfqr_v9/__init__.py                                 7      7     0%   3-25
+src/webpent/vabhfqr_v9/analytics_review.py                        17     17     0%   3-76
+src/webpent/vabhfqr_v9/benchmark.py                               23     23     0%   3-80
+src/webpent/vabhfqr_v9/contracts.py                              252    252     0%   3-361
+src/webpent/vabhfqr_v9/core.py                                    94     94     0%   3-338
+src/webpent/vabhfqr_v9/evidence.py                                15     15     0%   3-62
+src/webpent/vabhfqr_v9/loop.py                                    31     31     0%   3-84
+src/webpent/vabhfqr_v10/__init__.py                                4      4     0%   3-22
+src/webpent/vabhfqr_v10/audit.py                                  40     40     0%   3-203
+src/webpent/vabhfqr_v10/contracts.py                              92     92     0%   3-157
+src/webpent/vabhfqr_v10/metrics.py                                47     47     0%   3-94
+src/webpent/vabhic_v7/__init__.py                                 10     10     0%   3-30
+src/webpent/vabhic_v7/analytics_review.py                         18     18     0%   3-90
+src/webpent/vabhic_v7/benchmark.py                                28     28     0%   8-85
+src/webpent/vabhic_v7/commander.py                                51     51     0%   3-174
+src/webpent/vabhic_v7/contracts.py                               282    282     0%   8-422
+src/webpent/vabhic_v7/coordination.py                             29     29     0%   3-105
+src/webpent/vabhic_v7/core.py                                     28     28     0%   3-96
+src/webpent/vabhic_v7/discovery.py                                27     27     0%   3-91
+src/webpent/vabhic_v7/mental_model.py                             29     29     0%   3-168
+src/webpent/vabhic_v7/narrative_budget.py                         27     27     0%   3-93
+src/webpent/vabhic_v7/utils.py                                    36     36     0%   3-53
+src/webpent/validation/__init__.py                                 5      5     0%   7-15
+src/webpent/validation/causal_validator.py                         6      6     0%   3-15
+src/webpent/validation/identity_validator.py                      49     49     0%   3-90
+src/webpent/validation/replay_validator.py                         8      8     0%   3-28
+src/webpent/validation/state_diff_validator.py                    39     39     0%   3-76
+src/webpent/validators/__init__.py                                 4      0   100%
+src/webpent/validators/causal_validator.py                         9      0   100%
+src/webpent/validators/proof_validator.py                          5      0   100%
+src/webpent/validators/replay_validator.py                        10      5    50%   19-27
+src/webpent/workers/__init__.py                                    9      3    67%   11-13
+src/webpent/workers/observability.py                              63     18    71%   48, 56, 65, 69-70, 73-76, 80-92, 104-114, 118-119
+src/webpent/workers/pentest_worker.py                            486    314    35%   30-32, 115-116, 129-130, 148-160, 182-184, 200-201, 217, 220-221, 253-254, 260-271, 342-378, 409-448, 575-576, 621-637, 685-686, 707-708, 731-1116, 1125-1146, 1192, 1216-1224, 1240-1567, 1591-1608, 1635-1658
+--------------------------------------------------------------------------------------------
+TOTAL                                                          89233  33849    62%
+Coverage XML written to file coverage.xml
+Required test coverage of 35% reached. Total coverage: 62.07%
+================ 4477 passed, 10 warnings in 349.65s (0:05:49) =================

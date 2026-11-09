@@ -1,0 +1,21 @@
+{
+  "phase": "11_blind_benchmark",
+  "status": "PROTOCOL_DEFINED",
+  "detector_receives_only": [
+    "target endpoint",
+    "allowed scope",
+    "runtime observations"
+  ],
+  "detector_does_not_receive": [
+    "ground truth",
+    "case names",
+    "fixture names",
+    "class names",
+    "expected outcomes",
+    "patched route hints",
+    "benchmark IDs",
+    "generator metadata"
+  ],
+  "execution": "v1.5 benchmark effectively blind \u2014 detector receives no route knowledge",
+  "note": "Hidden target family provides structural independence guarantee"
+}

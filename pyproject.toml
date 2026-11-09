@@ -1,0 +1,234 @@
+# pyproject.toml
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "webpent"
+version = "0.37.1"
+description = "WebPent Framework V3 - Autonomous pentesting with HITL approval, RAG, active browser exploitation, GPU acceleration, and professional HTML reporting"
+readme = "README.md"
+# UM-DR-31.1 R8/F07: the declared floor is 3.11 — deliberate, because the
+# CVE-patched dnspython line (>=2.9.2, the UM-DR-30 CVE-2026-114605 fix)
+# publishes no Python 3.10 release; a 3.10 floor silently resolved the
+# vulnerable 2.8.0 fork (the lockfile's resolution-markers fork proves it).
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+    { name = "WebPent Team", email = "security@example.com" },
+]
+keywords = ["security", "pentesting", "langgraph", "multi-agent", "web-security", "autonomous-exploitation", "rag", "hitl", "gpu"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Security",
+]
+
+dependencies = [
+    "torch==2.14.1",
+    # Product P1: LangGraph and its matching SQLite checkpoint package.
+    # EXACT-PINNED (unfreeze-fix sprint, 2026-10-05): the tested pair is
+    # langgraph 1.2.10 / langgraph-checkpoint-sqlite 3.1.1 (documented in
+    # src/webpent/api/app.py). The previous open floor `>=1.2.0,<2.0` let pip
+    # resolve a newer langgraph whose langgraph.checkpoint.sqlite namespace
+    # import moved, which broke all conftest collection (710 collection
+    # errors) and 129 team1_acceptance tests. With the exact pair installed
+    # the full suite is 710/710. Do not widen these pins without re-running
+    # the full suite.
+    "langgraph==1.2.10",
+    "langgraph-checkpoint-sqlite==3.1.1",
+    "langchain-core==1.6.7",
+    # V7 Phase 6 FIX: langchain-community pinned to a verified-working
+    # 0.3.x range instead of the previous unbounded `>=0.3.0`. The
+    # unbounded floor let pip resolve to versions where provider
+    # integrations had been split out into standalone packages
+    # (Cloudflare Workers AI in particular moved to langchain-cloudflare).
+    # The duplicate `langchain-community>=0.2.0` line that was previously
+    # also present here is removed — duplicate deps are functionally
+    # harmless (pip silently picks the higher floor) but confusing.
+    "langchain-community==0.4.2",
+    # V7 Phase 6 FIX: Cloudflare Workers AI now lives in its own
+    # standalone package (LangChain's ongoing trend of splitting
+    # providers out of langchain-community). _build_cloudflare() in
+    # src/webpent/shared/llm.py tries langchain_cloudflare first and
+    # falls back to langchain_community for backward compatibility.
+    "langchain-cloudflare==0.4.0",
+    "pyyaml==6.0.3",
+    "langchain-openai==1.6.7",
+    "langchain-mistralai==1.1.6",
+    "langchain-google-genai==4.4.0",
+    # Product P1: provider integrations use their core-1-compatible major
+    # lines so clean installs cannot silently downgrade the graph runtime.
+    "langchain-cohere==0.6.0",
+    # Anthropic is routed lazily from llm.py so offline mode still works
+    # without provider calls; declaring it here makes the configured online
+    # path reproducible for standard project installations.
+    "langchain-anthropic==1.7.5",
+    "langchain-chroma==1.1.0",
+    "chromadb==1.5.9",
+    "sentence-transformers==6.1.0",
+    "pypdf==6.21.4",
+    "pydantic==2.13.5",
+    "pydantic-settings==2.15.0",
+    "python-dotenv==1.2.4",
+    "httpx==0.28.1",
+    "beautifulsoup4==4.15.0",
+    # P0-4: route_web_socket() was added in Playwright 1.48 and is
+    # required for the browser SSRF guard to cover ws:// and wss://.
+    # FIX-SPRINT 2026-10-05: upper bound widened from <1.49 to <2.0 — the
+    # verified test environment runs playwright 1.57.0 with the full suite
+    # green (route_web_socket present, as expected for >=1.48). The old
+    # <1.49 ceiling made pip check fail permanently against every modern
+    # playwright while adding no protection beyond the 1.48 feature floor.
+    "playwright==1.57.0",
+    # V10 P0-1 (RCA follow-up): alembic was previously NOT listed as a
+    # runtime dependency — db.init_db() silently fell back to legacy DDL
+    # whenever alembic was unavailable, masking real migration failures.
+    # Now a real runtime dep so the healthy path logs "Database
+    # initialized via Alembic migration" and the fallback is the
+    # exception, not the norm.
+    "alembic==1.20.0",
+    "docker==7.2.0",
+    "fastapi==0.142.2",
+    "uvicorn==0.54.0",
+    "celery==5.6.3",
+    # V8 Phase 5: pin redis client to match redis:7-alpine in
+    # docker-compose. FIX-SPRINT 2026-10-05: upper bound widened from <6.0
+    # to <8.0 — the verified test environment runs redis-py 7.4.0 with the
+    # full suite green against Redis-7 semantics (celery broker + OOB
+    # parity paths). The old ceiling conflated the client major with the
+    # server major and left pip check permanently red.
+    "redis==5.3.1",
+    "Jinja2==3.1.6",
+    "rich==15.0.0",
+    "typer==0.23.1",
+    "python-multipart==0.0.32",
+    "bcrypt==5.0.0",
+    "PyJWT==2.15.1",
+    "structlog==26.1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    # UNIFIED MERGE (2026-11-02): dependencies of v4-era legacy agents
+    # (dom_xss parser, subdomain_takeover discovery) kept functional
+    "esprima>=4.0",
+    "jsbeautifier>=1.15",
+    # UM-DR-31.1 R8/F07: floor raised to the patched line on every
+    # supported interpreter (2.9.2 = the CVE-2026-114605 fix; there is
+    # no 3.10-compatible patched release, hence the 3.11 floor above).
+    "dnspython>=2.9.2",
+    # UNIFIED MERGE (2026-11-02, R3-class fix): the oracle
+    # reporter's PDF writer imports reportlab lazily; the oracle
+    # tests (U-oracle-11/12) failed on its absence — it was never
+    # declared in any extra.
+    "reportlab>=4.0",
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "pytest-cov>=5.0.0",
+    "ruff>=0.5.0",
+    "mypy>=1.10.0",
+    "bandit>=1.7.0,<2.0",
+    "pip-audit>=2.7.0,<3.0",
+    "langchain-huggingface>=1.2.3",
+]
+# VIP detection-depth initiative (2026-10): arjun (tools/recon/arjun.py) is
+# a pip-installable CLI, unlike the other recon tools (katana/nuclei/
+# subfinder/ffuf/dalfox), which are external Go/Python binaries installed
+# separately (see Dockerfile.base) and never listed as pyproject deps. It
+# is kept as an optional extra rather than a core dependency because the
+# feature is disabled by default (settings.arjun_enabled=False) and the
+# wrapper (tools/recon/arjun.py) already degrades safely to an empty
+# result when the `arjun` executable is not on PATH.
+recon-extra = [
+    "arjun>=2.2.5",
+]
+
+[project.scripts]
+webpent = "webpent.cli:main"
+# FINAL PREP SPRINT 2026-10-05: dedicated POC surface. The frozen typer app
+# (webpent/cli/commands.py, byte-identical under the 695-file trust gate)
+# cannot gain a `poc` subcommand without editing sealed code, so the POC
+# recorder ships as its own console script (see docs/CAMPAIGN_GUIDE.md).
+webpent-poc = "webpent.reporter.poc_cli:main"
+webpent-ingest = "webpent.cli.ingest:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+webpent = ["templates/**/*.j2"]
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+pythonpath = ["src", "."]
+addopts = "-ra --strict-markers --strict-config"
+asyncio_mode = "auto"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+# Sprint I-1b, item 3.1: benchmarks/goed_v1_5/target_template.py contains
+# `@@PORT@@`-style substitution placeholders -- it is a string template
+# filled in at benchmark-harness runtime, not real Python source, and is
+# not valid Python syntax on its own (verified: ruff reports 38
+# "invalid-syntax: Expected an expression" findings, all on this one
+# file, at the `@@PORT@@` token). Excluded from linting entirely rather
+# than "fixed" -- there is nothing here to fix.
+#
+# The 14 paths below are Sprint I-1's frozen modules (see the sprint
+# changelog) -- byte-identical is a hard invariant that predates and
+# supersedes ruff entirely. A `ruff check . --fix` run during this
+# sprint's own CI-wiring work silently rewrote 3 of them (removing
+# "unused" imports that were the frozen files' own explicit, undisturbed
+# content) before this exclude existed -- caught only by the sprint's
+# own byte-identical re-verification step, then reverted. Excluding them
+# here means neither `--fix` nor even a report-only `ruff check .` will
+# ever touch or flag them again.
+extend-exclude = [
+    "benchmarks/goed_v1_5/target_template.py",
+    "src/webpent/cqa_v2/causal_guard.py",
+    "src/webpent/models/proof_bundle.py",
+    "src/webpent/models/workflow_replay.py",
+    "src/webpent/llm_researcher/tool_boundary.py",
+    "src/webpent/live_hunter/tool_scope.py",
+    "src/webpent/live_hunter/profile.py",
+    "src/webpent/agents/validator/active_checks.py",
+    "src/webpent/shared/proof_bundle_store.py",
+    "src/webpent/shared/governed_artifacts.py",
+    "src/webpent/irta/v3/proof.py",
+    "src/webpent/shared/workflow_replay.py",
+    "src/webpent/cqa_v2/replay_verifier.py",
+    "src/webpent/llm_researcher/world_model.py",
+    "src/webpent/production/autonomous_validation_v1.py",
+    # Ultimate plan 2026-10-27, proposal 4: the 17 archived prototype
+    # packages (~22k lines of pre-v10 dead code, moved out of src/ after
+    # grep-verifying no live importers). Excluded from lint the same way
+    # as from packaging (packages.find is src/-scoped): the archive is a
+    # read-only historical record, not living source.
+    "archive",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP", "B", "C4", "SIM"]
+
+[tool.ruff.lint.per-file-ignores]
+# cli/ops.py (Track 12 ops surface, 0.24.0/0.25.0) uses Typer's
+# declarative ``param: type = typer.Option(...)`` signature style
+# throughout its many short options. B008 flags every such default,
+# which is a false positive for Typer applications (commands.py avoids
+# it via the Annotated style; ops.py keeps the plain style for
+# readability). Real bug-bear findings in this file still surface —
+# only B008 is suppressed here, nothing else.
+"src/webpent/cli/ops.py" = ["B008"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_return_any = true
+warn_unused_configs = true

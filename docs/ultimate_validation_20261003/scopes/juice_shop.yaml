@@ -1,0 +1,17 @@
+in_scope:
+  - url: http://127.0.0.1:3000
+    allowed_methods: [GET, POST, OPTIONS, HEAD]
+    max_severity: critical
+    source: ultimate-validation-local-juice-shop
+out_of_scope:
+  - url: http://127.0.0.1:3001
+    source: explicit-other-local-port
+limits:
+  max_requests_per_second: 2
+  max_concurrent_requests: 1
+  max_violations: 5
+  no_destructive: true
+blacklisted_payloads:
+  - "rm -rf"
+instructions:
+  - "Authorized local lab only; no external hosts."

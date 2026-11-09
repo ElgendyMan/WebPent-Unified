@@ -1,0 +1,53 @@
+{
+  "phase": "6_contract_trace",
+  "status": "OK",
+  "timestamp": 1788759911.3224359,
+  "target_case_id": "dv2_031",
+  "target_case_family": "reasoning",
+  "provider_metadata": {
+    "provider_type": "REAL_API",
+    "mock_provider": false,
+    "provider_class": "OpenAICompatibleProvider",
+    "model": "qwen/qwen3.8-27b",
+    "base_url": "https://api.groq.com/openai/v1",
+    "has_organization": false,
+    "api_key_env_var": "LLM_API_KEY",
+    "api_key_configured": true,
+    "api_key_prefix": "gsk_...",
+    "config_hash": "51424aa4802e887a2e7affdf340e539648d6fd645372ab6ae9efedca77878120",
+    "prompt_version_hash": "contract-trace",
+    "api_requests_succeeded": 0,
+    "first_successful_response_evidence": null
+  },
+  "provider_type": "REAL_API",
+  "mock_provider": false,
+  "prompt_hash": "bf6480007259d30e14af2685ca6e873807fe5a681e3770e99e4a69b662f2f5b4",
+  "tool_policy_hash": "e7c7eb51ab63fdcf0a901c3fd3dda2836b69b6da42434a2ff82bebc1c5d356d0",
+  "pre_inputs_hash": "8b185f922e4a0e3075a1cc8eead7574ccb407d0417543fcddb10d93c329b78ac",
+  "final_verdict": "CONFIRMED",
+  "loops_run": 1,
+  "num_trajectory_steps": 2,
+  "trajectory_steps": [
+    {
+      "step": 0,
+      "top_hypothesis_digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "selected_tool": null,
+      "tool_params_digest": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "causal_verdict_before": null,
+      "causal_verdict_after": null
+    },
+    {
+      "step": 1,
+      "top_hypothesis_digest": "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+      "selected_tool": null,
+      "tool_params_digest": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "causal_verdict_before": null,
+      "causal_verdict_after": null
+    }
+  ],
+  "proof_bundle_built": false,
+  "proof_bundle_valid": false,
+  "replay_result": null,
+  "expected_label": "vulnerable",
+  "mechanism_digest": "83ee0431b9ab85c8f07616b0d537dc6d9fff20bd869f544ca34dd1333d0f39d7"
+}

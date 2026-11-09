@@ -1,0 +1,59 @@
+# .dockerignore — F-07 (0.33.0): production image hygiene.
+# Without this file, `COPY . .` in the Dockerfile baked into the image:
+#   - the LIVE engagement database `webpent.db` (+ its WAL/SHM siblings)
+#   - 36MB of docs/, 4.8MB of reports/ (engagement evidence), 5.7MB of tests/
+#   - caches, virtualenvs and local-only artifacts
+# Image layers are extractable by anyone with registry access — engagement
+# data must never travel inside them.
+
+# --- Engagement data / state ---
+webpent.db
+webpent.db-wal
+webpent.db-shm
+*.sqlite3
+*.sqlite3-wal
+*.sqlite3-shm
+output/
+memory/
+evidence/
+reports/
+
+# --- Non-runtime trees ---
+docs/
+tests/
+scripts/
+benchmark/
+ground_truth/
+lab/
+profiles/
+templates/
+
+# --- VCS and local config ---
+.git/
+.gitignore
+.env
+.env.*
+!.env.example
+
+# --- Python build/cache noise ---
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+*.egg-info/
+build/
+dist/
+
+# --- Virtualenvs ---
+.venv/
+venv/
+
+# --- Editor / OS ---
+.idea/
+.vscode/
+*.swp
+.DS_Store

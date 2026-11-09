@@ -1,0 +1,61 @@
+# Curated local RAG pack. Review this file before running ingestion.
+# Local entries are summaries with public references; no target secrets or live
+# responses are included.
+sources:
+  - type: local_file
+    path: methodologies/web-application-testing.md
+    doc_type: methodology
+    category: web-testing
+    stack: generic
+    title: Web Application Testing Methodology
+    source_url: https://owasp.org/www-project-web-security-testing-guide/
+    source_id: methodology.web-testing.v1
+    license_note: Summary with links to primary public references.
+    trust_note: Advisory methodology; never evidence by itself.
+
+  - type: local_file
+    path: repositories/security-repositories.md
+    doc_type: repository
+    category: security-corpus
+    stack: generic
+    title: Security Repository Catalog
+    source_url: https://github.com/OWASP/wstg
+    source_id: repository.security-catalog.v1
+    license_note: Repository metadata and links; review each upstream license.
+    trust_note: Repository descriptions are advisory and untrusted content.
+
+  - type: local_file
+    path: reports/finding-report-contract.md
+    doc_type: report
+    category: evidence
+    stack: generic
+    title: Finding Report Contract
+    source_url: https://csrc.nist.gov/pubs/sp/800/115/final
+    source_id: report.finding-contract.v1
+    license_note: Original project summary with public references.
+    trust_note: Reporting guidance; cannot confirm a target behavior.
+
+  - type: local_file
+    path: writeups/web-vulnerability-patterns.md
+    doc_type: writeup
+    category: vulnerability-patterns
+    stack: generic
+    title: Web Vulnerability Write-up Index
+    source_url: https://portswigger.net/web-security/all-materials
+    source_id: writeup.web-patterns.v1
+    license_note: Original index summarizing linked public topics.
+    trust_note: Educational advisory content; do not execute instructions blindly.
+
+  - type: local_file
+    path: scenarios/authorized-lab-scenarios.md
+    doc_type: scenario
+    category: authorized-lab
+    stack: generic
+    title: Authorized Lab Scenarios
+    source_url: https://owasp.org/www-project-web-security-testing-guide/
+    source_id: scenario.authorized-lab.v1
+    license_note: Original project scenarios with public references.
+    trust_note: Run only on declared labs or explicitly authorized targets.
+
+# Keep the existing pinned remote corpus available. Operators may ingest it
+# separately through the root knowledge_sources.yaml after reviewing scope.

@@ -1,0 +1,1519 @@
+{
+  "budget": {
+    "cost_usd": 0.04920775,
+    "halted": true,
+    "llm_calls": 12,
+    "max_cost_usd": 5.0,
+    "max_hypotheses": 8,
+    "max_iterations_per_hypothesis": 5,
+    "max_llm_calls": 12,
+    "max_wall_seconds": 900.0
+  },
+  "confirmed_findings": [],
+  "curiosity_flags": [
+    {
+      "anomaly_type": "technology_surface",
+      "confidence": 0.82,
+      "description": "Route resembles a source map, API documentation, or GraphQL surface.",
+      "evidence_digest": "sha256:07d138a8327d4fe148c9c2bafc98ada1b8730e62ffb69f3f14825f8f397ddae7",
+      "suggested_investigation": "Apply the relevant WSTG methodology and inspect only bounded structural evidence.",
+      "target": "/openapi.json"
+    },
+    {
+      "anomaly_type": "technology_surface",
+      "confidence": 0.82,
+      "description": "Route resembles a source map, API documentation, or GraphQL surface.",
+      "evidence_digest": "sha256:6d50584eb3ddbdbda76d60c22a06a5395d5e4f2404c05695383fe3dfc89ba8af",
+      "suggested_investigation": "Apply the relevant WSTG methodology and inspect only bounded structural evidence.",
+      "target": "/swagger.json"
+    },
+    {
+      "anomaly_type": "sequential_identifier",
+      "confidence": 0.78,
+      "description": "Identifier-shaped input may expose an object-authorization boundary.",
+      "evidence_digest": "sha256:63acca35c39f0490555ada534cba46e70c9c6045a2f54aa3cb41d6d375d18d0c",
+      "suggested_investigation": "Run an owner/foreign/control identity comparison through M4.",
+      "target": "/rest/basket/1"
+    },
+    {
+      "anomaly_type": "unauthenticated_success",
+      "confidence": 0.62,
+      "description": "Route returned success without a structural auth requirement.",
+      "evidence_digest": "sha256:8ac3c368611edd56bf0c97bf9fa3778ed00dd41a9a2dcdcdcc5340ba36e28a9e",
+      "suggested_investigation": "Check whether the returned resource is intentionally public and compare with a protected control.",
+      "target": "/"
+    },
+    {
+      "anomaly_type": "unauthenticated_success",
+      "confidence": 0.62,
+      "description": "Route returned success without a structural auth requirement.",
+      "evidence_digest": "sha256:712f43b35e89686a09eeb0cb5d954db035243751210be37e178579d0bbeda6bb",
+      "suggested_investigation": "Check whether the returned resource is intentionally public and compare with a protected control.",
+      "target": "/admin"
+    },
+    {
+      "anomaly_type": "unauthenticated_success",
+      "confidence": 0.62,
+      "description": "Route returned success without a structural auth requirement.",
+      "evidence_digest": "sha256:e662926ce8368df0ff3ad5bb49fd56b5df99f350229a98ef37e25414f8e0b7b4",
+      "suggested_investigation": "Check whether the returned resource is intentionally public and compare with a protected control.",
+      "target": "/administration"
+    },
+    {
+      "anomaly_type": "unauthenticated_success",
+      "confidence": 0.62,
+      "description": "Route returned success without a structural auth requirement.",
+      "evidence_digest": "sha256:bf79c25e443d7e1c4f4521e12524a239517b7d689e3a578dafb95b0eb58239e3",
+      "suggested_investigation": "Check whether the returned resource is intentionally public and compare with a protected control.",
+      "target": "/api/Challenges"
+    },
+    {
+      "anomaly_type": "unauthenticated_success",
+      "confidence": 0.62,
+      "description": "Route returned success without a structural auth requirement.",
+      "evidence_digest": "sha256:bab2c66ca5436adbcb964d7aa6bffeb61b8ba536d74dbac98f1e9ef856a7f436",
+      "suggested_investigation": "Check whether the returned resource is intentionally public and compare with a protected control.",
+      "target": "/assets/public/favicon_js.ico"
+    },
+    {
+      "anomaly_type": "unauthenticated_success",
+      "confidence": 0.62,
+      "description": "Route returned success without a structural auth requirement.",
+      "evidence_digest": "sha256:b4fd40d458564956baf1657fdb93ba1f95270ca4276d405accbd396a6b54887e",
+      "suggested_investigation": "Check whether the returned resource is intentionally public and compare with a protected control.",
+      "target": "/chunk-BsuJpzq0.js"
+    },
+    {
+      "anomaly_type": "unauthenticated_success",
+      "confidence": 0.62,
+      "description": "Route returned success without a structural auth requirement.",
+      "evidence_digest": "sha256:924b99351c72b2d6e92c6d80864d4b9e77da2fdbae6416a7cef532a400080d38",
+      "suggested_investigation": "Check whether the returned resource is intentionally public and compare with a protected control.",
+      "target": "/chunk-BuYR23IU.js"
+    },
+    {
+      "anomaly_type": "unauthenticated_success",
+      "confidence": 0.62,
+      "description": "Route returned success without a structural auth requirement.",
+      "evidence_digest": "sha256:d77c44e4128640831a90d63a6112c6ffc2300628e2e7bb62b5d9f3d592aafcc4",
+      "suggested_investigation": "Check whether the returned resource is intentionally public and compare with a protected control.",
+      "target": "/chunk-DBPdFzgj.js"
+    },
+    {
+      "anomaly_type": "unauthenticated_success",
+      "confidence": 0.62,
+      "description": "Route returned success without a structural auth requirement.",
+      "evidence_digest": "sha256:35bc934c98016043131b9ac98589c6ff0561900195f9ed8b9b4114cf57d62c51",
+      "suggested_investigation": "Check whether the returned resource is intentionally public and compare with a protected control.",
+      "target": "/main.js"
+    },
+    {
+      "anomaly_type": "unauthenticated_success",
+      "confidence": 0.62,
+      "description": "Route returned success without a structural auth requirement.",
+      "evidence_digest": "sha256:d41b3907a22ffe90d516a12ae4d19ed83fe14555ce753e073015b074fbd209da",
+      "suggested_investigation": "Check whether the returned resource is intentionally public and compare with a protected control.",
+      "target": "/openapi.json"
+    },
+    {
+      "anomaly_type": "unauthenticated_success",
+      "confidence": 0.62,
+      "description": "Route returned success without a structural auth requirement.",
+      "evidence_digest": "sha256:8d16f40b42b92636602d4a729d0a91f8b1e6db080e181e11f8f9286b5817c155",
+      "suggested_investigation": "Check whether the returned resource is intentionally public and compare with a protected control.",
+      "target": "/polyfills.js"
+    },
+    {
+      "anomaly_type": "unauthenticated_success",
+      "confidence": 0.62,
+      "description": "Route returned success without a structural auth requirement.",
+      "evidence_digest": "sha256:7b69d52177cbf5e5fd3e360971a52453ab0c4519c75b04252856d31792b5ee42",
+      "suggested_investigation": "Check whether the returned resource is intentionally public and compare with a protected control.",
+      "target": "/rest/admin/application-version"
+    },
+    {
+      "anomaly_type": "unauthenticated_success",
+      "confidence": 0.62,
+      "description": "Route returned success without a structural auth requirement.",
+      "evidence_digest": "sha256:c9a6f438edfbd9cf683696ad7b905d64da95b58c11c3b874815cc7eca5e15a09",
+      "suggested_investigation": "Check whether the returned resource is intentionally public and compare with a protected control.",
+      "target": "/rest/continue-code"
+    },
+    {
+      "anomaly_type": "unauthenticated_success",
+      "confidence": 0.62,
+      "description": "Route returned success without a structural auth requirement.",
+      "evidence_digest": "sha256:94c7f75f4b5b77d38009284ba06dc96a1f85bf72dc107cea7ceda651affd881a",
+      "suggested_investigation": "Check whether the returned resource is intentionally public and compare with a protected control.",
+      "target": "/rest/continue-code-findIt"
+    },
+    {
+      "anomaly_type": "unauthenticated_success",
+      "confidence": 0.62,
+      "description": "Route returned success without a structural auth requirement.",
+      "evidence_digest": "sha256:0c468d3ac0ba977a43f04107e33ae5eb5d64610d76f33efaeab7c6438949e7fc",
+      "suggested_investigation": "Check whether the returned resource is intentionally public and compare with a protected control.",
+      "target": "/rest/continue-code-fixIt"
+    },
+    {
+      "anomaly_type": "unauthenticated_success",
+      "confidence": 0.62,
+      "description": "Route returned success without a structural auth requirement.",
+      "evidence_digest": "sha256:4c6571bea42344c8778c86a2e1f23b614013431becdf76594d7a21a48fad176d",
+      "suggested_investigation": "Check whether the returned resource is intentionally public and compare with a protected control.",
+      "target": "/rest/products/search?q="
+    },
+    {
+      "anomaly_type": "unauthenticated_success",
+      "confidence": 0.62,
+      "description": "Route returned success without a structural auth requirement.",
+      "evidence_digest": "sha256:e239babadb3a7028f0a6f5017d7a44f67f5ce783f5fed9175b5ce60899c715d7",
+      "suggested_investigation": "Check whether the returned resource is intentionally public and compare with a protected control.",
+      "target": "/rest/repeat-notification"
+    },
+    {
+      "anomaly_type": "unauthenticated_success",
+      "confidence": 0.62,
+      "description": "Route returned success without a structural auth requirement.",
+      "evidence_digest": "sha256:7f2c22d68f8844e5e8184357b8966773bd92ced23378938949510177de73c762",
+      "suggested_investigation": "Check whether the returned resource is intentionally public and compare with a protected control.",
+      "target": "/rolldown-runtime-BoHGiXSq.js"
+    },
+    {
+      "anomaly_type": "unauthenticated_success",
+      "confidence": 0.62,
+      "description": "Route returned success without a structural auth requirement.",
+      "evidence_digest": "sha256:860e8c8afbe4d8959fd0940a5f1060cffd9245dcb590730e177af5769c257ddd",
+      "suggested_investigation": "Check whether the returned resource is intentionally public and compare with a protected control.",
+      "target": "/scripts.js"
+    },
+    {
+      "anomaly_type": "unauthenticated_success",
+      "confidence": 0.62,
+      "description": "Route returned success without a structural auth requirement.",
+      "evidence_digest": "sha256:e7a5b845353dc52a6be2916d9dfaa0cc410a93a977986655474d3e45376b5e1e",
+      "suggested_investigation": "Check whether the returned resource is intentionally public and compare with a protected control.",
+      "target": "/search?q="
+    },
+    {
+      "anomaly_type": "unauthenticated_success",
+      "confidence": 0.62,
+      "description": "Route returned success without a structural auth requirement.",
+      "evidence_digest": "sha256:e2a671248f8b594130e0fec1ff830af6d72cf50a9a69da57ca418a01368b3a61",
+      "suggested_investigation": "Check whether the returned resource is intentionally public and compare with a protected control.",
+      "target": "/sitemap.xml"
+    },
+    {
+      "anomaly_type": "unauthenticated_success",
+      "confidence": 0.62,
+      "description": "Route returned success without a structural auth requirement.",
+      "evidence_digest": "sha256:e26d6c6400a42454c4e6052414c96a37650751064f816b63143ba38a3140a583",
+      "suggested_investigation": "Check whether the returned resource is intentionally public and compare with a protected control.",
+      "target": "/styles.css"
+    },
+    {
+      "anomaly_type": "unauthenticated_success",
+      "confidence": 0.62,
+      "description": "Route returned success without a structural auth requirement.",
+      "evidence_digest": "sha256:eb26002e0cf3b22081dd688041caaf114e4ccfeff8e0a83de787ab52ca651f2b",
+      "suggested_investigation": "Check whether the returned resource is intentionally public and compare with a protected control.",
+      "target": "/swagger.json"
+    }
+  ],
+  "current_hypothesis_index": 2,
+  "exploitation_results": [
+    {
+      "authority_trace": [],
+      "error": "exploiter_advisory_rejected",
+      "evidence": {},
+      "hypothesis_id": "h_recon_bola_835522d13bc8",
+      "request_executed": false,
+      "response_received": false,
+      "status": "HALTED"
+    },
+    {
+      "authority_trace": [
+        "ScopeLaw",
+        "ToolBoundary",
+        "M4",
+        "AVI",
+        "ProofBundle",
+        "Replay",
+        "PromotionPipeline"
+      ],
+      "error": null,
+      "evidence": {
+        "authority": "ModernOrchestrator/ScopeLaw/AVI",
+        "decision": {
+          "actor_id": "m4_unbound_unknown",
+          "api_type": "rest",
+          "causal_difference": null,
+          "decision": 1,
+          "evidence_quality": 1,
+          "experiment_id": "exp_bola_v1",
+          "hypothesis_id": "h_recon_bola_835522d13bc8",
+          "identity_binding_result": {
+            "actor_id": "m4_unbound_unknown",
+            "authorization_context": "owner=m4_unbound_unknown",
+            "baseline_access_result": 0,
+            "baseline_actor_id": "m4_unbound_unknown",
+            "candidate_access_result": 0,
+            "causal_difference": null,
+            "expected_owner": "m4_unbound_unknown",
+            "identity_bound": false,
+            "identity_bound_reason": "actor_mismatch_absent candidate=m4_unbound_unknown owner=m4_unbound_unknown",
+            "negative_control_result": 0,
+            "resource_id": "/rest/basket/1",
+            "resource_owner": "m4_unbound_unknown"
+          },
+          "identity_bound": false,
+          "identity_bound_reason": "actor_mismatch_absent candidate=m4_unbound_unknown owner=m4_unbound_unknown",
+          "knowledge_metadata": {
+            "payload_id": "pat-988f7ff8a922a090",
+            "payload_safety_class": "local_authorized_probe",
+            "payload_source": "Insecure Direct Object References/README.md",
+            "payload_sub_type": "general",
+            "wstg_expected_behavior": "Insecure Direct Object References (IDOR) occur when an application provides direct access to objects based on user-supplied input. As a result of this vulnerability attackers can bypass authorization and access resources in the system directly, for example database records or files. Insecure Direct Object References allow attackers to bypass authorization and access resources directly by modifying",
+            "wstg_methodology_digest": "6649c1da7261cb72",
+            "wstg_methodology_summary": "To test for this vulnerability the tester first needs to map out all locations in the application where user input is used to reference objects directly. For example, locations where user input is used to access a database row, a file, application pages and more. Next the tester should modify the value of the parameter used to reference objects and assess whether it is possible to retrieve objects",
+            "wstg_reference": "WSTG-ATHZ-04"
+          },
+          "outcome_tracker_update": {
+            "feeds_next_decision": true,
+            "history_index": 0,
+            "hypothesis_id": "h_recon_bola_835522d13bc8",
+            "information_value": 1.0,
+            "justification": "avi_decision_1_REJECTED",
+            "outcome_class": "low_information",
+            "signature": "exp_bola_v1",
+            "timestamp": "2026-10-01T15:36:01.009860+00:00"
+          },
+          "promotion": {
+            "decision": "REJECTED",
+            "finding_id": null,
+            "gates_failed": [
+              "causal_validator_confirmed",
+              "proof_bundle_signed",
+              "replay_verified",
+              "semantic_identity_bound"
+            ],
+            "gates_passed": [
+              "real_runtime_observations",
+              "baseline_present",
+              "negative_control_present",
+              "no_external_scanner_authority"
+            ],
+            "pipeline": "PromotionPipeline_v1",
+            "reason": "causal_validator_confirmed:rejected; proof_bundle_signed:rejected; replay_verified:rejected; semantic_identity_bound:rejected",
+            "vulnerability_class": "BOLA"
+          },
+          "proof_bundle": null,
+          "proof_result": {
+            "bundle_created": false,
+            "bundle_id": null,
+            "component": "ProofBundle (existing sealed evidence authority)",
+            "evidence_origin": "target_runtime",
+            "seal_digest": null,
+            "seal_verified_via_replay": false,
+            "sealed": false
+          },
+          "proof_seal_verified": false,
+          "proof_sealed": false,
+          "proof_trace": null,
+          "proof_trace_contract": null,
+          "real_http_executed": false,
+          "replay_result": {
+            "digests_match": true,
+            "expected_outcome": "INCONCLUSIVE",
+            "outcome_match": true,
+            "replay_component": "ReplayVerifier_v1_2_semantic",
+            "replay_verified": false,
+            "replayed_outcome": "INCONCLUSIVE",
+            "seal_verified": false,
+            "semantic_match": true
+          },
+          "replay_verified": false,
+          "request_sequence": [
+            "{'role': 'baseline', 'method': 'GET', 'url': None, 'request_digest': None}",
+            "{'role': 'candidate', 'method': 'GET', 'url': None, 'request_digest': None}",
+            "{'role': 'negative_control', 'method': 'GET', 'url': None, 'request_digest': None}"
+          ],
+          "resource_id": "/rest/basket/1",
+          "response_sequence": [
+            "{'role': 'baseline', 'status_code': 0, 'response_digest': None}",
+            "{'role': 'candidate', 'status_code': 0, 'response_digest': None}",
+            "{'role': 'negative_control', 'status_code': 0, 'response_digest': None}"
+          ],
+          "selection": {
+            "api_type": "rest",
+            "experiment_id": "exp_bola_v1",
+            "graphql_query": null,
+            "hypothesis_id": "h_recon_bola_835522d13bc8",
+            "rejected_candidates": [],
+            "selected": true,
+            "selected_candidate_score": 15950,
+            "selection_reason": "deterministic_score:registry_coverage+information_value+novelty",
+            "selector_version": "autonomous_experiment_selector_v1",
+            "target_path": "/rest/basket/1",
+            "vulnerability_class": "BOLA"
+          },
+          "stopped": false,
+          "validator_outcome": "INCONCLUSIVE",
+          "vulnerability_class": "BOLA",
+          "world_model_delta": {
+            "api": "EvidenceGraph.register_hypothesis+record_observation_outcome+record_experiment (existing world model seam)",
+            "entities_delta": 0,
+            "entity_count_after": 2,
+            "experiments_delta": 1,
+            "hypotheses_delta": 1,
+            "hypothesis_count_after": 1,
+            "information_value": 0.2,
+            "observation_id": "obs_exp_bola_v1_d1",
+            "relation_count_after": 3,
+            "relations_delta": 2,
+            "supports_hypothesis": false,
+            "updated": true
+          }
+        },
+        "governed_candidate_id": "h_recon_bola_835522d13bc8"
+      },
+      "hypothesis_id": "h_recon_bola_835522d13bc8",
+      "request_executed": true,
+      "response_received": true,
+      "status": "VALIDATING"
+    },
+    {
+      "authority_trace": [
+        "ScopeLaw",
+        "ToolBoundary",
+        "M4",
+        "AVI",
+        "ProofBundle",
+        "Replay",
+        "PromotionPipeline"
+      ],
+      "error": null,
+      "evidence": {
+        "authority": "ModernOrchestrator/ScopeLaw/AVI",
+        "decision": {
+          "actor_id": "m4_unbound_unknown",
+          "api_type": "rest",
+          "causal_difference": null,
+          "decision": 1,
+          "evidence_quality": 1,
+          "experiment_id": "exp_bola_v1",
+          "hypothesis_id": "h_recon_bola_835522d13bc8",
+          "identity_binding_result": {
+            "actor_id": "m4_unbound_unknown",
+            "authorization_context": "owner=m4_unbound_unknown",
+            "baseline_access_result": 0,
+            "baseline_actor_id": "m4_unbound_unknown",
+            "candidate_access_result": 0,
+            "causal_difference": null,
+            "expected_owner": "m4_unbound_unknown",
+            "identity_bound": false,
+            "identity_bound_reason": "actor_mismatch_absent candidate=m4_unbound_unknown owner=m4_unbound_unknown",
+            "negative_control_result": 0,
+            "resource_id": "/rest/basket/1",
+            "resource_owner": "m4_unbound_unknown"
+          },
+          "identity_bound": false,
+          "identity_bound_reason": "actor_mismatch_absent candidate=m4_unbound_unknown owner=m4_unbound_unknown",
+          "knowledge_metadata": {
+            "payload_id": "pat-988f7ff8a922a090",
+            "payload_safety_class": "local_authorized_probe",
+            "payload_source": "Insecure Direct Object References/README.md",
+            "payload_sub_type": "general",
+            "wstg_expected_behavior": "Insecure Direct Object References (IDOR) occur when an application provides direct access to objects based on user-supplied input. As a result of this vulnerability attackers can bypass authorization and access resources in the system directly, for example database records or files. Insecure Direct Object References allow attackers to bypass authorization and access resources directly by modifying",
+            "wstg_methodology_digest": "6649c1da7261cb72",
+            "wstg_methodology_summary": "To test for this vulnerability the tester first needs to map out all locations in the application where user input is used to reference objects directly. For example, locations where user input is used to access a database row, a file, application pages and more. Next the tester should modify the value of the parameter used to reference objects and assess whether it is possible to retrieve objects",
+            "wstg_reference": "WSTG-ATHZ-04"
+          },
+          "outcome_tracker_update": {
+            "feeds_next_decision": true,
+            "history_index": 1,
+            "hypothesis_id": "h_recon_bola_835522d13bc8",
+            "information_value": 1.0,
+            "justification": "avi_decision_1_REJECTED",
+            "outcome_class": "low_information",
+            "signature": "exp_bola_v1",
+            "timestamp": "2026-10-01T15:36:29.734237+00:00"
+          },
+          "promotion": {
+            "decision": "REJECTED",
+            "finding_id": null,
+            "gates_failed": [
+              "causal_validator_confirmed",
+              "proof_bundle_signed",
+              "replay_verified",
+              "semantic_identity_bound"
+            ],
+            "gates_passed": [
+              "real_runtime_observations",
+              "baseline_present",
+              "negative_control_present",
+              "no_external_scanner_authority"
+            ],
+            "pipeline": "PromotionPipeline_v1",
+            "reason": "causal_validator_confirmed:rejected; proof_bundle_signed:rejected; replay_verified:rejected; semantic_identity_bound:rejected",
+            "vulnerability_class": "BOLA"
+          },
+          "proof_bundle": null,
+          "proof_result": {
+            "bundle_created": false,
+            "bundle_id": null,
+            "component": "ProofBundle (existing sealed evidence authority)",
+            "evidence_origin": "target_runtime",
+            "seal_digest": null,
+            "seal_verified_via_replay": false,
+            "sealed": false
+          },
+          "proof_seal_verified": false,
+          "proof_sealed": false,
+          "proof_trace": null,
+          "proof_trace_contract": null,
+          "real_http_executed": false,
+          "replay_result": {
+            "digests_match": true,
+            "expected_outcome": "INCONCLUSIVE",
+            "outcome_match": true,
+            "replay_component": "ReplayVerifier_v1_2_semantic",
+            "replay_verified": false,
+            "replayed_outcome": "INCONCLUSIVE",
+            "seal_verified": false,
+            "semantic_match": true
+          },
+          "replay_verified": false,
+          "request_sequence": [
+            "{'role': 'baseline', 'method': 'GET', 'url': None, 'request_digest': None}",
+            "{'role': 'candidate', 'method': 'GET', 'url': None, 'request_digest': None}",
+            "{'role': 'negative_control', 'method': 'GET', 'url': None, 'request_digest': None}"
+          ],
+          "resource_id": "/rest/basket/1",
+          "response_sequence": [
+            "{'role': 'baseline', 'status_code': 0, 'response_digest': None}",
+            "{'role': 'candidate', 'status_code': 0, 'response_digest': None}",
+            "{'role': 'negative_control', 'status_code': 0, 'response_digest': None}"
+          ],
+          "selection": {
+            "api_type": "rest",
+            "experiment_id": "exp_bola_v1",
+            "graphql_query": null,
+            "hypothesis_id": "h_recon_bola_835522d13bc8",
+            "rejected_candidates": [],
+            "selected": true,
+            "selected_candidate_score": 15950,
+            "selection_reason": "deterministic_score:registry_coverage+information_value+novelty",
+            "selector_version": "autonomous_experiment_selector_v1",
+            "target_path": "/rest/basket/1",
+            "vulnerability_class": "BOLA"
+          },
+          "stopped": false,
+          "validator_outcome": "INCONCLUSIVE",
+          "vulnerability_class": "BOLA",
+          "world_model_delta": {
+            "api": "EvidenceGraph.register_hypothesis+record_observation_outcome+record_experiment (existing world model seam)",
+            "entities_delta": 0,
+            "entity_count_after": 2,
+            "experiments_delta": 1,
+            "hypotheses_delta": 0,
+            "hypothesis_count_after": 1,
+            "information_value": 0.2,
+            "observation_id": "obs_exp_bola_v1_d1",
+            "relation_count_after": 5,
+            "relations_delta": 2,
+            "supports_hypothesis": false,
+            "updated": true
+          }
+        },
+        "governed_candidate_id": "h_recon_bola_835522d13bc8"
+      },
+      "hypothesis_id": "h_recon_bola_835522d13bc8",
+      "request_executed": true,
+      "response_received": true,
+      "status": "VALIDATING"
+    },
+    {
+      "authority_trace": [
+        "ScopeLaw",
+        "ToolBoundary",
+        "M4",
+        "AVI",
+        "ProofBundle",
+        "Replay",
+        "PromotionPipeline"
+      ],
+      "error": null,
+      "evidence": {
+        "authority": "ModernOrchestrator/ScopeLaw/AVI",
+        "decision": {
+          "actor_id": "m4_unbound_unknown",
+          "api_type": "rest",
+          "causal_difference": null,
+          "decision": 1,
+          "evidence_quality": 1,
+          "experiment_id": "exp_bola_v1",
+          "hypothesis_id": "h_recon_bola_835522d13bc8",
+          "identity_binding_result": {
+            "actor_id": "m4_unbound_unknown",
+            "authorization_context": "owner=m4_unbound_unknown",
+            "baseline_access_result": 0,
+            "baseline_actor_id": "m4_unbound_unknown",
+            "candidate_access_result": 0,
+            "causal_difference": null,
+            "expected_owner": "m4_unbound_unknown",
+            "identity_bound": false,
+            "identity_bound_reason": "actor_mismatch_absent candidate=m4_unbound_unknown owner=m4_unbound_unknown",
+            "negative_control_result": 0,
+            "resource_id": "/rest/basket/1",
+            "resource_owner": "m4_unbound_unknown"
+          },
+          "identity_bound": false,
+          "identity_bound_reason": "actor_mismatch_absent candidate=m4_unbound_unknown owner=m4_unbound_unknown",
+          "knowledge_metadata": {
+            "payload_id": "pat-988f7ff8a922a090",
+            "payload_safety_class": "local_authorized_probe",
+            "payload_source": "Insecure Direct Object References/README.md",
+            "payload_sub_type": "general",
+            "wstg_expected_behavior": "Insecure Direct Object References (IDOR) occur when an application provides direct access to objects based on user-supplied input. As a result of this vulnerability attackers can bypass authorization and access resources in the system directly, for example database records or files. Insecure Direct Object References allow attackers to bypass authorization and access resources directly by modifying",
+            "wstg_methodology_digest": "6649c1da7261cb72",
+            "wstg_methodology_summary": "To test for this vulnerability the tester first needs to map out all locations in the application where user input is used to reference objects directly. For example, locations where user input is used to access a database row, a file, application pages and more. Next the tester should modify the value of the parameter used to reference objects and assess whether it is possible to retrieve objects",
+            "wstg_reference": "WSTG-ATHZ-04"
+          },
+          "outcome_tracker_update": {
+            "feeds_next_decision": true,
+            "history_index": 2,
+            "hypothesis_id": "h_recon_bola_835522d13bc8",
+            "information_value": 1.0,
+            "justification": "avi_decision_1_REJECTED",
+            "outcome_class": "low_information",
+            "signature": "exp_bola_v1",
+            "timestamp": "2026-10-01T15:36:59.893217+00:00"
+          },
+          "promotion": {
+            "decision": "REJECTED",
+            "finding_id": null,
+            "gates_failed": [
+              "causal_validator_confirmed",
+              "proof_bundle_signed",
+              "replay_verified",
+              "semantic_identity_bound"
+            ],
+            "gates_passed": [
+              "real_runtime_observations",
+              "baseline_present",
+              "negative_control_present",
+              "no_external_scanner_authority"
+            ],
+            "pipeline": "PromotionPipeline_v1",
+            "reason": "causal_validator_confirmed:rejected; proof_bundle_signed:rejected; replay_verified:rejected; semantic_identity_bound:rejected",
+            "vulnerability_class": "BOLA"
+          },
+          "proof_bundle": null,
+          "proof_result": {
+            "bundle_created": false,
+            "bundle_id": null,
+            "component": "ProofBundle (existing sealed evidence authority)",
+            "evidence_origin": "target_runtime",
+            "seal_digest": null,
+            "seal_verified_via_replay": false,
+            "sealed": false
+          },
+          "proof_seal_verified": false,
+          "proof_sealed": false,
+          "proof_trace": null,
+          "proof_trace_contract": null,
+          "real_http_executed": false,
+          "replay_result": {
+            "digests_match": true,
+            "expected_outcome": "INCONCLUSIVE",
+            "outcome_match": true,
+            "replay_component": "ReplayVerifier_v1_2_semantic",
+            "replay_verified": false,
+            "replayed_outcome": "INCONCLUSIVE",
+            "seal_verified": false,
+            "semantic_match": true
+          },
+          "replay_verified": false,
+          "request_sequence": [
+            "{'role': 'baseline', 'method': 'GET', 'url': None, 'request_digest': None}",
+            "{'role': 'candidate', 'method': 'GET', 'url': None, 'request_digest': None}",
+            "{'role': 'negative_control', 'method': 'GET', 'url': None, 'request_digest': None}"
+          ],
+          "resource_id": "/rest/basket/1",
+          "response_sequence": [
+            "{'role': 'baseline', 'status_code': 0, 'response_digest': None}",
+            "{'role': 'candidate', 'status_code': 0, 'response_digest': None}",
+            "{'role': 'negative_control', 'status_code': 0, 'response_digest': None}"
+          ],
+          "selection": {
+            "api_type": "rest",
+            "experiment_id": "exp_bola_v1",
+            "graphql_query": null,
+            "hypothesis_id": "h_recon_bola_835522d13bc8",
+            "rejected_candidates": [],
+            "selected": true,
+            "selected_candidate_score": 15950,
+            "selection_reason": "deterministic_score:registry_coverage+information_value+novelty",
+            "selector_version": "autonomous_experiment_selector_v1",
+            "target_path": "/rest/basket/1",
+            "vulnerability_class": "BOLA"
+          },
+          "stopped": false,
+          "validator_outcome": "INCONCLUSIVE",
+          "vulnerability_class": "BOLA",
+          "world_model_delta": {
+            "api": "EvidenceGraph.register_hypothesis+record_observation_outcome+record_experiment (existing world model seam)",
+            "entities_delta": 0,
+            "entity_count_after": 2,
+            "experiments_delta": 1,
+            "hypotheses_delta": 0,
+            "hypothesis_count_after": 1,
+            "information_value": 0.2,
+            "observation_id": "obs_exp_bola_v1_d1",
+            "relation_count_after": 7,
+            "relations_delta": 2,
+            "supports_hypothesis": false,
+            "updated": true
+          }
+        },
+        "governed_candidate_id": "h_recon_bola_835522d13bc8"
+      },
+      "hypothesis_id": "h_recon_bola_835522d13bc8",
+      "request_executed": true,
+      "response_received": true,
+      "status": "VALIDATING"
+    },
+    {
+      "authority_trace": [
+        "ScopeLaw",
+        "ToolBoundary",
+        "M4",
+        "AVI",
+        "ProofBundle",
+        "Replay",
+        "PromotionPipeline"
+      ],
+      "error": null,
+      "evidence": {
+        "authority": "ModernOrchestrator/ScopeLaw/AVI",
+        "decision": {
+          "actor_id": "m4_unbound_unknown",
+          "api_type": "rest",
+          "causal_difference": null,
+          "decision": 1,
+          "evidence_quality": 1,
+          "experiment_id": "exp_bola_v1",
+          "hypothesis_id": "h_recon_bola_835522d13bc8",
+          "identity_binding_result": {
+            "actor_id": "m4_unbound_unknown",
+            "authorization_context": "owner=m4_unbound_unknown",
+            "baseline_access_result": 0,
+            "baseline_actor_id": "m4_unbound_unknown",
+            "candidate_access_result": 0,
+            "causal_difference": null,
+            "expected_owner": "m4_unbound_unknown",
+            "identity_bound": false,
+            "identity_bound_reason": "actor_mismatch_absent candidate=m4_unbound_unknown owner=m4_unbound_unknown",
+            "negative_control_result": 0,
+            "resource_id": "/rest/basket/1",
+            "resource_owner": "m4_unbound_unknown"
+          },
+          "identity_bound": false,
+          "identity_bound_reason": "actor_mismatch_absent candidate=m4_unbound_unknown owner=m4_unbound_unknown",
+          "knowledge_metadata": {
+            "payload_id": "pat-988f7ff8a922a090",
+            "payload_safety_class": "local_authorized_probe",
+            "payload_source": "Insecure Direct Object References/README.md",
+            "payload_sub_type": "general",
+            "wstg_expected_behavior": "Insecure Direct Object References (IDOR) occur when an application provides direct access to objects based on user-supplied input. As a result of this vulnerability attackers can bypass authorization and access resources in the system directly, for example database records or files. Insecure Direct Object References allow attackers to bypass authorization and access resources directly by modifying",
+            "wstg_methodology_digest": "6649c1da7261cb72",
+            "wstg_methodology_summary": "To test for this vulnerability the tester first needs to map out all locations in the application where user input is used to reference objects directly. For example, locations where user input is used to access a database row, a file, application pages and more. Next the tester should modify the value of the parameter used to reference objects and assess whether it is possible to retrieve objects",
+            "wstg_reference": "WSTG-ATHZ-04"
+          },
+          "outcome_tracker_update": {
+            "feeds_next_decision": true,
+            "history_index": 3,
+            "hypothesis_id": "h_recon_bola_835522d13bc8",
+            "information_value": 1.0,
+            "justification": "avi_decision_1_REJECTED",
+            "outcome_class": "low_information",
+            "signature": "exp_bola_v1",
+            "timestamp": "2026-10-01T15:37:24.878167+00:00"
+          },
+          "promotion": {
+            "decision": "REJECTED",
+            "finding_id": null,
+            "gates_failed": [
+              "causal_validator_confirmed",
+              "proof_bundle_signed",
+              "replay_verified",
+              "semantic_identity_bound"
+            ],
+            "gates_passed": [
+              "real_runtime_observations",
+              "baseline_present",
+              "negative_control_present",
+              "no_external_scanner_authority"
+            ],
+            "pipeline": "PromotionPipeline_v1",
+            "reason": "causal_validator_confirmed:rejected; proof_bundle_signed:rejected; replay_verified:rejected; semantic_identity_bound:rejected",
+            "vulnerability_class": "BOLA"
+          },
+          "proof_bundle": null,
+          "proof_result": {
+            "bundle_created": false,
+            "bundle_id": null,
+            "component": "ProofBundle (existing sealed evidence authority)",
+            "evidence_origin": "target_runtime",
+            "seal_digest": null,
+            "seal_verified_via_replay": false,
+            "sealed": false
+          },
+          "proof_seal_verified": false,
+          "proof_sealed": false,
+          "proof_trace": null,
+          "proof_trace_contract": null,
+          "real_http_executed": false,
+          "replay_result": {
+            "digests_match": true,
+            "expected_outcome": "INCONCLUSIVE",
+            "outcome_match": true,
+            "replay_component": "ReplayVerifier_v1_2_semantic",
+            "replay_verified": false,
+            "replayed_outcome": "INCONCLUSIVE",
+            "seal_verified": false,
+            "semantic_match": true
+          },
+          "replay_verified": false,
+          "request_sequence": [
+            "{'role': 'baseline', 'method': 'GET', 'url': None, 'request_digest': None}",
+            "{'role': 'candidate', 'method': 'GET', 'url': None, 'request_digest': None}",
+            "{'role': 'negative_control', 'method': 'GET', 'url': None, 'request_digest': None}"
+          ],
+          "resource_id": "/rest/basket/1",
+          "response_sequence": [
+            "{'role': 'baseline', 'status_code': 0, 'response_digest': None}",
+            "{'role': 'candidate', 'status_code': 0, 'response_digest': None}",
+            "{'role': 'negative_control', 'status_code': 0, 'response_digest': None}"
+          ],
+          "selection": {
+            "api_type": "rest",
+            "experiment_id": "exp_bola_v1",
+            "graphql_query": null,
+            "hypothesis_id": "h_recon_bola_835522d13bc8",
+            "rejected_candidates": [],
+            "selected": true,
+            "selected_candidate_score": 15950,
+            "selection_reason": "deterministic_score:registry_coverage+information_value+novelty",
+            "selector_version": "autonomous_experiment_selector_v1",
+            "target_path": "/rest/basket/1",
+            "vulnerability_class": "BOLA"
+          },
+          "stopped": false,
+          "validator_outcome": "INCONCLUSIVE",
+          "vulnerability_class": "BOLA",
+          "world_model_delta": {
+            "api": "EvidenceGraph.register_hypothesis+record_observation_outcome+record_experiment (existing world model seam)",
+            "entities_delta": 0,
+            "entity_count_after": 2,
+            "experiments_delta": 1,
+            "hypotheses_delta": 0,
+            "hypothesis_count_after": 1,
+            "information_value": 0.2,
+            "observation_id": "obs_exp_bola_v1_d1",
+            "relation_count_after": 9,
+            "relations_delta": 2,
+            "supports_hypothesis": false,
+            "updated": true
+          }
+        },
+        "governed_candidate_id": "h_recon_bola_835522d13bc8"
+      },
+      "hypothesis_id": "h_recon_bola_835522d13bc8",
+      "request_executed": true,
+      "response_received": true,
+      "status": "VALIDATING"
+    },
+    {
+      "authority_trace": [
+        "ScopeLaw",
+        "ToolBoundary",
+        "M4",
+        "AVI",
+        "ProofBundle",
+        "Replay",
+        "PromotionPipeline"
+      ],
+      "error": null,
+      "evidence": {
+        "authority": "ModernOrchestrator/ScopeLaw/AVI",
+        "decision": {
+          "actor_id": "m4_unbound_unknown",
+          "api_type": "rest",
+          "causal_difference": null,
+          "decision": 1,
+          "evidence_quality": 1,
+          "experiment_id": "exp_idor_v1",
+          "hypothesis_id": "h_recon_idor_026e8149b12c",
+          "identity_binding_result": {
+            "actor_id": "m4_unbound_unknown",
+            "authorization_context": "owner=m4_unbound_unknown",
+            "baseline_access_result": 0,
+            "baseline_actor_id": "m4_unbound_unknown",
+            "candidate_access_result": 0,
+            "causal_difference": null,
+            "expected_owner": "m4_unbound_unknown",
+            "identity_bound": false,
+            "identity_bound_reason": "actor_mismatch_absent candidate=m4_unbound_unknown owner=m4_unbound_unknown",
+            "negative_control_result": 0,
+            "resource_id": "/rest/basket/1",
+            "resource_owner": "m4_unbound_unknown"
+          },
+          "identity_bound": false,
+          "identity_bound_reason": "actor_mismatch_absent candidate=m4_unbound_unknown owner=m4_unbound_unknown",
+          "knowledge_metadata": {
+            "payload_id": "pat-988f7ff8a922a090",
+            "payload_safety_class": "local_authorized_probe",
+            "payload_source": "Insecure Direct Object References/README.md",
+            "payload_sub_type": "general",
+            "wstg_expected_behavior": "Insecure Direct Object References (IDOR) occur when an application provides direct access to objects based on user-supplied input. As a result of this vulnerability attackers can bypass authorization and access resources in the system directly, for example database records or files. Insecure Direct Object References allow attackers to bypass authorization and access resources directly by modifying",
+            "wstg_methodology_digest": "6649c1da7261cb72",
+            "wstg_methodology_summary": "To test for this vulnerability the tester first needs to map out all locations in the application where user input is used to reference objects directly. For example, locations where user input is used to access a database row, a file, application pages and more. Next the tester should modify the value of the parameter used to reference objects and assess whether it is possible to retrieve objects",
+            "wstg_reference": "WSTG-ATHZ-04"
+          },
+          "outcome_tracker_update": {
+            "feeds_next_decision": true,
+            "history_index": 4,
+            "hypothesis_id": "h_recon_idor_026e8149b12c",
+            "information_value": 1.0,
+            "justification": "avi_decision_1_REJECTED",
+            "outcome_class": "low_information",
+            "signature": "exp_idor_v1",
+            "timestamp": "2026-10-01T15:37:48.934928+00:00"
+          },
+          "promotion": {
+            "decision": "REJECTED",
+            "finding_id": null,
+            "gates_failed": [
+              "causal_validator_confirmed",
+              "proof_bundle_signed",
+              "replay_verified",
+              "semantic_identity_bound"
+            ],
+            "gates_passed": [
+              "real_runtime_observations",
+              "baseline_present",
+              "negative_control_present",
+              "no_external_scanner_authority"
+            ],
+            "pipeline": "PromotionPipeline_v1",
+            "reason": "causal_validator_confirmed:rejected; proof_bundle_signed:rejected; replay_verified:rejected; semantic_identity_bound:rejected",
+            "vulnerability_class": "IDOR"
+          },
+          "proof_bundle": null,
+          "proof_result": {
+            "bundle_created": false,
+            "bundle_id": null,
+            "component": "ProofBundle (existing sealed evidence authority)",
+            "evidence_origin": "target_runtime",
+            "seal_digest": null,
+            "seal_verified_via_replay": false,
+            "sealed": false
+          },
+          "proof_seal_verified": false,
+          "proof_sealed": false,
+          "proof_trace": null,
+          "proof_trace_contract": null,
+          "real_http_executed": false,
+          "replay_result": {
+            "digests_match": true,
+            "expected_outcome": "INCONCLUSIVE",
+            "outcome_match": true,
+            "replay_component": "ReplayVerifier_v1_2_semantic",
+            "replay_verified": false,
+            "replayed_outcome": "INCONCLUSIVE",
+            "seal_verified": false,
+            "semantic_match": true
+          },
+          "replay_verified": false,
+          "request_sequence": [
+            "{'role': 'baseline', 'method': 'GET', 'url': None, 'request_digest': None}",
+            "{'role': 'candidate', 'method': 'GET', 'url': None, 'request_digest': None}",
+            "{'role': 'negative_control', 'method': 'GET', 'url': None, 'request_digest': None}"
+          ],
+          "resource_id": "/rest/basket/1",
+          "response_sequence": [
+            "{'role': 'baseline', 'status_code': 0, 'response_digest': None}",
+            "{'role': 'candidate', 'status_code': 0, 'response_digest': None}",
+            "{'role': 'negative_control', 'status_code': 0, 'response_digest': None}"
+          ],
+          "selection": {
+            "api_type": "rest",
+            "experiment_id": "exp_idor_v1",
+            "graphql_query": null,
+            "hypothesis_id": "h_recon_idor_026e8149b12c",
+            "rejected_candidates": [],
+            "selected": true,
+            "selected_candidate_score": 16150,
+            "selection_reason": "deterministic_score:registry_coverage+information_value+novelty",
+            "selector_version": "autonomous_experiment_selector_v1",
+            "target_path": "/rest/basket/1",
+            "vulnerability_class": "IDOR"
+          },
+          "stopped": false,
+          "validator_outcome": "INCONCLUSIVE",
+          "vulnerability_class": "IDOR",
+          "world_model_delta": {
+            "api": "EvidenceGraph.register_hypothesis+record_observation_outcome+record_experiment (existing world model seam)",
+            "entities_delta": 0,
+            "entity_count_after": 2,
+            "experiments_delta": 1,
+            "hypotheses_delta": 1,
+            "hypothesis_count_after": 2,
+            "information_value": 0.2,
+            "observation_id": "obs_exp_idor_v1_d1",
+            "relation_count_after": 11,
+            "relations_delta": 2,
+            "supports_hypothesis": false,
+            "updated": true
+          }
+        },
+        "governed_candidate_id": "h_recon_idor_026e8149b12c"
+      },
+      "hypothesis_id": "h_recon_idor_026e8149b12c",
+      "request_executed": true,
+      "response_received": true,
+      "status": "VALIDATING"
+    },
+    {
+      "authority_trace": [],
+      "error": "exploiter_advisory_rejected",
+      "evidence": {},
+      "hypothesis_id": "h_recon_idor_026e8149b12c",
+      "request_executed": false,
+      "response_received": false,
+      "status": "HALTED"
+    },
+    {
+      "authority_trace": [],
+      "error": "exploiter_advisory_rejected",
+      "evidence": {},
+      "hypothesis_id": "h_recon_idor_026e8149b12c",
+      "request_executed": false,
+      "response_received": false,
+      "status": "HALTED"
+    },
+    {
+      "authority_trace": [],
+      "error": "exploiter_advisory_rejected",
+      "evidence": {},
+      "hypothesis_id": "h_recon_idor_026e8149b12c",
+      "request_executed": false,
+      "response_received": false,
+      "status": "HALTED"
+    },
+    {
+      "authority_trace": [],
+      "error": "exploiter_advisory_rejected",
+      "evidence": {},
+      "hypothesis_id": "h_recon_idor_026e8149b12c",
+      "request_executed": false,
+      "response_received": false,
+      "status": "HALTED"
+    }
+  ],
+  "graph_events": [
+    {
+      "at_monotonic": 26675.550611,
+      "detail_digest": "sha256:9da6062fcf6e84002f1cea0f9c429fe603a743338fb3bb7a9b306eb3d7bcef91",
+      "node": "planner",
+      "status": "PLANNED"
+    },
+    {
+      "at_monotonic": 26675.551703,
+      "detail_digest": "sha256:e66650f01d8a244e91c97fb7868eaa0fc3bec26dc249461fe8cd0cba622cd0d2",
+      "node": "exploiter",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 26696.057614,
+      "detail_digest": "sha256:3d38a8c18c92e9f8a23af4254b02a4f14136cf138927a8b3eb3aeaffd6578851",
+      "node": "exploiter_advisory",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 26696.057759,
+      "detail_digest": "sha256:681d589cdd43aafef406752323ae1cb57884bd3a9cbac7b6cf885a9245581f89",
+      "node": "exploiter_complete",
+      "status": "VALIDATING"
+    },
+    {
+      "at_monotonic": 26696.063752,
+      "detail_digest": "sha256:e5ba1c83cd0e0739bc550f4736bc3e4334b21a6b86a5f1d29294a9b6c27e3491",
+      "node": "validator",
+      "status": "INCONCLUSIVE"
+    },
+    {
+      "at_monotonic": 26696.064952,
+      "detail_digest": "sha256:e66650f01d8a244e91c97fb7868eaa0fc3bec26dc249461fe8cd0cba622cd0d2",
+      "node": "exploiter",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 26716.661593,
+      "detail_digest": "sha256:cabf8f25dfaa59521103745ffb7c3936096fa575c540d4fefc1a4cafc4b33e3f",
+      "node": "exploiter_advisory",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 26716.732549,
+      "detail_digest": "sha256:d1f6f025f2798bd95a72287c6442c54c2a76936ebe7d3db409177180b68200e5",
+      "node": "exploiter_complete",
+      "status": "VALIDATING"
+    },
+    {
+      "at_monotonic": 26728.267741,
+      "detail_digest": "sha256:e0c46e3a96cea44b6c4096e576b31532b30432aa0fce04924cbf6f6233d3f492",
+      "node": "validator_advisory",
+      "status": "VALIDATING"
+    },
+    {
+      "at_monotonic": 26728.270839,
+      "detail_digest": "sha256:383211d9f1cedc3262903c9a256c2e2c69e84128ce0f42e0f17a55b62be21db8",
+      "node": "validator",
+      "status": "INCONCLUSIVE"
+    },
+    {
+      "at_monotonic": 26728.271771,
+      "detail_digest": "sha256:e66650f01d8a244e91c97fb7868eaa0fc3bec26dc249461fe8cd0cba622cd0d2",
+      "node": "exploiter",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 26745.449673,
+      "detail_digest": "sha256:198d2967510ec4dcd09830ac5838ecbd520d9bd482e5600a91f67ebce873f961",
+      "node": "exploiter_advisory",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 26745.45603,
+      "detail_digest": "sha256:9069a310dc5471c4f50f82e0b92a4ced814e9488ba4b200be90c9fff6257c0fa",
+      "node": "exploiter_complete",
+      "status": "VALIDATING"
+    },
+    {
+      "at_monotonic": 26755.524984,
+      "detail_digest": "sha256:e1244093e1a6dac8c36b4601e3f68202e3ee0210f04053d71f1f409da39f25a5",
+      "node": "validator_advisory",
+      "status": "VALIDATING"
+    },
+    {
+      "at_monotonic": 26755.528958,
+      "detail_digest": "sha256:d06709e91820617eb7dfa33c3a480a2334cd476834db56988d3c13fb3b44e8c1",
+      "node": "validator",
+      "status": "INCONCLUSIVE"
+    },
+    {
+      "at_monotonic": 26755.529788,
+      "detail_digest": "sha256:e66650f01d8a244e91c97fb7868eaa0fc3bec26dc249461fe8cd0cba622cd0d2",
+      "node": "exploiter",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 26775.600869,
+      "detail_digest": "sha256:024f2a25b88f53e9519c38de0fe688460cb20f191fa182a0be5743d79b6967f8",
+      "node": "exploiter_advisory",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 26775.615266,
+      "detail_digest": "sha256:f65d104454413ce336b37eabf274a9e1ad9b0be1724a752fef57426f464ecce1",
+      "node": "exploiter_complete",
+      "status": "VALIDATING"
+    },
+    {
+      "at_monotonic": 26785.295691,
+      "detail_digest": "sha256:4c2101af0d4786e46de1f73948b7aae2c7451fba9286baaa18fb953d1cdede00",
+      "node": "validator_advisory",
+      "status": "VALIDATING"
+    },
+    {
+      "at_monotonic": 26785.30011,
+      "detail_digest": "sha256:1720f7b0cff6406e66f6937fd3368263dcd27aaaaaa3d68032e28102c1fd02de",
+      "node": "validator",
+      "status": "INCONCLUSIVE"
+    },
+    {
+      "at_monotonic": 26785.300914,
+      "detail_digest": "sha256:e66650f01d8a244e91c97fb7868eaa0fc3bec26dc249461fe8cd0cba622cd0d2",
+      "node": "exploiter",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 26800.592413,
+      "detail_digest": "sha256:0f0ceb5556c7748d9d6cb18a7cf5d4543c83117323e133bbfeeaf0579e2aef7d",
+      "node": "exploiter_advisory",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 26800.599883,
+      "detail_digest": "sha256:3c1d90bf53342bfcb3c54ae614fb91483461627c1e1f09df68dad881d6cdb517",
+      "node": "exploiter_complete",
+      "status": "VALIDATING"
+    },
+    {
+      "at_monotonic": 26810.852182,
+      "detail_digest": "sha256:edd84a55eafef139af4502c8ee766a4243c4d65f96442bb6bf1ffb999160c47c",
+      "node": "validator_advisory",
+      "status": "VALIDATING"
+    },
+    {
+      "at_monotonic": 26810.85732,
+      "detail_digest": "sha256:b77b2bf39b593e0a1e2b57be6ffa5d85bf700c05e07bb98b789e53d02d47e6c3",
+      "node": "validator",
+      "status": "INCONCLUSIVE"
+    },
+    {
+      "at_monotonic": 26810.858236,
+      "detail_digest": "sha256:11761b69472ac34ccd8cb8ca470d656349d9520d716770760bed59fa7d624c89",
+      "node": "exploiter",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 26824.648706,
+      "detail_digest": "sha256:97373a163364ecc142599818df8b50c097aafb12a17f3ac0569c6e0492a8176f",
+      "node": "exploiter_advisory",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 26824.657192,
+      "detail_digest": "sha256:ea79e4342440074188aedceaa63949817020655b542cf29c9a1dd3e7c5229e7f",
+      "node": "exploiter_complete",
+      "status": "VALIDATING"
+    },
+    {
+      "at_monotonic": 26834.432355,
+      "detail_digest": "sha256:b02aaff0f79fab61b466dc2fd1bcd2846c3a8b84400e0f470d3008dde714ac58",
+      "node": "validator_advisory",
+      "status": "VALIDATING"
+    },
+    {
+      "at_monotonic": 26834.43914,
+      "detail_digest": "sha256:8e7f364652ec85e2df435fbd23e5afee12818f861558cd7ff02bc508922c5f88",
+      "node": "validator",
+      "status": "INCONCLUSIVE"
+    },
+    {
+      "at_monotonic": 26834.439944,
+      "detail_digest": "sha256:11761b69472ac34ccd8cb8ca470d656349d9520d716770760bed59fa7d624c89",
+      "node": "exploiter",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 26834.440593,
+      "detail_digest": "sha256:44c04b0a7e47221a2d34a6c450dad70cc5e4cde671f5608c72f2a767d098c53d",
+      "node": "exploiter_advisory",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 26834.440658,
+      "detail_digest": "sha256:137fb4d990de3b811d2ddb618e6aa43b118a671cd3bec263a57fbb29432b6a71",
+      "node": "exploiter_complete",
+      "status": "VALIDATING"
+    },
+    {
+      "at_monotonic": 26834.447306,
+      "detail_digest": "sha256:7afc93ed8d1e91bb82206d8b39e98d6d7f05cddc8c71df42c18d3524e51f3e24",
+      "node": "validator",
+      "status": "INCONCLUSIVE"
+    },
+    {
+      "at_monotonic": 26834.448151,
+      "detail_digest": "sha256:11761b69472ac34ccd8cb8ca470d656349d9520d716770760bed59fa7d624c89",
+      "node": "exploiter",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 26834.44857,
+      "detail_digest": "sha256:44c04b0a7e47221a2d34a6c450dad70cc5e4cde671f5608c72f2a767d098c53d",
+      "node": "exploiter_advisory",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 26834.448622,
+      "detail_digest": "sha256:137fb4d990de3b811d2ddb618e6aa43b118a671cd3bec263a57fbb29432b6a71",
+      "node": "exploiter_complete",
+      "status": "VALIDATING"
+    },
+    {
+      "at_monotonic": 26834.455156,
+      "detail_digest": "sha256:7afc93ed8d1e91bb82206d8b39e98d6d7f05cddc8c71df42c18d3524e51f3e24",
+      "node": "validator",
+      "status": "INCONCLUSIVE"
+    },
+    {
+      "at_monotonic": 26834.455905,
+      "detail_digest": "sha256:11761b69472ac34ccd8cb8ca470d656349d9520d716770760bed59fa7d624c89",
+      "node": "exploiter",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 26834.456368,
+      "detail_digest": "sha256:44c04b0a7e47221a2d34a6c450dad70cc5e4cde671f5608c72f2a767d098c53d",
+      "node": "exploiter_advisory",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 26834.456418,
+      "detail_digest": "sha256:137fb4d990de3b811d2ddb618e6aa43b118a671cd3bec263a57fbb29432b6a71",
+      "node": "exploiter_complete",
+      "status": "VALIDATING"
+    },
+    {
+      "at_monotonic": 26834.46259,
+      "detail_digest": "sha256:7afc93ed8d1e91bb82206d8b39e98d6d7f05cddc8c71df42c18d3524e51f3e24",
+      "node": "validator",
+      "status": "INCONCLUSIVE"
+    },
+    {
+      "at_monotonic": 26834.463321,
+      "detail_digest": "sha256:11761b69472ac34ccd8cb8ca470d656349d9520d716770760bed59fa7d624c89",
+      "node": "exploiter",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 26834.463682,
+      "detail_digest": "sha256:44c04b0a7e47221a2d34a6c450dad70cc5e4cde671f5608c72f2a767d098c53d",
+      "node": "exploiter_advisory",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 26834.463726,
+      "detail_digest": "sha256:137fb4d990de3b811d2ddb618e6aa43b118a671cd3bec263a57fbb29432b6a71",
+      "node": "exploiter_complete",
+      "status": "VALIDATING"
+    },
+    {
+      "at_monotonic": 26834.469846,
+      "detail_digest": "sha256:7afc93ed8d1e91bb82206d8b39e98d6d7f05cddc8c71df42c18d3524e51f3e24",
+      "node": "validator",
+      "status": "INCONCLUSIVE"
+    }
+  ],
+  "hypotheses": [
+    {
+      "attack_type": "BOLA",
+      "attempt": 0,
+      "expected_behavior": "If vulnerable, altering the id exposes or allows changes to other users' baskets. Correct behavior enforces ownership and returns 403/404.",
+      "hypothesis": "Broken Object Level Authorization (BOLA): basket endpoint may lack per-object ownership checks allowing read/modify of other baskets.",
+      "hypothesis_id": "h_recon_bola_835522d13bc8",
+      "payload_id": "pat-988f7ff8a922a090",
+      "persona": "stok",
+      "priority": 100,
+      "reasoning": "Catalog marks this route as executable for BOLA and identifies the object id parameter. Absence of owner checks would permit unauthorized object access or modification.",
+      "target_endpoint": "/rest/basket/1",
+      "wstg_reference": "WSTG-ATHZ-04"
+    },
+    {
+      "attack_type": "IDOR",
+      "attempt": 0,
+      "expected_behavior": "If vulnerable, requesting a different numeric id returns another user's basket. Secure behavior requires 403/404 or ownership validation.",
+      "hypothesis": "Unauthenticated IDOR: predictable numeric basket id in path may allow access to another user's basket by changing path segment.",
+      "hypothesis_id": "h_recon_idor_026e8149b12c",
+      "payload_id": "pat-988f7ff8a922a090",
+      "persona": "stok",
+      "priority": 100,
+      "reasoning": "Route contains a sequential numeric path segment and catalog flagged IDOR. Predictable IDs often indicate missing object-level authorization checks.",
+      "target_endpoint": "/rest/basket/1",
+      "wstg_reference": "WSTG-ATHZ-04"
+    },
+    {
+      "attack_type": "INFO_DISCLOSURE",
+      "attempt": 0,
+      "expected_behavior": "If vulnerable, GET returns internal version or build metadata. Secure behavior restricts to authenticated admins or returns minimal public info.",
+      "hypothesis": "Information disclosure: admin application-version endpoint may disclose internal build or config data without authentication.",
+      "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+      "payload_id": "pat-00882a0366fc16fa",
+      "persona": "stok",
+      "priority": 100,
+      "reasoning": "Crawler showed this admin route and curiosity flags noted unauthenticated success. Publicly exposing version/config can leak implementation details and aid attackers.",
+      "target_endpoint": "/rest/admin/application-version",
+      "wstg_reference": "WSTG-CONF-03"
+    }
+  ],
+  "notes": [
+    "# Hunt Notes \u2014 http://127.0.0.1:3000\n\n- Campaign: `agent-evolution-final-20261001t153427Z`\n- Content policy: sanitized structural evidence only\n\n## Authentication\n\n- None recorded.\n\n## Interesting Endpoints\n\n- [planner] Crawled 33 routes and prepared 3 governed candidates. (sha256:aed4b2796d203526e77fdeaf519b40097030b0ad8e85545a963e1a4c1fbbc33a) `event:9c43de8377edb070e43e84af`\n\n## Curiosity Flags\n\n- [curiosity] Detected 26 structural anomaly flags. (sha256:cb37030d4d6081f7d6630620884299c23de913885d01238765fd914b8ad1e302) `event:7d4f704889a17610cde0de1b`\n\n## Attempts\n\n- None recorded.\n\n## Confirmed Findings\n\n- None recorded.\n\n## Refuted Attempts\n\n- None recorded.\n\n## Hypotheses\n\n- None recorded.\n\n## Chains to Explore\n\n- None recorded.\n"
+  ],
+  "persona": "stok",
+  "session_state": {},
+  "status": "COMPLETED",
+  "surface_data": {
+    "candidate_catalog": [
+      "{'hypothesis_id': 'h_recon_idor_026e8149b12c', 'vulnerability_class': 'IDOR', 'route': '/rest/basket/1', 'parameter': 'path_segment_3', 'priority': 151.0, 'wstg_reference': 'WSTG-ATHZ-04', 'payload_id': 'pat-988f7ff8a922a090', 'executable':",
+      "{'hypothesis_id': 'h_recon_bola_835522d13bc8', 'vulnerability_class': 'BOLA', 'route': '/rest/basket/1', 'parameter': 'path_segment_3', 'priority': 149.0, 'wstg_reference': 'WSTG-ATHZ-04', 'payload_id': 'pat-988f7ff8a922a090', 'executable':",
+      "{'hypothesis_id': 'h_recon_info_disclosure_35cd05fe1ef1', 'vulnerability_class': 'INFO_DISCLOSURE', 'route': '/rest/admin/application-version', 'parameter': '__route__', 'priority': 138.0, 'wstg_reference': 'WSTG-CONF-03', 'payload_id': 'pa"
+    ],
+    "routes": [
+      "{'route': '/', 'method': 'GET', 'status_code': 200, 'content_type': 'text/html; charset=utf-8', 'response_digest': 'sha256:a519dd117e005fa068cac700a772630c1973a77ae18defeb83d52dd30e104187', 'response_length': 9984, 'depth': 0, 'auth_require",
+      "{'route': '/assets/public/favicon_js.ico', 'method': 'GET', 'status_code': 200, 'content_type': 'image/x-icon', 'response_digest': 'sha256:6dbafc1abffdcfec4e52ccb91faeb9e03319badf5ea6fc65ceb89449f99f5671', 'response_length': 15023, 'depth':",
+      "{'route': '/styles.css', 'method': 'GET', 'status_code': 200, 'content_type': 'text/css; charset=utf-8', 'response_digest': 'sha256:e2fcecb56a99634a25d490e9db10584c589c8799f4a824854094f37ccabf7604', 'response_length': 154150, 'depth': 1, 'a",
+      "{'route': '/rolldown-runtime-BoHGiXSq.js', 'method': 'GET', 'status_code': 200, 'content_type': 'application/javascript; charset=utf-8', 'response_digest': 'sha256:68e9792c539bcfd8cb3a9516d0b216cfa70fcbd0fc02738f58ee7196f91e29fb', 'response",
+      "{'route': '/chunk-DBPdFzgj.js', 'method': 'GET', 'status_code': 200, 'content_type': 'application/javascript; charset=utf-8', 'response_digest': 'sha256:97f1c69840855dfd1497f72d325d97f1c93caf45ed10ee0599c2967757a8b8aa', 'response_length': 2",
+      "{'route': '/chunk-BuYR23IU.js', 'method': 'GET', 'status_code': 200, 'content_type': 'application/javascript; charset=utf-8', 'response_digest': 'sha256:e2fc94b91ce426293d3b1c2af32316b4b8e05669553f21d74c8c2330d646e4af', 'response_length': 3",
+      "{'route': '/chunk-BsuJpzq0.js', 'method': 'GET', 'status_code': 200, 'content_type': 'application/javascript; charset=utf-8', 'response_digest': 'sha256:95c61c7995df7c1c3514b501a048dcd9f588fac0d4eaa672bc99d68ecb87b9c6', 'response_length': 1",
+      "{'route': '/polyfills.js', 'method': 'GET', 'status_code': 200, 'content_type': 'application/javascript; charset=utf-8', 'response_digest': 'sha256:15c6f58707b9b19116fde3a3f6a0ce9cf83427d64a91e95cb91fe1056c3da616', 'response_length': 34585,",
+      "{'route': '/scripts.js', 'method': 'GET', 'status_code': 200, 'content_type': 'application/javascript; charset=utf-8', 'response_digest': 'sha256:f9a518486ced55510682d2a2b5896b6a1d2cb9566c46291994180863810d894b', 'response_length': 20700, '",
+      "{'route': '/main.js', 'method': 'GET', 'status_code': 200, 'content_type': 'application/javascript; charset=utf-8', 'response_digest': 'sha256:85b21da3ea63d3cec4b6a641adce4d24e641581d2e0d76bc1c7977c633aee026', 'response_length': 511735, 'de",
+      "{'route': '/administration', 'method': 'GET', 'status_code': 200, 'content_type': 'text/html; charset=utf-8', 'response_digest': 'sha256:a519dd117e005fa068cac700a772630c1973a77ae18defeb83d52dd30e104187', 'response_length': 9984, 'depth': 1,",
+      "{'route': '/admin', 'method': 'GET', 'status_code': 200, 'content_type': 'text/html; charset=utf-8', 'response_digest': 'sha256:a519dd117e005fa068cac700a772630c1973a77ae18defeb83d52dd30e104187', 'response_length': 9984, 'depth': 1, 'auth_re",
+      "{'route': '/rest/admin', 'method': 'GET', 'status_code': 500, 'content_type': 'text/html; charset=utf-8', 'response_digest': 'sha256:3962acb3ab457bee4c7aa14d078f815762b872f4c9901838766ff309d7971b5c', 'response_length': 2714, 'depth': 1, 'au",
+      "{'route': '/rest/admin/application-version', 'method': 'GET', 'status_code': 200, 'content_type': 'application/json; charset=utf-8', 'response_digest': 'sha256:6bfef51c9256d84ab60226af45802652abac8f25346467a3a97dc4291c0711c4', 'response_len",
+      "{'route': '/rest/basket/1', 'method': 'GET', 'status_code': 401, 'content_type': 'text/html; charset=utf-8', 'response_digest': 'sha256:75f50e026506606485b7eb4c8748663214e66b13b036c8112300c5c83a0d40ac', 'response_length': 972, 'depth': 1, '",
+      "{'route': '/rest/user/login', 'method': 'GET', 'status_code': 500, 'content_type': 'text/html; charset=utf-8', 'response_digest': 'sha256:a1421e9a95a70152122d6df6c3334db3ec2c940ad32dcd999543f6741582d1c3', 'response_length': 2724, 'depth': 1",
+      "{'route': '/rest/products/search?q=', 'method': 'GET', 'status_code': 200, 'content_type': 'application/json; charset=utf-8', 'response_digest': 'sha256:20bc1392a17b383b46fffc33c8e796755452883bfcfc2d33c90342ea70227639', 'response_length': 3",
+      "{'route': '/search?q=', 'method': 'GET', 'status_code': 200, 'content_type': 'text/html; charset=utf-8', 'response_digest': 'sha256:a519dd117e005fa068cac700a772630c1973a77ae18defeb83d52dd30e104187', 'response_length': 9984, 'depth': 1, 'aut",
+      "{'route': '/redirect?to=', 'method': 'GET', 'status_code': 406, 'content_type': 'text/html; charset=utf-8', 'response_digest': 'sha256:9db83fddb064a4e762153d180010ed17552c1ce7a8a72a3ce0aaf19605de82a7', 'response_length': 2866, 'depth': 1, '",
+      "{'route': '/rest/track-order', 'method': 'GET', 'status_code': 500, 'content_type': 'text/html; charset=utf-8', 'response_digest': 'sha256:4b4ab86784c99f8ab934a54bd0e414baf749d67760817d741e66e55b1b534ae7', 'response_length': 2726, 'depth': ",
+      "{'route': '/openapi.json', 'method': 'GET', 'status_code': 200, 'content_type': 'text/html; charset=utf-8', 'response_digest': 'sha256:a519dd117e005fa068cac700a772630c1973a77ae18defeb83d52dd30e104187', 'response_length': 9984, 'depth': 1, '",
+      "{'route': '/swagger.json', 'method': 'GET', 'status_code': 200, 'content_type': 'text/html; charset=utf-8', 'response_digest': 'sha256:a519dd117e005fa068cac700a772630c1973a77ae18defeb83d52dd30e104187', 'response_length': 9984, 'depth': 1, '",
+      "{'route': '/api/docs', 'method': 'GET', 'status_code': 500, 'content_type': 'text/html; charset=utf-8', 'response_digest': 'sha256:1bbd865ba226857d398e3175759dcfae5539635529194808c1fc2a67fb262375', 'response_length': 2710, 'depth': 1, 'auth",
+      "{'route': '/sitemap.xml', 'method': 'GET', 'status_code': 200, 'content_type': 'text/html; charset=utf-8', 'response_digest': 'sha256:a519dd117e005fa068cac700a772630c1973a77ae18defeb83d52dd30e104187', 'response_length': 9984, 'depth': 1, 'a",
+      "{'route': '/api/Challenges', 'method': 'GET', 'status_code': 200, 'content_type': 'application/json; charset=utf-8', 'response_digest': 'sha256:906591f8722f8d6f4778d6de7dda8fb96b92c8d643202ee65b19f0254becd1bf', 'response_length': 66187, 'de",
+      "{'route': '/rest/repeat-notification', 'method': 'GET', 'status_code': 200, 'content_type': 'text/plain; charset=utf-8', 'response_digest': 'sha256:565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3', 'response_length': 2, 'de",
+      "{'route': '/rest/continue-code', 'method': 'GET', 'status_code': 200, 'content_type': 'application/json; charset=utf-8', 'response_digest': 'sha256:b8c655e2695836b315ba88191708cb30489e4e16d1b234d017f35ca8b24dc04c', 'response_length': 79, 'd",
+      "{'route': '/rest/continue-code-findIt', 'method': 'GET', 'status_code': 200, 'content_type': 'application/json; charset=utf-8', 'response_digest': 'sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a', 'response_length':",
+      "{'route': '/rest/continue-code-fixIt', 'method': 'GET', 'status_code': 200, 'content_type': 'application/json; charset=utf-8', 'response_digest': 'sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a', 'response_length': ",
+      "{'route': '/rest/continue-code/apply/', 'method': 'GET', 'status_code': 500, 'content_type': 'text/html; charset=utf-8', 'response_digest': 'sha256:d356ceda5a72b765503732d9a31bcca8232c74caa802ce06554d6cb3a11a6ef8', 'response_length': 2744, ",
+      "{'route': '/rest/continue-code-findIt/apply/', 'method': 'GET', 'status_code': 500, 'content_type': 'text/html; charset=utf-8', 'response_digest': 'sha256:12e244432d9406eda32429e26c5b20a98a03c2d5b17c8899e74dcb96fd9b2e88', 'response_length':",
+      "{'route': '/rest/continue-code-fixIt/apply/', 'method': 'GET', 'status_code': 500, 'content_type': 'text/html; charset=utf-8', 'response_digest': 'sha256:d94d270e363a71b51ac69ecc9e4016d506c305fd77a363779ebfd1fb40858c18', 'response_length': ",
+      "{'route': '/api/Addresss', 'method': 'GET', 'status_code': 401, 'content_type': 'application/json; charset=utf-8', 'response_digest': 'sha256:65fa11a8ab6a0def8eb78f5e03cde550b3415b5b0f528b3f5ce7e7b3c52da532', 'response_length': 83, 'depth':"
+    ],
+    "scope_fingerprint": "inferred_from_url",
+    "target_host": "127.0.0.1",
+    "target_url": "http://127.0.0.1:3000"
+  },
+  "tech_stack": {},
+  "validation_verdicts": [
+    {
+      "confidence": 0.4,
+      "evidence_chain": [
+        "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "hypothesis_id": "h_recon_bola_835522d13bc8",
+      "next_action": null,
+      "proof_bundle_ref": null,
+      "reason": "governed result requires further evidence",
+      "replay_verified": false,
+      "verdict": "inconclusive"
+    },
+    {
+      "confidence": 0.4,
+      "evidence_chain": [
+        "sha256:13dab578be7ee190233050496f7828bfd695628a73c9cffab69e3831cf6c196a"
+      ],
+      "hypothesis_id": "h_recon_bola_835522d13bc8",
+      "next_action": null,
+      "proof_bundle_ref": null,
+      "reason": "governed result requires further evidence",
+      "replay_verified": false,
+      "verdict": "inconclusive"
+    },
+    {
+      "confidence": 0.4,
+      "evidence_chain": [
+        "sha256:82c71bfe23438583ecf260c61ad13d0acccdbc28dc6e4b6c8dc618d74fac37c3"
+      ],
+      "hypothesis_id": "h_recon_bola_835522d13bc8",
+      "next_action": null,
+      "proof_bundle_ref": null,
+      "reason": "governed result requires further evidence",
+      "replay_verified": false,
+      "verdict": "inconclusive"
+    },
+    {
+      "confidence": 0.4,
+      "evidence_chain": [
+        "sha256:962e755166218002b2060d6b45fed317e6d896cd308d97a332160313ed95ca64"
+      ],
+      "hypothesis_id": "h_recon_bola_835522d13bc8",
+      "next_action": null,
+      "proof_bundle_ref": null,
+      "reason": "governed result requires further evidence",
+      "replay_verified": false,
+      "verdict": "inconclusive"
+    },
+    {
+      "confidence": 0.4,
+      "evidence_chain": [
+        "sha256:855ca7aba69f2d62885f912eeb07f8c29841f05c8c89c6d26690fad5ce2b2e19"
+      ],
+      "hypothesis_id": "h_recon_bola_835522d13bc8",
+      "next_action": null,
+      "proof_bundle_ref": null,
+      "reason": "governed result requires further evidence",
+      "replay_verified": false,
+      "verdict": "inconclusive"
+    },
+    {
+      "confidence": 0.4,
+      "evidence_chain": [
+        "sha256:288f90163674f9cce84b4df36d660427a8ce0cef26a25d2938a43cfb0dcac5bf"
+      ],
+      "hypothesis_id": "h_recon_idor_026e8149b12c",
+      "next_action": null,
+      "proof_bundle_ref": null,
+      "reason": "governed result requires further evidence",
+      "replay_verified": false,
+      "verdict": "inconclusive"
+    },
+    {
+      "confidence": 0.4,
+      "evidence_chain": [
+        "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "hypothesis_id": "h_recon_idor_026e8149b12c",
+      "next_action": null,
+      "proof_bundle_ref": null,
+      "reason": "governed result requires further evidence",
+      "replay_verified": false,
+      "verdict": "inconclusive"
+    },
+    {
+      "confidence": 0.4,
+      "evidence_chain": [
+        "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "hypothesis_id": "h_recon_idor_026e8149b12c",
+      "next_action": null,
+      "proof_bundle_ref": null,
+      "reason": "governed result requires further evidence",
+      "replay_verified": false,
+      "verdict": "inconclusive"
+    },
+    {
+      "confidence": 0.4,
+      "evidence_chain": [
+        "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "hypothesis_id": "h_recon_idor_026e8149b12c",
+      "next_action": null,
+      "proof_bundle_ref": null,
+      "reason": "governed result requires further evidence",
+      "replay_verified": false,
+      "verdict": "inconclusive"
+    },
+    {
+      "confidence": 0.4,
+      "evidence_chain": [
+        "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "hypothesis_id": "h_recon_idor_026e8149b12c",
+      "next_action": null,
+      "proof_bundle_ref": null,
+      "reason": "governed result requires further evidence",
+      "replay_verified": false,
+      "verdict": "inconclusive"
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "schema": "webpent-webgoat-target-evidence-capability-gap-v1",
+  "target": "owasp_webgoat",
+  "case_id": "webgoat.idor.view_other_profile.causal-vnext",
+  "decision": "BLOCKED",
+  "execution_mode": "design_only_no_network",
+  "historical_flow_reused": false,
+  "network_requests_made": false,
+  "evidence_origin": "target_runtime_required_but_unavailable",
+  "target_backed_causal_confirmation": false,
+  "scoring_proof_bundle_created": false,
+  "target_evidence_readiness": {
+    "identity_model_available": false,
+    "ownership_model_available": false,
+    "reset_available": false,
+    "oracle_signal_available": false,
+    "observable_security_invariant": false,
+    "replayable_state_transition": false,
+    "status": "blocked",
+    "missing_capabilities": [
+      "independently controllable owner and requester LessonSession identities",
+      "disposable owner-owned resource fixture with reset",
+      "bounded semantic authorization observation from GET",
+      "independent denied or unrelated negative control",
+      "replayable target state transition"
+    ]
+  },
+  "required_experiment": {
+    "baseline": "owner identity reads owner-owned resource with bounded semantic identity",
+    "candidate": "distinct requester identity requests the same owner resource",
+    "negative_control": "requester identity requests an independent denied or unrelated protected resource",
+    "expected_invariant": "requester session cannot read the owner-owned profile/object",
+    "violated_invariant": "requester session receives the owner-owned profile/object semantic identity",
+    "confirmation_rule": "candidate must differ from owner baseline and independently denied negative control; transport-only differences are insufficient"
+  },
+  "why_not_safely_closed": [
+    "The existing WebGoat adapter is metadata-only and does not inject target sessions or fixtures.",
+    "The historical B2/B2.1 flow is explicitly excluded and cannot establish the redesigned owner/requester experiment.",
+    "Adding login, credentials, token generation, mutation, or a new permission would expand the approved boundary and is not performed automatically.",
+    "The source-backed IDOR lesson is session-bound and does not currently expose the required independently addressable owner resource under the approved GET-only boundary."
+  ],
+  "exact_reopen_requirement": "Owner-approved local WebGoat fixture/session capability that creates two synthetic non-real identities, one disposable owner resource, deterministic snapshot/reset, bounded semantic GET observations, and an independent denied control. Any login, credentials, token generation, state mutation, or permission expansion requires a separate owner decision packet.",
+  "provenance": {
+    "webgoat_source_revision": "7517acca95d9851da706452454c223dd13545ef4",
+    "design_artifact": {
+      "path": "src/webpent/adapters/webgoat/causal_experiment.py",
+      "sha256": "8a5942641782183ec130121516510a02758d2e613a5fe3eb109679499ebc7019"
+    },
+    "readiness_contract": {
+      "path": "src/webpent/adapters/local_causal_lab/option_b_contract.py",
+      "sha256": "0495dbe2941337fd90dd33eb6810dbb37979d88aa0e287f8f3eca7c3285cd0e3"
+    },
+    "webgoat_source_files": [
+      {
+        "path": "/tmp/webgoat-source/src/main/java/org/owasp/webgoat/lessons/idor/IDORViewOwnProfile.java",
+        "sha256": "e6d82fadc90c6bc3485f988fb17d8e346bb39e997238ed096d2c471d5fd8267f"
+      },
+      {
+        "path": "/tmp/webgoat-source/src/main/java/org/owasp/webgoat/lessons/idor/IDORViewOwnProfileAltUrl.java",
+        "sha256": "7fc58039979105602d881c9d245b1c6ea44d732928b22598cc5c3ca4eb009009"
+      }
+    ],
+    "webpent_commit_at_artifact_creation": "aef354453a6cb995816b2f085c0298d2cbdf532b"
+  },
+  "safety": {
+    "real_credentials_used": false,
+    "login_performed": false,
+    "token_material_created": false,
+    "state_mutation_performed": false,
+    "external_callbacks_used": false,
+    "raw_response_persisted": false
+  },
+  "governance": {
+    "official_isolated_p10_runs_authorized": false,
+    "p10": "NOT_QUALIFIED",
+    "p9": "NOT_QUALIFIED",
+    "vip": "NOT_QUALIFIED",
+    "bug_bounty": "BLOCKED",
+    "scoring_promotion": false
+  }
+}

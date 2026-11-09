@@ -1,0 +1,28 @@
+REVIEW-ROUND REGRESSION SUMMARY (post-closeout review, 2026-09-11)
+==================================================================
+Runner: scripts/run_test_batches.py (8 files/batch, fresh pytest per batch)
+Scope : full suite vs pristine-baseline tag (835b36b)
+
+TOTALS
+  passed : 964   (948 pre-existing passes preserved + 16 new wiring tests)
+  failed : 10    (byte-identical set to baseline — all pre-existing, environment-related)
+  skipped: 1     (same as baseline)
+  errors : 0 ; crashed batches: 0
+
+FAILURE-SET DIFF vs baseline: IDENTICAL (10 items, same test ids)
+New tests this round: tests/test_integration_wiring.py (16)
+  - bridge end-to-end (reconciliation -> agenda -> ResearchState admission)
+  - GOED budget gate respected (admit stops at max_requests, stop_reason set)
+  - scope mismatch fail-closed (engagement/target mismatch raises)
+  - plan determinism + audit records (proposal_proposer, signal source_refs)
+  - auth verdict -> agenda (to_signal_strength 1.0 / 0.2 wired)
+  - exploitation full cycle (gate RUN -> consume -> re-gate SKIP)
+  - source lane additive/idempotent/unmatched-unchanged + summary
+  - settings flag default False; PentestState compatibility of auth_validation key
+  - package surface contract (webpent.integration __all__ exact match)
+
+AUDITS THIS ROUND
+  FILES_DELETED = 0 (re-verified)
+  FORBIDDEN dirs (cqa_v2, models, llm_researcher, shared, graph, workers, api): 0 diffs
+  ruff: clean (integration layer + bridge + source lane + settings + wiring tests)
+  compileall: OK

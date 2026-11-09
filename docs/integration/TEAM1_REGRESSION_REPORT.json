@@ -1,0 +1,30 @@
+{
+  "document_id": "TEAM1_REGRESSION_REPORT-1.0",
+  "date": "2026-09-10",
+  "runner": "pytest 8.4.2 / Python 3.12.11",
+  "totals": {
+    "passed": 984,
+    "failed": 4,
+    "errors": 0,
+    "skipped": 0,
+    "warnings": 3,
+    "duration_s": 93.13
+  },
+  "new_tests_added": 13,
+  "new_tests_file": "tests/test_team1_research_entity.py",
+  "new_tests_all_passed": true,
+  "failed_test_ids": [
+    "tests/test_local_causal_lab_option_b_approval.py::test_option_b_import_validates_and_original_packet_stays_pending",
+    "tests/test_local_causal_lab_option_b_approval.py::test_option_b_import_rejects_changed_approval_source",
+    "tests/test_option_b_local_causal_lab_runner.py::test_option_b_runner_emits_only_redacted_blocked_records",
+    "tests/test_option_b_local_causal_lab_runner.py::test_option_b_runner_records_runtime_digest_blockers_without_sensitive_material"
+  ],
+  "failed_classification": "pre-existing baseline subset (GOED_BASELINE.md \u00a76 items #2-#5, approval_source_missing); identical to prior round",
+  "new_failures": 0,
+  "regression": "CLEAN",
+  "governance_unchanged": true,
+  "causal_guard_unchanged": true,
+  "proof_bundle_unchanged": true,
+  "files_deleted": 0,
+  "dependencies_changed": 0
+}

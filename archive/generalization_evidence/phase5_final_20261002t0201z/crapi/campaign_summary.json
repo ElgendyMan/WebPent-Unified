@@ -1,0 +1,86 @@
+{
+  "agent_graph_events": 32,
+  "audit_verification": {
+    "event_count": 4,
+    "root_hash": "b4337d25a4287de148b8aee11c17b77f4f5ce93e626ba21676891411cdb6c0ae",
+    "verified": true
+  },
+  "campaign_id": "generalization-20261002t0201z-crapi",
+  "candidates_executable": 4,
+  "candidates_generated": 8,
+  "confirmed_findings": [],
+  "crawl_events": 35,
+  "curiosity_flags": 23,
+  "duration_seconds": 210.338,
+  "llm_calls": 12,
+  "llm_cost_usd": 0.05228275,
+  "persona": {
+    "allowed_tools": [
+      "m4_principal_comparison",
+      "token_role_metadata",
+      "bounded_id_mutation"
+    ],
+    "display_name": "Stok / API Breaker",
+    "focus_areas": [
+      "idor",
+      "bola",
+      "bfla",
+      "token_role_comparison",
+      "id_parameter_fuzzing"
+    ],
+    "name": "stok",
+    "personality": "I break APIs by switching identities.",
+    "preferred_families": [
+      "IDOR",
+      "BOLA",
+      "AUTH_BYPASS"
+    ],
+    "prompt_template": "You are an API security specialist. For user-specific endpoints, compare owner, foreign, and invalid identities through the authorized M4 chain.",
+    "safety_constraints": [
+      "advisory_only",
+      "scope_law_and_tool_boundary_required",
+      "m4_credentials_only",
+      "no_external_targets_without_explicit_scope",
+      "validator_and_promotion_pipeline_authoritative"
+    ]
+  },
+  "production_trace": {
+    "complete": false,
+    "config_digest": "1a7f4844a7d10a77",
+    "entrypoint": "direct_invoke",
+    "missing_required_stages": [
+      "replan"
+    ],
+    "spine_version": "production_spine_v1",
+    "stage_count": 17,
+    "stages_seen": [
+      "audit_event",
+      "audit_finalization",
+      "bounded_tool_execution",
+      "causal_guard_evaluation",
+      "deep_recon",
+      "entrypoint_resolve",
+      "flag_resolution",
+      "observation",
+      "outcome_recording",
+      "promotion_decision",
+      "proof_bundle_creation",
+      "research_decision",
+      "spine_activation",
+      "world_model_mutation"
+    ],
+    "trace_digest": "bd47397adc54df292021c734fdb7cb48a60a4c3e6a4a5acd4019976761db384d"
+  },
+  "routes_crawled": 20,
+  "security_boundary": {
+    "credentials_attached_by": "M4 only",
+    "execution_authority": "ModernOrchestrator/ScopeLaw/AVI/PromotionPipeline",
+    "raw_target_content_returned": false
+  },
+  "target_url": "http://127.0.0.1:8888",
+  "validation_counts": {
+    "confirmed": 0,
+    "inconclusive": 5,
+    "refuted": 1
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "tp": 4,
+  "tn": 0,
+  "fp": 0,
+  "fn": 0,
+  "inconclusive": 1,
+  "blocked": 0,
+  "precision": 1.0,
+  "recall": 1.0,
+  "f1": 1.0,
+  "proof_complete": 4,
+  "proof_eligible": 4,
+  "proof_completeness": 1.0,
+  "replay_verified": 4,
+  "replay_completeness": 1.0,
+  "note": "pilot-epsilon-case-01 remains INCONCLUSIVE due to EXECUTION_CAPABILITY_INSUFFICIENT (multi-step workflow). Not converted to TP/FN.",
+  "cases": {
+    "pilot-alpha-case-01": {
+      "verdict": "CONFIRMED",
+      "scoring": "TP",
+      "proof": true,
+      "replay": true
+    },
+    "target-beta-case-01": {
+      "verdict": "CONFIRMED_expected",
+      "scoring": "TP",
+      "proof": "ELIGIBLE",
+      "replay": "REPLAYABLE",
+      "note": "Former FN \u2014 resolved by ActorContext"
+    },
+    "target-gamma-case-01": {
+      "verdict": "CONFIRMED_expected",
+      "scoring": "TP",
+      "proof": "ELIGIBLE",
+      "replay": "REPLAYABLE",
+      "note": "Former FN \u2014 resolved by ActorContext"
+    },
+    "target-delta-case-01": {
+      "verdict": "CONFIRMED_expected",
+      "scoring": "TP",
+      "proof": "ELIGIBLE",
+      "replay": "REPLAYABLE",
+      "note": "Former FN \u2014 resolved by ActorContext"
+    },
+    "pilot-epsilon-case-01": {
+      "verdict": "INCONCLUSIVE",
+      "scoring": "INCONCLUSIVE",
+      "proof": false,
+      "replay": false,
+      "note": "EXECUTION_CAPABILITY_INSUFFICIENT \u2014 multi-step workflow"
+    }
+  }
+}

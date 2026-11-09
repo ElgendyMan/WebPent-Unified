@@ -1,0 +1,1667 @@
+{
+  "budget": {
+    "cost_usd": 0.04866175,
+    "halted": true,
+    "llm_calls": 12,
+    "max_cost_usd": 1.0,
+    "max_hypotheses": 8,
+    "max_iterations_per_hypothesis": 5,
+    "max_llm_calls": 12,
+    "max_wall_seconds": 900.0
+  },
+  "confirmed_findings": [],
+  "curiosity_flags": [
+    {
+      "anomaly_type": "technology_surface",
+      "confidence": 0.82,
+      "description": "Route resembles a source map, API documentation, or GraphQL surface.",
+      "evidence_digest": "sha256:07d138a8327d4fe148c9c2bafc98ada1b8730e62ffb69f3f14825f8f397ddae7",
+      "suggested_investigation": "Apply the relevant WSTG methodology and inspect only bounded structural evidence.",
+      "target": "/openapi.json"
+    },
+    {
+      "anomaly_type": "technology_surface",
+      "confidence": 0.82,
+      "description": "Route resembles a source map, API documentation, or GraphQL surface.",
+      "evidence_digest": "sha256:6d50584eb3ddbdbda76d60c22a06a5395d5e4f2404c05695383fe3dfc89ba8af",
+      "suggested_investigation": "Apply the relevant WSTG methodology and inspect only bounded structural evidence.",
+      "target": "/swagger.json"
+    },
+    {
+      "anomaly_type": "sequential_identifier",
+      "confidence": 0.78,
+      "description": "Identifier-shaped input may expose an object-authorization boundary.",
+      "evidence_digest": "sha256:63acca35c39f0490555ada534cba46e70c9c6045a2f54aa3cb41d6d375d18d0c",
+      "suggested_investigation": "Run an owner/foreign/control identity comparison through M4.",
+      "target": "/rest/basket/1"
+    },
+    {
+      "anomaly_type": "unauthenticated_success",
+      "confidence": 0.62,
+      "description": "Route returned success without a structural auth requirement.",
+      "evidence_digest": "sha256:58f136b900170e3b2290bdbbf056050c4266ca30969f1c450a093b9c4860d607",
+      "suggested_investigation": "Check whether the returned resource is intentionally public and compare with a protected control.",
+      "target": "/dvwa/css/login.css"
+    },
+    {
+      "anomaly_type": "unauthenticated_success",
+      "confidence": 0.62,
+      "description": "Route returned success without a structural auth requirement.",
+      "evidence_digest": "sha256:ffddaddae47fefce1fe03982518ee30b98def16be83f918b5c69e39201bba297",
+      "suggested_investigation": "Check whether the returned resource is intentionally public and compare with a protected control.",
+      "target": "/dvwa/images/login_logo.png"
+    }
+  ],
+  "current_hypothesis_index": 1,
+  "exploitation_results": [
+    {
+      "authority_trace": [
+        "ScopeLaw",
+        "ToolBoundary",
+        "M4",
+        "AVI",
+        "ProofBundle",
+        "Replay",
+        "PromotionPipeline"
+      ],
+      "error": null,
+      "evidence": {
+        "authority": "ModernOrchestrator/ScopeLaw/AVI",
+        "decision": {
+          "actor_id": "unauthenticated",
+          "api_type": "rest",
+          "causal_difference": null,
+          "decision": 1,
+          "evidence_quality": 2,
+          "experiment_id": "exp_infodisc_v1",
+          "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+          "identity_binding_result": {
+            "actor_id": "unauthenticated",
+            "authorization_context": "owner=unauthenticated",
+            "baseline_access_result": 302,
+            "baseline_actor_id": "unauthenticated",
+            "candidate_access_result": 404,
+            "causal_difference": null,
+            "expected_owner": "unauthenticated",
+            "identity_bound": false,
+            "identity_bound_reason": "info_disclosure_not_proven sensitive=0 baseline=0 control=0",
+            "negative_control_result": 302,
+            "resource_id": "/rest/admin/application-version",
+            "resource_owner": "unauthenticated"
+          },
+          "identity_bound": false,
+          "identity_bound_reason": "info_disclosure_not_proven sensitive=0 baseline=0 control=0",
+          "knowledge_metadata": {
+            "payload_id": "pat-00882a0366fc16fa",
+            "payload_safety_class": "catalog_only",
+            "payload_source": "Insecure Source Code Management/Git.md",
+            "payload_sub_type": "git",
+            "wstg_methodology_digest": "8ecbb3e8633c6a5f",
+            "wstg_reference": "WSTG-CONF-03"
+          },
+          "outcome_tracker_update": {
+            "feeds_next_decision": true,
+            "history_index": 0,
+            "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+            "information_value": 2.0,
+            "justification": "avi_decision_1_REJECTED",
+            "outcome_class": "confirmed_supported",
+            "signature": "exp_infodisc_v1",
+            "timestamp": "2026-10-01T23:05:15.091675+00:00"
+          },
+          "promotion": {
+            "decision": "REJECTED",
+            "finding_id": "finding_info_disclosure_0ce35500",
+            "gates_failed": [
+              "semantic_identity_bound"
+            ],
+            "gates_passed": [
+              "real_runtime_observations",
+              "baseline_present",
+              "negative_control_present",
+              "causal_validator_confirmed",
+              "proof_bundle_signed",
+              "replay_verified",
+              "no_external_scanner_authority"
+            ],
+            "pipeline": "PromotionPipeline_v1",
+            "reason": "semantic_identity_bound:rejected",
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          "proof_bundle": {
+            "authenticity_algorithm": "hmac_sha256_v1",
+            "authenticity_key_version": "env_override_v1",
+            "authenticity_tag": "hmac_sha256:f3640ba2e699c10d2014fc262a18b4071aeecbcf887efdd65556866a851430f0",
+            "baseline_digest": "sha256:8033fec785a19d152d662843b5bf5487e713188b8d7f4e2aa80d9980936bbe6b",
+            "baseline_evidence_ref": null,
+            "bundle_id": "proof_bundle_c11beadbe51a47a1afa459ca1a6a2946",
+            "campaign_id": "generalization-20261002t0201z-dvwa",
+            "candidate_evidence_ref": null,
+            "causal_oracle": {
+              "actor_id": "unauthenticated",
+              "authorization_context": "[REDACTED]",
+              "baseline_access_result": 302,
+              "baseline_complete": true,
+              "candidate_access_result": 404,
+              "causal_difference": null,
+              "causal_signal": true,
+              "discriminating_signal": "candidate leaks 1 sensitive pattern classes",
+              "expected_owner": "unauthenticated",
+              "identity_bound": false,
+              "identity_bound_reason": "info_disclosure_not_proven sensitive=0 baseline=0 control=0",
+              "negative_control_complete": true,
+              "negative_control_result": 302,
+              "resource_id": "/rest/admin/application-version",
+              "validator_outcome": "CONFIRMED"
+            },
+            "chain_of_custody": [
+              "{'actor': 'autonomous_validation_intelligence_v1', 'action': 'seal', 'at': '2026-10-01T23:05:15.088096Z', 'note': ''}"
+            ],
+            "cleanup_status": "not_applicable",
+            "engagement_id": "generalization-20261002t0201z-dvwa",
+            "evidence_digests": [
+              "sha256:8033fec785a19d152d662843b5bf5487e713188b8d7f4e2aa80d9980936bbe6b",
+              "sha256:499181f04482c28be298ef49906dd370b4965dc8bba99472d09bc1848e72cb54",
+              "sha256:a4ba74d773d2b22a3cae3edd51e3cb6fb734adb8c3014801f59e7e385d08462a"
+            ],
+            "evidence_origin": "target_runtime",
+            "evidence_refs": [
+              "obs_167f5d8b17a8105f",
+              "obs_96e8c13883809216",
+              "obs_518df5cfbd782cc6"
+            ],
+            "finding_id": "finding_info_disclosure_0ce35500",
+            "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+            "identity_context": {
+              "actor_id": "unauthenticated",
+              "authorization_context": "[REDACTED]",
+              "baseline_actor_id": "unauthenticated",
+              "execution_identity": "exec_exp_infodisc_v1_7c7ebffc",
+              "expected_owner": "unauthenticated",
+              "identity_bound": false,
+              "resource_id": "/rest/admin/application-version",
+              "resource_owner": "unauthenticated"
+            },
+            "invariant_analysis": {},
+            "negative_control_digest": "sha256:a4ba74d773d2b22a3cae3edd51e3cb6fb734adb8c3014801f59e7e385d08462a",
+            "negative_control_evidence_ref": null,
+            "negative_control_independent": true,
+            "oracle_decision": "CONFIRMED",
+            "redaction_manifest": [],
+            "replay_metadata": {
+              "replay_component": "ReplayVerifier_v1",
+              "replay_required": true,
+              "replayable": true,
+              "requests_executed": 3
+            },
+            "request_digests": [
+              "sha256:323edad6d46f09cada4978f05c6ed270daf2857e7fe38d6361bb18e007eca6ad",
+              "sha256:f1ade85eb7763daa892ebb6afcf7629a0d3069ef3787eb245b447762a80d9bba",
+              "sha256:71c4e5e242d9f66aec26d41f8b6243af522c84148a0553a79c9494395bc08c53"
+            ],
+            "response_digests": [
+              "sha256:8033fec785a19d152d662843b5bf5487e713188b8d7f4e2aa80d9980936bbe6b",
+              "sha256:499181f04482c28be298ef49906dd370b4965dc8bba99472d09bc1848e72cb54",
+              "sha256:a4ba74d773d2b22a3cae3edd51e3cb6fb734adb8c3014801f59e7e385d08462a"
+            ],
+            "run_id": "exp_infodisc_v1",
+            "scope_context": {
+              "authorized_via": "ScopeLaw+ToolBoundary",
+              "tool": "httpx_bounded"
+            },
+            "seal_digest": "sha256:4c588b9760122bf6ce6d14112a5c955fbf7def700fe1d9db2fbbe9b5bc5f1912",
+            "sealed": true,
+            "target_backed": true,
+            "target_context_hash": null,
+            "target_fingerprint": "7c7ebffc1e52a03c",
+            "target_identity": null,
+            "target_package_id": null,
+            "target_package_policy_digest": null,
+            "target_package_scope_digest": null,
+            "target_package_sha256": null,
+            "validator_config_digest": null,
+            "validator_id": "canonical_validator_info_disclosure",
+            "validator_result": {
+              "discriminating_signal": "candidate leaks 1 sensitive pattern classes",
+              "evidence_quality": 2,
+              "outcome": "CONFIRMED"
+            },
+            "validator_version": "validator_coverage_v1",
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          "proof_result": {
+            "bundle_created": true,
+            "bundle_id": "proof_bundle_c11beadbe51a47a1afa459ca1a6a2946",
+            "component": "ProofBundle (existing sealed evidence authority)",
+            "evidence_origin": "target_runtime",
+            "seal_digest": "sha256:4c588b9760122bf6ce6d14112a5c955fbf7def700fe1d9db2fbbe9b5bc5f1912",
+            "seal_verified_via_replay": true,
+            "sealed": true
+          },
+          "proof_seal_verified": true,
+          "proof_sealed": true,
+          "proof_trace": null,
+          "proof_trace_contract": null,
+          "real_http_executed": true,
+          "replay_result": {
+            "digests_match": true,
+            "expected_outcome": "CONFIRMED",
+            "outcome_match": true,
+            "replay_component": "ReplayVerifier_v1_2_semantic",
+            "replay_verified": true,
+            "replayed_outcome": "CONFIRMED",
+            "seal_verified": true,
+            "semantic_match": true
+          },
+          "replay_verified": true,
+          "request_sequence": [
+            "{'role': 'baseline', 'method': 'GET', 'url': 'http://127.0.0.1:8081/', 'request_digest': 'sha256:323edad6d46f09cada4978f05c6ed270daf2857e7fe38d6361bb18e007eca6ad'}",
+            "{'role': 'candidate', 'method': 'GET', 'url': 'http://127.0.0.1:8081/rest/admin/application-version', 'request_digest': 'sha256:f1ade85eb7763daa892ebb6afcf7629a0d3069ef3787eb245b447762a80d9bba'}",
+            "{'role': 'negative_control', 'method': 'GET', 'url': 'http://127.0.0.1:8081/', 'request_digest': 'sha256:71c4e5e242d9f66aec26d41f8b6243af522c84148a0553a79c9494395bc08c53'}"
+          ],
+          "resource_id": "/rest/admin/application-version",
+          "response_sequence": [
+            "{'role': 'baseline', 'status_code': 302, 'response_digest': 'sha256:8033fec785a19d152d662843b5bf5487e713188b8d7f4e2aa80d9980936bbe6b'}",
+            "{'role': 'candidate', 'status_code': 404, 'response_digest': 'sha256:499181f04482c28be298ef49906dd370b4965dc8bba99472d09bc1848e72cb54'}",
+            "{'role': 'negative_control', 'status_code': 302, 'response_digest': 'sha256:a4ba74d773d2b22a3cae3edd51e3cb6fb734adb8c3014801f59e7e385d08462a'}"
+          ],
+          "selection": {
+            "api_type": "rest",
+            "experiment_id": "exp_infodisc_v1",
+            "graphql_query": null,
+            "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+            "rejected_candidates": [],
+            "selected": true,
+            "selected_candidate_score": 14450,
+            "selection_reason": "deterministic_score:registry_coverage+information_value+novelty",
+            "selector_version": "autonomous_experiment_selector_v1",
+            "target_path": "/rest/admin/application-version",
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          "stopped": false,
+          "validator_outcome": "CONFIRMED",
+          "vulnerability_class": "INFO_DISCLOSURE",
+          "world_model_delta": {
+            "api": "EvidenceGraph.register_hypothesis+record_observation_outcome+record_experiment (existing world model seam)",
+            "entities_delta": 0,
+            "entity_count_after": 2,
+            "experiments_delta": 1,
+            "hypotheses_delta": 1,
+            "hypothesis_count_after": 1,
+            "information_value": 0.4,
+            "observation_id": "obs_exp_infodisc_v1_d1",
+            "relation_count_after": 3,
+            "relations_delta": 2,
+            "supports_hypothesis": false,
+            "updated": true
+          }
+        },
+        "governed_candidate_id": "h_recon_info_disclosure_35cd05fe1ef1"
+      },
+      "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+      "request_executed": true,
+      "response_received": true,
+      "status": "VALIDATING"
+    },
+    {
+      "authority_trace": [
+        "ScopeLaw",
+        "ToolBoundary",
+        "M4",
+        "AVI",
+        "ProofBundle",
+        "Replay",
+        "PromotionPipeline"
+      ],
+      "error": null,
+      "evidence": {
+        "authority": "ModernOrchestrator/ScopeLaw/AVI",
+        "decision": {
+          "actor_id": "unauthenticated",
+          "api_type": "rest",
+          "causal_difference": null,
+          "decision": 1,
+          "evidence_quality": 2,
+          "experiment_id": "exp_infodisc_v1",
+          "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+          "identity_binding_result": {
+            "actor_id": "unauthenticated",
+            "authorization_context": "owner=unauthenticated",
+            "baseline_access_result": 302,
+            "baseline_actor_id": "unauthenticated",
+            "candidate_access_result": 404,
+            "causal_difference": null,
+            "expected_owner": "unauthenticated",
+            "identity_bound": false,
+            "identity_bound_reason": "info_disclosure_not_proven sensitive=0 baseline=0 control=0",
+            "negative_control_result": 302,
+            "resource_id": "/rest/admin/application-version",
+            "resource_owner": "unauthenticated"
+          },
+          "identity_bound": false,
+          "identity_bound_reason": "info_disclosure_not_proven sensitive=0 baseline=0 control=0",
+          "knowledge_metadata": {
+            "payload_id": "pat-00882a0366fc16fa",
+            "payload_safety_class": "catalog_only",
+            "payload_source": "Insecure Source Code Management/Git.md",
+            "payload_sub_type": "git",
+            "wstg_methodology_digest": "8ecbb3e8633c6a5f",
+            "wstg_reference": "WSTG-CONF-03"
+          },
+          "outcome_tracker_update": {
+            "feeds_next_decision": true,
+            "history_index": 1,
+            "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+            "information_value": 2.0,
+            "justification": "avi_decision_1_REJECTED",
+            "outcome_class": "confirmed_supported",
+            "signature": "exp_infodisc_v1",
+            "timestamp": "2026-10-01T23:05:37.761250+00:00"
+          },
+          "promotion": {
+            "decision": "REJECTED",
+            "finding_id": "finding_info_disclosure_0ce35500",
+            "gates_failed": [
+              "semantic_identity_bound"
+            ],
+            "gates_passed": [
+              "real_runtime_observations",
+              "baseline_present",
+              "negative_control_present",
+              "causal_validator_confirmed",
+              "proof_bundle_signed",
+              "replay_verified",
+              "no_external_scanner_authority"
+            ],
+            "pipeline": "PromotionPipeline_v1",
+            "reason": "semantic_identity_bound:rejected",
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          "proof_bundle": {
+            "authenticity_algorithm": "hmac_sha256_v1",
+            "authenticity_key_version": "env_override_v1",
+            "authenticity_tag": "hmac_sha256:d7fc6d359248eb87cfb35c9a936980c58e9c489d0d1c286004fa0662e7da3cf9",
+            "baseline_digest": "sha256:a62f591d6c16c453b4818c44c93765c7a26d0d46160de4f3fc888475661809cf",
+            "baseline_evidence_ref": null,
+            "bundle_id": "proof_bundle_7a60356106bc46c299f5f6b8233b80d2",
+            "campaign_id": "generalization-20261002t0201z-dvwa",
+            "candidate_evidence_ref": null,
+            "causal_oracle": {
+              "actor_id": "unauthenticated",
+              "authorization_context": "[REDACTED]",
+              "baseline_access_result": 302,
+              "baseline_complete": true,
+              "candidate_access_result": 404,
+              "causal_difference": null,
+              "causal_signal": true,
+              "discriminating_signal": "candidate leaks 1 sensitive pattern classes",
+              "expected_owner": "unauthenticated",
+              "identity_bound": false,
+              "identity_bound_reason": "info_disclosure_not_proven sensitive=0 baseline=0 control=0",
+              "negative_control_complete": true,
+              "negative_control_result": 302,
+              "resource_id": "/rest/admin/application-version",
+              "validator_outcome": "CONFIRMED"
+            },
+            "chain_of_custody": [
+              "{'actor': 'autonomous_validation_intelligence_v1', 'action': 'seal', 'at': '2026-10-01T23:05:37.760162Z', 'note': ''}"
+            ],
+            "cleanup_status": "not_applicable",
+            "engagement_id": "generalization-20261002t0201z-dvwa",
+            "evidence_digests": [
+              "sha256:a62f591d6c16c453b4818c44c93765c7a26d0d46160de4f3fc888475661809cf",
+              "sha256:20ec18b3eeb7d03b7faf711d34ddd8e8244afc78ca1dc60de10cc8f50bb3b1aa",
+              "sha256:82dc62446c66677380f43bd781771168386881e47d70f1a77aafa4c5f47dee75"
+            ],
+            "evidence_origin": "target_runtime",
+            "evidence_refs": [
+              "obs_7a637585d4741db8",
+              "obs_f1cc86a495a9475d",
+              "obs_d3a446557fd3252b"
+            ],
+            "finding_id": "finding_info_disclosure_0ce35500",
+            "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+            "identity_context": {
+              "actor_id": "unauthenticated",
+              "authorization_context": "[REDACTED]",
+              "baseline_actor_id": "unauthenticated",
+              "execution_identity": "exec_exp_infodisc_v1_7c7ebffc",
+              "expected_owner": "unauthenticated",
+              "identity_bound": false,
+              "resource_id": "/rest/admin/application-version",
+              "resource_owner": "unauthenticated"
+            },
+            "invariant_analysis": {},
+            "negative_control_digest": "sha256:82dc62446c66677380f43bd781771168386881e47d70f1a77aafa4c5f47dee75",
+            "negative_control_evidence_ref": null,
+            "negative_control_independent": true,
+            "oracle_decision": "CONFIRMED",
+            "redaction_manifest": [],
+            "replay_metadata": {
+              "replay_component": "ReplayVerifier_v1",
+              "replay_required": true,
+              "replayable": true,
+              "requests_executed": 3
+            },
+            "request_digests": [
+              "sha256:323edad6d46f09cada4978f05c6ed270daf2857e7fe38d6361bb18e007eca6ad",
+              "sha256:f1ade85eb7763daa892ebb6afcf7629a0d3069ef3787eb245b447762a80d9bba",
+              "sha256:71c4e5e242d9f66aec26d41f8b6243af522c84148a0553a79c9494395bc08c53"
+            ],
+            "response_digests": [
+              "sha256:a62f591d6c16c453b4818c44c93765c7a26d0d46160de4f3fc888475661809cf",
+              "sha256:20ec18b3eeb7d03b7faf711d34ddd8e8244afc78ca1dc60de10cc8f50bb3b1aa",
+              "sha256:82dc62446c66677380f43bd781771168386881e47d70f1a77aafa4c5f47dee75"
+            ],
+            "run_id": "exp_infodisc_v1",
+            "scope_context": {
+              "authorized_via": "ScopeLaw+ToolBoundary",
+              "tool": "httpx_bounded"
+            },
+            "seal_digest": "sha256:0d6b397a0578036e684b2072bfe2545585903d773edbe9bbceda662562a4a81f",
+            "sealed": true,
+            "target_backed": true,
+            "target_context_hash": null,
+            "target_fingerprint": "7c7ebffc1e52a03c",
+            "target_identity": null,
+            "target_package_id": null,
+            "target_package_policy_digest": null,
+            "target_package_scope_digest": null,
+            "target_package_sha256": null,
+            "validator_config_digest": null,
+            "validator_id": "canonical_validator_info_disclosure",
+            "validator_result": {
+              "discriminating_signal": "candidate leaks 1 sensitive pattern classes",
+              "evidence_quality": 2,
+              "outcome": "CONFIRMED"
+            },
+            "validator_version": "validator_coverage_v1",
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          "proof_result": {
+            "bundle_created": true,
+            "bundle_id": "proof_bundle_7a60356106bc46c299f5f6b8233b80d2",
+            "component": "ProofBundle (existing sealed evidence authority)",
+            "evidence_origin": "target_runtime",
+            "seal_digest": "sha256:0d6b397a0578036e684b2072bfe2545585903d773edbe9bbceda662562a4a81f",
+            "seal_verified_via_replay": true,
+            "sealed": true
+          },
+          "proof_seal_verified": true,
+          "proof_sealed": true,
+          "proof_trace": null,
+          "proof_trace_contract": null,
+          "real_http_executed": true,
+          "replay_result": {
+            "digests_match": true,
+            "expected_outcome": "CONFIRMED",
+            "outcome_match": true,
+            "replay_component": "ReplayVerifier_v1_2_semantic",
+            "replay_verified": true,
+            "replayed_outcome": "CONFIRMED",
+            "seal_verified": true,
+            "semantic_match": true
+          },
+          "replay_verified": true,
+          "request_sequence": [
+            "{'role': 'baseline', 'method': 'GET', 'url': 'http://127.0.0.1:8081/', 'request_digest': 'sha256:323edad6d46f09cada4978f05c6ed270daf2857e7fe38d6361bb18e007eca6ad'}",
+            "{'role': 'candidate', 'method': 'GET', 'url': 'http://127.0.0.1:8081/rest/admin/application-version', 'request_digest': 'sha256:f1ade85eb7763daa892ebb6afcf7629a0d3069ef3787eb245b447762a80d9bba'}",
+            "{'role': 'negative_control', 'method': 'GET', 'url': 'http://127.0.0.1:8081/', 'request_digest': 'sha256:71c4e5e242d9f66aec26d41f8b6243af522c84148a0553a79c9494395bc08c53'}"
+          ],
+          "resource_id": "/rest/admin/application-version",
+          "response_sequence": [
+            "{'role': 'baseline', 'status_code': 302, 'response_digest': 'sha256:a62f591d6c16c453b4818c44c93765c7a26d0d46160de4f3fc888475661809cf'}",
+            "{'role': 'candidate', 'status_code': 404, 'response_digest': 'sha256:20ec18b3eeb7d03b7faf711d34ddd8e8244afc78ca1dc60de10cc8f50bb3b1aa'}",
+            "{'role': 'negative_control', 'status_code': 302, 'response_digest': 'sha256:82dc62446c66677380f43bd781771168386881e47d70f1a77aafa4c5f47dee75'}"
+          ],
+          "selection": {
+            "api_type": "rest",
+            "experiment_id": "exp_infodisc_v1",
+            "graphql_query": null,
+            "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+            "rejected_candidates": [],
+            "selected": true,
+            "selected_candidate_score": 14450,
+            "selection_reason": "deterministic_score:registry_coverage+information_value+novelty",
+            "selector_version": "autonomous_experiment_selector_v1",
+            "target_path": "/rest/admin/application-version",
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          "stopped": false,
+          "validator_outcome": "CONFIRMED",
+          "vulnerability_class": "INFO_DISCLOSURE",
+          "world_model_delta": {
+            "api": "EvidenceGraph.register_hypothesis+record_observation_outcome+record_experiment (existing world model seam)",
+            "entities_delta": 0,
+            "entity_count_after": 2,
+            "experiments_delta": 1,
+            "hypotheses_delta": 0,
+            "hypothesis_count_after": 1,
+            "information_value": 0.4,
+            "observation_id": "obs_exp_infodisc_v1_d1",
+            "relation_count_after": 5,
+            "relations_delta": 2,
+            "supports_hypothesis": false,
+            "updated": true
+          }
+        },
+        "governed_candidate_id": "h_recon_info_disclosure_35cd05fe1ef1"
+      },
+      "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+      "request_executed": true,
+      "response_received": true,
+      "status": "VALIDATING"
+    },
+    {
+      "authority_trace": [
+        "ScopeLaw",
+        "ToolBoundary",
+        "M4",
+        "AVI",
+        "ProofBundle",
+        "Replay",
+        "PromotionPipeline"
+      ],
+      "error": null,
+      "evidence": {
+        "authority": "ModernOrchestrator/ScopeLaw/AVI",
+        "decision": {
+          "actor_id": "unauthenticated",
+          "api_type": "rest",
+          "causal_difference": null,
+          "decision": 1,
+          "evidence_quality": 2,
+          "experiment_id": "exp_infodisc_v1",
+          "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+          "identity_binding_result": {
+            "actor_id": "unauthenticated",
+            "authorization_context": "owner=unauthenticated",
+            "baseline_access_result": 302,
+            "baseline_actor_id": "unauthenticated",
+            "candidate_access_result": 404,
+            "causal_difference": null,
+            "expected_owner": "unauthenticated",
+            "identity_bound": false,
+            "identity_bound_reason": "info_disclosure_not_proven sensitive=0 baseline=0 control=0",
+            "negative_control_result": 302,
+            "resource_id": "/rest/admin/application-version",
+            "resource_owner": "unauthenticated"
+          },
+          "identity_bound": false,
+          "identity_bound_reason": "info_disclosure_not_proven sensitive=0 baseline=0 control=0",
+          "knowledge_metadata": {
+            "payload_id": "pat-00882a0366fc16fa",
+            "payload_safety_class": "catalog_only",
+            "payload_source": "Insecure Source Code Management/Git.md",
+            "payload_sub_type": "git",
+            "wstg_methodology_digest": "8ecbb3e8633c6a5f",
+            "wstg_reference": "WSTG-CONF-03"
+          },
+          "outcome_tracker_update": {
+            "feeds_next_decision": true,
+            "history_index": 2,
+            "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+            "information_value": 2.0,
+            "justification": "avi_decision_1_REJECTED",
+            "outcome_class": "confirmed_supported",
+            "signature": "exp_infodisc_v1",
+            "timestamp": "2026-10-01T23:06:06.435882+00:00"
+          },
+          "promotion": {
+            "decision": "REJECTED",
+            "finding_id": "finding_info_disclosure_0ce35500",
+            "gates_failed": [
+              "semantic_identity_bound"
+            ],
+            "gates_passed": [
+              "real_runtime_observations",
+              "baseline_present",
+              "negative_control_present",
+              "causal_validator_confirmed",
+              "proof_bundle_signed",
+              "replay_verified",
+              "no_external_scanner_authority"
+            ],
+            "pipeline": "PromotionPipeline_v1",
+            "reason": "semantic_identity_bound:rejected",
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          "proof_bundle": {
+            "authenticity_algorithm": "hmac_sha256_v1",
+            "authenticity_key_version": "env_override_v1",
+            "authenticity_tag": "hmac_sha256:30033d7a837c8a58f166aefd72d02d3b8eda406d25fd1849e13fdbfc2f68d498",
+            "baseline_digest": "sha256:5d7f659007945a89c3e115dd8d1f16fdb97fc44096604de38c9620a2acdf617a",
+            "baseline_evidence_ref": null,
+            "bundle_id": "proof_bundle_36f92c15d5814f54887a6681f39818d7",
+            "campaign_id": "generalization-20261002t0201z-dvwa",
+            "candidate_evidence_ref": null,
+            "causal_oracle": {
+              "actor_id": "unauthenticated",
+              "authorization_context": "[REDACTED]",
+              "baseline_access_result": 302,
+              "baseline_complete": true,
+              "candidate_access_result": 404,
+              "causal_difference": null,
+              "causal_signal": true,
+              "discriminating_signal": "candidate leaks 1 sensitive pattern classes",
+              "expected_owner": "unauthenticated",
+              "identity_bound": false,
+              "identity_bound_reason": "info_disclosure_not_proven sensitive=0 baseline=0 control=0",
+              "negative_control_complete": true,
+              "negative_control_result": 302,
+              "resource_id": "/rest/admin/application-version",
+              "validator_outcome": "CONFIRMED"
+            },
+            "chain_of_custody": [
+              "{'actor': 'autonomous_validation_intelligence_v1', 'action': 'seal', 'at': '2026-10-01T23:06:06.434900Z', 'note': ''}"
+            ],
+            "cleanup_status": "not_applicable",
+            "engagement_id": "generalization-20261002t0201z-dvwa",
+            "evidence_digests": [
+              "sha256:5d7f659007945a89c3e115dd8d1f16fdb97fc44096604de38c9620a2acdf617a",
+              "sha256:114d9dbe63df603b5651e732d0ecd28db28c9f452539ba9445eccfdb39eab956",
+              "sha256:614b80afe61533ff08ef4e8a7f05946d338848f572f57f942817dd75250fd79d"
+            ],
+            "evidence_origin": "target_runtime",
+            "evidence_refs": [
+              "obs_1729b23ce7bf6bb2",
+              "obs_3a96654f50af9302",
+              "obs_a855eb4c72d0258e"
+            ],
+            "finding_id": "finding_info_disclosure_0ce35500",
+            "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+            "identity_context": {
+              "actor_id": "unauthenticated",
+              "authorization_context": "[REDACTED]",
+              "baseline_actor_id": "unauthenticated",
+              "execution_identity": "exec_exp_infodisc_v1_7c7ebffc",
+              "expected_owner": "unauthenticated",
+              "identity_bound": false,
+              "resource_id": "/rest/admin/application-version",
+              "resource_owner": "unauthenticated"
+            },
+            "invariant_analysis": {},
+            "negative_control_digest": "sha256:614b80afe61533ff08ef4e8a7f05946d338848f572f57f942817dd75250fd79d",
+            "negative_control_evidence_ref": null,
+            "negative_control_independent": true,
+            "oracle_decision": "CONFIRMED",
+            "redaction_manifest": [],
+            "replay_metadata": {
+              "replay_component": "ReplayVerifier_v1",
+              "replay_required": true,
+              "replayable": true,
+              "requests_executed": 3
+            },
+            "request_digests": [
+              "sha256:323edad6d46f09cada4978f05c6ed270daf2857e7fe38d6361bb18e007eca6ad",
+              "sha256:f1ade85eb7763daa892ebb6afcf7629a0d3069ef3787eb245b447762a80d9bba",
+              "sha256:71c4e5e242d9f66aec26d41f8b6243af522c84148a0553a79c9494395bc08c53"
+            ],
+            "response_digests": [
+              "sha256:5d7f659007945a89c3e115dd8d1f16fdb97fc44096604de38c9620a2acdf617a",
+              "sha256:114d9dbe63df603b5651e732d0ecd28db28c9f452539ba9445eccfdb39eab956",
+              "sha256:614b80afe61533ff08ef4e8a7f05946d338848f572f57f942817dd75250fd79d"
+            ],
+            "run_id": "exp_infodisc_v1",
+            "scope_context": {
+              "authorized_via": "ScopeLaw+ToolBoundary",
+              "tool": "httpx_bounded"
+            },
+            "seal_digest": "sha256:1fdc65d43fa873418e9ea0fab35ea95b2e37111d60f5e19baeb1b99cdb37d121",
+            "sealed": true,
+            "target_backed": true,
+            "target_context_hash": null,
+            "target_fingerprint": "7c7ebffc1e52a03c",
+            "target_identity": null,
+            "target_package_id": null,
+            "target_package_policy_digest": null,
+            "target_package_scope_digest": null,
+            "target_package_sha256": null,
+            "validator_config_digest": null,
+            "validator_id": "canonical_validator_info_disclosure",
+            "validator_result": {
+              "discriminating_signal": "candidate leaks 1 sensitive pattern classes",
+              "evidence_quality": 2,
+              "outcome": "CONFIRMED"
+            },
+            "validator_version": "validator_coverage_v1",
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          "proof_result": {
+            "bundle_created": true,
+            "bundle_id": "proof_bundle_36f92c15d5814f54887a6681f39818d7",
+            "component": "ProofBundle (existing sealed evidence authority)",
+            "evidence_origin": "target_runtime",
+            "seal_digest": "sha256:1fdc65d43fa873418e9ea0fab35ea95b2e37111d60f5e19baeb1b99cdb37d121",
+            "seal_verified_via_replay": true,
+            "sealed": true
+          },
+          "proof_seal_verified": true,
+          "proof_sealed": true,
+          "proof_trace": null,
+          "proof_trace_contract": null,
+          "real_http_executed": true,
+          "replay_result": {
+            "digests_match": true,
+            "expected_outcome": "CONFIRMED",
+            "outcome_match": true,
+            "replay_component": "ReplayVerifier_v1_2_semantic",
+            "replay_verified": true,
+            "replayed_outcome": "CONFIRMED",
+            "seal_verified": true,
+            "semantic_match": true
+          },
+          "replay_verified": true,
+          "request_sequence": [
+            "{'role': 'baseline', 'method': 'GET', 'url': 'http://127.0.0.1:8081/', 'request_digest': 'sha256:323edad6d46f09cada4978f05c6ed270daf2857e7fe38d6361bb18e007eca6ad'}",
+            "{'role': 'candidate', 'method': 'GET', 'url': 'http://127.0.0.1:8081/rest/admin/application-version', 'request_digest': 'sha256:f1ade85eb7763daa892ebb6afcf7629a0d3069ef3787eb245b447762a80d9bba'}",
+            "{'role': 'negative_control', 'method': 'GET', 'url': 'http://127.0.0.1:8081/', 'request_digest': 'sha256:71c4e5e242d9f66aec26d41f8b6243af522c84148a0553a79c9494395bc08c53'}"
+          ],
+          "resource_id": "/rest/admin/application-version",
+          "response_sequence": [
+            "{'role': 'baseline', 'status_code': 302, 'response_digest': 'sha256:5d7f659007945a89c3e115dd8d1f16fdb97fc44096604de38c9620a2acdf617a'}",
+            "{'role': 'candidate', 'status_code': 404, 'response_digest': 'sha256:114d9dbe63df603b5651e732d0ecd28db28c9f452539ba9445eccfdb39eab956'}",
+            "{'role': 'negative_control', 'status_code': 302, 'response_digest': 'sha256:614b80afe61533ff08ef4e8a7f05946d338848f572f57f942817dd75250fd79d'}"
+          ],
+          "selection": {
+            "api_type": "rest",
+            "experiment_id": "exp_infodisc_v1",
+            "graphql_query": null,
+            "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+            "rejected_candidates": [],
+            "selected": true,
+            "selected_candidate_score": 14450,
+            "selection_reason": "deterministic_score:registry_coverage+information_value+novelty",
+            "selector_version": "autonomous_experiment_selector_v1",
+            "target_path": "/rest/admin/application-version",
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          "stopped": false,
+          "validator_outcome": "CONFIRMED",
+          "vulnerability_class": "INFO_DISCLOSURE",
+          "world_model_delta": {
+            "api": "EvidenceGraph.register_hypothesis+record_observation_outcome+record_experiment (existing world model seam)",
+            "entities_delta": 0,
+            "entity_count_after": 2,
+            "experiments_delta": 1,
+            "hypotheses_delta": 0,
+            "hypothesis_count_after": 1,
+            "information_value": 0.4,
+            "observation_id": "obs_exp_infodisc_v1_d1",
+            "relation_count_after": 7,
+            "relations_delta": 2,
+            "supports_hypothesis": false,
+            "updated": true
+          }
+        },
+        "governed_candidate_id": "h_recon_info_disclosure_35cd05fe1ef1"
+      },
+      "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+      "request_executed": true,
+      "response_received": true,
+      "status": "VALIDATING"
+    },
+    {
+      "authority_trace": [
+        "ScopeLaw",
+        "ToolBoundary",
+        "M4",
+        "AVI",
+        "ProofBundle",
+        "Replay",
+        "PromotionPipeline"
+      ],
+      "error": null,
+      "evidence": {
+        "authority": "ModernOrchestrator/ScopeLaw/AVI",
+        "decision": {
+          "actor_id": "unauthenticated",
+          "api_type": "rest",
+          "causal_difference": null,
+          "decision": 1,
+          "evidence_quality": 2,
+          "experiment_id": "exp_infodisc_v1",
+          "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+          "identity_binding_result": {
+            "actor_id": "unauthenticated",
+            "authorization_context": "owner=unauthenticated",
+            "baseline_access_result": 302,
+            "baseline_actor_id": "unauthenticated",
+            "candidate_access_result": 404,
+            "causal_difference": null,
+            "expected_owner": "unauthenticated",
+            "identity_bound": false,
+            "identity_bound_reason": "info_disclosure_not_proven sensitive=0 baseline=0 control=0",
+            "negative_control_result": 302,
+            "resource_id": "/rest/admin/application-version",
+            "resource_owner": "unauthenticated"
+          },
+          "identity_bound": false,
+          "identity_bound_reason": "info_disclosure_not_proven sensitive=0 baseline=0 control=0",
+          "knowledge_metadata": {
+            "payload_id": "pat-00882a0366fc16fa",
+            "payload_safety_class": "catalog_only",
+            "payload_source": "Insecure Source Code Management/Git.md",
+            "payload_sub_type": "git",
+            "wstg_methodology_digest": "8ecbb3e8633c6a5f",
+            "wstg_reference": "WSTG-CONF-03"
+          },
+          "outcome_tracker_update": {
+            "feeds_next_decision": true,
+            "history_index": 3,
+            "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+            "information_value": 2.0,
+            "justification": "avi_decision_1_REJECTED",
+            "outcome_class": "confirmed_supported",
+            "signature": "exp_infodisc_v1",
+            "timestamp": "2026-10-01T23:06:38.234104+00:00"
+          },
+          "promotion": {
+            "decision": "REJECTED",
+            "finding_id": "finding_info_disclosure_0ce35500",
+            "gates_failed": [
+              "semantic_identity_bound"
+            ],
+            "gates_passed": [
+              "real_runtime_observations",
+              "baseline_present",
+              "negative_control_present",
+              "causal_validator_confirmed",
+              "proof_bundle_signed",
+              "replay_verified",
+              "no_external_scanner_authority"
+            ],
+            "pipeline": "PromotionPipeline_v1",
+            "reason": "semantic_identity_bound:rejected",
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          "proof_bundle": {
+            "authenticity_algorithm": "hmac_sha256_v1",
+            "authenticity_key_version": "env_override_v1",
+            "authenticity_tag": "hmac_sha256:122e717e656e2446a967ddff4eef99abff0e79240db2e01515617a7507fdacf4",
+            "baseline_digest": "sha256:6a74250c5dade2840a7b84be3250c1b72e46699ba2641ed1b51ac2b0df73e990",
+            "baseline_evidence_ref": null,
+            "bundle_id": "proof_bundle_546f4ee0dee24ae3be7318cc9eebab92",
+            "campaign_id": "generalization-20261002t0201z-dvwa",
+            "candidate_evidence_ref": null,
+            "causal_oracle": {
+              "actor_id": "unauthenticated",
+              "authorization_context": "[REDACTED]",
+              "baseline_access_result": 302,
+              "baseline_complete": true,
+              "candidate_access_result": 404,
+              "causal_difference": null,
+              "causal_signal": true,
+              "discriminating_signal": "candidate leaks 1 sensitive pattern classes",
+              "expected_owner": "unauthenticated",
+              "identity_bound": false,
+              "identity_bound_reason": "info_disclosure_not_proven sensitive=0 baseline=0 control=0",
+              "negative_control_complete": true,
+              "negative_control_result": 302,
+              "resource_id": "/rest/admin/application-version",
+              "validator_outcome": "CONFIRMED"
+            },
+            "chain_of_custody": [
+              "{'actor': 'autonomous_validation_intelligence_v1', 'action': 'seal', 'at': '2026-10-01T23:06:38.233022Z', 'note': ''}"
+            ],
+            "cleanup_status": "not_applicable",
+            "engagement_id": "generalization-20261002t0201z-dvwa",
+            "evidence_digests": [
+              "sha256:6a74250c5dade2840a7b84be3250c1b72e46699ba2641ed1b51ac2b0df73e990",
+              "sha256:20d962e192a646aa71fad448e40ffa8d6b12725d0da36b7bd0bdb6a65efd65d4",
+              "sha256:b352b17ba7aa4bcbd31a00f5b428081b0a659cab3a604e5c40e414b24b4a441d"
+            ],
+            "evidence_origin": "target_runtime",
+            "evidence_refs": [
+              "obs_258eab85bd41bf85",
+              "obs_90272fa79db60804",
+              "obs_671e2ed3c4360312"
+            ],
+            "finding_id": "finding_info_disclosure_0ce35500",
+            "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+            "identity_context": {
+              "actor_id": "unauthenticated",
+              "authorization_context": "[REDACTED]",
+              "baseline_actor_id": "unauthenticated",
+              "execution_identity": "exec_exp_infodisc_v1_7c7ebffc",
+              "expected_owner": "unauthenticated",
+              "identity_bound": false,
+              "resource_id": "/rest/admin/application-version",
+              "resource_owner": "unauthenticated"
+            },
+            "invariant_analysis": {},
+            "negative_control_digest": "sha256:b352b17ba7aa4bcbd31a00f5b428081b0a659cab3a604e5c40e414b24b4a441d",
+            "negative_control_evidence_ref": null,
+            "negative_control_independent": true,
+            "oracle_decision": "CONFIRMED",
+            "redaction_manifest": [],
+            "replay_metadata": {
+              "replay_component": "ReplayVerifier_v1",
+              "replay_required": true,
+              "replayable": true,
+              "requests_executed": 3
+            },
+            "request_digests": [
+              "sha256:323edad6d46f09cada4978f05c6ed270daf2857e7fe38d6361bb18e007eca6ad",
+              "sha256:f1ade85eb7763daa892ebb6afcf7629a0d3069ef3787eb245b447762a80d9bba",
+              "sha256:71c4e5e242d9f66aec26d41f8b6243af522c84148a0553a79c9494395bc08c53"
+            ],
+            "response_digests": [
+              "sha256:6a74250c5dade2840a7b84be3250c1b72e46699ba2641ed1b51ac2b0df73e990",
+              "sha256:20d962e192a646aa71fad448e40ffa8d6b12725d0da36b7bd0bdb6a65efd65d4",
+              "sha256:b352b17ba7aa4bcbd31a00f5b428081b0a659cab3a604e5c40e414b24b4a441d"
+            ],
+            "run_id": "exp_infodisc_v1",
+            "scope_context": {
+              "authorized_via": "ScopeLaw+ToolBoundary",
+              "tool": "httpx_bounded"
+            },
+            "seal_digest": "sha256:b2f0105425834db9844bcb37cd6a45a59a843e1376eb4795a2af692aab77ad9a",
+            "sealed": true,
+            "target_backed": true,
+            "target_context_hash": null,
+            "target_fingerprint": "7c7ebffc1e52a03c",
+            "target_identity": null,
+            "target_package_id": null,
+            "target_package_policy_digest": null,
+            "target_package_scope_digest": null,
+            "target_package_sha256": null,
+            "validator_config_digest": null,
+            "validator_id": "canonical_validator_info_disclosure",
+            "validator_result": {
+              "discriminating_signal": "candidate leaks 1 sensitive pattern classes",
+              "evidence_quality": 2,
+              "outcome": "CONFIRMED"
+            },
+            "validator_version": "validator_coverage_v1",
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          "proof_result": {
+            "bundle_created": true,
+            "bundle_id": "proof_bundle_546f4ee0dee24ae3be7318cc9eebab92",
+            "component": "ProofBundle (existing sealed evidence authority)",
+            "evidence_origin": "target_runtime",
+            "seal_digest": "sha256:b2f0105425834db9844bcb37cd6a45a59a843e1376eb4795a2af692aab77ad9a",
+            "seal_verified_via_replay": true,
+            "sealed": true
+          },
+          "proof_seal_verified": true,
+          "proof_sealed": true,
+          "proof_trace": null,
+          "proof_trace_contract": null,
+          "real_http_executed": true,
+          "replay_result": {
+            "digests_match": true,
+            "expected_outcome": "CONFIRMED",
+            "outcome_match": true,
+            "replay_component": "ReplayVerifier_v1_2_semantic",
+            "replay_verified": true,
+            "replayed_outcome": "CONFIRMED",
+            "seal_verified": true,
+            "semantic_match": true
+          },
+          "replay_verified": true,
+          "request_sequence": [
+            "{'role': 'baseline', 'method': 'GET', 'url': 'http://127.0.0.1:8081/', 'request_digest': 'sha256:323edad6d46f09cada4978f05c6ed270daf2857e7fe38d6361bb18e007eca6ad'}",
+            "{'role': 'candidate', 'method': 'GET', 'url': 'http://127.0.0.1:8081/rest/admin/application-version', 'request_digest': 'sha256:f1ade85eb7763daa892ebb6afcf7629a0d3069ef3787eb245b447762a80d9bba'}",
+            "{'role': 'negative_control', 'method': 'GET', 'url': 'http://127.0.0.1:8081/', 'request_digest': 'sha256:71c4e5e242d9f66aec26d41f8b6243af522c84148a0553a79c9494395bc08c53'}"
+          ],
+          "resource_id": "/rest/admin/application-version",
+          "response_sequence": [
+            "{'role': 'baseline', 'status_code': 302, 'response_digest': 'sha256:6a74250c5dade2840a7b84be3250c1b72e46699ba2641ed1b51ac2b0df73e990'}",
+            "{'role': 'candidate', 'status_code': 404, 'response_digest': 'sha256:20d962e192a646aa71fad448e40ffa8d6b12725d0da36b7bd0bdb6a65efd65d4'}",
+            "{'role': 'negative_control', 'status_code': 302, 'response_digest': 'sha256:b352b17ba7aa4bcbd31a00f5b428081b0a659cab3a604e5c40e414b24b4a441d'}"
+          ],
+          "selection": {
+            "api_type": "rest",
+            "experiment_id": "exp_infodisc_v1",
+            "graphql_query": null,
+            "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+            "rejected_candidates": [],
+            "selected": true,
+            "selected_candidate_score": 14450,
+            "selection_reason": "deterministic_score:registry_coverage+information_value+novelty",
+            "selector_version": "autonomous_experiment_selector_v1",
+            "target_path": "/rest/admin/application-version",
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          "stopped": false,
+          "validator_outcome": "CONFIRMED",
+          "vulnerability_class": "INFO_DISCLOSURE",
+          "world_model_delta": {
+            "api": "EvidenceGraph.register_hypothesis+record_observation_outcome+record_experiment (existing world model seam)",
+            "entities_delta": 0,
+            "entity_count_after": 2,
+            "experiments_delta": 1,
+            "hypotheses_delta": 0,
+            "hypothesis_count_after": 1,
+            "information_value": 0.4,
+            "observation_id": "obs_exp_infodisc_v1_d1",
+            "relation_count_after": 9,
+            "relations_delta": 2,
+            "supports_hypothesis": false,
+            "updated": true
+          }
+        },
+        "governed_candidate_id": "h_recon_info_disclosure_35cd05fe1ef1"
+      },
+      "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+      "request_executed": true,
+      "response_received": true,
+      "status": "VALIDATING"
+    },
+    {
+      "authority_trace": [
+        "ScopeLaw",
+        "ToolBoundary",
+        "M4",
+        "AVI",
+        "ProofBundle",
+        "Replay",
+        "PromotionPipeline"
+      ],
+      "error": null,
+      "evidence": {
+        "authority": "ModernOrchestrator/ScopeLaw/AVI",
+        "decision": {
+          "actor_id": "unauthenticated",
+          "api_type": "rest",
+          "causal_difference": null,
+          "decision": 1,
+          "evidence_quality": 2,
+          "experiment_id": "exp_infodisc_v1",
+          "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+          "identity_binding_result": {
+            "actor_id": "unauthenticated",
+            "authorization_context": "owner=unauthenticated",
+            "baseline_access_result": 302,
+            "baseline_actor_id": "unauthenticated",
+            "candidate_access_result": 404,
+            "causal_difference": null,
+            "expected_owner": "unauthenticated",
+            "identity_bound": false,
+            "identity_bound_reason": "info_disclosure_not_proven sensitive=0 baseline=0 control=0",
+            "negative_control_result": 302,
+            "resource_id": "/rest/admin/application-version",
+            "resource_owner": "unauthenticated"
+          },
+          "identity_bound": false,
+          "identity_bound_reason": "info_disclosure_not_proven sensitive=0 baseline=0 control=0",
+          "knowledge_metadata": {
+            "payload_id": "pat-00882a0366fc16fa",
+            "payload_safety_class": "catalog_only",
+            "payload_source": "Insecure Source Code Management/Git.md",
+            "payload_sub_type": "git",
+            "wstg_methodology_digest": "8ecbb3e8633c6a5f",
+            "wstg_reference": "WSTG-CONF-03"
+          },
+          "outcome_tracker_update": {
+            "feeds_next_decision": true,
+            "history_index": 4,
+            "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+            "information_value": 2.0,
+            "justification": "avi_decision_1_REJECTED",
+            "outcome_class": "confirmed_supported",
+            "signature": "exp_infodisc_v1",
+            "timestamp": "2026-10-01T23:07:21.174621+00:00"
+          },
+          "promotion": {
+            "decision": "REJECTED",
+            "finding_id": "finding_info_disclosure_0ce35500",
+            "gates_failed": [
+              "semantic_identity_bound"
+            ],
+            "gates_passed": [
+              "real_runtime_observations",
+              "baseline_present",
+              "negative_control_present",
+              "causal_validator_confirmed",
+              "proof_bundle_signed",
+              "replay_verified",
+              "no_external_scanner_authority"
+            ],
+            "pipeline": "PromotionPipeline_v1",
+            "reason": "semantic_identity_bound:rejected",
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          "proof_bundle": {
+            "authenticity_algorithm": "hmac_sha256_v1",
+            "authenticity_key_version": "env_override_v1",
+            "authenticity_tag": "hmac_sha256:58b9deeda54b16efa675f8251beb2e562f5130b177b83dbe574f9f57a3f510a7",
+            "baseline_digest": "sha256:68d7305d27545e7faa7de8ea23fa3e9b9b5f710c72e0b30b1f4532a7b8459f73",
+            "baseline_evidence_ref": null,
+            "bundle_id": "proof_bundle_028428ade4fa46c3a1f4c5b8e97e3739",
+            "campaign_id": "generalization-20261002t0201z-dvwa",
+            "candidate_evidence_ref": null,
+            "causal_oracle": {
+              "actor_id": "unauthenticated",
+              "authorization_context": "[REDACTED]",
+              "baseline_access_result": 302,
+              "baseline_complete": true,
+              "candidate_access_result": 404,
+              "causal_difference": null,
+              "causal_signal": true,
+              "discriminating_signal": "candidate leaks 1 sensitive pattern classes",
+              "expected_owner": "unauthenticated",
+              "identity_bound": false,
+              "identity_bound_reason": "info_disclosure_not_proven sensitive=0 baseline=0 control=0",
+              "negative_control_complete": true,
+              "negative_control_result": 302,
+              "resource_id": "/rest/admin/application-version",
+              "validator_outcome": "CONFIRMED"
+            },
+            "chain_of_custody": [
+              "{'actor': 'autonomous_validation_intelligence_v1', 'action': 'seal', 'at': '2026-10-01T23:07:21.173586Z', 'note': ''}"
+            ],
+            "cleanup_status": "not_applicable",
+            "engagement_id": "generalization-20261002t0201z-dvwa",
+            "evidence_digests": [
+              "sha256:68d7305d27545e7faa7de8ea23fa3e9b9b5f710c72e0b30b1f4532a7b8459f73",
+              "sha256:4406155d5e8287a52bc43876cf414fa18c092065828696901f9caf4ee294a0f5",
+              "sha256:9e9804e3194e51f82a4cfd83908624969474f99223b280906df2bf77bb1c6d90"
+            ],
+            "evidence_origin": "target_runtime",
+            "evidence_refs": [
+              "obs_4af0102527588e79",
+              "obs_1c3891e5d06be127",
+              "obs_711c5ddf59d2a510"
+            ],
+            "finding_id": "finding_info_disclosure_0ce35500",
+            "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+            "identity_context": {
+              "actor_id": "unauthenticated",
+              "authorization_context": "[REDACTED]",
+              "baseline_actor_id": "unauthenticated",
+              "execution_identity": "exec_exp_infodisc_v1_7c7ebffc",
+              "expected_owner": "unauthenticated",
+              "identity_bound": false,
+              "resource_id": "/rest/admin/application-version",
+              "resource_owner": "unauthenticated"
+            },
+            "invariant_analysis": {},
+            "negative_control_digest": "sha256:9e9804e3194e51f82a4cfd83908624969474f99223b280906df2bf77bb1c6d90",
+            "negative_control_evidence_ref": null,
+            "negative_control_independent": true,
+            "oracle_decision": "CONFIRMED",
+            "redaction_manifest": [],
+            "replay_metadata": {
+              "replay_component": "ReplayVerifier_v1",
+              "replay_required": true,
+              "replayable": true,
+              "requests_executed": 3
+            },
+            "request_digests": [
+              "sha256:323edad6d46f09cada4978f05c6ed270daf2857e7fe38d6361bb18e007eca6ad",
+              "sha256:f1ade85eb7763daa892ebb6afcf7629a0d3069ef3787eb245b447762a80d9bba",
+              "sha256:71c4e5e242d9f66aec26d41f8b6243af522c84148a0553a79c9494395bc08c53"
+            ],
+            "response_digests": [
+              "sha256:68d7305d27545e7faa7de8ea23fa3e9b9b5f710c72e0b30b1f4532a7b8459f73",
+              "sha256:4406155d5e8287a52bc43876cf414fa18c092065828696901f9caf4ee294a0f5",
+              "sha256:9e9804e3194e51f82a4cfd83908624969474f99223b280906df2bf77bb1c6d90"
+            ],
+            "run_id": "exp_infodisc_v1",
+            "scope_context": {
+              "authorized_via": "ScopeLaw+ToolBoundary",
+              "tool": "httpx_bounded"
+            },
+            "seal_digest": "sha256:18f5721abe4b4d359588b767bb964b025ef58002b4b78b73b1e8d87486bf70bd",
+            "sealed": true,
+            "target_backed": true,
+            "target_context_hash": null,
+            "target_fingerprint": "7c7ebffc1e52a03c",
+            "target_identity": null,
+            "target_package_id": null,
+            "target_package_policy_digest": null,
+            "target_package_scope_digest": null,
+            "target_package_sha256": null,
+            "validator_config_digest": null,
+            "validator_id": "canonical_validator_info_disclosure",
+            "validator_result": {
+              "discriminating_signal": "candidate leaks 1 sensitive pattern classes",
+              "evidence_quality": 2,
+              "outcome": "CONFIRMED"
+            },
+            "validator_version": "validator_coverage_v1",
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          "proof_result": {
+            "bundle_created": true,
+            "bundle_id": "proof_bundle_028428ade4fa46c3a1f4c5b8e97e3739",
+            "component": "ProofBundle (existing sealed evidence authority)",
+            "evidence_origin": "target_runtime",
+            "seal_digest": "sha256:18f5721abe4b4d359588b767bb964b025ef58002b4b78b73b1e8d87486bf70bd",
+            "seal_verified_via_replay": true,
+            "sealed": true
+          },
+          "proof_seal_verified": true,
+          "proof_sealed": true,
+          "proof_trace": null,
+          "proof_trace_contract": null,
+          "real_http_executed": true,
+          "replay_result": {
+            "digests_match": true,
+            "expected_outcome": "CONFIRMED",
+            "outcome_match": true,
+            "replay_component": "ReplayVerifier_v1_2_semantic",
+            "replay_verified": true,
+            "replayed_outcome": "CONFIRMED",
+            "seal_verified": true,
+            "semantic_match": true
+          },
+          "replay_verified": true,
+          "request_sequence": [
+            "{'role': 'baseline', 'method': 'GET', 'url': 'http://127.0.0.1:8081/', 'request_digest': 'sha256:323edad6d46f09cada4978f05c6ed270daf2857e7fe38d6361bb18e007eca6ad'}",
+            "{'role': 'candidate', 'method': 'GET', 'url': 'http://127.0.0.1:8081/rest/admin/application-version', 'request_digest': 'sha256:f1ade85eb7763daa892ebb6afcf7629a0d3069ef3787eb245b447762a80d9bba'}",
+            "{'role': 'negative_control', 'method': 'GET', 'url': 'http://127.0.0.1:8081/', 'request_digest': 'sha256:71c4e5e242d9f66aec26d41f8b6243af522c84148a0553a79c9494395bc08c53'}"
+          ],
+          "resource_id": "/rest/admin/application-version",
+          "response_sequence": [
+            "{'role': 'baseline', 'status_code': 302, 'response_digest': 'sha256:68d7305d27545e7faa7de8ea23fa3e9b9b5f710c72e0b30b1f4532a7b8459f73'}",
+            "{'role': 'candidate', 'status_code': 404, 'response_digest': 'sha256:4406155d5e8287a52bc43876cf414fa18c092065828696901f9caf4ee294a0f5'}",
+            "{'role': 'negative_control', 'status_code': 302, 'response_digest': 'sha256:9e9804e3194e51f82a4cfd83908624969474f99223b280906df2bf77bb1c6d90'}"
+          ],
+          "selection": {
+            "api_type": "rest",
+            "experiment_id": "exp_infodisc_v1",
+            "graphql_query": null,
+            "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+            "rejected_candidates": [],
+            "selected": true,
+            "selected_candidate_score": 14450,
+            "selection_reason": "deterministic_score:registry_coverage+information_value+novelty",
+            "selector_version": "autonomous_experiment_selector_v1",
+            "target_path": "/rest/admin/application-version",
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          "stopped": false,
+          "validator_outcome": "CONFIRMED",
+          "vulnerability_class": "INFO_DISCLOSURE",
+          "world_model_delta": {
+            "api": "EvidenceGraph.register_hypothesis+record_observation_outcome+record_experiment (existing world model seam)",
+            "entities_delta": 0,
+            "entity_count_after": 2,
+            "experiments_delta": 1,
+            "hypotheses_delta": 0,
+            "hypothesis_count_after": 1,
+            "information_value": 0.4,
+            "observation_id": "obs_exp_infodisc_v1_d1",
+            "relation_count_after": 11,
+            "relations_delta": 2,
+            "supports_hypothesis": false,
+            "updated": true
+          }
+        },
+        "governed_candidate_id": "h_recon_info_disclosure_35cd05fe1ef1"
+      },
+      "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+      "request_executed": true,
+      "response_received": true,
+      "status": "VALIDATING"
+    },
+    {
+      "authority_trace": [],
+      "error": "exploiter_advisory_rejected",
+      "evidence": {},
+      "hypothesis_id": "h_recon_open_redirect_0bfdbcc9eb06",
+      "request_executed": false,
+      "response_received": false,
+      "status": "HALTED"
+    }
+  ],
+  "graph_events": [
+    {
+      "at_monotonic": 37910.633333,
+      "detail_digest": "sha256:3383ded3ac1c471e60fbc70ea330bc9e4e86a94b26a86ead6143606d0a3e4e4f",
+      "node": "planner",
+      "status": "PLANNED"
+    },
+    {
+      "at_monotonic": 37910.634457,
+      "detail_digest": "sha256:84e503cae5569207061e9c558fa93fd953a7d55c451638575f688cd914dde631",
+      "node": "exploiter",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 37921.138612,
+      "detail_digest": "sha256:b710029721d69df522e933352515a18a58f3ee47c57964aa38a4d6ee7d194bc2",
+      "node": "exploiter_advisory",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 37921.303086,
+      "detail_digest": "sha256:33db003d9017de2aae891268b5807efccddebdb88b9d59cb5b794863f388c0c7",
+      "node": "exploiter_complete",
+      "status": "VALIDATING"
+    },
+    {
+      "at_monotonic": 37932.849445,
+      "detail_digest": "sha256:2230888f1a3329c698451bd38aaece3e2ac6250886d8080f6489600f62250148",
+      "node": "validator_advisory",
+      "status": "VALIDATING"
+    },
+    {
+      "at_monotonic": 37932.852644,
+      "detail_digest": "sha256:62bb2cc7934a2fb029e9536eea04a2d96734032bb74c8b956f883319a3d623e0",
+      "node": "validator",
+      "status": "INCONCLUSIVE"
+    },
+    {
+      "at_monotonic": 37932.85365,
+      "detail_digest": "sha256:84e503cae5569207061e9c558fa93fd953a7d55c451638575f688cd914dde631",
+      "node": "exploiter",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 37943.870632,
+      "detail_digest": "sha256:0dab3252458490acaa74903b3ed2e0c722d809718f099d6b9514e2ab4954b967",
+      "node": "exploiter_advisory",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 37943.971169,
+      "detail_digest": "sha256:11dde3c2d7fd97c2942dd6b3b39338b2b68eacf3ea6912ff7cb51359c586eb43",
+      "node": "exploiter_complete",
+      "status": "VALIDATING"
+    },
+    {
+      "at_monotonic": 37955.683884,
+      "detail_digest": "sha256:0f7a0ccf16d518fe370693971129b959b7a0bfdce9cd038fcec821a45bb325a4",
+      "node": "validator_advisory",
+      "status": "VALIDATING"
+    },
+    {
+      "at_monotonic": 37955.688251,
+      "detail_digest": "sha256:0200503904b9a84b88b3e98a923d55ce6d187ba733ef96e640122b9b6dbe55db",
+      "node": "validator",
+      "status": "INCONCLUSIVE"
+    },
+    {
+      "at_monotonic": 37955.68949,
+      "detail_digest": "sha256:84e503cae5569207061e9c558fa93fd953a7d55c451638575f688cd914dde631",
+      "node": "exploiter",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 37972.551006,
+      "detail_digest": "sha256:5652445cd74a9c27807c638bc4392cdd54135c9e17114a3bb0ece7ade9de8ac5",
+      "node": "exploiter_advisory",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 37972.645711,
+      "detail_digest": "sha256:e9b862bffaf7a0ca7310f62b2bf094eb90b3d748e5a358848b716cc119225da6",
+      "node": "exploiter_complete",
+      "status": "VALIDATING"
+    },
+    {
+      "at_monotonic": 37989.522726,
+      "detail_digest": "sha256:2cc0eb3cabe14c71df0d7dcfe806c5e27f8cd87b69c53c6be9994b11afcf21fd",
+      "node": "validator_advisory",
+      "status": "VALIDATING"
+    },
+    {
+      "at_monotonic": 37989.536956,
+      "detail_digest": "sha256:fd657b788193e12888f0e8c5594c2d645aaace19b8e0132912fae40e06631cb4",
+      "node": "validator",
+      "status": "INCONCLUSIVE"
+    },
+    {
+      "at_monotonic": 37989.537932,
+      "detail_digest": "sha256:84e503cae5569207061e9c558fa93fd953a7d55c451638575f688cd914dde631",
+      "node": "exploiter",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 38004.335909,
+      "detail_digest": "sha256:5ffbb653be08fbd24406071780b834cd7e8f9566190c7744602b97f1fe3af0fb",
+      "node": "exploiter_advisory",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 38004.44399,
+      "detail_digest": "sha256:894393a37016f90ff2c67b407491bbc8b5d888a0077141e063a140c2df25fd02",
+      "node": "exploiter_complete",
+      "status": "VALIDATING"
+    },
+    {
+      "at_monotonic": 38019.253956,
+      "detail_digest": "sha256:e14de2c06513852f3b5774f968da8fc7fb02249a9a4a44e9eab90f3ebd44e56d",
+      "node": "validator_advisory",
+      "status": "VALIDATING"
+    },
+    {
+      "at_monotonic": 38019.260124,
+      "detail_digest": "sha256:9e71dc8a25a307d3863b168a07e3d60e6a9a3318a31245dd2daf938d551fc682",
+      "node": "validator",
+      "status": "INCONCLUSIVE"
+    },
+    {
+      "at_monotonic": 38019.261147,
+      "detail_digest": "sha256:84e503cae5569207061e9c558fa93fd953a7d55c451638575f688cd914dde631",
+      "node": "exploiter",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 38047.26814,
+      "detail_digest": "sha256:5c771c9ec64007fce8b7df2fa6939199edbf0b2aa1a0b1ea126ab531c5b95918",
+      "node": "exploiter_advisory",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 38047.384556,
+      "detail_digest": "sha256:a83113289fda55d5db3523449018696722211c75792a2d95b02fabb787ee3d16",
+      "node": "exploiter_complete",
+      "status": "VALIDATING"
+    },
+    {
+      "at_monotonic": 38057.824246,
+      "detail_digest": "sha256:02bd77970377eec447c4f5b4a9580e33d4b8e3214f49a6cbdc193a849c804602",
+      "node": "validator_advisory",
+      "status": "VALIDATING"
+    },
+    {
+      "at_monotonic": 38057.830749,
+      "detail_digest": "sha256:18bcd5ef1d309fe75cd6420ede5f7280ccb6ad4cd9c45ca8432038d68bb0b404",
+      "node": "validator",
+      "status": "INCONCLUSIVE"
+    },
+    {
+      "at_monotonic": 38057.831748,
+      "detail_digest": "sha256:ceaf50482e3a596c22323a9cdf4f1e96c3c8fa1abd798936c1ea124dec201a06",
+      "node": "exploiter",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 38069.562545,
+      "detail_digest": "sha256:d6061ad6b6ee62afa47d4bf73650be4602460ec75e3996c7ff0287fd449ac025",
+      "node": "exploiter_advisory",
+      "status": "EXPLOITING"
+    },
+    {
+      "at_monotonic": 38069.562751,
+      "detail_digest": "sha256:6d831104717c1f71732544735d5ae99ae3159ee0828f42fd4983d226dc0b6a65",
+      "node": "exploiter_complete",
+      "status": "VALIDATING"
+    },
+    {
+      "at_monotonic": 38069.575709,
+      "detail_digest": "sha256:f48f51298e043df81609dc43c165350a4b58261efac7f7d4ddbce53ff8ef9e4e",
+      "node": "validator",
+      "status": "INCONCLUSIVE"
+    },
+    {
+      "at_monotonic": 38069.575754,
+      "detail_digest": "sha256:a3798c7c7f69baca69255116abb9dacc20f048d7e186f48f9a586319026f8762",
+      "node": "validator",
+      "status": "HALTED"
+    }
+  ],
+  "hypotheses": [
+    {
+      "attack_type": "INFO_DISCLOSURE",
+      "attempt": 0,
+      "expected_behavior": "If vulnerable, response contains app/version/build or environment metadata. If protected, expect 403/404 or sanitized output.",
+      "hypothesis": "Admin version endpoint may leak application or environment metadata.",
+      "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+      "payload_id": "pat-00882a0366fc16fa",
+      "persona": "stok",
+      "priority": 100,
+      "reasoning": "Catalog flagged an executable admin version route. Publicly exposed version endpoints often return build, version, or stack info useful to attackers.",
+      "target_endpoint": "/rest/admin/application-version",
+      "wstg_reference": "WSTG-CONF-03"
+    },
+    {
+      "attack_type": "OPEN_REDIRECT",
+      "attempt": 0,
+      "expected_behavior": "If vulnerable, server issues a redirect to attacker-controlled URL. If mitigated, input is validated, normalized to internal paths, or denied.",
+      "hypothesis": "Redirect endpoint may allow open redirect via its 'to' parameter.",
+      "hypothesis_id": "h_recon_open_redirect_0bfdbcc9eb06",
+      "payload_id": "pat-006446481c3f79b1",
+      "persona": "stok",
+      "priority": 100,
+      "reasoning": "Route with 'to' parameter appears in the catalog. Redirect endpoints that reflect or follow an input URL can redirect users to attacker-controlled locations.",
+      "target_endpoint": "/redirect?to=%3FreturnTo%3D%7Bpayload%7D",
+      "wstg_reference": null
+    },
+    {
+      "attack_type": "SSRF",
+      "attempt": 0,
+      "expected_behavior": "If vulnerable, server-side fetch returns internal metadata content. If mitigated, external/internal destination validation or network egress controls block the request.",
+      "hypothesis": "Redirect 'to' parameter may be abused for SSRF to internal metadata endpoints.",
+      "hypothesis_id": "h_recon_ssrf_97bb4b0faafb",
+      "payload_id": "pat-0064b01aa48a56c0",
+      "persona": "stok",
+      "priority": 100,
+      "reasoning": "Catalog includes a redirect with a fully qualified internal metadata URL. If server performs requests, attacker can retrieve instance metadata or internal resources.",
+      "target_endpoint": "/redirect?to=http%3A%2F%2F169.254.169.254%2Fhetzner%2Fv1%2Fmetadata%2Fpublic-ipv4",
+      "wstg_reference": "WSTG-INJT-19"
+    },
+    {
+      "attack_type": "XSS",
+      "attempt": 0,
+      "expected_behavior": "If vulnerable, injected markup/script executes in victims' browsers. If safe, input is encoded/stripped or CSP prevents execution.",
+      "hypothesis": "Search parameter 'q' may reflect unsanitized input leading to XSS (e.g., svg injection).",
+      "hypothesis_id": "h_recon_xss_1f2f1da92312",
+      "payload_id": "pat-01c6d86d45ac3dd6",
+      "persona": "stok",
+      "priority": 100,
+      "reasoning": "Catalog lists an executable search route with q parameter and a payload containing '<svg'. Reflected or DOM contexts may execute injected markup or scripts.",
+      "target_endpoint": "/search?q=%3Csvg",
+      "wstg_reference": "WSTG-CLNT-01"
+    }
+  ],
+  "notes": [
+    "# Hunt Notes \u2014 http://127.0.0.1:8081\n\n- Campaign: `generalization-20261002t0201z-dvwa`\n- Content policy: sanitized structural evidence only\n\n## Authentication\n\n- None recorded.\n\n## Interesting Endpoints\n\n- [planner] Crawled 18 routes and prepared 4 governed candidates. (sha256:2a38cdbbf2d11c82e899ec2e21623b991dcc7adb2110b8b35d960a6c402d795d) `event:c2a7cd79dd6865e4d41d5c49`\n\n## Curiosity Flags\n\n- [curiosity] Detected 5 structural anomaly flags. (sha256:42daf541ec83a0882d39219d7e0c2ef768cdd46dda7a2c7350aa185c91b0dee4) `event:63fd5a186381d6a31c8cad01`\n\n## Attempts\n\n- None recorded.\n\n## Confirmed Findings\n\n- None recorded.\n\n## Refuted Attempts\n\n- None recorded.\n\n## Hypotheses\n\n- None recorded.\n\n## Chains to Explore\n\n- None recorded.\n"
+  ],
+  "persona": "stok",
+  "session_state": {},
+  "status": "HALTED",
+  "surface_data": {
+    "browser_intelligence": {},
+    "candidate_catalog": [
+      "{'hypothesis_id': 'h_recon_info_disclosure_35cd05fe1ef1', 'vulnerability_class': 'INFO_DISCLOSURE', 'route': '/rest/admin/application-version', 'parameter': '__route__', 'priority': 134.0, 'wstg_reference': 'WSTG-CONF-03', 'payload_id': 'pa",
+      "{'hypothesis_id': 'h_recon_open_redirect_0bfdbcc9eb06', 'vulnerability_class': 'OPEN_REDIRECT', 'route': '/redirect?to=%3FreturnTo%3D%7Bpayload%7D', 'parameter': 'to', 'priority': 116.0, 'wstg_reference': None, 'payload_id': 'pat-006446481c",
+      "{'hypothesis_id': 'h_recon_xss_1f2f1da92312', 'vulnerability_class': 'XSS', 'route': '/search?q=%3Csvg', 'parameter': 'q', 'priority': 114.0, 'wstg_reference': 'WSTG-CLNT-01', 'payload_id': 'pat-01c6d86d45ac3dd6', 'executable': True}",
+      "{'hypothesis_id': 'h_recon_ssrf_97bb4b0faafb', 'vulnerability_class': 'SSRF', 'route': '/redirect?to=http%3A%2F%2F169.254.169.254%2Fhetzner%2Fv1%2Fmetadata%2Fpublic-ipv4', 'parameter': 'to', 'priority': 101.0, 'wstg_reference': 'WSTG-INJT-1"
+    ],
+    "routes": [
+      "{'route': '/', 'method': 'GET', 'status_code': 302, 'content_type': 'text/html; charset=utf-8', 'response_digest': 'sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'response_length': 0, 'depth': 0, 'auth_required':",
+      "{'route': '/login.php', 'method': 'GET', 'status_code': 200, 'content_type': 'text/html;charset=utf-8', 'response_digest': 'sha256:192ac86ac6efc7d4f563d194d8bf9c0fd85e0d4ade124f00ce2708d79ad3eadc', 'response_length': 1523, 'depth': 1, 'auth",
+      "{'route': '/administration', 'method': 'GET', 'status_code': 404, 'content_type': 'text/html; charset=iso-8859-1', 'response_digest': 'sha256:4562b5b6ae0d605606efd3d14484ea938c59db341120da09b0f61a7546936a4d', 'response_length': 289, 'depth'",
+      "{'route': '/admin', 'method': 'GET', 'status_code': 404, 'content_type': 'text/html; charset=iso-8859-1', 'response_digest': 'sha256:7a817a52fcc950761f45ced4576c87dee95a564d9ef66afb5281695a45e83d76', 'response_length': 280, 'depth': 1, 'aut",
+      "{'route': '/rest/admin', 'method': 'GET', 'status_code': 404, 'content_type': 'text/html; charset=iso-8859-1', 'response_digest': 'sha256:f9977fcf42bbf7dc0c2bcbbb3a735c20e020cb0e3528037b001a5c8ff3803b6b', 'response_length': 285, 'depth': 1,",
+      "{'route': '/rest/admin/application-version', 'method': 'GET', 'status_code': 404, 'content_type': 'text/html; charset=iso-8859-1', 'response_digest': 'sha256:81bb08f19721acdff69c6e53d4d6f2b66b091a1c28f30c7e87ba1ff3c82b628d', 'response_lengt",
+      "{'route': '/rest/basket/1', 'method': 'GET', 'status_code': 404, 'content_type': 'text/html; charset=iso-8859-1', 'response_digest': 'sha256:ee6c014c574a7b0eac660febdbf7e9b15e64feb26a138eeb7592da7842ceef34', 'response_length': 288, 'depth':",
+      "{'route': '/rest/user/login', 'method': 'GET', 'status_code': 404, 'content_type': 'text/html; charset=iso-8859-1', 'response_digest': 'sha256:9c878a2567c4f7ba49443877c8a35dfd58c5a3ab731f9aa55f0ebf5ca355c019', 'response_length': 290, 'depth",
+      "{'route': '/rest/products/search?q=', 'method': 'GET', 'status_code': 404, 'content_type': 'text/html; charset=iso-8859-1', 'response_digest': 'sha256:7cd98806f2c1b1d1ca9279f9d42e8f0cb4ef44cb4cd7fdab96100c1a0dd36864', 'response_length': 295",
+      "{'route': '/search?q=', 'method': 'GET', 'status_code': 404, 'content_type': 'text/html; charset=iso-8859-1', 'response_digest': 'sha256:4784dcd391821d8fbaae90a844551804bfb12a1d6a6533d90027ce0c9e919255', 'response_length': 281, 'depth': 1, ",
+      "{'route': '/redirect?to=', 'method': 'GET', 'status_code': 404, 'content_type': 'text/html; charset=iso-8859-1', 'response_digest': 'sha256:ade7cdd284f8f12c34135718fb229beb668b582108949105d52bf90fbd9cc7c4', 'response_length': 283, 'depth': ",
+      "{'route': '/rest/track-order', 'method': 'GET', 'status_code': 404, 'content_type': 'text/html; charset=iso-8859-1', 'response_digest': 'sha256:dbbb87d47a0612e830bcda4749dd97a9428cc18fe63b5e5afe06f9cca9059418', 'response_length': 291, 'dept",
+      "{'route': '/openapi.json', 'method': 'GET', 'status_code': 404, 'content_type': 'text/html; charset=iso-8859-1', 'response_digest': 'sha256:d822744609cb77055c1a3817caf857182114ab8a4aa7e9ae94c32b8e17d082cb', 'response_length': 287, 'depth': ",
+      "{'route': '/swagger.json', 'method': 'GET', 'status_code': 404, 'content_type': 'text/html; charset=iso-8859-1', 'response_digest': 'sha256:b05bc55bc3a283ca8b55a8fc55b478b17ac9e6ed236c22493b5b8fa44bd7adf2', 'response_length': 287, 'depth': ",
+      "{'route': '/api/docs', 'method': 'GET', 'status_code': 404, 'content_type': 'text/html; charset=iso-8859-1', 'response_digest': 'sha256:cfd7a7319096ac77b9e45939ae044d4ef2c479c72835f2bc9ba905291d1914a2', 'response_length': 283, 'depth': 1, '",
+      "{'route': '/sitemap.xml', 'method': 'GET', 'status_code': 404, 'content_type': 'text/html; charset=iso-8859-1', 'response_digest': 'sha256:00451d89a8db13a0b4f8b352a63b58beeb057daac2f6cb978a1548d6cd18bbbb', 'response_length': 286, 'depth': 1",
+      "{'route': '/dvwa/css/login.css', 'method': 'GET', 'status_code': 200, 'content_type': 'text/css', 'response_digest': 'sha256:21d57f36b3999ae2899374e51c1da730378fe4de0ecd1640c989b7bd236a1047', 'response_length': 842, 'depth': 2, 'auth_requir",
+      "{'route': '/dvwa/images/login_logo.png', 'method': 'GET', 'status_code': 200, 'content_type': 'image/png', 'response_digest': 'sha256:7edd0f5de13f59975dc7f70e0f85d6620faca7264253ae599c9f4d9dc2c362d9', 'response_length': 8641, 'depth': 2, 'a"
+    ],
+    "scope_fingerprint": "inferred_from_url",
+    "target_host": "127.0.0.1",
+    "target_url": "http://127.0.0.1:8081"
+  },
+  "tech_stack": {},
+  "validation_verdicts": [
+    {
+      "confidence": 0.4,
+      "evidence_chain": [
+        "sha256:75625e0b1869717cb7da0ac47f729cb6d3d5d4a85284a1822557703a2f57019b"
+      ],
+      "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+      "next_action": null,
+      "proof_bundle_ref": null,
+      "reason": "governed result requires further evidence",
+      "replay_verified": true,
+      "verdict": "inconclusive"
+    },
+    {
+      "confidence": 0.4,
+      "evidence_chain": [
+        "sha256:5993c201b6379ea3b72be562897fc3f0c053b8aef3ba86567cdcc5d241f7e35c"
+      ],
+      "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+      "next_action": null,
+      "proof_bundle_ref": null,
+      "reason": "governed result requires further evidence",
+      "replay_verified": true,
+      "verdict": "inconclusive"
+    },
+    {
+      "confidence": 0.4,
+      "evidence_chain": [
+        "sha256:f258de72dd75db320782c33884ffb2da8a8c34d55f0c787745033a9c0b768be6"
+      ],
+      "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+      "next_action": null,
+      "proof_bundle_ref": null,
+      "reason": "governed result requires further evidence",
+      "replay_verified": true,
+      "verdict": "inconclusive"
+    },
+    {
+      "confidence": 0.4,
+      "evidence_chain": [
+        "sha256:70b9d77fb0b27779f87db784bf3f137cbdde128613f857c862603dee10c819b6"
+      ],
+      "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+      "next_action": null,
+      "proof_bundle_ref": null,
+      "reason": "governed result requires further evidence",
+      "replay_verified": true,
+      "verdict": "inconclusive"
+    },
+    {
+      "confidence": 0.4,
+      "evidence_chain": [
+        "sha256:904c6fc85234ae664764530847dc55c13e90d4682d54c84e99cf89d9344b234e"
+      ],
+      "hypothesis_id": "h_recon_info_disclosure_35cd05fe1ef1",
+      "next_action": null,
+      "proof_bundle_ref": null,
+      "reason": "governed result requires further evidence",
+      "replay_verified": true,
+      "verdict": "inconclusive"
+    },
+    {
+      "confidence": 0.4,
+      "evidence_chain": [
+        "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "hypothesis_id": "h_recon_open_redirect_0bfdbcc9eb06",
+      "next_action": null,
+      "proof_bundle_ref": null,
+      "reason": "governed result requires further evidence",
+      "replay_verified": false,
+      "verdict": "inconclusive"
+    }
+  ]
+}

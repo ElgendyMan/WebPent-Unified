@@ -1,0 +1,63 @@
+{
+  "agent_graph_events": 28,
+  "audit_verification": {
+    "verified": true
+  },
+  "authentication": {
+    "auth_type": "api_jwt",
+    "signal_count": 8
+  },
+  "campaign_id": "auth-fix-crapi-trace-r3",
+  "candidates_executable": 1,
+  "candidates_generated": 2,
+  "confirmed_findings": [],
+  "duration_seconds": 127.261,
+  "llm_calls": 12,
+  "llm_cost_usd": 0.0395445,
+  "principals": [
+    {
+      "alias": "owner",
+      "credential_alias": "admin2",
+      "material": {
+        "digest": "2a2f530f1742ad41",
+        "kind": "bearer",
+        "name": "token"
+      },
+      "reason": "jwt_login_response_validated",
+      "role": "owner",
+      "status_code": 200,
+      "success": true,
+      "vault_bound": true
+    },
+    {
+      "alias": "foreign",
+      "credential_alias": "user",
+      "material": {
+        "digest": "8cf989dc1b63225e",
+        "kind": "bearer",
+        "name": "token"
+      },
+      "reason": "jwt_login_response_validated",
+      "role": "foreign-user",
+      "status_code": 200,
+      "success": true,
+      "vault_bound": true
+    }
+  ],
+  "production_trace": {
+    "complete": true,
+    "missing_required_stages": []
+  },
+  "routes_crawled": 25,
+  "security_boundary": {
+    "credentials_attached_by": "M4 only",
+    "execution_authority": "ModernOrchestrator/ScopeLaw/AVI/PromotionPipeline",
+    "raw_target_content_returned": false
+  },
+  "target_url": "http://127.0.0.1:8888",
+  "validation_counts": {
+    "confirmed": 0,
+    "inconclusive": 4,
+    "refuted": 0
+  }
+}

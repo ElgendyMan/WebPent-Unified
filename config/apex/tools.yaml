@@ -1,0 +1,404 @@
+# The Apex Predator — Tool Registry (v87, U-APEX-1)
+#
+# APEX-L-1 TOOLS NOT CODE: this registry exists so apex orchestrates the
+# world's vetted arsenal instead of reimplementing it.
+# APEX-L-2 VETTED ONLY: every entry is a documented, widely audited, actively
+# maintained tool. `vetted: true` is mandatory; the loader rejects anything else.
+# APEX-L-9 ADVISORY-ONLY: registration never executes anything — loading this
+# file performs no network calls and no subprocess launches.
+#
+# speed: fast | medium | slow    stealth: low | medium | high
+
+tools:
+  # --- Recon ---------------------------------------------------------------
+  - id: amass
+    name: Amass
+    category: recon
+    binary: amass
+    install_command: "go install github.com/owasp-amass/amass/v4/cmd/amass@latest"
+    input_type: domain
+    output_format: json
+    capabilities: [subdomain_enum, dns_enum, cert_transparency]
+    speed: slow
+    stealth: high
+    vetted: true
+    version: "4.x"
+  - id: subfinder
+    name: Subfinder
+    category: recon
+    binary: subfinder
+    install_command: "go install github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest"
+    input_type: domain
+    output_format: jsonl
+    capabilities: [subdomain_enum, passive_recon]
+    speed: fast
+    stealth: high
+    vetted: true
+    version: "2.x"
+  - id: httpx
+    name: httpx
+    category: recon
+    binary: httpx
+    install_command: "go install github.com/projectdiscovery/httpx/cmd/httpx@latest"
+    input_type: url_list
+    output_format: jsonl
+    capabilities: [http_probe, tech_detection, status_probe]
+    speed: fast
+    stealth: medium
+    vetted: true
+    version: "1.x"
+  - id: dnsx
+    name: dnsx
+    category: recon
+    binary: dnsx
+    install_command: "go install github.com/projectdiscovery/dnsx/cmd/dnsx@latest"
+    input_type: domain
+    output_format: jsonl
+    capabilities: [dns_enum, dns_records, reverse_dns]
+    speed: fast
+    stealth: high
+    vetted: true
+    version: "1.x"
+  - id: theharvester
+    name: theHarvester
+    category: recon
+    binary: theHarvester
+    install_command: "pip install theHarvester"
+    input_type: domain
+    output_format: json
+    capabilities: [email_enum, subdomain_enum, passive_recon]
+    speed: medium
+    stealth: high
+    vetted: true
+    version: "4.x"
+  - id: nmap
+    name: Nmap
+    category: network
+    binary: nmap
+    install_command: "apt install nmap"
+    input_type: host_list
+    output_format: xml
+    capabilities: [port_scan, service_detection, os_fingerprint]
+    speed: medium
+    stealth: medium
+    vetted: true
+    version: "7.x"
+
+  # --- Crawling --------------------------------------------------------------
+  - id: katana
+    name: Katana
+    category: crawling
+    binary: katana
+    install_command: "go install github.com/projectdiscovery/katana/cmd/katana@latest"
+    input_type: url_list
+    output_format: jsonl
+    capabilities: [web_crawl, js_discovery, endpoint_extraction]
+    speed: fast
+    stealth: medium
+    vetted: true
+    version: "1.x"
+  - id: gau
+    name: gau
+    category: crawling
+    binary: gau
+    install_command: "go install github.com/lc/gau/v2/cmd/gau@latest"
+    input_type: domain
+    output_format: text
+    capabilities: [url_discovery, historical_urls]
+    speed: fast
+    stealth: high
+    vetted: true
+    version: "2.x"
+  - id: waybackurls
+    name: waybackurls
+    category: crawling
+    binary: waybackurls
+    install_command: "go install github.com/tomnomnom/waybackurls@latest"
+    input_type: domain
+    output_format: text
+    capabilities: [url_discovery, historical_urls]
+    speed: fast
+    stealth: high
+    vetted: true
+    version: "0.1"
+  - id: gospider
+    name: GoSpider
+    category: crawling
+    binary: gospider
+    install_command: "go install github.com/jaeles-project/gospider@latest"
+    input_type: url_list
+    output_format: text
+    capabilities: [web_crawl, endpoint_extraction]
+    speed: fast
+    stealth: medium
+    vetted: true
+    version: "1.x"
+
+  # --- Scanning --------------------------------------------------------------
+  - id: nuclei
+    name: Nuclei
+    category: scanning
+    binary: nuclei
+    install_command: "go install github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest"
+    input_type: url_list
+    output_format: jsonl
+    capabilities: [cve_detection, misconfig, cve_exposure, template_scan]
+    speed: fast
+    stealth: medium
+    vetted: true
+    version: "3.x"
+  - id: nikto
+    name: Nikto
+    category: scanning
+    binary: nikto
+    install_command: "apt install nikto"
+    input_type: url_list
+    output_format: text
+    capabilities: [misconfig, server_scan, outdated_software]
+    speed: slow
+    stealth: low
+    vetted: true
+    version: "2.x"
+  - id: wapiti
+    name: Wapiti
+    category: scanning
+    binary: wapiti
+    install_command: "pip install wapiti"
+    input_type: url_list
+    output_format: json
+    capabilities: [misconfig, sqli_detection, xss_detection]
+    speed: medium
+    stealth: medium
+    vetted: true
+    version: "3.x"
+
+  # --- Fuzzing ---------------------------------------------------------------
+  - id: ffuf
+    name: ffuf
+    category: fuzzing
+    binary: ffuf
+    install_command: "go install github.com/ffuf/ffuf/v2/cmd/ffuf@latest"
+    input_type: url_with_params
+    output_format: json
+    capabilities: [dir_fuzz, param_fuzz, vhost_fuzz]
+    speed: fast
+    stealth: low
+    vetted: true
+    version: "2.x"
+  - id: dirsearch
+    name: dirsearch
+    category: fuzzing
+    binary: dirsearch
+    install_command: "pip install dirsearch"
+    input_type: url_list
+    output_format: json
+    capabilities: [dir_fuzz]
+    speed: medium
+    stealth: low
+    vetted: true
+    version: "0.4"
+  - id: gobuster
+    name: gobuster
+    category: fuzzing
+    binary: gobuster
+    install_command: "go install github.com/OJ/gobuster/v3@latest"
+    input_type: url_list
+    output_format: text
+    capabilities: [dir_fuzz, vhost_fuzz, dns_fuzz]
+    speed: fast
+    stealth: low
+    vetted: true
+    version: "3.x"
+
+  # --- Injection ---------------------------------------------------------------
+  - id: sqlmap
+    name: SQLMap
+    category: injection
+    binary: sqlmap
+    install_command: "pip install sqlmap"
+    input_type: url_with_params
+    output_format: json
+    capabilities: [sqli_detection, sqli_exploitation]
+    speed: slow
+    stealth: low
+    vetted: true
+    requires_confirmation: true
+    version: "1.x"
+  - id: dalfox
+    name: Dalfox
+    category: injection
+    binary: dalfox
+    install_command: "go install github.com/hahwul/dalfox/v2@latest"
+    input_type: url_list
+    output_format: jsonl
+    capabilities: [xss_detection, xss_analysis]
+    speed: fast
+    stealth: medium
+    vetted: true
+    version: "2.x"
+  - id: xsstrike
+    name: XSStrike
+    category: injection
+    binary: xsstrike
+    install_command: "git clone https://github.com/s0md3v/XSStrike"
+    input_type: url_with_params
+    output_format: text
+    capabilities: [xss_detection]
+    speed: medium
+    stealth: medium
+    vetted: true
+    version: "3.x"
+  - id: commix
+    name: Commix
+    category: injection
+    binary: commix
+    install_command: "git clone https://github.com/commixproject/commix"
+    input_type: url_with_params
+    output_format: text
+    capabilities: [cmdi_detection, cmdi_exploitation]
+    speed: slow
+    stealth: low
+    vetted: true
+    requires_confirmation: true
+    version: "3.x"
+  - id: arjun
+    name: Arjun
+    category: injection
+    binary: arjun
+    install_command: "pip install arjun"
+    input_type: url_list
+    output_format: json
+    capabilities: [param_discovery, hidden_param_enum]
+    speed: fast
+    stealth: medium
+    vetted: true
+    version: "2.x"
+
+  # --- Exploitation ------------------------------------------------------------
+  - id: metasploit
+    name: Metasploit Framework
+    category: exploitation
+    binary: msfconsole
+    install_command: "apt install metasploit-framework"
+    input_type: host_list
+    output_format: text
+    capabilities: [exploitation, payload_generation, post_exploitation]
+    speed: slow
+    stealth: low
+    vetted: true
+    requires_confirmation: true
+    version: "6.x"
+  - id: searchsploit
+    name: SearchSploit
+    category: exploitation
+    binary: searchsploit
+    install_command: "apt install exploitdb"
+    input_type: text_query
+    output_format: text
+    capabilities: [exploit_lookup, cve_exposure]
+    speed: fast
+    stealth: high
+    vetted: true
+    version: "6.x"
+  - id: routersploit
+    name: RouterSploit
+    category: exploitation
+    binary: rsf
+    install_command: "pip install routersploit"
+    input_type: host_list
+    output_format: text
+    capabilities: [router_exploitation, cred_bruteforce]
+    speed: medium
+    stealth: low
+    vetted: true
+    requires_confirmation: true
+    version: "3.x"
+
+  # --- Credentials ---------------------------------------------------------------
+  - id: hydra
+    name: THC Hydra
+    category: credentials
+    binary: hydra
+    install_command: "apt install hydra"
+    input_type: host_list
+    output_format: text
+    capabilities: [cred_bruteforce, login_fuzz]
+    speed: medium
+    stealth: low
+    vetted: true
+    requires_confirmation: true
+    version: "9.x"
+  - id: hashcat
+    name: hashcat
+    category: credentials
+    binary: hashcat
+    install_command: "apt install hashcat"
+    input_type: text_query
+    output_format: text
+    capabilities: [hash_cracking]
+    speed: fast
+    stealth: low
+    vetted: true
+    version: "6.x"
+  - id: john
+    name: John the Ripper
+    category: credentials
+    binary: john
+    install_command: "apt install john"
+    input_type: text_query
+    output_format: text
+    capabilities: [hash_cracking]
+    speed: medium
+    stealth: low
+    vetted: true
+    version: "1.9"
+
+  # --- Analysis ---------------------------------------------------------------
+  - id: semgrep
+    name: Semgrep
+    category: analysis
+    binary: semgrep
+    install_command: "pip install semgrep"
+    input_type: code_dir
+    output_format: json
+    capabilities: [sast_scan, secret_scan, cve_exposure]
+    speed: fast
+    stealth: high
+    vetted: true
+    version: "1.x"
+  - id: bandit
+    name: Bandit
+    category: analysis
+    binary: bandit
+    install_command: "pip install bandit"
+    input_type: code_dir
+    output_format: json
+    capabilities: [sast_scan]
+    speed: fast
+    stealth: high
+    vetted: true
+    version: "1.x"
+  - id: trufflehog
+    name: TruffleHog
+    category: analysis
+    binary: trufflehog
+    install_command: "go install github.com/trufflesecurity/trufflehog@latest"
+    input_type: code_dir
+    output_format: json
+    capabilities: [secret_scan]
+    speed: fast
+    stealth: high
+    vetted: true
+    version: "3.x"
+  - id: gitleaks
+    name: gitleaks
+    category: analysis
+    binary: gitleaks
+    install_command: "go install github.com/gitleaks/gitleaks/v8@latest"
+    input_type: code_dir
+    output_format: json
+    capabilities: [secret_scan]
+    speed: fast
+    stealth: high
+    vetted: true
+    version: "8.x"

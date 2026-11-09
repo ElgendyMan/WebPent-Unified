@@ -1,0 +1,144 @@
+﻿........................................................................ [  3%]
+...................FF................................................... [  6%]
+.................................FF..................................... [  9%]
+........................................................................ [ 13%]
+......................................................FFFFFF...F........ [ 16%]
+............F........................................................... [ 19%]
+........................................................................ [ 23%]
+........................................................................ [ 26%]
+........................................................F......FF....F.s [ 29%]
+sss..................................................................... [ 33%]
+........................................................................ [ 36%]
+........................................................................ [ 39%]
+........................................................................ [ 43%]
+................................FF.F.............F...................... [ 46%]
+........................................................................ [ 49%]
+...........................F............................................ [ 53%]
+........................................................................ [ 56%]
+......................................................FFF............... [ 59%]
+........................................................................ [ 62%]
+...............................................F........................ [ 66%]
+........................................................................ [ 69%]
+...............................................FF....................... [ 72%]
+..............................................................FFF....... [ 76%]
+........................................................................ [ 79%]
+........................................................................ [ 82%]
+........................................................................ [ 86%]
+.....................................................F.................. [ 89%]
+........................................................................ [ 92%]
+........................................................................ [ 96%]
+........................................................................ [ 99%]
+..........FF.                                                            [100%]
+============================== warnings summary ===============================
+..\..\..\..\toolchain\python\Python313\site-packages\pydantic\main.py:263
+tests/team1_acceptance/test_sprint_i1b_part2_secrets_gate.py::TestDevModeWarns::test_dev_mode_still_boots_despite_warning
+tests/test_v10_exhaustive_audit.py::TestCeleryPayloadKeyEnvAlias::test_neither_set_keeps_the_documented_insecure_dev_default
+  C:\Users\Al-Gamal\AppData\Roaming\AutoClaw-oversea-official\toolchain\python\Python313\site-packages\pydantic\main.py:263: UserWarning: INSECURE celery_payload_key in dev mode — task passwords are encrypted with a publicly-known key and can be decrypted by anyone with Redis access. Set CELERY_PAYLOAD_KEY to a strong random value for any non-local deployment.
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+
+tests/team1_acceptance/test_sprint_i1b_part2_secrets_gate.py::TestDevModeWarns::test_dev_mode_still_boots_despite_warning
+  C:\Users\Al-Gamal\AppData\Roaming\AutoClaw-oversea-official\toolchain\python\Python313\site-packages\pydantic\main.py:263: UserWarning: INSECURE audit_secret_key in dev mode — evidence hashes are HMAC'd with a publicly-known key and can be forged. Set AUDIT_SECRET_KEY to a strong random value for any non-local deployment.
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+
+tests/test_p0_websocket_webhook.py::test_webhook_sends_hmac_and_enforces_tls
+tests/test_p0_websocket_webhook.py::test_webhook_refuses_unsigned_delivery
+tests/test_p1_tls_enforcement.py::test_safe_async_http_factory_enforces_verify_true_by_default
+tests/test_v10_exhaustive_audit.py::TestP02SSRFFailClosed::test_async_no_unpinned_fallthrough
+tests/test_v10_exhaustive_audit.py::TestP02SSRFFailClosed::test_async_mock_wrapped_not_called_on_blocked
+  C:\Users\Al-Gamal\AppData\Roaming\AutoClaw-oversea-official\toolchain\python\Python313\site-packages\pytest_asyncio\plugin.py:1054: RuntimeWarning: An exception occurred during teardown of an asyncio.Runner. The reason is likely that you closed the underlying event loop in a test, which prevents the cleanup of asynchronous generators by the runner.
+  This warning will become an error in future versions of pytest-asyncio. Please ensure that your tests don't close the event loop. Here is the traceback of the exception triggered during teardown:
+  Traceback (most recent call last):
+    File "C:\Users\Al-Gamal\AppData\Roaming\AutoClaw-oversea-official\toolchain\python\Python313\site-packages\pytest_asyncio\plugin.py", line 1052, in _scoped_runner
+      runner.__exit__(None, None, None)
+      ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+    File "asyncio\runners.py", line 63, in __exit__
+    File "asyncio\runners.py", line 72, in close
+    File "asyncio\base_events.py", line 702, in run_until_complete
+    File "asyncio\base_events.py", line 640, in _check_running
+  RuntimeError: Cannot run the event loop while another loop is running
+  
+  
+    warnings.warn(
+
+tests/test_p1_exception_hygiene.py::test_named_critical_modules_have_no_broad_exception_handlers
+  ast.py:50: RuntimeWarning: coroutine 'test_webhook_sends_hmac_and_enforces_tls' was never awaited
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+tests/test_p1_exception_hygiene.py::test_named_critical_modules_have_no_broad_exception_handlers
+  ast.py:50: RuntimeWarning: coroutine 'test_webhook_refuses_unsigned_delivery' was never awaited
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+tests/test_payload_wstg_integration.py::test_checked_in_exports_load_and_selection_is_bounded
+  json\decoder.py:361: RuntimeWarning: coroutine 'test_safe_async_http_factory_enforces_verify_true_by_default' was never awaited
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+tests/test_postp0_phase6_tool_first.py::test_xss_llm_failure_still_seeds_payloads_and_invokes_dalfox
+tests/test_postp0_phase8_flow_replay.py::test_flow_replay_emits_observations_with_session
+tests/test_scenario_auth_surface_contract.py::test_auth_node_snapshots_anonymously_before_login
+tests/test_v58_http_discovery.py::test_crawler_uses_http_fallback_when_katana_is_missing
+  C:\Users\Al-Gamal\AppData\Roaming\AutoClaw-oversea-official\toolchain\python\Python313\site-packages\httpx\_client.py:1053: DeprecationWarning: Setting per-request cookies=<...> is being deprecated, because the expected behaviour on cookie persistence is ambiguous. Set cookies directly on the client instance instead.
+    return self.request(
+
+tests/test_principal_provisioning_completion.py::test_replan_is_explicit_and_capped_at_three_after_inconclusive
+  inspect.py:2773: RuntimeWarning: coroutine 'receive_oob_callback' was never awaited
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+tests/test_team1_post_validation_replan.py::test_graph_has_replan_edge_and_no_second_scheduler
+  typing.py:463: RuntimeWarning: coroutine 'receive_oob_callback_scoped' was never awaited
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+tests/test_v10_exhaustive_audit.py::TestP14EmptyToolOutputInfraFailure::test_empty_output_marks_infra_failure
+  unittest\mock.py:2253: RuntimeWarning: coroutine 'TestP02SSRFFailClosed.test_async_no_unpinned_fallthrough' was never awaited
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+tests/test_v10_exhaustive_audit.py::TestP14EmptyToolOutputInfraFailure::test_empty_output_marks_infra_failure
+  unittest\mock.py:2253: RuntimeWarning: coroutine 'TestP02SSRFFailClosed.test_async_mock_wrapped_not_called_on_blocked' was never awaited
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+SKIPPED [1] tests\test_browser_readiness.py:27: No local Chromium executable is available
+SKIPPED [1] tests\test_byte_level.py:36: echo not available
+SKIPPED [1] tests\test_byte_level.py:47: echo not available
+SKIPPED [1] tests\test_byte_level.py:64: printf not available
+FAILED tests/team1_acceptance/test_durable_research_state.py::TestProcessBoundaryCampaign::test_subprocess_campaign_continuity
+FAILED tests/team1_acceptance/test_durable_research_state.py::TestProcessBoundaryCampaign::test_partial_campaign_resume
+FAILED tests/team1_acceptance/test_half2_production_dataflow.py::TestGovernedModernLegacyMode::test_legacy_disabled_branch_blocks_authority_via_subprocess
+FAILED tests/team1_acceptance/test_half2_production_dataflow.py::TestGovernedModernLegacyMode::test_webpent_modern_spine_0_env_var_as_specified
+FAILED tests/team1_acceptance/test_sprint_i1_part2_s2_composition.py::TestS2Composition::test_no_import_errors
+FAILED tests/team1_acceptance/test_sprint_i1_part2_s2_composition.py::TestS2Composition::test_resolve_production_spine_succeeded
+FAILED tests/team1_acceptance/test_sprint_i1_part2_s2_composition.py::TestS2Composition::test_pinned_uvicorn_target_imported
+FAILED tests/team1_acceptance/test_sprint_i1_part2_s2_composition.py::TestS2Composition::test_all_composition_roots_present
+FAILED tests/team1_acceptance/test_sprint_i1_part2_s2_composition.py::TestS2Composition::test_lazy_load_trigger_resolved_names
+FAILED tests/team1_acceptance/test_sprint_i1_part2_s2_composition.py::TestS2Composition::test_research_engine_lazy_loads_triggered
+FAILED tests/team1_acceptance/test_sprint_i1_part2_s2_composition.py::TestS2Composition::test_no_module_outside_webpent_stdlib_or_a01
+FAILED tests/team1_acceptance/test_sprint_i1_part3_audit_chain.py::TestAppendAndVerify::test_file_mode_is_0600
+FAILED tests/test_autonomous_recon.py::test_generator_ranks_and_defers_unsupported_families_without_authority
+FAILED tests/test_browser_hunter.py::test_browser_farm_context_isolation - pl...
+FAILED tests/test_browser_hunter.py::test_browser_crawler_graph_and_traffic
+FAILED tests/test_browser_readiness.py::test_capability_manifest_records_browser_executable_metadata
+FAILED tests/test_p0_websocket_webhook.py::test_webhook_sends_hmac_and_enforces_tls
+FAILED tests/test_p0_websocket_webhook.py::test_webhook_refuses_unsigned_delivery
+FAILED tests/test_p1_config_contracts.py::test_env_example_documents_required_production_surface
+FAILED tests/test_p1_tls_enforcement.py::test_safe_async_http_factory_enforces_verify_true_by_default
+FAILED tests/test_postp0_phase9_operator_ux.py::test_oob_callback_records_audit
+FAILED tests/test_subprocess_lifecycle.py::test_timeout_is_reported_as_tool_execution_error
+FAILED tests/test_subprocess_lifecycle.py::test_non_timeout_stderr_is_not_labeled_timeout
+FAILED tests/test_subprocess_lifecycle.py::test_binary_and_text_output_contracts_remain_compatible
+FAILED tests/test_team1_oob_database_parity.py::test_oob_event_reaches_workspace_db_and_validator
+FAILED tests/test_v10_exhaustive_audit.py::TestP02SSRFFailClosed::test_async_no_unpinned_fallthrough
+FAILED tests/test_v10_exhaustive_audit.py::TestP02SSRFFailClosed::test_async_mock_wrapped_not_called_on_blocked
+FAILED tests/test_v10_p0p1_rca_followup.py::TestNucleiInfraFailureQuarantine::test_nuclei_crash_returns_empty
+FAILED tests/test_v10_p0p1_rca_followup.py::TestNucleiInfraFailureQuarantine::test_nuclei_empty_output_returns_empty
+FAILED tests/test_v10_p0p1_rca_followup.py::TestNucleiInfraFailureQuarantine::test_nuclei_valid_output_returns_records
+FAILED tests/test_v61_remaining_plan_artifacts.py::test_environment_template_documents_checkpoint_policy
+FAILED tests/test_waptlab_live_improvements.py::test_nuclei_includes_configured_user_agent
+FAILED tests/test_waptlab_live_improvements.py::test_nuclei_user_agent_header_is_not_added_when_empty
+33 failed, 2136 passed, 4 skipped, 20 warnings in 2067.79s (0:34:27)

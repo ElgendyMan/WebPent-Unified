@@ -1,0 +1,236 @@
+# docker-compose.yml
+# =============================================================================
+# WebPent Framework V60 — Production Deployment (HARDENED)
+# =============================================================================
+# V10 HOSTILE P0-2 FIX: this compose file is now production-safe.
+#   - AUTH_ENABLED=true is set explicitly (no frictionless dev bypass).
+#   - No literal fallback secrets — all secrets MUST come from env vars
+#     or .env file; the container fails fast if missing/weak.
+#   - No admin:admin default — WEBPENT_USERS must be set explicitly.
+#   - Production uses externally managed Redis over TLS (rediss://); the
+#     development compose file owns the plaintext local Redis service.
+#   - Postgres remains an optional profile, but the current persistence layer
+#     is SQLite-only; do not enable that profile until a Postgres backend lands.
+#   - The H9 hard-stops in settings.py fire when auth_enabled=true and
+#     any secret is weak/missing → container exits on startup.
+#
+# Usage:
+#   1. Create a .env file next to this compose file with strong values:
+#        JWT_SECRET_KEY=$(python -c "import secrets; print(secrets.token_hex(32))")
+#        AUDIT_SECRET_KEY=$(python -c "import secrets; print(secrets.token_hex(32))")
+#        OOB_CALLBACK_SECRET=$(python -c "import secrets; print(secrets.token_hex(32))")
+#        CELERY_PAYLOAD_KEY=$(python -c "import secrets; print(secrets.token_hex(32))")
+#        WEBPENT_USERS=admin:YOUR_STRONG_PASSWORD:admin
+#        POSTGRES_PASSWORD=YOUR_STRONG_PG_PASSWORD   # only if using postgres profile
+#   2. Set REDIS_URL and RATE_LIMIT_REDIS_URL to rediss:// URLs, then run:
+#      docker-compose up -d --build
+#   3. docker-compose logs -f api worker
+#   4. docker-compose down
+#
+# For lab/dev use docker-compose.dev.yml instead — it has AUTH_ENABLED=false
+# and exposed ports for easy access. NEVER use the dev compose in production.
+# =============================================================================
+
+services:
+  # ---------------------------------------------------------------------------
+  # Redis is intentionally not defined here. Production must use a managed or
+  # separately operated Redis deployment with TLS. docker-compose.dev.yml is
+  # the local lab stack and supplies a plaintext Redis service.
+  # ---------------------------------------------------------------------------
+  # ---------------------------------------------------------------------------
+  # PostgreSQL — optional production database (replaces SQLite)
+  # V10 HOSTILE P0-2: NO ports published to host. POSTGRES_PASSWORD has no
+  # fallback — must be set in .env or the container fails.
+  # ---------------------------------------------------------------------------
+  postgres:
+    image: postgres:16-alpine
+    container_name: webpent-postgres
+    restart: unless-stopped
+    environment:
+      # No fallback password — must be set in .env.
+      POSTGRES_USER: webpent
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set in .env}
+      POSTGRES_DB: webpent
+    # NO ports: mapping — Postgres is internal-only.
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U webpent"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    networks:
+      - webpent-net
+    profiles:
+      - postgres  # only starts when --profile postgres is passed
+
+  # ---------------------------------------------------------------------------
+  # QUICKSTART (Ultimate plan 2026-10-27, proposal 11 phase 4) — the least
+  # possible setup to run a first authorized hunt in minutes. Single
+  # container, SQLite, no Redis/Postgres/JWT-secrets hard requirements
+  # (auth disabled explicitly and LOCALLY only), deterministic path by
+  # default. NOT for production — the full `api` service above is the
+  # hardened entry point.
+  # Usage: docker compose --profile quickstart up
+  # ---------------------------------------------------------------------------
+  quickstart:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: webpent-quickstart
+    command: >
+      sh -c "webpent doctor --timeout 10 || true;
+             echo 'WebPent quickstart ready — try:';
+             echo '  docker compose --profile quickstart exec webpent-quickstart webpent init';
+             sleep infinity"
+    environment:
+      - PYTHONUNBUFFERED=1
+      # Dev/learning posture ONLY: deterministic path, no auth, no secrets.
+      - WEBPENT_AUTH_ENABLED=false
+      - WEBPENT_LLM_ENABLED=${LLM_ENABLED:-false}
+      - WEBPENT_DATABASE_URL=sqlite:////app/runtime/webpent.db
+      - WEBPENT_TARGET_WORKSPACE_ROOT=/app/runtime/workspaces
+    restart: unless-stopped
+    volumes:
+      - ./runtime:/app/runtime
+    networks:
+      - webpent-net
+    profiles:
+      - quickstart  # only starts with --profile quickstart
+
+  # ---------------------------------------------------------------------------
+  # FastAPI Web Server — API + JWT auth + RBAC + CORS + rate limiting
+  # V10 HOSTILE P0-2: AUTH_ENABLED=true, no weak secret fallbacks.
+  # ---------------------------------------------------------------------------
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: webpent-api
+    command: python server.py
+    ports:
+      - "${API_PORT:-8000}:8000"
+    environment:
+      - WEBPENT_API_HOST=0.0.0.0
+      - WEBPENT_REDIS_URL=${REDIS_URL:?REDIS_URL must be set to a rediss:// URL}
+      - PYTHONUNBUFFERED=1
+      # V10 HOSTILE P0-2: AUTH_ENABLED=true is explicit. The H9 hard-stops
+      # in settings.py will crash the container on startup if any secret
+      # is missing or weak.
+      - WEBPENT_AUTH_ENABLED=true
+      # Secrets — NO fallback values. The ${VAR:?msg} syntax makes
+      # docker-compose fail fast if the env var is missing.
+      - 'WEBPENT_JWT_SECRET_KEY=${JWT_SECRET_KEY:?JWT_SECRET_KEY must be set in .env (generate with: python -c "import secrets; print(secrets.token_hex(32))")}'
+      - 'WEBPENT_AUDIT_SECRET_KEY=${AUDIT_SECRET_KEY:?AUDIT_SECRET_KEY must be set in .env (generate with: python -c "import secrets; print(secrets.token_hex(32))")}'
+      - 'CELERY_PAYLOAD_KEY=${CELERY_PAYLOAD_KEY:?CELERY_PAYLOAD_KEY must be set in .env (generate with: python -c "import secrets; print(secrets.token_hex(32))")}'
+      - WEBPENT_JWT_EXPIRE_MINUTES=60
+      # V10 HOSTILE P0-2: no admin:admin default — WEBPENT_USERS must be
+      # set explicitly in .env. Format: "user:pass:role,user2:pass2:role2"
+      - 'WEBPENT_USERS=${WEBPENT_USERS:?WEBPENT_USERS must be set in .env (format: user:STRONG_PASS:role)}'
+      # CORS — default to no origins. Set WEBPENT_CORS_ORIGINS in .env.
+      - WEBPENT_CORS_ORIGINS=${WEBPENT_CORS_ORIGINS:-[]}
+      # Rate limiting
+      - WEBPENT_RATE_LIMIT_ENABLED=true
+      - WEBPENT_RATE_LIMIT_SCAN_PER_MINUTE=5
+      - WEBPENT_RATE_LIMIT_GLOBAL_PER_MINUTE=60
+      - WEBPENT_RATE_LIMIT_REDIS_URL=${RATE_LIMIT_REDIS_URL:?RATE_LIMIT_REDIS_URL must be set to a rediss:// URL}
+      # OOB callback — secret must be set
+      - WEBPENT_OOB_CALLBACK_BASE_URL=${OOB_CALLBACK_BASE_URL:-http://api:8000}
+      - WEBPENT_OOB_CALLBACK_SECRET=${OOB_CALLBACK_SECRET:?OOB_CALLBACK_SECRET must be set in .env}
+      # Webhook integration
+      - WEBHOOK_ENABLED=${WEBHOOK_ENABLED:-false}
+      - WEBHOOK_URL=${WEBHOOK_URL:-}
+      - WEBHOOK_SECRET=${WEBHOOK_SECRET:-}
+      # Structured JSON logging
+      - WEBPENT_LOG_FORMAT=json
+      # Database
+      # TEAM-1 Phase 2 (workspace parity): BOTH api and worker receive the
+      # identical absolute database URL and workspace root, both backed by
+      # the SAME ./runtime bind mount. The previous single-file bind
+      # (./webpent.db:/app/webpent.db) split WAL visibility per container
+      # (each container built its own -wal/-shm next to the mounted file),
+      # and the workspace root was never mounted at all — worker workspaces
+      # were ephemeral and invisible to the API.
+      - WEBPENT_DATABASE_URL=${DATABASE_URL:-sqlite:////app/runtime/webpent.db}
+      - WEBPENT_TARGET_WORKSPACE_ROOT=/app/runtime/workspaces
+    restart: unless-stopped
+    volumes:
+      - ./output:/app/output
+      - ./memory:/app/memory
+      # TEAM-1 Phase 2: directory mount (never a single-file bind) shared
+      # verbatim with the worker — database + all engagement workspaces.
+      - ./runtime:/app/runtime
+    networks:
+      - webpent-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      start_period: 10s
+      retries: 3
+
+  # ---------------------------------------------------------------------------
+  # Celery Worker — pentest graph execution
+  # V10 HOSTILE P0-2: same secret requirements as api.
+  # ---------------------------------------------------------------------------
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: webpent-worker
+    command: celery -A worker.celery_app worker --loglevel=info --concurrency=1
+    environment:
+      - WEBPENT_REDIS_URL=${REDIS_URL:?REDIS_URL must be set to a rediss:// URL}
+      - PYTHONUNBUFFERED=1
+      # V10 HOSTILE P0-2: AUTH_ENABLED=true + no weak fallbacks.
+      - WEBPENT_AUTH_ENABLED=true
+      - WEBPENT_JWT_SECRET_KEY=${JWT_SECRET_KEY:?JWT_SECRET_KEY must be set in .env}
+      - WEBPENT_AUDIT_SECRET_KEY=${AUDIT_SECRET_KEY:?AUDIT_SECRET_KEY must be set in .env}
+      - CELERY_PAYLOAD_KEY=${CELERY_PAYLOAD_KEY:?CELERY_PAYLOAD_KEY must be set in .env}
+      - WEBPENT_OOB_CALLBACK_BASE_URL=${OOB_CALLBACK_BASE_URL:-http://api:8000}
+      - WEBPENT_OOB_CALLBACK_SECRET=${OOB_CALLBACK_SECRET:?OOB_CALLBACK_SECRET must be set in .env}
+      - WEBHOOK_ENABLED=${WEBHOOK_ENABLED:-false}
+      - WEBHOOK_URL=${WEBHOOK_URL:-}
+      - WEBHOOK_SECRET=${WEBHOOK_SECRET:-}
+      - WEBPENT_LOG_FORMAT=json
+      # TEAM-1 Phase 2 (workspace parity): identical storage posture to the
+      # api service — same database URL, same workspace root, same mount.
+      - WEBPENT_DATABASE_URL=${DATABASE_URL:-sqlite:////app/runtime/webpent.db}
+      - WEBPENT_TARGET_WORKSPACE_ROOT=/app/runtime/workspaces
+    restart: unless-stopped
+    volumes:
+      - ./output:/app/output
+      - ./memory:/app/memory
+      # TEAM-1 Phase 2: shared with api — resume and OOB parity depend on
+      # both processes observing identical persisted state.
+      - ./runtime:/app/runtime
+    networks:
+      - webpent-net
+
+  # Cloudflare Tunnel for OOB callbacks (optional)
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: webpent-tunnel
+    command: tunnel --url http://api:8000
+    depends_on:
+      - api
+    restart: unless-stopped
+    networks:
+      - webpent-net
+    profiles:
+      - tunnel  # Only starts with --profile tunnel
+
+# =============================================================================
+# Named volumes
+# =============================================================================
+volumes:
+  postgres-data:
+    driver: local
+
+# =============================================================================
+# Shared network — internal-only (no host port mappings for Redis/Postgres)
+# =============================================================================
+networks:
+  webpent-net:
+    driver: bridge
+    name: webpent-net

@@ -1,0 +1,25 @@
+{
+  "catalog_version": "waptlab-v1",
+  "entries": [
+    {"key":"header_sqli","category":"sqli","surfaces":["headers","query","logging"],"risk":"high","evidence_required":["baseline","controlled_header_differential","sql_engine_or_deterministic_db_proof","replay"],"negative_control_required":true},
+    {"key":"csv_ingestion_sqli","category":"sqli","surfaces":["multipart","csv","worker"],"risk":"high","evidence_required":["baseline","safe_csv_fixture","parser_storage_differential","replay"],"negative_control_required":true},
+    {"key":"jwt_path_traversal","category":"path_traversal","surfaces":["jwt","path","download"],"risk":"high","evidence_required":["baseline","safe_file_marker","controlled_payload","replay"],"negative_control_required":true},
+    {"key":"double_slash_redirect","category":"open_redirect","surfaces":["redirect","path"],"risk":"medium","evidence_required":["baseline","location_differential","browser_navigation_or_equivalent","replay"],"negative_control_required":true},
+    {"key":"oauth_redirect_uri","category":"open_redirect","surfaces":["oauth","redirect","callback"],"risk":"medium","evidence_required":["baseline","validated_redirect_uri_differential","browser_navigation_or_equivalent","replay"],"negative_control_required":true},
+    {"key":"download_idor","category":"idor","surfaces":["download","object","identity"],"risk":"critical","evidence_required":["owner_identity","foreign_identity","object_ownership","denial_control","replay"],"negative_control_required":true},
+    {"key":"tenant_context_switching","category":"tenant_isolation","surfaces":["tenant","identity","object"],"risk":"critical","evidence_required":["tenant_a","tenant_b","object_relation","cross_tenant_differential","denial_control","replay"],"negative_control_required":true},
+    {"key":"training_email_ssti","category":"ssti","surfaces":["template","email","workflow"],"risk":"high","evidence_required":["baseline","harmless_expression_marker","controlled_payload","replay"],"negative_control_required":true},
+    {"key":"export_blade_ssti","category":"ssti","surfaces":["export","template","download"],"risk":"high","evidence_required":["baseline","harmless_expression_marker","controlled_payload","replay"],"negative_control_required":true},
+    {"key":"swagger_url_ssrf","category":"ssrf","surfaces":["swagger","openapi","url"],"risk":"critical","evidence_required":["baseline","oob_callback","request_metadata","replay"],"negative_control_required":true},
+    {"key":"image_fetch_ssrf","category":"ssrf","surfaces":["profile","image","url"],"risk":"high","evidence_required":["baseline","oob_callback","request_metadata","replay"],"negative_control_required":true},
+    {"key":"stored_profile_xss","category":"xss","surfaces":["profile","stored","browser"],"risk":"high","evidence_required":["stored_value","rendered_context","browser_execution_marker","replay"],"negative_control_required":true},
+    {"key":"quoted_field_xss","category":"xss","surfaces":["profile","form","attribute"],"risk":"high","evidence_required":["malformed_quoting","rendered_context","browser_execution_marker","replay"],"negative_control_required":true},
+    {"key":"elasticsearch_snapshot_traversal","category":"path_traversal","surfaces":["elasticsearch","snapshot","service"],"risk":"high","evidence_required":["baseline","safe_snapshot_marker","authorization_differential","replay"],"negative_control_required":true},
+    {"key":"public_backup_disclosure","category":"info_disclosure","surfaces":["backup","artifact","download"],"risk":"high","evidence_required":["public_response","sensitive_artifact_signature","bounded_body","replay"],"negative_control_required":true},
+    {"key":"laravel_app_debug","category":"info_disclosure","surfaces":["error","debug","laravel"],"risk":"high","evidence_required":["public_5xx","framework_debug_markers","bounded_body","replay"],"negative_control_required":true},
+    {"key":"frontend_dependency_exposure","category":"outdated_component","surfaces":["javascript","sbom","bundle"],"risk":"medium","evidence_required":["version_fingerprint","package_identity","advisory_mapping","replay"],"negative_control_required":true},
+    {"key":"public_elasticsearch_exposure","category":"info_disclosure","surfaces":["elasticsearch","service","network"],"risk":"high","evidence_required":["unauthenticated_response","endpoint_metadata","authorization_differential","replay"],"negative_control_required":true},
+    {"key":"oob_xxe","category":"xxe","surfaces":["xml","multipart","oob"],"risk":"critical","evidence_required":["baseline","controlled_xml","oob_callback_or_safe_marker","parser_metadata","replay"],"negative_control_required":true},
+    {"key":"xslt_injection","category":"xslt","surfaces":["xml","xslt","multipart"],"risk":"high","evidence_required":["baseline","controlled_transformation","safe_output_marker","replay"],"negative_control_required":true}
+  ]
+}

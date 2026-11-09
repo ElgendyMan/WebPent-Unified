@@ -1,0 +1,57 @@
+{
+  "hypotheses": [
+    {
+      "id": "e724b85f-82f0-47b9-8a7b-4555a5ab827c",
+      "vuln_class": "open_redirect",
+      "statement": "Browser-observed XHR POST /api/internal/fetch with params ['url', 'timeout'] suggests open_redirect investigation on hidden API surface.",
+      "origin": "deep_recon",
+      "origin_detail": "browser_observed:xhr_endpoint:/api/internal/fetch",
+      "confidence": 0.45
+    },
+    {
+      "id": "7374358e-e823-427f-a6e1-45f35bf5a457",
+      "vuln_class": "ssrf",
+      "statement": "Browser-observed XHR POST /api/internal/fetch with params ['url', 'timeout'] suggests ssrf investigation on hidden API surface.",
+      "origin": "deep_recon",
+      "origin_detail": "browser_observed:xhr_endpoint:/api/internal/fetch",
+      "confidence": 0.45
+    },
+    {
+      "id": "2b2f626a-45ec-4061-98e8-0c4fa2126aa7",
+      "vuln_class": "api_issue",
+      "statement": "Browser-observed XHR POST /api/internal/fetch with params ['url', 'timeout'] suggests api_issue investigation on hidden API surface.",
+      "origin": "deep_recon",
+      "origin_detail": "browser_observed:xhr_endpoint:/api/internal/fetch",
+      "confidence": 0.45
+    }
+  ],
+  "validator_traces": [
+    {
+      "hypothesis_id": "e724b85f-82f0-47b9-8a7b-4555a5ab827c",
+      "vuln_class": "open_redirect",
+      "note": "no synthetic validator path for open_redirect (recorded as hypothesis only)"
+    },
+    {
+      "hypothesis_id": "7374358e-e823-427f-a6e1-45f35bf5a457",
+      "vuln_class": "ssrf",
+      "origin_detail": "browser_observed:xhr_endpoint:/api/internal/fetch",
+      "validator": "validate_ssrf",
+      "outcome": "ValidationOutcome.CONFIRMED",
+      "is_confirmation_grade": true,
+      "discriminating_signal": "candidate response contains 3 SSRF indicator classes",
+      "note": "SSRF confirmed: candidate reaches cloud metadata, control rejected",
+      "trace": [
+        "browser_surface",
+        "bridge_hypothesis",
+        "candidate_built",
+        "M4_validator",
+        "ValidationOutcome.CONFIRMED"
+      ]
+    },
+    {
+      "hypothesis_id": "2b2f626a-45ec-4061-98e8-0c4fa2126aa7",
+      "vuln_class": "api_issue",
+      "note": "no synthetic validator path for api_issue (recorded as hypothesis only)"
+    }
+  ]
+}

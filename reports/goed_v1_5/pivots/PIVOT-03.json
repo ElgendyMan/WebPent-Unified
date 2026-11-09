@@ -1,0 +1,11 @@
+{
+  "pivot_id": "PIVOT-03",
+  "scenario": "IDOR investigation shows same-tenant \u2192 pivot to multi-tenant",
+  "initial_hypothesis": "Same-tenant object access weakness",
+  "test_result": "Same-tenant access is actually legitimate (shared workspace)",
+  "evidence_update": "X-Actor-Tenant shows actor from tenant-A accessing tenant-B resource",
+  "pivot_to": "Cross-tenant isolation failure",
+  "new_experiment": "Focus on cross-tenant paths specifically",
+  "outcome": "Tenant isolation failure confirmed as primary finding",
+  "cause": "Tenant header mismatch between actor and resource"
+}

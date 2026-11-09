@@ -1,0 +1,1222 @@
+{
+  "goed-v1.5-target-00": {
+    "goed-v1.5-target-00-case-00": {
+      "class": "idor",
+      "vulnerable_route": "/api/objects/obj-uy1",
+      "baseline_route": "/api/objects/obj-qt0",
+      "control_route": "/patched/api/objects/obj-uy1",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-00-case-01": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/api/system_config",
+      "baseline_route": "/api/health",
+      "control_route": "/patched/api/system_config",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-00-case-02": {
+      "class": "privilege_escalation",
+      "vulnerable_route": "/api/payment_history/org-00",
+      "baseline_route": "/api/health",
+      "control_route": "/patched/api/payment_history/org-00",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-00-case-03": {
+      "class": "business_logic_abuse",
+      "vulnerable_route": "/api/value_send/obj-qt0?to=obj-uy1&amount=-100",
+      "baseline_route": "/api/value_send/obj-qt0?to=obj-uy1&amount=10",
+      "control_route": "/patched/api/value_send/obj-qt0",
+      "actor": "alice",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-00-case-04": {
+      "class": "tenant_isolation_failure",
+      "vulnerable_route": "/api/tenant/org-01/confidential_records",
+      "baseline_route": "/api/tenant/org-00/confidential_records",
+      "control_route": "/patched/api/tenant/org-01/confidential_records",
+      "actor": "alice",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-00-case-05": {
+      "class": "workflow_authorization_failure",
+      "vulnerable_route": "/api/approvals/wf-obj-tx2/approve",
+      "baseline_route": "/api/approvals/wf-obj-tx2/view",
+      "control_route": "/patched/api/approvals/wf-obj-tx2/approve",
+      "actor": "alice",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-00-case-06": {
+      "class": "sensitive_data_exposure",
+      "vulnerable_route": "/api/private_inbox/obj-uy1/inbox",
+      "baseline_route": "/api/private_inbox/obj-qt0/inbox",
+      "control_route": "/patched/api/private_inbox/obj-uy1/inbox",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-00-case-07": {
+      "class": "multi_step_chain",
+      "vulnerable_route": "/api/access_restore/request?for=obj-uy1",
+      "baseline_route": "/api/access_restore/request?for=obj-qt0",
+      "control_route": "/patched/api/access_restore/request",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "critical"
+    },
+    "goed-v1.5-target-00-case-08": {
+      "class": "idor",
+      "vulnerable_route": "/api/objects/obj-am3",
+      "baseline_route": "/api/objects/obj-qt0",
+      "control_route": "/patched/api/objects/obj-am3",
+      "actor": "alice",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-00-case-09": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/api/event_history",
+      "baseline_route": "/api/health",
+      "control_route": "/patched/api/event_history",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-00-case-10": {
+      "class": "clean_public_resource",
+      "vulnerable_route": "/api/health",
+      "baseline_route": "/api/health",
+      "control_route": "/api/health",
+      "actor": "alice",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    },
+    "goed-v1.5-target-00-case-11": {
+      "class": "clean_public_info",
+      "vulnerable_route": "/api/openapi",
+      "baseline_route": "/api/openapi",
+      "control_route": "/api/openapi",
+      "actor": "alice",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    }
+  },
+  "goed-v1.5-target-01": {
+    "goed-v1.5-target-01-case-00": {
+      "class": "idor",
+      "vulnerable_route": "/v1/objects/item.1",
+      "baseline_route": "/v1/objects/item.0",
+      "control_route": "/patched/v1/objects/item.1",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-01-case-01": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/v1/system_config",
+      "baseline_route": "/v1/health",
+      "control_route": "/patched/v1/system_config",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-01-case-02": {
+      "class": "privilege_escalation",
+      "vulnerable_route": "/v1/revenue_reports/company_olpfv",
+      "baseline_route": "/v1/health",
+      "control_route": "/patched/v1/revenue_reports/company_olpfv",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-01-case-03": {
+      "class": "business_logic_abuse",
+      "vulnerable_route": "/v1/value_send/item.0?to=item.1&amount=-100",
+      "baseline_route": "/v1/value_send/item.0?to=item.1&amount=10",
+      "control_route": "/patched/v1/value_send/item.0",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-01-case-04": {
+      "class": "tenant_isolation_failure",
+      "vulnerable_route": "/v1/tenant/company_vqeni/private_ops",
+      "baseline_route": "/v1/tenant/company_olpfv/private_ops",
+      "control_route": "/patched/v1/tenant/company_vqeni/private_ops",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-01-case-05": {
+      "class": "workflow_authorization_failure",
+      "vulnerable_route": "/v1/workflows/wf-item.2/approve",
+      "baseline_route": "/v1/workflows/wf-item.2/view",
+      "control_route": "/patched/v1/workflows/wf-item.2/approve",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-01-case-06": {
+      "class": "sensitive_data_exposure",
+      "vulnerable_route": "/v1/personal_notifications/item.1/inbox",
+      "baseline_route": "/v1/personal_notifications/item.0/inbox",
+      "control_route": "/patched/v1/personal_notifications/item.1/inbox",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-01-case-07": {
+      "class": "multi_step_chain",
+      "vulnerable_route": "/v1/auth_reset/request?for=item.1",
+      "baseline_route": "/v1/auth_reset/request?for=item.0",
+      "control_route": "/patched/v1/auth_reset/request",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "critical"
+    },
+    "goed-v1.5-target-01-case-08": {
+      "class": "idor",
+      "vulnerable_route": "/v1/objects/item.3",
+      "baseline_route": "/v1/objects/item.0",
+      "control_route": "/patched/v1/objects/item.3",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-01-case-09": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/v1/access_trail",
+      "baseline_route": "/v1/health",
+      "control_route": "/patched/v1/access_trail",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-01-case-10": {
+      "class": "clean_public_resource",
+      "vulnerable_route": "/v1/health",
+      "baseline_route": "/v1/health",
+      "control_route": "/v1/health",
+      "actor": "bob",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    },
+    "goed-v1.5-target-01-case-11": {
+      "class": "clean_public_info",
+      "vulnerable_route": "/v1/openapi",
+      "baseline_route": "/v1/openapi",
+      "control_route": "/v1/openapi",
+      "actor": "bob",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    }
+  },
+  "goed-v1.5-target-02": {
+    "goed-v1.5-target-02-case-00": {
+      "class": "idor",
+      "vulnerable_route": "/v2/objects/entity-fbv1",
+      "baseline_route": "/v2/objects/entity-qsy0",
+      "control_route": "/patched/v2/objects/entity-fbv1",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-02-case-01": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/v2/management_console",
+      "baseline_route": "/v2/health",
+      "control_route": "/patched/v2/management_console",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-02-case-02": {
+      "class": "privilege_escalation",
+      "vulnerable_route": "/v2/financial_data/workspace-0",
+      "baseline_route": "/v2/health",
+      "control_route": "/patched/v2/financial_data/workspace-0",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-02-case-03": {
+      "class": "business_logic_abuse",
+      "vulnerable_route": "/v2/funds_transfer/entity-qsy0?to=entity-fbv1&amount=-100",
+      "baseline_route": "/v2/funds_transfer/entity-qsy0?to=entity-fbv1&amount=10",
+      "control_route": "/patched/v2/funds_transfer/entity-qsy0",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-02-case-04": {
+      "class": "tenant_isolation_failure",
+      "vulnerable_route": "/v2/tenant/workspace-1/private_ops",
+      "baseline_route": "/v2/tenant/workspace-0/private_ops",
+      "control_route": "/patched/v2/tenant/workspace-1/private_ops",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-02-case-05": {
+      "class": "workflow_authorization_failure",
+      "vulnerable_route": "/v2/audit_actions/wf-entity-ijv2/approve",
+      "baseline_route": "/v2/audit_actions/wf-entity-ijv2/view",
+      "control_route": "/patched/v2/audit_actions/wf-entity-ijv2/approve",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-02-case-06": {
+      "class": "sensitive_data_exposure",
+      "vulnerable_route": "/v2/personal_notifications/entity-fbv1/inbox",
+      "baseline_route": "/v2/personal_notifications/entity-qsy0/inbox",
+      "control_route": "/patched/v2/personal_notifications/entity-fbv1/inbox",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-02-case-07": {
+      "class": "multi_step_chain",
+      "vulnerable_route": "/v2/access_restore/request?for=entity-fbv1",
+      "baseline_route": "/v2/access_restore/request?for=entity-qsy0",
+      "control_route": "/patched/v2/access_restore/request",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "critical"
+    },
+    "goed-v1.5-target-02-case-08": {
+      "class": "idor",
+      "vulnerable_route": "/v2/objects/entity-exm3",
+      "baseline_route": "/v2/objects/entity-qsy0",
+      "control_route": "/patched/v2/objects/entity-exm3",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-02-case-09": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/v2/access_trail",
+      "baseline_route": "/v2/health",
+      "control_route": "/patched/v2/access_trail",
+      "actor": "eve",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-02-case-10": {
+      "class": "clean_public_resource",
+      "vulnerable_route": "/v2/health",
+      "baseline_route": "/v2/health",
+      "control_route": "/v2/health",
+      "actor": "carol",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    },
+    "goed-v1.5-target-02-case-11": {
+      "class": "clean_public_info",
+      "vulnerable_route": "/v2/openapi",
+      "baseline_route": "/v2/openapi",
+      "control_route": "/v2/openapi",
+      "actor": "carol",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    }
+  },
+  "goed-v1.5-target-03": {
+    "goed-v1.5-target-03-case-00": {
+      "class": "idor",
+      "vulnerable_route": "/services/objects/asset_0001/rest",
+      "baseline_route": "/services/objects/asset_0000/rest",
+      "control_route": "/patched/services/objects/asset_0001/rest",
+      "actor": "eve",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-03-case-01": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/services/system_config/rest",
+      "baseline_route": "/services/health/rest",
+      "control_route": "/patched/services/system_config/rest",
+      "actor": "eve",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-03-case-02": {
+      "class": "privilege_escalation",
+      "vulnerable_route": "/services/billing_records/domain-efbfbe/rest",
+      "baseline_route": "/services/health/rest",
+      "control_route": "/patched/services/billing_records/domain-efbfbe/rest",
+      "actor": "eve",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-03-case-03": {
+      "class": "business_logic_abuse",
+      "vulnerable_route": "/services/funds_transfer/asset_0000?to=asset_0001&amount=-100/rest",
+      "baseline_route": "/services/funds_transfer/asset_0000?to=asset_0001&amount=10/rest",
+      "control_route": "/patched/services/funds_transfer/asset_0000/rest",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-03-case-04": {
+      "class": "tenant_isolation_failure",
+      "vulnerable_route": "/services/tenant/domain-aeaeee/internal_resources/rest",
+      "baseline_route": "/services/tenant/domain-efbfbe/internal_resources/rest",
+      "control_route": "/patched/services/tenant/domain-aeaeee/internal_resources/rest",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-03-case-05": {
+      "class": "workflow_authorization_failure",
+      "vulnerable_route": "/services/review_items/wf-asset_0002/approve/rest",
+      "baseline_route": "/services/review_items/wf-asset_0002/view/rest",
+      "control_route": "/patched/services/review_items/wf-asset_0002/approve/rest",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-03-case-06": {
+      "class": "sensitive_data_exposure",
+      "vulnerable_route": "/services/private_inbox/asset_0001/inbox/rest",
+      "baseline_route": "/services/private_inbox/asset_0000/inbox/rest",
+      "control_route": "/patched/services/private_inbox/asset_0001/inbox/rest",
+      "actor": "eve",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-03-case-07": {
+      "class": "multi_step_chain",
+      "vulnerable_route": "/services/password_recovery/request?for=asset_0001/rest",
+      "baseline_route": "/services/password_recovery/request?for=asset_0000/rest",
+      "control_route": "/patched/services/password_recovery/request/rest",
+      "actor": "eve",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "critical"
+    },
+    "goed-v1.5-target-03-case-08": {
+      "class": "idor",
+      "vulnerable_route": "/services/objects/asset_0003/rest",
+      "baseline_route": "/services/objects/asset_0000/rest",
+      "control_route": "/patched/services/objects/asset_0003/rest",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-03-case-09": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/services/access_trail/rest",
+      "baseline_route": "/services/health/rest",
+      "control_route": "/patched/services/access_trail/rest",
+      "actor": "frank",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-03-case-10": {
+      "class": "clean_public_resource",
+      "vulnerable_route": "/services/health/rest",
+      "baseline_route": "/services/health/rest",
+      "control_route": "/services/health/rest",
+      "actor": "dave",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    },
+    "goed-v1.5-target-03-case-11": {
+      "class": "clean_public_info",
+      "vulnerable_route": "/services/openapi/rest",
+      "baseline_route": "/services/openapi/rest",
+      "control_route": "/services/openapi/rest",
+      "actor": "dave",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    }
+  },
+  "goed-v1.5-target-04": {
+    "goed-v1.5-target-04-case-00": {
+      "class": "idor",
+      "vulnerable_route": "/internal/objects/tok-c5427330",
+      "baseline_route": "/internal/objects/tok-b0b62aa5",
+      "control_route": "/patched/internal/objects/tok-c5427330",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-04-case-01": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/internal/admin_dashboard",
+      "baseline_route": "/internal/health",
+      "control_route": "/patched/internal/admin_dashboard",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-04-case-02": {
+      "class": "privilege_escalation",
+      "vulnerable_route": "/internal/billing_records/team-ACK",
+      "baseline_route": "/internal/health",
+      "control_route": "/patched/internal/billing_records/team-ACK",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-04-case-03": {
+      "class": "business_logic_abuse",
+      "vulnerable_route": "/internal/funds_transfer/tok-b0b62aa5?to=tok-c5427330&amount=-100",
+      "baseline_route": "/internal/funds_transfer/tok-b0b62aa5?to=tok-c5427330&amount=10",
+      "control_route": "/patched/internal/funds_transfer/tok-b0b62aa5",
+      "actor": "alice",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-04-case-04": {
+      "class": "tenant_isolation_failure",
+      "vulnerable_route": "/internal/tenant/team-RDC/internal_resources",
+      "baseline_route": "/internal/tenant/team-ACK/internal_resources",
+      "control_route": "/patched/internal/tenant/team-RDC/internal_resources",
+      "actor": "alice",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-04-case-05": {
+      "class": "workflow_authorization_failure",
+      "vulnerable_route": "/internal/review_items/wf-tok-dc006e09/approve",
+      "baseline_route": "/internal/review_items/wf-tok-dc006e09/view",
+      "control_route": "/patched/internal/review_items/wf-tok-dc006e09/approve",
+      "actor": "alice",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-04-case-06": {
+      "class": "sensitive_data_exposure",
+      "vulnerable_route": "/internal/messages/tok-c5427330/inbox",
+      "baseline_route": "/internal/messages/tok-b0b62aa5/inbox",
+      "control_route": "/patched/internal/messages/tok-c5427330/inbox",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-04-case-07": {
+      "class": "multi_step_chain",
+      "vulnerable_route": "/internal/password_recovery/request?for=tok-c5427330",
+      "baseline_route": "/internal/password_recovery/request?for=tok-b0b62aa5",
+      "control_route": "/patched/internal/password_recovery/request",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "critical"
+    },
+    "goed-v1.5-target-04-case-08": {
+      "class": "idor",
+      "vulnerable_route": "/internal/objects/tok-3458d6be",
+      "baseline_route": "/internal/objects/tok-b0b62aa5",
+      "control_route": "/patched/internal/objects/tok-3458d6be",
+      "actor": "alice",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-04-case-09": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/internal/security_records",
+      "baseline_route": "/internal/health",
+      "control_route": "/patched/internal/security_records",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-04-case-10": {
+      "class": "clean_public_resource",
+      "vulnerable_route": "/internal/health",
+      "baseline_route": "/internal/health",
+      "control_route": "/internal/health",
+      "actor": "alice",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    },
+    "goed-v1.5-target-04-case-11": {
+      "class": "clean_public_info",
+      "vulnerable_route": "/internal/openapi",
+      "baseline_route": "/internal/openapi",
+      "control_route": "/internal/openapi",
+      "actor": "alice",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    }
+  },
+  "goed-v1.5-target-05": {
+    "goed-v1.5-target-05-case-00": {
+      "class": "idor",
+      "vulnerable_route": "/platform/objects/rec-1-5643/api",
+      "baseline_route": "/platform/objects/rec-0-6043/api",
+      "control_route": "/patched/platform/objects/rec-1-5643/api",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-05-case-01": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/platform/admin_dashboard/api",
+      "baseline_route": "/platform/health/api",
+      "control_route": "/patched/platform/admin_dashboard/api",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-05-case-02": {
+      "class": "privilege_escalation",
+      "vulnerable_route": "/platform/financial_data/account-0000/api",
+      "baseline_route": "/platform/health/api",
+      "control_route": "/patched/platform/financial_data/account-0000/api",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-05-case-03": {
+      "class": "business_logic_abuse",
+      "vulnerable_route": "/platform/funds_transfer/rec-0-6043?to=rec-1-5643&amount=-100/api",
+      "baseline_route": "/platform/funds_transfer/rec-0-6043?to=rec-1-5643&amount=10/api",
+      "control_route": "/patched/platform/funds_transfer/rec-0-6043/api",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-05-case-04": {
+      "class": "tenant_isolation_failure",
+      "vulnerable_route": "/platform/tenant/account-0001/confidential_records/api",
+      "baseline_route": "/platform/tenant/account-0000/confidential_records/api",
+      "control_route": "/patched/platform/tenant/account-0001/confidential_records/api",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-05-case-05": {
+      "class": "workflow_authorization_failure",
+      "vulnerable_route": "/platform/audit_actions/wf-rec-2-3525/approve/api",
+      "baseline_route": "/platform/audit_actions/wf-rec-2-3525/view/api",
+      "control_route": "/patched/platform/audit_actions/wf-rec-2-3525/approve/api",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-05-case-06": {
+      "class": "sensitive_data_exposure",
+      "vulnerable_route": "/platform/private_inbox/rec-1-5643/inbox/api",
+      "baseline_route": "/platform/private_inbox/rec-0-6043/inbox/api",
+      "control_route": "/patched/platform/private_inbox/rec-1-5643/inbox/api",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-05-case-07": {
+      "class": "multi_step_chain",
+      "vulnerable_route": "/platform/credential_reset/request?for=rec-1-5643/api",
+      "baseline_route": "/platform/credential_reset/request?for=rec-0-6043/api",
+      "control_route": "/patched/platform/credential_reset/request/api",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "critical"
+    },
+    "goed-v1.5-target-05-case-08": {
+      "class": "idor",
+      "vulnerable_route": "/platform/objects/rec-3-5351/api",
+      "baseline_route": "/platform/objects/rec-0-6043/api",
+      "control_route": "/patched/platform/objects/rec-3-5351/api",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-05-case-09": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/platform/audit_log/api",
+      "baseline_route": "/platform/health/api",
+      "control_route": "/patched/platform/audit_log/api",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-05-case-10": {
+      "class": "clean_public_resource",
+      "vulnerable_route": "/platform/health/api",
+      "baseline_route": "/platform/health/api",
+      "control_route": "/platform/health/api",
+      "actor": "bob",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    },
+    "goed-v1.5-target-05-case-11": {
+      "class": "clean_public_info",
+      "vulnerable_route": "/platform/openapi/api",
+      "baseline_route": "/platform/openapi/api",
+      "control_route": "/platform/openapi/api",
+      "actor": "bob",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    }
+  },
+  "goed-v1.5-target-06": {
+    "goed-v1.5-target-06-case-00": {
+      "class": "idor",
+      "vulnerable_route": "/data/objects/unit.00001/access",
+      "baseline_route": "/data/objects/unit.00000/access",
+      "control_route": "/patched/data/objects/unit.00001/access",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-06-case-01": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/data/control_panel/access",
+      "baseline_route": "/data/health/access",
+      "control_route": "/patched/data/control_panel/access",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-06-case-02": {
+      "class": "privilege_escalation",
+      "vulnerable_route": "/data/revenue_reports/group_0/access",
+      "baseline_route": "/data/health/access",
+      "control_route": "/patched/data/revenue_reports/group_0/access",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-06-case-03": {
+      "class": "business_logic_abuse",
+      "vulnerable_route": "/data/credit_exchange/unit.00000?to=unit.00001&amount=-100/access",
+      "baseline_route": "/data/credit_exchange/unit.00000?to=unit.00001&amount=10/access",
+      "control_route": "/patched/data/credit_exchange/unit.00000/access",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-06-case-04": {
+      "class": "tenant_isolation_failure",
+      "vulnerable_route": "/data/tenant/group_1/confidential_records/access",
+      "baseline_route": "/data/tenant/group_0/confidential_records/access",
+      "control_route": "/patched/data/tenant/group_1/confidential_records/access",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-06-case-05": {
+      "class": "workflow_authorization_failure",
+      "vulnerable_route": "/data/workflows/wf-unit.00002/approve/access",
+      "baseline_route": "/data/workflows/wf-unit.00002/view/access",
+      "control_route": "/patched/data/workflows/wf-unit.00002/approve/access",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-06-case-06": {
+      "class": "sensitive_data_exposure",
+      "vulnerable_route": "/data/confidential_mail/unit.00001/inbox/access",
+      "baseline_route": "/data/confidential_mail/unit.00000/inbox/access",
+      "control_route": "/patched/data/confidential_mail/unit.00001/inbox/access",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-06-case-07": {
+      "class": "multi_step_chain",
+      "vulnerable_route": "/data/credential_reset/request?for=unit.00001/access",
+      "baseline_route": "/data/credential_reset/request?for=unit.00000/access",
+      "control_route": "/patched/data/credential_reset/request/access",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "critical"
+    },
+    "goed-v1.5-target-06-case-08": {
+      "class": "idor",
+      "vulnerable_route": "/data/objects/unit.00003/access",
+      "baseline_route": "/data/objects/unit.00000/access",
+      "control_route": "/patched/data/objects/unit.00003/access",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-06-case-09": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/data/event_history/access",
+      "baseline_route": "/data/health/access",
+      "control_route": "/patched/data/event_history/access",
+      "actor": "eve",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-06-case-10": {
+      "class": "clean_public_resource",
+      "vulnerable_route": "/data/health/access",
+      "baseline_route": "/data/health/access",
+      "control_route": "/data/health/access",
+      "actor": "carol",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    },
+    "goed-v1.5-target-06-case-11": {
+      "class": "clean_public_info",
+      "vulnerable_route": "/data/openapi/access",
+      "baseline_route": "/data/openapi/access",
+      "control_route": "/data/openapi/access",
+      "actor": "carol",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    }
+  },
+  "goed-v1.5-target-07": {
+    "goed-v1.5-target-07-case-00": {
+      "class": "idor",
+      "vulnerable_route": "/core/objects/artifact-eeea",
+      "baseline_route": "/core/objects/artifact-acdf",
+      "control_route": "/patched/core/objects/artifact-eeea",
+      "actor": "eve",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-07-case-01": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/core/admin_dashboard",
+      "baseline_route": "/core/health",
+      "control_route": "/patched/core/admin_dashboard",
+      "actor": "eve",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-07-case-02": {
+      "class": "privilege_escalation",
+      "vulnerable_route": "/core/payment_history/ns-374",
+      "baseline_route": "/core/health",
+      "control_route": "/patched/core/payment_history/ns-374",
+      "actor": "eve",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-07-case-03": {
+      "class": "business_logic_abuse",
+      "vulnerable_route": "/core/funds_transfer/artifact-acdf?to=artifact-eeea&amount=-100",
+      "baseline_route": "/core/funds_transfer/artifact-acdf?to=artifact-eeea&amount=10",
+      "control_route": "/patched/core/funds_transfer/artifact-acdf",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-07-case-04": {
+      "class": "tenant_isolation_failure",
+      "vulnerable_route": "/core/tenant/ns-155/private_ops",
+      "baseline_route": "/core/tenant/ns-374/private_ops",
+      "control_route": "/patched/core/tenant/ns-155/private_ops",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-07-case-05": {
+      "class": "workflow_authorization_failure",
+      "vulnerable_route": "/core/workflows/wf-artifact-fcda/approve",
+      "baseline_route": "/core/workflows/wf-artifact-fcda/view",
+      "control_route": "/patched/core/workflows/wf-artifact-fcda/approve",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-07-case-06": {
+      "class": "sensitive_data_exposure",
+      "vulnerable_route": "/core/messages/artifact-eeea/inbox",
+      "baseline_route": "/core/messages/artifact-acdf/inbox",
+      "control_route": "/patched/core/messages/artifact-eeea/inbox",
+      "actor": "eve",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-07-case-07": {
+      "class": "multi_step_chain",
+      "vulnerable_route": "/core/credential_reset/request?for=artifact-eeea",
+      "baseline_route": "/core/credential_reset/request?for=artifact-acdf",
+      "control_route": "/patched/core/credential_reset/request",
+      "actor": "eve",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "critical"
+    },
+    "goed-v1.5-target-07-case-08": {
+      "class": "idor",
+      "vulnerable_route": "/core/objects/artifact-bfaa",
+      "baseline_route": "/core/objects/artifact-acdf",
+      "control_route": "/patched/core/objects/artifact-bfaa",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-07-case-09": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/core/access_trail",
+      "baseline_route": "/core/health",
+      "control_route": "/patched/core/access_trail",
+      "actor": "frank",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-07-case-10": {
+      "class": "clean_public_resource",
+      "vulnerable_route": "/core/health",
+      "baseline_route": "/core/health",
+      "control_route": "/core/health",
+      "actor": "dave",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    },
+    "goed-v1.5-target-07-case-11": {
+      "class": "clean_public_info",
+      "vulnerable_route": "/core/openapi",
+      "baseline_route": "/core/openapi",
+      "control_route": "/core/openapi",
+      "actor": "dave",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    }
+  },
+  "goed-v1.5-target-08": {
+    "goed-v1.5-target-08-case-00": {
+      "class": "idor",
+      "vulnerable_route": "/gateway/objects/node1/invoke",
+      "baseline_route": "/gateway/objects/node0/invoke",
+      "control_route": "/patched/gateway/objects/node1/invoke",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-08-case-01": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/gateway/admin_dashboard/invoke",
+      "baseline_route": "/gateway/health/invoke",
+      "control_route": "/patched/gateway/admin_dashboard/invoke",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-08-case-02": {
+      "class": "privilege_escalation",
+      "vulnerable_route": "/gateway/financial_data/instance-0/invoke",
+      "baseline_route": "/gateway/health/invoke",
+      "control_route": "/patched/gateway/financial_data/instance-0/invoke",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-08-case-03": {
+      "class": "business_logic_abuse",
+      "vulnerable_route": "/gateway/balance_move/node0?to=node1&amount=-100/invoke",
+      "baseline_route": "/gateway/balance_move/node0?to=node1&amount=10/invoke",
+      "control_route": "/patched/gateway/balance_move/node0/invoke",
+      "actor": "alice",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-08-case-04": {
+      "class": "tenant_isolation_failure",
+      "vulnerable_route": "/gateway/tenant/instance-1/private_ops/invoke",
+      "baseline_route": "/gateway/tenant/instance-0/private_ops/invoke",
+      "control_route": "/patched/gateway/tenant/instance-1/private_ops/invoke",
+      "actor": "alice",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-08-case-05": {
+      "class": "workflow_authorization_failure",
+      "vulnerable_route": "/gateway/audit_actions/wf-node2/approve/invoke",
+      "baseline_route": "/gateway/audit_actions/wf-node2/view/invoke",
+      "control_route": "/patched/gateway/audit_actions/wf-node2/approve/invoke",
+      "actor": "alice",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-08-case-06": {
+      "class": "sensitive_data_exposure",
+      "vulnerable_route": "/gateway/messages/node1/inbox/invoke",
+      "baseline_route": "/gateway/messages/node0/inbox/invoke",
+      "control_route": "/patched/gateway/messages/node1/inbox/invoke",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-08-case-07": {
+      "class": "multi_step_chain",
+      "vulnerable_route": "/gateway/credential_reset/request?for=node1/invoke",
+      "baseline_route": "/gateway/credential_reset/request?for=node0/invoke",
+      "control_route": "/patched/gateway/credential_reset/request/invoke",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "critical"
+    },
+    "goed-v1.5-target-08-case-08": {
+      "class": "idor",
+      "vulnerable_route": "/gateway/objects/node3/invoke",
+      "baseline_route": "/gateway/objects/node0/invoke",
+      "control_route": "/patched/gateway/objects/node3/invoke",
+      "actor": "alice",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-08-case-09": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/gateway/access_trail/invoke",
+      "baseline_route": "/gateway/health/invoke",
+      "control_route": "/patched/gateway/access_trail/invoke",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-08-case-10": {
+      "class": "clean_public_resource",
+      "vulnerable_route": "/gateway/health/invoke",
+      "baseline_route": "/gateway/health/invoke",
+      "control_route": "/gateway/health/invoke",
+      "actor": "alice",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    },
+    "goed-v1.5-target-08-case-11": {
+      "class": "clean_public_info",
+      "vulnerable_route": "/gateway/openapi/invoke",
+      "baseline_route": "/gateway/openapi/invoke",
+      "control_route": "/gateway/openapi/invoke",
+      "actor": "alice",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    }
+  },
+  "goed-v1.5-target-09": {
+    "goed-v1.5-target-09-case-00": {
+      "class": "idor",
+      "vulnerable_route": "/app/objects/res_d1/endpoint",
+      "baseline_route": "/app/objects/res_a0/endpoint",
+      "control_route": "/patched/app/objects/res_d1/endpoint",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-09-case-01": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/app/management_console/endpoint",
+      "baseline_route": "/app/health/endpoint",
+      "control_route": "/patched/app/management_console/endpoint",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-09-case-02": {
+      "class": "privilege_escalation",
+      "vulnerable_route": "/app/revenue_reports/partition-172/endpoint",
+      "baseline_route": "/app/health/endpoint",
+      "control_route": "/patched/app/revenue_reports/partition-172/endpoint",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-09-case-03": {
+      "class": "business_logic_abuse",
+      "vulnerable_route": "/app/funds_transfer/res_a0?to=res_d1&amount=-100/endpoint",
+      "baseline_route": "/app/funds_transfer/res_a0?to=res_d1&amount=10/endpoint",
+      "control_route": "/patched/app/funds_transfer/res_a0/endpoint",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-09-case-04": {
+      "class": "tenant_isolation_failure",
+      "vulnerable_route": "/app/tenant/partition-419/confidential_records/endpoint",
+      "baseline_route": "/app/tenant/partition-172/confidential_records/endpoint",
+      "control_route": "/patched/app/tenant/partition-419/confidential_records/endpoint",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-09-case-05": {
+      "class": "workflow_authorization_failure",
+      "vulnerable_route": "/app/workflows/wf-res_d2/approve/endpoint",
+      "baseline_route": "/app/workflows/wf-res_d2/view/endpoint",
+      "control_route": "/patched/app/workflows/wf-res_d2/approve/endpoint",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-09-case-06": {
+      "class": "sensitive_data_exposure",
+      "vulnerable_route": "/app/personal_notifications/res_d1/inbox/endpoint",
+      "baseline_route": "/app/personal_notifications/res_a0/inbox/endpoint",
+      "control_route": "/patched/app/personal_notifications/res_d1/inbox/endpoint",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-09-case-07": {
+      "class": "multi_step_chain",
+      "vulnerable_route": "/app/password_recovery/request?for=res_d1/endpoint",
+      "baseline_route": "/app/password_recovery/request?for=res_a0/endpoint",
+      "control_route": "/patched/app/password_recovery/request/endpoint",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "critical"
+    },
+    "goed-v1.5-target-09-case-08": {
+      "class": "idor",
+      "vulnerable_route": "/app/objects/res_g3/endpoint",
+      "baseline_route": "/app/objects/res_a0/endpoint",
+      "control_route": "/patched/app/objects/res_g3/endpoint",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-09-case-09": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/app/access_trail/endpoint",
+      "baseline_route": "/app/health/endpoint",
+      "control_route": "/patched/app/access_trail/endpoint",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-09-case-10": {
+      "class": "clean_public_resource",
+      "vulnerable_route": "/app/health/endpoint",
+      "baseline_route": "/app/health/endpoint",
+      "control_route": "/app/health/endpoint",
+      "actor": "bob",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    },
+    "goed-v1.5-target-09-case-11": {
+      "class": "clean_public_info",
+      "vulnerable_route": "/app/openapi/endpoint",
+      "baseline_route": "/app/openapi/endpoint",
+      "control_route": "/app/openapi/endpoint",
+      "actor": "bob",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    }
+  }
+}

@@ -1,0 +1,540 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebPent Engagement Report — http://127.0.0.1:8000</title>
+    <style>
+        :root {
+            --bg: #ffffff; --surface: #f8f9fa; --border: #e0e0e0;
+            --text: #1a1a1a; --text-muted: #6c757d;
+            --primary: #2563eb; --primary-dark: #1e40af;
+            --critical: #dc2626; --high: #ea580c; --medium: #ca8a04;
+            --low: #65a30d; --info: #0284c7;
+            --confirmed: #16a34a; --tentative: #ca8a04; --code-bg: #f1f5f9;
+            --audit-bg: #f0fdf4; --audit-border: #16a34a;
+        }
+        [data-theme="dark"] {
+            --bg: #0f172a; --surface: #1e293b; --border: #334155;
+            --text: #f1f5f9; --text-muted: #94a3b8;
+            --primary: #3b82f6; --primary-dark: #2563eb; --code-bg: #1e293b;
+            --audit-bg: #052e16; --audit-border: #16a34a;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background: var(--bg); color: var(--text); line-height: 1.6; font-size: 15px;
+        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+        header {
+            border-bottom: 3px solid var(--primary); padding-bottom: 1.5rem;
+            margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: flex-start;
+        }
+        header h1 { font-size: 1.75rem; font-weight: 700; }
+        header .meta { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem; }
+        .risk-badge {
+            display: inline-block; padding: 0.5rem 1.2rem; border-radius: 6px;
+            font-size: 1.1rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1px; color: #fff;
+        }
+        .risk-critical { background: var(--critical); }
+        .risk-high { background: var(--high); }
+        .risk-medium { background: var(--medium); }
+        .risk-low { background: var(--low); }
+        section { margin-bottom: 2rem; }
+        h2 {
+            font-size: 1.25rem; font-weight: 600; color: var(--primary-dark);
+            margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+        }
+        h3 { font-size: 1rem; font-weight: 600; margin: 1rem 0 0.5rem; }
+        .summary-box {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 8px; padding: 1.25rem; margin-bottom: 1rem;
+        }
+        .summary-box p { margin-bottom: 0.5rem; }
+        .summary-box p:last-child { margin-bottom: 0; }
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.75rem; margin-bottom: 1.5rem;
+        }
+        .stat-card {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 8px; padding: 1rem; text-align: center;
+        }
+        .stat-card .value { font-size: 1.75rem; font-weight: 700; color: var(--primary); }
+        .stat-card .label {
+            font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;
+            letter-spacing: 0.5px; margin-top: 0.25rem;
+        }
+        table { width: 100%; border-collapse: collapse; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+        thead { background: var(--surface); }
+        th {
+            text-align: left; padding: 0.75rem 1rem; font-size: 0.8rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted);
+            border-bottom: 2px solid var(--border);
+        }
+        td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: var(--surface); }
+        .severity-badge {
+            display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px;
+            font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .severity-critical { background: var(--critical); color: #fff; }
+        .severity-high     { background: var(--high);     color: #fff; }
+        .severity-medium   { background: var(--medium);   color: #fff; }
+        .severity-low      { background: var(--low);      color: #fff; }
+        .severity-info     { background: var(--info);     color: #fff; }
+        .confidence-badge {
+            display: inline-block; padding: 0.15rem 0.5rem; border-radius: 4px;
+            font-size: 0.72rem; font-weight: 600;
+        }
+        .conf-tool-confirmed { background: var(--confirmed); color: #fff; }
+        .conf-ai-assessed { background: var(--medium); color: #fff; }
+        .conf-needs-review { background: var(--high); color: #fff; }
+        .conf-pending { background: var(--text-muted); color: #fff; }
+        .cvss-score { font-family: monospace; font-size: 0.85rem; background: var(--code-bg); padding: 0.2rem 0.5rem; border-radius: 4px; display: inline-block; }
+        .url-cell { font-family: monospace; font-size: 0.8rem; color: var(--primary); word-break: break-all; max-width: 200px; }
+        .impact-text { font-size: 0.85rem; color: var(--text-muted); }
+        .reasoning-cell { font-size: 0.82rem; color: var(--text-muted); max-width: 280px; }
+        .reasoning-cell details { margin-top: 0.25rem; }
+        .reasoning-cell summary { cursor: pointer; font-size: 0.78rem; color: var(--primary); user-select: none; }
+        .reasoning-cell summary::-webkit-details-marker { display: none; }
+        .reasoning-cell summary::before { content: "▶ "; font-size: 0.7rem; }
+        .reasoning-cell details[open] summary::before { content: "▼ "; }
+        .reasoning-cell .reasoning-body {
+            margin-top: 0.4rem; padding: 0.5rem 0.65rem;
+            background: var(--code-bg); border-radius: 4px;
+            font-family: monospace; font-size: 0.75rem;
+            color: var(--text); white-space: pre-wrap; word-break: break-word;
+            border-left: 3px solid var(--primary); max-height: 200px; overflow-y: auto;
+        }
+        .compliance-tags { display: flex; flex-wrap: wrap; gap: 0.25rem; max-width: 200px; }
+        .compliance-tag {
+            display: inline-block; padding: 0.1rem 0.4rem; border-radius: 3px;
+            font-size: 0.7rem; font-family: monospace; background: var(--code-bg);
+            color: var(--primary-dark); border: 1px solid var(--border);
+        }
+        .evidence-section { font-size: 0.8rem; }
+        .evidence-section details { margin-top: 0.25rem; }
+        .evidence-section summary { cursor: pointer; font-size: 0.75rem; color: var(--primary); }
+        .evidence-section pre {
+            margin-top: 0.4rem; padding: 0.5rem; background: var(--code-bg);
+            border-radius: 4px; font-size: 0.72rem; overflow-x: auto;
+            max-height: 250px; overflow-y: auto; border-left: 3px solid var(--audit-border);
+        }
+        .hash-cell { font-family: monospace; font-size: 0.72rem; color: var(--audit-border); word-break: break-all; max-width: 180px; }
+        .audit-trail-box {
+            background: var(--audit-bg); border: 1px solid var(--audit-border);
+            border-radius: 8px; padding: 1.25rem; margin-top: 1rem;
+        }
+        .audit-trail-box h3 { color: var(--audit-border); }
+        .audit-trail-box .master-hash {
+            font-family: monospace; font-size: 0.85rem; word-break: break-all;
+            background: var(--code-bg); padding: 0.5rem; border-radius: 4px;
+            margin-top: 0.5rem; border-left: 3px solid var(--audit-border);
+        }
+        .audit-trail-box .per-finding-list { margin-top: 0.75rem; }
+        .audit-trail-box .per-finding-item {
+            font-size: 0.78rem; padding: 0.25rem 0;
+            border-bottom: 1px dashed var(--border);
+        }
+        .audit-trail-box .per-finding-item:last-child { border-bottom: none; }
+        .audit-trail-box .per-finding-hash {
+            font-family: monospace; color: var(--audit-border); word-break: break-all;
+        }
+        /* V8 P0 A3: Decision Log — Explainability Appendix styles. */
+        .decision-log-box {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 8px; padding: 1.25rem; margin-top: 1rem;
+        }
+        .decision-log-box h3 { color: var(--primary-dark); }
+        .decision-log-table { width: 100%; font-size: 0.82rem; margin-top: 0.5rem; }
+        .decision-log-table th { font-size: 0.72rem; }
+        .decision-log-table td { padding: 0.5rem 0.65rem; font-size: 0.78rem; vertical-align: top; }
+        .decision-log-table .dl-ts { font-family: monospace; font-size: 0.72rem; color: var(--text-muted); white-space: nowrap; }
+        .decision-log-table .dl-rule { font-family: monospace; font-size: 0.72rem; word-break: break-word; max-width: 280px; }
+        .decision-log-table .dl-outcome { font-family: monospace; font-size: 0.72rem; }
+        .decision-log-table .dl-entity { font-family: monospace; font-size: 0.7rem; color: var(--text-muted); word-break: break-all; max-width: 180px; }
+        .decision-log-table .dl-branch { font-family: monospace; font-size: 0.7rem; color: var(--primary); word-break: break-all; max-width: 140px; }
+        .decision-log-table .dl-llm { font-family: monospace; font-size: 0.7rem; color: var(--text-muted); }
+        .dl-type-badge {
+            display: inline-block; padding: 0.15rem 0.5rem; border-radius: 4px;
+            font-size: 0.68rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.4px; white-space: nowrap;
+        }
+        /* Per-decision-type colour coding — analogous to severity badges. */
+        .dl-type-prioritization           { background: var(--info);    color: #fff; }
+        .dl-type-hypothesis_promoted      { background: var(--confirmed); color: #fff; }
+        .dl-type-rabbit_hole_entered      { background: var(--primary);  color: #fff; }
+        .dl-type-rabbit_hole_abandoned    { background: var(--high);     color: #fff; }
+        .dl-type-self_critique            { background: var(--medium);   color: #fff; }
+        .dl-type-scope_check              { background: var(--text-muted); color: #fff; }
+        .dl-type-risk_gate_blocked        { background: var(--critical); color: #fff; }
+        .empty-state { text-align: center; padding: 2rem; color: var(--text-muted); }
+        footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text-muted); text-align: center; }
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            header { flex-direction: column; gap: 1rem; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            table { font-size: 0.8rem; }
+            th, td { padding: 0.5rem; }
+            .url-cell { max-width: 100px; }
+        }
+        @media print {
+            .container { max-width: none; padding: 0; }
+            header { border-bottom: 2px solid #000; }
+            .audit-trail-box { page-break-inside: avoid; }
+            .decision-log-box { page-break-inside: avoid; }
+            table { page-break-inside: auto; }
+            tr { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>WebPent Engagement Report</h1>
+                <div class="meta">
+                    <strong>Target:</strong> http://127.0.0.1:8000<br>
+                    <strong>Generated:</strong> 2026-08-18T17:20:38.203356+00:00<br>
+                    <strong>Total Findings:</strong> 2 | <strong>Tool-Confirmed:</strong> 0
+                </div>
+            </div>
+            <div>
+                <span class="risk-badge risk-unconfirmed — zero tool confirmations">Unconfirmed — zero tool confirmations Risk</span>
+            </div>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card"><div class="value">2</div><div class="label">Total Findings</div></div>
+            <div class="stat-card"><div class="value" style="color: var(--confirmed);">0</div><div class="label">Confirmed</div></div>
+            <div class="stat-card"><div class="value" style="color: var(--critical);">0</div><div class="label">Critical</div></div>
+            <div class="stat-card"><div class="value" style="color: var(--high);">1</div><div class="label">High</div></div>
+            <div class="stat-card"><div class="value" style="color: var(--medium);">1</div><div class="label">Medium</div></div>
+            <div class="stat-card"><div class="value" style="color: var(--low);">0</div><div class="label">Low</div></div>
+        </div>
+
+        <section>
+            <h2>Executive Summary</h2>
+            <div class="summary-box">
+                
+                <p>Automated penetration testing of http://127.0.0.1:8000 identified 2 candidate finding(s). None have been tool-confirmed — the overall risk posture is UNCONFIRMED and requires verification before drawing exploit-risk conclusions. The candidate findings should be triaged manually to determine which warrant deeper validation.</p>
+                
+                <p>Remediation should not be prioritised on unconfirmed rows alone. A follow-up engagement with the target's authentication context (or with OOB callback enabled) is recommended to convert candidates into confirmed findings and establish a verified risk baseline.</p>
+                
+                
+            </div>
+        </section>
+
+        
+        <section>
+            <h2>Evidence Quality Gate</h2>
+            <div class="summary-box">
+                <p>
+                    <strong>Status:</strong> blocked
+                    &nbsp;|&nbsp; <strong>Ready:</strong> 1
+                    &nbsp;|&nbsp; <strong>Blocked:</strong> 1
+                </p>
+                <p style="font-size:0.82rem; color: var(--text-muted);">
+                    This deterministic gate validates evidence, reproduction, scope metadata,
+                    business impact, and CVSS completeness. It does not make a vulnerability
+                    claim and never displays secret values.
+                </p>
+                
+                <details>
+                    <summary>Quality audit by finding</summary>
+                    <ul>
+                    
+                        <li>
+                            <strong>67def5d9-16f1-428f-a4a7-bfebeadee5d2</strong> —
+                            Evidence
+                            
+                            <span class="impact-text">; blocking fields: business_impact, cvss, reproduction</span>
+                            
+                            
+                            <span class="impact-text">; advisory fields: related_findings_or_paths, scope_or_policy_result</span>
+                            
+                        </li>
+                    
+                        <li>
+                            <strong>fdf90161-648c-4526-a00c-7542262faf19</strong> —
+                            Clean
+                            
+                            
+                            <span class="impact-text">; advisory fields: non-finding lifecycle status</span>
+                            
+                        </li>
+                    
+                    </ul>
+                </details>
+                
+            </div>
+        </section>
+        
+
+        <section>
+            <h2>Findings (2)</h2>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Severity</th>
+                        <th>Confidence</th>
+                        <th>CVSS</th>
+                        <th>Compliance</th>
+                        <th>Evidence</th>
+                        <th>Reasoning</th>
+                        <th>URL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr>
+                        <td>1</td>
+                        <td>Potential RCE at http://127.0.0.1:8000/csv/upload</td>
+                        <td><span class="severity-badge severity-high">high</span></td>
+                        <td>
+                            
+                            
+                                <span class="confidence-badge conf-needs-review">Needs Human Review</span>
+                            
+                            
+                            <div style="margin-top:0.3rem; font-size:0.68rem; color: var(--text-muted);">
+                                Lifecycle: Evidence
+                            </div>
+                            
+                        </td>
+                        <td><span class="impact-text">—</span></td>
+                        <td>
+                            
+                            <div class="compliance-tags">
+                                
+                                <span class="compliance-tag">OWASP-A03:2021</span>
+                                
+                                <span class="compliance-tag">CWE-78</span>
+                                
+                                <span class="compliance-tag">PCI-DSS-6.5.1</span>
+                                
+                            </div>
+                            
+                        </td>
+                        <td class="evidence-section">
+                            
+                            <span class="impact-text">—</span>
+                            
+                        </td>
+                        <td class="reasoning-cell">
+                            
+                            <details>
+                                <summary>Audit Trail</summary>
+                                <div class="reasoning-body">OOB validation is unavailable because the operator has not enabled a callback channel. No automated confirmation is claimed; human review is required.</div>
+                            </details>
+                            
+                        </td>
+                        <td class="url-cell">http://127.0.0.1:8000/csv/upload</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>2</td>
+                        <td>Potential IDOR at http://127.0.0.1:8000/user_profile/1</td>
+                        <td><span class="severity-badge severity-medium">medium</span></td>
+                        <td>
+                            
+                            
+                                <span class="confidence-badge conf-pending">Clean</span>
+                            
+                            
+                            <div style="margin-top:0.3rem; font-size:0.68rem; color: var(--text-muted);">
+                                Lifecycle: Clean
+                            </div>
+                            
+                        </td>
+                        <td><span class="impact-text">—</span></td>
+                        <td>
+                            
+                            <span class="impact-text">—</span>
+                            
+                        </td>
+                        <td class="evidence-section">
+                            
+                            <span class="impact-text">—</span>
+                            
+                        </td>
+                        <td class="reasoning-cell">
+                            
+                            <details>
+                                <summary>Audit Trail</summary>
+                                <div class="reasoning-body">IDOR check: no unauthenticated successful object response was observed; authenticated owner-vs-foreign proof was not attempted.</div>
+                            </details>
+                            
+                        </td>
+                        <td class="url-cell">http://127.0.0.1:8000/user_profile/1</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+            
+        </section>
+
+        
+        <section>
+            <h2>Attack Chains &amp; Hypotheses</h2>
+            <div class="summary-box"><ul><li>Potential XSS at http://127.0.0.1:8000</li><li>Potential XSS at http://127.0.0.1:8000/</li><li>Potential XSS at http://127.0.0.1:8000/dashboard</li><li>Potential XSS at http://127.0.0.1:8000/dashboard?db=hr</li><li>Potential XSS at http://127.0.0.1:8000/attributes</li><li>Potential XSS at http://127.0.0.1:8000/entity-values/create</li><li>Potential RCE at http://127.0.0.1:8000/csv/upload</li><li>Potential XSS at http://127.0.0.1:8000/csv/upload</li><li>Potential XSS at http://127.0.0.1:8000/users</li><li>Potential IDOR at http://127.0.0.1:8000/user_profile/1</li><li>Potential XSS at http://127.0.0.1:8000/user_profile/1</li><li>Potential XSS at http://127.0.0.1:8000/profile/edit</li><li>Potential XSS at http://127.0.0.1:8000/otp-settings</li><li>Potential XSS at http://127.0.0.1:8000/dashboard?db=support</li><li>Potential XSS at http://127.0.0.1:8000/logout</li><li>Potential XSS at http://127.0.0.1:8000/entity-values</li><li>Potential XSS at http://127.0.0.1:8000/csv</li></ul></div>
+        </section>
+        
+
+        
+        <section>
+            <h2>Cryptographic Audit Trail</h2>
+            <div class="audit-trail-box">
+                <h3>SHA-256 Integrity Verification</h3>
+                <p style="font-size:0.85rem; color: var(--text-muted); margin-top:0.5rem;">
+                    These hashes are computed using HMAC-SHA256 with a secret key (audit_secret_key). Recompute with the same key to verify no post-exploitation tampering has occurred. An attacker cannot forge a valid hash without the key.
+                </p>
+
+                
+                <h3 style="margin-top:1rem;">Master Report Hash</h3>
+                <div class="master-hash">d791d4e659fc5d4826bbdb882d81fb7e5c0ad18a12831097b6e5c03ff4d5597f</div>
+                
+
+                <h3 style="margin-top:1rem;">Per-Finding Evidence Hashes (2)</h3>
+                <div class="per-finding-list">
+                    
+                    <div class="per-finding-item">
+                        <strong>Potential RCE at http://127.0.0.1:8000/csv/upload</strong> (67def5d9-16f1-428f-a4a7-bfebeadee5d2)<br>
+                        
+                        <span class="impact-text">No evidence bundle (finding not Tool-Confirmed).</span>
+                        
+                    </div>
+                    
+                    <div class="per-finding-item">
+                        <strong>Potential IDOR at http://127.0.0.1:8000/user_profile/1</strong> (fdf90161-648c-4526-a00c-7542262faf19)<br>
+                        
+                        <span class="impact-text">No evidence bundle (finding not Tool-Confirmed).</span>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+        
+
+        
+        
+        <section>
+            <h2>Decision Log — Explainability Appendix</h2>
+            <div class="decision-log-box">
+                <h3>Engagement Decision Trail (2 entries)</h3>
+                <p style="font-size:0.85rem; color: var(--text-muted); margin-top:0.5rem;">
+                    Every promotion, abandonment, scope check, and risk-gate
+                    decision the framework made during this engagement, in
+                    chronological order. <strong>Rule Fired</strong> is the
+                    deterministic rule that triggered the decision (never LLM
+                    free text). <strong>LLM Contribution</strong>, when
+                    present, is the LLM's input kept separate per the
+                    Phase 6 design. <strong>Branch ID</strong> links Rabbit
+                    Hole branch entries to Strategist promotion entries —
+                    a reviewer can trace a single hypothesis from
+                    <code>rabbit_hole_entered</code> through to
+                    <code>hypothesis_promoted</code> via the shared branch_id.
+                </p>
+                <table class="decision-log-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Timestamp (UTC)</th>
+                            <th>Type</th>
+                            <th>Rule Fired</th>
+                            <th>Outcome</th>
+                            <th>LLM Contribution</th>
+                            <th>Entity Refs</th>
+                            <th>Branch ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <tr>
+                            <td>1</td>
+                            <td class="dl-ts">
+                                
+                                —
+                            </td>
+                            <td>
+                                
+                                
+                                <span class="dl-type-badge dl-type-hypothesis_promoted">
+                                    hypothesis_promoted
+                                </span>
+                                
+                            </td>
+                            <td class="dl-rule">
+                                deterministic_match=True (path-classified, validator-available) — promotion threshold bypassed; score=0.2875 (informational, not gating)
+                            </td>
+                            <td class="dl-outcome">
+                                promoted to finding 67def5d9-16f1-428f-a4a7-bfebeadee5d2
+                            </td>
+                            <td class="dl-llm">
+                                <span style="color: var(--text-muted);">—</span>
+                            </td>
+                            <td class="dl-entity">
+                                
+                                73aecfe9-760b-4191-b07d-958fe42d0b3b, 67def5d9-16f1-428f-a4a7-bfebeadee5d2
+                                
+                            </td>
+                            <td class="dl-branch">
+                                —
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>2</td>
+                            <td class="dl-ts">
+                                
+                                —
+                            </td>
+                            <td>
+                                
+                                
+                                <span class="dl-type-badge dl-type-hypothesis_promoted">
+                                    hypothesis_promoted
+                                </span>
+                                
+                            </td>
+                            <td class="dl-rule">
+                                deterministic_match=True (path-classified, validator-available) — promotion threshold bypassed; score=0.2250 (informational, not gating)
+                            </td>
+                            <td class="dl-outcome">
+                                promoted to finding fdf90161-648c-4526-a00c-7542262faf19
+                            </td>
+                            <td class="dl-llm">
+                                <span style="color: var(--text-muted);">—</span>
+                            </td>
+                            <td class="dl-entity">
+                                
+                                38edf155-7dd9-455a-84c4-1c18cc41d8e1, fdf90161-648c-4526-a00c-7542262faf19
+                                
+                            </td>
+                            <td class="dl-branch">
+                                —
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+
+        <footer>
+            <p>Generated by WebPent Framework V5 — Enterprise Penetration Testing</p>
+            <p>Algorithm: HMAC-SHA256 | This report is cryptographically verifiable.</p>
+        </footer>
+    </div>
+</body>
+</html>

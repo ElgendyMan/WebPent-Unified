@@ -1,0 +1,95 @@
+{
+  "window": "UM-DR-30",
+  "generated_at": "2026-11-07",
+  "version": "0.36.0",
+  "baseline": "v0.35.0 / UM-DR-29 (HEAD 14a4cc1)",
+  "operator_priority": "recall improvement while keeping precision high (structural: zero changes to confirmation authority)",
+  "release_acceptance": {
+    "architecture_and_integration": {
+      "status": "PASS",
+      "evidence": [
+        "family spine channel contract: 20 formerly-dropped output keys declared; LangGraph survival via the real wiring + real family_feeds data route (tests/test_umdr30_family_channel_contract.py, 28 tests)",
+        "coverage_gap_report node wired between reporter and reflection, flag-gated fail-closed (15 tests, 4 levels)",
+        "invariant_review wired into the fuzzer workflow enrichment, advisory non-promoting (15 tests)",
+        "graph node inventory: 59 wired nodes + 1 flag-gated node (coverage_gap_report)"
+      ],
+      "notes": "knowledge-graph->planning loop and the isolated adaptive_research_planner layer remain honestly NOT campaign-wired"
+    },
+    "detection_integrity": {
+      "status": "PASS",
+      "evidence": [
+        "causal_guard.py untouched this window (zero behavioral change to confirmation — the precision guarantee)",
+        "all new channels are advisory-only; invariant results are candidate_violation with required_validation naming the guard evidence contract",
+        "coverage gap report carries no finding vocabulary (machine-pinned)",
+        "benchmark populations unchanged and not merged"
+      ]
+    },
+    "security": {
+      "status": "PASS-WITH-NOTES",
+      "evidence": [
+        "pip-audit over the true dependency closure (137 packages): langgraph family ZERO advisories on the exact-pinned pair (langgraph 1.2.10 / langchain-core 1.6.7) — the 0.34.2 CVE backlog item closes as resolved-by-pinning",
+        "dnspython remediated 2.8.0 -> 2.9.2 in uv.lock (CVE-2026-114605, fix >= 2.9.0); 128 DNS/SSRF/rebinding/subdomain tests green",
+        "uv.lock webpent version drift corrected (0.34.0 -> actual)",
+        "13/14 remaining closure packages already pinned to remediated versions by the lockfile",
+        "chromadb advisories remain allowlisted under the documented embedded-only architectural mitigation (no evidence of upstream withdrawal)"
+      ],
+      "notes": "remaining advisories in the locked env: chromadb (allowlisted, architectural mitigation, review-by 2026-12-01)"
+    },
+    "reliability": {
+      "status": "PASS-WITH-NOTES",
+      "evidence": [
+        "full suite 8,661 collected -> 8,652 passed / 0 failed / 6 skipped / 3 xfailed (chunked x13, per-chunk results recorded)",
+        "frozen gate green (639 entries, 5-path declared refreeze across two in-window passes)",
+        "direct-I/O gate green (1,149 records, zero identity changes)",
+        "broad-exception gate green (3 new handlers registered with rationale); p1-hygiene green (builder.py handler narrowed)"
+      ],
+      "notes": "recovery/persistence suites unchanged and green in the full run"
+    },
+    "release_engineering": {
+      "status": "PASS",
+      "evidence": [
+        "version agreement gates enforced the bump everywhere: pyproject, __init__, Dockerfile ARG, CHANGELOG heading",
+        "run_campaign.sh rebuilt against the real CLI contract with a machine-checked flag-consistency test",
+        "DR-009 refreeze protocol followed (regression tests before re-pin)"
+      ]
+    },
+    "qualification_honesty": {
+      "status": "PASS",
+      "classification": "LAB_QUALIFIED (single-tenant, controlled environments only)",
+      "independent_detection_qualification": "NOT COMPLETE — BLOCKED_EXTERNAL_DEPENDENCY (no independent holdout corpus; M10 stays closed; reopening requires recall >= 0.5 AND precision >= 0.7 on an independent blind population)",
+      "competitive_validation": "NOT COMPLETE — BLOCKED_EXTERNAL_DEPENDENCY (no authorized competitor access)"
+    }
+  },
+  "external_dependencies_remaining": [
+    {
+      "item": "independent blind holdout corpus (operator-deployed, sealed ground truth)",
+      "unblocks": "M10 reopening decision (recall >= 0.5 / precision >= 0.7 on independent data)",
+      "status": "BLOCKED_EXTERNAL_DEPENDENCY"
+    },
+    {
+      "item": "licensed competitor access + identical-target protocol (XBOW comparison)",
+      "unblocks": "competitive numerical claims",
+      "status": "BLOCKED_EXTERNAL_DEPENDENCY"
+    },
+    {
+      "item": "notification transport credentials (webhook/email)",
+      "unblocks": "operator-side notification configuration",
+      "status": "OPERATOR_SIDE"
+    },
+    {
+      "item": "real-target measurement of the recall levers wired this window",
+      "unblocks": "measured recall delta attribution (the channels are the integration point)",
+      "status": "OPERATOR_SIDE"
+    }
+  ],
+  "counts": {
+    "tests_collected": 8661,
+    "tests_passed": 8652,
+    "tests_failed": 0,
+    "tests_skipped": 6,
+    "tests_xfailed": 3,
+    "new_tests_this_window": 66,
+    "frozen_manifest_entries": 639,
+    "direct_io_records": 1149
+  }
+}

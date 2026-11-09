@@ -1,0 +1,439 @@
+{
+  "phase": "15_two_model_comparison",
+  "status": "OK",
+  "num_cases_compared": 30,
+  "model_1": {
+    "status": "OK",
+    "model_name": "model1",
+    "provider_metadata": {
+      "provider_type": "REAL_API",
+      "mock_provider": false,
+      "provider_class": "OpenAICompatibleProvider",
+      "model": "qwen/qwen3.8-27b",
+      "base_url": "https://api.groq.com/openai/v1",
+      "has_organization": false,
+      "api_key_env_var": "LLM_API_KEY",
+      "api_key_configured": true,
+      "api_key_prefix": "gsk_...",
+      "config_hash": "51424aa4802e887a2e7affdf340e539648d6fd645372ab6ae9efedca77878120",
+      "prompt_version_hash": "phase15-model1",
+      "api_requests_succeeded": 2,
+      "first_successful_response_evidence": {
+        "response_id": "chatcmpl-78c06709-88f3-49de-89da-a7eed9bc9373",
+        "model": "qwen/qwen3.8-27b",
+        "finish_reason": "stop",
+        "timestamp": 1788760413.8108695,
+        "tokens_used": 861
+      }
+    },
+    "elapsed_seconds": 12.2,
+    "per_case": {
+      "bv3_041": {
+        "verdict": "CONFIRMED",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_042": {
+        "verdict": "CONFIRMED",
+        "loops_run": 1,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_043": {
+        "verdict": "CONFIRMED",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_044": {
+        "verdict": "CONFIRMED",
+        "loops_run": 1,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_045": {
+        "verdict": "CONFIRMED",
+        "loops_run": 1,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_046": {
+        "verdict": "INCONCLUSIVE",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_047": {
+        "verdict": "INCONCLUSIVE",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_048": {
+        "verdict": "INCONCLUSIVE",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_049": {
+        "verdict": "INCONCLUSIVE",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_050": {
+        "verdict": "INCONCLUSIVE",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_051": {
+        "verdict": "INCONCLUSIVE",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_052": {
+        "verdict": "INCONCLUSIVE",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_053": {
+        "verdict": "INCONCLUSIVE",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_054": {
+        "verdict": "INCONCLUSIVE",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_055": {
+        "verdict": "INCONCLUSIVE",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_056": {
+        "verdict": "INCONCLUSIVE",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_057": {
+        "verdict": "INCONCLUSIVE",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_058": {
+        "verdict": "INCONCLUSIVE",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_059": {
+        "verdict": "INCONCLUSIVE",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_060": {
+        "verdict": "INCONCLUSIVE",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_061": {
+        "verdict": "CONFIRMED",
+        "loops_run": 1,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_062": {
+        "verdict": "CONFIRMED",
+        "loops_run": 1,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_063": {
+        "verdict": "CONFIRMED",
+        "loops_run": 1,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_064": {
+        "verdict": "CONFIRMED",
+        "loops_run": 1,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_065": {
+        "verdict": "CONFIRMED",
+        "loops_run": 1,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_066": {
+        "verdict": "CONFIRMED",
+        "loops_run": 1,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_067": {
+        "verdict": "CONFIRMED",
+        "loops_run": 1,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_068": {
+        "verdict": "CONFIRMED",
+        "loops_run": 1,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_069": {
+        "verdict": "CONFIRMED",
+        "loops_run": 1,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_070": {
+        "verdict": "CONFIRMED",
+        "loops_run": 1,
+        "confidence": 0.0,
+        "status": "OK"
+      }
+    },
+    "metrics": {
+      "precision": 0.5333,
+      "recall": 0.4444,
+      "tp": 8,
+      "fp": 7,
+      "fn": 10,
+      "tn": 5
+    }
+  },
+  "model_2": {
+    "status": "OK",
+    "model_name": "model2",
+    "provider_metadata": {
+      "provider_type": "REAL_API",
+      "mock_provider": false,
+      "provider_class": "OpenAICompatibleProvider",
+      "model": "anthropic/claude-3.5-sonnet",
+      "base_url": "https://openrouter.ai/api/v1",
+      "has_organization": false,
+      "api_key_env_var": "LLM_API_KEY",
+      "api_key_configured": true,
+      "api_key_prefix": "sk-o...",
+      "config_hash": "05f10d9a3d6695b3b80393c6306ae0392ccf5c858295a7b363783a445656473d",
+      "prompt_version_hash": "phase15-model2",
+      "api_requests_succeeded": 0,
+      "first_successful_response_evidence": null
+    },
+    "elapsed_seconds": 15.7,
+    "per_case": {
+      "bv3_041": {
+        "verdict": "CONFIRMED",
+        "loops_run": 0,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_042": {
+        "verdict": "CONFIRMED",
+        "loops_run": 0,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_043": {
+        "verdict": "CONFIRMED",
+        "loops_run": 0,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_044": {
+        "verdict": "CONFIRMED",
+        "loops_run": 0,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_045": {
+        "verdict": "CONFIRMED",
+        "loops_run": 0,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_046": {
+        "verdict": "INCONCLUSIVE",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_047": {
+        "verdict": "INCONCLUSIVE",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_048": {
+        "verdict": "INCONCLUSIVE",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_049": {
+        "verdict": "INCONCLUSIVE",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_050": {
+        "verdict": "INCONCLUSIVE",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_051": {
+        "verdict": "INCONCLUSIVE",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_052": {
+        "verdict": "INCONCLUSIVE",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_053": {
+        "verdict": "INCONCLUSIVE",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_054": {
+        "verdict": "INCONCLUSIVE",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_055": {
+        "verdict": "INCONCLUSIVE",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_056": {
+        "verdict": "INCONCLUSIVE",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_057": {
+        "verdict": "INCONCLUSIVE",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_058": {
+        "verdict": "INCONCLUSIVE",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_059": {
+        "verdict": "INCONCLUSIVE",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_060": {
+        "verdict": "INCONCLUSIVE",
+        "loops_run": 2,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_061": {
+        "verdict": "CONFIRMED",
+        "loops_run": 0,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_062": {
+        "verdict": "CONFIRMED",
+        "loops_run": 0,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_063": {
+        "verdict": "CONFIRMED",
+        "loops_run": 0,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_064": {
+        "verdict": "CONFIRMED",
+        "loops_run": 0,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_065": {
+        "verdict": "CONFIRMED",
+        "loops_run": 0,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_066": {
+        "verdict": "CONFIRMED",
+        "loops_run": 0,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_067": {
+        "verdict": "CONFIRMED",
+        "loops_run": 0,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_068": {
+        "verdict": "CONFIRMED",
+        "loops_run": 0,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_069": {
+        "verdict": "CONFIRMED",
+        "loops_run": 0,
+        "confidence": 0.0,
+        "status": "OK"
+      },
+      "bv3_070": {
+        "verdict": "CONFIRMED",
+        "loops_run": 0,
+        "confidence": 0.0,
+        "status": "OK"
+      }
+    },
+    "metrics": {
+      "precision": 0.5333,
+      "recall": 0.4444,
+      "tp": 8,
+      "fp": 7,
+      "fn": 10,
+      "tn": 5
+    }
+  },
+  "agreement": {
+    "same_verdict": 30,
+    "different_verdict": 0,
+    "model1_only_tp": 0,
+    "model2_only_tp": 0
+  },
+  "note": "Models reported independently. No averaging. No picking 'better' one.",
+  "warning": "If model_1 and model_2 use the SAME underlying model (different keys but same model name), this comparison is meaningless. The plan requires genuinely different providers/models."
+}

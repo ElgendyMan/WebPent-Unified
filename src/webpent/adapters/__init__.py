@@ -1,0 +1,1 @@
+"""Explicit target adapter plugins."""

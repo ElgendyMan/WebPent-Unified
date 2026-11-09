@@ -1,0 +1,190 @@
+{
+  "target_id": "goed-target-09",
+  "port": 8809,
+  "naming_convention": {
+    "route_style": 9,
+    "object_style": 9,
+    "role_set": 9,
+    "tenant_style": 9
+  },
+  "route_prefix": "/gateway/ENTITY/invoke",
+  "roles": [
+    "observer",
+    "operator",
+    "administrator",
+    "global_admin"
+  ],
+  "tenants": [
+    "partition-993",
+    "partition-721"
+  ],
+  "objects": [
+    "node0",
+    "node1",
+    "node2",
+    "node3",
+    "node4",
+    "node5"
+  ],
+  "cases": {
+    "goed-target-09-case-00": {
+      "case_id": "goed-target-09-case-00",
+      "target_id": "goed-target-09",
+      "class": "idor",
+      "route": "/gateway/objects/node1/invoke",
+      "baseline_route": "/gateway/objects/node0/invoke",
+      "control_route": "/patched/gateway/objects/node1/invoke",
+      "actor_role": "operator",
+      "actor_tenant": "partition-993",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-09-case-01": {
+      "case_id": "goed-target-09-case-01",
+      "target_id": "goed-target-09",
+      "class": "broken_access_control",
+      "route": "/gateway/admin/dashboard/invoke",
+      "baseline_route": "/gateway/profile/invoke",
+      "control_route": "/patched/gateway/admin/dashboard/invoke",
+      "actor_role": "operator",
+      "actor_tenant": "partition-993",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-09-case-02": {
+      "case_id": "goed-target-09-case-02",
+      "target_id": "goed-target-09",
+      "class": "privilege_escalation",
+      "route": "/gateway/billing/partition-993/records/invoke",
+      "baseline_route": "/gateway/profile/invoke",
+      "control_route": "/patched/gateway/billing/partition-993/records/invoke",
+      "actor_role": "operator",
+      "actor_tenant": "partition-993",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-09-case-03": {
+      "case_id": "goed-target-09-case-03",
+      "target_id": "goed-target-09",
+      "class": "business_logic_abuse",
+      "route": "/gateway/transfer/node0?to=node1&amount=-100/invoke",
+      "baseline_route": "/gateway/transfer/node0?to=node1&amount=10/invoke",
+      "control_route": "/patched/gateway/transfer/node0",
+      "actor_role": "operator",
+      "actor_tenant": "partition-993",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "low"
+    },
+    "goed-target-09-case-04": {
+      "case_id": "goed-target-09-case-04",
+      "target_id": "goed-target-09",
+      "class": "tenant_isolation_failure",
+      "route": "/gateway/tenant/partition-721/internal/invoke",
+      "baseline_route": "/gateway/tenant/partition-993/internal/invoke",
+      "control_route": "/patched/gateway/tenant/partition-721/internal/invoke",
+      "actor_role": "operator",
+      "actor_tenant": "partition-993",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-09-case-05": {
+      "case_id": "goed-target-09-case-05",
+      "target_id": "goed-target-09",
+      "class": "workflow_authorization_failure",
+      "route": "/gateway/workflows/node2/approve/invoke",
+      "baseline_route": "/gateway/workflows/node2/view/invoke",
+      "control_route": "/patched/gateway/workflows/node2/approve/invoke",
+      "actor_role": "observer",
+      "actor_tenant": "partition-993",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-target-09-case-06": {
+      "case_id": "goed-target-09-case-06",
+      "target_id": "goed-target-09",
+      "class": "sensitive_data_exposure",
+      "route": "/gateway/messages/node1/inbox/invoke",
+      "baseline_route": "/gateway/messages/node0/inbox/invoke",
+      "control_route": "/patched/gateway/messages/node1/inbox/invoke",
+      "actor_role": "operator",
+      "actor_tenant": "partition-993",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-target-09-case-07": {
+      "case_id": "goed-target-09-case-07",
+      "target_id": "goed-target-09",
+      "class": "multi_step_chain",
+      "route": "/gateway/auth/reset/request?for=node1/invoke",
+      "baseline_route": "/gateway/auth/reset/request?for=node0/invoke",
+      "control_route": "/patched/gateway/auth/reset/request",
+      "actor_role": "operator",
+      "actor_tenant": "partition-993",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-09-case-08": {
+      "case_id": "goed-target-09-case-08",
+      "target_id": "goed-target-09",
+      "class": "sensitive_data_exposure",
+      "route": "/gateway/messages/node1/inbox/invoke",
+      "baseline_route": "/gateway/messages/node0/inbox/invoke",
+      "control_route": "/patched/gateway/messages/node1/inbox/invoke",
+      "actor_role": "operator",
+      "actor_tenant": "partition-993",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-09-case-09": {
+      "case_id": "goed-target-09-case-09",
+      "target_id": "goed-target-09",
+      "class": "broken_access_control",
+      "route": "/gateway/admin/dashboard/invoke",
+      "baseline_route": "/gateway/profile/invoke",
+      "control_route": "/patched/gateway/admin/dashboard/invoke",
+      "actor_role": "operator",
+      "actor_tenant": "partition-993",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-target-09-clean-00": {
+      "case_id": "goed-target-09-clean-00",
+      "target_id": "goed-target-09",
+      "class": "clean_public_resource",
+      "route": "/gateway/public/info-0/invoke",
+      "baseline_route": "/gateway/public/info-0/invoke",
+      "control_route": "/gateway/public/info-0/invoke",
+      "actor_role": "operator",
+      "actor_tenant": "partition-993",
+      "expected_verdict": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    },
+    "goed-target-09-clean-01": {
+      "case_id": "goed-target-09-clean-01",
+      "target_id": "goed-target-09",
+      "class": "clean_public_resource",
+      "route": "/gateway/public/info-1/invoke",
+      "baseline_route": "/gateway/public/info-1/invoke",
+      "control_route": "/gateway/public/info-1/invoke",
+      "actor_role": "operator",
+      "actor_tenant": "partition-993",
+      "expected_verdict": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    }
+  },
+  "total_cases": 12,
+  "vulnerable_cases": 10,
+  "clean_cases": 2
+}

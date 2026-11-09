@@ -1,0 +1,28 @@
+# config/econ/roi_params.yaml — ROIOptimizer + TimingAdvisor parameters
+# (NC-ECON-1, U-ECON-4 / U-ECON-5). Deterministic thresholds only (L-3);
+# corrupt/missing file degrades to the built-in defaults.
+
+roi:
+  # EV(finding) = P_accept * payout * (1 - P_dup) * timing_bonus
+  #               / (effort + reputation_risk)   (charter formula, verbatim)
+  # recommendation thresholds on EV in USD:
+  submit_threshold_usd: 100.0
+  improve_threshold_usd: 25.0
+  # default P_accept by severity when the vuln registry has no class rate
+  default_accept_by_severity:
+    critical: 0.85
+    high: 0.70
+    medium: 0.50
+    low: 0.30
+  # default class weights for unknown vuln classes
+  default_class_weight: 1.0
+
+timing:
+  # hours before a deadline at which REPORT_NOW overrides everything else
+  deadline_window_hours: 48
+  # minimum evidence points for a finding to be considered complete
+  complete_evidence_points: 3
+  # response p90 (days) above which a slow program earns HOLD
+  slow_program_p90_days: 30
+  # dup risk above which a finding waits (HOLD)
+  hold_dup_risk: 0.5

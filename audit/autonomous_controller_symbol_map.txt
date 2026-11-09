@@ -1,0 +1,884 @@
+=== DIRECTORIES ===
+src/webpent
+src/webpent/__pycache__
+src/webpent/agents
+src/webpent/agents/__pycache__
+src/webpent/agents/access_control
+src/webpent/agents/access_control/__pycache__
+src/webpent/agents/api_testing
+src/webpent/agents/api_testing/__pycache__
+src/webpent/agents/attack_graph
+src/webpent/agents/attack_graph/__pycache__
+src/webpent/agents/authentication
+src/webpent/agents/authentication/__pycache__
+src/webpent/agents/business_impact
+src/webpent/agents/business_impact/__pycache__
+src/webpent/agents/business_logic_fuzzer
+src/webpent/agents/business_logic_fuzzer/__pycache__
+src/webpent/agents/cloud_storage
+src/webpent/agents/cloud_storage/__pycache__
+src/webpent/agents/crawler
+src/webpent/agents/crawler/__pycache__
+src/webpent/agents/cross_reasoning
+src/webpent/agents/cross_reasoning/__pycache__
+src/webpent/agents/cvss_engine
+src/webpent/agents/cvss_engine/__pycache__
+src/webpent/agents/devils_advocate
+src/webpent/agents/devils_advocate/__pycache__
+src/webpent/agents/disclosed_report_intel
+src/webpent/agents/disclosed_report_intel/__pycache__
+src/webpent/agents/execution_sandbox
+src/webpent/agents/execution_sandbox/__pycache__
+src/webpent/agents/executive_summary
+src/webpent/agents/executive_summary/__pycache__
+src/webpent/agents/exploit_chainer
+src/webpent/agents/exploit_chainer/__pycache__
+src/webpent/agents/hypothesis_analyzer
+src/webpent/agents/hypothesis_analyzer/__pycache__
+src/webpent/agents/javascript_intelligence
+src/webpent/agents/javascript_intelligence/__pycache__
+src/webpent/agents/payload_generator
+src/webpent/agents/payload_generator/__pycache__
+src/webpent/agents/payload_optimizer
+src/webpent/agents/payload_optimizer/__pycache__
+src/webpent/agents/planner
+src/webpent/agents/planner/__pycache__
+src/webpent/agents/post_exploit
+src/webpent/agents/post_exploit/__pycache__
+src/webpent/agents/rabbit_hole
+src/webpent/agents/rabbit_hole/__pycache__
+src/webpent/agents/recon
+src/webpent/agents/recon/__pycache__
+src/webpent/agents/reflection
+src/webpent/agents/reflection/__pycache__
+src/webpent/agents/reporter
+src/webpent/agents/reporter/__pycache__
+src/webpent/agents/request_smuggling
+src/webpent/agents/request_smuggling/__pycache__
+src/webpent/agents/scope_enforcer
+src/webpent/agents/scope_enforcer/__pycache__
+src/webpent/agents/smart_campaigns
+src/webpent/agents/smart_campaigns/__pycache__
+src/webpent/agents/strategist
+src/webpent/agents/strategist/__pycache__
+src/webpent/agents/subdomain_takeover
+src/webpent/agents/subdomain_takeover/__pycache__
+src/webpent/agents/target_understanding
+src/webpent/agents/target_understanding/__pycache__
+src/webpent/agents/validator
+src/webpent/agents/validator/__pycache__
+src/webpent/agents/waf_detector
+src/webpent/agents/waf_detector/__pycache__
+src/webpent/api
+src/webpent/api/__pycache__
+src/webpent/auth
+src/webpent/auth/__pycache__
+src/webpent/cli
+src/webpent/cli/__pycache__
+src/webpent/config
+src/webpent/config/__pycache__
+src/webpent/graph
+src/webpent/graph/__pycache__
+src/webpent/integrations
+src/webpent/integrations/__pycache__
+src/webpent/memory
+src/webpent/memory/__pycache__
+src/webpent/models
+src/webpent/models/__pycache__
+src/webpent/reporter
+src/webpent/reporter/__pycache__
+src/webpent/shared
+src/webpent/shared/__pycache__
+src/webpent/state
+src/webpent/state/__pycache__
+src/webpent/templates
+src/webpent/templates/reports
+src/webpent/tools
+src/webpent/tools/__pycache__
+src/webpent/tools/exploitation
+src/webpent/tools/exploitation/__pycache__
+src/webpent/tools/recon
+src/webpent/tools/recon/__pycache__
+src/webpent/tools/utils
+src/webpent/tools/utils/__pycache__
+src/webpent/utils
+src/webpent/utils/__pycache__
+src/webpent/workers
+src/webpent/workers/__pycache__
+=== SMART/AUTONOMOUS SYMBOLS ===
+src/webpent/shared/confidence.py:43:  * ``devils_advocate_verdict`` — one of ``"plausible"``,
+src/webpent/shared/confidence.py:80:    Mirrors the existing verdicts ``devils_advocate_node`` already
+src/webpent/shared/confidence.py:154:    devils_advocate_verdict: DevilsAdvocateVerdict | str | None = None,
+src/webpent/shared/confidence.py:175:        devils_advocate_verdict: Optional
+src/webpent/shared/confidence.py:273:    if devils_advocate_verdict is not None:
+src/webpent/shared/confidence.py:274:        if isinstance(devils_advocate_verdict, DevilsAdvocateVerdict):
+src/webpent/shared/confidence.py:275:            dav_str = devils_advocate_verdict.value
+src/webpent/shared/confidence.py:277:            dav_str = str(devils_advocate_verdict).lower()
+src/webpent/shared/confidence.py:347:    devils_advocate_verdict: DevilsAdvocateVerdict | str | None = None,
+src/webpent/shared/confidence.py:363:        devils_advocate_verdict: See :func:`compute_confidence_score`.
+src/webpent/shared/confidence.py:373:        devils_advocate_verdict=devils_advocate_verdict,
+src/webpent/shared/attack_graph.py:16:from webpent.models.attack_graph import (
+src/webpent/shared/attack_graph.py:328:def build_attack_graph(
+src/webpent/shared/attack_graph.py:365:__all__ = ["build_attack_graph"]
+src/webpent/shared/self_critique.py:9:  * the existing finding-level ``devils_advocate_node`` (which critiques
+src/webpent/shared/self_critique.py:27:  * ``rabbit_hole_branch_entry`` — after each Rabbit Hole branch entry
+src/webpent/shared/self_critique.py:105:    RABBIT_HOLE_BRANCH_ENTRY = "rabbit_hole_branch_entry"
+src/webpent/shared/cognitive_components.py:316:    DEVILS_ADVOCATE_DEBUNKED_RELATED = "devils_advocate_debunked_related"
+src/webpent/shared/cognitive_components.py:317:    RABBIT_HOLE_BRANCH_FOUND_ARTIFACT = "rabbit_hole_branch_found_artifact"
+src/webpent/shared/cognitive_components.py:318:    RABBIT_HOLE_BRANCH_HIT_DEAD_END = "rabbit_hole_branch_hit_dead_end"
+src/webpent/shared/cognitive_components.py:389:# The ledger lives in PentestState.rabbit_hole_ledger as a dict
+src/webpent/shared/cognitive_components.py:394:    rabbit_hole_ledger: Any,
+src/webpent/shared/cognitive_components.py:404:        rabbit_hole_ledger: The ``PentestState.rabbit_hole_ledger``
+src/webpent/shared/cognitive_components.py:417:    if not rabbit_hole_ledger or not isinstance(rabbit_hole_ledger, dict):
+src/webpent/shared/cognitive_components.py:419:    return identity_key in rabbit_hole_ledger
+src/webpent/shared/cognitive_components.py:423:    rabbit_hole_ledger: Any,
+src/webpent/shared/cognitive_components.py:436:        rabbit_hole_ledger: The current ledger (used only to check
+src/webpent/shared/cognitive_components.py:444:        ready for ``merge_dicts`` into ``state["rabbit_hole_ledger"]``.
+src/webpent/shared/cognitive_components.py:449:    if check_loop_prevention(rabbit_hole_ledger, identity_key):
+src/webpent/shared/prioritization.py:601:    RABBIT_HOLE = "rabbit_hole"  # Enter a Rabbit Hole branch (Phase 7 only)
+src/webpent/shared/prioritization.py:661:    rabbit_hole_available: bool = False,
+src/webpent/shared/prioritization.py:679:        rabbit_hole_available: Whether Rabbit Hole (Phase 7) is
+src/webpent/shared/prioritization.py:754:    elif rabbit_hole_available:
+src/webpent/shared/prioritization.py:764:            f"{_PROMOTION_THRESHOLD:.2f}; rabbit_hole_available=True"
+src/webpent/shared/prioritization.py:770:            f"{_PROMOTION_THRESHOLD:.2f}; rabbit_hole_available=False "
+src/webpent/shared/capability_manifest.py:83:class CapabilityRegistry:
+src/webpent/shared/capability_manifest.py:203:    return CapabilityRegistry(settings).ensure_discovered()
+src/webpent/shared/campaign_executor.py:166:class NextBestActionEngine:
+src/webpent/shared/campaign_executor.py:229:        action_engine: NextBestActionEngine | None = None,
+src/webpent/shared/campaign_executor.py:232:        self.action_engine = action_engine or NextBestActionEngine()
+src/webpent/shared/campaign_executor.py:378:    "NextBestActionEngine",
+src/webpent/shared/coverage_ledger.py:55:class CoverageIntelligence:
+src/webpent/shared/coverage_ledger.py:136:        item for item in state.get("knowledge_gaps") or [] if isinstance(item, Mapping)
+src/webpent/shared/coverage_ledger.py:169:    return CoverageIntelligence().project(state)
+src/webpent/shared/coverage_ledger.py:172:__all__ = ["CoverageIntelligence", "project_coverage_ledger"]
+src/webpent/shared/research_intelligence.py:133:class KnowledgeGap:
+src/webpent/shared/research_intelligence.py:188:class KnowledgeGapEngine:
+src/webpent/shared/research_intelligence.py:204:    def derive(self, state: Mapping[str, Any]) -> list[KnowledgeGap]:
+src/webpent/shared/research_intelligence.py:205:        gaps: list[KnowledgeGap] = []
+src/webpent/shared/research_intelligence.py:254:                KnowledgeGap(
+src/webpent/shared/research_intelligence.py:281:                KnowledgeGap(
+src/webpent/shared/research_intelligence.py:309:    def choose(self, gaps: Sequence[KnowledgeGap]) -> KnowledgeGap | None:
+src/webpent/shared/research_intelligence.py:315:        gap: KnowledgeGap,
+src/webpent/shared/research_intelligence.py:320:    ) -> KnowledgeGap:
+src/webpent/shared/research_intelligence.py:322:        return KnowledgeGap(
+src/webpent/shared/research_intelligence.py:346:class SmartNextBestActionEngine:
+src/webpent/shared/research_intelligence.py:436:class NegativeEvidence:
+src/webpent/shared/research_intelligence.py:459:class NegativeEvidenceLedger:
+src/webpent/shared/research_intelligence.py:470:        self._entries: dict[str, NegativeEvidence] = {}
+src/webpent/shared/research_intelligence.py:473:    def _key(evidence: NegativeEvidence) -> str:
+src/webpent/shared/research_intelligence.py:487:    def _not_expired(evidence: NegativeEvidence) -> bool:
+src/webpent/shared/research_intelligence.py:498:    def record(self, evidence: NegativeEvidence) -> bool:
+src/webpent/shared/research_intelligence.py:500:        if not isinstance(evidence, NegativeEvidence) or not _clean(evidence.client_id, 128):
+src/webpent/shared/research_intelligence.py:515:    ) -> list[NegativeEvidence]:
+src/webpent/shared/research_intelligence.py:521:        matches: list[NegativeEvidence] = []
+src/webpent/shared/research_intelligence.py:546:class ResearchSession:
+src/webpent/shared/research_intelligence.py:563:    causal_attack_graph: list[dict[str, Any]] = field(default_factory=list)
+src/webpent/shared/research_intelligence.py:564:    next_best_actions: list[dict[str, Any]] = field(default_factory=list)
+src/webpent/shared/research_intelligence.py:570:    def from_state(cls, state: Mapping[str, Any]) -> ResearchSession:
+src/webpent/shared/research_intelligence.py:597:        self.next_best_actions.append(
+src/webpent/shared/research_intelligence.py:607:        self.next_best_actions = self.next_best_actions[-100:]
+src/webpent/shared/research_intelligence.py:617:    def record_negative(self, evidence: NegativeEvidence) -> None:
+src/webpent/shared/research_intelligence.py:645:                "causal_attack_graph": list(self.causal_attack_graph[-100:]),
+src/webpent/shared/research_intelligence.py:646:                "next_best_actions": list(self.next_best_actions[-100:]),
+src/webpent/shared/research_intelligence.py:665:    "KnowledgeGap",
+src/webpent/shared/research_intelligence.py:666:    "KnowledgeGapEngine",
+src/webpent/shared/research_intelligence.py:667:    "NegativeEvidence",
+src/webpent/shared/research_intelligence.py:668:    "NegativeEvidenceLedger",
+src/webpent/shared/research_intelligence.py:671:    "ResearchSession",
+src/webpent/shared/research_intelligence.py:672:    "SmartNextBestActionEngine",
+src/webpent/shared/autonomous_controller.py:18:from webpent.shared.capability_manifest import CapabilityRegistry
+src/webpent/shared/autonomous_controller.py:33:        capability_registry: CapabilityRegistry | None = None,
+src/webpent/shared/autonomous_controller.py:37:        self.capability_registry = capability_registry or CapabilityRegistry()
+src/webpent/shared/autonomous_controller.py:137:        update["current_phase"] = "smart_autonomous_controller"
+src/webpent/shared/autonomous_controller.py:141:def autonomous_controller_node(state: Mapping[str, Any]) -> dict[str, Any]:
+src/webpent/shared/autonomous_controller.py:146:__all__ = ["AutonomousController", "autonomous_controller_node"]
+src/webpent/graph/builder.py:4:The compiled graph contains **31 base nodes**. ``attack_graph`` is an
+src/webpent/graph/builder.py:5:additional node when ``enable_attack_graph`` is enabled. ``START`` and
+src/webpent/graph/builder.py:19:  ``devils_advocate``.
+src/webpent/graph/builder.py:20:* **Post-validation reasoning:** ``exploit_chainer`` and ``rabbit_hole``
+src/webpent/graph/builder.py:46:from webpent.agents.attack_graph.agent import attack_graph_node
+src/webpent/graph/builder.py:54:from webpent.agents.devils_advocate.agent import devils_advocate_node
+src/webpent/graph/builder.py:65:from webpent.agents.rabbit_hole.agent import rabbit_hole_node
+src/webpent/graph/builder.py:77:from webpent.agents.target_understanding.agent import target_understanding_node
+src/webpent/graph/builder.py:87:from webpent.shared.autonomous_controller import autonomous_controller_node
+src/webpent/graph/builder.py:102:NODE_DEVILS_ADVOCATE = "devils_advocate"
+src/webpent/graph/builder.py:104:# combined-exploit scenarios. Sits after devils_advocate (only chains
+src/webpent/graph/builder.py:112:NODE_RABBIT_HOLE = "rabbit_hole"
+src/webpent/graph/builder.py:130:NODE_ATTACK_GRAPH = "attack_graph"
+src/webpent/graph/builder.py:137:NODE_TARGET_UNDERSTANDING = "target_understanding"
+src/webpent/graph/builder.py:141:NODE_AUTONOMOUS_CONTROLLER = "autonomous_controller"
+src/webpent/graph/builder.py:175:def _attack_graph_enabled() -> bool:
+src/webpent/graph/builder.py:180:        return bool(get_settings().enable_attack_graph)
+src/webpent/graph/builder.py:185:def _autonomous_controller_enabled(state: PentestState) -> bool:
+src/webpent/graph/builder.py:187:    return state.get("enable_autonomous_controller") is True
+src/webpent/graph/builder.py:203:    if _attack_graph_enabled():
+src/webpent/graph/builder.py:208:def route_after_attack_graph(state: PentestState) -> str:
+src/webpent/graph/builder.py:213:def _target_understanding_enabled() -> bool:
+src/webpent/graph/builder.py:217:        return bool(get_settings().enable_target_understanding)
+src/webpent/graph/builder.py:240:    return NODE_TARGET_UNDERSTANDING if _target_understanding_enabled() else NODE_SCOPE_ENFORCER
+src/webpent/graph/builder.py:252:        if _target_understanding_enabled():
+src/webpent/graph/builder.py:361:    execution_sandbox (HITL-gated) -> validator -> devils_advocate
+src/webpent/graph/builder.py:377:def route_after_rabbit_hole(state: PentestState) -> str:
+src/webpent/graph/builder.py:378:    """Conditional edge after ``rabbit_hole``: bounded loop-back to
+src/webpent/graph/builder.py:392:      2. ``state["rabbit_hole_loop_back_count"]`` — the runtime counter
+src/webpent/graph/builder.py:418:    current_count = int(state.get("rabbit_hole_loop_back_count") or 0)
+src/webpent/graph/builder.py:426:    rabbit_hole_origin = (HypothesisOrigin.RABBIT_HOLE.value
+src/webpent/graph/builder.py:428:                          else "rabbit_hole")
+src/webpent/graph/builder.py:433:        model_get(h, "origin") == rabbit_hole_origin
+src/webpent/graph/builder.py:532:    graph.add_node(NODE_TARGET_UNDERSTANDING, target_understanding_node)
+src/webpent/graph/builder.py:539:    graph.add_node(NODE_DEVILS_ADVOCATE, devils_advocate_node)
+src/webpent/graph/builder.py:545:    graph.add_node(NODE_RABBIT_HOLE, rabbit_hole_node)
+src/webpent/graph/builder.py:564:    # the rest of the pipeline (validator → devils_advocate → cvss →
+src/webpent/graph/builder.py:573:    graph.add_node(NODE_AUTONOMOUS_CONTROLLER, autonomous_controller_node)
+src/webpent/graph/builder.py:574:    if _attack_graph_enabled():
+src/webpent/graph/builder.py:575:        graph.add_node(NODE_ATTACK_GRAPH, attack_graph_node)
+src/webpent/graph/builder.py:640:    if _attack_graph_enabled():
+src/webpent/graph/builder.py:652:            route_after_attack_graph,
+src/webpent/graph/builder.py:672:            if _autonomous_controller_enabled(state)
+src/webpent/graph/builder.py:716:    # one-directional edge `rabbit_hole -> cvss_engine` with a
+src/webpent/graph/builder.py:717:    # conditional edge `rabbit_hole -> {strategist | cvss_engine}`.
+src/webpent/graph/builder.py:741:        NODE_RABBIT_HOLE, route_after_rabbit_hole,
+src/webpent/agents/cross_reasoning/agent.py:249:    # was functionally inert (same bug class as rabbit_hole's H3).
+src/webpent/agents/cross_reasoning/agent.py:254:    # VulnClass.SSRF.value (same default as rabbit_hole's
+src/webpent/agents/cross_reasoning/agent.py:255:    # _infer_rabbit_hole_vuln_class). Also set deterministic_match=True
+src/webpent/agents/exploit_chainer/agent.py:36:   (HITL-gated) → validator → devils_advocate`` loop — there is no
+src/webpent/agents/exploit_chainer/agent.py:167:    devils_advocate -> exploit_chainer for any new candidate, so the
+src/webpent/agents/exploit_chainer/agent.py:260:    "approval-gated) -> validator -> devils_advocate pipeline as any "
+src/webpent/agents/exploit_chainer/agent.py:315:    execution_sandbox -> validator -> devils_advocate loop to pick up
+src/webpent/agents/exploit_chainer/agent.py:319:    devils_advocate, BEFORE post_exploitation — chaining only draws
+src/webpent/agents/exploit_chainer/agent.py:449:                    "devils_advocate pipeline — see confidence_level."
+src/webpent/agents/validator/agent.py:3144:        # unconditional merge pattern used by devils_advocate_node
+src/webpent/agents/validator/agent.py:3145:        # (agents/devils_advocate/agent.py:280).
+src/webpent/agents/target_understanding/__init__.py:3:from webpent.agents.target_understanding.agent import target_understanding_node
+src/webpent/agents/target_understanding/__init__.py:5:__all__ = ["target_understanding_node"]
+src/webpent/agents/target_understanding/agent.py:250:def target_understanding_node(state: PentestState) -> dict[str, Any]:
+src/webpent/agents/target_understanding/agent.py:283:                discovery_source="target_understanding_node",
+src/webpent/agents/target_understanding/agent.py:309:        "source": "target_understanding_node",
+src/webpent/agents/target_understanding/agent.py:332:        "target_understanding": summary,
+src/webpent/agents/target_understanding/agent.py:337:        "current_phase": "target_understanding",
+src/webpent/agents/target_understanding/agent.py:341:__all__ = ["target_understanding_node"]
+src/webpent/agents/devils_advocate/agent.py:1:# src/webpent/agents/devils_advocate/agent.py
+src/webpent/agents/devils_advocate/agent.py:2:"""webpent.agents.devils_advocate.agent
+src/webpent/agents/devils_advocate/agent.py:94:def _parse_devils_advocate_response(
+src/webpent/agents/devils_advocate/agent.py:144:def _devils_advocate_finding(
+src/webpent/agents/devils_advocate/agent.py:164:    When False (used by :func:`devils_advocate_node` after the
+src/webpent/agents/devils_advocate/agent.py:208:    verdict, confidence, argument = _parse_devils_advocate_response(raw)
+src/webpent/agents/devils_advocate/agent.py:283:def devils_advocate_node(state: PentestState) -> dict:
+src/webpent/agents/devils_advocate/agent.py:308:            "current_phase": "devils_advocate",
+src/webpent/agents/devils_advocate/agent.py:344:            updated = _devils_advocate_finding(
+src/webpent/agents/devils_advocate/agent.py:404:        "current_phase": "devils_advocate",
+src/webpent/agents/strategist/agent.py:13:    agents, after ``devils_advocate``/``exploit_chainer``, and —
+src/webpent/agents/strategist/agent.py:49:-> execution_sandbox [HITL-gated] -> validator -> devils_advocate)
+src/webpent/agents/strategist/agent.py:87:    ``rabbit_hole_node`` to ``strategist_node`` via the new
+src/webpent/agents/strategist/agent.py:88:    ``route_after_rabbit_hole`` conditional edge. We detect this by
+src/webpent/agents/strategist/agent.py:98:    rabbit_hole_origin = (
+src/webpent/agents/strategist/agent.py:101:        else "rabbit_hole"
+src/webpent/agents/strategist/agent.py:103:    return any(getattr(h, "origin", None) == rabbit_hole_origin for h in hypotheses)
+src/webpent/agents/strategist/agent.py:114:    ``route_after_rabbit_hole`` conditional edge (i.e. Rabbit Hole
+src/webpent/agents/strategist/agent.py:121:    ``state["rabbit_hole_loop_back_count"]`` on every re-entry pass,
+src/webpent/agents/strategist/agent.py:135:      * ``rabbit_hole_loop_back_count`` — incremented on re-entry
+src/webpent/agents/strategist/agent.py:187:    rabbit_hole_origin = (
+src/webpent/agents/strategist/agent.py:190:        else "rabbit_hole"
+src/webpent/agents/strategist/agent.py:203:        current_count = int(state.get("rabbit_hole_loop_back_count") or 0)
+src/webpent/agents/strategist/agent.py:216:            if model_get(h, "origin") == rabbit_hole_origin
+src/webpent/agents/strategist/agent.py:230:                "rabbit_hole_loop_back_count": new_count,
+src/webpent/agents/strategist/agent.py:250:        new_count = int(state.get("rabbit_hole_loop_back_count") or 0)
+src/webpent/agents/strategist/agent.py:267:            result["rabbit_hole_loop_back_count"] = new_count
+src/webpent/agents/strategist/agent.py:363:            # flip the rabbit_hole_available flag so recommend_action
+src/webpent/agents/strategist/agent.py:366:            # keep rabbit_hole_available=False (V7 behaviour).
+src/webpent/agents/strategist/agent.py:370:                rabbit_hole_available=is_re_entry,
+src/webpent/agents/strategist/agent.py:498:                # the closed loop auditable end-to-end: rabbit_hole_node
+src/webpent/agents/strategist/agent.py:499:                # writes rabbit_hole_entered with branch_id=str(h.id),
+src/webpent/agents/strategist/agent.py:510:                if is_re_entry or getattr(hypothesis, "origin", None) == rabbit_hole_origin:
+src/webpent/agents/strategist/agent.py:513:                        "origin": rabbit_hole_origin,
+src/webpent/agents/strategist/agent.py:551:            if is_re_entry or getattr(hypothesis, "origin", None) == rabbit_hole_origin:
+src/webpent/agents/strategist/agent.py:554:                    "origin": rabbit_hole_origin,
+src/webpent/agents/strategist/agent.py:622:        result["rabbit_hole_loop_back_count"] = new_count
+src/webpent/agents/rabbit_hole/__init__.py:1:# src/webpent/agents/rabbit_hole/__init__.py
+src/webpent/agents/rabbit_hole/__init__.py:2:"""webpent.agents.rabbit_hole — V7 Cognitive Upgrade Phase 7."""
+src/webpent/agents/rabbit_hole/agent.py:1:# src/webpent/agents/rabbit_hole/agent.py
+src/webpent/agents/rabbit_hole/agent.py:2:"""webpent.agents.rabbit_hole.agent
+src/webpent/agents/rabbit_hole/agent.py:33:fingerprint) is checked against ``state["rabbit_hole_ledger"]``.
+src/webpent/agents/rabbit_hole/agent.py:93:    create_rabbit_hole_branch_goal,
+src/webpent/agents/rabbit_hole/agent.py:135:def _infer_rabbit_hole_vuln_class(artifact_type: str, action_type: str) -> str:
+src/webpent/agents/rabbit_hole/agent.py:198:    rabbit_hole_ledger: Any,
+src/webpent/agents/rabbit_hole/agent.py:284:        if check_loop_prevention(rabbit_hole_ledger, node.identity_key):
+src/webpent/agents/rabbit_hole/agent.py:413:    "devils_advocate pipeline as any other finding before it is "
+src/webpent/agents/rabbit_hole/agent.py:483:def rabbit_hole_node(state: PentestState) -> dict[str, Any]:
+src/webpent/agents/rabbit_hole/agent.py:503:      * ``rabbit_hole_ledger`` — visited-asset ledger updates
+src/webpent/agents/rabbit_hole/agent.py:510:      * ``current_phase`` — set to ``"rabbit_hole"``.
+src/webpent/agents/rabbit_hole/agent.py:514:    rabbit_hole_ledger = state.get("rabbit_hole_ledger") or {}
+src/webpent/agents/rabbit_hole/agent.py:542:    current_branches = _count_rabbit_hole_branches(goal_tree_state)
+src/webpent/agents/rabbit_hole/agent.py:553:    candidates = _find_followable_artifacts(mental_model_state, rabbit_hole_ledger)
+src/webpent/agents/rabbit_hole/agent.py:559:            "current_phase": "rabbit_hole",
+src/webpent/agents/rabbit_hole/agent.py:607:            _log_rabbit_hole_decision(
+src/webpent/agents/rabbit_hole/agent.py:634:                _log_rabbit_hole_decision(
+src/webpent/agents/rabbit_hole/agent.py:655:                    discovery_source="rabbit_hole_node:out_of_scope",
+src/webpent/agents/rabbit_hole/agent.py:679:            _log_rabbit_hole_decision(
+src/webpent/agents/rabbit_hole/agent.py:740:        _rh_vuln_class = _infer_rabbit_hole_vuln_class(artifact_type, action_type)
+src/webpent/agents/rabbit_hole/agent.py:766:            rabbit_hole_ledger,
+src/webpent/agents/rabbit_hole/agent.py:768:            discovery_source="rabbit_hole_node",
+src/webpent/agents/rabbit_hole/agent.py:774:        branch_goal = create_rabbit_hole_branch_goal(
+src/webpent/agents/rabbit_hole/agent.py:776:            label=f"rabbit_hole:{artifact_type}@{url[:60]}",
+src/webpent/agents/rabbit_hole/agent.py:785:        _log_rabbit_hole_decision(
+src/webpent/agents/rabbit_hole/agent.py:787:            decision_type="rabbit_hole_entered",
+src/webpent/agents/rabbit_hole/agent.py:815:        "rabbit_hole_ledger": ledger_updates,
+src/webpent/agents/rabbit_hole/agent.py:820:        "current_phase": "rabbit_hole",
+src/webpent/agents/rabbit_hole/agent.py:827:def _count_rabbit_hole_branches(goal_tree_state: Any) -> int:
+src/webpent/agents/rabbit_hole/agent.py:892:def _log_rabbit_hole_decision(
+src/webpent/agents/attack_graph/__init__.py:3:from .agent import attack_graph_node
+src/webpent/agents/attack_graph/__init__.py:5:__all__ = ["attack_graph_node"]
+src/webpent/agents/attack_graph/agent.py:12:from webpent.shared.attack_graph import build_attack_graph
+src/webpent/agents/attack_graph/agent.py:22:        return bool(get_settings().enable_attack_graph)
+src/webpent/agents/attack_graph/agent.py:28:def attack_graph_node(state: dict[str, Any]) -> dict[str, Any]:
+src/webpent/agents/attack_graph/agent.py:34:        graph = build_attack_graph(
+src/webpent/agents/attack_graph/agent.py:47:    return {"attack_graph": graph}
+src/webpent/agents/attack_graph/agent.py:50:__all__ = ["attack_graph_node"]
+src/webpent/agents/smart_campaigns/agent.py:25:    NextBestActionEngine,
+src/webpent/agents/smart_campaigns/agent.py:35:    KnowledgeGapEngine,
+src/webpent/agents/smart_campaigns/agent.py:36:    ResearchSession,
+src/webpent/agents/smart_campaigns/agent.py:37:    SmartNextBestActionEngine,
+src/webpent/agents/smart_campaigns/agent.py:324:    gap_engine = KnowledgeGapEngine()
+src/webpent/agents/smart_campaigns/agent.py:325:    knowledge_gaps = gap_engine.derive(task_state)
+src/webpent/agents/smart_campaigns/agent.py:326:    research_session = ResearchSession.from_state(state)
+src/webpent/agents/smart_campaigns/agent.py:327:    research_session.coverage_gaps = [gap.gap_id for gap in knowledge_gaps]
+src/webpent/agents/smart_campaigns/agent.py:329:    selected_gap = gap_engine.choose(knowledge_gaps)
+src/webpent/agents/smart_campaigns/agent.py:336:        ranked_information = SmartNextBestActionEngine().rank(
+src/webpent/agents/smart_campaigns/agent.py:350:    engine = NextBestActionEngine()
+src/webpent/agents/smart_campaigns/agent.py:401:        "knowledge_gaps": [gap.as_dict() for gap in knowledge_gaps],
+src/webpent/config/settings.py:191:    enable_target_understanding: bool = Field(
+src/webpent/config/settings.py:198:    enable_attack_graph: bool = Field(
+src/webpent/config/policies.py:315:            "from rabbit_hole_node back to strategist_node in a single "
+src/webpent/templates/reports/report.html.j2:171:        .dl-type-rabbit_hole_entered      { background: var(--primary);  color: #fff; }
+src/webpent/templates/reports/report.html.j2:172:        .dl-type-rabbit_hole_abandoned    { background: var(--high);     color: #fff; }
+src/webpent/templates/reports/report.html.j2:436:                    <code>rabbit_hole_entered</code> through to
+src/webpent/models/goal_tree.py:79:    RABBIT_HOLE_BRANCH = "rabbit_hole_branch"
+src/webpent/models/goal_tree.py:97:            "rabbit_hole:backup.zip@depth_2"). Used in the Decision
+src/webpent/models/goal_tree.py:296:def create_rabbit_hole_branch_goal(
+src/webpent/models/hypothesis.py:105:    RABBIT_HOLE = "rabbit_hole"      # spawned by a Rabbit Hole branch (Phase 7)
+src/webpent/models/mental_model.py:181:            ``"rabbit_hole:branch_3"``).
+src/webpent/models/decision_log.py:27:  * ``rabbit_hole_entered``      — a Rabbit Hole branch was entered.
+src/webpent/models/decision_log.py:28:  * ``rabbit_hole_abandoned``    — a Rabbit Hole branch was abandoned.
+src/webpent/models/decision_log.py:48:    ``rabbit_hole_entered``, ``rabbit_hole_abandoned``, ``self_critique``,
+src/webpent/models/decision_log.py:55:    RABBIT_HOLE_ENTERED = "rabbit_hole_entered"
+src/webpent/models/decision_log.py:56:    RABBIT_HOLE_ABANDONED = "rabbit_hole_abandoned"
+src/webpent/cli/__init__.py:741:    attack = graph.get("attack_graph") if isinstance(graph.get("attack_graph"), dict) else {}
+src/webpent/cli/manifest.py:56:        "graph": {"mental_model": {}, "attack_graph": {}},
+src/webpent/cli/manifest.py:118:    document.setdefault("graph", {"mental_model": {}, "attack_graph": {}})
+src/webpent/state/state.py:163:    enable_autonomous_controller: bool
+src/webpent/state/state.py:203:    target_understanding: Annotated[dict[str, Any], merge_dicts]
+src/webpent/state/state.py:216:    attack_graph: Annotated[dict[str, Any], merge_dicts]
+src/webpent/state/state.py:252:    # rabbit_hole_ledger: dict-shaped visited-assets dedup set
+src/webpent/state/state.py:267:    rabbit_hole_ledger: Annotated[dict[str, Any], merge_dicts]
+src/webpent/state/state.py:298:    knowledge_gaps: Annotated[list[dict[str, Any]], merge_lists]
+src/webpent/state/state.py:341:    # Bounded re-entry cap. The graph's `route_after_rabbit_hole`
+src/webpent/state/state.py:354:    rabbit_hole_loop_back_count: int
+src/webpent/state/initial_state.py:57:    enable_autonomous_controller: bool = False,
+src/webpent/state/initial_state.py:133:        "target_understanding": {},
+src/webpent/state/initial_state.py:134:        "attack_graph": {},
+src/webpent/state/initial_state.py:149:        "enable_autonomous_controller": bool(enable_autonomous_controller),
+src/webpent/state/initial_state.py:173:        "rabbit_hole_ledger": {},
+src/webpent/state/initial_state.py:193:        "rabbit_hole_loop_back_count": 0,
+src/webpent/workers/pentest_worker.py:531:                # rabbit_hole→cvss→business_impact→cross_reasoning→
+src/webpent/workers/pentest_worker.py:624:                    "exploit_chainer, rabbit_hole) OR the limit is too "
+src/webpent/workers/pentest_worker.py:958:                    "rabbit_hole) OR the limit is too low for the "
+src/webpent/memory/db.py:723:            finding (e.g. CVSS engine updates the score, devils_advocate
+tests/test_v10_p1_rca_followup.py:295:        action, score, rule = recommend_action(h, state, rabbit_hole_available=False)
+tests/test_v15_review_hardening.py:138:    assert defaults.enable_target_understanding is False
+tests/test_v15_review_hardening.py:139:    assert defaults.enable_attack_graph is False
+tests/test_v15_review_hardening.py:147:    assert configured.enable_target_understanding is True
+tests/test_v15_review_hardening.py:148:    assert configured.enable_attack_graph is True
+tests/test_v15_review_hardening.py:161:            settings.enable_target_understanding,
+tests/test_v15_review_hardening.py:162:            settings.enable_attack_graph,
+tests/test_v19_attack_graph.py:5:from webpent.shared.attack_graph import build_attack_graph
+tests/test_v19_attack_graph.py:8:def test_attack_graph_projects_relational_evidence_without_raw_secrets() -> None:
+tests/test_v19_attack_graph.py:37:    result = build_attack_graph(state, relational_evidence=relational)
+tests/test_v19_attack_graph.py:50:def test_attack_graph_is_deterministic_and_does_not_create_findings() -> None:
+tests/test_v19_attack_graph.py:60:    first = build_attack_graph(state, relational_evidence=relational)
+tests/test_v19_attack_graph.py:61:    second = build_attack_graph(state, relational_evidence=relational)
+tests/test_v16_canonical_evidence.py:123:        discovery_source="target_understanding_node",
+tests/test_v16_canonical_evidence.py:230:        discovery_source="target_understanding_node",
+tests/test_v17_target_understanding.py:6:from webpent.agents.target_understanding.agent import target_understanding_node
+tests/test_v17_target_understanding.py:24:def test_target_understanding_is_redacted_and_scope_safe() -> None:
+tests/test_v17_target_understanding.py:46:    result = target_understanding_node(state)  # type: ignore[arg-type]
+tests/test_v17_target_understanding.py:47:    summary = result["target_understanding"]
+tests/test_v17_target_understanding.py:61:def test_target_understanding_node_is_no_network_and_bounded() -> None:
+tests/test_v17_target_understanding.py:62:    result = target_understanding_node(
+tests/test_v17_target_understanding.py:65:    summary = result["target_understanding"]
+tests/test_v17_target_understanding.py:74:    assert result["current_phase"] == "target_understanding"
+tests/test_v17_target_understanding.py:77:def test_target_understanding_routing_is_legacy_safe(monkeypatch) -> None:
+tests/test_v17_target_understanding.py:83:        lambda: SimpleNamespace(enable_target_understanding=False),
+tests/test_v17_target_understanding.py:91:        lambda: SimpleNamespace(enable_target_understanding=True),
+tests/test_v10_exhaustive_audit.py:102:    def test_route_after_rabbit_hole_dict_hypotheses(self):
+tests/test_v10_exhaustive_audit.py:103:        """route_after_rabbit_hole must detect RABBIT_HOLE hypotheses in dict form."""
+tests/test_v10_exhaustive_audit.py:104:        from webpent.graph.builder import route_after_rabbit_hole
+tests/test_v10_exhaustive_audit.py:107:            "rabbit_hole_loop_back_count": 0,
+tests/test_v10_exhaustive_audit.py:108:            "hypotheses": [self._dict_hypothesis(origin="rabbit_hole", status="unexplored")],
+tests/test_v10_exhaustive_audit.py:111:        result = route_after_rabbit_hole(state)
+tests/test_v10_exhaustive_audit.py:181:        h = self._dict_hypothesis(origin="rabbit_hole", status="unexplored")
+tests/test_v10_exhaustive_audit.py:185:            "rabbit_hole_loop_back_count": 0,
+tests/test_v10_exhaustive_audit.py:190:        # real rabbit_hole/unexplored hypothesis was present.
+tests/test_v10_exhaustive_audit.py:391:        from webpent.agents.devils_advocate import agent as da_agent
+tests/test_v10_audit_fixes.py:340:# H3: rabbit_hole assigns exploitable vuln_class
+tests/test_v10_audit_fixes.py:347:    def test_infer_rabbit_hole_vuln_class_returns_exploitable(self):
+tests/test_v10_audit_fixes.py:348:        from webpent.agents.rabbit_hole.agent import _infer_rabbit_hole_vuln_class
+tests/test_v10_audit_fixes.py:352:            vc = _infer_rabbit_hole_vuln_class(artifact_type, "fetch")
+tests/test_v58_http_discovery.py:137:def test_rabbit_hole_read_only_source_code_is_not_lfi() -> None:
+tests/test_v58_http_discovery.py:138:    from webpent.agents.rabbit_hole.agent import _infer_rabbit_hole_vuln_class
+tests/test_v58_http_discovery.py:141:    vuln_class = _infer_rabbit_hole_vuln_class("source_code", "read_only_parse")
+tests/test_v58_http_discovery.py:147:def test_rabbit_hole_file_artifact_remains_lfi_candidate() -> None:
+tests/test_v58_http_discovery.py:148:    from webpent.agents.rabbit_hole.agent import _infer_rabbit_hole_vuln_class
+tests/test_v58_http_discovery.py:151:    assert _infer_rabbit_hole_vuln_class("file", "read_only_parse") == VulnClass.LFI.value
+tests/test_v20_attack_graph_wiring.py:5:from webpent.shared.attack_graph import _mental_node_id, build_attack_graph
+tests/test_v20_attack_graph_wiring.py:12:def test_attack_graph_is_disabled_by_default(monkeypatch):
+tests/test_v20_attack_graph_wiring.py:16:    assert "attack_graph" not in graph.nodes
+tests/test_v20_attack_graph_wiring.py:19:def test_attack_graph_node_is_registered_only_when_enabled(monkeypatch):
+tests/test_v20_attack_graph_wiring.py:23:    assert "attack_graph" in graph.nodes
+tests/test_v20_attack_graph_wiring.py:44:    graph = build_attack_graph(
+tests/test_v9_fix2_path_promotion.py:92:        action, score, rule = recommend_action(h, state, rabbit_hole_available=False)
+tests/test_v9_fix2_path_promotion.py:105:        action, score, _ = recommend_action(h, state, rabbit_hole_available=False)
+tests/test_v9_fix2_path_promotion.py:113:        recommend_action(h, state, rabbit_hole_available=False)
+tests/test_campaign_executor.py:7:    NextBestActionEngine,
+tests/test_campaign_executor.py:41:def test_next_best_action_changes_when_coverage_signal_changes():
+tests/test_campaign_executor.py:42:    engine = NextBestActionEngine()
+tests/test_campaign_executor.py:146:def test_next_best_action_accepts_explicit_observed_precondition_evidence():
+tests/test_campaign_executor.py:147:    engine = NextBestActionEngine()
+tests/test_campaign_executor.py:159:def test_next_best_action_blocks_only_explicitly_missing_or_blocked_preconditions():
+tests/test_campaign_executor.py:160:    engine = NextBestActionEngine()
+tests/test_waptlab_detector_improvements.py:4:from webpent.agents.rabbit_hole.agent import _infer_rabbit_hole_vuln_class
+tests/test_waptlab_detector_improvements.py:104:def test_rabbit_hole_backup_and_archive_are_information_disclosure_candidates() -> None:
+tests/test_waptlab_detector_improvements.py:106:        _infer_rabbit_hole_vuln_class("backup", "download_and_parse_archive")
+tests/test_waptlab_detector_improvements.py:110:        _infer_rabbit_hole_vuln_class("archive", "fetch")
+tests/test_waptlab_detector_improvements.py:115:def test_rabbit_hole_url_and_file_mappings_remain_unchanged() -> None:
+tests/test_waptlab_detector_improvements.py:116:    assert _infer_rabbit_hole_vuln_class("url", "fetch") == VulnClass.SSRF.value
+tests/test_waptlab_detector_improvements.py:117:    assert _infer_rabbit_hole_vuln_class("file", "read_only_parse") == VulnClass.LFI.value
+tests/test_waptlab_detector_improvements.py:120:def test_rabbit_hole_credential_mapping_remains_conservative() -> None:
+tests/test_waptlab_detector_improvements.py:121:    assert _infer_rabbit_hole_vuln_class("credential", "fetch") == VulnClass.SSRF.value
+tests/test_waptlab_detector_improvements.py:124:def test_rabbit_hole_unknown_mapping_uses_existing_safe_fallback() -> None:
+tests/test_waptlab_detector_improvements.py:125:    assert _infer_rabbit_hole_vuln_class("unclassified", "fetch") == VulnClass.SSRF.value
+tests/test_waptlab_detector_improvements.py:128:def test_rabbit_hole_source_code_parse_maps_to_information_disclosure() -> None:
+tests/test_waptlab_detector_improvements.py:130:        _infer_rabbit_hole_vuln_class("source_code", "read_only_parse")
+tests/test_waptlab_detector_improvements.py:135:def test_rabbit_hole_command_mapping_remains_rce() -> None:
+tests/test_waptlab_detector_improvements.py:136:    assert _infer_rabbit_hole_vuln_class("command", "run") == VulnClass.RCE.value
+tests/test_waptlab_detector_improvements.py:139:def test_rabbit_hole_path_mapping_remains_lfi() -> None:
+tests/test_waptlab_detector_improvements.py:140:    assert _infer_rabbit_hole_vuln_class("path", "read") == VulnClass.LFI.value
+tests/test_waptlab_detector_improvements.py:143:def test_rabbit_hole_service_mapping_remains_ssrf() -> None:
+tests/test_waptlab_detector_improvements.py:144:    assert _infer_rabbit_hole_vuln_class("service", "fetch") == VulnClass.SSRF.value
+tests/test_waptlab_detector_improvements.py:147:def test_rabbit_hole_log_and_dump_are_information_disclosure_candidates() -> None:
+tests/test_waptlab_detector_improvements.py:149:        _infer_rabbit_hole_vuln_class("log", "read_only_parse")
+tests/test_waptlab_detector_improvements.py:153:        _infer_rabbit_hole_vuln_class("dump", "read_only_parse")
+tests/test_waptlab_detector_improvements.py:158:def test_rabbit_hole_archive_mapping_is_case_insensitive() -> None:
+tests/test_waptlab_detector_improvements.py:159:    assert _infer_rabbit_hole_vuln_class("ARCHIVE", "fetch") == VulnClass.INFO_DISCLOSURE.value
+tests/test_waptlab_detector_improvements.py:162:def test_rabbit_hole_backup_mapping_does_not_depend_on_fetch_action() -> None:
+tests/test_waptlab_detector_improvements.py:163:    assert _infer_rabbit_hole_vuln_class("backup", "parse") == VulnClass.INFO_DISCLOSURE.value
+tests/test_waptlab_detector_improvements.py:166:def test_rabbit_hole_endpoint_mapping_remains_ssrf() -> None:
+tests/test_waptlab_detector_improvements.py:167:    assert _infer_rabbit_hole_vuln_class("endpoint", "request") == VulnClass.SSRF.value
+tests/test_waptlab_detector_improvements.py:170:def test_rabbit_hole_shell_mapping_remains_rce() -> None:
+tests/test_waptlab_detector_improvements.py:171:    assert _infer_rabbit_hole_vuln_class("shell", "execute") == VulnClass.RCE.value
+tests/test_waptlab_detector_improvements.py:174:def test_rabbit_hole_config_mapping_remains_rce() -> None:
+tests/test_waptlab_detector_improvements.py:175:    assert _infer_rabbit_hole_vuln_class("config", "parse") == VulnClass.RCE.value
+tests/test_waptlab_detector_improvements.py:178:def test_rabbit_hole_host_mapping_remains_ssrf() -> None:
+tests/test_waptlab_detector_improvements.py:179:    assert _infer_rabbit_hole_vuln_class("host", "fetch") == VulnClass.SSRF.value
+tests/test_waptlab_detector_improvements.py:182:def test_rabbit_hole_artifact_mapping_is_not_ssrf() -> None:
+tests/test_waptlab_detector_improvements.py:183:    assert _infer_rabbit_hole_vuln_class("artifact", "fetch") == VulnClass.INFO_DISCLOSURE.value
+tests/test_waptlab_detector_improvements.py:186:def test_rabbit_hole_archive_mapping_is_not_lfi() -> None:
+tests/test_waptlab_detector_improvements.py:187:    assert _infer_rabbit_hole_vuln_class("archive", "read") != VulnClass.LFI.value
+tests/test_waptlab_detector_improvements.py:190:def test_rabbit_hole_backup_mapping_is_not_rce() -> None:
+tests/test_waptlab_detector_improvements.py:191:    assert _infer_rabbit_hole_vuln_class("backup", "run") != VulnClass.RCE.value
+tests/test_waptlab_detector_improvements.py:194:def test_rabbit_hole_disclosure_mapping_is_deterministic() -> None:
+tests/test_waptlab_detector_improvements.py:195:    first = _infer_rabbit_hole_vuln_class("backup", "fetch")
+tests/test_waptlab_detector_improvements.py:196:    second = _infer_rabbit_hole_vuln_class("backup", "fetch")
+tests/test_waptlab_detector_improvements.py:200:def test_rabbit_hole_mapping_returns_known_vulnerability_class() -> None:
+tests/test_waptlab_detector_improvements.py:201:    result = _infer_rabbit_hole_vuln_class("backup", "fetch")
+tests/test_waptlab_detector_improvements.py:205:def test_rabbit_hole_info_disclosure_has_tested_registry_capability() -> None:
+tests/test_waptlab_detector_improvements.py:209:        _infer_rabbit_hole_vuln_class("backup", "fetch")
+tests/test_waptlab_detector_improvements.py:213:def test_rabbit_hole_mapping_does_not_change_validator_contract() -> None:
+tests/test_waptlab_detector_improvements.py:221:def test_rabbit_hole_backup_mapping_handles_archive_action() -> None:
+tests/test_waptlab_detector_improvements.py:223:        _infer_rabbit_hole_vuln_class("public_backup", "download_and_parse_archive")
+tests/test_waptlab_detector_improvements.py:228:def test_rabbit_hole_archive_mapping_handles_read_only_action() -> None:
+tests/test_waptlab_detector_improvements.py:230:        _infer_rabbit_hole_vuln_class("public_archive", "read_only_parse")
+tests/test_waptlab_detector_improvements.py:235:def test_rabbit_hole_public_log_mapping_handles_fetch_action() -> None:
+tests/test_waptlab_detector_improvements.py:236:    assert _infer_rabbit_hole_vuln_class("public_log", "fetch") == VulnClass.INFO_DISCLOSURE.value
+tests/test_waptlab_detector_improvements.py:239:def test_rabbit_hole_public_dump_mapping_handles_fetch_action() -> None:
+tests/test_waptlab_detector_improvements.py:240:    assert _infer_rabbit_hole_vuln_class("public_dump", "fetch") == VulnClass.INFO_DISCLOSURE.value
+tests/test_waptlab_detector_improvements.py:243:def test_rabbit_hole_token_mapping_remains_ssrf() -> None:
+tests/test_waptlab_detector_improvements.py:244:    assert _infer_rabbit_hole_vuln_class("token", "read") == VulnClass.SSRF.value
+tests/test_waptlab_detector_improvements.py:247:def test_rabbit_hole_link_mapping_remains_ssrf() -> None:
+tests/test_waptlab_detector_improvements.py:248:    assert _infer_rabbit_hole_vuln_class("link", "fetch") == VulnClass.SSRF.value
+tests/test_waptlab_detector_improvements.py:251:def test_rabbit_hole_port_mapping_remains_ssrf() -> None:
+tests/test_waptlab_detector_improvements.py:252:    assert _infer_rabbit_hole_vuln_class("port", "fetch") == VulnClass.SSRF.value
+tests/test_waptlab_detector_improvements.py:255:def test_rabbit_hole_cmd_mapping_remains_rce() -> None:
+tests/test_waptlab_detector_improvements.py:256:    assert _infer_rabbit_hole_vuln_class("cmd", "execute") == VulnClass.RCE.value
+tests/test_waptlab_detector_improvements.py:259:def test_rabbit_hole_dir_mapping_remains_lfi() -> None:
+tests/test_waptlab_detector_improvements.py:260:    assert _infer_rabbit_hole_vuln_class("dir", "read") == VulnClass.LFI.value
+tests/test_waptlab_detector_improvements.py:263:def test_rabbit_hole_source_mapping_remains_info_disclosure() -> None:
+tests/test_waptlab_detector_improvements.py:265:        _infer_rabbit_hole_vuln_class("source", "read_only_parse")
+tests/test_waptlab_detector_improvements.py:270:def test_rabbit_hole_backup_mapping_with_request_remains_disclosure() -> None:
+tests/test_waptlab_detector_improvements.py:271:    assert _infer_rabbit_hole_vuln_class("backup", "request") == VulnClass.INFO_DISCLOSURE.value
+tests/test_waptlab_detector_improvements.py:274:def test_rabbit_hole_archive_mapping_with_include_remains_disclosure() -> None:
+tests/test_waptlab_detector_improvements.py:275:    assert _infer_rabbit_hole_vuln_class("archive", "include") == VulnClass.INFO_DISCLOSURE.value
+tests/test_waptlab_detector_improvements.py:278:def test_rabbit_hole_unknown_mapping_with_read_uses_lfi_fallback() -> None:
+tests/test_waptlab_detector_improvements.py:279:    assert _infer_rabbit_hole_vuln_class("unclassified", "read") == VulnClass.LFI.value
+tests/test_waptlab_detector_improvements.py:282:def test_rabbit_hole_unknown_mapping_with_run_uses_rce_fallback() -> None:
+tests/test_waptlab_detector_improvements.py:283:    assert _infer_rabbit_hole_vuln_class("unclassified", "run") == VulnClass.RCE.value
+tests/test_waptlab_detector_improvements.py:286:def test_rabbit_hole_unknown_mapping_with_request_uses_ssrf_fallback() -> None:
+tests/test_waptlab_detector_improvements.py:287:    assert _infer_rabbit_hole_vuln_class("unclassified", "request") == VulnClass.SSRF.value
+tests/test_waptlab_detector_improvements.py:290:def test_rabbit_hole_source_code_without_parse_is_disclosure() -> None:
+tests/test_waptlab_detector_improvements.py:291:    assert _infer_rabbit_hole_vuln_class("source_code", "fetch") == VulnClass.INFO_DISCLOSURE.value
+tests/test_waptlab_detector_improvements.py:294:def test_rabbit_hole_archive_is_disclosure_for_execute_action() -> None:
+tests/test_waptlab_detector_improvements.py:295:    assert _infer_rabbit_hole_vuln_class("archive", "execute") == VulnClass.INFO_DISCLOSURE.value
+tests/test_waptlab_detector_improvements.py:298:def test_rabbit_hole_backup_is_disclosure_for_empty_action() -> None:
+tests/test_waptlab_detector_improvements.py:299:    assert _infer_rabbit_hole_vuln_class("backup", "") == VulnClass.INFO_DISCLOSURE.value
+tests/test_waptlab_detector_improvements.py:302:def test_rabbit_hole_archive_is_disclosure_for_empty_action() -> None:
+tests/test_waptlab_detector_improvements.py:303:    assert _infer_rabbit_hole_vuln_class("archive", "") == VulnClass.INFO_DISCLOSURE.value
+tests/test_waptlab_detector_improvements.py:308:def test_rabbit_hole_public_backup_and_archive_are_information_disclosure_candidates() -> None:
+tests/test_waptlab_detector_improvements.py:310:        _infer_rabbit_hole_vuln_class("public_backup", "download_and_parse_archive")
+tests/test_waptlab_detector_improvements.py:314:        _infer_rabbit_hole_vuln_class("public_archive", "fetch")
+tests/test_v91_research_intelligence.py:5:    KnowledgeGapEngine,
+tests/test_v91_research_intelligence.py:6:    NegativeEvidence,
+tests/test_v91_research_intelligence.py:7:    NegativeEvidenceLedger,
+tests/test_v91_research_intelligence.py:9:    ResearchSession,
+tests/test_v91_research_intelligence.py:10:    SmartNextBestActionEngine,
+tests/test_v91_research_intelligence.py:15:    engine = KnowledgeGapEngine()
+tests/test_v91_research_intelligence.py:52:    engine = SmartNextBestActionEngine()
+tests/test_v91_research_intelligence.py:76:    session = ResearchSession.from_state(
+tests/test_v91_research_intelligence.py:86:    ranked = SmartNextBestActionEngine().score(action)
+tests/test_v91_research_intelligence.py:88:    evidence = NegativeEvidence(
+tests/test_v91_research_intelligence.py:106:    assert payload["next_best_actions"][0]["outcome"] == "executed"
+tests/test_v91_research_intelligence.py:110:    ledger = NegativeEvidenceLedger()
+tests/test_v91_research_intelligence.py:111:    base = NegativeEvidence(
+tests/test_v91_research_intelligence.py:139:    no_transfer = NegativeEvidence(
+tests/test_v91_research_intelligence.py:142:    isolated = NegativeEvidenceLedger()
+tests/test_v91_research_intelligence.py:152:    session = ResearchSession.from_state(
+tests/test_v91_research_intelligence.py:166:    negative = NegativeEvidence(
+tests/test_v91_smart_campaigns_intelligence.py:30:    assert result["knowledge_gaps"]
+tests/test_v93_capability_registry.py:1:from webpent.shared.capability_manifest import CapabilityRegistry
+tests/test_v93_capability_registry.py:21:    registry = CapabilityRegistry()
+tests/test_v93_capability_registry.py:45:    blocker = CapabilityRegistry().blocker("browser", reason="chromium_missing")
+tests/test_v93_capability_registry.py:54:    assert CapabilityRegistry().get("unknown") == {
+tests/test_v93_capability_registry.py:65:    registry = CapabilityRegistry()
+tests/test_v93_capability_registry.py:70:assert CapabilityRegistry.__name__ == "CapabilityRegistry"
+tests/test_v93_capability_registry.py:74:    from webpent.shared.coverage_ledger import CoverageIntelligence
+tests/test_v93_capability_registry.py:86:    intelligence = CoverageIntelligence()
+tests/test_v94_autonomous_controller.py:6:from webpent.shared.autonomous_controller import AutonomousController
+=== RAW I/O CALLS ===
+src/webpent/shared/bac_identity_tester.py:17:from urllib.parse import urlparse
+src/webpent/shared/surface_security.py:19:from urllib.parse import parse_qsl, urlsplit, urlunsplit
+src/webpent/shared/javascript_intelligence.py:14:from urllib.parse import parse_qsl, urlencode, urljoin, urlparse, urlunparse
+src/webpent/shared/engagement_scope.py:57:ONCE, in the calling thread, at ``install_playwright_ssrf_guard()``
+src/webpent/shared/engagement_scope.py:68:from urllib.parse import urlsplit
+src/webpent/shared/http_discovery.py:17:from urllib.parse import parse_qsl, urlencode, urljoin, urlsplit, urlunsplit
+src/webpent/shared/http.py:18:  * :func:`make_safe_httpx_client` — synchronous :class:`httpx.Client`
+src/webpent/shared/http.py:19:  * :func:`make_safe_httpx_async_client` — async :class:`httpx.AsyncClient`
+src/webpent/shared/http.py:28:    :class:`httpx.RequestError`) if the resolved IP falls in any of
+src/webpent/shared/http.py:47:    :class:`httpx.BaseTransport` (sync) / :class:`httpx.AsyncBaseTransport`
+src/webpent/shared/http.py:50:      1. Resolves the request host once (via :func:`socket.getaddrinfo`).
+src/webpent/shared/http.py:68:    was using a raw ``httpx.AsyncClient`` and bypassing the guard
+src/webpent/shared/http.py:91:verbatim to the underlying :class:`httpx.Client` /
+src/webpent/shared/http.py:92::class:`httpx.AsyncClient`. Pre-existing user-supplied ``event_hooks``
+src/webpent/shared/http.py:133:from urllib.parse import urlsplit, urlunsplit
+src/webpent/shared/http.py:233:class SSRFRedirectBlockedError(httpx.RequestError):
+src/webpent/shared/http.py:236:    Subclasses :class:`httpx.RequestError` so callers that already
+src/webpent/shared/http.py:250:    via :func:`socket.getaddrinfo` and check every returned address —
+src/webpent/shared/http.py:273:        infos = socket.getaddrinfo(cleaned, None)
+src/webpent/shared/http.py:274:    except socket.gaierror:
+src/webpent/shared/http.py:318:        infos = socket.getaddrinfo(host, port)
+src/webpent/shared/http.py:319:    except socket.gaierror:
+src/webpent/shared/http.py:336:def _redirect_guard(response: httpx.Response) -> None:
+src/webpent/shared/http.py:404:class SSRFPinningTransport(httpx.BaseTransport):
+src/webpent/shared/http.py:421:        The transport wraps an underlying ``httpx.HTTPTransport`` that
+src/webpent/shared/http.py:427:    def __init__(self, wrapped: httpx.BaseTransport | None = None) -> None:
+src/webpent/shared/http.py:432:        self._wrapped: httpx.BaseTransport = wrapped or httpx.HTTPTransport()
+src/webpent/shared/http.py:434:    def handle_request(self, request: httpx.Request) -> httpx.Response:
+src/webpent/shared/http.py:439:            place via ``request.url = httpx.URL(new_url)``. Two
+src/webpent/shared/http.py:459:            NEW ``httpx.Request`` with the pinned-IP URL, copy the
+src/webpent/shared/http.py:466:            underlying ``httpx.HTTPTransport`` reads
+src/webpent/shared/http.py:578:                new_request = httpx.Request(
+src/webpent/shared/http.py:599:                #   ``httpx.RequestError``) so the caller's existing
+src/webpent/shared/http.py:620:            # already had Host set — but httpx.Request construction
+src/webpent/shared/http.py:643:class AsyncSSRFPinningTransport(httpx.AsyncBaseTransport):
+src/webpent/shared/http.py:649:        (which uses ``httpx.AsyncClient``) is protected by the same
+src/webpent/shared/http.py:653:    def __init__(self, wrapped: httpx.AsyncBaseTransport | None = None) -> None:
+src/webpent/shared/http.py:654:        self._wrapped: httpx.AsyncBaseTransport = wrapped or httpx.AsyncHTTPTransport()
+src/webpent/shared/http.py:656:    async def handle_async_request(self, request: httpx.Request) -> httpx.Response:
+src/webpent/shared/http.py:665:            ``httpx.Request`` with the pinned-IP URL, copy the
+src/webpent/shared/http.py:737:                new_request = httpx.Request(
+src/webpent/shared/http.py:758:                #   ``httpx.RequestError``) so the caller's existing
+src/webpent/shared/http.py:832:def make_safe_httpx_client(**kwargs: Any) -> httpx.Client:
+src/webpent/shared/http.py:833:    """Construct a hardened synchronous :class:`httpx.Client` that blocks SSRF.
+src/webpent/shared/http.py:836:    ``httpx.Client(**kwargs)`` — same timeout, same verify, same
+src/webpent/shared/http.py:853:        Forwarded verbatim to :class:`httpx.Client`. Commonly used
+src/webpent/shared/http.py:865:    httpx.Client
+src/webpent/shared/http.py:877:        :class:`httpx.RequestError`, so any existing
+src/webpent/shared/http.py:878:        ``except httpx.RequestError`` or ``except httpx.HTTPError``
+src/webpent/shared/http.py:903:    return httpx.Client(
+src/webpent/shared/http.py:910:def make_safe_httpx_async_client(**kwargs: Any) -> httpx.AsyncClient:
+src/webpent/shared/http.py:911:    """Construct a hardened async :class:`httpx.AsyncClient` that blocks SSRF.
+src/webpent/shared/http.py:924:        Forwarded verbatim to :class:`httpx.AsyncClient`. Same
+src/webpent/shared/http.py:929:    httpx.AsyncClient
+src/webpent/shared/http.py:959:    return httpx.AsyncClient(
+src/webpent/shared/http.py:1005:        :func:`install_playwright_ssrf_guard`'s docstring), a
+src/webpent/shared/http.py:1023:        :func:`install_playwright_ssrf_guard`, a skipped/unpinned host
+src/webpent/shared/http.py:1038:        A list suitable for ``playwright.chromium.launch(args=...)``.
+src/webpent/shared/http.py:1080:def install_playwright_ssrf_guard(
+src/webpent/shared/http.py:1215:            install_playwright_ssrf_guard,
+src/webpent/shared/http.py:1220:        install_playwright_ssrf_guard(context)  # before new_page() / goto()
+src/webpent/shared/http.py:1225:        context: A ``playwright.sync_api.BrowserContext`` (sync) or
+src/webpent/shared/http.py:1226:            ``playwright.async_api.BrowserContext`` (async). The
+src/webpent/shared/http.py:1276:            # note on install_playwright_ssrf_guard). Any other
+src/webpent/shared/http.py:1341:        against the installed ``playwright`` package:
+src/webpent/shared/llm.py:324:          * ``exc.status_code`` — set by httpx.HTTPStatusError,
+src/webpent/shared/console.py:261:        "urllib3",
+src/webpent/shared/console.py:264:        "playwright",
+src/webpent/shared/workflow_understanding.py:15:from urllib.parse import urljoin, urlparse
+src/webpent/shared/disclosed_report_intel.py:15:from urllib.parse import urlparse
+src/webpent/shared/stealth.py:41:from urllib.parse import urlparse
+src/webpent/shared/stealth.py:81:            line (e.g. ``"nuclei"``, ``"playwright-navigate"``) so
+src/webpent/shared/reference_lookup.py:8:from urllib.parse import quote_plus, urlparse
+src/webpent/shared/adaptive_hunt.py:3:This module deliberately emits *tasks*, not HTTP requests.  An existing
+src/webpent/shared/adaptive_hunt.py:20:from urllib.parse import urlsplit, urlunsplit
+src/webpent/shared/planner_decisions.py:14:from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+src/webpent/shared/attack_graph.py:14:from urllib.parse import urlsplit, urlunsplit
+src/webpent/shared/preflight.py:34:from urllib.parse import urlparse
+src/webpent/shared/preflight.py:65:def _check_playwright_ws_guard() -> dict[str, object]:
+src/webpent/shared/preflight.py:68:    The pyproject.toml pins playwright>=1.40.0,<1.41, which does NOT
+src/webpent/shared/preflight.py:78:        import playwright
+src/webpent/shared/preflight.py:80:        version = getattr(playwright, "__version__", "unknown")
+src/webpent/shared/preflight.py:104:            "status": "degraded (playwright not installed — browser exploitation unavailable)",
+src/webpent/shared/preflight.py:329:        "playwright_ws_guard": _check_playwright_ws_guard(),
+src/webpent/shared/recon_triage.py:14:from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
+src/webpent/shared/authorization_matrix.py:13:from urllib.parse import urlsplit, urlunsplit
+src/webpent/shared/deserialization.py:5:our local subprocess receives argv safely. Only bounded HTTP callback commands
+src/webpent/shared/deserialization.py:12:from urllib.parse import urlparse
+src/webpent/shared/capability_manifest.py:14:import subprocess
+src/webpent/shared/capability_manifest.py:27:    resolved = shutil.which(configured)
+src/webpent/shared/capability_manifest.py:42:        resolved = shutil.which(name)
+src/webpent/shared/capability_manifest.py:59:        completed = subprocess.run(
+src/webpent/shared/capability_manifest.py:64:    except (OSError, subprocess.SubprocessError):
+src/webpent/shared/capability_manifest.py:69:def _playwright_status() -> dict[str, Any]:
+src/webpent/shared/capability_manifest.py:71:    package_available = importlib.util.find_spec("playwright") is not None
+src/webpent/shared/capability_manifest.py:145:        "browser": _playwright_status(),
+src/webpent/shared/surface_evidence_graph.py:8:from urllib.parse import parse_qsl, urlsplit, urlunsplit
+src/webpent/shared/action_authority.py:14:from urllib.parse import urlsplit
+src/webpent/shared/finding_aggregation.py:13:from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+src/webpent/agents/access_control/agent.py:16:from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
+src/webpent/agents/payload_generator/agent.py:151:#   - csrf  -> _validate_csrf(finding, playwright_enabled=...,
+src/webpent/agents/hypothesis_analyzer/agent.py:61:from urllib.parse import parse_qs, urljoin, urlparse
+src/webpent/agents/scope_enforcer/agent.py:24:from urllib.parse import urlparse
+src/webpent/agents/api_testing/agent.py:25:from urllib.parse import urljoin, urlparse
+src/webpent/agents/api_testing/agent.py:118:    # No fallback to raw httpx.Client: every network request must pass
+src/webpent/agents/api_testing/agent.py:219:    # No fallback to raw httpx.Client: every network request must pass
+src/webpent/agents/api_testing/agent.py:389:    # No fallback to raw httpx.Client: every network request must pass
+src/webpent/agents/api_testing/agent.py:436:                                    f"requests."
+src/webpent/agents/post_exploit/agent.py:168:    ``subprocess.TimeoutExpired`` and other execution errors gracefully.
+src/webpent/agents/post_exploit/agent.py:175:    from webpent.tools.utils.subprocess import run_command
+src/webpent/agents/post_exploit/agent.py:194:    from urllib.parse import parse_qsl, urlparse
+src/webpent/agents/post_exploit/agent.py:311:    # V5 Sprint 14: Execute each safe command via subprocess and capture
+src/webpent/agents/post_exploit/agent.py:315:    from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
+src/webpent/agents/request_smuggling/agent.py:40:from urllib.parse import urlparse
+src/webpent/agents/request_smuggling/agent.py:72:    sock: socket.socket | None = None
+src/webpent/agents/request_smuggling/agent.py:95:        sock = socket.create_connection(
+src/webpent/agents/request_smuggling/agent.py:477:                        f"to smuggle requests."
+src/webpent/agents/crawler/agent.py:33:from urllib.parse import urljoin
+src/webpent/agents/crawler/agent.py:394:    _auth_succeeded = _auth_source in ("playwright_login", "operator_supplied")
+src/webpent/agents/exploit_chainer/agent.py:57:from urllib.parse import urlsplit
+src/webpent/agents/validator/structural_checks.py:41:    engagement-scope allowlist). No raw httpx.
+src/webpent/agents/validator/structural_checks.py:54:from urllib.parse import parse_qs, urljoin, urlparse
+src/webpent/agents/validator/agent.py:25:from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
+src/webpent/agents/validator/agent.py:676:def _fetch_html_via_playwright(
+src/webpent/agents/validator/agent.py:692:        from playwright.sync_api import sync_playwright
+src/webpent/agents/validator/agent.py:694:        logger.debug("playwright not installed — cannot use for CSRF check")
+src/webpent/agents/validator/agent.py:698:        with sync_playwright() as pw:
+src/webpent/agents/validator/agent.py:706:            from urllib.parse import urlparse as _urlparse
+src/webpent/agents/validator/agent.py:733:                from webpent.shared.http import install_playwright_ssrf_guard
+src/webpent/agents/validator/agent.py:735:                install_playwright_ssrf_guard(context)
+src/webpent/agents/validator/agent.py:768:    requests. In such cases the CSRF finding should be flagged as
+src/webpent/agents/validator/agent.py:775:            (e.g. ``httpx.Response.headers`` or a dict).
+src/webpent/agents/validator/agent.py:807:    playwright_enabled: bool = False,
+src/webpent/agents/validator/agent.py:814:    ``playwright_enabled=True``, so JavaScript-heavy SPAs that inject
+src/webpent/agents/validator/agent.py:841:    used_playwright = False
+src/webpent/agents/validator/agent.py:846:    if playwright_enabled:
+src/webpent/agents/validator/agent.py:847:        rendered = _fetch_html_via_playwright(finding.url, auth_cookies)
+src/webpent/agents/validator/agent.py:850:            used_playwright = True
+src/webpent/agents/validator/agent.py:898:        if not used_playwright:
+src/webpent/agents/validator/agent.py:924:        if used_playwright
+src/webpent/agents/validator/agent.py:934:    can_tool_confirm = used_playwright and not samesite_detected
+src/webpent/agents/validator/agent.py:1045:#   3. Issue the crafted request via httpx.
+src/webpent/agents/validator/agent.py:1136:    from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
+src/webpent/agents/validator/agent.py:1301:            from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
+src/webpent/agents/validator/agent.py:1634:    from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
+src/webpent/agents/validator/agent.py:1792:    playwright_enabled: bool = False,
+src/webpent/agents/validator/agent.py:1818:    V5 Sprint 8: ``playwright_enabled`` + ``auth_state`` are threaded
+src/webpent/agents/validator/agent.py:1860:        # V5 Sprint 8: pass playwright_enabled + auth_state for
+src/webpent/agents/validator/agent.py:1866:            playwright_enabled=playwright_enabled,
+src/webpent/agents/validator/agent.py:2065:        from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
+src/webpent/agents/validator/agent.py:2122:    # and rate-limiting before spawning the subprocess.
+src/webpent/agents/validator/agent.py:2913:    V5 Sprint 8: Reads ``playwright_enabled`` and ``auth_state`` from
+src/webpent/agents/validator/agent.py:2921:    # V5 Sprint 8: read playwright flag + auth_state for CSRF SPA check.
+src/webpent/agents/validator/agent.py:2922:    playwright_enabled: bool = bool(state.get("playwright_enabled", False))
+src/webpent/agents/validator/agent.py:2950:        "Validator starting: %d total finding(s) to evaluate (stealth=%s, playwright=%s)",
+src/webpent/agents/validator/agent.py:2953:        playwright_enabled,
+src/webpent/agents/validator/agent.py:3118:            playwright_enabled=playwright_enabled,
+src/webpent/agents/validator/agent.py:3364:    from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
+src/webpent/agents/validator/active_checks.py:22:from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
+src/webpent/agents/execution_sandbox/agent.py:25:from urllib.parse import urlparse
+src/webpent/agents/execution_sandbox/agent.py:38:_PLAYWRIGHT_CONFIRMED_MARKER = "confirmed-by:playwright-dialog"
+src/webpent/agents/execution_sandbox/agent.py:67:    handler installed via ``install_playwright_ssrf_guard``.
+src/webpent/agents/execution_sandbox/agent.py:70:        from playwright.sync_api import sync_playwright
+src/webpent/agents/execution_sandbox/agent.py:73:            "playwright is not installed. Install it with "
+src/webpent/agents/execution_sandbox/agent.py:74:            "'pip install playwright' and run 'playwright install chromium'."
+src/webpent/agents/execution_sandbox/agent.py:90:        pw = sync_playwright().start()
+src/webpent/agents/execution_sandbox/agent.py:254:            apply_jitter(stealth_mode, label=f"playwright-navigate:{url}")
+src/webpent/agents/execution_sandbox/agent.py:264:        from webpent.shared.http import install_playwright_ssrf_guard
+src/webpent/agents/execution_sandbox/agent.py:265:        install_playwright_ssrf_guard(context)
+src/webpent/agents/execution_sandbox/agent.py:303:                apply_jitter(stealth_mode, label=f"playwright-submit:{url}")
+src/webpent/agents/execution_sandbox/agent.py:457:        from webpent.shared.http import install_playwright_ssrf_guard
+src/webpent/agents/execution_sandbox/agent.py:458:        install_playwright_ssrf_guard(context)
+src/webpent/agents/execution_sandbox/agent.py:604:    playwright_enabled: bool = state.get("playwright_enabled", True)
+src/webpent/agents/execution_sandbox/agent.py:646:    if not playwright_enabled:
+src/webpent/agents/execution_sandbox/agent.py:688:            apply_jitter(stealth_mode, label=f"playwright-login:{target.url}")
+src/webpent/agents/execution_sandbox/agent.py:719:            # Confidence.CONFIRMED via the playwright-dialog marker
+src/webpent/agents/target_understanding/agent.py:15:from urllib.parse import urlparse
+src/webpent/agents/recon/agent.py:468:            "directly with httpx. Nuclei will still run against %s.",
+src/webpent/agents/cloud_storage/agent.py:14:from urllib.parse import urlparse
+src/webpent/agents/authentication/agent.py:91:        from playwright.sync_api import sync_playwright
+src/webpent/agents/authentication/agent.py:94:            "playwright is not installed. Install with 'pip install playwright' "
+src/webpent/agents/authentication/agent.py:95:            "and run 'playwright install chromium'."
+src/webpent/agents/authentication/agent.py:104:        pw = sync_playwright().start()
+src/webpent/agents/authentication/agent.py:111:        from urllib.parse import urlparse as _urlparse
+src/webpent/agents/authentication/agent.py:133:        from webpent.shared.http import install_playwright_ssrf_guard
+src/webpent/agents/authentication/agent.py:134:        install_playwright_ssrf_guard(context)
+src/webpent/agents/authentication/agent.py:282:        # to a raw ``httpx.Client``, which BYPASSES the SSRF pinning
+src/webpent/agents/authentication/agent.py:532:            "source": "playwright_login",
+src/webpent/agents/rabbit_hole/agent.py:85:from urllib.parse import urlparse
+src/webpent/agents/business_logic_fuzzer/agent.py:23:from urllib.parse import urljoin, urlparse
+src/webpent/agents/reflection/agent.py:380:            from urllib.parse import urlparse
+src/webpent/agents/subdomain_takeover/agent.py:15:from urllib.parse import urlparse
+src/webpent/agents/subdomain_takeover/agent.py:89:        _name, aliases, _addresses = socket.gethostbyname_ex(host)
+src/webpent/agents/smart_campaigns/agent.py:15:from urllib.parse import quote, urlsplit
+src/webpent/config/settings.py:293:            "state-changing surfaces without executing requests."
+src/webpent/config/settings.py:457:    # -- V10 P1-2: Configurable tool subprocess timeouts -------------------
+src/webpent/config/settings.py:466:            "V10 P1-2: subprocess timeout for nuclei, in seconds. "
+src/webpent/config/settings.py:476:        description="Maximum ffuf content-discovery subprocess time in seconds.",
+src/webpent/config/settings.py:482:        description="V10 P1-2: subprocess timeout for sqlmap, in seconds.",
+src/webpent/config/settings.py:507:        description="Retries for sqlmap POST form requests.",
+src/webpent/config/settings.py:523:        description="V10 P1-2: subprocess timeout for dalfox, in seconds.",
+src/webpent/models/targets.py:16:from urllib.parse import urlparse
+src/webpent/models/targets.py:132:        from urllib.parse import urlparse as _urlparse
+src/webpent/models/mental_model.py:70:from urllib.parse import urlparse
+src/webpent/integrations/webhook.py:30:from urllib.parse import urlparse
+src/webpent/integrations/webhook.py:36:# a raw httpx.AsyncClient, bypassing the SSRF guard installed by
+src/webpent/cli/__init__.py:125:        from playwright.sync_api import sync_playwright
+src/webpent/cli/__init__.py:127:        pw = sync_playwright().start()
+src/webpent/cli/__init__.py:290:    playwright_enabled = _perform_preflight_check()
+src/webpent/cli/__init__.py:316:    header.add_row("Playwright", "Available" if playwright_enabled else "Disabled")
+src/webpent/cli/__init__.py:404:                playwright_enabled=playwright_enabled,
+src/webpent/cli/__init__.py:556:        if shutil.which(tool):
+src/webpent/cli/manifest.py:19:from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+src/webpent/cli/git_source.py:6:import subprocess
+src/webpent/cli/git_source.py:8:from urllib.parse import urlparse
+src/webpent/cli/git_source.py:22:    credentials from being copied into subprocess arguments or logs.
+src/webpent/cli/git_source.py:44:    The destination must not already exist. The subprocess is invoked without
+src/webpent/cli/git_source.py:71:        completed = subprocess.run(
+src/webpent/cli/git_source.py:84:    except subprocess.TimeoutExpired as exc:
+src/webpent/tools/exploitation/__init__.py:14::func:`webpent.tools.utils.subprocess.run_command`, which provides
+src/webpent/tools/exploitation/ysoserial.py:48:from webpent.tools.utils.subprocess import run_command
+src/webpent/tools/exploitation/ysoserial.py:75:    java = shutil.which("java")
+src/webpent/tools/exploitation/ysoserial.py:101:    # Otherwise try to resolve via PATH (shutil.which handles this).
+src/webpent/tools/exploitation/ysoserial.py:102:    resolved = shutil.which(candidate)
+src/webpent/tools/exploitation/ysoserial.py:151:    # V5 Sprint 8: Binary-safe subprocess execution. ysoserial emits
+src/webpent/tools/exploitation/phpggc.py:41:from webpent.tools.utils.subprocess import run_command
+src/webpent/tools/exploitation/phpggc.py:76:    resolved = shutil.which(candidate)
+src/webpent/tools/exploitation/phpggc.py:122:    # V5 Sprint 9: Binary-safe subprocess execution. phpggc may emit
+src/webpent/tools/exploitation/dalfox.py:31:from urllib.parse import urlencode
+src/webpent/tools/exploitation/dalfox.py:36:from webpent.tools.utils.subprocess import run_command
+src/webpent/tools/exploitation/dalfox.py:86:    # V10 AUDIT FIX (C4): SSRF protection for subprocess tools.
+src/webpent/tools/exploitation/dalfox.py:87:    # dalfox runs as a subprocess and is NOT wrapped by
+src/webpent/tools/exploitation/dalfox.py:95:    from urllib.parse import urlparse
+src/webpent/tools/exploitation/sqlmap.py:28:from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
+src/webpent/tools/exploitation/sqlmap.py:33:from webpent.tools.utils.subprocess import run_command
+src/webpent/tools/exploitation/sqlmap.py:239:    # Normalize URL for SQLi paths only for URL/query requests. For a POST
+src/webpent/tools/recon/nuclei.py:23:from webpent.tools.utils.subprocess import run_command
+src/webpent/tools/recon/nuclei.py:59:    # httpx requests, but nuclei spawns its own subprocess and bypasses
+src/webpent/tools/recon/nuclei.py:64:    from urllib.parse import urlparse
+src/webpent/tools/recon/nuclei.py:80:    # before spawning the subprocess so the target sees a human-paced
+src/webpent/tools/recon/katana.py:35:from webpent.tools.utils.subprocess import run_command
+src/webpent/tools/recon/katana.py:105:    # katana runs as a subprocess and is NOT wrapped by
+src/webpent/tools/recon/katana.py:112:    from urllib.parse import urlparse
+src/webpent/tools/recon/httpx.py:1:# src/webpent/tools/recon/httpx.py
+src/webpent/tools/recon/httpx.py:18:from webpent.tools.utils.subprocess import run_command
+src/webpent/tools/recon/httpx.py:33:            launching httpx. Recon tools generate the highest traffic
+src/webpent/tools/recon/httpx.py:38:        httpx. Lines that fail JSON parsing are silently skipped.
+src/webpent/tools/recon/httpx.py:67:    # subprocess and is NOT wrapped by make_safe_httpx_client, so the
+src/webpent/tools/recon/httpx.py:73:    from urllib.parse import urlparse
+src/webpent/tools/recon/subfinder.py:17:from webpent.tools.utils.subprocess import run_command
+src/webpent/tools/recon/ffuf.py:9:from urllib.parse import urlparse
+src/webpent/tools/recon/ffuf.py:15:from webpent.tools.utils.subprocess import run_command
+src/webpent/tools/utils/subprocess.py:1:# src/webpent/tools/utils/subprocess.py
+src/webpent/tools/utils/subprocess.py:2:"""webpent.tools.utils.subprocess
+src/webpent/tools/utils/subprocess.py:4:Thin, opinionated wrapper around :mod:`subprocess` used by every tool
+src/webpent/tools/utils/subprocess.py:25:    ``shutil.which`` check and the actual ``exec`` — or OS-level
+src/webpent/tools/utils/subprocess.py:31:    it to :func:`subprocess.run` without explicitly setting
+src/webpent/tools/utils/subprocess.py:32:    ``shell=False``. While :mod:`subprocess` defaults to ``shell=False``
+src/webpent/tools/utils/subprocess.py:48:      3. **Explicitly passes ``shell=False``** to :func:`subprocess.run`
+src/webpent/tools/utils/subprocess.py:51:         contract and protects against any future ``subprocess``
+src/webpent/tools/utils/subprocess.py:68:import subprocess
+src/webpent/tools/utils/subprocess.py:125:    logging — the actual subprocess invocation always uses the list
+src/webpent/tools/utils/subprocess.py:141:    A ``str`` argument would cause :func:`subprocess.run` to interpret
+src/webpent/tools/utils/subprocess.py:163:                f"elements would be stringified by subprocess and could "
+src/webpent/tools/utils/subprocess.py:174:    """Execute a subprocess command and return its stdout.
+src/webpent/tools/utils/subprocess.py:209:    # subprocess work. This is the command-injection defense.
+src/webpent/tools/utils/subprocess.py:223:    # ToolNotFoundError rather than letting subprocess surface a generic
+src/webpent/tools/utils/subprocess.py:225:    if shutil.which(executable) is None:
+src/webpent/tools/utils/subprocess.py:231:    # encoding / errors to subprocess.run — we want raw bytes back so
+src/webpent/tools/utils/subprocess.py:238:    # against any future ``subprocess`` release that flips the default.
+src/webpent/tools/utils/subprocess.py:239:    process: subprocess.Popen[str] | subprocess.Popen[bytes] | None = None
+src/webpent/tools/utils/subprocess.py:242:            process = subprocess.Popen(
+src/webpent/tools/utils/subprocess.py:244:                stdin=subprocess.PIPE,
+src/webpent/tools/utils/subprocess.py:245:                stdout=subprocess.PIPE,
+src/webpent/tools/utils/subprocess.py:246:                stderr=subprocess.PIPE,
+src/webpent/tools/utils/subprocess.py:256:            process = subprocess.Popen(
+src/webpent/tools/utils/subprocess.py:258:                stdin=subprocess.PIPE,
+src/webpent/tools/utils/subprocess.py:259:                stdout=subprocess.PIPE,
+src/webpent/tools/utils/subprocess.py:260:                stderr=subprocess.PIPE,
+src/webpent/tools/utils/subprocess.py:271:    except subprocess.TimeoutExpired as exc:
+src/webpent/tools/utils/subprocess.py:297:        # shutil.which and exec), PermissionError (exec bit flipped,
+src/webpent/state/state.py:139:    playwright_enabled: bool  # Pre-flight health check result
+src/webpent/state/initial_state.py:53:    playwright_enabled: bool = True,
+src/webpent/state/initial_state.py:146:        "playwright_enabled": bool(playwright_enabled),
+src/webpent/workers/pentest_worker.py:517:                playwright_enabled=True,
+src/webpent/api/app.py:112:# requests. FastAPI runs sync def endpoints in a threadpool, so two
+src/webpent/api/app.py:151:    check-then-set race between concurrent status-poll requests.
+src/webpent/api/app.py:1382:    measuring response latency across many requests.
+=== CONFIG FLAGS ===
+src/webpent/shared/preflight.py:7:network hang" + "insecure CELERY_PAYLOAD_KEY" as quiet success without
+src/webpent/shared/preflight.py:21:     EMBEDDINGS_OFFLINE/DISABLE_RAG set (see webpent.memory.embeddings)?
+src/webpent/shared/preflight.py:22:  4. CELERY_PAYLOAD_KEY — is the broker credential-encryption key a
+src/webpent/shared/preflight.py:114:        # V10 P0-2: EMBEDDINGS_OFFLINE / DISABLE_RAG switches.
+src/webpent/shared/preflight.py:117:                "mode": "disabled (DISABLE_RAG=true)",
+src/webpent/shared/preflight.py:160:                "status": "FAIL — auth_enabled=True with default CELERY_PAYLOAD_KEY",
+src/webpent/shared/preflight.py:165:                "status": "ok for dev — set CELERY_PAYLOAD_KEY for any non-local deployment",
+src/webpent/shared/preflight.py:170:                "status": "FAIL — CELERY_PAYLOAD_KEY too short",
+src/webpent/graph/builder.py:187:    return state.get("enable_autonomous_controller") is True
+src/webpent/agents/access_control/agent.py:443:            bool(state.get("enable_idor_enumeration"))
+src/webpent/agents/access_control/agent.py:444:            if "enable_idor_enumeration" in state
+src/webpent/agents/access_control/agent.py:445:            else bool(bac_settings.enable_idor_enumeration)
+src/webpent/config/settings.py:242:    enable_idor_enumeration: bool = Field(
+src/webpent/config/settings.py:448:            "loaded, no Chroma store is initialised. Set DISABLE_RAG=true "
+src/webpent/config/settings.py:752:            "audit_secret_key", "AUDIT_SECRET_KEY", "WEBPENT_AUDIT_SECRET_KEY"
+src/webpent/config/settings.py:757:            "via AUDIT_SECRET_KEY."
+src/webpent/config/settings.py:778:        # WEBPENT_CELERY_PAYLOAD_KEY, which was silently never read;
+src/webpent/config/settings.py:784:            "CELERY_PAYLOAD_KEY", "WEBPENT_CELERY_PAYLOAD_KEY", "celery_payload_key"
+src/webpent/config/settings.py:790:            "CELERY_PAYLOAD_KEY (WEBPENT_CELERY_PAYLOAD_KEY is also "
+src/webpent/config/settings.py:1053:                "Set AUDIT_SECRET_KEY to a strong random value for any "
+src/webpent/config/settings.py:1099:                "CELERY_PAYLOAD_KEY to a strong random value "
+src/webpent/state/state.py:163:    enable_autonomous_controller: bool
+src/webpent/state/initial_state.py:57:    enable_autonomous_controller: bool = False,
+src/webpent/state/initial_state.py:149:        "enable_autonomous_controller": bool(enable_autonomous_controller),
+src/webpent/utils/task_crypto.py:67:"wherever ``WEBPENT_CELERY_PAYLOAD_KEY`` is stored" — the same
+src/webpent/utils/task_crypto.py:138:            "check WEBPENT_CELERY_PAYLOAD_KEY and that the "
+src/webpent/memory/embeddings.py:55:    ``DISABLE_RAG`` and ``EMBEDDINGS_OFFLINE``. When ``DISABLE_RAG=true``,
+src/webpent/memory/embeddings.py:70:            failure, corrupted cache, or DISABLE_RAG/EMBEDDINGS_OFFLINE
+src/webpent/memory/embeddings.py:82:                "DISABLE_RAG=true — RAG subsystem explicitly disabled. "
+src/webpent/memory/embeddings.py:86:                "RAG disabled via DISABLE_RAG=true — no embeddings loaded."
+src/webpent/memory/embeddings.py:128:                f"(2) set DISABLE_RAG=true to skip RAG entirely. "

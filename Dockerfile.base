@@ -1,0 +1,236 @@
+# syntax=docker/dockerfile:1
+# =============================================================================
+# Dockerfile.base — WebPent V6 Ultimate Base Image
+# =============================================================================
+# Contains ALL heavy, infrequently-changed dependencies:
+#   - OS packages (curl, git, jq, sqlmap)
+#   - Go security tools (nuclei, subfinder, httpx, katana, dalfox)
+#   - Playwright Chromium browser
+#   - Heavy Python ML libraries (torch CPU, sentence-transformers, chromadb)
+#
+# Build this once (~15 min first time). See the cache-mount notes below
+# for why later rebuilds — even after real code/dependency changes —
+# should NOT re-download the same packages over the network again.
+#
+# Build:  docker build -t webpent-base:latest -f Dockerfile.base .
+#
+# V7 Ready-For-Kali FIX (real build failures hit on Kali, root-caused
+# from the actual crash logs):
+#   1. `go install nuclei/subfinder/httpx/katana/dalfox@latest` failed
+#      with "invalid go version '1.25.7': must match format 1.23".
+#      `apt-get install golang-go` on Ubuntu jammy installs Go 1.18
+#      (confirmed from the crash log: GOROOT was /usr/lib/go-1.18) —
+#      Go 1.18 predates the toolchain-management feature (added in Go
+#      1.21) entirely, so it cannot even PARSE a go.mod using the
+#      newer 3-component `go 1.25.7` version directive current nuclei
+#      releases use (nuclei's own docs say it "requires the latest GO
+#      version to install successfully" — deliberately a moving
+#      target, not a one-off fluke).
+#      The follow-up fix attempt (curl-installing go1.23.0 manually)
+#      used a Go version still BELOW nuclei's stated minimum
+#      (go >=1.24.2 per pkg.go.dev) — new enough to parse the format,
+#      not new enough to satisfy the version floor.
+#      Fixed here with a REAL multi-stage build using a current Go
+#      (1.26) as an actual separate stage, plus GOTOOLCHAIN=auto set
+#      explicitly so `go install` can transparently fetch whatever
+#      *exact* toolchain a tool's go.mod demands from then on, without
+#      this Dockerfile needing to chase a moving Go-version target
+#      again every time a tool updates.
+#   2. katana's own install instructions require `CGO_ENABLED=1` — the
+#      previous single `ENV CGO_ENABLED=0` applied to ALL FIVE tools,
+#      silently building katana without CGO despite upstream requiring
+#      it. Now isolated to its own RUN with its own env.
+#   3. dalfox pinned to a verified stable release (v2.12.0) instead of
+#      `@latest` — the dalfox repo is transitioning to a Rust rewrite
+#      (v3), with the Go v2.x line now on a separate branch, making
+#      `@latest` resolution less predictable mid-transition than it
+#      used to be. Re-verify at
+#      https://github.com/hahwul/dalfox/releases before bumping.
+#   4. BuildKit cache mounts on apt/Go-module/pip caches — these
+#      persist ACROSS builds independently of Docker's normal layer
+#      cache (which only helps when a layer's inputs are byte-
+#      identical to a previous build). This is what actually answers
+#      "don't make v8 re-download everything v7 already downloaded."
+# =============================================================================
+
+# ---------------------------------------------------------------------------
+# Stage 1: Go builder — a REAL separate stage this time. Editing a
+# `FROM golang:...` line only matters if something later actually does
+# `COPY --from=<that stage>` — the old file had no second stage at
+# all, so a previous sed-edit of an unrelated golang: line changed
+# nothing about which Go binary actually ran `go install`.
+# golang:1.26-bookworm is current-stable as of this fix; check
+# https://go.dev/dl/ if this has aged.
+# ---------------------------------------------------------------------------
+FROM golang:1.26-bookworm AS gobuilder
+
+ENV GOTOOLCHAIN=auto
+ENV CGO_ENABLED=0 GOOS=linux GOARCH=amd64
+
+# Pure-Go tools. Cache mount on Go's module + build cache: a rebuild
+# only re-fetches modules that actually changed version, not
+# everything from scratch, even if this RUN's own layer gets
+# invalidated by an unrelated change elsewhere in the file.
+RUN --mount=type=cache,target=/root/go/pkg/mod \
+    --mount=type=cache,target=/root/.cache/go-build \
+    go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@v3.11.0 && \
+    go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest && \
+    go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest
+
+# katana specifically needs CGO_ENABLED=1 per its own install docs.
+RUN --mount=type=cache,target=/root/go/pkg/mod \
+    --mount=type=cache,target=/root/.cache/go-build \
+    CGO_ENABLED=1 GOOS=linux GOARCH=amd64 \
+    go install -v github.com/projectdiscovery/katana/cmd/katana@latest
+
+# dalfox: pinned, see the note in the file header above.
+RUN --mount=type=cache,target=/root/go/pkg/mod \
+    --mount=type=cache,target=/root/.cache/go-build \
+    go install -v github.com/hahwul/dalfox/v2@v2.12.0
+
+# ---------------------------------------------------------------------------
+# Stage 2: the actual runtime image (Playwright + Python) — same base
+# image as before, but Go tools are COPYed in as finished binaries
+# instead of being compiled inside it with an ancient apt Go.
+# ---------------------------------------------------------------------------
+FROM mcr.microsoft.com/playwright/python:v1.48.0-jammy
+
+LABEL org.opencontainers.image.title="WebPent V6 Base Image" \
+      org.opencontainers.image.description="Heavy dependencies layer — rebuild rarely" \
+      org.opencontainers.image.version="6.0-base"
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1
+
+# ---------------------------------------------------------------------------
+# Stage 2a: System dependencies + sqlmap
+# NOTE: `golang-go` intentionally REMOVED — the Go tools are now
+# compiled in the gobuilder stage above with a real, current Go, and
+# just copied in below. Installing apt's Go 1.18 here served no
+# purpose except being the thing that silently ran `go install` with a
+# toolchain far too old to use.
+# ---------------------------------------------------------------------------
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+        curl git jq sqlmap gosu
+# ^ gosu: REGRESSION RESTORED — required by entrypoint.sh's privilege-drop
+# pattern (see Dockerfile). Was silently dropped when this round's changes
+# were applied against a stale Dockerfile.base that predated it.
+
+# Copy the compiled Go security tool binaries from the builder stage.
+# V7 Fix 1.1: GOPATH in golang:1.26-bookworm is /go (not /root/go).
+COPY --from=gobuilder /go/bin/nuclei /usr/local/bin/nuclei
+COPY --from=gobuilder /go/bin/subfinder /usr/local/bin/subfinder
+# V8 FIX: Copy Go httpx to httpx-pd (namespaced) to avoid shadowing
+# by the Python httpx package's console script that pip install -e .
+# installs at /usr/local/bin/httpx in the app Dockerfile. Without this
+# namespace separation, recon's subprocess call hits the Python CLI
+# instead of the Go tool, producing "Error: No such option '-s'".
+COPY --from=gobuilder /go/bin/httpx /usr/local/bin/httpx-pd
+COPY --from=gobuilder /go/bin/katana /usr/local/bin/katana
+COPY --from=gobuilder /go/bin/dalfox /usr/local/bin/dalfox
+# NOTE: interactsh-client intentionally NOT copied — it was never built
+# in the gobuilder stage and is referenced nowhere in src/ or scripts/.
+# OOB confirmation is done via the HTTP callback endpoint
+# (/api/oob/{finding_id}/{secret} in api/app.py) + scripts/mock_oob_server.py.
+# If live Interactsh CLI integration is ever needed, add a dedicated
+# `go install github.com/projectdiscovery/interactsh/cmd/interactsh-client@latest`
+# line to the gobuilder stage AND real integration code in src/webpent/tools/.
+
+RUN nuclei -update-templates 2>/dev/null || true
+
+# ---------------------------------------------------------------------------
+# Stage 2b: Heavy Python ML libraries (torch, sentence-transformers, chromadb)
+# Cache mount on pip's cache dir — a rebuild that only changes
+# pyproject.toml further down does not force torch/chromadb to be
+# re-downloaded from the network again.
+#
+# P0-4: Playwright 1.48.0 is the first release with Python
+# route_web_socket(), required to prevent WebSocket SSRF bypasses.
+# The base image and Python package stay exactly aligned so the browser
+# install below does not fetch a mismatched Chromium build.
+#
+# V8.1 FIX: langchain-chroma REMOVED from this line. pyproject.toml
+# already declares `langchain-chroma>=0.1.0` as a normal dependency —
+# installing it here too, unconstrained, risked pip resolving a
+# DIFFERENT version here than the one the app layer's `pip install -e .`
+# would later want (the same class of bug that broke langchain-cohere).
+# pyproject.toml is now the single source of truth for this package's
+# version; it still gets installed (during the app-layer `pip install
+# -e .`), just not duplicated in this unconstrained base-layer step.
+#
+# apt-get retry hardening: the operator's Kali build host hit
+# transient "index files failed to download" errors from playwright's
+# own internal `apt-get update` (run by `--with-deps`). This is a
+# separate, genuine mirror-flakiness issue independent of the version
+# pin above — Acquire::Retries + a short retry loop are defense in
+# depth for whatever OS-level deps `--with-deps` still needs to check,
+# even though the matching Chromium version itself should need no
+# download at all.
+#
+# V8.2 FIX: the torch CPU wheel (100-200+MB from download.pytorch.org)
+# was failing mid-download with
+#   SSLError: [SSL: DECRYPTION_FAILED_OR_BAD_RECORD_MAC]
+# This is a TLS-record-layer corruption, not a certificate/auth
+# problem — it means bytes got mangled in transit (flaky link, an
+# MTU mismatch somewhere between the build host and the CDN, or a
+# lossy network hop), and it's essentially always transient: the same
+# bytes usually go through cleanly on a retry. It was hitting the
+# LARGEST single download in this whole stage, which is exactly the
+# download most likely to have SOME packet corrupted somewhere along
+# the way on an unstable connection — small requests rarely trigger
+# it, multi-hundred-MB ones do.
+# Two layers of defense, matching the retry-loop pattern already used
+# for `playwright install --with-deps` below:
+#   1. `--retries 5 --timeout 100` on pip itself so a single dropped
+#      read is retried internally by urllib3 before pip ever gives up.
+#   2. An outer shell retry loop around the WHOLE pip chain (upgrade +
+#      torch + playwright/sentence-transformers/chromadb) as the
+#      backstop for failures pip's own retry doesn't cleanly recover
+#      from. Because of the `--mount=type=cache,target=/root/.cache/pip`
+#      cache mount, any package that already finished downloading
+#      before a failure is served from the local pip cache on the next
+#      attempt instead of being re-fetched from the network — so each
+#      retry only has to actually re-download whatever failed, not
+#      start the whole ~1GB chain over from zero.
+RUN --mount=type=cache,target=/root/.cache/pip \
+    export PIP_RETRIES=5 PIP_DEFAULT_TIMEOUT=100 && \
+    for i in 1 2 3 4 5; do \
+        pip install --upgrade pip && \
+        pip install --retries 5 --timeout 100 torch --index-url https://download.pytorch.org/whl/cpu && \
+        pip install --retries 5 --timeout 100 "playwright==1.48.0" sentence-transformers chromadb \
+        && break \
+        || { echo "heavy pip install attempt $i failed (likely a transient network/TLS error), retrying..."; sleep 10; }; \
+    done && \
+    echo 'Acquire::Retries "5";' > /etc/apt/apt.conf.d/80-retries && \
+    for i in 1 2 3 4 5; do \
+        playwright install --with-deps chromium && break || { echo "playwright install attempt $i failed, retrying..."; sleep 8; }; \
+    done
+
+# ---------------------------------------------------------------------------
+# Stage 2c: Lightweight framework dependencies (from pyproject.toml)
+# ---------------------------------------------------------------------------
+WORKDIR /app
+
+# Copy only pyproject.toml for dependency resolution
+COPY pyproject.toml .
+
+# V7 Fix 1.3: Create stub src/webpent so pip install -e . can resolve egg_base.
+RUN mkdir -p src/webpent && touch README.md
+
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip install -e . --no-deps && \
+    pip install PyJWT "bcrypt>=4.0.1" python-multipart structlog
+
+# ---------------------------------------------------------------------------
+# Create non-root user + directories
+# ---------------------------------------------------------------------------
+RUN groupadd -r webpent && \
+    useradd -r -g webpent -d /home/webpent -m -s /bin/bash webpent && \
+    mkdir -p /app/output /app/memory /app/memory/global && \
+    chown -R webpent:webpent /app
+
+# Base image is ready — the app Dockerfile will COPY source on top of this.
+CMD ["echo", "WebPent base image ready. Use Dockerfile to build the app."]

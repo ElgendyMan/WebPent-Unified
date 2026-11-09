@@ -1,0 +1,277 @@
+{
+  "interpretation": "HTTP-backed disposable fixture evidence; not field detection quality or VIP qualification",
+  "mode": "local_loopback_real_http",
+  "report": "RTA v1 Realistic Target Assessment",
+  "safety": {
+    "external_callbacks": false,
+    "external_targets": false,
+    "official_isolated_p10_runs_authorized": false,
+    "qualification_effect": false,
+    "real_credentials": false,
+    "state_mutation": false
+  },
+  "target_count": 3,
+  "targets": [
+    {
+      "cases": [
+        {
+          "case_id": "rta-http-a:idor",
+          "class": "idor",
+          "predicted": true,
+          "proof_replay_verified": true,
+          "truth": true,
+          "verdict": "confirmed"
+        },
+        {
+          "case_id": "rta-http-a:bfla",
+          "class": "bfla",
+          "predicted": true,
+          "proof_replay_verified": true,
+          "truth": true,
+          "verdict": "confirmed"
+        },
+        {
+          "case_id": "rta-http-a:tenant_isolation",
+          "class": "tenant_isolation",
+          "predicted": true,
+          "proof_replay_verified": true,
+          "truth": true,
+          "verdict": "confirmed"
+        },
+        {
+          "case_id": "rta-http-a:workflow_authorization",
+          "class": "workflow_authorization",
+          "predicted": true,
+          "proof_replay_verified": true,
+          "truth": true,
+          "verdict": "confirmed"
+        },
+        {
+          "case_id": "rta-http-a:privilege_escalation",
+          "class": "privilege_escalation",
+          "predicted": true,
+          "proof_replay_verified": true,
+          "truth": true,
+          "verdict": "confirmed"
+        },
+        {
+          "case_id": "rta-http-a:business_logic",
+          "class": "business_logic",
+          "predicted": true,
+          "proof_replay_verified": true,
+          "truth": true,
+          "verdict": "confirmed"
+        },
+        {
+          "case_id": "rta-http-a:tenant_partial_access",
+          "class": "tenant_partial_access",
+          "predicted": true,
+          "proof_replay_verified": true,
+          "truth": true,
+          "verdict": "confirmed"
+        }
+      ],
+      "discovery": {
+        "auth_required_count": 8,
+        "observation_count": 7,
+        "parameter_count": 6,
+        "surface_count": 8
+      },
+      "governance": {
+        "external_scope": false,
+        "qualification_effect": false,
+        "real_credentials_used": false,
+        "state_mutation": false
+      },
+      "metrics": {
+        "case_count": 7,
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "proof_completeness": 1.0,
+        "recall": 1.0,
+        "tn": 0,
+        "tp": 7
+      },
+      "runtime_digest": "fixture-runtime:rta-http-a:1.0.0",
+      "source_digest": "sha256:rta-http-source-a",
+      "target_id": "rta-http-a",
+      "version": "1.0.0"
+    },
+    {
+      "cases": [
+        {
+          "case_id": "rta-http-b:idor",
+          "class": "idor",
+          "predicted": true,
+          "proof_replay_verified": true,
+          "truth": true,
+          "verdict": "confirmed"
+        },
+        {
+          "case_id": "rta-http-b:bfla",
+          "class": "bfla",
+          "predicted": false,
+          "proof_replay_verified": false,
+          "truth": false,
+          "verdict": "clean"
+        },
+        {
+          "case_id": "rta-http-b:tenant_isolation",
+          "class": "tenant_isolation",
+          "predicted": true,
+          "proof_replay_verified": true,
+          "truth": true,
+          "verdict": "confirmed"
+        },
+        {
+          "case_id": "rta-http-b:workflow_authorization",
+          "class": "workflow_authorization",
+          "predicted": false,
+          "proof_replay_verified": false,
+          "truth": false,
+          "verdict": "clean"
+        },
+        {
+          "case_id": "rta-http-b:privilege_escalation",
+          "class": "privilege_escalation",
+          "predicted": true,
+          "proof_replay_verified": true,
+          "truth": true,
+          "verdict": "confirmed"
+        },
+        {
+          "case_id": "rta-http-b:business_logic",
+          "class": "business_logic",
+          "predicted": true,
+          "proof_replay_verified": true,
+          "truth": true,
+          "verdict": "confirmed"
+        },
+        {
+          "case_id": "rta-http-b:tenant_partial_access",
+          "class": "tenant_partial_access",
+          "predicted": true,
+          "proof_replay_verified": true,
+          "truth": true,
+          "verdict": "confirmed"
+        }
+      ],
+      "discovery": {
+        "auth_required_count": 8,
+        "observation_count": 7,
+        "parameter_count": 6,
+        "surface_count": 8
+      },
+      "governance": {
+        "external_scope": false,
+        "qualification_effect": false,
+        "real_credentials_used": false,
+        "state_mutation": false
+      },
+      "metrics": {
+        "case_count": 7,
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "proof_completeness": 1.0,
+        "recall": 1.0,
+        "tn": 2,
+        "tp": 5
+      },
+      "runtime_digest": "fixture-runtime:rta-http-b:1.1.0",
+      "source_digest": "sha256:rta-http-source-b",
+      "target_id": "rta-http-b",
+      "version": "1.1.0"
+    },
+    {
+      "cases": [
+        {
+          "case_id": "rta-http-c:idor",
+          "class": "idor",
+          "predicted": false,
+          "proof_replay_verified": false,
+          "truth": false,
+          "verdict": "clean"
+        },
+        {
+          "case_id": "rta-http-c:bfla",
+          "class": "bfla",
+          "predicted": true,
+          "proof_replay_verified": true,
+          "truth": true,
+          "verdict": "confirmed"
+        },
+        {
+          "case_id": "rta-http-c:tenant_isolation",
+          "class": "tenant_isolation",
+          "predicted": false,
+          "proof_replay_verified": false,
+          "truth": false,
+          "verdict": "clean"
+        },
+        {
+          "case_id": "rta-http-c:workflow_authorization",
+          "class": "workflow_authorization",
+          "predicted": true,
+          "proof_replay_verified": true,
+          "truth": true,
+          "verdict": "confirmed"
+        },
+        {
+          "case_id": "rta-http-c:privilege_escalation",
+          "class": "privilege_escalation",
+          "predicted": true,
+          "proof_replay_verified": true,
+          "truth": true,
+          "verdict": "confirmed"
+        },
+        {
+          "case_id": "rta-http-c:business_logic",
+          "class": "business_logic",
+          "predicted": false,
+          "proof_replay_verified": false,
+          "truth": false,
+          "verdict": "clean"
+        },
+        {
+          "case_id": "rta-http-c:tenant_partial_access",
+          "class": "tenant_partial_access",
+          "predicted": true,
+          "proof_replay_verified": true,
+          "truth": true,
+          "verdict": "confirmed"
+        }
+      ],
+      "discovery": {
+        "auth_required_count": 8,
+        "observation_count": 7,
+        "parameter_count": 6,
+        "surface_count": 8
+      },
+      "governance": {
+        "external_scope": false,
+        "qualification_effect": false,
+        "real_credentials_used": false,
+        "state_mutation": false
+      },
+      "metrics": {
+        "case_count": 7,
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "proof_completeness": 1.0,
+        "recall": 1.0,
+        "tn": 3,
+        "tp": 4
+      },
+      "runtime_digest": "fixture-runtime:rta-http-c:2.0.0",
+      "source_digest": "sha256:rta-http-source-c",
+      "target_id": "rta-http-c",
+      "version": "2.0.0"
+    }
+  ]
+}

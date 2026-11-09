@@ -1,0 +1,88 @@
+{
+  "artifact_type": "juice_shop_execution_evidence",
+  "artifact_version": "1.0",
+  "generated_at": "2026-08-25T16:03:00Z",
+  "qualification_status": "not_qualified",
+  "target": {
+    "name": "OWASP Juice Shop local lab",
+    "origin": "http://127.0.0.1:3000",
+    "scope": "loopback_only",
+    "target_contacted": true,
+    "http_status": 200,
+    "container_name": "juice-shop-local",
+    "image": "bkimminich/juice-shop:latest",
+    "image_id": "sha256:73c53fbf442e8337b3ea3d98c7e8550308854701ebdfce4cc39768f36b75430e",
+    "port_binding": "127.0.0.1:3000->3000/tcp",
+    "restart_policy": "unless-stopped"
+  },
+  "discovery_run": {
+    "profile": "smart-observe",
+    "llm": "disabled",
+    "root_scan": true,
+    "completed": true,
+    "finding_count": 12,
+    "confirmed_count": 0,
+    "evidence_confirmed_count": 0,
+    "evidence_review_count": 0,
+    "evidence_unconfirmed_count": 11,
+    "classification_counts": {
+      "not_scanned": 1,
+      "unconfirmed": 11
+    },
+    "severity_counts": {
+      "critical": 0,
+      "high": 0,
+      "medium": 7,
+      "low": 0,
+      "info": 5
+    },
+    "risk_score": "Low",
+    "interpretation": "Discovery and hypothesis output only. Potential API_ISSUE items and informational detections were not confirmed and contain no evidence_bundle or proof_bundle."
+  },
+  "browser_p8_attempt": {
+    "target_contacted": true,
+    "passed": false,
+    "reason": "baseline_observation_missing_or_unusable",
+    "observations": {},
+    "attestation_present": false,
+    "verifier_passed": false,
+    "sealed_proof_bundle": false,
+    "replay_status": null,
+    "diagnostic": "The generic validate_input path could not obtain a usable baseline observation from the Juice Shop SPA search UI. No causal signal or negative control was asserted."
+  },
+  "p9_status": {
+    "qualified": false,
+    "interpretation": "The Juice Shop scan does not constitute distributed-runtime qualification. Existing P9 runtime evidence remains partial and retains fail-closed resume behavior."
+  },
+  "p10_status": {
+    "qualified": false,
+    "interpretation": "No Juice Shop benchmark qualification was asserted; no three-run causal/replay proof set exists."
+  },
+  "p11_status": {
+    "qualified": false,
+    "interpretation": "No release qualification claim is made while P8/P9/P10 hard gates are incomplete."
+  },
+  "discovery_tools": {
+    "httpx_pd": "v1.10.0",
+    "nuclei": "v3.11.1",
+    "katana": "v1.7.0",
+    "nuclei_templates": "installed under /home/ubuntu/nuclei-templates"
+  },
+  "source_artifacts": {
+    "report_path": "/home/ubuntu/.webpent/workspaces/client-target-5f5a1bda1408c7a7654a0606-127.0.0.1-f1ae81f64f72a0edbea1/reports/report.json",
+    "report_sha256": "4d87b02bb9449b099e7d7a30a59bfd6cd676f2e68d0a9d6f60269cd4d32e82b0",
+    "scan_log_path": "/tmp/juice-shop-webpent/scan_root_final.log",
+    "scan_log_sha256": "26987cee84a7db3c1f58401159173d709249d2cead0d88c668d8dd6605992a35"
+  },
+  "safety": {
+    "external_targets_contacted": false,
+    "oast_used": false,
+    "authentication_bypass_used": false,
+    "otp_or_mfa_bypass_used": false,
+    "raw_response_bodies_saved": false,
+    "raw_headers_saved": false,
+    "secrets_saved": false,
+    "target_mixing": false
+  },
+  "note": "This artifact is a truthful execution record, not a qualification certificate and not confirmation of any vulnerability."
+}

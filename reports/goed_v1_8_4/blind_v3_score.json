@@ -1,0 +1,61 @@
+{
+  "phase": "9_blind_v3_scoring",
+  "status": "FAILED",
+  "leakage_detected": true,
+  "leakage_findings": [
+    {
+      "term": "compositional",
+      "field_source": "ground_truth"
+    },
+    {
+      "term": "reasoning",
+      "field_source": "ground_truth"
+    },
+    {
+      "term": "simple",
+      "field_source": "ground_truth"
+    }
+  ],
+  "leakage_total_count": 3,
+  "metrics": {
+    "precision": 0.5556,
+    "recall": 0.3425,
+    "f1": 0.4237,
+    "accuracy": 0.4333,
+    "tp": 25,
+    "fp": 20,
+    "fn": 48,
+    "tn": 27
+  },
+  "by_family_ground_truth": {
+    "simple": {
+      "tp": 15,
+      "fp": 10,
+      "fn": 10,
+      "tn": 5,
+      "total": 40,
+      "precision": 0.6,
+      "recall": 0.6
+    },
+    "reasoning": {
+      "tp": 10,
+      "fp": 10,
+      "fn": 13,
+      "tn": 7,
+      "total": 40,
+      "precision": 0.5,
+      "recall": 0.4348
+    },
+    "compositional": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 25,
+      "tn": 15,
+      "total": 40,
+      "precision": 0.0,
+      "recall": 0.0
+    }
+  },
+  "family_name_reconciliation": "Plan text says simple/stateful/compositional; actual ground truth families are simple/reasoning/compositional. This is cosmetic and documented here.",
+  "num_cases_scored": 120
+}

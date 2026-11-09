@@ -1,0 +1,8 @@
+=== make ci (test-count, coverage, lint, security) at commit 85ebd98 ===
+L9 phase 4: invariant regression sweep (tests/egaie/test_l9_invariants.py)
+OK: pytest-collected test count 4523 >= floor 1940
+full unit suite: PYTHONPATH=src python3 -m pytest -q
+4523 passed, 10 warnings in 271.75s
+coverage gate: 62.17% (floor 35%) — 4523 passed
+make lint: All checks passed!
+bandit -q -r src/webpent -x tests -lll: exit 0 (no high-severity findings)

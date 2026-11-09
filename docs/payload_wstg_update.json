@@ -1,0 +1,89 @@
+{
+  "ingested": {
+    "payloads": 1421,
+    "wstg": 116
+  },
+  "payload_counts": {
+    "entries": 1421,
+    "families": {
+      "AUTH_BYPASS": 118,
+      "IDOR": 3,
+      "INFO_DISCLOSURE": 106,
+      "OPEN_REDIRECT": 42,
+      "SQL_INJECTION": 573,
+      "SSRF": 211,
+      "XSS": 368
+    },
+    "subtypes": {
+      "AUTH_BYPASS:general": 96,
+      "AUTH_BYPASS:parameter_swap": 7,
+      "AUTH_BYPASS:sequential": 4,
+      "AUTH_BYPASS:waf_bypass": 11,
+      "IDOR:general": 3,
+      "INFO_DISCLOSURE:general": 32,
+      "INFO_DISCLOSURE:git": 56,
+      "INFO_DISCLOSURE:parameter_swap": 2,
+      "INFO_DISCLOSURE:sequential": 16,
+      "OPEN_REDIRECT:general": 19,
+      "OPEN_REDIRECT:js_context": 2,
+      "OPEN_REDIRECT:parameter_swap": 21,
+      "SQL_INJECTION:auth_bypass": 2,
+      "SQL_INJECTION:blind": 27,
+      "SQL_INJECTION:config_files": 2,
+      "SQL_INJECTION:error_based": 25,
+      "SQL_INJECTION:general": 389,
+      "SQL_INJECTION:js_context": 13,
+      "SQL_INJECTION:method_confusion": 65,
+      "SQL_INJECTION:polyglot": 1,
+      "SQL_INJECTION:sequential": 4,
+      "SQL_INJECTION:time_based": 26,
+      "SQL_INJECTION:union": 6,
+      "SQL_INJECTION:waf_bypass": 13,
+      "SSRF:auth_bypass": 3,
+      "SSRF:cloud_metadata": 4,
+      "SSRF:general": 165,
+      "SSRF:git": 8,
+      "SSRF:internal_url": 2,
+      "SSRF:waf_bypass": 29,
+      "XSS:attribute_context": 1,
+      "XSS:blind": 3,
+      "XSS:error_based": 1,
+      "XSS:general": 64,
+      "XSS:js_context": 136,
+      "XSS:method_confusion": 5,
+      "XSS:polyglot": 29,
+      "XSS:waf_bypass": 129
+    }
+  },
+  "payload_export": "docs/payload_library.json",
+  "provenance": {
+    "owasp_wstg": {
+      "captured_at": "2026-10-01T14:05:19.762359+00:00",
+      "commit": "8df290a38090b8d2235caa52a25a13e021af6670",
+      "path": "/tmp/wstg",
+      "tree_sha256": "0931cd6476aa6471479f92438f8b181221b7be7e7d2bbe03a5d6f0b39d56736d",
+      "url": "https://github.com/OWASP/wstg.git"
+    },
+    "payloads_all_the_things": {
+      "captured_at": "2026-10-01T14:05:19.671054+00:00",
+      "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+      "path": "/tmp/payloads",
+      "tree_sha256": "344fbf43f6b9093adfde74b8f8609954d4212a1a0474f8df687c449dff3b8ec3",
+      "url": "https://github.com/swisskyrepo/PayloadsAllTheThings.git"
+    }
+  },
+  "status": "ok",
+  "wstg_counts": {
+    "families": {
+      "AUTH_BYPASS": 18,
+      "IDOR": 1,
+      "INFO_DISCLOSURE": 13,
+      "SQLI": 1,
+      "SSRF": 1,
+      "XSS": 3
+    },
+    "mapped_tests": 37,
+    "tests": 116
+  },
+  "wstg_export": "docs/wstg_catalog.json"
+}

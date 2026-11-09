@@ -1,0 +1,163 @@
+{
+  "case_dispositions": {
+    "juice.access_log_disclosure.v1": {
+      "basis": "Target-local implementation and rerun passed, but the currently independent oracle decision explicitly accepts only three predicates and lists access-log among binding non-approvals.",
+      "disposition": "implemented_pending_governance_confirmation",
+      "official_scoring_status": "not_in_final_approved_set",
+      "required_next_action": "Independent governance reviewer must confirm the redacted log-resource predicate before inclusion in the official scoring set."
+    },
+    "juice.directory_listing.v1": {
+      "basis": "Runtime did not satisfy the directory-index causal predicate; candidate and independent control failed the predicate.",
+      "disposition": "blocked",
+      "official_scoring_status": "excluded_until_reopened",
+      "reopen_condition": "Authorized target-local runtime/configuration review must establish the predicate without bypassing controls or modifying Generic Core."
+    },
+    "juice.forgotten_backup.v1": {
+      "basis": "Candidate and independent control returned 403; anonymous-read precondition and causal delta were not demonstrated.",
+      "disposition": "blocked",
+      "official_scoring_status": "excluded_until_reopened",
+      "reopen_condition": "Authorized target-local configuration review must establish a safe read-only precondition without retaining raw backup content."
+    },
+    "juice.misplaced_signature_file.v1": {
+      "basis": "Mapped resource is absent from the checked-out source and runtime candidate/control did not establish the signature exposure predicate.",
+      "disposition": "blocked",
+      "official_scoring_status": "excluded_until_reopened",
+      "reopen_condition": "Version-matched source/runtime mapping must be independently established without retaining raw YAML."
+    },
+    "juice.privacy_policy_proof.v1": {
+      "basis": "Challenge-completion/read-policy behavior is not a vulnerability causal predicate.",
+      "disposition": "out_of_scope",
+      "official_scoring_status": "non_scoring_pending_governance_confirmation"
+    },
+    "juice.public_scoreboard_route.v1": {
+      "basis": "Route reachability or hidden-page discovery does not establish a security weakness.",
+      "disposition": "out_of_scope",
+      "official_scoring_status": "non_scoring_pending_governance_confirmation"
+    },
+    "juice.security_policy.v1": {
+      "basis": "Public security-policy resource availability is not a vulnerability oracle.",
+      "disposition": "out_of_scope",
+      "official_scoring_status": "non_scoring_pending_governance_confirmation"
+    },
+    "juice.well_known_security_policy.v1": {
+      "basis": "Alternate policy-resource location duplicates policy semantics and is not an independent vulnerability case.",
+      "disposition": "out_of_scope",
+      "official_scoring_status": "non_scoring_pending_governance_confirmation"
+    }
+  },
+  "corrected_provenance": {
+    "archive_verification_method": "compare the extracted project archive to git archive of the recorded commit and tree",
+    "archive_verification_required": true,
+    "release_manifest_provenance_sidecar": "docs/release_manifest_provenance_v1.json",
+    "release_manifest_self_reference_policy": "release_manifest.json and its sidecar are excluded from the inventory hash set to avoid recursive self-reference; the sidecar still locks the current manifest bytes",
+    "release_manifest_source_revision_relationship": "release_manifest.git_commit and git_tree identify the pre-manifest inventory source revision; the sidecar records the manifest commit and verifies that its parent/tree match those fields",
+    "self_approval_not_claimed": true,
+    "source_manifest_generated_from_webpent_commit": "c63f2d7def0ab3857db1366e6d596f4a52bb2a9f",
+    "source_manifest_generated_from_webpent_tree": "78ad98369ced8e473098d21334e01bb311a9be93"
+  },
+  "decision_authority": {
+    "independent_reviewer_id": null,
+    "results_seen_by_reviewer": false,
+    "reviewed_at_utc": null,
+    "self_approval_not_claimed": true,
+    "status": "pending_independent_governance_signoff"
+  },
+  "decision_id": "juice-shop-governance-20260826-01",
+  "drift_reconciliation": {
+    "access_log_frozen_ground_truth_path": "/ftp/access.log",
+    "access_log_path_match": false,
+    "access_log_source_path": "/support/logs/access.log.2026-08-27",
+    "blocked_and_out_of_scope_are_not_fn": true,
+    "engineering_reviewed_non_scoring_case_count": 8,
+    "engineering_reviewed_non_scoring_case_ids": [
+      "juice.access_log_disclosure.v1",
+      "juice.directory_listing.v1",
+      "juice.forgotten_backup.v1",
+      "juice.misplaced_signature_file.v1",
+      "juice.privacy_policy_proof.v1",
+      "juice.public_scoreboard_route.v1",
+      "juice.security_policy.v1",
+      "juice.well_known_security_policy.v1"
+    ],
+    "ground_truth_not_modified_to_hide_drift": true,
+    "juice_shop_authoritative_non_scoring_count": 8,
+    "status": "changes_requested_corrected_pending_human_independent_review",
+    "synthetic_unit_test_not_scored_expected_case_count": 7,
+    "synthetic_unit_test_scope": "tests/test_p10_benchmark.py uses a separate 10-case fixture with 3 oracle-approved cases; its 7 is not the Juice Shop production count."
+  },
+  "final_approved_scoring_case_set": {
+    "case_count": 3,
+    "case_ids": [
+      "juice.error_handling.v1",
+      "juice.exposed_metrics.v1",
+      "juice.local_xss.v1"
+    ],
+    "class_count": 3,
+    "reason": "These are the only predicates explicitly accepted by the prior oracle decision; this corrected packet requires a human independent reviewer to reconfirm them against the current source hash.",
+    "status": "proposed_pending_independent_governance_signoff"
+  },
+  "hash_lock": {
+    "current_oracle_contract_independent_reconfirmation": "pending_human_reviewer",
+    "current_source_mapping_sha256": "sha256:825cd6a96d35ddf117fb1ad4fa3af12dc85345bb6c03c79205816ffff3225436",
+    "current_source_oracle_contract_sha256": "sha256:63977f8451f0709abff5671d1ac24943abe35b0bb0a4f399791e2c1f66aeb71c",
+    "ground_truth_document_sha256": "sha256:84bf4111235b546b337fbd3e76207d43a8e7a05f39685dd9ed51f739468aea52",
+    "ground_truth_source_snapshot_id": "gt-snapshot-20260826-corrected",
+    "ground_truth_source_snapshot_sha256": "sha256:4bc02c4664aa06230b6617085134ba12080e99767f457c82ddd917c48f471963",
+    "hash_interpretation": "Canonical mapping/oracle values are prior review locks. Current source mapping/oracle hashes identify the source presently awaiting human reconfirmation. Document, snapshot, source-to-ground-truth manifest, and runtime manifest hashes identify exact local inputs. Release manifest provenance is verified by the non-recursive sidecar. The frozen ground truth was not modified to hide drift.",
+    "loopback_runtime_manifest_sha256": "sha256:cbe1c85fe8e7393449595d59de03d84cb45692f020709d30f4516e9c8995a524",
+    "mapping_hash": "sha256:602b2411df9b259911b1ae0757e5e26fabdc86b928fb5b43b040750182762ad5",
+    "oracle_decision_hash": "sha256:637b1f7e10e4224d60e3bcf29abdcaadb2e87aa66ed03d776668b94f1454a97c",
+    "oracle_mapping_hash": "sha256:63977f8451f0709abff5671d1ac24943abe35b0bb0a4f399791e2c1f66aeb71c",
+    "previous_independent_reviewed_oracle_contract_sha256": "sha256:d16e139eebcbe7e88f62058e22aa4ffa31ed96a5af8c5187cc29937304902dee",
+    "release_manifest_hash_lock": "excluded_to_avoid_recursive_self_reference",
+    "source_ground_truth_manifest_sha256": "sha256:1fdc82eea7ca90756bb1f3292808e759fd998eee957436bf3a4538b5f752d716"
+  },
+  "prepared_at_utc": "2026-08-26T20:35:00Z",
+  "purpose": "Freeze case dispositions and hash inputs before any official isolated P10 runs; this packet does not authorize runs or confer P10/VIP qualification.",
+  "qualification": {
+    "p10": "NOT_QUALIFIED",
+    "p9": "NOT_QUALIFIED",
+    "vip": "NOT_QUALIFIED"
+  },
+  "run_gate": {
+    "blocking_reasons": [
+      "independent_human_governance_signoff_missing",
+      "source_to_ground_truth_drift_requires_explicit_review",
+      "current_oracle_hash_requires_independent_reconfirmation",
+      "final_approved_case_set_below_minimum_10_cases",
+      "final_approved_class_set_below_minimum_6_classes",
+      "access_log_oracle_governance_confirmation_missing",
+      "full_ground_truth_result_approval_missing"
+    ],
+    "official_isolated_p10_runs_authorized": false,
+    "required_before_authorization": [
+      "Independent governance reviewer signs this exact packet and reviewed hashes.",
+      "The approved case set is explicitly frozen with no pending dispositions.",
+      "Each approved case has an accepted semantic causal predicate and safe precondition.",
+      "Each approved case has baseline, candidate, independent negative control, central verification, sealed ProofBundle, verify_seal, and replay evidence contracts.",
+      "Three isolated runs are executed only after the minimum approved-set and class gates are met."
+    ]
+  },
+  "safety": {
+    "allowed_methods": [
+      "GET"
+    ],
+    "allowed_origin": "http://127.0.0.1:3000",
+    "binding": "127.0.0.1:3000",
+    "credentials_used": false,
+    "external_destinations": false,
+    "external_interface_listener_absent": true,
+    "frozen_p10_artifacts_modified": false,
+    "generic_core_modified": false,
+    "raw_http_data_retained": false,
+    "runtime_manifest": "docs/juice_shop_loopback_runtime_manifest_v1.json",
+    "wildcard_listener_absent": true
+  },
+  "schema_version": "juice_shop.governance_decision.v1",
+  "target_scope": {
+    "kind": "authorized_local_loopback_lab",
+    "origin": "http://127.0.0.1:3000",
+    "package_version": "20.2.0",
+    "source_commit": "1618a611b173b4bf114028e6e02549950606e29d"
+  }
+}

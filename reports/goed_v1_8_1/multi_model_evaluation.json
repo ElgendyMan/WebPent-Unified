@@ -1,0 +1,102 @@
+{
+  "production-fast": {
+    "model": "production-fast",
+    "config": {
+      "reasoning_quality": 0.6,
+      "hallucination_rate": 0.05,
+      "cost_per_1k_tokens": 0.0015,
+      "description": "Fast low-cost model"
+    },
+    "provider": "MockLLMProvider",
+    "metrics": {
+      "total_hypotheses": 3,
+      "useful_hypotheses": 3,
+      "useful_rate": 1.0,
+      "hallucinations": 0,
+      "hallucination_rate": 0.0,
+      "total_tokens": 304,
+      "avg_latency": 0.121,
+      "cost_per_1k": 0.0015,
+      "estimated_cost": 0.0005
+    },
+    "telemetry_redacted": [
+      {
+        "call_id": "f771f103-21eb-4d57-9d0e-02404c56e775",
+        "model": "production-fast",
+        "tokens_used": 109,
+        "latency_seconds": 0.159,
+        "finish_reason": "stop",
+        "had_error": false,
+        "timestamp": 1788522367.9126225
+      },
+      {
+        "call_id": "b02392f7-e731-45d5-84a1-a6869cb12d49",
+        "model": "production-fast",
+        "tokens_used": 104,
+        "latency_seconds": 0.061,
+        "finish_reason": "stop",
+        "had_error": false,
+        "timestamp": 1788522367.912707
+      },
+      {
+        "call_id": "6cd8f47f-a448-4bb2-be13-c2bf1cc86cef",
+        "model": "production-fast",
+        "tokens_used": 91,
+        "latency_seconds": 0.143,
+        "finish_reason": "stop",
+        "had_error": false,
+        "timestamp": 1788522367.9127517
+      }
+    ]
+  },
+  "production-reasoning": {
+    "model": "production-reasoning",
+    "config": {
+      "reasoning_quality": 0.85,
+      "hallucination_rate": 0.02,
+      "cost_per_1k_tokens": 0.015,
+      "description": "Stronger reasoning model"
+    },
+    "provider": "MockLLMProvider",
+    "metrics": {
+      "total_hypotheses": 3,
+      "useful_hypotheses": 3,
+      "useful_rate": 1.0,
+      "hallucinations": 0,
+      "hallucination_rate": 0.0,
+      "total_tokens": 305,
+      "avg_latency": 0.121,
+      "cost_per_1k": 0.015,
+      "estimated_cost": 0.0046
+    },
+    "telemetry_redacted": [
+      {
+        "call_id": "91170811-fe7e-4d0e-bf1b-1a88cee4b210",
+        "model": "production-reasoning",
+        "tokens_used": 111,
+        "latency_seconds": 0.159,
+        "finish_reason": "stop",
+        "had_error": false,
+        "timestamp": 1788522367.9131377
+      },
+      {
+        "call_id": "a5bb85ab-aee6-48d7-b047-fac0ac2f9d71",
+        "model": "production-reasoning",
+        "tokens_used": 102,
+        "latency_seconds": 0.061,
+        "finish_reason": "stop",
+        "had_error": false,
+        "timestamp": 1788522367.913167
+      },
+      {
+        "call_id": "403dfc98-277e-426f-a74b-84226d1dd736",
+        "model": "production-reasoning",
+        "tokens_used": 92,
+        "latency_seconds": 0.143,
+        "finish_reason": "stop",
+        "had_error": false,
+        "timestamp": 1788522367.9131925
+      }
+    ]
+  }
+}

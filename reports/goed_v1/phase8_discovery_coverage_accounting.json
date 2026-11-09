@@ -1,0 +1,35 @@
+{
+  "phase": "8_discovery_coverage_accounting",
+  "date": "2026-09-03",
+  "accounting_principles": {
+    "track_discovered_surface": true,
+    "track_investigated_surface": true,
+    "track_unexplored_surface": true,
+    "track_confidence": true,
+    "track_reason_for_stopping": true,
+    "track_unresolved_questions": true,
+    "critical_rule": "Vulnerable ground-truth case never investigated = MISSED_DISCOVERY in evaluation",
+    "fn_not_inferred_from_missing_output": true,
+    "explicit_case_eligibility_model_required": true
+  },
+  "accounting_fields": [
+    "discovered_surface_count",
+    "investigated_surface_count",
+    "unexplored_surface_count",
+    "opportunities_generated",
+    "opportunities_investigated",
+    "exploration_steps",
+    "unresolved_security_questions",
+    "reason_for_stopping",
+    "missed_discovery_count",
+    "blocked_capability_count"
+  ],
+  "scoring_semantics": {
+    "TP": "Detected correctly AND investigated",
+    "FP": "Invalid positive produced",
+    "TN": "Correctly identifies clean",
+    "FN": "Vulnerability exists but detector never identifies it",
+    "BLOCKED": "Execution capability genuinely absent \u2014 explicitly distinguished from FN"
+  },
+  "formal_case_accounting": "REQUIRED"
+}

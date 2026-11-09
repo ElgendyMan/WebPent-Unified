@@ -1,0 +1,245 @@
+{
+  "target_id": "goed-v1.5-target-04",
+  "seed": 4,
+  "port": 8904,
+  "naming": {
+    "route_style_index": 4,
+    "role_set_index": 4,
+    "tenant_style_index": 4,
+    "object_style_index": 4
+  },
+  "route_prefix_example": "/internal/ENTITY",
+  "roles": [
+    "external",
+    "internal",
+    "team_lead",
+    "director"
+  ],
+  "role_level": {
+    "external": 0,
+    "internal": 1,
+    "team_lead": 2,
+    "director": 3
+  },
+  "tenants": [
+    "team-ACK",
+    "team-RDC"
+  ],
+  "objects": [
+    "tok-b0b62aa5",
+    "tok-c5427330",
+    "tok-dc006e09",
+    "tok-3458d6be",
+    "tok-3f1de035",
+    "tok-109622cd",
+    "tok-b97b5f40",
+    "tok-fbd05c19"
+  ],
+  "fields": {
+    "id_field": "identity",
+    "name_field": "full_name",
+    "secret_field": "internal_tag",
+    "email_field": "email",
+    "balance_field": "funds"
+  },
+  "actors": {
+    "alice": {
+      "identity": "tok-b0b62aa5",
+      "role": "external",
+      "tenant": "team-ACK"
+    },
+    "bob": {
+      "identity": "tok-c5427330",
+      "role": "internal",
+      "tenant": "team-ACK"
+    },
+    "carol": {
+      "identity": "tok-dc006e09",
+      "role": "external",
+      "tenant": "team-RDC"
+    },
+    "dave": {
+      "identity": "tok-3458d6be",
+      "role": "internal",
+      "tenant": "team-RDC"
+    }
+  },
+  "actor_list": [
+    "alice",
+    "bob",
+    "carol",
+    "dave"
+  ],
+  "sensitive_data": {
+    "tok-b0b62aa5": {
+      "full_name": "Alice",
+      "internal_tag": "XXX-XX-1000",
+      "email": "alice@team-ACK.example",
+      "funds": 3967
+    },
+    "tok-c5427330": {
+      "full_name": "Bob",
+      "internal_tag": "XXX-XX-1001",
+      "email": "bob@team-ACK.example",
+      "funds": 5069
+    },
+    "tok-dc006e09": {
+      "full_name": "Carol",
+      "internal_tag": "XXX-XX-1002",
+      "email": "carol@team-ACK.example",
+      "funds": 1790
+    },
+    "tok-3458d6be": {
+      "full_name": "Dave",
+      "internal_tag": "XXX-XX-1003",
+      "email": "dave@team-RDC.example",
+      "funds": 6589
+    },
+    "tok-3f1de035": {
+      "full_name": "Eve",
+      "internal_tag": "XXX-XX-1004",
+      "email": "eve@team-RDC.example",
+      "funds": 7945
+    },
+    "tok-109622cd": {
+      "full_name": "Frank",
+      "internal_tag": "XXX-XX-1005",
+      "email": "frank@team-RDC.example",
+      "funds": 2639
+    }
+  },
+  "admin_entity": "admin_dashboard",
+  "billing_entity": "billing_records",
+  "transfer_entity": "funds_transfer",
+  "internal_entity": "internal_resources",
+  "wf_entity": "review_items",
+  "wf_id": "wf-tok-dc006e09",
+  "msg_entity": "messages",
+  "auth_entity": "password_recovery",
+  "audit_entity": "security_records",
+  "cases": {
+    "goed-v1.5-target-04-case-00": {
+      "class": "idor",
+      "vulnerable_route": "/internal/objects/tok-c5427330",
+      "baseline_route": "/internal/objects/tok-b0b62aa5",
+      "control_route": "/patched/internal/objects/tok-c5427330",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-04-case-01": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/internal/admin_dashboard",
+      "baseline_route": "/internal/health",
+      "control_route": "/patched/internal/admin_dashboard",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-04-case-02": {
+      "class": "privilege_escalation",
+      "vulnerable_route": "/internal/billing_records/team-ACK",
+      "baseline_route": "/internal/health",
+      "control_route": "/patched/internal/billing_records/team-ACK",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-04-case-03": {
+      "class": "business_logic_abuse",
+      "vulnerable_route": "/internal/funds_transfer/tok-b0b62aa5?to=tok-c5427330&amount=-100",
+      "baseline_route": "/internal/funds_transfer/tok-b0b62aa5?to=tok-c5427330&amount=10",
+      "control_route": "/patched/internal/funds_transfer/tok-b0b62aa5",
+      "actor": "alice",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-04-case-04": {
+      "class": "tenant_isolation_failure",
+      "vulnerable_route": "/internal/tenant/team-RDC/internal_resources",
+      "baseline_route": "/internal/tenant/team-ACK/internal_resources",
+      "control_route": "/patched/internal/tenant/team-RDC/internal_resources",
+      "actor": "alice",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-04-case-05": {
+      "class": "workflow_authorization_failure",
+      "vulnerable_route": "/internal/review_items/wf-tok-dc006e09/approve",
+      "baseline_route": "/internal/review_items/wf-tok-dc006e09/view",
+      "control_route": "/patched/internal/review_items/wf-tok-dc006e09/approve",
+      "actor": "alice",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-04-case-06": {
+      "class": "sensitive_data_exposure",
+      "vulnerable_route": "/internal/messages/tok-c5427330/inbox",
+      "baseline_route": "/internal/messages/tok-b0b62aa5/inbox",
+      "control_route": "/patched/internal/messages/tok-c5427330/inbox",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-04-case-07": {
+      "class": "multi_step_chain",
+      "vulnerable_route": "/internal/password_recovery/request?for=tok-c5427330",
+      "baseline_route": "/internal/password_recovery/request?for=tok-b0b62aa5",
+      "control_route": "/patched/internal/password_recovery/request",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "critical"
+    },
+    "goed-v1.5-target-04-case-08": {
+      "class": "idor",
+      "vulnerable_route": "/internal/objects/tok-3458d6be",
+      "baseline_route": "/internal/objects/tok-b0b62aa5",
+      "control_route": "/patched/internal/objects/tok-3458d6be",
+      "actor": "alice",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-04-case-09": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/internal/security_records",
+      "baseline_route": "/internal/health",
+      "control_route": "/patched/internal/security_records",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-04-case-10": {
+      "class": "clean_public_resource",
+      "vulnerable_route": "/internal/health",
+      "baseline_route": "/internal/health",
+      "control_route": "/internal/health",
+      "actor": "alice",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    },
+    "goed-v1.5-target-04-case-11": {
+      "class": "clean_public_info",
+      "vulnerable_route": "/internal/openapi",
+      "baseline_route": "/internal/openapi",
+      "control_route": "/internal/openapi",
+      "actor": "alice",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    }
+  },
+  "total_cases": 12,
+  "vulnerable_cases": 10,
+  "clean_cases": 2
+}

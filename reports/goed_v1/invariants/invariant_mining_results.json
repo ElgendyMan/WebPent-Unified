@@ -1,0 +1,73 @@
+{
+  "phase": "5_invariant_mining",
+  "date": "2026-09-03T06:23:33.754288+00:00",
+  "invariants_inferred": 5,
+  "invariants": [
+    {
+      "invariant_id": "INV-fbc7f280",
+      "description": "Actors should only access resources belonging to their tenant/identity",
+      "type": "ownership_boundary",
+      "affected_entities": [],
+      "source_observations_count": 0,
+      "testable_prediction": "Cross-tenant/cross-identity access should be denied",
+      "strength": "violated",
+      "confidence": 0.1,
+      "counter_examples_count": 1,
+      "supporting_examples_count": 0,
+      "status": "HYPOTHESIS_ONLY_NOT_ASSUMED_TRUE"
+    },
+    {
+      "invariant_id": "INV-16523f67",
+      "description": "Higher-privilege operations should require higher-privilege roles",
+      "type": "role_restriction",
+      "affected_entities": [],
+      "source_observations_count": 0,
+      "testable_prediction": "Admin-only endpoints deny non-admin actors",
+      "strength": "hypothesized",
+      "confidence": 0.4,
+      "counter_examples_count": 0,
+      "supporting_examples_count": 0,
+      "status": "HYPOTHESIS_ONLY_NOT_ASSUMED_TRUE"
+    },
+    {
+      "invariant_id": "INV-dcb8cc27",
+      "description": "Workflow operations must follow valid state transitions",
+      "type": "workflow_ordering",
+      "affected_entities": [],
+      "source_observations_count": 0,
+      "testable_prediction": "Out-of-order workflow transitions are rejected",
+      "strength": "hypothesized",
+      "confidence": 0.3,
+      "counter_examples_count": 0,
+      "supporting_examples_count": 0,
+      "status": "HYPOTHESIS_ONLY_NOT_ASSUMED_TRUE"
+    },
+    {
+      "invariant_id": "INV-01ef1289",
+      "description": "Sensitive data fields require authorization to access",
+      "type": "sensitive_data_boundary",
+      "affected_entities": [],
+      "source_observations_count": 0,
+      "testable_prediction": "Sensitive fields are redacted or denied for unauthorized actors",
+      "strength": "hypothesized",
+      "confidence": 0.35,
+      "counter_examples_count": 0,
+      "supporting_examples_count": 0,
+      "status": "HYPOTHESIS_ONLY_NOT_ASSUMED_TRUE"
+    },
+    {
+      "invariant_id": "INV-c19480f0",
+      "description": "Financial transfer amounts must be positive",
+      "type": "business_logic_invariant",
+      "affected_entities": [],
+      "source_observations_count": 0,
+      "testable_prediction": "Negative or zero transfer amounts are rejected",
+      "strength": "hypothesized",
+      "confidence": 0.3,
+      "counter_examples_count": 0,
+      "supporting_examples_count": 0,
+      "status": "HYPOTHESIS_ONLY_NOT_ASSUMED_TRUE"
+    }
+  ],
+  "critical_note": "ALL invariants are HYPOTHESES until independently validated. None are assumed true."
+}

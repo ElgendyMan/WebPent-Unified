@@ -1,0 +1,62 @@
+{
+  "case_id": "target-beta-case-01",
+  "vulnerability_class": "Broken Access Control",
+  "causal_trace": {
+    "case_specification": "Non-member user attempts to access project resource",
+    "target_route": "/api/projects/beta-proj-01/documents",
+    "actor_identity_current": "global_default_user",
+    "actor_identity_required": "beta-user-02 (non-member)",
+    "tenant_context_current": "tenant-alpha",
+    "tenant_context_required": "tenant-beta",
+    "role_current": "member",
+    "role_required": "non_member / guest",
+    "baseline_observation": "GET /api/health \u2014 200 OK, global user",
+    "candidate_observation_current": "GET /api/projects/beta-proj-01/documents \u2014 200 OK (leaks data because global user happens to be in ACL)",
+    "candidate_observation_required": "GET /api/projects/beta-proj-01/documents as beta-user-02 \u2014 200 OK (LEAKS to non-member)",
+    "negative_control_current": "/patched/... \u2014 403 Forbidden (but with wrong actor context)",
+    "negative_control_required": "/patched/... \u2014 403 Forbidden with same non-member actor",
+    "observed_response_current": "Both candidate and control return 200 because global user is authorized",
+    "causal_predicate_current": "No authorization differential detected \u2192 CLEAN",
+    "causal_predicate_required": "Authorization differential SHOULD exist when executed with correct non-member actor",
+    "proof_bundle_eligibility": "Eligible but built on wrong execution context",
+    "replay_eligibility": "Replays the wrong context"
+  },
+  "identity_matrix_tested": [
+    {
+      "identity": "global_default_user",
+      "tenant": "tenant-alpha",
+      "role": "member",
+      "route": "/api/projects/beta-proj-01/documents",
+      "status": 200,
+      "semantic": "AUTHORIZED"
+    },
+    {
+      "identity": "beta-user-01",
+      "tenant": "tenant-beta",
+      "role": "owner",
+      "route": "/api/projects/beta-proj-01/documents",
+      "status": 200,
+      "semantic": "AUTHORIZED"
+    },
+    {
+      "identity": "beta-user-02",
+      "tenant": "tenant-beta",
+      "role": "non_member",
+      "route": "/api/projects/beta-proj-01/documents",
+      "status": 200,
+      "semantic": "LEAK \u2014 VULNERABLE"
+    }
+  ],
+  "object_matrix": [
+    {
+      "object": "beta-proj-01",
+      "owner": "beta-user-01",
+      "expected_boundary": "members_only",
+      "observed_status_global_user": 200,
+      "observed_semantic_ownership": "LEAKS"
+    }
+  ],
+  "root_cause_classification": "EXECUTION_CAPABILITY_LIMITATION",
+  "specific_issue": "CaseExecutionSpec lacks ActorContext \u2014 executed with hardcoded global identity instead of the specific non-member identity required by the vulnerability mechanism",
+  "evidence": "When executed with beta-user-02 (non-member), the vulnerability is reachable and the authorization differential is detectable"
+}

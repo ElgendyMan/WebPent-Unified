@@ -1,0 +1,44 @@
+{
+  "hypotheses": [
+    {
+      "id": "cc797dda-ebe7-42a6-af39-60a479f4a378",
+      "vuln_class": "idor",
+      "statement": "Form GET /profile parameter 'user_id' may be vulnerable to idor; browser-observed input surface.",
+      "origin": "deep_recon",
+      "origin_detail": "browser_observed:form_param:user_id",
+      "confidence": 0.4
+    },
+    {
+      "id": "af2ae5b4-107b-4735-8719-1b18c710cd32",
+      "vuln_class": "api_issue",
+      "statement": "Form GET /profile parameter 'tab' may be vulnerable to api_issue; browser-observed input surface.",
+      "origin": "deep_recon",
+      "origin_detail": "browser_observed:form_param:tab",
+      "confidence": 0.3
+    }
+  ],
+  "validator_traces": [
+    {
+      "hypothesis_id": "cc797dda-ebe7-42a6-af39-60a479f4a378",
+      "vuln_class": "idor",
+      "origin_detail": "browser_observed:form_param:user_id",
+      "validator": "validate_idor",
+      "outcome": "ValidationOutcome.CONFIRMED",
+      "is_confirmation_grade": true,
+      "discriminating_signal": "foreign principal reached owner-equivalent resource (baseline 200, candidate 200, control 404)",
+      "note": "IDOR cross-user access confirmed via responses_similar (owner==foreign, control 404)",
+      "trace": [
+        "browser_surface",
+        "bridge_hypothesis",
+        "candidate_built",
+        "M4_validator",
+        "ValidationOutcome.CONFIRMED"
+      ]
+    },
+    {
+      "hypothesis_id": "af2ae5b4-107b-4735-8719-1b18c710cd32",
+      "vuln_class": "api_issue",
+      "note": "no synthetic validator path for api_issue (recorded as hypothesis only)"
+    }
+  ]
+}

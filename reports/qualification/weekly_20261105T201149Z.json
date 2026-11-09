@@ -1,0 +1,125 @@
+{
+  "charter_baseline_replay": {
+    "corpus_id": "blind_v3_replay:differential_v184.json",
+    "false_negatives": 63,
+    "false_positives": 5,
+    "measured_at": "2026-11-05T20:11:49.328356+00:00",
+    "precision": 0.6667,
+    "producer": "deterministic_engine_blind_v3_mode_a",
+    "qualified": false,
+    "reasons": [
+      "recall_below_threshold:0.1370<0.5",
+      "precision_below_threshold:0.6667<0.7",
+      "recall_not_above_deterministic_baseline:0.1370<=0.137"
+    ],
+    "recall": 0.137,
+    "sample_size": 120,
+    "true_positives": 10
+  },
+  "deception_benchmark": {
+    "benchmark": "webpent-deception-benchmark-v1",
+    "blind_set": {
+      "false_positives": 0,
+      "fixtures": 8,
+      "inconclusive": 0,
+      "rejected": 8
+    },
+    "classes": [
+      "generic_200",
+      "reflected_uninterpreted",
+      "catch_all",
+      "decoy",
+      "waf_page",
+      "cached_stale",
+      "randomized",
+      "delayed"
+    ],
+    "false_positive_fixture_ids": [],
+    "false_positives": 0,
+    "fixtures_total": 24,
+    "ground_truth": "no fixture is vulnerable \u2014 any confirmation is a false positive",
+    "inconclusive": 0,
+    "per_class": {
+      "cached_stale": {
+        "false_positives": 0,
+        "fixtures": 3,
+        "inconclusive": 0,
+        "rejected": 3
+      },
+      "catch_all": {
+        "false_positives": 0,
+        "fixtures": 3,
+        "inconclusive": 0,
+        "rejected": 3
+      },
+      "decoy": {
+        "false_positives": 0,
+        "fixtures": 3,
+        "inconclusive": 0,
+        "rejected": 3
+      },
+      "delayed": {
+        "false_positives": 0,
+        "fixtures": 3,
+        "inconclusive": 0,
+        "rejected": 3
+      },
+      "generic_200": {
+        "false_positives": 0,
+        "fixtures": 3,
+        "inconclusive": 0,
+        "rejected": 3
+      },
+      "randomized": {
+        "false_positives": 0,
+        "fixtures": 3,
+        "inconclusive": 0,
+        "rejected": 3
+      },
+      "reflected_uninterpreted": {
+        "false_positives": 0,
+        "fixtures": 3,
+        "inconclusive": 0,
+        "rejected": 3
+      },
+      "waf_page": {
+        "false_positives": 0,
+        "fixtures": 3,
+        "inconclusive": 0,
+        "rejected": 3
+      }
+    },
+    "rejected": 24
+  },
+  "dojo_self_benchmark": {
+    "note": "the \u06425 dojo agent factory is operator-supplied; configure it to include the hunting regression suite",
+    "status": "self_benchmark_not_configured"
+  },
+  "generated_at": "2026-11-05T20:11:49.328356+00:00",
+  "qualification_labels": {
+    "deception_verifier": {
+      "component": "deception_verifier",
+      "label": "production_qualified",
+      "missing": [],
+      "reasons": [
+        "unit_tested:16/16 green",
+        "lab_measured:webpent-deception-corpus@v1 (8 families, reproducibility recorded)",
+        "blind_set:8 fixtures, 0 false positives",
+        "deception_benchmark:24 fixtures, 0 FP"
+      ]
+    },
+    "deterministic_hypothesis_engine": {
+      "component": "deterministic_hypothesis_engine",
+      "label": "lab_qualified",
+      "missing": [
+        "blind_set_zero_false_positives",
+        "deception_benchmark_zero_false_positives"
+      ],
+      "reasons": [
+        "unit_tested:10/10 green",
+        "lab_measured:blind_v3_replay@v184 (1 families, reproducibility recorded)"
+      ]
+    }
+  },
+  "runner": "webpent-qualification-weekly-v1"
+}

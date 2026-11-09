@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WebPent campaign dashboard</title><style>
+body{font-family:system-ui,sans-serif;max-width:1100px;margin:2rem auto;padding:0 1rem;color:#17202a;background:#f7f9fb}
+header,section,.finding{background:white;border:1px solid #d9e2ec;border-radius:8px;margin:1rem 0;padding:1rem;box-shadow:0 1px 2px #0000000d}
+h1{margin:0}.meta{color:#52606d;font-size:.85rem}.finding{padding:.7rem 1rem}.finding summary{cursor:pointer}pre{white-space:pre-wrap;background:#f0f4f8;padding:1rem;border-radius:6px;overflow:auto}.empty{color:#7b8794}
+</style></head><body>
+<header><h1>WebPent Campaign Dashboard</h1><p>Campaign: <code>eng_avi_release_evidence</code></p><p>Read-only evidence projection. Promotion and persistence remain owned by WebPent.</p></header>
+<section><h2>Tool-Confirmed <span>(10)</span></h2><details class="finding"><summary><strong>AUTH_BYPASS</strong> <span class="meta">high · finding_auth_bypass_94a840b2</span></summary><pre>{
+  &quot;api_type&quot;: &quot;graphql&quot;,
+  &quot;bundle_id&quot;: &quot;proof_bundle_6dd04e4594774fdba0fc64b1314ed9f8&quot;,
+  &quot;discriminating_signal&quot;: &quot;bypass payload got 200 (baseline 401, nc 401)&quot;,
+  &quot;evidence_quality&quot;: 2,
+  &quot;outcome&quot;: &quot;CONFIRMED&quot;,
+  &quot;seal_digest&quot;: &quot;sha256:9d73c260e384702767d67ba469bda3512226a1d850564a10106a410c643d3c9a&quot;
+}</pre></details>
+<details class="finding"><summary><strong>INFO_DISCLOSURE</strong> <span class="meta">high · finding_info_disclosure_778693ac</span></summary><pre>{
+  &quot;api_type&quot;: &quot;graphql&quot;,
+  &quot;bundle_id&quot;: &quot;proof_bundle_8d0a7005325248dda52c4e5ebe90523d&quot;,
+  &quot;discriminating_signal&quot;: &quot;candidate leaks 5 sensitive patterns (baseline 0, nc 0)&quot;,
+  &quot;evidence_quality&quot;: 2,
+  &quot;outcome&quot;: &quot;CONFIRMED&quot;,
+  &quot;seal_digest&quot;: &quot;sha256:b53999582f95ef573bfd94f0c21eebc12a4e03f5262cce04feac3893daec4032&quot;
+}</pre></details>
+<details class="finding"><summary><strong>MASS_ASSIGNMENT</strong> <span class="meta">high · finding_mass_assignment_dd64c71f</span></summary><pre>{
+  &quot;api_type&quot;: &quot;graphql&quot;,
+  &quot;bundle_id&quot;: &quot;proof_bundle_ebfa22926bd54b7f97ede03ccb526420&quot;,
+  &quot;discriminating_signal&quot;: &quot;candidate set protected field (role) \u2014 baseline/nc clean&quot;,
+  &quot;evidence_quality&quot;: 2,
+  &quot;outcome&quot;: &quot;CONFIRMED&quot;,
+  &quot;seal_digest&quot;: &quot;sha256:ff197afe103b3e2926ae6d328d3f329daff8a7e939c471dbedd94304a42e0bf7&quot;
+}</pre></details>
+<details class="finding"><summary><strong>SSRF</strong> <span class="meta">high · finding_ssrf_b1bd1496</span></summary><pre>{
+  &quot;api_type&quot;: &quot;graphql&quot;,
+  &quot;bundle_id&quot;: &quot;proof_bundle_f37b421701fb49638673d9ecd089eade&quot;,
+  &quot;discriminating_signal&quot;: &quot;candidate response contains 5 SSRF indicators (baseline 0, nc 400)&quot;,
+  &quot;evidence_quality&quot;: 2,
+  &quot;outcome&quot;: &quot;CONFIRMED&quot;,
+  &quot;seal_digest&quot;: &quot;sha256:32a8abf28ad5388c4131df8363515e467c6f6f0292ad9ccdf2382c7c94f4f178&quot;
+}</pre></details>
+<details class="finding"><summary><strong>OPEN_REDIRECT</strong> <span class="meta">high · finding_open_redirect_bbb2a7b5</span></summary><pre>{
+  &quot;api_type&quot;: &quot;graphql&quot;,
+  &quot;bundle_id&quot;: &quot;proof_bundle_ca2544bb045d4dd8ba855f041872cfcf&quot;,
+  &quot;discriminating_signal&quot;: &quot;candidate redirects to untrusted URL: https://evil.com/steal&quot;,
+  &quot;evidence_quality&quot;: 2,
+  &quot;outcome&quot;: &quot;CONFIRMED&quot;,
+  &quot;seal_digest&quot;: &quot;sha256:2330341e487a82446a0a6b1c89e60fd56652c61e1f0b41e864f14a35154c8677&quot;
+}</pre></details>
+<details class="finding"><summary><strong>IDOR</strong> <span class="meta">high · finding_idor_7dc4dcf0</span></summary><pre>{
+  &quot;api_type&quot;: &quot;graphql&quot;,
+  &quot;bundle_id&quot;: &quot;proof_bundle_ac008f14870c4149bc29fa832a93fa40&quot;,
+  &quot;discriminating_signal&quot;: &quot;foreign principal got 200 on owner resource (baseline 200, nc 404)&quot;,
+  &quot;evidence_quality&quot;: 2,
+  &quot;outcome&quot;: &quot;CONFIRMED&quot;,
+  &quot;seal_digest&quot;: &quot;sha256:5886d6ce9eb3fd898bc801fe5de0604aea4aa1f1402e54537deaea7099cb3c17&quot;
+}</pre></details>
+<details class="finding"><summary><strong>AUTH_BYPASS</strong> <span class="meta">high · finding_auth_bypass_2f5c160b</span></summary><pre>{
+  &quot;api_type&quot;: &quot;rest&quot;,
+  &quot;bundle_id&quot;: &quot;proof_bundle_a9d3a3f81669465a99b5b6893a25f642&quot;,
+  &quot;discriminating_signal&quot;: &quot;bypass payload got 200 (baseline 401, nc 401)&quot;,
+  &quot;evidence_quality&quot;: 2,
+  &quot;outcome&quot;: &quot;CONFIRMED&quot;,
+  &quot;seal_digest&quot;: &quot;sha256:ae4c655a781c9869da201d920f05988f117336e09a06dd01bb78745e2a810828&quot;
+}</pre></details>
+<details class="finding"><summary><strong>INFO_DISCLOSURE</strong> <span class="meta">high · finding_info_disclosure_8b498115</span></summary><pre>{
+  &quot;api_type&quot;: &quot;rest&quot;,
+  &quot;bundle_id&quot;: &quot;proof_bundle_9168bfbbac8a475cbbc36b8b211e08ff&quot;,
+  &quot;discriminating_signal&quot;: &quot;candidate leaks 5 sensitive patterns (baseline 0, nc 0)&quot;,
+  &quot;evidence_quality&quot;: 2,
+  &quot;outcome&quot;: &quot;CONFIRMED&quot;,
+  &quot;seal_digest&quot;: &quot;sha256:f11d686bee956bb7060de67c9258d8efc8eafb3881b852bf8555f566d7d38a82&quot;
+}</pre></details>
+<details class="finding"><summary><strong>MASS_ASSIGNMENT</strong> <span class="meta">high · finding_mass_assignment_7fb8b0d2</span></summary><pre>{
+  &quot;api_type&quot;: &quot;rest&quot;,
+  &quot;bundle_id&quot;: &quot;proof_bundle_9237f804455643f783782e01a30d20c0&quot;,
+  &quot;discriminating_signal&quot;: &quot;candidate set protected field (role) \u2014 baseline/nc clean&quot;,
+  &quot;evidence_quality&quot;: 2,
+  &quot;outcome&quot;: &quot;CONFIRMED&quot;,
+  &quot;seal_digest&quot;: &quot;sha256:0b94c4f947b65bb9ab46fdcf77f817850643f321ed881b945f63fa015d7b39a4&quot;
+}</pre></details>
+<details class="finding"><summary><strong>SSRF</strong> <span class="meta">high · finding_ssrf_2dcf3c56</span></summary><pre>{
+  &quot;api_type&quot;: &quot;rest&quot;,
+  &quot;bundle_id&quot;: &quot;proof_bundle_98a1f7d70dd24589949c78178f0e2c6c&quot;,
+  &quot;discriminating_signal&quot;: &quot;candidate response contains 5 SSRF indicators (baseline 0, nc 400)&quot;,
+  &quot;evidence_quality&quot;: 2,
+  &quot;outcome&quot;: &quot;CONFIRMED&quot;,
+  &quot;seal_digest&quot;: &quot;sha256:5ec7b0b9f670536909cc20516af55b33a0e30880d35afd6ba7a7883e3558edde&quot;
+}</pre></details></section>
+<section><h2>Needs Human Review <span>(0)</span></h2><p class="empty">No findings in this status.</p></section>
+<section><h2>Inconclusive <span>(8)</span></h2><details class="finding"><summary><strong>AUTH_BYPASS</strong> <span class="meta">unknown · h_36_graphql_inconclusive_auth_bypass</span></summary><pre>{
+  &quot;gates_failed&quot;: [
+    &quot;causal_validator_confirmed&quot;
+  ]
+}</pre></details>
+<details class="finding"><summary><strong>AUTH_BYPASS</strong> <span class="meta">unknown · h_35_graphql_refute_auth_bypass</span></summary><pre>{
+  &quot;gates_failed&quot;: [
+    &quot;causal_validator_confirmed&quot;
+  ]
+}</pre></details>
+<details class="finding"><summary><strong>INFO_DISCLOSURE</strong> <span class="meta">unknown · h_33_graphql_inconclusive_info_disclosure</span></summary><pre>{
+  &quot;gates_failed&quot;: [
+    &quot;causal_validator_confirmed&quot;
+  ]
+}</pre></details>
+<details class="finding"><summary><strong>INFO_DISCLOSURE</strong> <span class="meta">unknown · h_32_graphql_refute_info_disclosure</span></summary><pre>{
+  &quot;gates_failed&quot;: [
+    &quot;causal_validator_confirmed&quot;
+  ]
+}</pre></details>
+<details class="finding"><summary><strong>MASS_ASSIGNMENT</strong> <span class="meta">unknown · h_30_graphql_inconclusive_mass_assignment</span></summary><pre>{
+  &quot;gates_failed&quot;: [
+    &quot;causal_validator_confirmed&quot;
+  ]
+}</pre></details>
+<details class="finding"><summary><strong>MASS_ASSIGNMENT</strong> <span class="meta">unknown · h_29_graphql_refute_mass_assignment</span></summary><pre>{
+  &quot;gates_failed&quot;: [
+    &quot;causal_validator_confirmed&quot;
+  ]
+}</pre></details>
+<details class="finding"><summary><strong>SSRF</strong> <span class="meta">unknown · h_27_graphql_inconclusive_ssrf</span></summary><pre>{
+  &quot;gates_failed&quot;: [
+    &quot;causal_validator_confirmed&quot;
+  ]
+}</pre></details>
+<details class="finding"><summary><strong>SSRF</strong> <span class="meta">unknown · h_26_graphql_refute_ssrf</span></summary><pre>{
+  &quot;gates_failed&quot;: [
+    &quot;causal_validator_confirmed&quot;
+  ]
+}</pre></details></section>
+<section><h2>Refuted <span>(0)</span></h2><p class="empty">No findings in this status.</p></section></body></html>

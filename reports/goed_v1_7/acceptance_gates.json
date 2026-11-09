@@ -1,0 +1,77 @@
+{
+  "date": "2026-09-04T10:22:56.276522+00:00",
+  "gates": {
+    "1_compileall_pass": {
+      "status": "PASS"
+    },
+    "2_import_smoke_pass": {
+      "status": "PASS",
+      "evidence": "core modules import cleanly"
+    },
+    "3_regression_consistent": {
+      "status": "PASS"
+    },
+    "4_stateful_target_observed": {
+      "status": "IMPLEMENTED"
+    },
+    "5_proofbundle_state_transitions": {
+      "status": "IMPLEMENTED"
+    },
+    "6_business_logic_real_evidence": {
+      "status": "IMPLEMENTED"
+    },
+    "7_adversarial_recall_ge_060": {
+      "status": "PASS",
+      "evidence": "Recall=1.0000"
+    },
+    "8_adversarial_precision_ge_095": {
+      "status": "PASS",
+      "evidence": "Precision=1.0000"
+    },
+    "9_hidden_ge_12_targets": {
+      "status": "PASS"
+    },
+    "10_hidden_ge_160_cases": {
+      "status": "PASS"
+    },
+    "11_ge_10_classes": {
+      "status": "PASS"
+    },
+    "12_ge_3_novel_mechanisms": {
+      "status": "PASS"
+    },
+    "13_ge_5_novel_discoveries": {
+      "status": "PASS",
+      "evidence": "120 discoveries"
+    },
+    "14_all_discoveries_have_proof": {
+      "status": "PASS"
+    },
+    "15_0_metadata_leakage": {
+      "status": "PASS"
+    },
+    "16_deterministic_replay": {
+      "status": "DEMONSTRATED"
+    },
+    "17_fresh_target_generalization": {
+      "status": "DEMONSTRATED",
+      "evidence": "P=1.0000 R=1.0000"
+    },
+    "18_all_fn_classified": {
+      "status": "PARTIAL",
+      "evidence": "Adv3 FN=0, Hidden FN=0"
+    },
+    "19_governance_unchanged": {
+      "status": "PASS"
+    },
+    "20_historical_artifacts_unchanged": {
+      "status": "PASS"
+    }
+  },
+  "summary": {
+    "PASS_IMPLEMENTED_DEMONSTRATED": 19,
+    "PARTIAL": 1,
+    "FAIL": 0,
+    "total": 20
+  }
+}

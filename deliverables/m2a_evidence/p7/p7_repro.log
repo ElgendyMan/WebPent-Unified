@@ -1,0 +1,21 @@
+== targets ==
+target_http=200
+llm_http=200
+== CLI hunt (lab P7 command shape) ==
+EXIT_CODE=0
+== trace fields from campaign_summary.json ==
+production_trace.complete = False
+missing_required_stages  = ['world_model_mutation', 'research_decision', 'bounded_tool_execution', 'observation', 'outcome_recording', 'causal_guard_evaluation', 'proof_bundle_creation', 'promotion_decision']
+stages_seen              = ['audit_event', 'audit_finalization', 'deep_recon', 'entrypoint_resolve', 'flag_resolution', 'replan', 'spine_activation']
+candidates_generated     = 6
+candidates_executable    = 1
+confirmed_findings       = []
+agent_graph_events       = 26
+program_scope.enabled    = True
+program_scope.halted     = False
+== stderr tail ==
+/home/z/.venv/lib/python3.12/site-packages/pydantic/main.py:250: UserWarning: INSECURE audit_secret_key in dev mode — evidence hashes are HMAC'd with a publicly-known key and can be forged. Set AUDIT_SECRET_KEY to a strong random value for any non-local deployment.
+  validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+/home/z/.venv/lib/python3.12/site-packages/pydantic/main.py:250: UserWarning: INSECURE celery_payload_key in dev mode — task passwords are encrypted with a publicly-known key and can be decrypted by anyone with Redis access. Set CELERY_PAYLOAD_KEY to a strong random value for any non-local deployment.
+  validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+LLM call budget exhausted before provider I/O: calls=6 max=6

@@ -1,0 +1,93 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0 -- /tmp/webpent_remediation_project/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /tmp/webpent_remediation_project
+configfile: pyproject.toml
+plugins: langsmith-0.11.0, anyio-4.14.2, asyncio-1.4.0, cov-7.1.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 20 items
+
+tests/team1_acceptance/test_sprint_i3_e2e_flow_vertical.py::Test51FullFlow::test_static_fixture_becomes_promoted_finding PASSED [  5%]
+tests/team1_acceptance/test_sprint_i3_e2e_flow_vertical.py::Test52RefutedPath::test_policy_enforced_target_refuted_not_promoted PASSED [ 10%]
+tests/team1_acceptance/test_sprint_i3_e2e_flow_vertical.py::Test53RejectionPath::test_session_cookie_in_har_rejects_entire_fixture PASSED [ 15%]
+tests/team1_acceptance/test_sprint_i3_e2e_flow_vertical.py::Test54OverflowPath::test_excess_candidates_terminate_window_overflow PASSED [ 20%]
+tests/team1_acceptance/test_sprint_i3_e2e_flow_vertical.py::Test55AuditChain::test_fixture_manifest_chain_verifies PASSED [ 25%]
+tests/team1_acceptance/test_sprint_i3_e2e_flow_vertical.py::Test56FullPathViaReconNode::test_admitted_fixture_flows_through_real_recon_node PASSED [ 30%]
+tests/team1_acceptance/test_sprint_i2_e2e_walking_skeleton.py::Test61Positive::test_positive_full_chain_promoted PASSED [ 35%]
+tests/team1_acceptance/test_sprint_i2_e2e_walking_skeleton.py::Test62Refuted::test_refuted_not_promoted PASSED [ 40%]
+tests/team1_acceptance/test_sprint_i2_e2e_walking_skeleton.py::Test63Clean::test_self_access_not_promoted PASSED [ 45%]
+tests/team1_acceptance/test_sprint_i2_e2e_walking_skeleton.py::Test64B11ForgedXUser::test_forged_x_user_blocked PASSED [ 50%]
+tests/team1_acceptance/test_sprint_i2_e2e_walking_skeleton.py::Test65AuditChain::test_audit_chain_records_lifecycle_value_free PASSED [ 55%]
+tests/team1_acceptance/test_sprint_i2_hotfix_regression.py::TestDRED1_MissingPrincipalAliasBlocks::test_missing_candidate_alias_blocks PASSED [ 60%]
+tests/team1_acceptance/test_sprint_i2_hotfix_regression.py::TestDRED2_LegacyIDORPathBlocks::test_legacy_idor_blocks PASSED [ 65%]
+tests/team1_acceptance/test_sprint_i2_hotfix_regression.py::TestDRED3_ForgedStrippedOnResolveFailure::test_forged_stripped_on_failure PASSED [ 70%]
+tests/team1_acceptance/test_sprint_i2_hotfix_regression.py::TestDRED5_AuthorizeExecutionChoke::test_no_direct_mint_in_executor PASSED [ 75%]
+tests/team1_acceptance/test_sprint_i2_hotfix_regression.py::TestDRED5_AuthorizeExecutionChoke::test_authorize_execution_rejects_unbound_principal PASSED [ 80%]
+tests/team1_acceptance/test_sprint_i2_hotfix_regression.py::TestDRED8_EightGatesUnguarded::test_e2e_61_has_unguarded_gate_assertion PASSED [ 85%]
+tests/team1_acceptance/test_sprint_i2_hotfix_regression.py::TestDRED9_ASTBypass2Pin::test_bypass2_pin_uses_ast_not_literal_grep PASSED [ 90%]
+tests/team1_acceptance/test_sprint_i2_hotfix_regression.py::TestDRED10_StrictRefuted::test_62_strict_refuted PASSED [ 95%]
+tests/team1_acceptance/test_sprint_i2_hotfix_regression.py::TestDRED11_SharedAliasRegistry::test_shared_registry_visible_across_instances PASSED [100%]
+
+============================= 20 passed in 32.62s ==============================
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0 -- /tmp/webpent_remediation_project/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /tmp/webpent_remediation_project
+configfile: pyproject.toml
+plugins: langsmith-0.11.0, anyio-4.14.2, asyncio-1.4.0, cov-7.1.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 20 items
+
+tests/team1_acceptance/test_sprint_i3_e2e_flow_vertical.py::Test51FullFlow::test_static_fixture_becomes_promoted_finding PASSED [  5%]
+tests/team1_acceptance/test_sprint_i3_e2e_flow_vertical.py::Test52RefutedPath::test_policy_enforced_target_refuted_not_promoted PASSED [ 10%]
+tests/team1_acceptance/test_sprint_i3_e2e_flow_vertical.py::Test53RejectionPath::test_session_cookie_in_har_rejects_entire_fixture PASSED [ 15%]
+tests/team1_acceptance/test_sprint_i3_e2e_flow_vertical.py::Test54OverflowPath::test_excess_candidates_terminate_window_overflow PASSED [ 20%]
+tests/team1_acceptance/test_sprint_i3_e2e_flow_vertical.py::Test55AuditChain::test_fixture_manifest_chain_verifies PASSED [ 25%]
+tests/team1_acceptance/test_sprint_i3_e2e_flow_vertical.py::Test56FullPathViaReconNode::test_admitted_fixture_flows_through_real_recon_node PASSED [ 30%]
+tests/team1_acceptance/test_sprint_i2_e2e_walking_skeleton.py::Test61Positive::test_positive_full_chain_promoted PASSED [ 35%]
+tests/team1_acceptance/test_sprint_i2_e2e_walking_skeleton.py::Test62Refuted::test_refuted_not_promoted PASSED [ 40%]
+tests/team1_acceptance/test_sprint_i2_e2e_walking_skeleton.py::Test63Clean::test_self_access_not_promoted PASSED [ 45%]
+tests/team1_acceptance/test_sprint_i2_e2e_walking_skeleton.py::Test64B11ForgedXUser::test_forged_x_user_blocked PASSED [ 50%]
+tests/team1_acceptance/test_sprint_i2_e2e_walking_skeleton.py::Test65AuditChain::test_audit_chain_records_lifecycle_value_free PASSED [ 55%]
+tests/team1_acceptance/test_sprint_i2_hotfix_regression.py::TestDRED1_MissingPrincipalAliasBlocks::test_missing_candidate_alias_blocks PASSED [ 60%]
+tests/team1_acceptance/test_sprint_i2_hotfix_regression.py::TestDRED2_LegacyIDORPathBlocks::test_legacy_idor_blocks PASSED [ 65%]
+tests/team1_acceptance/test_sprint_i2_hotfix_regression.py::TestDRED3_ForgedStrippedOnResolveFailure::test_forged_stripped_on_failure PASSED [ 70%]
+tests/team1_acceptance/test_sprint_i2_hotfix_regression.py::TestDRED5_AuthorizeExecutionChoke::test_no_direct_mint_in_executor PASSED [ 75%]
+tests/team1_acceptance/test_sprint_i2_hotfix_regression.py::TestDRED5_AuthorizeExecutionChoke::test_authorize_execution_rejects_unbound_principal PASSED [ 80%]
+tests/team1_acceptance/test_sprint_i2_hotfix_regression.py::TestDRED8_EightGatesUnguarded::test_e2e_61_has_unguarded_gate_assertion PASSED [ 85%]
+tests/team1_acceptance/test_sprint_i2_hotfix_regression.py::TestDRED9_ASTBypass2Pin::test_bypass2_pin_uses_ast_not_literal_grep PASSED [ 90%]
+tests/team1_acceptance/test_sprint_i2_hotfix_regression.py::TestDRED10_StrictRefuted::test_62_strict_refuted PASSED [ 95%]
+tests/team1_acceptance/test_sprint_i2_hotfix_regression.py::TestDRED11_SharedAliasRegistry::test_shared_registry_visible_across_instances PASSED [100%]
+
+============================= 20 passed in 33.48s ==============================
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0 -- /tmp/webpent_remediation_project/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /tmp/webpent_remediation_project
+configfile: pyproject.toml
+plugins: langsmith-0.11.0, anyio-4.14.2, asyncio-1.4.0, cov-7.1.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 20 items
+
+tests/team1_acceptance/test_sprint_i3_e2e_flow_vertical.py::Test51FullFlow::test_static_fixture_becomes_promoted_finding PASSED [  5%]
+tests/team1_acceptance/test_sprint_i3_e2e_flow_vertical.py::Test52RefutedPath::test_policy_enforced_target_refuted_not_promoted PASSED [ 10%]
+tests/team1_acceptance/test_sprint_i3_e2e_flow_vertical.py::Test53RejectionPath::test_session_cookie_in_har_rejects_entire_fixture PASSED [ 15%]
+tests/team1_acceptance/test_sprint_i3_e2e_flow_vertical.py::Test54OverflowPath::test_excess_candidates_terminate_window_overflow PASSED [ 20%]
+tests/team1_acceptance/test_sprint_i3_e2e_flow_vertical.py::Test55AuditChain::test_fixture_manifest_chain_verifies PASSED [ 25%]
+tests/team1_acceptance/test_sprint_i3_e2e_flow_vertical.py::Test56FullPathViaReconNode::test_admitted_fixture_flows_through_real_recon_node PASSED [ 30%]
+tests/team1_acceptance/test_sprint_i2_e2e_walking_skeleton.py::Test61Positive::test_positive_full_chain_promoted PASSED [ 35%]
+tests/team1_acceptance/test_sprint_i2_e2e_walking_skeleton.py::Test62Refuted::test_refuted_not_promoted PASSED [ 40%]
+tests/team1_acceptance/test_sprint_i2_e2e_walking_skeleton.py::Test63Clean::test_self_access_not_promoted PASSED [ 45%]
+tests/team1_acceptance/test_sprint_i2_e2e_walking_skeleton.py::Test64B11ForgedXUser::test_forged_x_user_blocked PASSED [ 50%]
+tests/team1_acceptance/test_sprint_i2_e2e_walking_skeleton.py::Test65AuditChain::test_audit_chain_records_lifecycle_value_free PASSED [ 55%]
+tests/team1_acceptance/test_sprint_i2_hotfix_regression.py::TestDRED1_MissingPrincipalAliasBlocks::test_missing_candidate_alias_blocks PASSED [ 60%]
+tests/team1_acceptance/test_sprint_i2_hotfix_regression.py::TestDRED2_LegacyIDORPathBlocks::test_legacy_idor_blocks PASSED [ 65%]
+tests/team1_acceptance/test_sprint_i2_hotfix_regression.py::TestDRED3_ForgedStrippedOnResolveFailure::test_forged_stripped_on_failure PASSED [ 70%]
+tests/team1_acceptance/test_sprint_i2_hotfix_regression.py::TestDRED5_AuthorizeExecutionChoke::test_no_direct_mint_in_executor PASSED [ 75%]
+tests/team1_acceptance/test_sprint_i2_hotfix_regression.py::TestDRED5_AuthorizeExecutionChoke::test_authorize_execution_rejects_unbound_principal PASSED [ 80%]
+tests/team1_acceptance/test_sprint_i2_hotfix_regression.py::TestDRED8_EightGatesUnguarded::test_e2e_61_has_unguarded_gate_assertion PASSED [ 85%]
+tests/team1_acceptance/test_sprint_i2_hotfix_regression.py::TestDRED9_ASTBypass2Pin::test_bypass2_pin_uses_ast_not_literal_grep PASSED [ 90%]
+tests/team1_acceptance/test_sprint_i2_hotfix_regression.py::TestDRED10_StrictRefuted::test_62_strict_refuted PASSED [ 95%]
+tests/team1_acceptance/test_sprint_i2_hotfix_regression.py::TestDRED11_SharedAliasRegistry::test_shared_registry_visible_across_instances PASSED [100%]
+
+============================= 20 passed in 33.31s ==============================

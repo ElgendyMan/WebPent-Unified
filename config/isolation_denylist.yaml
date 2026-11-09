@@ -1,0 +1,332 @@
+# config/isolation_denylist.yaml
+#
+# Sprint I-1, item 2.1 (M3 v1.0 Section 5.1, "webpent-production-
+# dependency-isolation v1.0.0") — versioned dependency allowlist/denylist
+# contract, NOW COMPLETE. Sprint I-1 Continuation 03 supplied the genuine
+# M3 v1.0 base document (WEBPENT_Milestone3_Dependency_Isolation_Audit_v1_0.docx);
+# the earlier partial version of this file (D-04 only, everything else
+# stubbed pending_v1_0_source) is superseded.
+#
+# Enforced by scripts/check_isolation_denylist.py (S-1) and
+# scripts/check_vault_import_authority.py is a separate contract (M4).
+# The S-2/S-3 reachability tests (M3 v1.0 §5.2) reference this file by
+# group ID.
+#
+# CONTRACT VERSION BUMPS REQUIRED: any change to a `patterns`/`match`/
+# `qualified_required`/`bare_match`/`entries` list, or any addition/
+# removal from a `known_ok`/`manual_review_ok` list, requires
+# incrementing `contract_version` and recording the change in
+# `amendment_log` — enforced by reviewer discipline (see the D-04
+# amendment history below for the model to follow).
+
+contract_version: "1.3"
+source_document: "WEBPENT_Milestone3_Dependency_Isolation_Audit_v1_0.docx (D-01/D-02/D-03/D-05/A-01/A-02) + WEBPENT_Milestone3_Dependency_Isolation_Audit_v1_1.md (D-04 amendment, F-03)"
+
+scope:
+  production_roots:
+    - "webpent.cli:main"                                   # pyproject.toml:123
+    - "webpent.cli.ingest:main"                             # pyproject.toml:124
+    - "webpent.api.app:app"                                 # uvicorn string target, server.py:26-32
+    - "webpent.workers.pentest_worker:celery_app"           # workers/pentest_worker.py
+    - "webpent.production.production_spine"
+    - "webpent.production.modern_spine_integration"
+  tree_scope: "src/ (tests and scripts are out of enforcement scope for D-02/D-03/D-04, but swept for D-01 per M3 v1.0)"
+
+allowlist_groups:
+  A-01:
+    status: fully_specified
+    kind: third-party-top-level
+    entries:
+  # UNIFIED MERGE 2026-11-02 (R3-class catch-up): the dev-extra
+  # dependencies (esprima, jsbeautifier) and the declared
+  # transport libs (h2 via httpx[http2], starlette via fastapi)
+  # were always imported by src/; the allowlist lagged the
+  # dependency declaration. See DRIFT_REGISTER UM-DR-04.
+      - esprima
+      - h2
+      - jsbeautifier
+      - starlette
+      - alembic
+      - bcrypt
+      - bbscout  # conditional, fail-closed (OQ-2) — see M3 v1.1 §6.3 OQ-2 ruling
+      - bs4
+      - celery
+      - cryptography
+      - dns
+      - fastapi
+      - httpx
+      - jinja2
+      - jose
+      - jwt
+      - langchain_anthropic
+      - langchain_chroma
+      - langchain_cloudflare
+      - langchain_cohere
+      - langchain_community
+      - langchain_core
+      - langchain_google_genai
+      - langchain_huggingface  # UNIFIED MERGE 2026-11-02 Phase 3 (R6): embeddings moved off sunset langchain-community (see DRIFT_REGISTER UM-DR-04/phase3)
+      - langchain_mistralai
+      - langchain_openai
+      - langchain_text_splitters
+      - langgraph
+      - pdfkit
+      - playwright
+      - pydantic
+      - pydantic_settings
+      - reportlab  # v88: PDF section renderer for the Oracle report (lazy import in oracle/reporter.py)
+      - redis
+      - rich
+      - typer
+      - uvicorn
+      - weasyprint
+      - yaml
+    evidence: "Table 5-1, M3 v1.0 (per-entry import site)"
+
+  A-02:
+    status: fully_specified
+    kind: internal
+    rule: "any webpent.* module; any Python stdlib module"
+
+denylist_groups:
+  D-01:
+    status: fully_specified
+    what: "strix package tree (import of any strix.* module, and the bare name 'strix')"
+    match:
+      - strix
+      - strix.agents
+      - strix.config
+      - strix.core
+      - strix.interface
+      - strix.llm
+      - strix.report
+      - strix.runtime
+      - strix.skills
+      - strix.telemetry
+      - strix.tools
+      - strix.utils
+    matching_mode: substring_or_regex_whole_file
+    matching_note: >
+      Substring-or-regex over the WHOLE file text (imports, strings,
+      comments) — a Strix reference in a comment is still a reference
+      the program must adjudicate (M3 v1.0 §5.2.1).
+    evidence: "strix-main/pyproject.toml:59-60; strix/report/writer.py:139-148; strix/agents/factory.py:561-602"
+
+  D-02:
+    status: fully_specified
+    what: "strix report/writer symbol names"
+    matching_mode: qualified_for_colliding_bare_for_unambiguous
+    matching_note: >
+      Word-boundary symbol match; package-qualified ONLY for the three
+      colliding native names (OQ-3, ratified: "qualified-only denylist
+      matching for the three colliding native names ... bare matching
+      for all unambiguous names").
+    qualified_required:
+      - build_sarif_report
+      - record_coverage
+      - scope_rules
+    bare_match:
+      - ReportState
+      - set_global_report_state
+      - add_vulnerability_report
+      - update_vulnerability_report
+      - create_vulnerability_report
+      - create_dependency_report
+      - finish_scan
+      - agent_finish
+      - write_executive_report
+      - write_vulnerabilities
+      - write_run_record
+      - write_sarif
+      - write_coverage
+      - hydrate_from_run_dir
+      - _save_artifacts
+      - UPDATABLE_REPORT_FIELDS
+      - atomic_write_text
+      - render_vulnerability_md
+      - build_strix_agent
+      - run_strix_scan
+      - register_agent_tools
+      - registered_agent_tools
+      - function_tool
+      - AgentCoordinator
+      - ReportUsageHooks
+      - McpRegistry
+      - connect_mcp_servers
+      - attach_mcp_requests
+      - dispatch_mcp_call
+      - load_user_mcp_configs
+      - call_mcp
+      - register_backend
+      - register_skill_dir
+      - configure_spill_writer
+      - render_system_prompt
+    evidence: "reporting/tool.py:900-901/:1382-1383/:1964-1965; finish/tool.py:138-139; state.py:312/:421/:701; factory.py:561/:623/:647"
+
+  D-03:
+    status: fully_specified
+    what: "strix destination strings and endpoints"
+    match:
+      - strix_runs
+      - penetration_test_report.md
+      - findings.sarif
+      - app.strix.ai
+      - us.i.posthog.com
+      - gateway.scarf.sh
+      - .strix/
+      - mcp-servers.json
+      - strix.log
+      - strix-report-
+    matching_mode: substring_or_regex_whole_file
+    evidence: "core/paths.py:8-31; telemetry/posthog.py:26; telemetry/scarf.py:28; config/settings.py:173"
+
+  D-04:
+    status: fully_specified
+    contract_version_of_group: "1.1"
+    amended_by: "F-03 (S-1 AST-level inspection requirement)"
+    rule: >
+      importlib.import_module / importlib.reload / __import__ /
+      spec_from_file_location / exec / eval, whose target is NOT (a) a
+      webpent.* literal, (b) an A-01 member, or (c) a stdlib literal.
+      Enforcement is two-layer: (i) literal-substring matching catches
+      the obvious cases; (ii) AST-level inspection is REQUIRED for every
+      call site — the first argument to each dynamic-import call must be
+      examined at the AST level. Any call whose first argument is NOT a
+      compile-time string literal (ast.Constant) is flagged
+      D-04-MANUAL-REVIEW-REQUIRED, regardless of whether the current
+      runtime value happens to be safe, UNLESS the exact site is listed
+      in `manual_review_ok` below with a recorded justification.
+    matched_symbols:
+      - "importlib.import_module"
+      - "importlib.reload"
+      - "__import__"
+      - "importlib.util.spec_from_file_location"
+      - "eval"
+      - "exec"
+    known_ok_literal_argument_sites:
+      - path: "src/webpent/shared/oob_provider.py"
+        line: 213
+        literal: "hashlib"
+        note: "__import__(\"hashlib\") — compile-time literal."
+      - path: "src/webpent/production/campaign_worker.py"
+        line: 126
+        literal: "os"
+        note: "__import__(\"os\") — compile-time literal."
+      - path: "src/webpent/cli/commands.py"
+        line: 1076
+        literal: "datetime"
+        note: "__import__(\"datetime\") (two call sites, lines 1076-1077) — compile-time literal."
+    manual_review_ok:
+      - path: "src/webpent/cli/ingest.py"
+        line: 119
+        call: "importlib.import_module(module_path)"
+        argument_kind: "variable (module_path, from loader_path.rsplit('.', 1))"
+        finding: >
+          M3's own documented caveat: module_path is sourced from the
+          fixed _EXTENSION_LOADERS map (ingest.py:30-36), whose values
+          are compile-time literals naming langchain_community document
+          loaders (A-01 members). Classified known-ok in M3 itself.
+        reviewed_in: "M3 v1.0 §5.1 D-04 known_ok; M3 v1.1 known_ok caveat"
+      - path: "src/webpent/tools/registry.py"
+        line: 243
+        call: "importlib.reload(sys.modules[module_path])"
+        argument_kind: "variable (module_path = f\"{package}.{name}\")"
+        finding: >
+          Same module_path as the line-238 entry below (this is the
+          `if module_path in sys.modules: importlib.reload(...)` branch
+          of the same if/else). Same review finding applies.
+        reviewed_in: "Sprint I-1 item 2.2 implementation (this sprint, not M3)"
+      - path: "src/webpent/tools/registry.py"
+        line: 245
+        call: "importlib.import_module(module_path)"
+        also: "importlib.reload(sys.modules[module_path]) at line 237 (same module_path)"
+        argument_kind: "variable (module_path = f\"{package}.{name}\")"
+        finding: >
+          NOT covered by M3 v1.1's own known_ok list under this
+          classification — M3 v1.1 lists "tools/registry.py:215-217" as
+          a known_ok LITERAL-argument site, but the current tree shows
+          module_path is an f-string, not a literal (verified during
+          Sprint I-1 implementation of this gate — see sprint changelog
+          for the discrepancy). M3 v1.0's own known_ok list (Section
+          5.1) lists this same site ("tools/registry.py:215-217
+          (internal list :196-204)") under the SAME wording, without
+          the v1.1 AST-inspection requirement existing yet — v1.0
+          predates F-03, so v1.0's classification of this site as
+          "known_ok" was made before AST-level literal-vs-variable
+          scrutiny was required at all. Reviewed here independently
+          under the v1.1 AST rule: package and name are loop variables
+          drawn exclusively from the hardcoded, compile-time-literal
+          `modules` list at registry.py's own auto_discover() (the same
+          9-entry list enumerated in item 2.5's allowlisted-package
+          gate) — no external input reaches this call. Classified
+          known-ok on that basis, analogous to ingest.py's caveat above,
+          NOT on the strength of either M3 version's own classification
+          of this specific site.
+        reviewed_in: "Sprint I-1 item 2.2 implementation (this sprint, not M3)"
+
+  D-05:
+    status: fully_specified
+    what: "generic report-writer capability outside the sanctioned ledger/export path"
+    definition: >
+      Any module under src/ that (writes a file whose content includes
+      finding-class data) AND is not one of the sanctioned_writers below
+      — i.e., a new writer requires a contract edit to this file, not
+      silent addition.
+    sanctioned_writers:
+      - path: "src/webpent/reporter/export.py"
+        role: "read-only projection of ledger/manifest state"
+      - path: "src/webpent/cli/commands.py"
+        role: "CLI post-graph persistence — report/findings/evidence projections"
+        lines: "617-650"
+        ratification: "RATIFIED sanctioned writer (M3 v1.1 §6.3 OQ-1) — projects already-promoted findings from final_state; never mints authority"
+      - path: "src/webpent/shared/persistent_finding_ledger.py"
+        role: "the ledger primitive family"
+      - path: "src/webpent/agents/reporter/agent.py"
+        role: "reporter agent"
+      - path: "src/webpent/workers/pentest_worker.py"
+        role: "_persist_findings family (including _emergency_persist_findings)"
+        lines: "224, 275"
+        ratification: "RATIFIED sanctioned writer (M3 v1.1 §6.3 OQ-1) — projects already-promoted findings from final_state; never mints authority. Emergency variant LOWERS status to Needs-Human-Review (safety net, not authority leak)"
+      - path: "src/webpent/memory/db.py"
+        role: "mark_oob_confirmed"
+        ratification: "KNOWN-AND-GATED-DORMANT, NOT a sanctioned writer (M3 v1.1 §6.3 OQ-1) — controlled by the pre-existing fail-closed flag oob_confirm_route_enabled (default False); route gates at api/app.py invoke _reject_if_oob_confirm_route_disabled() as their first action"
+    evidence: "authority mapping Table 4-2, M3 v1.0/v1.1"
+
+amendment_log:
+  - version: "1.0"
+    date: "Sprint I-1 (initial, D-04-only partial)"
+    change: "Initial creation. D-04 fully populated from M3 v1.1. D-01/D-02/D-03/D-05/A-01/A-02 stubbed pending_v1_0_source."
+  - version: "1.1"
+    date: "Sprint I-1 Continuation 03"
+    change: >
+      The genuine M3 v1.0 base document arrived. D-01, D-02, D-03, D-05,
+      A-01, A-02 fully populated from it, verbatim. D-04 unchanged (still
+      the v1.1-amended version). One manual_review_ok entry
+      (tools/registry.py, both lines 237 and 239, renumbered +1 by the 2026-10-26 merge's arjun registration entry) remains classified
+      independently of BOTH M3 versions' own "known_ok" wording, per the
+      AST-verification discrepancy documented in that entry's `finding`
+      field above and in the sprint changelog.
+  - version: "1.2"
+    date: "v88 THE ORACLE release (2026-10-17)"
+    change: >
+      A-01: added `reportlab` — the PDF section renderer for the Oracle
+      report (U-ORACLE-11), lazily imported inside
+      src/webpent/oracle/reporter.py's to_pdf(). No other group changed;
+      the new D-04 literal site (cli/oracle.py:312,
+      spec_from_file_location('oracle_operator_fetchers')) needs no entry
+      here — D-04 auto-approves compile-time string-literal arguments, and
+      the canary pin in tests/test_check_isolation_denylist.py was raised
+      8 -> 9 (FINAL-CLOSURE RULING R3) with the justification inline.
+
+  - version: "1.3"
+    date: "ULTIMATE PLAN 2026-10-27 (proposal 5: gau/nmap tool registration)"
+    change: >
+      D-04: the two manual_review_ok entries for tools/registry.py's
+      auto_discover() dynamic imports renumbered 237/239 -> 243/245 -
+      the Ultimate-plan window added the gau and nmap wrapper modules to
+      the hardcoded `modules` list (5 lines above the sites). Same two
+      sites, same loop variables, same compile-time-literal provenance:
+      package/name now range over the 12-entry literal list (was 10).
+      No other group changed; no new external input reaches either
+      call. The gau/nmap wrappers themselves contain only
+      run_command-boundary subprocess calls (G-02 approved records).

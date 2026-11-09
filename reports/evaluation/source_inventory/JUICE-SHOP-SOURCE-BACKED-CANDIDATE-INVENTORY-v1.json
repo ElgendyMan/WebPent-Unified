@@ -1,0 +1,317 @@
+{
+  "schema": "webpent-source-backed-target-candidate-inventory-v1",
+  "inventory_id": "owasp_juice_shop-source-backed-candidates-v1",
+  "global_safety": {
+    "scope": "authorized local loopback only",
+    "methods": [
+      "GET"
+    ],
+    "credentials_used": false,
+    "state_mutation": false,
+    "external_contact": false,
+    "oast_or_callbacks": false,
+    "raw_bodies_headers_cookies_persisted": false,
+    "official_isolated_p10_runs_authorized": false,
+    "blocked_or_observation_only_are_not_metrics": true
+  },
+  "qualification_state": {
+    "juice_shop_approved_cases": 3,
+    "juice_shop_approved_classes": 3,
+    "p10_minimum_cases": 10,
+    "p10_minimum_classes": 6,
+    "official_isolated_p10_runs_authorized": false,
+    "p10": "NOT_QUALIFIED",
+    "p9": "NOT_QUALIFIED",
+    "vip": "NOT_QUALIFIED",
+    "bug_bounty": "BLOCKED"
+  },
+  "target": {
+    "target_id": "owasp_juice_shop",
+    "product": "OWASP Juice Shop",
+    "version": "20.2.0",
+    "source_path": "/tmp/juice-shop-source",
+    "source_revision": "1618a611b173b4bf114028e6e02549950606e29d",
+    "target_spec_ref": "reports/evaluation/scoring_readiness/JUICE-SHOP-SCORING-READINESS-PACK-v1.json",
+    "ground_truth_manifest": {
+      "ref": "docs/juice_shop_p10_ground_truth_v1.json",
+      "sha256": "84bf4111235b546b337fbd3e76207d43a8e7a05f39685dd9ed51f739468aea52",
+      "admitted_causal_case_ids": [
+        "juice.error_handling.v1",
+        "juice.exposed_metrics.v1",
+        "juice.local_xss.v1"
+      ],
+      "not_scored_is_not_fn": true
+    },
+    "oracle_contract_register": {
+      "ref": "docs/p10_oracle_semantics_decision_v1.json",
+      "sha256": "637b1f7e10e4224d60e3bcf29abdcaadb2e87aa66ed03d776668b94f1454a97c",
+      "approved_case_count": 3
+    },
+    "candidates": [
+      {
+        "case_id": "juice.error_handling.v1",
+        "class": "Security Misconfiguration",
+        "decision": "accepted_scoring_ready_partial",
+        "source_evidence": [
+          {
+            "path": "data/static/challenges.yml",
+            "line_hint": "358",
+            "sha256": "8efa070380ab8f39783eb92cbaaf9df67bcee0f1715eee98a06fb1176051c2b7"
+          }
+        ],
+        "causal_predicate": "approved verbose server-error disclosure shape distinguished from a benign invalid-path control; HTTP status alone is insufficient",
+        "safe_precondition": "anonymous loopback service ready; allowlisted GET; no raw response retention",
+        "independent_negative_control": "known benign invalid path with redacted error-shape comparison",
+        "central_verifier": "JuiceShopTargetAdapter -> juice.error_disclosure.v1 -> central causal/negative verifier",
+        "proof_procedure": {
+          "baseline": "completed",
+          "candidate": "completed",
+          "negative_control": "completed",
+          "seal": true,
+          "verify_seal": true,
+          "replay": true
+        },
+        "evidence_ref": "audit/juice_shop_baseline_quality_run_v1.json#juice.error_handling.v1",
+        "implementation_classification": "target-local semantic profile; no generic change required",
+        "quality_status": "eligible only for future official metrics after final approved set and three isolated runs"
+      },
+      {
+        "case_id": "juice.exposed_metrics.v1",
+        "class": "Observability Failures",
+        "decision": "accepted_scoring_ready_partial",
+        "source_evidence": [
+          {
+            "path": "data/static/challenges.yml",
+            "line_hint": "1339",
+            "sha256": "8efa070380ab8f39783eb92cbaaf9df67bcee0f1715eee98a06fb1176051c2b7"
+          },
+          {
+            "path": "data/static/codefixes/exposedMetricsChallenge.info.yml",
+            "sha256": "c7012d738e44d4cf57281d0c9a4652c16b9fda3f73ee32e9b2c3772168ef1327"
+          }
+        ],
+        "causal_predicate": "approved unauthenticated metrics publication shape; endpoint existence or HTTP 200 alone is insufficient",
+        "safe_precondition": "anonymous loopback service ready; allowlisted GET; metric names and values are not persisted",
+        "independent_negative_control": "unrelated allowlisted public endpoint with redacted metadata comparison",
+        "central_verifier": "JuiceShopTargetAdapter -> juice.exposed_metrics.v1 -> central causal/negative verifier",
+        "proof_procedure": {
+          "baseline": "completed",
+          "candidate": "completed",
+          "negative_control": "completed",
+          "seal": true,
+          "verify_seal": true,
+          "replay": true
+        },
+        "evidence_ref": "audit/juice_shop_baseline_quality_run_v1.json#juice.exposed_metrics.v1",
+        "implementation_classification": "target-local semantic profile; no generic change required",
+        "quality_status": "eligible only for future official metrics after final approved set and three isolated runs"
+      },
+      {
+        "case_id": "juice.local_xss.v1",
+        "class": "XSS",
+        "decision": "accepted_scoring_ready_partial",
+        "source_evidence": [
+          {
+            "path": "data/static/challenges.yml",
+            "line_hint": "904",
+            "sha256": "8efa070380ab8f39783eb92cbaaf9df67bcee0f1715eee98a06fb1176051c2b7"
+          },
+          {
+            "path": "data/static/codefixes/localXssChallenge.info.yml",
+            "sha256": "ccfc512b529e31b8cc21c00862cca1150a013f98c18a59c67450c7e2d9003a06"
+          }
+        ],
+        "causal_predicate": "approved DOM/XSS semantic predicate from the reviewed bounded typed-search workflow; sink/dialog evidence and benign control are required",
+        "safe_precondition": "anonymous loopback browser context; reviewed typed-search workflow; no credentials or state-changing submission",
+        "independent_negative_control": "benign control search with redacted DOM/dialog state comparison",
+        "central_verifier": "JuiceShopTargetAdapter -> dom.safe_search_sink_observation -> central causal/negative verifier",
+        "proof_procedure": {
+          "baseline": "completed",
+          "candidate": "completed",
+          "negative_control": "completed",
+          "seal": true,
+          "verify_seal": true,
+          "replay": true
+        },
+        "evidence_ref": "audit/juice_shop_baseline_quality_run_v1.json#juice.local_xss.v1",
+        "implementation_classification": "target-local semantic profile; no generic change required",
+        "quality_status": "eligible only for future official metrics after final approved set and three isolated runs"
+      },
+      {
+        "case_id": "juice.access_log_disclosure.v1",
+        "class": "Observability Failures",
+        "decision": "blocked_pending_governance_and_mapping_confirmation",
+        "not_fn": true,
+        "source_evidence": [
+          {
+            "path": "data/static/codefixes/accessLogDisclosureChallenge.info.yml",
+            "sha256": "11f8a26910711950b131e9b7e59bfd031bec039a15e447d803ab11d80720d57f"
+          }
+        ],
+        "reason": "source path and frozen mapping require explicit reconciliation; no new scoring contract is admitted in this phase",
+        "required_next": "owner/governance confirmation, current path-to-ground-truth mapping, metadata-only causal predicate, negative control, and new sealed/replayable evidence"
+      },
+      {
+        "case_id": "juice.directory_listing.v1",
+        "class": "Sensitive Data Exposure",
+        "decision": "observation_only",
+        "not_fn": true,
+        "source_evidence": [
+          {
+            "path": "data/static/challenges.yml",
+            "line_hint": "challenge key directoryListingChallenge",
+            "sha256": "8efa070380ab8f39783eb92cbaaf9df67bcee0f1715eee98a06fb1176051c2b7"
+          }
+        ],
+        "reason": "current bounded evidence is resource metadata/reachability; no admitted semantic disclosure predicate and no scoring proof"
+      },
+      {
+        "case_id": "juice.forgotten_backup.v1",
+        "class": "Sensitive Data Exposure",
+        "decision": "observation_only",
+        "not_fn": true,
+        "source_evidence": [
+          {
+            "path": "data/static/challenges.yml",
+            "line_hint": "challenge key forgottenBackupChallenge",
+            "sha256": "8efa070380ab8f39783eb92cbaaf9df67bcee0f1715eee98a06fb1176051c2b7"
+          }
+        ],
+        "reason": "resource existence is not sufficient for a causal disclosure claim under the current redacted GET-only contract"
+      },
+      {
+        "case_id": "juice.misplaced_signature_file.v1",
+        "class": "Observability Failures",
+        "decision": "observation_only",
+        "not_fn": true,
+        "source_evidence": [
+          {
+            "path": "data/static/challenges.yml",
+            "line_hint": "722",
+            "sha256": "8efa070380ab8f39783eb92cbaaf9df67bcee0f1715eee98a06fb1176051c2b7"
+          }
+        ],
+        "reason": "metadata observation does not establish a target-specific vulnerability predicate or accepted oracle"
+      },
+      {
+        "case_id": "juice.security_policy_surfaces.v1",
+        "class": "Miscellaneous",
+        "decision": "out_of_scope",
+        "not_fn": true,
+        "source_evidence": [
+          {
+            "path": "data/static/challenges.yml",
+            "line_hint": "securityPolicyChallenge",
+            "sha256": "8efa070380ab8f39783eb92cbaaf9df67bcee0f1715eee98a06fb1176051c2b7"
+          }
+        ],
+        "reason": "policy-file presence is not admitted as a vulnerability predicate in the current benchmark"
+      },
+      {
+        "case_id": "juice.public_scoreboard_route.v1",
+        "class": "Miscellaneous",
+        "decision": "out_of_scope",
+        "not_fn": true,
+        "source_evidence": [
+          {
+            "path": "data/static/challenges.yml",
+            "line_hint": "scoreBoardChallenge",
+            "sha256": "8efa070380ab8f39783eb92cbaaf9df67bcee0f1715eee98a06fb1176051c2b7"
+          }
+        ],
+        "reason": "public feature route is not a vulnerability without an approved semantic impact predicate"
+      },
+      {
+        "case_id": "juice.reflected_xss.v1",
+        "class": "XSS",
+        "decision": "blocked",
+        "not_fn": true,
+        "source_evidence": [
+          {
+            "path": "data/static/challenges.yml",
+            "line_hint": "904-916",
+            "sha256": "8efa070380ab8f39783eb92cbaaf9df67bcee0f1715eee98a06fb1176051c2b7"
+          }
+        ],
+        "reason": "no approved safe workflow/oracle/negative control in the current bounded profile; source presence is not proof"
+      },
+      {
+        "case_id": "juice.persisted_xss_feedback.v1",
+        "class": "XSS",
+        "decision": "out_of_scope",
+        "not_fn": true,
+        "source_evidence": [
+          {
+            "path": "data/static/challenges.yml",
+            "line_hint": "1064-1077",
+            "sha256": "8efa070380ab8f39783eb92cbaaf9df67bcee0f1715eee98a06fb1176051c2b7"
+          }
+        ],
+        "reason": "requires state-changing submission and persistence, outside current GET-only safe scope"
+      },
+      {
+        "case_id": "juice.login_admin.v1",
+        "class": "Injection",
+        "decision": "out_of_scope",
+        "not_fn": true,
+        "source_evidence": [
+          {
+            "path": "data/static/challenges.yml",
+            "line_hint": "604-649",
+            "sha256": "8efa070380ab8f39783eb92cbaaf9df67bcee0f1715eee98a06fb1176051c2b7"
+          }
+        ],
+        "reason": "requires credential/payload workflow, prohibited in this phase"
+      },
+      {
+        "case_id": "juice.basket_manipulate.v1",
+        "class": "Broken Access Control",
+        "decision": "out_of_scope",
+        "not_fn": true,
+        "source_evidence": [
+          {
+            "path": "data/static/challenges.yml",
+            "line_hint": "basketAccessChallenge",
+            "sha256": "8efa070380ab8f39783eb92cbaaf9df67bcee0f1715eee98a06fb1176051c2b7"
+          }
+        ],
+        "reason": "requires authenticated state and mutation"
+      },
+      {
+        "case_id": "juice.nosql_command.v1",
+        "class": "Injection",
+        "decision": "out_of_scope",
+        "not_fn": true,
+        "source_evidence": [
+          {
+            "path": "data/static/challenges.yml",
+            "line_hint": "noSqlCommandChallenge",
+            "sha256": "8efa070380ab8f39783eb92cbaaf9df67bcee0f1715eee98a06fb1176051c2b7"
+          }
+        ],
+        "reason": "requires payload-based input and likely authentication; not in current GET-only scope"
+      },
+      {
+        "case_id": "juice.redirect_crypto.v1",
+        "class": "Unvalidated Redirects",
+        "decision": "out_of_scope",
+        "not_fn": true,
+        "source_evidence": [
+          {
+            "path": "data/static/challenges.yml",
+            "line_hint": "redirectCryptoCurrencyChallenge",
+            "sha256": "8efa070380ab8f39783eb92cbaaf9df67bcee0f1715eee98a06fb1176051c2b7"
+          }
+        ],
+        "reason": "external-destination behavior is outside local same-origin bounded scope"
+      }
+    ]
+  },
+  "decision_summary": {
+    "accepted": 3,
+    "blocked": 2,
+    "observation_only": 3,
+    "out_of_scope": 7,
+    "quality_metrics_computed": false
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "document_id": "TEAM1_LLM_SELECTION_V3_IMPLEMENTATION-1.0",
+  "date": "2026-09-13",
+  "root_cause": "V2 prompt overcorrected -> RISK_AVERSION_DEVIATION; legitimate repeats at risk of being avoided",
+  "changes": [
+    "three separate dimensions: semantic_redundancy / experiment_repetition / research_justification (not collapsed)",
+    "derived labels: redundancy_class (NOVEL/LOW/MODERATE/HIGH), justification_class (NEW_QUESTION/CONTROL/ACTOR_VARIANT/PARAMETER_VARIANT/NO_NEW_JUSTIFICATION)",
+    "context sanitization: raw target.path/auth/headers/cookies replaced with path_shape/has_auth/actor_role/resource_class",
+    "prompt policy: JUSTIFIED REPEAT=ALLOWED, BLIND REPEAT=DISFAVORED; explicit anti-risk-aversion (do not auto-avoid HIGH_REDUNDANCY)",
+    "5-class classification: ALIGNED/JUSTIFIED_DEVIATION/UNJUSTIFIED_DEVIATION/REDUNDANT_DEVIATION/INVALID_SELECTION"
+  ],
+  "tests_added": 11,
+  "tests_passed": 11,
+  "files_deleted": 0,
+  "governance_changed": 0,
+  "statement": "TEAM-2 MUST PERFORM INDEPENDENT VALIDATION."
+}

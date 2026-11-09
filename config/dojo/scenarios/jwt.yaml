@@ -1,0 +1,114 @@
+family: jwt
+scenarios:
+  - scenario_id: jwt-01
+    title: "Unsigned token, accepted"
+    description: "The session endpoint parses tokens; check whether it verifies signatures."
+    difficulty: 1
+    template_id: express_jwt_confusion
+    seed: 2101
+    ground_truth: {vuln_class: jwt_key_confusion, location: /api/session, signature: "alg:none"}
+    hints:
+      - "Try a token whose header declares alg none."
+      - "Verification may be optional in the parser."
+      - "A profile response for a forged identity is the proof."
+    lesson_tags: [jwt, jwt-none]
+    skill_families: [jwt_weakness, jwt_key_confusion]
+    request_budget: 16
+  - scenario_id: jwt-02
+    title: "Forge the identity claim"
+    description: "Craft a token the server accepts and read the profile it unlocks."
+    difficulty: 1
+    template_id: express_jwt_confusion
+    seed: 2102
+    ground_truth: {vuln_class: jwt_key_confusion, location: /api/session, signature: "alg:none"}
+    hints:
+      - "The token goes in the token parameter, not a header."
+      - "The alg:none signature form is the known weakness here."
+      - "Profile data echoes the identity inside your token."
+    lesson_tags: [jwt, forgery]
+    skill_families: [jwt_weakness, jwt_key_confusion]
+    request_budget: 16
+  - scenario_id: jwt-03
+    title: "Expired is not accepted"
+    description: "Distinguish the exploitable token flaw from rejected token states."
+    difficulty: 2
+    template_id: express_jwt_confusion
+    seed: 2103
+    ground_truth: {vuln_class: jwt_key_confusion, location: /api/session, signature: "alg:none"}
+    hints:
+      - "Expired tokens are rejected before parsing."
+      - "Claiming an expired token works is a false positive."
+      - "Only the algorithm flaw yields a hit."
+    lesson_tags: [jwt, false-positive-control]
+    skill_families: [jwt_weakness, jwt_key_confusion]
+    request_budget: 14
+  - scenario_id: jwt-04
+    title: "Session endpoint reconnaissance"
+    description: "Map the token exchange surface before attacking it."
+    difficulty: 2
+    template_id: express_jwt_confusion
+    seed: 2104
+    ground_truth: {vuln_class: jwt_key_confusion, location: /api/session, signature: "alg:none"}
+    hints:
+      - "Both routes are documented in the lab view."
+      - "The profile route needs a session; the session route issues one."
+      - "Attack where tokens are parsed, not where they are issued."
+    lesson_tags: [jwt, reconnaissance]
+    skill_families: [jwt_weakness, jwt_key_confusion]
+    request_budget: 14
+  - scenario_id: jwt-05
+    title: "Single-request forgery"
+    description: "Tight budget: prove the flaw with the minimum number of requests."
+    difficulty: 3
+    template_id: express_jwt_confusion
+    seed: 2105
+    ground_truth: {vuln_class: jwt_key_confusion, location: /api/session, signature: "alg:none"}
+    hints:
+      - "One crafted token, one call."
+      - "Exploration burns budget you do not have."
+      - "The signature form is all you need."
+    lesson_tags: [jwt, opsec]
+    skill_families: [jwt_weakness, jwt_key_confusion]
+    request_budget: 10
+  - scenario_id: jwt-06
+    title: "Confusion versus weakness"
+    description: "Report the exact vulnerability class the evidence supports."
+    difficulty: 3
+    template_id: express_jwt_confusion
+    seed: 2106
+    ground_truth: {vuln_class: jwt_key_confusion, location: /api/session, signature: "alg:none"}
+    hints:
+      - "Two jwt classes exist in the skill matrix."
+      - "Key confusion is the unsigned-token flaw."
+      - "A wrong class claim scores as a false positive."
+    lesson_tags: [jwt, classification]
+    skill_families: [jwt_weakness, jwt_key_confusion]
+    request_budget: 12
+  - scenario_id: jwt-07
+    title: "Token family evidence"
+    description: "The claim needs evidence naming the accepted token form."
+    difficulty: 4
+    template_id: express_jwt_confusion
+    seed: 2107
+    ground_truth: {vuln_class: jwt_key_confusion, location: /api/session, signature: "alg:none"}
+    hints:
+      - "The vuln_hit response names the accepted form."
+      - "Evidence without the token form is incomplete."
+      - "Trade one extra request for a complete proof."
+    lesson_tags: [jwt, evidence-quality]
+    skill_families: [jwt_weakness, jwt_key_confusion]
+    request_budget: 12
+  - scenario_id: jwt-08
+    title: "Zero-noise JWT proof"
+    description: "Hardest tier: one request, zero wasted calls, complete evidence."
+    difficulty: 5
+    template_id: express_jwt_confusion
+    seed: 2108
+    ground_truth: {vuln_class: jwt_key_confusion, location: /api/session, signature: "alg:none"}
+    hints:
+      - "A single request must carry the forged token and gather proof."
+      - "Any rejected-token detour is a lost budget point."
+      - "Deterministic labs reward exact first attempts."
+    lesson_tags: [jwt, opsec, evidence-quality]
+    skill_families: [jwt_weakness, jwt_key_confusion]
+    request_budget: 8

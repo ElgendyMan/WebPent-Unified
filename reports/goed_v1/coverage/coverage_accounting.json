@@ -1,0 +1,27 @@
+{
+  "phase": "7_coverage_accounting",
+  "date": "2026-09-03T06:23:33.754288+00:00",
+  "accounting": {
+    "discovered_surface_count": 0,
+    "investigated_surface_count": 0,
+    "unexplored_surface_count": 0,
+    "opportunities_generated": 0,
+    "opportunities_investigated": 0,
+    "exploration_steps": 0,
+    "unresolved_security_questions": 0,
+    "reason_for_stopping": "Bounded exploration achieved",
+    "critical_note": "A vulnerable ground-truth case never investigated = MISSED_DISCOVERY in evaluation"
+  },
+  "case_tracking": {
+    "discovered": 6,
+    "investigated": 0,
+    "not_investigated": 0,
+    "opportunities_generated": 0,
+    "opportunities_investigated": 0,
+    "unresolved_questions": 0
+  },
+  "critical_rule_implemented": true,
+  "critical_rule_text": "If ground truth contains a vulnerability and the detector never investigates it, it must NOT disappear from recall analysis. BLOCKED due to unavailable capability must remain explicitly distinguishable from detector miss.",
+  "blocked_vs_fn_distinct": true,
+  "no_output_not_silently_omitted": true
+}

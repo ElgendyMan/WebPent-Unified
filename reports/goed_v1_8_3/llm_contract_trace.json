@@ -1,0 +1,180 @@
+{
+  "timestamp": 1788581505.7736683,
+  "provider_metadata": {
+    "provider_type": "MOCK_SIMULATION",
+    "mock_provider": true,
+    "provider_class": "MockLLMProvider",
+    "model": "mock-deterministic-v1",
+    "reasoning_quality": 0.7,
+    "hallucination_rate": 0.0,
+    "prompt_version_hash": "bf6480007259d30e14af2685ca6e873807fe5a681e3770e99e4a69b662f2f5b4"
+  },
+  "provider_type": "MOCK_SIMULATION",
+  "mock_provider": true,
+  "prompt_hash": "bf6480007259d30e14af2685ca6e873807fe5a681e3770e99e4a69b662f2f5b4",
+  "tool_policy_hash": "e7c7eb51ab63fdcf0a901c3fd3dda2836b69b6da42434a2ff82bebc1c5d356d0",
+  "config_hash": "",
+  "target_case": "dv2_035 (reasoning family \u2014 state transition dependent)",
+  "causal_feedback_bridge": "ACTIVE",
+  "phases": {
+    "baseline_eval": {
+      "verdict": "INCONCLUSIVE",
+      "confidence": 0.4,
+      "pre_research_hashes": [
+        "0841685019a9e57e1a5314b9341f64dd8555b2a698458d90812466e3d17b0c5b",
+        "1d862090a463594aff2fcb67927b6accaf3077620845f7d354bccb095eecea81",
+        "b0a4e495826c52bcb1acf573094c629136bdfeddccfb2d3409d0b380feefb31a"
+      ]
+    },
+    "causal_feedback_bridge": {
+      "loops_run": 3,
+      "new_observations_added": 2,
+      "world_model_before": {
+        "size": 3,
+        "content_hashes": [
+          "0841685019a9e57e1a5314b9341f64dd8555b2a698458d90812466e3d17b0c5b",
+          "1d862090a463594aff2fcb67927b6accaf3077620845f7d354bccb095eecea81",
+          "b0a4e495826c52bcb1acf573094c629136bdfeddccfb2d3409d0b380feefb31a"
+        ],
+        "llm_added_count": 0,
+        "initial_count": 3
+      },
+      "world_model_after": {
+        "size": 5,
+        "content_hashes": [
+          "0841685019a9e57e1a5314b9341f64dd8555b2a698458d90812466e3d17b0c5b",
+          "1d862090a463594aff2fcb67927b6accaf3077620845f7d354bccb095eecea81",
+          "b0a4e495826c52bcb1acf573094c629136bdfeddccfb2d3409d0b380feefb31a",
+          "f4a92d68ced727ebf9ef6d543be39df6c248a1ee7b04023cfa5d4e4b9a5590d3",
+          "ebf88016fcc879315125821a19f2fe7938826d84f85900917536fbc7075cc08b"
+        ],
+        "llm_added_count": 2,
+        "initial_count": 3
+      },
+      "trajectory": [
+        {
+          "step": "baseline_eval",
+          "world_model_hashes": [
+            "0841685019a9e57e1a5314b9341f64dd8555b2a698458d90812466e3d17b0c5b",
+            "1d862090a463594aff2fcb67927b6accaf3077620845f7d354bccb095eecea81",
+            "b0a4e495826c52bcb1acf573094c629136bdfeddccfb2d3409d0b380feefb31a"
+          ],
+          "verdict": "INCONCLUSIVE",
+          "confidence": 0.4,
+          "block_reason": null
+        },
+        {
+          "step": "loop_0",
+          "top_hypothesis_id": "hyp-e0de0558",
+          "top_hypothesis": "Tenant isolation failure: cross-tenant resource accessible",
+          "hypothesis_confidence": 0.525,
+          "rejected_hypotheses_count": 2,
+          "experiment": {
+            "tool": "compare",
+            "purpose": "verify_tenant_isolation",
+            "method": "GET",
+            "probe_path": null
+          },
+          "http_executed": false,
+          "http_status": null
+        },
+        {
+          "step": "loop_1",
+          "top_hypothesis_id": "hyp-be323dff",
+          "top_hypothesis": "Ownership boundary violation: resource accessed by non-owner actor",
+          "hypothesis_confidence": 0.49,
+          "rejected_hypotheses_count": 2,
+          "experiment": {
+            "tool": "compare",
+            "purpose": "verify_ownership_boundary_with_control",
+            "method": "GET",
+            "probe_path": null
+          },
+          "http_executed": false,
+          "http_status": null
+        },
+        {
+          "step": "loop_2",
+          "top_hypothesis_id": "hyp-387214fb",
+          "top_hypothesis": "State-dependent permission: authorization behavior may change with resource state",
+          "hypothesis_confidence": 0.315,
+          "rejected_hypotheses_count": 2,
+          "experiment": {
+            "tool": "request",
+            "purpose": "probe_state_transition",
+            "method": "POST",
+            "probe_path": "/dv2/rsng/state_35"
+          },
+          "http_executed": true,
+          "http_status": 200,
+          "new_observation_added": true,
+          "new_observation_hash": "f4a92d68ced727ebf9ef6d543be39df6c248a1ee7b04023cfa5d4e4b9a5590d3",
+          "target_refetched": true,
+          "target_refetch_hash": "ebf88016fcc879315125821a19f2fe7938826d84f85900917536fbc7075cc08b",
+          "target_refetch_status": 200,
+          "target_refetch_headers": {
+            "x-authorization-outcome": "granted_full",
+            "x-resource-owner": "ref-35",
+            "x-actor-echo": "attacker"
+          },
+          "re_evaluation": {
+            "verdict": "CONFIRMED",
+            "confidence": 0.99,
+            "world_model_size": 5
+          }
+        }
+      ],
+      "observation_consumed_by_validator": true
+    },
+    "proof_bundle": {
+      "valid": true,
+      "bundle_id": null,
+      "deterministic_seal": "079a50f39caadd713e63a172d63f59f9a1d501c5f92e190b3444097cf256d814"
+    },
+    "replay": {
+      "replay_succeeded": true,
+      "original_verdict": "CONFIRMED",
+      "replay_verdict": "INCONCLUSIVE",
+      "seal_match": true
+    }
+  },
+  "metrics": {
+    "llm_request_count": 3,
+    "tool_call_count": 2,
+    "total_tokens_used": 2139,
+    "total_latency_seconds": 0.046
+  },
+  "final_verdict_authority": "CausalGuard_deterministic_engine",
+  "llm_respected_boundary": true,
+  "bridge_only_added_observations": true,
+  "observation_from_llm_experiment_consumed_by_validator": true,
+  "provider_telemetry_redacted": [
+    {
+      "call_id": "52daae5b-64f8-4719-ac3f-f0fa360ad234",
+      "model": "mock-deterministic-v1",
+      "tokens_used": 713,
+      "latency_seconds": 0.149,
+      "finish_reason": "stop",
+      "had_error": false,
+      "timestamp": 1788581505.7772684
+    },
+    {
+      "call_id": "8ed4b86e-1486-4b20-aa39-374a84b687c7",
+      "model": "mock-deterministic-v1",
+      "tokens_used": 713,
+      "latency_seconds": 0.149,
+      "finish_reason": "stop",
+      "had_error": false,
+      "timestamp": 1788581505.7775328
+    },
+    {
+      "call_id": "b9248982-f36b-4721-9a2f-0ddc83dace40",
+      "model": "mock-deterministic-v1",
+      "tokens_used": 713,
+      "latency_seconds": 0.149,
+      "finish_reason": "stop",
+      "had_error": false,
+      "timestamp": 1788581505.7777576
+    }
+  ]
+}

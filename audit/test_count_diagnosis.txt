@@ -1,0 +1,26 @@
+=== collect with canonical environment ===
+tests/test_waptlab_live_improvements.py::test_ip_literal_recon_preserves_target_url
+tests/test_waptlab_live_improvements.py::test_nuclei_includes_configured_user_agent
+tests/test_waptlab_live_improvements.py::test_nuclei_user_agent_header_is_not_added_when_empty
+tests/test_workflow_surface_wiring.py::test_surface_records_feed_identity_aware_workflow_observations
+
+=============================== warnings summary ===============================
+../webpent_v60_review_stage/webpent_v60_smart_stage/.venv/lib/python3.12/site-packages/langgraph/checkpoint/base/__init__.py:18
+  /tmp/webpent_v60_review_stage/webpent_v60_smart_stage/.venv/lib/python3.12/site-packages/langgraph/checkpoint/base/__init__.py:18: LangChainPendingDeprecationWarning: The default value of `allowed_objects` will change in a future version. Pass an explicit value (e.g., allowed_objects='messages' or allowed_objects='core') to suppress this warning.
+    from langgraph.checkpoint.serde.jsonplus import JsonPlusSerializer
+
+../webpent_v60_review_stage/webpent_v60_smart_stage/.venv/lib/python3.12/site-packages/pydantic/main.py:263
+  /tmp/webpent_v60_review_stage/webpent_v60_smart_stage/.venv/lib/python3.12/site-packages/pydantic/main.py:263: UserWarning: INSECURE audit_secret_key in dev mode — evidence hashes are HMAC'd with a publicly-known key and can be forged. Set AUDIT_SECRET_KEY to a strong random value for any non-local deployment.
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+
+../webpent_v60_review_stage/webpent_v60_smart_stage/.venv/lib/python3.12/site-packages/pydantic/main.py:263
+  /tmp/webpent_v60_review_stage/webpent_v60_smart_stage/.venv/lib/python3.12/site-packages/pydantic/main.py:263: UserWarning: INSECURE celery_payload_key in dev mode — task passwords are encrypted with a publicly-known key and can be decrypted by anyone with Redis access. Set CELERY_PAYLOAD_KEY to a strong random value for any non-local deployment.
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+764 tests collected in 4.83s
+=== operations UX test presence ===
+=== tracked test count by recent commits ===
+=== test file count and pytest markers ===
+102
+517

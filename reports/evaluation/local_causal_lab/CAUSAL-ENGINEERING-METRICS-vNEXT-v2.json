@@ -1,0 +1,42 @@
+{
+  "schema": "webpent-causal-engineering-metrics-vnext-v2",
+  "scope": "Evidence Acquisition & Target-Backed Validation Layer; local-only bounded validation",
+  "target_backed_preflight_attempts": 1,
+  "target_backed_experiments_executed": 0,
+  "offline_fixture_experiments_executed": 1,
+  "oracle_decisions_by_origin": {
+    "offline_fixture": {
+      "CONFIRMED": 1,
+      "CLEAN": 0,
+      "INCONCLUSIVE": 0,
+      "BLOCKED": 0
+    },
+    "target_runtime": {
+      "CONFIRMED": 0,
+      "CLEAN": 0,
+      "INCONCLUSIVE": 0,
+      "BLOCKED": 0
+    }
+  },
+  "target_readiness_preflight_decisions": {
+    "BLOCKED": 1,
+    "READY": 0
+  },
+  "target_backed_causal_confirmations": 0,
+  "offline_fixture_confirmations": 1,
+  "scoring_proof_bundles_created": 0,
+  "sealed_proof_bundles_created": 0,
+  "replay_successes": 0,
+  "target_backed_replay_successes": 0,
+  "replay_mismatch_rejections_tested": 3,
+  "interpretation": "One offline synthetic fixture experiment reached CONFIRMED and validates engine mechanics only. One target-backed WebGoat preflight was attempted, readiness was BLOCKED, and no target request, target oracle decision, target-backed ProofBundle, scoring bundle, or target replay occurred.",
+  "prohibited_quality_metrics_present": false,
+  "governance": {
+    "official_isolated_p10_runs_authorized": false,
+    "p10": "NOT_QUALIFIED",
+    "p9": "NOT_QUALIFIED",
+    "vip": "NOT_QUALIFIED",
+    "bug_bounty": "BLOCKED",
+    "scoring_promotion": false
+  }
+}

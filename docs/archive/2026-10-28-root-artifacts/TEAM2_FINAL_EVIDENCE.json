@@ -1,0 +1,90 @@
+{
+  "artifact": "TEAM2_WEBPENT_ULTIMATE_FINAL_EVIDENCE",
+  "browser_discovery": {
+    "authenticated_session_confirmed": true,
+    "browser_forms_merged": 32,
+    "browser_routes_merged": 31,
+    "spa_states_visited": 20
+  },
+  "credential_policy": "No key, authorization header, credential value, raw body, or token is included in this artifact.",
+  "generated_at_utc": "2026-10-04T14:05:40Z",
+  "governed_execution": {
+    "audit_chain_verified": true,
+    "audit_event_count": 57,
+    "audit_root_hash": "eaf077734c02d6f5a0c540ea5e51eac85185eb7df06ba731dbbceb6e5d9d2ee1",
+    "candidates_executable": 10,
+    "candidates_generated": 60,
+    "production_stages_seen": [
+      "audit_event",
+      "audit_finalization",
+      "bounded_tool_execution",
+      "causal_guard_evaluation",
+      "deep_recon",
+      "entrypoint_resolve",
+      "flag_resolution",
+      "observation",
+      "outcome_recording",
+      "promotion_decision",
+      "proof_bundle_creation",
+      "replan",
+      "research_decision",
+      "spine_activation",
+      "world_model_mutation"
+    ],
+    "production_trace_complete": true,
+    "routes_crawled": 37,
+    "scope_violations": 0,
+    "validation_counts": {
+      "blocked": 0,
+      "confirmed": 0,
+      "inconclusive": 11,
+      "refuted": 0
+    }
+  },
+  "key_artifacts": {
+    "audit_verification": "validation-runtime/webgoat_hunt/audit_verification.json",
+    "browser_runtime": "validation-runtime/webgoat_browser_runtime.json",
+    "campaign_summary": "validation-runtime/webgoat_hunt/campaign_summary.json",
+    "graph_trace": "validation-runtime/webgoat_hunt/graph_trace.json",
+    "honest_report": "validation-runtime/webgoat_hunt/HONEST_REPORT.md",
+    "llm_usage": "validation-runtime/webgoat_hunt/llm_calls.json"
+  },
+  "llm": {
+    "calculated_cost_usd": 0.096385,
+    "input_tokens": 64164,
+    "models": [
+      "gpt-5-mini"
+    ],
+    "output_tokens": 40172,
+    "provider_ids": [
+      "openai"
+    ],
+    "request_count": 21,
+    "statuses": {
+      "usage_reported": 21
+    },
+    "total_tokens": 104336
+  },
+  "outcome": {
+    "confirmed_findings": 0,
+    "exploitation_errors": {
+      "none": 11
+    },
+    "interpretation": "All governed decisions remained inconclusive; no finding was promoted or reported.",
+    "promotion_status": "NO_PROMOTED_FINDINGS",
+    "proof_bundle_references": 0,
+    "replay_verified_count": 0,
+    "verdict_reasons": {
+      "governed result requires further evidence": 11
+    }
+  },
+  "scope": {
+    "environment_profile": "lab",
+    "families": [
+      "SQLI",
+      "XSS"
+    ],
+    "scope_violations": 0,
+    "target": "authorized_local_webgoat_loopback"
+  }
+}

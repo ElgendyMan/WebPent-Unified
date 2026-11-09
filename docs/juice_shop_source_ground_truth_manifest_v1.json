@@ -1,0 +1,129 @@
+{
+  "access_log_mapping_drift": {
+    "frozen_ground_truth_path": "/ftp/access.log",
+    "frozen_semantics": "legacy /ftp/access.log mapping",
+    "paths_match": false,
+    "required_action": "Independent reviewer must decide whether to revise the frozen mapping in a separately governed change; this manifest does not revise it.",
+    "source_current_path": "/support/logs/access.log.2026-08-27",
+    "source_semantics": "UTC-date-rotated /support/logs/access.log.<date>",
+    "status": "mismatch_explicitly_preserved_for_independent_review"
+  },
+  "case_set_diff": {
+    "ground_truth_only_case_ids": [
+      "juice.basket_manipulate.v1",
+      "juice.deprecated_interface.v1",
+      "juice.login_admin.v1",
+      "juice.negative_order.v1",
+      "juice.nosql_command.v1",
+      "juice.persisted_xss_feedback.v1",
+      "juice.redirect_crypto.v1",
+      "juice.reflected_xss.v1"
+    ],
+    "source_and_ground_truth_ids_match": false,
+    "source_only_case_ids": []
+  },
+  "frozen_ground_truth": {
+    "canonical_mapping_hash": "sha256:602b2411df9b259911b1ae0757e5e26fabdc86b928fb5b43b040750182762ad5",
+    "canonical_oracle_mapping_hash": "sha256:63977f8451f0709abff5671d1ac24943abe35b0bb0a4f399791e2c1f66aeb71c",
+    "case_count": 21,
+    "case_ids": [
+      "juice.access_log_disclosure.v1",
+      "juice.application_version_surface.v1",
+      "juice.basket_manipulate.v1",
+      "juice.deprecated_interface.v1",
+      "juice.directory_listing.v1",
+      "juice.error_handling.v1",
+      "juice.exposed_metrics.v1",
+      "juice.forgotten_backup.v1",
+      "juice.local_xss.v1",
+      "juice.login_admin.v1",
+      "juice.misplaced_signature_file.v1",
+      "juice.negative_order.v1",
+      "juice.nosql_command.v1",
+      "juice.persisted_xss_feedback.v1",
+      "juice.privacy_policy_proof.v1",
+      "juice.public_scoreboard_route.v1",
+      "juice.redirect_crypto.v1",
+      "juice.redirect_local.v1",
+      "juice.reflected_xss.v1",
+      "juice.security_policy.v1",
+      "juice.well_known_security_policy.v1"
+    ],
+    "mapping_approved_case_count": 11,
+    "oracle_approved_case_count": 3
+  },
+  "generated_at_utc": "2026-08-27T01:39:46.995609+00:00",
+  "non_scoring_count_resolution": {
+    "blocked_and_out_of_scope_are_not_fn": true,
+    "engineering_reviewed_non_scoring_case_count": 8,
+    "engineering_reviewed_non_scoring_case_ids": [
+      "juice.access_log_disclosure.v1",
+      "juice.directory_listing.v1",
+      "juice.forgotten_backup.v1",
+      "juice.misplaced_signature_file.v1",
+      "juice.privacy_policy_proof.v1",
+      "juice.public_scoreboard_route.v1",
+      "juice.security_policy.v1",
+      "juice.well_known_security_policy.v1"
+    ],
+    "mapping_approved_but_oracle_unapproved_case_count": 8,
+    "mapping_approved_but_oracle_unapproved_case_ids": [
+      "juice.access_log_disclosure.v1",
+      "juice.directory_listing.v1",
+      "juice.forgotten_backup.v1",
+      "juice.misplaced_signature_file.v1",
+      "juice.privacy_policy_proof.v1",
+      "juice.public_scoreboard_route.v1",
+      "juice.security_policy.v1",
+      "juice.well_known_security_policy.v1"
+    ],
+    "resolution": "The authoritative Juice Shop governance count is 8. The value 7 is test-fixture-derived and must not be presented as the Juice Shop case count.",
+    "synthetic_unit_test_not_scored_expected_case_count": 7,
+    "synthetic_unit_test_scope": "tests/test_p10_benchmark.py fixture with 10 truth cases and 3 oracle-approved cases; not the Juice Shop production inventory"
+  },
+  "oracle_hash_provenance": {
+    "current_source_oracle_contract_sha256": "sha256:63977f8451f0709abff5671d1ac24943abe35b0bb0a4f399791e2c1f66aeb71c",
+    "independent_reconfirmation_required": true,
+    "previous_hash_is_not_represented_as_current": true,
+    "previous_independent_reviewed_oracle_contract_sha256": "sha256:d16e139eebcbe7e88f62058e22aa4ffa31ed96a5af8c5187cc29937304902dee"
+  },
+  "provenance": {
+    "frozen_ground_truth_file": "docs/juice_shop_p10_ground_truth_v1.json",
+    "frozen_ground_truth_sha256": "sha256:84bf4111235b546b337fbd3e76207d43a8e7a05f39685dd9ed51f739468aea52",
+    "frozen_ground_truth_was_not_modified": true,
+    "oracle_registry_module": "src/webpent/adapters/juice_shop/oracles.py",
+    "source_registry_module": "src/webpent/profiles/juice_shop/cases.py",
+    "webpent_git_commit": "c63f2d7def0ab3857db1366e6d596f4a52bb2a9f",
+    "webpent_git_tree": "78ad98369ced8e473098d21334e01bb311a9be93"
+  },
+  "safety": {
+    "official_isolated_p10_runs_authorized": false,
+    "qualification_claim": "none",
+    "raw_http_data_retained": false,
+    "target_origin": "http://127.0.0.1:3000"
+  },
+  "schema_version": "juice_shop.source_to_ground_truth_manifest.v1",
+  "source_registry": {
+    "case_count": 13,
+    "case_ids": [
+      "juice.access_log_disclosure.v1",
+      "juice.application_version_surface.v1",
+      "juice.directory_listing.v1",
+      "juice.error_handling.v1",
+      "juice.exposed_metrics.v1",
+      "juice.forgotten_backup.v1",
+      "juice.local_xss.v1",
+      "juice.misplaced_signature_file.v1",
+      "juice.privacy_policy_proof.v1",
+      "juice.public_scoreboard_route.v1",
+      "juice.redirect_local.v1",
+      "juice.security_policy.v1",
+      "juice.well_known_security_policy.v1"
+    ],
+    "mapping_hash_semantics": "canonical target-local mapping identity; date-rotated access-log runtime path is normalized to /support/logs/access.log.<UTC-date>",
+    "mapping_sha256": "sha256:825cd6a96d35ddf117fb1ad4fa3af12dc85345bb6c03c79205816ffff3225436",
+    "oracle_contract_sha256": "sha256:63977f8451f0709abff5671d1ac24943abe35b0bb0a4f399791e2c1f66aeb71c",
+    "runtime_mapping_sha256": "sha256:d3dcdd42e8619355714147d4c0ea96a7166ebfc9d63a10585af5dd9a685286a1",
+    "safe_case_count": 11
+  }
+}

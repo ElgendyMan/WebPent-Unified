@@ -1,0 +1,55 @@
+{
+  "sets": {
+    "set_a_info_disclosure_plus_idor": {
+      "candidates_discovered": 1,
+      "chains_confirmed": 1,
+      "combined_reports": 1,
+      "upgraded_severities": [
+        "CRITICAL"
+      ],
+      "upgraded_cvss": [
+        9.0
+      ],
+      "event_sequence": [
+        "chain.discovered",
+        "chain.executed",
+        "chain.confirmed"
+      ]
+    },
+    "set_b_xss_plus_missing_csrf": {
+      "candidates_discovered": 1,
+      "chains_confirmed": 1,
+      "combined_reports": 1,
+      "upgraded_severities": [
+        "HIGH"
+      ],
+      "upgraded_cvss": [
+        7.0
+      ],
+      "event_sequence": [
+        "chain.discovered",
+        "chain.executed",
+        "chain.confirmed"
+      ]
+    },
+    "set_c_ssrf_internal_access": {
+      "candidates_discovered": 1,
+      "chains_confirmed": 1,
+      "combined_reports": 1,
+      "upgraded_severities": [
+        "CRITICAL"
+      ],
+      "upgraded_cvss": [
+        9.0
+      ],
+      "event_sequence": [
+        "chain.discovered",
+        "chain.executed",
+        "chain.confirmed"
+      ]
+    }
+  },
+  "chains_discovered": 3,
+  "chains_confirmed": 3,
+  "combined_severity_upgrades": 3
+}

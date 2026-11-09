@@ -1,0 +1,70 @@
+{
+  "target": "approved_synthetic_target_v11",
+  "port": 9200,
+  "cases": 15,
+  "vulnerable": 12,
+  "clean": 3,
+  "classes": 10,
+  "new_classes": [
+    "mass_assignment",
+    "race_condition"
+  ],
+  "engine_frozen_before_generation": true,
+  "pipeline": "INTEGRATED_EVALUATOR",
+  "official_runs_integrated": {
+    "date": "2026-09-04T09:36:18.373777+00:00",
+    "campaign": "qualification_v11_INTEGRATED",
+    "pipeline": "IntegratedEvaluator (single-request + stateful + business logic)",
+    "target": "synth-v11",
+    "total_runs": 3,
+    "runs_passing": 3,
+    "thresholds": {
+      "precision_min": 0.95,
+      "recall_min": 0.7,
+      "proof_min": 0.95
+    },
+    "run_hashes": [
+      "91c5271e8c95d2c759476ace7a9a384363eecf78b522853c4beac87d68bc8f5f",
+      "91c5271e8c95d2c759476ace7a9a384363eecf78b522853c4beac87d68bc8f5f",
+      "91c5271e8c95d2c759476ace7a9a384363eecf78b522853c4beac87d68bc8f5f"
+    ],
+    "run_metrics": [
+      {
+        "tp": 10,
+        "fp": 0,
+        "fn": 2,
+        "tn": 3,
+        "precision": 1.0,
+        "recall": 0.8333,
+        "f1": 0.9091,
+        "proof_completeness": 1.0,
+        "proof_valid": 15,
+        "proof_eligible": 15
+      },
+      {
+        "tp": 10,
+        "fp": 0,
+        "fn": 2,
+        "tn": 3,
+        "precision": 1.0,
+        "recall": 0.8333,
+        "f1": 0.9091,
+        "proof_completeness": 1.0,
+        "proof_valid": 15,
+        "proof_eligible": 15
+      },
+      {
+        "tp": 10,
+        "fp": 0,
+        "fn": 2,
+        "tn": 3,
+        "precision": 1.0,
+        "recall": 0.8333,
+        "f1": 0.9091,
+        "proof_completeness": 1.0,
+        "proof_valid": 15,
+        "proof_eligible": 15
+      }
+    ]
+  }
+}

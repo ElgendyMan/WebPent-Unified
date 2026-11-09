@@ -1,0 +1,1555 @@
+{
+  "date": "2026-09-04T10:22:56.276522+00:00",
+  "version": "hidden_v2",
+  "targets": 12,
+  "cases_executed": 168,
+  "total_cases": 168,
+  "metrics": {
+    "tp": 120,
+    "fp": 0,
+    "fn": 0,
+    "tn": 48,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "proof_completeness": 1.0
+  },
+  "per_target_results": {
+    "hidden2-00": {
+      "hidden2-00-broken-1": {
+        "class": "broken_access_control",
+        "mechanism": "missing_role_check",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-00-busine-4": {
+        "class": "business_logic_abuse",
+        "mechanism": "ordering_violation",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-00-clean-0": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-00-clean-1": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-00-clean-2": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-00-clean-3": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-00-idor-0": {
+        "class": "idor",
+        "mechanism": "query_param",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-00-mass_a-8": {
+        "class": "mass_assignment",
+        "mechanism": "role_escalation",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-00-multi_-7": {
+        "class": "multi_step_chain",
+        "mechanism": "skipped_verification",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-00-privil-2": {
+        "class": "privilege_escalation",
+        "mechanism": "role_inference",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-00-race_c-9": {
+        "class": "race_condition",
+        "mechanism": "limited_claim",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-00-sensit-6": {
+        "class": "sensitive_data_exposure",
+        "mechanism": "body_leak",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-00-tenant-3": {
+        "class": "tenant_isolation_failure",
+        "mechanism": "cross_tenant_idor",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-00-workfl-5": {
+        "class": "workflow_authorization_failure",
+        "mechanism": "skipped_state",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      }
+    },
+    "hidden2-01": {
+      "hidden2-01-broken-1": {
+        "class": "broken_access_control",
+        "mechanism": "missing_role_check",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-01-busine-4": {
+        "class": "business_logic_abuse",
+        "mechanism": "ordering_violation",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-01-clean-0": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-01-clean-1": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-01-clean-2": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-01-clean-3": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-01-idor-0": {
+        "class": "idor",
+        "mechanism": "json_body_field",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-01-mass_a-8": {
+        "class": "mass_assignment",
+        "mechanism": "role_escalation",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-01-multi_-7": {
+        "class": "multi_step_chain",
+        "mechanism": "token_for_other_user",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-01-privil-2": {
+        "class": "privilege_escalation",
+        "mechanism": "tenant_bypass",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-01-race_c-9": {
+        "class": "race_condition",
+        "mechanism": "limited_claim",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-01-sensit-6": {
+        "class": "sensitive_data_exposure",
+        "mechanism": "body_leak",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-01-tenant-3": {
+        "class": "tenant_isolation_failure",
+        "mechanism": "tenant_header_ignored",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-01-workfl-5": {
+        "class": "workflow_authorization_failure",
+        "mechanism": "self_approval",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      }
+    },
+    "hidden2-02": {
+      "hidden2-02-broken-1": {
+        "class": "broken_access_control",
+        "mechanism": "bypass_via_get",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-02-busine-4": {
+        "class": "business_logic_abuse",
+        "mechanism": "negative_amount",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-02-clean-0": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-02-clean-1": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-02-clean-2": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-02-clean-3": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-02-idor-0": {
+        "class": "idor",
+        "mechanism": "path_param",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-02-mass_a-8": {
+        "class": "mass_assignment",
+        "mechanism": "protected_field_update",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-02-multi_-7": {
+        "class": "multi_step_chain",
+        "mechanism": "skipped_verification",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-02-privil-2": {
+        "class": "privilege_escalation",
+        "mechanism": "tenant_bypass",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-02-race_c-9": {
+        "class": "race_condition",
+        "mechanism": "check_then_act_counter",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-02-sensit-6": {
+        "class": "sensitive_data_exposure",
+        "mechanism": "body_leak",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-02-tenant-3": {
+        "class": "tenant_isolation_failure",
+        "mechanism": "cross_tenant_idor",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-02-workfl-5": {
+        "class": "workflow_authorization_failure",
+        "mechanism": "self_approval",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      }
+    },
+    "hidden2-03": {
+      "hidden2-03-broken-1": {
+        "class": "broken_access_control",
+        "mechanism": "bypass_via_get",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-03-busine-4": {
+        "class": "business_logic_abuse",
+        "mechanism": "ordering_violation",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-03-clean-0": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-03-clean-1": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-03-clean-2": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-03-clean-3": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-03-idor-0": {
+        "class": "idor",
+        "mechanism": "json_body_field",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-03-mass_a-8": {
+        "class": "mass_assignment",
+        "mechanism": "role_escalation",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-03-multi_-7": {
+        "class": "multi_step_chain",
+        "mechanism": "skipped_verification",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-03-privil-2": {
+        "class": "privilege_escalation",
+        "mechanism": "role_inference",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-03-race_c-9": {
+        "class": "race_condition",
+        "mechanism": "check_then_act_counter",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-03-sensit-6": {
+        "class": "sensitive_data_exposure",
+        "mechanism": "body_leak",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-03-tenant-3": {
+        "class": "tenant_isolation_failure",
+        "mechanism": "cross_tenant_idor",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-03-workfl-5": {
+        "class": "workflow_authorization_failure",
+        "mechanism": "self_approval",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      }
+    },
+    "hidden2-04": {
+      "hidden2-04-broken-1": {
+        "class": "broken_access_control",
+        "mechanism": "missing_role_check",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-04-busine-4": {
+        "class": "business_logic_abuse",
+        "mechanism": "negative_amount",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-04-clean-0": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-04-clean-1": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-04-clean-2": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-04-clean-3": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-04-idor-0": {
+        "class": "idor",
+        "mechanism": "path_param",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-04-mass_a-8": {
+        "class": "mass_assignment",
+        "mechanism": "protected_field_update",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-04-multi_-7": {
+        "class": "multi_step_chain",
+        "mechanism": "skipped_verification",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-04-privil-2": {
+        "class": "privilege_escalation",
+        "mechanism": "role_inference",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-04-race_c-9": {
+        "class": "race_condition",
+        "mechanism": "limited_claim",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-04-sensit-6": {
+        "class": "sensitive_data_exposure",
+        "mechanism": "body_leak",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-04-tenant-3": {
+        "class": "tenant_isolation_failure",
+        "mechanism": "tenant_header_ignored",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-04-workfl-5": {
+        "class": "workflow_authorization_failure",
+        "mechanism": "self_approval",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      }
+    },
+    "hidden2-05": {
+      "hidden2-05-broken-1": {
+        "class": "broken_access_control",
+        "mechanism": "missing_role_check",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-05-busine-4": {
+        "class": "business_logic_abuse",
+        "mechanism": "ordering_violation",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-05-clean-0": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-05-clean-1": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-05-clean-2": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-05-clean-3": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-05-idor-0": {
+        "class": "idor",
+        "mechanism": "json_body_field",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-05-mass_a-8": {
+        "class": "mass_assignment",
+        "mechanism": "protected_field_update",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-05-multi_-7": {
+        "class": "multi_step_chain",
+        "mechanism": "skipped_verification",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-05-privil-2": {
+        "class": "privilege_escalation",
+        "mechanism": "role_inference",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-05-race_c-9": {
+        "class": "race_condition",
+        "mechanism": "limited_claim",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-05-sensit-6": {
+        "class": "sensitive_data_exposure",
+        "mechanism": "body_leak",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-05-tenant-3": {
+        "class": "tenant_isolation_failure",
+        "mechanism": "cross_tenant_idor",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-05-workfl-5": {
+        "class": "workflow_authorization_failure",
+        "mechanism": "skipped_state",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      }
+    },
+    "hidden2-06": {
+      "hidden2-06-broken-1": {
+        "class": "broken_access_control",
+        "mechanism": "bypass_via_get",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-06-busine-4": {
+        "class": "business_logic_abuse",
+        "mechanism": "ordering_violation",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-06-clean-0": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-06-clean-1": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-06-clean-2": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-06-clean-3": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-06-idor-0": {
+        "class": "idor",
+        "mechanism": "path_param",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-06-mass_a-8": {
+        "class": "mass_assignment",
+        "mechanism": "role_escalation",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-06-multi_-7": {
+        "class": "multi_step_chain",
+        "mechanism": "skipped_verification",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-06-privil-2": {
+        "class": "privilege_escalation",
+        "mechanism": "tenant_bypass",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-06-race_c-9": {
+        "class": "race_condition",
+        "mechanism": "check_then_act_counter",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-06-sensit-6": {
+        "class": "sensitive_data_exposure",
+        "mechanism": "header_leak",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-06-tenant-3": {
+        "class": "tenant_isolation_failure",
+        "mechanism": "tenant_header_ignored",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-06-workfl-5": {
+        "class": "workflow_authorization_failure",
+        "mechanism": "self_approval",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      }
+    },
+    "hidden2-07": {
+      "hidden2-07-broken-1": {
+        "class": "broken_access_control",
+        "mechanism": "missing_role_check",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-07-busine-4": {
+        "class": "business_logic_abuse",
+        "mechanism": "negative_amount",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-07-clean-0": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-07-clean-1": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-07-clean-2": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-07-clean-3": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-07-idor-0": {
+        "class": "idor",
+        "mechanism": "json_body_field",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-07-mass_a-8": {
+        "class": "mass_assignment",
+        "mechanism": "protected_field_update",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-07-multi_-7": {
+        "class": "multi_step_chain",
+        "mechanism": "token_for_other_user",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-07-privil-2": {
+        "class": "privilege_escalation",
+        "mechanism": "role_inference",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-07-race_c-9": {
+        "class": "race_condition",
+        "mechanism": "limited_claim",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-07-sensit-6": {
+        "class": "sensitive_data_exposure",
+        "mechanism": "header_leak",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-07-tenant-3": {
+        "class": "tenant_isolation_failure",
+        "mechanism": "cross_tenant_idor",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-07-workfl-5": {
+        "class": "workflow_authorization_failure",
+        "mechanism": "self_approval",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      }
+    },
+    "hidden2-08": {
+      "hidden2-08-broken-1": {
+        "class": "broken_access_control",
+        "mechanism": "bypass_via_get",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-08-busine-4": {
+        "class": "business_logic_abuse",
+        "mechanism": "ordering_violation",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-08-clean-0": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-08-clean-1": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-08-clean-2": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-08-clean-3": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-08-idor-0": {
+        "class": "idor",
+        "mechanism": "json_body_field",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-08-mass_a-8": {
+        "class": "mass_assignment",
+        "mechanism": "role_escalation",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-08-multi_-7": {
+        "class": "multi_step_chain",
+        "mechanism": "skipped_verification",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-08-privil-2": {
+        "class": "privilege_escalation",
+        "mechanism": "tenant_bypass",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-08-race_c-9": {
+        "class": "race_condition",
+        "mechanism": "check_then_act_counter",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-08-sensit-6": {
+        "class": "sensitive_data_exposure",
+        "mechanism": "body_leak",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-08-tenant-3": {
+        "class": "tenant_isolation_failure",
+        "mechanism": "tenant_header_ignored",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-08-workfl-5": {
+        "class": "workflow_authorization_failure",
+        "mechanism": "skipped_state",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      }
+    },
+    "hidden2-09": {
+      "hidden2-09-broken-1": {
+        "class": "broken_access_control",
+        "mechanism": "bypass_via_get",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-09-busine-4": {
+        "class": "business_logic_abuse",
+        "mechanism": "negative_amount",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-09-clean-0": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-09-clean-1": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-09-clean-2": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-09-clean-3": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-09-idor-0": {
+        "class": "idor",
+        "mechanism": "json_body_field",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-09-mass_a-8": {
+        "class": "mass_assignment",
+        "mechanism": "role_escalation",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-09-multi_-7": {
+        "class": "multi_step_chain",
+        "mechanism": "skipped_verification",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-09-privil-2": {
+        "class": "privilege_escalation",
+        "mechanism": "tenant_bypass",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-09-race_c-9": {
+        "class": "race_condition",
+        "mechanism": "limited_claim",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-09-sensit-6": {
+        "class": "sensitive_data_exposure",
+        "mechanism": "body_leak",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-09-tenant-3": {
+        "class": "tenant_isolation_failure",
+        "mechanism": "cross_tenant_idor",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-09-workfl-5": {
+        "class": "workflow_authorization_failure",
+        "mechanism": "self_approval",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      }
+    },
+    "hidden2-10": {
+      "hidden2-10-broken-1": {
+        "class": "broken_access_control",
+        "mechanism": "bypass_via_get",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-10-busine-4": {
+        "class": "business_logic_abuse",
+        "mechanism": "negative_amount",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-10-clean-0": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-10-clean-1": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-10-clean-2": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-10-clean-3": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-10-idor-0": {
+        "class": "idor",
+        "mechanism": "path_param",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-10-mass_a-8": {
+        "class": "mass_assignment",
+        "mechanism": "role_escalation",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-10-multi_-7": {
+        "class": "multi_step_chain",
+        "mechanism": "skipped_verification",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-10-privil-2": {
+        "class": "privilege_escalation",
+        "mechanism": "tenant_bypass",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-10-race_c-9": {
+        "class": "race_condition",
+        "mechanism": "check_then_act_counter",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-10-sensit-6": {
+        "class": "sensitive_data_exposure",
+        "mechanism": "body_leak",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-10-tenant-3": {
+        "class": "tenant_isolation_failure",
+        "mechanism": "tenant_header_ignored",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-10-workfl-5": {
+        "class": "workflow_authorization_failure",
+        "mechanism": "self_approval",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      }
+    },
+    "hidden2-11": {
+      "hidden2-11-broken-1": {
+        "class": "broken_access_control",
+        "mechanism": "bypass_via_get",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-11-busine-4": {
+        "class": "business_logic_abuse",
+        "mechanism": "ordering_violation",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-11-clean-0": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-11-clean-1": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-11-clean-2": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-11-clean-3": {
+        "class": "clean",
+        "mechanism": null,
+        "is_vulnerable": false,
+        "verdict": "CLEAN",
+        "outcome": "TN",
+        "confidence": 0.89,
+        "proof_valid": true
+      },
+      "hidden2-11-idor-0": {
+        "class": "idor",
+        "mechanism": "query_param",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-11-mass_a-8": {
+        "class": "mass_assignment",
+        "mechanism": "role_escalation",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-11-multi_-7": {
+        "class": "multi_step_chain",
+        "mechanism": "token_for_other_user",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-11-privil-2": {
+        "class": "privilege_escalation",
+        "mechanism": "tenant_bypass",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-11-race_c-9": {
+        "class": "race_condition",
+        "mechanism": "check_then_act_counter",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-11-sensit-6": {
+        "class": "sensitive_data_exposure",
+        "mechanism": "header_leak",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-11-tenant-3": {
+        "class": "tenant_isolation_failure",
+        "mechanism": "cross_tenant_idor",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      },
+      "hidden2-11-workfl-5": {
+        "class": "workflow_authorization_failure",
+        "mechanism": "skipped_state",
+        "is_vulnerable": true,
+        "verdict": "CONFIRMED",
+        "outcome": "TP",
+        "confidence": 0.99,
+        "proof_valid": true
+      }
+    }
+  }
+}

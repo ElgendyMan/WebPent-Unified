@@ -1,0 +1,9 @@
+{
+  "total_percent": 72,
+  "measured_percent": 72.7,
+  "measured_at": "2026-10-29T17:45:00+00:00",
+  "measured_command": "pytest tests/ -q --tb=no --cov=src/webpent --cov-report=json",
+  "measured_suite": "6698 passed, 2 skipped, 1 xfailed (0.26.0 tree, commit of record)",
+  "context": "Track 1 coverage floor (RESIDUAL CLOSURE 2026-10-29). The floor is the measured baseline rounded DOWN to the integer 72 so CI does not flap on ±0.5 point noise; it is a RATCHET — only a documented window may lower it, and improvements should raise it. CI enforces via scripts/run_tests_with_evidence.py --cov-fail-under.",
+  "scope": "src/webpent (98,082 statements; 71,309 covered at measurement time)"
+}

@@ -1,0 +1,161 @@
+{
+  "chains_discovered": 1,
+  "chains_confirmed": 1,
+  "chains_refuted": 0,
+  "chains_blocked": 0,
+  "combined_severity_upgrades": 1,
+  "candidates": [
+    {
+      "chain_id": "chain_01255fe5402417d2",
+      "pattern": "info_disclosure_to_idor",
+      "description": "User IDs exposed -> use them for IDOR access",
+      "step_1_finding": {
+        "finding_id": "disc-userids",
+        "family": "INFO_DISCLOSURE",
+        "status": "PROMOTED",
+        "target_url": "http://synthetic-chain.test",
+        "engagement_id": "eng-chain-proof-001",
+        "route": "/api/users/list",
+        "severity": "3.1",
+        "proof_bundle_ref": "proof_bundle_2ce8032ad8854b85bf03f60facc4544a",
+        "capabilities": [
+          "user_ids"
+        ],
+        "promotion_gates": [
+          "g1",
+          "g2",
+          "g3",
+          "g4",
+          "g5",
+          "g6",
+          "g7",
+          "g8"
+        ]
+      },
+      "step_2_finding": {
+        "finding_id": "idor-profile",
+        "family": "IDOR",
+        "status": "PROMOTED",
+        "target_url": "http://synthetic-chain.test",
+        "engagement_id": "eng-chain-proof-001",
+        "route": "/api/users/{id}/profile",
+        "severity": "6.5",
+        "proof_bundle_ref": "proof_bundle_c07f716ac28846b0873c6af20e49501b",
+        "capabilities": [
+          "object_access",
+          "other_user_data",
+          "user_ids"
+        ],
+        "promotion_gates": [
+          "g1",
+          "g2",
+          "g3",
+          "g4",
+          "g5",
+          "g6",
+          "g7",
+          "g8"
+        ]
+      },
+      "prerequisites_met": true,
+      "estimated_impact": "HIGH",
+      "confidence": 0.8,
+      "narrative": "The application exposes user identifiers (/api/users/list); combined with /api/users/{id}/profile, an attacker can enumerate users and access their data.",
+      "verification_needed": [
+        "execute the governed chain request",
+        "verify combined causal impact"
+      ],
+      "target_url": "http://synthetic-chain.test",
+      "engagement_id": "eng-chain-proof-001",
+      "chain_input": {
+        "source_finding_id": "disc-userids",
+        "source_resource_id": "1042",
+        "input_authority": "sealed_step_1_proof_bundle"
+      }
+    }
+  ],
+  "executions": [
+    {
+      "chain_id": "chain_01255fe5402417d2",
+      "status": "chain_confirmed",
+      "confirmed": true,
+      "reason": "M4/AVI/PromotionPipeline passed \u2014 governed chain execution confirmed",
+      "evidence": {
+        "authority": "M4/AVI/PromotionPipeline",
+        "response_digest": "redacted-synthetic-proof",
+        "executor": "deterministic-stub (synthetic proof, not live)"
+      },
+      "proof_bundle_ref": "chain-proof-chain_01255fe5402417d2",
+      "replay_verified": true,
+      "gates_passed": [
+        "g1",
+        "g2",
+        "g3",
+        "g4",
+        "g5",
+        "g6",
+        "g7",
+        "g8"
+      ],
+      "gates_failed": []
+    }
+  ],
+  "reports": [
+    {
+      "chain_id": "chain_01255fe5402417d2",
+      "title": "[CRITICAL] Combined impact via info disclosure to idor",
+      "pattern": "info_disclosure_to_idor",
+      "steps": [
+        {
+          "step": 1,
+          "finding": "disc-userids",
+          "result": "confirmed prerequisite"
+        },
+        {
+          "step": 2,
+          "finding": "idor-profile",
+          "result": "confirmed prerequisite"
+        },
+        {
+          "step": 3,
+          "chain": "chain_01255fe5402417d2",
+          "result": "governed chain execution confirmed"
+        }
+      ],
+      "combined_severity": "CRITICAL",
+      "combined_cvss": 9.0,
+      "cvss_justification": "The info_disclosure_to_idor pattern is confirmed by the individual evidence and a successful governed chain execution; combined impact floor is 9.0, base individual score was 6.5.",
+      "impact": "The application exposes user identifiers ({disclosure_evidence}); combined with {idor_evidence}, an attacker can enumerate users and access their data.",
+      "evidence": [
+        {
+          "source": "step_1",
+          "proof_bundle_ref": "proof_bundle_2ce8032ad8854b85bf03f60facc4544a"
+        },
+        {
+          "source": "step_2",
+          "proof_bundle_ref": "proof_bundle_c07f716ac28846b0873c6af20e49501b"
+        },
+        {
+          "source": "chain_execution",
+          "evidence": {
+            "authority": "M4/AVI/PromotionPipeline",
+            "response_digest": "redacted-synthetic-proof",
+            "executor": "deterministic-stub (synthetic proof, not live)"
+          }
+        }
+      ],
+      "proof_bundle_ref": "chain-proof-chain_01255fe5402417d2",
+      "replay_verified": true,
+      "gates_passed": [
+        "g1",
+        "g2",
+        "g3",
+        "g4",
+        "g5",
+        "g6",
+        "g7",
+        "g8"
+      ]
+    }
+  ]
+}

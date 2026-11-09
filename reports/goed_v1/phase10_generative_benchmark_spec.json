@@ -1,0 +1,16 @@
+{
+  "phase": "10_generative_benchmark_spec",
+  "date": "2026-09-03",
+  "requirements": {
+    "independent_targets_min": 10,
+    "vulnerability_classes_min": 8,
+    "evaluation_cases_min": 100,
+    "multiple_domains_required": true,
+    "different_route_structures": true,
+    "different_naming_conventions": true,
+    "different_authorization_models": true,
+    "different_response_semantics": true
+  },
+  "critical_requirement": "Generator CANNOT receive target-specific route knowledge",
+  "targets_must_be_new": "NOT used to build the generator"
+}

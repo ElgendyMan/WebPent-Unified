@@ -1,0 +1,519 @@
+{
+  "approved_direct_files": {
+    "src/webpent/agents/authentication/agent.py": "scoped_playwright_auth_flow",
+    "src/webpent/agents/execution_sandbox/agent.py": "scoped_playwright_xss_replay",
+    "src/webpent/agents/request_smuggling/agent.py": "scoped_raw_tcp_validator",
+    "src/webpent/agents/subdomain_takeover/agent.py": "scoped_dns_resolution_validator",
+    "src/webpent/agents/validator/agent.py": "scoped_playwright_csrf_replay",
+    "src/webpent/cli/__init__.py": "bounded_playwright_preflight",
+    "src/webpent/cli/git_source.py": "bounded_git_source_subprocess",
+    "src/webpent/shared/capability_manifest.py": "read_only_tool_capability_probe",
+    "src/webpent/shared/http.py": "hardened_httpx_and_dns_boundary",
+    "src/webpent/shared/preflight.py": "read_only_playwright_capability_probe",
+    "src/webpent/tools/utils/subprocess.py": "bounded_subprocess_boundary"
+  },
+  "generated_from": "src/**/*.py",
+  "logical_transports": {
+    "api": {
+      "authority": "API testing action family and target-origin scope",
+      "boundary": "http",
+      "proof": "replay observation and strict verifier"
+    },
+    "browser": {
+      "authority": "scope checks, playwright_enabled, and action policy",
+      "boundary": "Playwright sites listed in APPROVED_DIRECT_FILES",
+      "proof": "browser observation; confirmation additionally requires ProofBundle"
+    },
+    "file_upload": {
+      "authority": "form_submit/file_upload policy and target-origin scope",
+      "boundary": "http",
+      "proof": "upload response/replay observation and strict verifier"
+    },
+    "graphql": {
+      "authority": "API/validation action family and target-origin scope",
+      "boundary": "http",
+      "proof": "query/response replay observation and strict verifier"
+    },
+    "http": {
+      "authority": "ActionAuthority/action_family=http_read|validation",
+      "boundary": "webpent.shared.http.make_safe_httpx_client",
+      "proof": "response evidence plus verifier contract where promotion is requested"
+    },
+    "oob": {
+      "authority": "OOB preconditions, callback secret and target scope",
+      "boundary": "http plus configured callback receiver",
+      "proof": "correlated callback plus negative control and strict verifier"
+    },
+    "raw_tcp_dns": {
+      "authority": "target scope and validator-specific bounded controls",
+      "boundary": "catalogued request_smuggling/subdomain_takeover validators",
+      "proof": "validator observation; no implicit promotion"
+    },
+    "subprocess": {
+      "authority": "tool allowlist, timeout, argv validation and action policy",
+      "boundary": "webpent.tools.utils.subprocess.run_command or catalogued probes",
+      "proof": "bounded tool result; no confirmation without verifier evidence"
+    }
+  },
+  "records": [
+    {
+      "file": "src/webpent/agents/access_control/agent.py",
+      "kind": "safe_boundary_call",
+      "line": 380,
+      "symbol": "make_safe_httpx_client",
+      "transport": "http_sync"
+    },
+    {
+      "file": "src/webpent/agents/authentication/agent.py",
+      "kind": "import",
+      "line": 189,
+      "symbol": "playwright.sync_api.sync_playwright",
+      "transport": "browser_implementation"
+    },
+    {
+      "file": "src/webpent/agents/authentication/agent.py",
+      "kind": "call",
+      "line": 202,
+      "symbol": "sync_playwright",
+      "transport": "browser_playwright"
+    },
+    {
+      "file": "src/webpent/agents/business_logic_fuzzer/agent.py",
+      "kind": "safe_boundary_call",
+      "line": 231,
+      "symbol": "make_safe_httpx_client",
+      "transport": "http_sync"
+    },
+    {
+      "file": "src/webpent/agents/cloud_storage/agent.py",
+      "kind": "safe_boundary_call",
+      "line": 109,
+      "symbol": "make_safe_httpx_client",
+      "transport": "http_sync"
+    },
+    {
+      "file": "src/webpent/agents/crawler/agent.py",
+      "kind": "safe_boundary_call",
+      "line": 183,
+      "symbol": "make_safe_httpx_client",
+      "transport": "http_sync"
+    },
+    {
+      "file": "src/webpent/agents/crawler/agent.py",
+      "kind": "safe_boundary_call",
+      "line": 255,
+      "symbol": "make_safe_httpx_client",
+      "transport": "http_sync"
+    },
+    {
+      "file": "src/webpent/agents/execution_sandbox/agent.py",
+      "kind": "import",
+      "line": 71,
+      "symbol": "playwright.sync_api.sync_playwright",
+      "transport": "browser_implementation"
+    },
+    {
+      "file": "src/webpent/agents/execution_sandbox/agent.py",
+      "kind": "call",
+      "line": 91,
+      "symbol": "sync_playwright",
+      "transport": "browser_playwright"
+    },
+    {
+      "file": "src/webpent/agents/javascript_intelligence/agent.py",
+      "kind": "safe_boundary_call",
+      "line": 92,
+      "symbol": "make_safe_httpx_client",
+      "transport": "http_sync"
+    },
+    {
+      "file": "src/webpent/agents/post_exploit/agent.py",
+      "kind": "safe_boundary_call",
+      "line": 256,
+      "symbol": "run_command",
+      "transport": "subprocess_boundary"
+    },
+    {
+      "file": "src/webpent/agents/post_exploit/agent.py",
+      "kind": "safe_boundary_call",
+      "line": 337,
+      "symbol": "make_safe_httpx_client",
+      "transport": "http_sync"
+    },
+    {
+      "file": "src/webpent/agents/recon/agent.py",
+      "kind": "safe_boundary_call",
+      "line": 673,
+      "symbol": "make_safe_httpx_client",
+      "transport": "http_sync"
+    },
+    {
+      "file": "src/webpent/agents/recon/agent.py",
+      "kind": "safe_boundary_call",
+      "line": 684,
+      "symbol": "make_safe_httpx_client",
+      "transport": "http_sync"
+    },
+    {
+      "file": "src/webpent/agents/request_smuggling/agent.py",
+      "kind": "import",
+      "line": 36,
+      "symbol": "socket",
+      "transport": "raw_tcp_dns_implementation"
+    },
+    {
+      "file": "src/webpent/agents/request_smuggling/agent.py",
+      "kind": "call",
+      "line": 95,
+      "symbol": "socket.create_connection",
+      "transport": "raw_tcp_dns"
+    },
+    {
+      "file": "src/webpent/agents/smart_campaigns/agent.py",
+      "kind": "safe_boundary_call",
+      "line": 1158,
+      "symbol": "make_safe_httpx_client",
+      "transport": "http_sync"
+    },
+    {
+      "file": "src/webpent/agents/subdomain_takeover/agent.py",
+      "kind": "import",
+      "line": 13,
+      "symbol": "socket",
+      "transport": "raw_tcp_dns_implementation"
+    },
+    {
+      "file": "src/webpent/agents/subdomain_takeover/agent.py",
+      "kind": "call",
+      "line": 89,
+      "symbol": "socket.gethostbyname_ex",
+      "transport": "raw_tcp_dns"
+    },
+    {
+      "file": "src/webpent/agents/subdomain_takeover/agent.py",
+      "kind": "safe_boundary_call",
+      "line": 140,
+      "symbol": "make_safe_httpx_client",
+      "transport": "http_sync"
+    },
+    {
+      "file": "src/webpent/agents/validator/active_checks.py",
+      "kind": "safe_boundary_call",
+      "line": 163,
+      "symbol": "make_safe_httpx_client",
+      "transport": "http_sync"
+    },
+    {
+      "file": "src/webpent/agents/validator/agent.py",
+      "kind": "import",
+      "line": 714,
+      "symbol": "playwright.sync_api.sync_playwright",
+      "transport": "browser_implementation"
+    },
+    {
+      "file": "src/webpent/agents/validator/agent.py",
+      "kind": "call",
+      "line": 720,
+      "symbol": "sync_playwright",
+      "transport": "browser_playwright"
+    },
+    {
+      "file": "src/webpent/agents/validator/agent.py",
+      "kind": "safe_boundary_call",
+      "line": 897,
+      "symbol": "make_safe_httpx_client",
+      "transport": "http_sync"
+    },
+    {
+      "file": "src/webpent/agents/validator/agent.py",
+      "kind": "safe_boundary_call",
+      "line": 1353,
+      "symbol": "make_safe_httpx_client",
+      "transport": "http_sync"
+    },
+    {
+      "file": "src/webpent/agents/validator/agent.py",
+      "kind": "safe_boundary_call",
+      "line": 1692,
+      "symbol": "make_safe_httpx_client",
+      "transport": "http_sync"
+    },
+    {
+      "file": "src/webpent/agents/validator/agent.py",
+      "kind": "safe_boundary_call",
+      "line": 1752,
+      "symbol": "make_safe_httpx_client",
+      "transport": "http_sync"
+    },
+    {
+      "file": "src/webpent/agents/validator/agent.py",
+      "kind": "safe_boundary_call",
+      "line": 2284,
+      "symbol": "make_safe_httpx_client",
+      "transport": "http_sync"
+    },
+    {
+      "file": "src/webpent/agents/validator/agent.py",
+      "kind": "safe_boundary_call",
+      "line": 3577,
+      "symbol": "make_safe_httpx_client",
+      "transport": "http_sync"
+    },
+    {
+      "file": "src/webpent/agents/validator/agent.py",
+      "kind": "safe_boundary_call",
+      "line": 3677,
+      "symbol": "make_safe_httpx_client",
+      "transport": "http_sync"
+    },
+    {
+      "file": "src/webpent/agents/validator/structural_checks.py",
+      "kind": "safe_boundary_call",
+      "line": 103,
+      "symbol": "make_safe_httpx_client",
+      "transport": "http_sync"
+    },
+    {
+      "file": "src/webpent/agents/validator/structural_checks.py",
+      "kind": "safe_boundary_call",
+      "line": 573,
+      "symbol": "make_safe_httpx_client",
+      "transport": "http_sync"
+    },
+    {
+      "file": "src/webpent/agents/validator/structural_checks.py",
+      "kind": "safe_boundary_call",
+      "line": 1108,
+      "symbol": "make_safe_httpx_client",
+      "transport": "http_sync"
+    },
+    {
+      "file": "src/webpent/cli/__init__.py",
+      "kind": "import",
+      "line": 188,
+      "symbol": "playwright.sync_api.sync_playwright",
+      "transport": "browser_implementation"
+    },
+    {
+      "file": "src/webpent/cli/__init__.py",
+      "kind": "call",
+      "line": 190,
+      "symbol": "sync_playwright",
+      "transport": "browser_playwright"
+    },
+    {
+      "file": "src/webpent/cli/git_source.py",
+      "kind": "import",
+      "line": 6,
+      "symbol": "subprocess",
+      "transport": "subprocess_implementation"
+    },
+    {
+      "file": "src/webpent/cli/git_source.py",
+      "kind": "call",
+      "line": 71,
+      "symbol": "subprocess.run",
+      "transport": "subprocess"
+    },
+    {
+      "file": "src/webpent/integrations/webhook.py",
+      "kind": "safe_boundary_call",
+      "line": 256,
+      "symbol": "make_safe_httpx_async_client",
+      "transport": "http_async"
+    },
+    {
+      "file": "src/webpent/shared/capability_manifest.py",
+      "kind": "import",
+      "line": 14,
+      "symbol": "subprocess",
+      "transport": "subprocess_implementation"
+    },
+    {
+      "file": "src/webpent/shared/capability_manifest.py",
+      "kind": "call",
+      "line": 59,
+      "symbol": "subprocess.run",
+      "transport": "subprocess"
+    },
+    {
+      "file": "src/webpent/shared/grounding.py",
+      "kind": "safe_boundary_call",
+      "line": 590,
+      "symbol": "make_safe_httpx_client",
+      "transport": "http_sync"
+    },
+    {
+      "file": "src/webpent/shared/grounding.py",
+      "kind": "safe_boundary_call",
+      "line": 612,
+      "symbol": "make_safe_httpx_client",
+      "transport": "http_sync"
+    },
+    {
+      "file": "src/webpent/shared/http.py",
+      "kind": "import",
+      "line": 131,
+      "symbol": "socket",
+      "transport": "raw_tcp_dns_implementation"
+    },
+    {
+      "file": "src/webpent/shared/http.py",
+      "kind": "import",
+      "line": 135,
+      "symbol": "httpx",
+      "transport": "http_implementation"
+    },
+    {
+      "file": "src/webpent/shared/http.py",
+      "kind": "call",
+      "line": 273,
+      "symbol": "socket.getaddrinfo",
+      "transport": "raw_tcp_dns"
+    },
+    {
+      "file": "src/webpent/shared/http.py",
+      "kind": "call",
+      "line": 322,
+      "symbol": "socket.getaddrinfo",
+      "transport": "raw_tcp_dns"
+    },
+    {
+      "file": "src/webpent/shared/http.py",
+      "kind": "call",
+      "line": 910,
+      "symbol": "httpx.Client",
+      "transport": "http_sync"
+    },
+    {
+      "file": "src/webpent/shared/http.py",
+      "kind": "call",
+      "line": 966,
+      "symbol": "httpx.AsyncClient",
+      "transport": "http_async"
+    },
+    {
+      "file": "src/webpent/shared/http_discovery.py",
+      "kind": "safe_boundary_call",
+      "line": 359,
+      "symbol": "make_safe_httpx_client",
+      "transport": "http_sync"
+    },
+    {
+      "file": "src/webpent/shared/preflight.py",
+      "kind": "import",
+      "line": 78,
+      "symbol": "playwright",
+      "transport": "browser_implementation"
+    },
+    {
+      "file": "src/webpent/shared/reference_lookup.py",
+      "kind": "safe_boundary_call",
+      "line": 111,
+      "symbol": "make_safe_httpx_client",
+      "transport": "http_sync"
+    },
+    {
+      "file": "src/webpent/tools/exploitation/dalfox.py",
+      "kind": "safe_boundary_call",
+      "line": 172,
+      "symbol": "run_command",
+      "transport": "subprocess_boundary"
+    },
+    {
+      "file": "src/webpent/tools/exploitation/dalfox.py",
+      "kind": "safe_boundary_call",
+      "line": 214,
+      "symbol": "run_command",
+      "transport": "subprocess_boundary"
+    },
+    {
+      "file": "src/webpent/tools/exploitation/phpggc.py",
+      "kind": "safe_boundary_call",
+      "line": 141,
+      "symbol": "run_command",
+      "transport": "subprocess_boundary"
+    },
+    {
+      "file": "src/webpent/tools/exploitation/sqlmap.py",
+      "kind": "safe_boundary_call",
+      "line": 442,
+      "symbol": "run_command",
+      "transport": "subprocess_boundary"
+    },
+    {
+      "file": "src/webpent/tools/exploitation/ysoserial.py",
+      "kind": "safe_boundary_call",
+      "line": 170,
+      "symbol": "run_command",
+      "transport": "subprocess_boundary"
+    },
+    {
+      "file": "src/webpent/tools/recon/ffuf.py",
+      "kind": "safe_boundary_call",
+      "line": 103,
+      "symbol": "run_command",
+      "transport": "subprocess_boundary"
+    },
+    {
+      "file": "src/webpent/tools/recon/httpx.py",
+      "kind": "safe_boundary_call",
+      "line": 107,
+      "symbol": "run_command",
+      "transport": "subprocess_boundary"
+    },
+    {
+      "file": "src/webpent/tools/recon/katana.py",
+      "kind": "safe_boundary_call",
+      "line": 167,
+      "symbol": "run_command",
+      "transport": "subprocess_boundary"
+    },
+    {
+      "file": "src/webpent/tools/recon/nuclei.py",
+      "kind": "safe_boundary_call",
+      "line": 194,
+      "symbol": "run_command",
+      "transport": "subprocess_boundary"
+    },
+    {
+      "file": "src/webpent/tools/recon/subfinder.py",
+      "kind": "safe_boundary_call",
+      "line": 64,
+      "symbol": "run_command",
+      "transport": "subprocess_boundary"
+    },
+    {
+      "file": "src/webpent/tools/utils/subprocess.py",
+      "kind": "import",
+      "line": 68,
+      "symbol": "subprocess",
+      "transport": "subprocess_implementation"
+    },
+    {
+      "file": "src/webpent/tools/utils/subprocess.py",
+      "kind": "call",
+      "line": 243,
+      "symbol": "subprocess.Popen",
+      "transport": "subprocess"
+    },
+    {
+      "file": "src/webpent/tools/utils/subprocess.py",
+      "kind": "call",
+      "line": 257,
+      "symbol": "subprocess.Popen",
+      "transport": "subprocess"
+    }
+  ],
+  "schema": "webpent.direct_io_inventory.v1",
+  "transport_families": [
+    "http",
+    "browser",
+    "api",
+    "graphql",
+    "file_upload",
+    "oob",
+    "subprocess",
+    "raw_tcp_dns"
+  ]
+}

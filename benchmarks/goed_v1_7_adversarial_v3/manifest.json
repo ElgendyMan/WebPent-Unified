@@ -1,0 +1,293 @@
+{
+  "version": "adversarial_v3_correct",
+  "date": "2026-09-04",
+  "port": 9150,
+  "baseline_route": "/adv3/v1/own",
+  "total_cases": 40,
+  "vulnerable_cases": 20,
+  "clean_cases": 20,
+  "vulnerable": {
+    "adv3_v1_secrets": {
+      "class": "same_status_diff_semantics",
+      "is_vulnerable": true,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/secrets",
+      "control": "/patched/adv3/v1/secrets"
+    },
+    "adv3_v1_item-create": {
+      "class": "diff_status_same_meaning",
+      "is_vulnerable": true,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/item-create",
+      "control": "/patched/adv3/v1/item-create"
+    },
+    "adv3_v1_other-profile": {
+      "class": "identical_body_diff_ownership",
+      "is_vulnerable": true,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/other-profile",
+      "control": "/patched/adv3/v1/other-profile"
+    },
+    "adv3_v1_opaque_47ef8735-65b9-646b-32f7-4aaa1e82cdd1": {
+      "class": "opaque_identifiers",
+      "is_vulnerable": true,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/opaque/47ef8735-65b9-646b-32f7-4aaa1e82cdd1",
+      "control": "/patched/adv3/v1/opaque/47ef8735-65b9-646b-32f7-4aaa1e82cdd1"
+    },
+    "adv3_v1_nested-deep": {
+      "class": "nested_json_payloads",
+      "is_vulnerable": true,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/nested-deep",
+      "control": "/patched/adv3/v1/nested-deep"
+    },
+    "adv3_v1_encoded_dGFyZ2V0X3Jlc291cmNlXzAwMQ==": {
+      "class": "encoded_identifiers",
+      "is_vulnerable": true,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/encoded/dGFyZ2V0X3Jlc291cmNlXzAwMQ==",
+      "control": "/patched/adv3/v1/encoded/dGFyZ2V0X3Jlc291cmNlXzAwMQ=="
+    },
+    "adv3_v1_alias-primary": {
+      "class": "url_aliases",
+      "is_vulnerable": true,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/alias-primary",
+      "control": "/patched/adv3/v1/alias-primary"
+    },
+    "adv3_v1_method-bypass": {
+      "class": "method_variation",
+      "is_vulnerable": true,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/method-bypass",
+      "control": "/patched/adv3/v1/method-bypass"
+    },
+    "adv3_v1_header-protected": {
+      "class": "header_based_authz",
+      "is_vulnerable": true,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/header-protected",
+      "control": "/patched/adv3/v1/header-protected"
+    },
+    "adv3_v1_tenant-bypass": {
+      "class": "tenant_isolation_bypass",
+      "is_vulnerable": true,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/tenant-bypass",
+      "control": "/patched/adv3/v1/tenant-bypass"
+    },
+    "adv3_v1_role-escalation": {
+      "class": "privilege_escalation",
+      "is_vulnerable": true,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/role-escalation",
+      "control": "/patched/adv3/v1/role-escalation"
+    },
+    "adv3_v1_mass-assign": {
+      "class": "mass_assignment",
+      "is_vulnerable": true,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/mass-assign",
+      "control": "/patched/adv3/v1/mass-assign"
+    },
+    "adv3_v1_race-counter": {
+      "class": "race_condition",
+      "is_vulnerable": true,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/race-counter",
+      "control": "/patched/adv3/v1/race-counter"
+    },
+    "adv3_v1_multistep-token": {
+      "class": "multi_step_chain",
+      "is_vulnerable": true,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/multistep-token",
+      "control": "/patched/adv3/v1/multistep-token"
+    },
+    "adv3_v1_stateful-side": {
+      "class": "stateful_side_effects",
+      "is_vulnerable": true,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/stateful-side",
+      "control": "/patched/adv3/v1/stateful-side"
+    },
+    "adv3_v1_random-status": {
+      "class": "random_status_codes",
+      "is_vulnerable": true,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/random-status",
+      "control": "/patched/adv3/v1/random-status"
+    },
+    "adv3_v1_workflow-approve": {
+      "class": "multistep_workflow",
+      "is_vulnerable": true,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/workflow-approve",
+      "control": "/patched/adv3/v1/workflow-approve"
+    },
+    "adv3_v1_diff-body-auth": {
+      "class": "diff_body_same_auth",
+      "is_vulnerable": true,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/diff-body-auth",
+      "control": "/patched/adv3/v1/diff-body-auth"
+    },
+    "adv3_v1_delayed-state": {
+      "class": "delayed_state_transitions",
+      "is_vulnerable": true,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/delayed-state",
+      "control": "/patched/adv3/v1/delayed-state"
+    },
+    "adv3_v1_deep-path": {
+      "class": "deeply_nested_paths",
+      "is_vulnerable": true,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/deep-path",
+      "control": "/patched/adv3/v1/deep-path"
+    }
+  },
+  "clean": {
+    "adv3_v1_clean_decoy_admin_1": {
+      "class": "decoy_endpoints",
+      "is_vulnerable": false,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/clean/decoy-admin-1",
+      "control": "/adv3/v1/clean/decoy-admin-1"
+    },
+    "adv3_v1_clean_decoy_admin_2": {
+      "class": "decoy_endpoints",
+      "is_vulnerable": false,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/clean/decoy-admin-2",
+      "control": "/adv3/v1/clean/decoy-admin-2"
+    },
+    "adv3_v1_clean_decoy_admin_3": {
+      "class": "decoy_endpoints",
+      "is_vulnerable": false,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/clean/decoy-admin-3",
+      "control": "/adv3/v1/clean/decoy-admin-3"
+    },
+    "adv3_v1_clean_misleading_hdrs": {
+      "class": "misleading_headers",
+      "is_vulnerable": false,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/clean/misleading-hdrs",
+      "control": "/adv3/v1/clean/misleading-hdrs"
+    },
+    "adv3_v1_clean_missing_hdrs": {
+      "class": "missing_security_headers",
+      "is_vulnerable": false,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/clean/missing-hdrs",
+      "control": "/adv3/v1/clean/missing-hdrs"
+    },
+    "adv3_v1_clean_reordered_a": {
+      "class": "reordered_json_fields",
+      "is_vulnerable": false,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/clean/reordered-a",
+      "control": "/adv3/v1/clean/reordered-a"
+    },
+    "adv3_v1_clean_reordered_b": {
+      "class": "reordered_json_fields",
+      "is_vulnerable": false,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/clean/reordered-b",
+      "control": "/adv3/v1/clean/reordered-b"
+    },
+    "adv3_v1_clean_dynamic_links": {
+      "class": "dynamic_generated_links",
+      "is_vulnerable": false,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/clean/dynamic-links",
+      "control": "/adv3/v1/clean/dynamic-links"
+    },
+    "adv3_v1_clean_public_status": {
+      "class": "public_status_page",
+      "is_vulnerable": false,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/clean/public-status",
+      "control": "/adv3/v1/clean/public-status"
+    },
+    "adv3_v1_clean_static_content": {
+      "class": "static_content",
+      "is_vulnerable": false,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/clean/static-content",
+      "control": "/adv3/v1/clean/static-content"
+    },
+    "adv3_v1_clean_health_check": {
+      "class": "health_check",
+      "is_vulnerable": false,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/clean/health-check",
+      "control": "/adv3/v1/clean/health-check"
+    },
+    "adv3_v1_clean_about_page": {
+      "class": "about_page",
+      "is_vulnerable": false,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/clean/about-page",
+      "control": "/adv3/v1/clean/about-page"
+    },
+    "adv3_v1_clean_version_info": {
+      "class": "version_info",
+      "is_vulnerable": false,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/clean/version-info",
+      "control": "/adv3/v1/clean/version-info"
+    },
+    "adv3_v1_clean_contact_form": {
+      "class": "contact_form",
+      "is_vulnerable": false,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/clean/contact-form",
+      "control": "/adv3/v1/clean/contact-form"
+    },
+    "adv3_v1_clean_terms_page": {
+      "class": "terms_page",
+      "is_vulnerable": false,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/clean/terms-page",
+      "control": "/adv3/v1/clean/terms-page"
+    },
+    "adv3_v1_clean_privacy_policy": {
+      "class": "privacy_policy",
+      "is_vulnerable": false,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/clean/privacy-policy",
+      "control": "/adv3/v1/clean/privacy-policy"
+    },
+    "adv3_v1_clean_faq_page": {
+      "class": "faq_page",
+      "is_vulnerable": false,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/clean/faq-page",
+      "control": "/adv3/v1/clean/faq-page"
+    },
+    "adv3_v1_clean_sitemap": {
+      "class": "sitemap_page",
+      "is_vulnerable": false,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/clean/sitemap",
+      "control": "/adv3/v1/clean/sitemap"
+    },
+    "adv3_v1_clean_login_page": {
+      "class": "public_auth_page",
+      "is_vulnerable": false,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/clean/login-page",
+      "control": "/adv3/v1/clean/login-page"
+    },
+    "adv3_v1_clean_register_page": {
+      "class": "public_auth_page",
+      "is_vulnerable": false,
+      "baseline": "/adv3/v1/own",
+      "candidate": "/adv3/v1/clean/register-page",
+      "control": "/adv3/v1/clean/register-page"
+    }
+  }
+}

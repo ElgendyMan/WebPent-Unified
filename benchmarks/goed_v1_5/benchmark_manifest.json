@@ -1,0 +1,155 @@
+{
+  "benchmark_id": "goed_v1.5_generative",
+  "date": "2026-09-03T06:36:28.276215+00:00",
+  "description": "GOED v1.5 Generative Benchmark \u2014 10 independent targets, 8 vulnerability classes, randomized naming",
+  "total_targets": 10,
+  "total_cases": 120,
+  "vulnerable_cases": 100,
+  "clean_cases": 20,
+  "classes_covered": 8,
+  "class_list": [
+    "idor",
+    "broken_access_control",
+    "privilege_escalation",
+    "business_logic_abuse",
+    "tenant_isolation_failure",
+    "workflow_authorization_failure",
+    "sensitive_data_exposure",
+    "multi_step_chain"
+  ],
+  "diversity": {
+    "unique_route_prefixes": 10,
+    "unique_role_sets": 10,
+    "unique_tenant_styles": 10,
+    "sample_route_prefixes": [
+      "/api/ENTITY",
+      "/app/ENTITY/endpoint",
+      "/core/ENTITY",
+      "/data/ENTITY/access",
+      "/gateway/ENTITY/invoke"
+    ]
+  },
+  "targets": [
+    {
+      "id": "goed-v1.5-target-00",
+      "port": 8900,
+      "cases": 12,
+      "route_prefix": "/api/ENTITY",
+      "roles": [
+        "guest",
+        "member",
+        "owner",
+        "admin"
+      ]
+    },
+    {
+      "id": "goed-v1.5-target-01",
+      "port": 8901,
+      "cases": 12,
+      "route_prefix": "/v1/ENTITY",
+      "roles": [
+        "viewer",
+        "editor",
+        "manager",
+        "supervisor"
+      ]
+    },
+    {
+      "id": "goed-v1.5-target-02",
+      "port": 8902,
+      "cases": 12,
+      "route_prefix": "/v2/ENTITY",
+      "roles": [
+        "anonymous",
+        "basic",
+        "privileged",
+        "root"
+      ]
+    },
+    {
+      "id": "goed-v1.5-target-03",
+      "port": 8903,
+      "cases": 12,
+      "route_prefix": "/services/ENTITY/rest",
+      "roles": [
+        "read_only",
+        "read_write",
+        "admin",
+        "super_admin"
+      ]
+    },
+    {
+      "id": "goed-v1.5-target-04",
+      "port": 8904,
+      "cases": 12,
+      "route_prefix": "/internal/ENTITY",
+      "roles": [
+        "external",
+        "internal",
+        "team_lead",
+        "director"
+      ]
+    },
+    {
+      "id": "goed-v1.5-target-05",
+      "port": 8905,
+      "cases": 12,
+      "route_prefix": "/platform/ENTITY/api",
+      "roles": [
+        "limited",
+        "standard",
+        "power",
+        "executive"
+      ]
+    },
+    {
+      "id": "goed-v1.5-target-06",
+      "port": 8906,
+      "cases": 12,
+      "route_prefix": "/data/ENTITY/access",
+      "roles": [
+        "visitor",
+        "contributor",
+        "maintainer",
+        "owner"
+      ]
+    },
+    {
+      "id": "goed-v1.5-target-07",
+      "port": 8907,
+      "cases": 12,
+      "route_prefix": "/core/ENTITY",
+      "roles": [
+        "reporter",
+        "developer",
+        "lead",
+        "principal"
+      ]
+    },
+    {
+      "id": "goed-v1.5-target-08",
+      "port": 8908,
+      "cases": 12,
+      "route_prefix": "/gateway/ENTITY/invoke",
+      "roles": [
+        "trainee",
+        "regular",
+        "senior",
+        "exec"
+      ]
+    },
+    {
+      "id": "goed-v1.5-target-09",
+      "port": 8909,
+      "cases": 12,
+      "route_prefix": "/app/ENTITY/endpoint",
+      "roles": [
+        "observer",
+        "operator",
+        "administrator",
+        "global_admin"
+      ]
+    }
+  ],
+  "critical_note": "Detector receives ONLY base URL + authorized actor contexts. No route inventory, no vulnerability list, no case IDs, no ground truth. All discovery from target evidence only."
+}

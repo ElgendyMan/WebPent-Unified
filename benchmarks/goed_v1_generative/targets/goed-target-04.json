@@ -1,0 +1,190 @@
+{
+  "target_id": "goed-target-04",
+  "port": 8804,
+  "naming_convention": {
+    "route_style": 4,
+    "object_style": 4,
+    "role_set": 4,
+    "tenant_style": 4
+  },
+  "route_prefix": "/internal/ENTITY",
+  "roles": [
+    "external",
+    "internal",
+    "team_lead",
+    "director"
+  ],
+  "tenants": [
+    "team-RFI",
+    "team-TBV"
+  ],
+  "objects": [
+    "asset_0000",
+    "asset_0001",
+    "asset_0002",
+    "asset_0003",
+    "asset_0004",
+    "asset_0005"
+  ],
+  "cases": {
+    "goed-target-04-case-00": {
+      "case_id": "goed-target-04-case-00",
+      "target_id": "goed-target-04",
+      "class": "idor",
+      "route": "/internal/objects/asset_0001",
+      "baseline_route": "/internal/objects/asset_0000",
+      "control_route": "/patched/internal/objects/asset_0001",
+      "actor_role": "internal",
+      "actor_tenant": "team-RFI",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-target-04-case-01": {
+      "case_id": "goed-target-04-case-01",
+      "target_id": "goed-target-04",
+      "class": "broken_access_control",
+      "route": "/internal/admin/dashboard",
+      "baseline_route": "/internal/profile",
+      "control_route": "/patched/internal/admin/dashboard",
+      "actor_role": "internal",
+      "actor_tenant": "team-RFI",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "low"
+    },
+    "goed-target-04-case-02": {
+      "case_id": "goed-target-04-case-02",
+      "target_id": "goed-target-04",
+      "class": "privilege_escalation",
+      "route": "/internal/billing/team-RFI/records",
+      "baseline_route": "/internal/profile",
+      "control_route": "/patched/internal/billing/team-RFI/records",
+      "actor_role": "internal",
+      "actor_tenant": "team-RFI",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "low"
+    },
+    "goed-target-04-case-03": {
+      "case_id": "goed-target-04-case-03",
+      "target_id": "goed-target-04",
+      "class": "business_logic_abuse",
+      "route": "/internal/transfer/asset_0000?to=asset_0001&amount=-100",
+      "baseline_route": "/internal/transfer/asset_0000?to=asset_0001&amount=10",
+      "control_route": "/patched/internal/transfer/asset_0000",
+      "actor_role": "internal",
+      "actor_tenant": "team-RFI",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-04-case-04": {
+      "case_id": "goed-target-04-case-04",
+      "target_id": "goed-target-04",
+      "class": "tenant_isolation_failure",
+      "route": "/internal/tenant/team-TBV/internal",
+      "baseline_route": "/internal/tenant/team-RFI/internal",
+      "control_route": "/patched/internal/tenant/team-TBV/internal",
+      "actor_role": "internal",
+      "actor_tenant": "team-RFI",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-04-case-05": {
+      "case_id": "goed-target-04-case-05",
+      "target_id": "goed-target-04",
+      "class": "workflow_authorization_failure",
+      "route": "/internal/workflows/asset_0002/approve",
+      "baseline_route": "/internal/workflows/asset_0002/view",
+      "control_route": "/patched/internal/workflows/asset_0002/approve",
+      "actor_role": "external",
+      "actor_tenant": "team-RFI",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-target-04-case-06": {
+      "case_id": "goed-target-04-case-06",
+      "target_id": "goed-target-04",
+      "class": "sensitive_data_exposure",
+      "route": "/internal/messages/asset_0001/inbox",
+      "baseline_route": "/internal/messages/asset_0000/inbox",
+      "control_route": "/patched/internal/messages/asset_0001/inbox",
+      "actor_role": "internal",
+      "actor_tenant": "team-RFI",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "low"
+    },
+    "goed-target-04-case-07": {
+      "case_id": "goed-target-04-case-07",
+      "target_id": "goed-target-04",
+      "class": "multi_step_chain",
+      "route": "/internal/auth/reset/request?for=asset_0001",
+      "baseline_route": "/internal/auth/reset/request?for=asset_0000",
+      "control_route": "/patched/internal/auth/reset/request",
+      "actor_role": "internal",
+      "actor_tenant": "team-RFI",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-04-case-08": {
+      "case_id": "goed-target-04-case-08",
+      "target_id": "goed-target-04",
+      "class": "workflow_authorization_failure",
+      "route": "/internal/workflows/asset_0002/approve",
+      "baseline_route": "/internal/workflows/asset_0002/view",
+      "control_route": "/patched/internal/workflows/asset_0002/approve",
+      "actor_role": "external",
+      "actor_tenant": "team-RFI",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-target-04-case-09": {
+      "case_id": "goed-target-04-case-09",
+      "target_id": "goed-target-04",
+      "class": "business_logic_abuse",
+      "route": "/internal/transfer/asset_0000?to=asset_0001&amount=-100",
+      "baseline_route": "/internal/transfer/asset_0000?to=asset_0001&amount=10",
+      "control_route": "/patched/internal/transfer/asset_0000",
+      "actor_role": "internal",
+      "actor_tenant": "team-RFI",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-target-04-clean-00": {
+      "case_id": "goed-target-04-clean-00",
+      "target_id": "goed-target-04",
+      "class": "clean_public_resource",
+      "route": "/internal/public/info-0",
+      "baseline_route": "/internal/public/info-0",
+      "control_route": "/internal/public/info-0",
+      "actor_role": "internal",
+      "actor_tenant": "team-RFI",
+      "expected_verdict": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    },
+    "goed-target-04-clean-01": {
+      "case_id": "goed-target-04-clean-01",
+      "target_id": "goed-target-04",
+      "class": "clean_public_resource",
+      "route": "/internal/public/info-1",
+      "baseline_route": "/internal/public/info-1",
+      "control_route": "/internal/public/info-1",
+      "actor_role": "internal",
+      "actor_tenant": "team-RFI",
+      "expected_verdict": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    }
+  },
+  "total_cases": 12,
+  "vulnerable_cases": 10,
+  "clean_cases": 2
+}

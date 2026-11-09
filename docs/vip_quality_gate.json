@@ -1,0 +1,346 @@
+{
+  "checks": [
+    {
+      "command": [
+        "/tmp/webpent-review/.venv/bin/python",
+        "-m",
+        "compileall",
+        "-q",
+        "src",
+        "scripts"
+      ],
+      "name": "compileall",
+      "passed": true,
+      "returncode": 0,
+      "tail": []
+    },
+    {
+      "command": [
+        "/tmp/webpent-review/.venv/bin/ruff",
+        "check",
+        "src",
+        "tests",
+        "scripts"
+      ],
+      "name": "ruff",
+      "passed": true,
+      "returncode": 0,
+      "tail": [
+        "\u001b[1;32mAll checks passed!\u001b[0m"
+      ]
+    },
+    {
+      "command": [
+        "/tmp/webpent-review/.venv/bin/python",
+        "scripts/scan_direct_io.py"
+      ],
+      "name": "g02-artifact-regeneration",
+      "passed": true,
+      "returncode": 0,
+      "tail": [
+        "wrote /tmp/webpent-review/docs/direct_io_inventory.json and /tmp/webpent-review/docs/DIRECT_IO_INVENTORY.md (324 records)"
+      ]
+    },
+    {
+      "command": [
+        "/tmp/webpent-review/.venv/bin/python",
+        "scripts/check_g02_runtime.py"
+      ],
+      "name": "g02-static-runtime-contract",
+      "passed": true,
+      "returncode": 0,
+      "tail": [
+        "{\"errors\": [], \"external_target_contacted\": false, \"passed\": true, \"primary_records\": 324}"
+      ]
+    },
+    {
+      "command": [
+        "/tmp/webpent-review/.venv/bin/python",
+        "scripts/check_g02_precommit.py"
+      ],
+      "name": "g02-precommit-contract",
+      "passed": true,
+      "returncode": 0,
+      "tail": [
+        "{\"errors\": [], \"external_target_contacted\": false, \"passed\": true}"
+      ]
+    },
+    {
+      "command": [
+        "/tmp/webpent-review/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "name": "pytest",
+      "passed": true,
+      "returncode": 0,
+      "tail": [
+        "........................................................................ [ 63%]",
+        "........................................................................ [ 67%]",
+        "........................................................................ [ 71%]",
+        "........................................................................ [ 75%]",
+        "........................................................................ [ 79%]",
+        "........................................................................ [ 83%]",
+        "........................................................................ [ 87%]",
+        "........................................................................ [ 91%]",
+        "........................................................................ [ 95%]",
+        "........................................................................ [ 99%]",
+        "..........                                                               [100%]",
+        "1810 passed in 73.96s (0:01:13)"
+      ]
+    },
+    {
+      "name": "bbscout-integration-source",
+      "passed": true,
+      "reason": "reviewed bbscout source is bundled in the checkout",
+      "required_for_full_gate": true,
+      "returncode": 0,
+      "source_root": "integrations/bbscout/src",
+      "status": "bundled-reviewed-source"
+    },
+    {
+      "command": [
+        "/tmp/webpent-review/.venv/bin/python",
+        "scripts/verify_test_count.py",
+        "--minimum",
+        "818"
+      ],
+      "name": "test-function-count",
+      "passed": true,
+      "returncode": 0,
+      "tail": [
+        "    \"tests/test_vip_workflow_replay.py\": 3,",
+        "    \"tests/test_waptlab_catalog_manifest.py\": 6,",
+        "    \"tests/test_waptlab_detector_improvements.py\": 51,",
+        "    \"tests/test_waptlab_live_improvements.py\": 4,",
+        "    \"tests/test_webpent_diagnostics.py\": 9,",
+        "    \"tests/test_wildcard_scope.py\": 15,",
+        "    \"tests/test_workflow_surface_wiring.py\": 1",
+        "  },",
+        "  \"minimum\": 818,",
+        "  \"total_test_functions\": 1746",
+        "}",
+        "OK: preserved test-function count 1746 >= minimum 818"
+      ]
+    },
+    {
+      "command": [
+        "/tmp/webpent-review/.venv/bin/python",
+        "scripts/build_preflight_report.py",
+        "--host",
+        "127.0.0.1"
+      ],
+      "name": "preflight-report",
+      "passed": true,
+      "returncode": 0,
+      "tail": [
+        "{\"output\": \"/tmp/webpent-review/docs/preflight_report.json\", \"state\": \"READY_WITH_WARNING\"}"
+      ]
+    },
+    {
+      "command": [
+        "/tmp/webpent-review/.venv/bin/python",
+        "scripts/build_capability_report.py"
+      ],
+      "name": "capability-report",
+      "passed": true,
+      "returncode": 0,
+      "tail": [
+        "{\"catalog_count\": 20, \"output\": \"/tmp/webpent-review/docs/capability_report.json\"}"
+      ]
+    },
+    {
+      "command": [
+        "/tmp/webpent-review/.venv/bin/python",
+        "scripts/build_mock_qualification_report.py"
+      ],
+      "name": "mock-qualification-report",
+      "passed": true,
+      "returncode": 0,
+      "tail": [
+        "{\"final_confirmed_minimum\": 0, \"output\": \"/tmp/webpent-review/docs/waptlab_qualification_report.json\", \"stable\": true, \"tool_confirmed_minimum\": 5}"
+      ]
+    },
+    {
+      "command": [
+        "/tmp/webpent-review/docs/preflight_report.json"
+      ],
+      "name": "preflight-report-contract",
+      "passed": true,
+      "returncode": 0,
+      "tail": []
+    },
+    {
+      "command": [
+        "/tmp/webpent-review/docs/juice_shop_qualification_report.json"
+      ],
+      "name": "p8-live-proof-artifact",
+      "passed": true,
+      "returncode": 0,
+      "tail": []
+    },
+    {
+      "command": [
+        "/tmp/webpent-review/docs/p9_distributed_runtime_evidence.json"
+      ],
+      "name": "p9-distributed-qualification-artifact",
+      "passed": false,
+      "returncode": 1,
+      "tail": [
+        "P9 required checks incomplete: backup_restore, broker_idempotency, logs_redacted, multi_worker_lease_contention, retention_policy_verified, tls_enforced"
+      ]
+    },
+    {
+      "command": [
+        "/tmp/webpent-review/docs/juice_shop_qualification_report.json"
+      ],
+      "name": "p10-juice-shop-benchmark-artifact",
+      "passed": false,
+      "returncode": 1,
+      "tail": [
+        "P10 benchmark not qualified: ground_truth case mapping is partial and recall/precision cannot be computed; only one XSS workflow/class was exercised; benchmark runs are proof runs, not a complete catalog benchmark"
+      ]
+    },
+    {
+      "command": [
+        "/tmp/webpent-review/docs/juice_shop_p10_evaluation_v1.json"
+      ],
+      "name": "p10-independent-evaluation-artifact",
+      "passed": false,
+      "returncode": 1,
+      "tail": [
+        "P10 independent evaluation not qualified: approved_ground_truth_cases_below_minimum; approved_vulnerability_classes_below_minimum; artifact_namespaces_not_isolated; live_findings_not_proven_for_all_runs; p10_metrics_withheld_until_all_gates_pass; target_mutation_detected_or_unproven; workspaces_not_isolated"
+      ]
+    },
+    {
+      "command": [
+        "/tmp/webpent-review/docs/capability_report.json"
+      ],
+      "name": "capability-report-contract",
+      "passed": true,
+      "returncode": 0,
+      "tail": []
+    },
+    {
+      "command": [
+        "/tmp/webpent-review/docs/waptlab_qualification_report.json"
+      ],
+      "name": "mock-qualification-contract",
+      "passed": true,
+      "returncode": 0,
+      "tail": []
+    },
+    {
+      "command": [
+        "/tmp/webpent-review/.venv/bin/bandit",
+        "-q",
+        "-r",
+        "src/webpent",
+        "-x",
+        "tests",
+        "-lll",
+        "-f",
+        "json",
+        "-o",
+        "/tmp/webpent-review/docs/bandit_release.json"
+      ],
+      "name": "bandit-high-severity",
+      "passed": true,
+      "requirement_source": "uv-exported-lock",
+      "returncode": 0,
+      "tail": []
+    },
+    {
+      "command": [
+        "/tmp/webpent-review/.venv/bin/pip-audit",
+        "--strict",
+        "--timeout",
+        "15",
+        "--requirement",
+        "/tmp/webpent-review/docs/requirements-audit-release.txt",
+        "--format",
+        "cyclonedx-json",
+        "--output",
+        "/tmp/webpent-review/docs/sbom.cdx.json"
+      ],
+      "name": "pip-audit-sbom",
+      "passed": true,
+      "requirement_source": "uv-exported-lock",
+      "returncode": 0,
+      "tail": [
+        "No known vulnerabilities found"
+      ]
+    },
+    {
+      "command": [
+        "/tmp/webpent-review/.venv/bin/pip-audit",
+        "--strict",
+        "--timeout",
+        "15",
+        "--requirement",
+        "/tmp/webpent-review/docs/requirements-audit-release.txt",
+        "--format",
+        "json",
+        "--output",
+        "/tmp/webpent-review/docs/pip_audit_release.json"
+      ],
+      "name": "pip-audit-strict",
+      "passed": true,
+      "requirement_source": "uv-exported-lock",
+      "returncode": 0,
+      "tail": [
+        "No known vulnerabilities found"
+      ]
+    },
+    {
+      "command": [
+        "/tmp/webpent-review/.venv/bin/python",
+        "scripts/check_tracked_secrets.py"
+      ],
+      "name": "tracked-secret-scan",
+      "passed": true,
+      "returncode": 0,
+      "tail": [
+        "secret scan passed: no high-confidence secrets in tracked source/config"
+      ]
+    },
+    {
+      "command": [
+        "/tmp/webpent-review/.venv/bin/python",
+        "scripts/build_release_manifest.py"
+      ],
+      "name": "release-manifest",
+      "passed": true,
+      "returncode": 0,
+      "tail": [
+        "{\"file_count\": 1053, \"output\": \"/tmp/webpent-review/docs/release_manifest.json\"}"
+      ]
+    }
+  ],
+  "generated_at": "2026-08-25T21:22:39.293642+00:00",
+  "hard_checks_passed": false,
+  "known_blockers": [
+    "P9 distributed qualification is incomplete",
+    "P10 Juice Shop benchmark is incomplete or not qualified",
+    "P10 independent evaluation is incomplete or not qualified"
+  ],
+  "passed": false,
+  "project": "WebPent v72",
+  "schema_version": "vip-quality-gate-v2",
+  "security_artifacts": {
+    "bandit": "docs/bandit_release.json",
+    "pip_audit": "docs/pip_audit_release.json",
+    "sbom": "docs/sbom.cdx.json"
+  },
+  "waptlab_artifact_safety": {
+    "campaign_count": 20,
+    "passed": true,
+    "summary": {
+      "inconclusive": 18,
+      "missing-validator": 2
+    },
+    "target_contacted": false,
+    "waptlab_modified": false
+  }
+}

@@ -1,0 +1,861 @@
+{
+  "benchmark": "DifferentialBenchmark-v2",
+  "version": "2.0",
+  "design_principles": [
+    "no_mechanism_labels",
+    "no_vulnerability_names",
+    "no_internal_flags",
+    "behavior_revealed_through_interaction_only",
+    "stateful_and_relational_targets"
+  ],
+  "total_cases": 90,
+  "families": {
+    "easy": 30,
+    "reasoning": 30,
+    "novel": 30
+  },
+  "vulnerable_cases": 45,
+  "clean_cases": 45,
+  "cases": {
+    "dv2_001": {
+      "case_id": "dv2_001",
+      "family": "easy",
+      "baseline": "/dv2/easy/own_1",
+      "candidate": "/dv2/easy/target_1",
+      "control": "/dv2/easy/ctrl_1",
+      "port": 9210
+    },
+    "dv2_002": {
+      "case_id": "dv2_002",
+      "family": "easy",
+      "baseline": "/dv2/easy/own_2",
+      "candidate": "/dv2/easy/target_2",
+      "control": "/dv2/easy/ctrl_2",
+      "port": 9210
+    },
+    "dv2_003": {
+      "case_id": "dv2_003",
+      "family": "easy",
+      "baseline": "/dv2/easy/own_3",
+      "candidate": "/dv2/easy/target_3",
+      "control": "/dv2/easy/ctrl_3",
+      "port": 9210
+    },
+    "dv2_004": {
+      "case_id": "dv2_004",
+      "family": "easy",
+      "baseline": "/dv2/easy/own_4",
+      "candidate": "/dv2/easy/target_4",
+      "control": "/dv2/easy/ctrl_4",
+      "port": 9210
+    },
+    "dv2_005": {
+      "case_id": "dv2_005",
+      "family": "easy",
+      "baseline": "/dv2/easy/own_5",
+      "candidate": "/dv2/easy/target_5",
+      "control": "/dv2/easy/ctrl_5",
+      "port": 9210
+    },
+    "dv2_006": {
+      "case_id": "dv2_006",
+      "family": "easy",
+      "baseline": "/dv2/easy/own_6",
+      "candidate": "/dv2/easy/target_6",
+      "control": "/dv2/easy/ctrl_6",
+      "port": 9210
+    },
+    "dv2_007": {
+      "case_id": "dv2_007",
+      "family": "easy",
+      "baseline": "/dv2/easy/own_7",
+      "candidate": "/dv2/easy/target_7",
+      "control": "/dv2/easy/ctrl_7",
+      "port": 9210
+    },
+    "dv2_008": {
+      "case_id": "dv2_008",
+      "family": "easy",
+      "baseline": "/dv2/easy/own_8",
+      "candidate": "/dv2/easy/target_8",
+      "control": "/dv2/easy/ctrl_8",
+      "port": 9210
+    },
+    "dv2_009": {
+      "case_id": "dv2_009",
+      "family": "easy",
+      "baseline": "/dv2/easy/own_9",
+      "candidate": "/dv2/easy/target_9",
+      "control": "/dv2/easy/ctrl_9",
+      "port": 9210
+    },
+    "dv2_010": {
+      "case_id": "dv2_010",
+      "family": "easy",
+      "baseline": "/dv2/easy/own_10",
+      "candidate": "/dv2/easy/target_10",
+      "control": "/dv2/easy/ctrl_10",
+      "port": 9210
+    },
+    "dv2_011": {
+      "case_id": "dv2_011",
+      "family": "easy",
+      "baseline": "/dv2/easy/own_11",
+      "candidate": "/dv2/easy/target_11",
+      "control": "/dv2/easy/ctrl_11",
+      "port": 9210
+    },
+    "dv2_012": {
+      "case_id": "dv2_012",
+      "family": "easy",
+      "baseline": "/dv2/easy/own_12",
+      "candidate": "/dv2/easy/target_12",
+      "control": "/dv2/easy/ctrl_12",
+      "port": 9210
+    },
+    "dv2_013": {
+      "case_id": "dv2_013",
+      "family": "easy",
+      "baseline": "/dv2/easy/own_13",
+      "candidate": "/dv2/easy/target_13",
+      "control": "/dv2/easy/ctrl_13",
+      "port": 9210
+    },
+    "dv2_014": {
+      "case_id": "dv2_014",
+      "family": "easy",
+      "baseline": "/dv2/easy/own_14",
+      "candidate": "/dv2/easy/target_14",
+      "control": "/dv2/easy/ctrl_14",
+      "port": 9210
+    },
+    "dv2_015": {
+      "case_id": "dv2_015",
+      "family": "easy",
+      "baseline": "/dv2/easy/own_15",
+      "candidate": "/dv2/easy/target_15",
+      "control": "/dv2/easy/ctrl_15",
+      "port": 9210
+    },
+    "dv2_016": {
+      "case_id": "dv2_016",
+      "family": "easy",
+      "baseline": "/dv2/easy/own_16",
+      "candidate": "/dv2/easy/target_16",
+      "control": "/dv2/easy/ctrl_16",
+      "port": 9210
+    },
+    "dv2_017": {
+      "case_id": "dv2_017",
+      "family": "easy",
+      "baseline": "/dv2/easy/own_17",
+      "candidate": "/dv2/easy/target_17",
+      "control": "/dv2/easy/ctrl_17",
+      "port": 9210
+    },
+    "dv2_018": {
+      "case_id": "dv2_018",
+      "family": "easy",
+      "baseline": "/dv2/easy/own_18",
+      "candidate": "/dv2/easy/target_18",
+      "control": "/dv2/easy/ctrl_18",
+      "port": 9210
+    },
+    "dv2_019": {
+      "case_id": "dv2_019",
+      "family": "easy",
+      "baseline": "/dv2/easy/own_19",
+      "candidate": "/dv2/easy/target_19",
+      "control": "/dv2/easy/ctrl_19",
+      "port": 9210
+    },
+    "dv2_020": {
+      "case_id": "dv2_020",
+      "family": "easy",
+      "baseline": "/dv2/easy/own_20",
+      "candidate": "/dv2/easy/target_20",
+      "control": "/dv2/easy/ctrl_20",
+      "port": 9210
+    },
+    "dv2_021": {
+      "case_id": "dv2_021",
+      "family": "easy",
+      "baseline": "/dv2/easy/own_21",
+      "candidate": "/dv2/easy/target_21",
+      "control": "/dv2/easy/ctrl_21",
+      "port": 9210
+    },
+    "dv2_022": {
+      "case_id": "dv2_022",
+      "family": "easy",
+      "baseline": "/dv2/easy/own_22",
+      "candidate": "/dv2/easy/target_22",
+      "control": "/dv2/easy/ctrl_22",
+      "port": 9210
+    },
+    "dv2_023": {
+      "case_id": "dv2_023",
+      "family": "easy",
+      "baseline": "/dv2/easy/own_23",
+      "candidate": "/dv2/easy/target_23",
+      "control": "/dv2/easy/ctrl_23",
+      "port": 9210
+    },
+    "dv2_024": {
+      "case_id": "dv2_024",
+      "family": "easy",
+      "baseline": "/dv2/easy/own_24",
+      "candidate": "/dv2/easy/target_24",
+      "control": "/dv2/easy/ctrl_24",
+      "port": 9210
+    },
+    "dv2_025": {
+      "case_id": "dv2_025",
+      "family": "easy",
+      "baseline": "/dv2/easy/own_25",
+      "candidate": "/dv2/easy/target_25",
+      "control": "/dv2/easy/ctrl_25",
+      "port": 9210
+    },
+    "dv2_026": {
+      "case_id": "dv2_026",
+      "family": "easy",
+      "baseline": "/dv2/easy/own_26",
+      "candidate": "/dv2/easy/target_26",
+      "control": "/dv2/easy/ctrl_26",
+      "port": 9210
+    },
+    "dv2_027": {
+      "case_id": "dv2_027",
+      "family": "easy",
+      "baseline": "/dv2/easy/own_27",
+      "candidate": "/dv2/easy/target_27",
+      "control": "/dv2/easy/ctrl_27",
+      "port": 9210
+    },
+    "dv2_028": {
+      "case_id": "dv2_028",
+      "family": "easy",
+      "baseline": "/dv2/easy/own_28",
+      "candidate": "/dv2/easy/target_28",
+      "control": "/dv2/easy/ctrl_28",
+      "port": 9210
+    },
+    "dv2_029": {
+      "case_id": "dv2_029",
+      "family": "easy",
+      "baseline": "/dv2/easy/own_29",
+      "candidate": "/dv2/easy/target_29",
+      "control": "/dv2/easy/ctrl_29",
+      "port": 9210
+    },
+    "dv2_030": {
+      "case_id": "dv2_030",
+      "family": "easy",
+      "baseline": "/dv2/easy/own_30",
+      "candidate": "/dv2/easy/target_30",
+      "control": "/dv2/easy/ctrl_30",
+      "port": 9210
+    },
+    "dv2_031": {
+      "case_id": "dv2_031",
+      "family": "reasoning",
+      "baseline": "/dv2/rsng/own_31",
+      "candidate": "/dv2/rsng/target_31",
+      "control": "/dv2/rsng/ctrl_31",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "state_transition_endpoint": "/dv2/rsng/state_31"
+    },
+    "dv2_032": {
+      "case_id": "dv2_032",
+      "family": "reasoning",
+      "baseline": "/dv2/rsng/own_32",
+      "candidate": "/dv2/rsng/target_32",
+      "control": "/dv2/rsng/ctrl_32",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "state_transition_endpoint": "/dv2/rsng/state_32"
+    },
+    "dv2_033": {
+      "case_id": "dv2_033",
+      "family": "reasoning",
+      "baseline": "/dv2/rsng/own_33",
+      "candidate": "/dv2/rsng/target_33",
+      "control": "/dv2/rsng/ctrl_33",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "state_transition_endpoint": "/dv2/rsng/state_33"
+    },
+    "dv2_034": {
+      "case_id": "dv2_034",
+      "family": "reasoning",
+      "baseline": "/dv2/rsng/own_34",
+      "candidate": "/dv2/rsng/target_34",
+      "control": "/dv2/rsng/ctrl_34",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "state_transition_endpoint": "/dv2/rsng/state_34"
+    },
+    "dv2_035": {
+      "case_id": "dv2_035",
+      "family": "reasoning",
+      "baseline": "/dv2/rsng/own_35",
+      "candidate": "/dv2/rsng/target_35",
+      "control": "/dv2/rsng/ctrl_35",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "state_transition_endpoint": "/dv2/rsng/state_35"
+    },
+    "dv2_036": {
+      "case_id": "dv2_036",
+      "family": "reasoning",
+      "baseline": "/dv2/rsng/own_36",
+      "candidate": "/dv2/rsng/target_36",
+      "control": "/dv2/rsng/ctrl_36",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "state_transition_endpoint": "/dv2/rsng/state_36"
+    },
+    "dv2_037": {
+      "case_id": "dv2_037",
+      "family": "reasoning",
+      "baseline": "/dv2/rsng/own_37",
+      "candidate": "/dv2/rsng/target_37",
+      "control": "/dv2/rsng/ctrl_37",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "state_transition_endpoint": "/dv2/rsng/state_37"
+    },
+    "dv2_038": {
+      "case_id": "dv2_038",
+      "family": "reasoning",
+      "baseline": "/dv2/rsng/own_38",
+      "candidate": "/dv2/rsng/target_38",
+      "control": "/dv2/rsng/ctrl_38",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "state_transition_endpoint": "/dv2/rsng/state_38"
+    },
+    "dv2_039": {
+      "case_id": "dv2_039",
+      "family": "reasoning",
+      "baseline": "/dv2/rsng/own_39",
+      "candidate": "/dv2/rsng/target_39",
+      "control": "/dv2/rsng/ctrl_39",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "state_transition_endpoint": "/dv2/rsng/state_39"
+    },
+    "dv2_040": {
+      "case_id": "dv2_040",
+      "family": "reasoning",
+      "baseline": "/dv2/rsng/own_40",
+      "candidate": "/dv2/rsng/target_40",
+      "control": "/dv2/rsng/ctrl_40",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "state_transition_endpoint": "/dv2/rsng/state_40"
+    },
+    "dv2_041": {
+      "case_id": "dv2_041",
+      "family": "reasoning",
+      "baseline": "/dv2/rsng/own_41",
+      "candidate": "/dv2/rsng/target_41",
+      "control": "/dv2/rsng/ctrl_41",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "state_transition_endpoint": "/dv2/rsng/state_41"
+    },
+    "dv2_042": {
+      "case_id": "dv2_042",
+      "family": "reasoning",
+      "baseline": "/dv2/rsng/own_42",
+      "candidate": "/dv2/rsng/target_42",
+      "control": "/dv2/rsng/ctrl_42",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "state_transition_endpoint": "/dv2/rsng/state_42"
+    },
+    "dv2_043": {
+      "case_id": "dv2_043",
+      "family": "reasoning",
+      "baseline": "/dv2/rsng/own_43",
+      "candidate": "/dv2/rsng/target_43",
+      "control": "/dv2/rsng/ctrl_43",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "state_transition_endpoint": "/dv2/rsng/state_43"
+    },
+    "dv2_044": {
+      "case_id": "dv2_044",
+      "family": "reasoning",
+      "baseline": "/dv2/rsng/own_44",
+      "candidate": "/dv2/rsng/target_44",
+      "control": "/dv2/rsng/ctrl_44",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "state_transition_endpoint": "/dv2/rsng/state_44"
+    },
+    "dv2_045": {
+      "case_id": "dv2_045",
+      "family": "reasoning",
+      "baseline": "/dv2/rsng/own_45",
+      "candidate": "/dv2/rsng/target_45",
+      "control": "/dv2/rsng/ctrl_45",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "state_transition_endpoint": "/dv2/rsng/state_45"
+    },
+    "dv2_046": {
+      "case_id": "dv2_046",
+      "family": "reasoning",
+      "baseline": "/dv2/rsng/own_46",
+      "candidate": "/dv2/rsng/target_46",
+      "control": "/dv2/rsng/ctrl_46",
+      "port": 9210,
+      "requires_multiple_observations": true
+    },
+    "dv2_047": {
+      "case_id": "dv2_047",
+      "family": "reasoning",
+      "baseline": "/dv2/rsng/own_47",
+      "candidate": "/dv2/rsng/target_47",
+      "control": "/dv2/rsng/ctrl_47",
+      "port": 9210,
+      "requires_multiple_observations": true
+    },
+    "dv2_048": {
+      "case_id": "dv2_048",
+      "family": "reasoning",
+      "baseline": "/dv2/rsng/own_48",
+      "candidate": "/dv2/rsng/target_48",
+      "control": "/dv2/rsng/ctrl_48",
+      "port": 9210,
+      "requires_multiple_observations": true
+    },
+    "dv2_049": {
+      "case_id": "dv2_049",
+      "family": "reasoning",
+      "baseline": "/dv2/rsng/own_49",
+      "candidate": "/dv2/rsng/target_49",
+      "control": "/dv2/rsng/ctrl_49",
+      "port": 9210,
+      "requires_multiple_observations": true
+    },
+    "dv2_050": {
+      "case_id": "dv2_050",
+      "family": "reasoning",
+      "baseline": "/dv2/rsng/own_50",
+      "candidate": "/dv2/rsng/target_50",
+      "control": "/dv2/rsng/ctrl_50",
+      "port": 9210,
+      "requires_multiple_observations": true
+    },
+    "dv2_051": {
+      "case_id": "dv2_051",
+      "family": "reasoning",
+      "baseline": "/dv2/rsng/own_51",
+      "candidate": "/dv2/rsng/target_51",
+      "control": "/dv2/rsng/ctrl_51",
+      "port": 9210,
+      "requires_multiple_observations": true
+    },
+    "dv2_052": {
+      "case_id": "dv2_052",
+      "family": "reasoning",
+      "baseline": "/dv2/rsng/own_52",
+      "candidate": "/dv2/rsng/target_52",
+      "control": "/dv2/rsng/ctrl_52",
+      "port": 9210,
+      "requires_multiple_observations": true
+    },
+    "dv2_053": {
+      "case_id": "dv2_053",
+      "family": "reasoning",
+      "baseline": "/dv2/rsng/own_53",
+      "candidate": "/dv2/rsng/target_53",
+      "control": "/dv2/rsng/ctrl_53",
+      "port": 9210,
+      "requires_multiple_observations": true
+    },
+    "dv2_054": {
+      "case_id": "dv2_054",
+      "family": "reasoning",
+      "baseline": "/dv2/rsng/own_54",
+      "candidate": "/dv2/rsng/target_54",
+      "control": "/dv2/rsng/ctrl_54",
+      "port": 9210,
+      "requires_multiple_observations": true
+    },
+    "dv2_055": {
+      "case_id": "dv2_055",
+      "family": "reasoning",
+      "baseline": "/dv2/rsng/own_55",
+      "candidate": "/dv2/rsng/target_55",
+      "control": "/dv2/rsng/ctrl_55",
+      "port": 9210,
+      "requires_multiple_observations": true
+    },
+    "dv2_056": {
+      "case_id": "dv2_056",
+      "family": "reasoning",
+      "baseline": "/dv2/rsng/own_56",
+      "candidate": "/dv2/rsng/target_56",
+      "control": "/dv2/rsng/ctrl_56",
+      "port": 9210,
+      "requires_multiple_observations": true
+    },
+    "dv2_057": {
+      "case_id": "dv2_057",
+      "family": "reasoning",
+      "baseline": "/dv2/rsng/own_57",
+      "candidate": "/dv2/rsng/target_57",
+      "control": "/dv2/rsng/ctrl_57",
+      "port": 9210,
+      "requires_multiple_observations": true
+    },
+    "dv2_058": {
+      "case_id": "dv2_058",
+      "family": "reasoning",
+      "baseline": "/dv2/rsng/own_58",
+      "candidate": "/dv2/rsng/target_58",
+      "control": "/dv2/rsng/ctrl_58",
+      "port": 9210,
+      "requires_multiple_observations": true
+    },
+    "dv2_059": {
+      "case_id": "dv2_059",
+      "family": "reasoning",
+      "baseline": "/dv2/rsng/own_59",
+      "candidate": "/dv2/rsng/target_59",
+      "control": "/dv2/rsng/ctrl_59",
+      "port": 9210,
+      "requires_multiple_observations": true
+    },
+    "dv2_060": {
+      "case_id": "dv2_060",
+      "family": "reasoning",
+      "baseline": "/dv2/rsng/own_60",
+      "candidate": "/dv2/rsng/target_60",
+      "control": "/dv2/rsng/ctrl_60",
+      "port": 9210,
+      "requires_multiple_observations": true
+    },
+    "dv2_061": {
+      "case_id": "dv2_061",
+      "family": "novel",
+      "baseline": "/dv2/novel/own_61",
+      "candidate": "/dv2/novel/target_61",
+      "control": "/dv2/novel/ctrl_61",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "never_seen_before": true,
+      "state_transition_endpoint": "/dv2/novel/state_61"
+    },
+    "dv2_062": {
+      "case_id": "dv2_062",
+      "family": "novel",
+      "baseline": "/dv2/novel/own_62",
+      "candidate": "/dv2/novel/target_62",
+      "control": "/dv2/novel/ctrl_62",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "never_seen_before": true,
+      "state_transition_endpoint": "/dv2/novel/state_62"
+    },
+    "dv2_063": {
+      "case_id": "dv2_063",
+      "family": "novel",
+      "baseline": "/dv2/novel/own_63",
+      "candidate": "/dv2/novel/target_63",
+      "control": "/dv2/novel/ctrl_63",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "never_seen_before": true,
+      "state_transition_endpoint": "/dv2/novel/state_63"
+    },
+    "dv2_064": {
+      "case_id": "dv2_064",
+      "family": "novel",
+      "baseline": "/dv2/novel/own_64",
+      "candidate": "/dv2/novel/target_64",
+      "control": "/dv2/novel/ctrl_64",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "never_seen_before": true,
+      "state_transition_endpoint": "/dv2/novel/state_64"
+    },
+    "dv2_065": {
+      "case_id": "dv2_065",
+      "family": "novel",
+      "baseline": "/dv2/novel/own_65",
+      "candidate": "/dv2/novel/target_65",
+      "control": "/dv2/novel/ctrl_65",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "never_seen_before": true,
+      "state_transition_endpoint": "/dv2/novel/state_65"
+    },
+    "dv2_066": {
+      "case_id": "dv2_066",
+      "family": "novel",
+      "baseline": "/dv2/novel/own_66",
+      "candidate": "/dv2/novel/target_66",
+      "control": "/dv2/novel/ctrl_66",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "never_seen_before": true,
+      "state_transition_endpoint": "/dv2/novel/state_66"
+    },
+    "dv2_067": {
+      "case_id": "dv2_067",
+      "family": "novel",
+      "baseline": "/dv2/novel/own_67",
+      "candidate": "/dv2/novel/target_67",
+      "control": "/dv2/novel/ctrl_67",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "never_seen_before": true,
+      "state_transition_endpoint": "/dv2/novel/state_67"
+    },
+    "dv2_068": {
+      "case_id": "dv2_068",
+      "family": "novel",
+      "baseline": "/dv2/novel/own_68",
+      "candidate": "/dv2/novel/target_68",
+      "control": "/dv2/novel/ctrl_68",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "never_seen_before": true,
+      "state_transition_endpoint": "/dv2/novel/state_68"
+    },
+    "dv2_069": {
+      "case_id": "dv2_069",
+      "family": "novel",
+      "baseline": "/dv2/novel/own_69",
+      "candidate": "/dv2/novel/target_69",
+      "control": "/dv2/novel/ctrl_69",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "never_seen_before": true,
+      "state_transition_endpoint": "/dv2/novel/state_69"
+    },
+    "dv2_070": {
+      "case_id": "dv2_070",
+      "family": "novel",
+      "baseline": "/dv2/novel/own_70",
+      "candidate": "/dv2/novel/target_70",
+      "control": "/dv2/novel/ctrl_70",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "never_seen_before": true,
+      "state_transition_endpoint": "/dv2/novel/state_70"
+    },
+    "dv2_071": {
+      "case_id": "dv2_071",
+      "family": "novel",
+      "baseline": "/dv2/novel/own_71",
+      "candidate": "/dv2/novel/target_71",
+      "control": "/dv2/novel/ctrl_71",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "never_seen_before": true,
+      "state_transition_endpoint": "/dv2/novel/state_71"
+    },
+    "dv2_072": {
+      "case_id": "dv2_072",
+      "family": "novel",
+      "baseline": "/dv2/novel/own_72",
+      "candidate": "/dv2/novel/target_72",
+      "control": "/dv2/novel/ctrl_72",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "never_seen_before": true,
+      "state_transition_endpoint": "/dv2/novel/state_72"
+    },
+    "dv2_073": {
+      "case_id": "dv2_073",
+      "family": "novel",
+      "baseline": "/dv2/novel/own_73",
+      "candidate": "/dv2/novel/target_73",
+      "control": "/dv2/novel/ctrl_73",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "never_seen_before": true,
+      "state_transition_endpoint": "/dv2/novel/state_73"
+    },
+    "dv2_074": {
+      "case_id": "dv2_074",
+      "family": "novel",
+      "baseline": "/dv2/novel/own_74",
+      "candidate": "/dv2/novel/target_74",
+      "control": "/dv2/novel/ctrl_74",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "never_seen_before": true,
+      "state_transition_endpoint": "/dv2/novel/state_74"
+    },
+    "dv2_075": {
+      "case_id": "dv2_075",
+      "family": "novel",
+      "baseline": "/dv2/novel/own_75",
+      "candidate": "/dv2/novel/target_75",
+      "control": "/dv2/novel/ctrl_75",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "never_seen_before": true,
+      "state_transition_endpoint": "/dv2/novel/state_75"
+    },
+    "dv2_076": {
+      "case_id": "dv2_076",
+      "family": "novel",
+      "baseline": "/dv2/novel/own_76",
+      "candidate": "/dv2/novel/target_76",
+      "control": "/dv2/novel/ctrl_76",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "never_seen_before": true
+    },
+    "dv2_077": {
+      "case_id": "dv2_077",
+      "family": "novel",
+      "baseline": "/dv2/novel/own_77",
+      "candidate": "/dv2/novel/target_77",
+      "control": "/dv2/novel/ctrl_77",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "never_seen_before": true
+    },
+    "dv2_078": {
+      "case_id": "dv2_078",
+      "family": "novel",
+      "baseline": "/dv2/novel/own_78",
+      "candidate": "/dv2/novel/target_78",
+      "control": "/dv2/novel/ctrl_78",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "never_seen_before": true
+    },
+    "dv2_079": {
+      "case_id": "dv2_079",
+      "family": "novel",
+      "baseline": "/dv2/novel/own_79",
+      "candidate": "/dv2/novel/target_79",
+      "control": "/dv2/novel/ctrl_79",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "never_seen_before": true
+    },
+    "dv2_080": {
+      "case_id": "dv2_080",
+      "family": "novel",
+      "baseline": "/dv2/novel/own_80",
+      "candidate": "/dv2/novel/target_80",
+      "control": "/dv2/novel/ctrl_80",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "never_seen_before": true
+    },
+    "dv2_081": {
+      "case_id": "dv2_081",
+      "family": "novel",
+      "baseline": "/dv2/novel/own_81",
+      "candidate": "/dv2/novel/target_81",
+      "control": "/dv2/novel/ctrl_81",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "never_seen_before": true
+    },
+    "dv2_082": {
+      "case_id": "dv2_082",
+      "family": "novel",
+      "baseline": "/dv2/novel/own_82",
+      "candidate": "/dv2/novel/target_82",
+      "control": "/dv2/novel/ctrl_82",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "never_seen_before": true
+    },
+    "dv2_083": {
+      "case_id": "dv2_083",
+      "family": "novel",
+      "baseline": "/dv2/novel/own_83",
+      "candidate": "/dv2/novel/target_83",
+      "control": "/dv2/novel/ctrl_83",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "never_seen_before": true
+    },
+    "dv2_084": {
+      "case_id": "dv2_084",
+      "family": "novel",
+      "baseline": "/dv2/novel/own_84",
+      "candidate": "/dv2/novel/target_84",
+      "control": "/dv2/novel/ctrl_84",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "never_seen_before": true
+    },
+    "dv2_085": {
+      "case_id": "dv2_085",
+      "family": "novel",
+      "baseline": "/dv2/novel/own_85",
+      "candidate": "/dv2/novel/target_85",
+      "control": "/dv2/novel/ctrl_85",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "never_seen_before": true
+    },
+    "dv2_086": {
+      "case_id": "dv2_086",
+      "family": "novel",
+      "baseline": "/dv2/novel/own_86",
+      "candidate": "/dv2/novel/target_86",
+      "control": "/dv2/novel/ctrl_86",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "never_seen_before": true
+    },
+    "dv2_087": {
+      "case_id": "dv2_087",
+      "family": "novel",
+      "baseline": "/dv2/novel/own_87",
+      "candidate": "/dv2/novel/target_87",
+      "control": "/dv2/novel/ctrl_87",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "never_seen_before": true
+    },
+    "dv2_088": {
+      "case_id": "dv2_088",
+      "family": "novel",
+      "baseline": "/dv2/novel/own_88",
+      "candidate": "/dv2/novel/target_88",
+      "control": "/dv2/novel/ctrl_88",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "never_seen_before": true
+    },
+    "dv2_089": {
+      "case_id": "dv2_089",
+      "family": "novel",
+      "baseline": "/dv2/novel/own_89",
+      "candidate": "/dv2/novel/target_89",
+      "control": "/dv2/novel/ctrl_89",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "never_seen_before": true
+    },
+    "dv2_090": {
+      "case_id": "dv2_090",
+      "family": "novel",
+      "baseline": "/dv2/novel/own_90",
+      "candidate": "/dv2/novel/target_90",
+      "control": "/dv2/novel/ctrl_90",
+      "port": 9210,
+      "requires_multiple_observations": true,
+      "never_seen_before": true
+    }
+  }
+}

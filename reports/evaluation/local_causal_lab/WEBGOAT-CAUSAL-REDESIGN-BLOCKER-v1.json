@@ -1,0 +1,57 @@
+{
+  "schema": "webpent-webgoat-causal-redesign-blocker-v1",
+  "target": "owasp_webgoat",
+  "case_id": "webgoat.idor.view_other_profile.causal-vnext",
+  "execution_mode": "design_only",
+  "historical_flow_reused": false,
+  "network_requests_made": false,
+  "decision": "BLOCKED",
+  "blocker_code": "WEBGOAT_LESSON_SESSION_OWNER_FIXTURE_UNAVAILABLE",
+  "target_backed_causal_confirmation": false,
+  "scoring_proof_bundle_created": false,
+  "required_observations": {
+    "baseline": "owner identity reads owner-owned resource with bounded semantic identity",
+    "candidate": "distinct requester identity requests same owner resource",
+    "negative_control": "independent denied or nonexistent resource with distinct request digest"
+  },
+  "oracle_contract": {
+    "expected_invariant": "requester session cannot read the owner-owned profile/object",
+    "violated_invariant": "requester session receives the owner-owned profile/object semantic identity",
+    "allowed_decisions": ["CONFIRMED", "CLEAN", "INCONCLUSIVE", "BLOCKED"],
+    "promotion_rule": "only CONFIRMED may create a scoring ProofBundle"
+  },
+  "source_backed_findings": [
+    {
+      "path": "/tmp/webgoat-source/src/main/java/org/owasp/webgoat/lessons/idor/IDORViewOwnProfile.java",
+      "sha256": "e6d82fadc90c6bc3485f988fb17d8e346bb39e997238ed096d2c471d5fd8267f",
+      "finding": "GET profile endpoint is bound to LessonSession identity and does not expose an independently addressable owner resource."
+    },
+    {
+      "path": "/tmp/webgoat-source/src/main/java/org/owasp/webgoat/lessons/idor/IDORViewOwnProfileAltUrl.java",
+      "sha256": "7fc58039979105602d881c9d245b1c6ea44d732928b22598cc5c3ca4eb009009",
+      "finding": "Alternate assignment is POST and validates the session-bound authenticated user ID; it is not the required GET-only owner/requester fixture."
+    }
+  ],
+  "pinned_source_revision": "7517acca95d9851da706452454c223dd13545ef4",
+  "design_artifact": {
+    "path": "src/webpent/adapters/webgoat/causal_experiment.py",
+    "sha256": "2a90cf0a5548ad20585822858849d9239418bafbbdd5c4e74201b28d5aa14c56"
+  },
+  "safety": {
+    "real_credentials_used": false,
+    "login_performed": false,
+    "token_material_created": false,
+    "state_mutation_performed": false,
+    "external_callbacks_used": false,
+    "raw_response_persisted": false
+  },
+  "governance": {
+    "official_isolated_p10_runs_authorized": false,
+    "p10": "NOT_QUALIFIED",
+    "p9": "NOT_QUALIFIED",
+    "vip": "NOT_QUALIFIED",
+    "bug_bounty": "BLOCKED",
+    "scoring_promotion": false
+  },
+  "required_next_capability": "Owner-approved local LessonSession owner/requester fixture injection and reset with bounded GET semantic observation; any login, credentials, token generation, mutation, or new permission requires a separate owner decision packet."
+}

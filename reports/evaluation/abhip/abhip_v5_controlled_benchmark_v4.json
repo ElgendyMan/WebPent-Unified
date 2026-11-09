@@ -1,0 +1,277 @@
+{
+  "benchmark_id": "ABHIP-v5-controlled-benchmark-v4",
+  "classes": [
+    {
+      "case_count": 1,
+      "cases": [
+        {
+          "autonomous_decision_recorded": true,
+          "candidate_paths_considered": 1,
+          "case_id": "controlled.idor.owner_resource.v1",
+          "causal_oracle_recorded": true,
+          "evidence_basis": "historical_equivalent_fields_only",
+          "evidence_quality": 1.0,
+          "expected_rank": 1,
+          "ground_truth_outcome": "confirmed",
+          "ground_truth_source": "controlled_campaign_v1_recorded_artifact",
+          "hidden_assumptions_recorded": false,
+          "hypothesis_generated": true,
+          "negative_control_recorded": false,
+          "proof_bundle_recorded": true,
+          "proof_complete": true,
+          "rank": 1,
+          "recorded_proof_bundle_ref": "proof_bundle_4edc4011bfd7461d92b5f8224503eeae",
+          "replay_recorded": false,
+          "requests_used": 3,
+          "target_id": "controlled_local_idor_target_v1",
+          "unnecessary_paths_executed": 0,
+          "validation_outcome": "confirmed"
+        }
+      ],
+      "class": "idor",
+      "readiness_contract": {
+        "missing_evidence_is_blocking": true,
+        "required_semantics": [
+          "hidden security assumptions",
+          "multiple possible research paths",
+          "autonomous decision requirement",
+          "causal oracle result",
+          "sealed ProofBundle",
+          "replay verification"
+        ],
+        "runner_must_not_execute": true,
+        "target_neutral": true
+      },
+      "reason": "complete recorded oracle/control/proof/replay evidence joined",
+      "scorable": true,
+      "status": "SCORABLE_FROM_RECORDED_ARTIFACT"
+    },
+    {
+      "case_count": 0,
+      "cases": [],
+      "class": "privilege_escalation",
+      "readiness_contract": {
+        "missing_evidence_is_blocking": true,
+        "required_semantics": [
+          "hidden security assumptions",
+          "multiple possible research paths",
+          "autonomous decision requirement",
+          "causal oracle result",
+          "sealed ProofBundle",
+          "replay verification"
+        ],
+        "runner_must_not_execute": true,
+        "target_neutral": true
+      },
+      "reason": "no complete recorded evidence satisfying the v4 readiness contract",
+      "scorable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "case_count": 0,
+      "cases": [],
+      "class": "business_logic_authorization_failure",
+      "readiness_contract": {
+        "missing_evidence_is_blocking": true,
+        "required_semantics": [
+          "hidden security assumptions",
+          "multiple possible research paths",
+          "autonomous decision requirement",
+          "causal oracle result",
+          "sealed ProofBundle",
+          "replay verification"
+        ],
+        "runner_must_not_execute": true,
+        "target_neutral": true
+      },
+      "reason": "no complete recorded evidence satisfying the v4 readiness contract",
+      "scorable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "case_count": 0,
+      "cases": [],
+      "class": "tenant_isolation",
+      "readiness_contract": {
+        "missing_evidence_is_blocking": true,
+        "required_semantics": [
+          "hidden security assumptions",
+          "multiple possible research paths",
+          "autonomous decision requirement",
+          "causal oracle result",
+          "sealed ProofBundle",
+          "replay verification"
+        ],
+        "runner_must_not_execute": true,
+        "target_neutral": true
+      },
+      "reason": "no complete recorded evidence satisfying the v4 readiness contract",
+      "scorable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "case_count": 0,
+      "cases": [],
+      "class": "workflow_abuse",
+      "readiness_contract": {
+        "missing_evidence_is_blocking": true,
+        "required_semantics": [
+          "hidden security assumptions",
+          "multiple possible research paths",
+          "autonomous decision requirement",
+          "causal oracle result",
+          "sealed ProofBundle",
+          "replay verification"
+        ],
+        "runner_must_not_execute": true,
+        "target_neutral": true
+      },
+      "reason": "no complete recorded evidence satisfying the v4 readiness contract",
+      "scorable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "case_count": 0,
+      "cases": [],
+      "class": "sensitive_information_exposure",
+      "readiness_contract": {
+        "missing_evidence_is_blocking": true,
+        "required_semantics": [
+          "hidden security assumptions",
+          "multiple possible research paths",
+          "autonomous decision requirement",
+          "causal oracle result",
+          "sealed ProofBundle",
+          "replay verification"
+        ],
+        "runner_must_not_execute": true,
+        "target_neutral": true
+      },
+      "reason": "no complete recorded evidence satisfying the v4 readiness contract",
+      "scorable": false,
+      "status": "BLOCKED"
+    }
+  ],
+  "execution": {
+    "credentials_used": false,
+    "external_targets_contacted": false,
+    "mutations_performed": false,
+    "offline": true,
+    "requests_sent": 0,
+    "runner_creates_observations": false
+  },
+  "generated_at": "2026-08-27T22:37:35.510356+00:00",
+  "governance": {
+    "bug_bounty_status": "BLOCKED",
+    "human_signoff": false,
+    "official_isolated_p10_runs_authorized": false,
+    "p10_status": "NOT_QUALIFIED",
+    "p9_status": "NOT_QUALIFIED",
+    "qualification_effect": false,
+    "vip_status": "NOT_QUALIFIED"
+  },
+  "metrics": {
+    "blocked_class_count": 5,
+    "f1": null,
+    "precision": null,
+    "production_detection_rate": null,
+    "real_world_detection_rate": null,
+    "reason_metrics_unavailable": "no approved multi-run denominator; blocked or missing classes are excluded and production detection is not measured",
+    "recall": null,
+    "recorded_scorable_case_count": 1,
+    "registered_class_count": 6,
+    "research_capability": {
+      "autonomy": 1.0,
+      "coverage_improvement": null,
+      "decision_quality": 1.0,
+      "evidence_completeness": 1.0,
+      "hypothesis_quality": 1.0,
+      "investigation_efficiency": 1.0,
+      "learning_effectiveness": null
+    },
+    "scorable_class_count": 1,
+    "valid_ground_truth": false
+  },
+  "previous_version_comparison": {
+    "class_count_delta": 0,
+    "interpretation": "use abhip_v4_metrics.score_report for computed deltas",
+    "previous_artifact": "reports/evaluation/abhie/abhie_v4_controlled_benchmark.json",
+    "previous_benchmark_id": "ABHIE-v4-six-class-controlled-offline",
+    "previous_quality_evidence_completeness": 1.0,
+    "previous_scorable_case_count": 1,
+    "previous_scorable_class_count": 1,
+    "status": "RECORDED_ARTIFACT_COMPARISON"
+  },
+  "quality_score": {
+    "blocked_class_count": 5,
+    "execution_integrity": {
+      "credentials_used": false,
+      "external_targets_contacted": false,
+      "mutations_performed": false,
+      "offline": true,
+      "requests_sent": 0,
+      "runner_creates_observations": true
+    },
+    "f1": null,
+    "governance_integrity": {
+      "official_isolated_p10_runs_authorized": false,
+      "qualification_effect": false,
+      "vip_status": "NOT_QUALIFIED"
+    },
+    "precision": null,
+    "previous_version_comparison": {
+      "class_count_delta": 0,
+      "evidence_completeness_delta": 0.0,
+      "interpretation": "internal recorded-capability comparison; not detection uplift",
+      "previous_benchmark_id": "ABHIE-v4-six-class-controlled-offline",
+      "scorable_case_count_delta": 0,
+      "scorable_class_count_delta": 0,
+      "status": "RECORDED_ARTIFACT_COMPARISON"
+    },
+    "production_detection_rate": null,
+    "production_metrics_available": false,
+    "quality_claim": "recorded_research_capability_coverage_only",
+    "readiness_coverage": 0.166667,
+    "reason_metrics_unavailable": "no approved multi-run ground-truth denominator and no production detection measurement; blocked cases are excluded",
+    "recall": null,
+    "recorded_scorable_case_count": 1,
+    "registered_class_count": 6,
+    "research_capability": {
+      "autonomy": 1.0,
+      "coverage_improvement": null,
+      "decision_quality": 1.0,
+      "evidence_completeness": 1.0,
+      "hypothesis_quality": 1.0,
+      "investigation_efficiency": 1.0,
+      "learning_effectiveness": null
+    },
+    "scorable_class_count": 1
+  },
+  "recorded_complete_case_ids": [
+    "controlled.idor.owner_resource.v1"
+  ],
+  "registered_classes": [
+    "idor",
+    "privilege_escalation",
+    "business_logic_authorization_failure",
+    "tenant_isolation",
+    "workflow_abuse",
+    "sensitive_information_exposure"
+  ],
+  "schema_version": "abhip-v5-controlled-benchmark-v4",
+  "self_review": {
+    "challenges": [
+      "finding validity",
+      "evidence quality",
+      "impact",
+      "reasoning",
+      "reproducibility"
+    ],
+    "evidence_modified": false,
+    "oracle_overridden": false,
+    "qualification_approved": false,
+    "status": "ADVISORY_ONLY"
+  },
+  "source_artifact": "reports/evaluation/asros/asros_advanced_controlled_benchmark_v1.json",
+  "source_artifact_read_only": true
+}

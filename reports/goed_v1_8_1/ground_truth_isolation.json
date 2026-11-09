@@ -1,0 +1,28 @@
+{
+  "observation_sanitization": {
+    "all_prohibited_fields_stripped": true,
+    "legitimate_preserved": true,
+    "policy_unchanged": true
+  },
+  "tool_boundary_blocks": {
+    "blocked_shell_exec": true,
+    "blocked_file_write": true,
+    "blocked_modify_detector": true,
+    "blocked_set_confirmed": true,
+    "blocked_bypass_causal_guard": true,
+    "blocked_override_verdict": true,
+    "blocked_mutate_evidence": true,
+    "all_prohibited_tools_blocked": true
+  },
+  "llm_no_verdict_authority": {
+    "no_confirm_vulnerability": true,
+    "no_mark_confirmed": true,
+    "no_set_confirmed": true,
+    "no_bypass_causal_guard": true,
+    "no_override_verdict": true,
+    "no_mutate_evidence": true,
+    "no_modify_proof_bundle": true,
+    "all_forbidden_methods_absent": true
+  },
+  "overall": "PASS"
+}

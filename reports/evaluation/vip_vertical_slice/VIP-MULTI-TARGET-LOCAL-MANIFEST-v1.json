@@ -1,0 +1,107 @@
+{
+  "schema": "vip-multi-target-local-manifest-v1",
+  "generated_at": "2026-08-27T00:00:00Z",
+  "scope": {
+    "mode": "bounded_local_loopback",
+    "methods": ["GET"],
+    "credentials_used": false,
+    "state_mutation": false,
+    "external_contact": false,
+    "oast_or_callbacks": false,
+    "official_isolated_p10_runs_authorized": false,
+    "qualification_claim": null
+  },
+  "targets": [
+    {
+      "target_id": "juice-shop-loopback",
+      "product": "OWASP Juice Shop",
+      "source_path": "/tmp/juice-shop-source",
+      "source_revision": "1618a611b173b4bf114028e6e02549950606e29d",
+      "runtime_origin": "http://127.0.0.1:3000",
+      "target_spec": {
+        "scope": ["/"],
+        "method_policy": ["GET"],
+        "redirect_policy": "same_origin_only",
+        "authorization_ref": "owner-authorized-local-loopback-vip-multitarget-v1"
+      },
+      "campaign_id": "vip-juice-shop-loopback-local-e2e-v1",
+      "readiness": {
+        "ready": true,
+        "observed_get_status": 200,
+        "listener": "127.0.0.1:3000",
+        "otel_exporters": "none"
+      },
+      "ground_truth": {
+        "status": "available_but_this_campaign_observation_only",
+        "reference": "docs/juice_shop_source_ground_truth_manifest_v1.json",
+        "approved_cases": 3,
+        "approved_classes": 3,
+        "current_campaign_case_admitted_for_scoring": false,
+        "quality_metrics_allowed": false,
+        "reason": "The passive root observation is not one of the admitted causal vulnerability cases."
+      }
+    },
+    {
+      "target_id": "webgoat-loopback",
+      "product": "OWASP WebGoat",
+      "source_path": "/tmp/webgoat-source",
+      "source_revision": "7517acca95d9851da706452454c223dd13545ef4",
+      "runtime_origin": "http://127.0.0.1:8080",
+      "target_spec": {
+        "scope": ["/WebGoat"],
+        "method_policy": ["GET"],
+        "redirect_policy": "same_origin_only",
+        "authorization_ref": "owner-authorized-local-loopback-vip-multitarget-v1"
+      },
+      "campaign_id": "vip-webgoat-loopback-local-e2e-v1",
+      "readiness": {
+        "ready": true,
+        "observed_get_status": 302,
+        "listener": "127.0.0.1:8080",
+        "binding": "127.0.0.1"
+      },
+      "ground_truth": {
+        "status": "not_admitted_for_scoring",
+        "reference": null,
+        "approved_cases": 0,
+        "approved_classes": 0,
+        "quality_metrics_allowed": false,
+        "reason": "No governed WebGoat source-to-ground-truth and causal-oracle contract was admitted in this cycle."
+      }
+    },
+    {
+      "target_id": "crapi-loopback",
+      "product": "crAPI",
+      "source_path": "/tmp/crapi-source",
+      "source_revision": "73d309cc8f28bbdeed31dbb35f05dba8354de3c9",
+      "runtime_origin": "http://127.0.0.1:8888",
+      "target_spec": {
+        "scope": ["/health"],
+        "method_policy": ["GET"],
+        "redirect_policy": "same_origin_only",
+        "authorization_ref": "owner-authorized-local-loopback-vip-multitarget-v1"
+      },
+      "campaign_id": "vip-crapi-loopback-local-e2e-v1",
+      "readiness": {
+        "ready": true,
+        "observed_get_status": 200,
+        "listener": "127.0.0.1:8888",
+        "binding": "127.0.0.1"
+      },
+      "ground_truth": {
+        "status": "not_admitted_for_scoring",
+        "reference": null,
+        "approved_cases": 0,
+        "approved_classes": 0,
+        "quality_metrics_allowed": false,
+        "reason": "No governed crAPI source-to-ground-truth and causal-oracle contract was admitted in this cycle."
+      }
+    }
+  ],
+  "interpretation_rules": [
+    "Observation-only and blocked cases are not false negatives, clean results, true positives, or confirmed findings.",
+    "Quality metrics are withheld unless target-specific ground truth and causal-oracle contracts are valid.",
+    "No candidate is promoted from reachability or status-code observations alone.",
+    "Target-specific behavior remains outside Generic Core until cross-target evidence proves a generic need."
+  ]
+}

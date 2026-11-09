@@ -1,0 +1,16 @@
+{
+  "document_id": "TEAM1_LLM_PRIORITY_AUTHORITY_AUDIT-1.0",
+  "date": "2026-09-10",
+  "base_priority": 50,
+  "with_max_llm_proposal": 60,
+  "llm_delta_clamped": true,
+  "final_priority_deterministic": true,
+  "llm_cannot_confirm": "proof_authority=False always",
+  "llm_cannot_set_priority_arbitrarily": true,
+  "llm_may_only_propose": [
+    "hypothesis",
+    "research_direction",
+    "experiment_suggestion",
+    "rationale"
+  ]
+}

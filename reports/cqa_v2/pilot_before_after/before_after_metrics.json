@@ -1,0 +1,41 @@
+{
+  "pilot_before": {
+    "tp": 1,
+    "tn": 0,
+    "fp": 0,
+    "fn": 3,
+    "inconclusive": 1,
+    "precision": 1.0,
+    "recall": 0.2,
+    "f1": 0.3333,
+    "proof_completeness": 0.8,
+    "replay_completeness": 0.8
+  },
+  "pilot_after": {
+    "tp": 4,
+    "tn": 0,
+    "fp": 0,
+    "fn": 0,
+    "inconclusive": 1,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "proof_completeness": 1.0,
+    "replay_completeness": 1.0
+  },
+  "delta": {
+    "tp": "+3",
+    "fn": "-3",
+    "inconclusive": "0",
+    "f1": "+0.6667",
+    "proof_completeness": "+0.2",
+    "replay_completeness": "+0.2",
+    "note": "Improvement comes from fixing execution capability, not from weakening the detector or changing labels. pilot-epsilon-case-01 remains INCONCLUSIVE (not converted)."
+  },
+  "execution_capability_status": {
+    "actor_context_added": true,
+    "hardcoded_global_identity_removed": true,
+    "workflow_capability_still_insufficient": true,
+    "epsilon_case_classification": "EXECUTION_CAPABILITY_INSUFFICIENT"
+  }
+}

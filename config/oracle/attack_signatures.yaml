@@ -1,0 +1,181 @@
+# Static attack signatures for the Oracle. No network is used anywhere:
+# every rule is matched against already-gathered OSINT evidence.
+inference_rules:
+  - rule_id: banner_nginx
+    category: tech
+    keywords: ["nginx"]
+    infers: nginx
+    confidence: 0.7
+  - rule_id: banner_apache
+    category: tech
+    keywords: ["apache"]
+    infers: apache
+    confidence: 0.7
+  - rule_id: banner_iis
+    category: tech
+    keywords: ["iis", "microsoft-iis"]
+    infers: iis
+    confidence: 0.7
+  - rule_id: jobs_kubernetes
+    category: tech
+    keywords: ["kubernetes", "k8s", "eks", "gke"]
+    infers: kubernetes
+    confidence: 0.8
+  - rule_id: jobs_django
+    category: tech
+    keywords: ["django"]
+    infers: django
+    confidence: 0.8
+  - rule_id: jobs_wordpress
+    category: tech
+    keywords: ["wordpress", "wp-admin", "woocommerce"]
+    infers: wordpress
+    confidence: 0.75
+  - rule_id: jobs_aws
+    category: tech
+    keywords: ["aws", "lambda", "s3", "cloudformation"]
+    infers: aws
+    confidence: 0.8
+  - rule_id: jobs_react
+    category: tech
+    keywords: ["react", "next.js", "nextjs"]
+    infers: react
+    confidence: 0.7
+  - rule_id: code_requirements
+    category: endpoint
+    keywords: ["requirements.txt", "package.json", "composer.json", "gemfile"]
+    infers: package_manifest
+    confidence: 0.6
+  - rule_id: code_django_version
+    category: endpoint
+    keywords: ["django=="]
+    infers: django
+    confidence: 0.9
+  - rule_id: code_struts
+    category: endpoint
+    keywords: ["struts"]
+    infers: struts
+    confidence: 0.9
+  - rule_id: subdomain_cdn
+    category: subdomain
+    keywords: ["cdn", "cloudfront", "cloudflare", "akamai"]
+    infers: cdn
+    confidence: 0.6
+  - rule_id: dataleak_buckets
+    category: data_leak
+    keywords: ["s3", "blob", "storage.googleapis"]
+    infers: cloud_storage
+    confidence: 0.7
+  - rule_id: credential_leaks
+    category: credential
+    keywords: ["repo", "token", "api_key"]
+    infers: credential_exposure
+    confidence: 0.9
+
+cve_map:
+  nginx:
+    "1.18.0":
+      - cve: CVE-2021-23017
+        severity: high
+        summary: resolver 1-byte memory corruption
+    "1.20.0":
+      - cve: CVE-2021-23017
+        severity: high
+        summary: resolver 1-byte memory corruption
+  struts:
+    "2.5.30":
+      - cve: CVE-2023-50164
+        severity: critical
+        summary: path traversal leading to RCE
+  django:
+    "4.2":
+      - cve: CVE-2024-27351
+        severity: medium
+        summary: ReDoS in django.utils.text.slugify with long inputs
+  wordpress:
+    "*":
+      - cve: CVE-2023-39999
+        severity: high
+        summary: plugin ecosystem deserialization patterns
+  iis:
+    "10.0":
+      - cve: CVE-2023-3670
+        severity: medium
+        summary: denial of service via crafted requests
+
+# Signal derivation: OSINT category (plus optional keyword context) maps
+# to a signal type; base strength comes from this table and is scaled by
+# the finding's own confidence.
+signal_rules:
+  - signal_type: credential_leak
+    from_category: credential
+    base_strength: 0.9
+    hints:
+      - "try the leaked credential shape against forgotten internal panels"
+  - signal_type: subdomain_takeover_candidate
+    from_category: subdomain
+    keywords: ["github.io", "herokuapp", "azurewebsites", "cloudfront", "s3"]
+    base_strength: 0.85
+    hints:
+      - "resolve the subdomain and check for a dangling CNAME"
+  - signal_type: forgotten_endpoint
+    from_category: endpoint
+    keywords: ["old", "legacy", "staging", "beta", "backup"]
+    base_strength: 0.7
+    hints:
+      - "old endpoints often still run unpatched builds"
+  - signal_type: public_data_exposure
+    from_category: data_leak
+    base_strength: 0.75
+    hints:
+      - "correlate the leaked data shape with internal naming"
+  - signal_type: infrastructure_footprint
+    from_category: tech
+    base_strength: 0.5
+    hints:
+      - "stack evidence narrows the attack surface"
+
+signal_strengths:
+  credential_leak: 0.9
+  subdomain_takeover_candidate: 0.85
+  forgotten_endpoint: 0.7
+  public_data_exposure: 0.75
+  infrastructure_footprint: 0.5
+  outdated_component: 0.8
+  third_party_trust: 0.6
+
+attack_vectors:
+  wordpress:
+    - bruteforce_login
+    - plugin_upload
+    - rest_api_user_enum
+    - xmlrpc_pingback
+  django:
+    - debug_page_enum
+    - admin_panel_default_path
+    - ssti_via_templating
+  nginx:
+    - path_traversal_variants
+    - offbyslash_merge
+  kubernetes:
+    - unauthenticated_api_probe
+    - kubelet_readonly_port
+    - etcd_disclosure
+  aws:
+    - metadata_endpoint_abuse
+    - iam_policy_misconfig
+    - public_s3_enumeration
+  cloud_storage:
+    - bucket_listing
+    - bucket_subdomain_takeover
+  cdn:
+    - origin_ip_discovery
+    - host_header_routing
+  struts:
+    - ognl_injection
+    - content_type_rce
+  credential_exposure:
+    - leaked_key_reuse
+    - repo_history_mining
+  cloud_storage_buckets:
+    - public_object_enumeration

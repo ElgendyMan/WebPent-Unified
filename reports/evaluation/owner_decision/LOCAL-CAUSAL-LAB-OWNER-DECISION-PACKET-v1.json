@@ -1,0 +1,507 @@
+{
+  "schema": "webpent-owner-decision-local-causal-lab-v1",
+  "packet_id": "LOCAL-CAUSAL-LAB-OWNER-DECISION-v1",
+  "generated_at": "2026-08-27T00:00:00Z",
+  "status": "PENDING_OWNER_APPROVAL",
+  "purpose": "Request a narrow owner decision on whether to open a controlled, authorized, loopback-only causal lab for selected WebGoat and crAPI cases. This packet is not a run authorization, P10 qualification, or Bug Bounty authorization.",
+  "decision_requested": {
+    "primary": "Approve or reject a bounded local causal lab for the explicitly listed cases and controls.",
+    "approval_is_explicit_per_target_and_case": true,
+    "silence_is_not_approval": true,
+    "no_execution_before_approval": true,
+    "not_requested": [
+      "Official P10 run gate",
+      "Bug Bounty or external target access",
+      "frozen Ground Truth changes",
+      "P10 threshold changes",
+      "generic core relaxation"
+    ]
+  },
+  "current_governance_state": {
+    "official_isolated_p10_runs_authorized": false,
+    "human_independent_signoff_obtained": false,
+    "p10": "NOT_QUALIFIED",
+    "p9": "NOT_QUALIFIED",
+    "vip": "NOT_QUALIFIED",
+    "bug_bounty": "BLOCKED",
+    "current_juice_shop_approved_set": {
+      "cases": 3,
+      "classes": 3
+    },
+    "p10_minimum": {
+      "cases": 10,
+      "classes": 6
+    }
+  },
+  "immutable_provenance": {
+    "inventory_ref": "reports/evaluation/source_inventory/SOURCE-BACKED-CANDIDATE-INVENTORY-v1.json",
+    "inventory_sha256": "88849d5a4df55e473ed4a230218db330127e7cad15b92caf6dd6898d56874aac",
+    "targets": [
+      {
+        "target_id": "owasp_webgoat",
+        "version": "source build requiring Java 25",
+        "source_path": "/tmp/webgoat-source",
+        "source_revision": "7517acca95d9851da706452454c223dd13545ef4",
+        "target_spec_ref": "reports/evaluation/scoring_readiness/WEBGOAT-SCORING-READINESS-PACK-v1.json",
+        "ground_truth_status": "not_admitted_for_scoring; proposed lab GT must be separate and immutable after approval"
+      },
+      {
+        "target_id": "crapi",
+        "version": "local compose source with VERSION=latest; immutable image digest not admitted",
+        "source_path": "/tmp/crapi-source",
+        "source_revision": "73d309cc8f28bbdeed31dbb35f05dba8354de3c9",
+        "target_spec_ref": "reports/evaluation/scoring_readiness/CRAPI-SCORING-READINESS-PACK-v1.json",
+        "ground_truth_status": "not_admitted_for_scoring; VERSION=latest requires an immutable image digest before reproducibility admission"
+      }
+    ],
+    "immutable_runtime_requirement": "Before any lab run, pin every WebGoat/crAPI runtime artifact by source revision plus container/image digest or equivalent immutable build digest. A Git source revision alone does not make crAPI VERSION=latest reproducible."
+  },
+  "proposed_lab_boundary": {
+    "authorization_scope": "Authorized local lab only; no public or external targets.",
+    "host_allowlist": [
+      "127.0.0.1"
+    ],
+    "proposed_ports": {
+      "webgoat": 8080,
+      "crapi_web": 8888
+    },
+    "network_policy": {
+      "outbound_network": false,
+      "oast_or_external_callbacks": false,
+      "redirect_following": false,
+      "dns_or_public_ip_resolution": false,
+      "auxiliary_canary": "Only an explicitly approved loopback-only fixture service, if required by a selected oracle; otherwise absent."
+    },
+    "data_policy": {
+      "identities": "Synthetic local identities only; no real email addresses, passwords, tokens, OTP, MFA, or third-party accounts.",
+      "secrets": "No real secrets. Synthetic credentials may be generated only after explicit owner approval for a case that requires local authentication.",
+      "evidence": "Persist hashes, typed metadata, verifier decisions, and redacted proof references only; never raw bodies, cookies, authorization headers, tokens, or passwords."
+    },
+    "allowed_actions_after_approval": [
+      "Start pinned local services bound to 127.0.0.1 only.",
+      "Create synthetic test identities inside an isolated disposable database or fixture.",
+      "Perform the exact case-specific methods listed in this packet.",
+      "Use non-destructive canary records and restore from a clean snapshot between cases and runs.",
+      "Seal, verify, replay, and compare redacted ProofBundles."
+    ],
+    "forbidden_actions": [
+      "Any external target, Bug Bounty program, OAST, callback, public DNS, or internet service.",
+      "Any credentials or personal information supplied by the user or from a real account.",
+      "Any destructive reset outside the disposable lab snapshot.",
+      "Any method, route, payload, identity, or case not explicitly approved in the owner decision.",
+      "Any change to frozen Ground Truth, P10 thresholds, Generic Core, or qualification state."
+    ]
+  },
+  "identity_and_state_model": {
+    "identity_model": "Two or more synthetic identities generated inside the disposable local lab, named only by opaque test IDs (for example test_subject_a and test_subject_b). They must not correspond to real users.",
+    "authorization_model": "Each case declares the minimum role and ownership relation. Cross-user cases require an owner identity and a distinct requester identity; controls must exercise the requester against its own object or an intentionally public object.",
+    "state_model": "Immutable source/runtime snapshot plus disposable database/fixture snapshot. Seed only synthetic canary records. Capture a pre-run state hash, restore before every candidate/control pair, and capture a post-run state hash.",
+    "reset_model": "Stop on reset failure. Restore the disposable snapshot or destroy/recreate the lab. Do not use application reset endpoints unless separately approved as a safe, non-destructive local action."
+  },
+  "cases": {
+    "owasp_webgoat": [
+      {
+        "case_id": "webgoat.idor.view_other_profile.v1",
+        "class": "Broken Access Control",
+        "current_inventory_decision": "blocked",
+        "lab_disposition": "candidate_for_narrow_owner_approval",
+        "source_evidence": {
+          "source_file": "src/main/java/org/owasp/webgoat/lessons/idor/IDORViewOtherProfile.java",
+          "source_sha256": "305cb5c0fc8d63a0b8bb4f48f4ebc6982ee332bc11c7f1dcc0ad248a3f6ac3e6",
+          "line_hint": "31,39"
+        },
+        "requested_methods": [
+          "GET"
+        ],
+        "identity_model": "Synthetic user A owns a profile; synthetic user B is the requester; no real credentials.",
+        "state_model": "Seeded profile canaries in disposable state; restore between candidate and control.",
+        "causal_oracle_proposal": "The requester B receives an owner-specific canary only when requesting A's profile, and the authorization outcome differs from B's own-profile control; status code alone is insufficient.",
+        "independent_negative_control": "Request B's own profile and a non-existent opaque profile ID; no owner canary may appear in either control.",
+        "central_verifier_mapping": "WebGoat adapter profile -> IDOR semantic verifier -> central causal and negative-control verifier.",
+        "proof_bundle_procedure": "Redacted typed observation only; ProofBundle must bind source/runtime hashes, identity relation, candidate/control decisions, state hashes, seal, verify_seal, and replay.",
+        "risks": [
+          "Requires local authentication state.",
+          "Cross-user data must remain synthetic.",
+          "Any unexpected disclosure beyond the canary stops the run."
+        ],
+        "promotion_rule": "No scoring promotion unless every gate is evidenced; lab admission is not Official P10 approval."
+      },
+      {
+        "case_id": "webgoat.path_traversal.v1",
+        "class": "Path Traversal",
+        "current_inventory_decision": "blocked",
+        "lab_disposition": "candidate_for_narrow_owner_approval",
+        "source_evidence": {
+          "source_file": "src/main/java/org/owasp/webgoat/lessons/pathtraversal/PathTraversal.java",
+          "source_sha256": "d8298e3c3ee511969c34f7611b5047d5563021cba4a944bf09bc8b5bf0280a6d",
+          "line_hint": "12"
+        },
+        "requested_methods": [
+          "GET"
+        ],
+        "identity_model": "Synthetic local session only if required by the lesson; no real credentials.",
+        "state_model": "Disposable fixture contains a non-sensitive canary file and a sibling control file; restore before each pair.",
+        "causal_oracle_proposal": "A bounded path-resolution request exposes only the approved canary file under the vulnerable condition while the sibling/authorized control does not; file presence or HTTP 200 alone is insufficient.",
+        "independent_negative_control": "Authorized file control, invalid opaque path, and a sibling path that must remain inaccessible.",
+        "central_verifier_mapping": "WebGoat path-traversal profile -> file-content canary verifier -> central causal and negative-control verifier.",
+        "proof_bundle_procedure": "Redacted canary classification, no raw file contents, bound to state/source/runtime hashes and seal/replay identifiers.",
+        "risks": [
+          "Path traversal payloads require strict bounded allowlisting.",
+          "No real files or host filesystem paths may be accessed."
+        ],
+        "promotion_rule": "No scoring promotion unless every gate is evidenced; lab admission is not Official P10 approval."
+      },
+      {
+        "case_id": "webgoat.stored_xss.comments.v1",
+        "class": "XSS",
+        "current_inventory_decision": "blocked",
+        "lab_disposition": "candidate_for_narrow_owner_approval",
+        "source_evidence": {
+          "source_file": "src/main/java/org/owasp/webgoat/lessons/xss/stored/StoredXssComments.java",
+          "source_sha256": "bb8f16fb0abc875537cccc70d8522854be000a10a76cccd0514fdfd254dbcc16",
+          "line_hint": "34,57,73"
+        },
+        "requested_methods": [
+          "POST",
+          "GET"
+        ],
+        "identity_model": "Synthetic local lesson identity only; no real credentials.",
+        "state_model": "Disposable comment store with one non-network, non-exfiltrating canary marker; restore after the pair.",
+        "causal_oracle_proposal": "A stored marker reaches the approved DOM sink/execution observation in the candidate flow while a benign encoded marker remains inert in the independent control; lesson completion is insufficient.",
+        "independent_negative_control": "Benign encoded marker and clean page control under the same identity/state reset.",
+        "central_verifier_mapping": "WebGoat stored-XSS profile -> DOM sink/dialog semantic verifier -> central causal and negative-control verifier.",
+        "proof_bundle_procedure": "Persist only typed sink/execution classification and hashes; never persist raw comment body, cookies, or headers; seal/verify/replay required.",
+        "risks": [
+          "Requires state mutation.",
+          "No network calls, exfiltration, or destructive payloads are allowed."
+        ],
+        "promotion_rule": "No scoring promotion unless every gate is evidenced; lab admission is not Official P10 approval."
+      },
+      {
+        "case_id": "webgoat.sql_injection.advanced.v1",
+        "class": "Injection",
+        "current_inventory_decision": "blocked",
+        "lab_disposition": "candidate_for_narrow_owner_approval",
+        "source_evidence": {
+          "source_file": "src/main/java/org/owasp/webgoat/lessons/sqlinjection/advanced/SqlInjectionChallenge.java",
+          "source_sha256": "808928166547b3a822de3f732eec50217dbd7cfe5caf0b45b9364e02867e4b1a",
+          "line_hint": "39,47"
+        },
+        "requested_methods": [
+          "PUT"
+        ],
+        "identity_model": "Synthetic local lesson identity if required; no real credentials.",
+        "state_model": "Disposable database snapshot containing non-sensitive canary rows; restore for candidate/control.",
+        "causal_oracle_proposal": "A narrowly allowlisted differential query behavior demonstrates unauthorized row selection without destructive SQL or status-only inference; the independent parameterized control must not show the effect.",
+        "independent_negative_control": "Parameterized benign input, invalid opaque input, and known-safe query baseline.",
+        "central_verifier_mapping": "WebGoat SQL-injection profile -> differential query-result classifier -> central causal and negative-control verifier.",
+        "proof_bundle_procedure": "Only typed result-shape/count classification and hashes; no raw database rows or credentials; seal/verify/replay required.",
+        "risks": [
+          "Payload and mutation risk.",
+          "Reject any statement containing destructive or multi-statement behavior.",
+          "Stop if the endpoint or database leaves the approved snapshot."
+        ],
+        "promotion_rule": "No scoring promotion unless every gate is evidenced; lab admission is not Official P10 approval."
+      },
+      {
+        "case_id": "webgoat.ssrf.task1.v1",
+        "class": "SSRF",
+        "current_inventory_decision": "out_of_scope",
+        "lab_disposition": "defer_out_of_scope",
+        "source_evidence": {
+          "source_file": "src/main/java/org/owasp/webgoat/lessons/ssrf/SSRFTask1.java",
+          "source_sha256": "076d0b5a16ceae8b7fc7eb986cbea4ecdc4a7471281160781a1140b25ff9ae8f",
+          "line_hint": "20,22"
+        },
+        "requested_methods": [
+          "GET"
+        ],
+        "identity_model": "None.",
+        "state_model": "No state setup.",
+        "causal_oracle_proposal": "Not proposed: causal proof would require external/callback behavior, prohibited by the current boundary.",
+        "independent_negative_control": "Not applicable until an explicitly approved loopback-only oracle is designed and reviewed.",
+        "central_verifier_mapping": "No verifier admitted.",
+        "proof_bundle_procedure": "No ProofBundle or scoring evidence.",
+        "risks": [
+          "External/OAST/callback scope is prohibited."
+        ],
+        "promotion_rule": "No scoring promotion unless every gate is evidenced; lab admission is not Official P10 approval."
+      },
+      {
+        "case_id": "webgoat.csrf.get_flag.v1",
+        "class": "CSRF",
+        "current_inventory_decision": "out_of_scope",
+        "lab_disposition": "defer_out_of_scope",
+        "source_evidence": {
+          "source_file": "src/main/java/org/owasp/webgoat/lessons/csrf/CSRFGetFlag.java",
+          "source_sha256": "c6db218e3223a360897a5e5607540055da6c7883b0e778d265d7be60f9b1f79c",
+          "line_hint": "20,25"
+        },
+        "requested_methods": [
+          "POST"
+        ],
+        "identity_model": "None.",
+        "state_model": "No state setup.",
+        "causal_oracle_proposal": "Not proposed: cross-site state-changing behavior is outside the current approved boundary.",
+        "independent_negative_control": "Not applicable.",
+        "central_verifier_mapping": "No verifier admitted.",
+        "proof_bundle_procedure": "No ProofBundle or scoring evidence.",
+        "risks": [
+          "State-changing cross-site testing is not in the current scope."
+        ],
+        "promotion_rule": "No scoring promotion unless every gate is evidenced; lab admission is not Official P10 approval."
+      }
+    ],
+    "crapi": [
+      {
+        "case_id": "crapi.profile_video_object_access.v1",
+        "class": "Broken Access Control",
+        "current_inventory_decision": "blocked",
+        "lab_disposition": "candidate_for_narrow_owner_approval",
+        "source_evidence": {
+          "source_file": "services/identity/src/main/java/com/crapi/controller/ProfileController.java",
+          "source_sha256": "80c357806f390e28d3ca8f32e12c40fa3d063efcf8038249d5ac5593043677b0",
+          "line_hint": "42,95,113,129"
+        },
+        "requested_methods": [
+          "GET"
+        ],
+        "identity_model": "Synthetic user A owns a video; synthetic user B is the requester; synthetic local auth only after approval.",
+        "state_model": "Disposable database with opaque canary object ownership; restore between pairs.",
+        "causal_oracle_proposal": "B obtains A's unique canary object metadata only under the unauthorized object request, while B's own-object and nonexistent-object controls do not disclose it; HTTP status alone is insufficient.",
+        "independent_negative_control": "B own-object control and nonexistent opaque object control.",
+        "central_verifier_mapping": "crAPI identity/profile adapter -> object-ownership semantic verifier -> central causal and negative-control verifier.",
+        "proof_bundle_procedure": "Redacted object-field classification only; no token, cookie, or raw body persistence; seal/verify/replay required.",
+        "risks": [
+          "Requires synthetic authentication and cross-user ownership state."
+        ],
+        "promotion_rule": "No scoring promotion unless every gate is evidenced; lab admission is not Official P10 approval."
+      },
+      {
+        "case_id": "crapi.vehicle_location_bola.v1",
+        "class": "Broken Access Control",
+        "current_inventory_decision": "blocked",
+        "lab_disposition": "candidate_for_narrow_owner_approval",
+        "source_evidence": {
+          "source_file": "services/identity/src/main/java/com/crapi/controller/VehicleController.java",
+          "source_sha256": "c49f5ab14aab7b80386c5e309d6e493360ab86f21d41d939002f1d2961f78789",
+          "line_hint": "88,121"
+        },
+        "requested_methods": [
+          "GET"
+        ],
+        "identity_model": "Synthetic users A/B and a synthetic vehicle owned only by A; local auth after approval.",
+        "state_model": "Disposable vehicle/owner fixture with location canary; restore between pairs.",
+        "causal_oracle_proposal": "B receives A's location canary for the unauthorized vehicle request while own-vehicle and nonexistent-vehicle controls do not; status code alone is insufficient.",
+        "independent_negative_control": "B own vehicle and nonexistent vehicle controls.",
+        "central_verifier_mapping": "crAPI vehicle adapter -> ownership/location semantic verifier -> central causal and negative-control verifier.",
+        "proof_bundle_procedure": "Persist only redacted canary classification and hashes; seal/verify/replay required.",
+        "risks": [
+          "Sensitive location canary must be synthetic and non-real."
+        ],
+        "promotion_rule": "No scoring promotion unless every gate is evidenced; lab admission is not Official P10 approval."
+      },
+      {
+        "case_id": "crapi.community_post_object_access.v1",
+        "class": "Broken Access Control",
+        "current_inventory_decision": "blocked",
+        "lab_disposition": "candidate_for_narrow_owner_approval",
+        "source_evidence": {
+          "source_file": "services/community/api/controllers/post_controller.go",
+          "source_sha256": "65200617a05a35c89445e8977be053247dc90b37fe4ebaa060e1ce60e9cd1d3f",
+          "line_hint": "34,67,81,115,157"
+        },
+        "requested_methods": [
+          "GET"
+        ],
+        "identity_model": "Synthetic users A/B and a synthetic post owned by A; local auth after approval.",
+        "state_model": "Disposable post fixture with opaque canary; restore between pairs.",
+        "causal_oracle_proposal": "B receives A's private canary post field under unauthorized access while own and nonexistent post controls do not.",
+        "independent_negative_control": "B own post and nonexistent post controls.",
+        "central_verifier_mapping": "crAPI community adapter -> post-ownership semantic verifier -> central causal and negative-control verifier.",
+        "proof_bundle_procedure": "Typed redacted disclosure decision, state/source/runtime hashes, seal/verify/replay; no raw post body.",
+        "risks": [
+          "Requires authenticated synthetic identities and privacy canary."
+        ],
+        "promotion_rule": "No scoring promotion unless every gate is evidenced; lab admission is not Official P10 approval."
+      },
+      {
+        "case_id": "crapi.mechanic_report_object_access.v1",
+        "class": "Broken Access Control",
+        "current_inventory_decision": "blocked",
+        "lab_disposition": "candidate_for_narrow_owner_approval",
+        "source_evidence": {
+          "source_file": "services/workshop/crapi/mechanic/views.py",
+          "source_sha256": "037f0ebb9045b21a9ee838e5f32fa1be5da17d978f719a8a738f4bbb15426521",
+          "line_hint": "125,208,247,342,377"
+        },
+        "requested_methods": [
+          "GET"
+        ],
+        "identity_model": "Synthetic users A/B and a synthetic report/service request owned by A; local auth after approval.",
+        "state_model": "Disposable workshop fixture; restore between pairs.",
+        "causal_oracle_proposal": "B receives A's report canary under unauthorized access while own and nonexistent report controls do not.",
+        "independent_negative_control": "B own report and nonexistent report controls.",
+        "central_verifier_mapping": "crAPI workshop adapter -> report-ownership semantic verifier -> central causal and negative-control verifier.",
+        "proof_bundle_procedure": "Redacted canary classification and hashes only; seal/verify/replay required.",
+        "risks": [
+          "Requires authenticated synthetic identities and ownership fixture."
+        ],
+        "promotion_rule": "No scoring promotion unless every gate is evidenced; lab admission is not Official P10 approval."
+      },
+      {
+        "case_id": "crapi.coupon_validation.v1",
+        "class": "Business Logic",
+        "current_inventory_decision": "blocked",
+        "lab_disposition": "defer_stateful_business_logic",
+        "source_evidence": {
+          "source_file": "services/community/api/controllers/coupon_controller.go",
+          "source_sha256": "c5b927219b012d8be1ee97e25d4ae5df3750bee177e66eda7fa50ccddcf0304a",
+          "line_hint": "32,72"
+        },
+        "requested_methods": [
+          "POST"
+        ],
+        "identity_model": "Synthetic local identity only after separate approval.",
+        "state_model": "Disposable business-state snapshot.",
+        "causal_oracle_proposal": "Not admitted yet: requires stateful business mutation and a reviewed invariant oracle.",
+        "independent_negative_control": "Not admitted yet.",
+        "central_verifier_mapping": "No verifier admitted.",
+        "proof_bundle_procedure": "No scoring ProofBundle.",
+        "risks": [
+          "Mutation and business-state side effects require a separate decision."
+        ],
+        "promotion_rule": "No scoring promotion unless every gate is evidenced; lab admission is not Official P10 approval."
+      },
+      {
+        "case_id": "crapi.login_with_token.v1",
+        "class": "Authentication",
+        "current_inventory_decision": "out_of_scope",
+        "lab_disposition": "defer_credentials_boundary",
+        "source_evidence": {
+          "source_file": "services/identity/src/main/java/com/crapi/controller/AuthController.java",
+          "source_sha256": null,
+          "line_hint": "157,169"
+        },
+        "requested_methods": [
+          "POST"
+        ],
+        "identity_model": "Synthetic local accounts only after explicit approval; no real credentials or tokens.",
+        "state_model": "Disposable identity store.",
+        "causal_oracle_proposal": "Not admitted yet: authentication/token semantics need a dedicated reviewed oracle and credential handling protocol.",
+        "independent_negative_control": "Invalid synthetic credential control only after approval.",
+        "central_verifier_mapping": "No verifier admitted.",
+        "proof_bundle_procedure": "No scoring ProofBundle.",
+        "risks": [
+          "Credentials/login are gated until owner approval."
+        ],
+        "promotion_rule": "No scoring promotion unless every gate is evidenced; lab admission is not Official P10 approval."
+      },
+      {
+        "case_id": "crapi.reset_test_users.v1",
+        "class": "State Management",
+        "current_inventory_decision": "out_of_scope",
+        "lab_disposition": "defer_destructive_action",
+        "source_evidence": {
+          "source_file": "services/identity/src/main/java/com/crapi/controller/AuthController.java",
+          "source_sha256": "eb2b2a6eb3cdeab5ece53543c16a3de5bc1e28259e0ff5d18d7e9edd4ef2bf33",
+          "line_hint": "180"
+        },
+        "requested_methods": [
+          "POST"
+        ],
+        "identity_model": "None.",
+        "state_model": "No application reset endpoint; use snapshot restore.",
+        "causal_oracle_proposal": "Not proposed for execution: reset endpoint is state-changing/destructive.",
+        "independent_negative_control": "Not applicable.",
+        "central_verifier_mapping": "No verifier admitted.",
+        "proof_bundle_procedure": "No scoring ProofBundle.",
+        "risks": [
+          "Destructive reset is prohibited."
+        ],
+        "promotion_rule": "No scoring promotion unless every gate is evidenced; lab admission is not Official P10 approval."
+      }
+    ]
+  },
+  "execution_protocol_after_approval": {
+    "sequence": [
+      "pin_runtime_and_verify_hashes",
+      "create_synthetic_identities_and_canaries",
+      "baseline",
+      "quality_measurement_if_GT_and_oracle_are_admitted",
+      "failure_diagnosis",
+      "improvement_proposal",
+      "generic_vs_target_local_classification",
+      "safe_bounded_implementation_if_justified",
+      "regression",
+      "same_condition_retest",
+      "before_after_comparison",
+      "proofbundle_seal_verify_replay",
+      "independent_technical_review"
+    ],
+    "quality_gate": "No metrics are computed or promoted until an independent lab GT, complete causal oracle, safe precondition, independent negative control, central verifier, regression, and sealed/replayable evidence all pass.",
+    "promotion_gate": "Lab evidence cannot open Official P10. Official P10 requires separate governance approval, an approved set meeting 10 cases/6 classes, three valid isolated runs, recomputed metrics, and final review."
+  },
+  "stop_conditions": [
+    "Any socket bind or request resolves outside 127.0.0.1.",
+    "Any external connection, redirect follow, DNS/public-IP resolution, OAST, or callback occurs.",
+    "Any unapproved method, route, identity, payload, or state change is attempted.",
+    "Any raw body, header, cookie, password, token, or credential appears in persistent evidence.",
+    "Any reset/restore state hash mismatch occurs.",
+    "Any negative control is missing, non-independent, or produces the same causal signal unexpectedly.",
+    "Any source/runtime digest mismatch occurs.",
+    "Any verifier cannot distinguish candidate from control or ProofBundle seal/verify/replay fails."
+  ],
+  "cleanup_and_rollback": {
+    "cleanup": [
+      "Stop local services and auxiliary fixtures.",
+      "Destroy disposable containers and databases.",
+      "Delete synthetic identities and canary data from the disposable lab.",
+      "Retain only redacted evidence, hashes, decisions, and audit metadata."
+    ],
+    "rollback": [
+      "Restore the pre-lab source/runtime snapshot.",
+      "Restore the disposable database snapshot or recreate the lab from pinned artifacts.",
+      "Revert only target-local adapter/profile commits if an approved implementation is later made.",
+      "Never reset, force-push, or alter frozen Ground Truth, Generic Core, thresholds, or governance state."
+    ]
+  },
+  "generic_vs_target_local_boundary": {
+    "generic_core": "No change requested. ActionAuthority, CampaignExecutor, central verifier, ProofBundle, sealing/replay, and governance gates remain unchanged.",
+    "target_local": "WebGoat and crAPI routes, semantic predicates, fixture setup, identity/ownership mappings, and adapters must remain target-local.",
+    "generic_change_rule": "A generic change may be proposed only if the same deficiency is demonstrated on more than one Target and regression proves no weakening of scope or governance."
+  },
+  "decision_options": [
+    {
+      "option": "A",
+      "name": "Keep closed",
+      "scope": "No local credentials or mutation; retain source inventory only.",
+      "risk": "No new causal quality evidence; P10 gap remains.",
+      "rollback": "None required."
+    },
+    {
+      "option": "B",
+      "name": "Approve staged read-only causal lab",
+      "scope": "Approve only WebGoat IDOR/path traversal and crAPI object-access cases listed as candidate_for_narrow_owner_approval, using synthetic identities, disposable fixtures, GET-only methods, and no external callbacks.",
+      "risk": "Requires synthetic authentication state and careful ownership canaries.",
+      "rollback": "Destroy/recreate disposable lab and restore snapshot.",
+      "recommendation": true
+    },
+    {
+      "option": "C",
+      "name": "Approve full listed local lab",
+      "scope": "Also approve WebGoat stored XSS/advanced SQLi and any separately selected crAPI mutation/auth cases under the exact per-case controls.",
+      "risk": "Higher mutation, credential, and payload risk; requires per-case confirmation.",
+      "rollback": "Snapshot restore and target-local commit revert."
+    }
+  ],
+  "recommendation": "Choose Option B as a staged first gate. Do not approve mutation, authentication/token, destructive reset, SSRF, or external/callback cases in this decision. After B produces complete causal evidence, issue a separate packet for any additional cases.",
+  "owner_decision": {
+    "decision": null,
+    "approved_targets": [],
+    "approved_case_ids": [],
+    "approved_methods": [],
+    "approval_expiry": null,
+    "owner_notes": null
+  }
+}

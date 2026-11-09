@@ -1,0 +1,42 @@
+{
+  "scenario_version": "vip-e2e-v1",
+  "authorization": "local-authorized-lab-only",
+  "target_mutation_allowed": false,
+  "scenarios": [
+    {
+      "id": "A",
+      "name": "discovery-to-confirmation",
+      "flow": ["discovery", "hypothesis", "validation", "finding"],
+      "required_artifacts": ["surface_observation", "hypothesis", "deterministic_oracle", "negative_control", "proof_bundle", "replay"],
+      "success": "finding_is_confirmed_only_after_all_evidence_gates"
+    },
+    {
+      "id": "B",
+      "name": "failed-hypothesis-research-recovery",
+      "flow": ["initial_hypothesis_fails", "knowledge_gap", "new_discovery", "second_hypothesis", "confirmation"],
+      "required_artifacts": ["failed_path", "retry_condition", "gap_resolution", "new_observation", "proof_bundle"],
+      "success": "second_hypothesis_is_distinct_and_replayable"
+    },
+    {
+      "id": "C",
+      "name": "false-positive-rejection",
+      "flow": ["candidate_signal", "devils_advocate", "negative_control", "rejection"],
+      "required_artifacts": ["candidate", "contradiction_or_control", "rejection_reason"],
+      "success": "candidate_is_not_promoted_to_confirmed"
+    },
+    {
+      "id": "D",
+      "name": "validated-finding-chain",
+      "flow": ["finding_a", "chain_candidate", "validated_finding_b"],
+      "required_artifacts": ["parent_finding", "causal_edge", "bounded_chain_action", "independent_validation", "proof_bundle"],
+      "success": "finding_b_requires_its_own_oracle_and_controls"
+    },
+    {
+      "id": "E",
+      "name": "llm-unavailable-deterministic-fallback",
+      "flow": ["llm_unavailable", "deterministic_fallback", "campaign_continues"],
+      "required_artifacts": ["llm_failure_class", "fallback_selection", "scope_check", "budget_trace", "campaign_outcome"],
+      "success": "campaign_continues_without_scope_expansion_or_silent_completion"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# UM-DR-31.1: baseline chunked full-suite runner (sandbox OOM-kills one giant pytest).
+# Runs BEFORE any code change on branch umdr31-1-intelligence-engineering-uplift.
+set -u
+cd /home/z/my-project/webpent/WebPent_UNIFIED
+PY=/home/z/.venv/bin/python3
+LOG=/tmp/suite_chunks_umdr31_1_baseline.log
+: > "$LOG"
+mapfile -t FILES < <($PY -m pytest --collect-only -q tests/ -p no:cacheprovider 2>/dev/null | rg '\.py$' | sed 's#::.*##' | sort -u)
+TOTAL=${#FILES[@]}
+echo "collected $TOTAL test files" | tee -a "$LOG"
+CHUNK=55
+FAILED_CHUNKS=()
+for ((i=0; i<TOTAL; i+=CHUNK)); do
+  CHUNK_FILES=("${FILES[@]:i:CHUNK}")
+  CHUNK_ID=$(( i / CHUNK + 1 ))
+  CHUNK_LOG=/tmp/u311b_chunk_${CHUNK_ID}.log
+  if timeout 900 "$PY" -m pytest "${CHUNK_FILES[@]}" --tb=line -q --no-header -p no:cacheprovider >"$CHUNK_LOG" 2>&1; then
+    STATUS=OK
+  else
+    STATUS=FAIL
+    FAILED_CHUNKS+=("$CHUNK_ID")
+  fi
+  TAIL_LINE=$(tail -1 "$CHUNK_LOG")
+  echo "chunk $CHUNK_ID [$STATUS]: $TAIL_LINE" | tee -a "$LOG"
+done
+echo "=== FAILED CHUNKS: ${FAILED_CHUNKS[*]:-none} ===" | tee -a "$LOG"

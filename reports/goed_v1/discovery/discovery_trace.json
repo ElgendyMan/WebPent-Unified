@@ -1,0 +1,446 @@
+{
+  "phase": "3_open_world_discovery",
+  "date": "2026-09-03T06:24:58.995847+00:00",
+  "target": "http://127.0.0.1:8899",
+  "route_inventory_provided": false,
+  "vulnerability_list_provided": false,
+  "discovered_resources": {
+    "/": {
+      "source": "entry_point_convention",
+      "security_relevant": false
+    },
+    "/services/health/rest": {
+      "source": "json_links_array",
+      "security_relevant": false
+    },
+    "/services/openapi/rest": {
+      "source": "json_links_array",
+      "security_relevant": false
+    },
+    "/api": {
+      "source": "entry_point_convention",
+      "security_relevant": false
+    },
+    "/health": {
+      "source": "entry_point_convention",
+      "security_relevant": false
+    },
+    "/openapi.json": {
+      "source": "entry_point_convention",
+      "security_relevant": false
+    },
+    "/services/objects/{obj_id}/rest": {
+      "source": "json_openapi_paths",
+      "security_relevant": false
+    },
+    "/patched/services/objects/{obj_id}/rest": {
+      "source": "json_openapi_paths",
+      "security_relevant": false
+    },
+    "/services/admin/dashboard/rest": {
+      "source": "json_openapi_paths",
+      "security_relevant": true
+    },
+    "/patched/services/admin/dashboard/rest": {
+      "source": "json_openapi_paths",
+      "security_relevant": true
+    },
+    "/services/billing/{tenant}/records/rest": {
+      "source": "json_openapi_paths",
+      "security_relevant": true
+    },
+    "/patched/services/billing/{tenant}/records/rest": {
+      "source": "json_openapi_paths",
+      "security_relevant": true
+    },
+    "/services/tenant/{tenant}/internal/rest": {
+      "source": "json_openapi_paths",
+      "security_relevant": true
+    },
+    "/patched/services/tenant/{tenant}/internal/rest": {
+      "source": "json_openapi_paths",
+      "security_relevant": true
+    },
+    "/services/messages/{user}/inbox/rest": {
+      "source": "json_openapi_paths",
+      "security_relevant": true
+    },
+    "/patched/services/messages/{user}/inbox/rest": {
+      "source": "json_openapi_paths",
+      "security_relevant": true
+    },
+    "/docs": {
+      "source": "entry_point_convention",
+      "security_relevant": false
+    },
+    "/robots.txt": {
+      "source": "entry_point_convention",
+      "security_relevant": false
+    },
+    "/services/objects/{id}/rest": {
+      "source": "json_openapi_paths",
+      "security_relevant": false
+    }
+  },
+  "inferred_entities": [],
+  "opportunities_count": 8,
+  "opportunities_sample": [
+    {
+      "opportunity_id": "GRO-de285d0277",
+      "source_observation": "Discovered security-relevant endpoint at /services/admin/dashboard/rest (source: json_openapi_paths)",
+      "security_assumption": "Actors without authorization should not access or infer protected data",
+      "affected_entity": "/services/admin/dashboard/rest",
+      "inferred_relationship": "Actor context correlates with response content variation",
+      "hypothesis": {
+        "hypothesis_id": "H-658db110",
+        "description": "Observed difference may indicate an authorization boundary weakness",
+        "type": "authorization_weakness",
+        "supporting": [
+          "Response differs across actor contexts"
+        ],
+        "contradicting": [],
+        "discriminating_experiment": "Test with additional actor/role combinations",
+        "confidence": "speculative",
+        "security_relevant": true
+      },
+      "alternative_hypotheses": [
+        {
+          "hypothesis_id": "H-40f4e367",
+          "description": "Legitimate role-based content variation",
+          "type": "research_direction",
+          "supporting": [
+            "Different roles may legitimately see different content"
+          ],
+          "contradicting": [],
+          "discriminating_experiment": "Verify with same-role different-identity test",
+          "confidence": "speculative",
+          "security_relevant": false
+        },
+        {
+          "hypothesis_id": "H-90b6c040",
+          "description": "Tenant-scoped data difference",
+          "type": "boundary_violation",
+          "supporting": [
+            "Different tenants may legitimately have different data"
+          ],
+          "contradicting": [],
+          "discriminating_experiment": "Test cross-tenant access patterns",
+          "confidence": "speculative",
+          "security_relevant": true
+        },
+        {
+          "hypothesis_id": "H-1f660f78",
+          "description": "Public-resource behavior with personalization",
+          "type": "research_direction",
+          "supporting": [
+            "Endpoint may be public but personalized"
+          ],
+          "contradicting": [],
+          "discriminating_experiment": "Test with unauthenticated context",
+          "confidence": "speculative",
+          "security_relevant": false
+        }
+      ],
+      "expected_signal": "Authorization differential between candidate and control paths",
+      "validation_plan": "Execute same-context comparison across candidate and negative control",
+      "confidence": "speculative",
+      "evidence_dependencies": [],
+      "generation_reason": "Security-relevant path pattern discovered from json_openapi_paths",
+      "context_differences": {
+        "discovery_source": "json_openapi_paths",
+        "linked_from": [
+          "/openapi.json",
+          "/services/openapi/rest"
+        ]
+      },
+      "exploration_priority": 0.7,
+      "investigated": false,
+      "investigation_result": null
+    },
+    {
+      "opportunity_id": "GRO-471b545134",
+      "source_observation": "Discovered security-relevant endpoint at /patched/services/admin/dashboard/rest (source: json_openapi_paths)",
+      "security_assumption": "Actors without authorization should not access or infer protected data",
+      "affected_entity": "/patched/services/admin/dashboard/rest",
+      "inferred_relationship": "Actor context correlates with response content variation",
+      "hypothesis": {
+        "hypothesis_id": "H-1a609d51",
+        "description": "Observed difference may indicate an authorization boundary weakness",
+        "type": "authorization_weakness",
+        "supporting": [
+          "Response differs across actor contexts"
+        ],
+        "contradicting": [],
+        "discriminating_experiment": "Test with additional actor/role combinations",
+        "confidence": "speculative",
+        "security_relevant": true
+      },
+      "alternative_hypotheses": [
+        {
+          "hypothesis_id": "H-1891c841",
+          "description": "Legitimate role-based content variation",
+          "type": "research_direction",
+          "supporting": [
+            "Different roles may legitimately see different content"
+          ],
+          "contradicting": [],
+          "discriminating_experiment": "Verify with same-role different-identity test",
+          "confidence": "speculative",
+          "security_relevant": false
+        },
+        {
+          "hypothesis_id": "H-18488187",
+          "description": "Tenant-scoped data difference",
+          "type": "boundary_violation",
+          "supporting": [
+            "Different tenants may legitimately have different data"
+          ],
+          "contradicting": [],
+          "discriminating_experiment": "Test cross-tenant access patterns",
+          "confidence": "speculative",
+          "security_relevant": true
+        },
+        {
+          "hypothesis_id": "H-550eb0be",
+          "description": "Public-resource behavior with personalization",
+          "type": "research_direction",
+          "supporting": [
+            "Endpoint may be public but personalized"
+          ],
+          "contradicting": [],
+          "discriminating_experiment": "Test with unauthenticated context",
+          "confidence": "speculative",
+          "security_relevant": false
+        }
+      ],
+      "expected_signal": "Authorization differential between candidate and control paths",
+      "validation_plan": "Execute same-context comparison across candidate and negative control",
+      "confidence": "speculative",
+      "evidence_dependencies": [],
+      "generation_reason": "Security-relevant path pattern discovered from json_openapi_paths",
+      "context_differences": {
+        "discovery_source": "json_openapi_paths",
+        "linked_from": [
+          "/openapi.json"
+        ]
+      },
+      "exploration_priority": 0.7,
+      "investigated": false,
+      "investigation_result": null
+    },
+    {
+      "opportunity_id": "GRO-e616e5b8c5",
+      "source_observation": "Discovered security-relevant endpoint at /services/billing/{tenant}/records/rest (source: json_openapi_paths)",
+      "security_assumption": "Actors without authorization should not access or infer protected data",
+      "affected_entity": "/services/billing/{tenant}/records/rest",
+      "inferred_relationship": "Actor context correlates with response content variation",
+      "hypothesis": {
+        "hypothesis_id": "H-1e2fa917",
+        "description": "Observed difference may indicate an authorization boundary weakness",
+        "type": "authorization_weakness",
+        "supporting": [
+          "Response differs across actor contexts"
+        ],
+        "contradicting": [],
+        "discriminating_experiment": "Test with additional actor/role combinations",
+        "confidence": "speculative",
+        "security_relevant": true
+      },
+      "alternative_hypotheses": [
+        {
+          "hypothesis_id": "H-5afc0022",
+          "description": "Legitimate role-based content variation",
+          "type": "research_direction",
+          "supporting": [
+            "Different roles may legitimately see different content"
+          ],
+          "contradicting": [],
+          "discriminating_experiment": "Verify with same-role different-identity test",
+          "confidence": "speculative",
+          "security_relevant": false
+        },
+        {
+          "hypothesis_id": "H-a1c28d17",
+          "description": "Tenant-scoped data difference",
+          "type": "boundary_violation",
+          "supporting": [
+            "Different tenants may legitimately have different data"
+          ],
+          "contradicting": [],
+          "discriminating_experiment": "Test cross-tenant access patterns",
+          "confidence": "speculative",
+          "security_relevant": true
+        },
+        {
+          "hypothesis_id": "H-7f0db08c",
+          "description": "Public-resource behavior with personalization",
+          "type": "research_direction",
+          "supporting": [
+            "Endpoint may be public but personalized"
+          ],
+          "contradicting": [],
+          "discriminating_experiment": "Test with unauthenticated context",
+          "confidence": "speculative",
+          "security_relevant": false
+        }
+      ],
+      "expected_signal": "Authorization differential between candidate and control paths",
+      "validation_plan": "Execute same-context comparison across candidate and negative control",
+      "confidence": "speculative",
+      "evidence_dependencies": [],
+      "generation_reason": "Security-relevant path pattern discovered from json_openapi_paths",
+      "context_differences": {
+        "discovery_source": "json_openapi_paths",
+        "linked_from": [
+          "/openapi.json",
+          "/services/openapi/rest"
+        ]
+      },
+      "exploration_priority": 0.7,
+      "investigated": false,
+      "investigation_result": null
+    },
+    {
+      "opportunity_id": "GRO-3555cfd5f5",
+      "source_observation": "Discovered security-relevant endpoint at /patched/services/billing/{tenant}/records/rest (source: json_openapi_paths)",
+      "security_assumption": "Actors without authorization should not access or infer protected data",
+      "affected_entity": "/patched/services/billing/{tenant}/records/rest",
+      "inferred_relationship": "Actor context correlates with response content variation",
+      "hypothesis": {
+        "hypothesis_id": "H-a6f1d46a",
+        "description": "Observed difference may indicate an authorization boundary weakness",
+        "type": "authorization_weakness",
+        "supporting": [
+          "Response differs across actor contexts"
+        ],
+        "contradicting": [],
+        "discriminating_experiment": "Test with additional actor/role combinations",
+        "confidence": "speculative",
+        "security_relevant": true
+      },
+      "alternative_hypotheses": [
+        {
+          "hypothesis_id": "H-8bf3cec2",
+          "description": "Legitimate role-based content variation",
+          "type": "research_direction",
+          "supporting": [
+            "Different roles may legitimately see different content"
+          ],
+          "contradicting": [],
+          "discriminating_experiment": "Verify with same-role different-identity test",
+          "confidence": "speculative",
+          "security_relevant": false
+        },
+        {
+          "hypothesis_id": "H-cd89fe0f",
+          "description": "Tenant-scoped data difference",
+          "type": "boundary_violation",
+          "supporting": [
+            "Different tenants may legitimately have different data"
+          ],
+          "contradicting": [],
+          "discriminating_experiment": "Test cross-tenant access patterns",
+          "confidence": "speculative",
+          "security_relevant": true
+        },
+        {
+          "hypothesis_id": "H-15669e7d",
+          "description": "Public-resource behavior with personalization",
+          "type": "research_direction",
+          "supporting": [
+            "Endpoint may be public but personalized"
+          ],
+          "contradicting": [],
+          "discriminating_experiment": "Test with unauthenticated context",
+          "confidence": "speculative",
+          "security_relevant": false
+        }
+      ],
+      "expected_signal": "Authorization differential between candidate and control paths",
+      "validation_plan": "Execute same-context comparison across candidate and negative control",
+      "confidence": "speculative",
+      "evidence_dependencies": [],
+      "generation_reason": "Security-relevant path pattern discovered from json_openapi_paths",
+      "context_differences": {
+        "discovery_source": "json_openapi_paths",
+        "linked_from": [
+          "/openapi.json"
+        ]
+      },
+      "exploration_priority": 0.7,
+      "investigated": false,
+      "investigation_result": null
+    },
+    {
+      "opportunity_id": "GRO-7e2a7d4931",
+      "source_observation": "Discovered security-relevant endpoint at /services/tenant/{tenant}/internal/rest (source: json_openapi_paths)",
+      "security_assumption": "Actors without authorization should not access or infer protected data",
+      "affected_entity": "/services/tenant/{tenant}/internal/rest",
+      "inferred_relationship": "Actor context correlates with response content variation",
+      "hypothesis": {
+        "hypothesis_id": "H-39ac91c3",
+        "description": "Observed difference may indicate an authorization boundary weakness",
+        "type": "authorization_weakness",
+        "supporting": [
+          "Response differs across actor contexts"
+        ],
+        "contradicting": [],
+        "discriminating_experiment": "Test with additional actor/role combinations",
+        "confidence": "speculative",
+        "security_relevant": true
+      },
+      "alternative_hypotheses": [
+        {
+          "hypothesis_id": "H-1e8966a6",
+          "description": "Legitimate role-based content variation",
+          "type": "research_direction",
+          "supporting": [
+            "Different roles may legitimately see different content"
+          ],
+          "contradicting": [],
+          "discriminating_experiment": "Verify with same-role different-identity test",
+          "confidence": "speculative",
+          "security_relevant": false
+        },
+        {
+          "hypothesis_id": "H-8212b064",
+          "description": "Tenant-scoped data difference",
+          "type": "boundary_violation",
+          "supporting": [
+            "Different tenants may legitimately have different data"
+          ],
+          "contradicting": [],
+          "discriminating_experiment": "Test cross-tenant access patterns",
+          "confidence": "speculative",
+          "security_relevant": true
+        },
+        {
+          "hypothesis_id": "H-1a6c7623",
+          "description": "Public-resource behavior with personalization",
+          "type": "research_direction",
+          "supporting": [
+            "Endpoint may be public but personalized"
+          ],
+          "contradicting": [],
+          "discriminating_experiment": "Test with unauthenticated context",
+          "confidence": "speculative",
+          "security_relevant": false
+        }
+      ],
+      "expected_signal": "Authorization differential between candidate and control paths",
+      "validation_plan": "Execute same-context comparison across candidate and negative control",
+      "confidence": "speculative",
+      "evidence_dependencies": [],
+      "generation_reason": "Security-relevant path pattern discovered from json_openapi_paths",
+      "context_differences": {
+        "discovery_source": "json_openapi_paths",
+        "linked_from": [
+          "/openapi.json"
+        ]
+      },
+      "exploration_priority": 0.7,
+      "investigated": false,
+      "investigation_result": null
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "timestamp": 1788577771.9597423,
+  "provider_metadata": {
+    "provider_type": "MOCK_SIMULATION",
+    "mock_provider": true,
+    "provider_class": "MockLLMProvider",
+    "model": "mock-deterministic-v1",
+    "reasoning_quality": 0.7,
+    "hallucination_rate": 0.0,
+    "prompt_version_hash": "bf6480007259d30e14af2685ca6e873807fe5a681e3770e99e4a69b662f2f5b4"
+  },
+  "provider_type": "MOCK_SIMULATION",
+  "mock_provider": true,
+  "prompt_hash": "bf6480007259d30e14af2685ca6e873807fe5a681e3770e99e4a69b662f2f5b4",
+  "tool_policy_hash": "39256125d9e9e710bb66dea8d8debe4bd09d37f2c860cb2b4a7a58833a2b428f",
+  "config_hash": "",
+  "target": "differential_v1/diff_021 (reasoning family)",
+  "phases": {
+    "observation": {
+      "routes": [
+        "/diff/v1/own_res_21",
+        "/diff/v1/target_res_21",
+        "/patched/diff/v1/target_res_21"
+      ],
+      "num_observations": 3
+    },
+    "llm_hypotheses": {
+      "num": 3,
+      "llm_request_count": 1,
+      "hypotheses": [
+        {
+          "id": "hyp-45686795",
+          "description": "Ownership boundary violation: resource accessed by non-owner actor",
+          "confidence": 0.48999999999999994,
+          "status": "proposed"
+        },
+        {
+          "id": "hyp-9d497631",
+          "description": "Tenant isolation failure: cross-tenant resource accessible",
+          "confidence": 0.5249999999999999,
+          "status": "proposed"
+        },
+        {
+          "id": "hyp-0497e7e9",
+          "description": "State-dependent permission: authorization behavior may change with resource state",
+          "confidence": 0.315,
+          "status": "proposed"
+        }
+      ]
+    },
+    "tool_selection": {
+      "tool": "compare",
+      "authorized": true,
+      "error": null
+    },
+    "deterministic_validation": {
+      "verdict": "CLEAN",
+      "confidence": 0.935,
+      "block_reason": null,
+      "proof_bundle_valid": true,
+      "proof_bundle_id": null,
+      "deterministic_seal": "e9996e878d1bb8cd07f44d2bdd8997ccec44af7bc3e9eb5bfc050b84b26bbba2"
+    },
+    "replay": {
+      "replay_succeeded": true
+    }
+  },
+  "metrics": {
+    "llm_request_count": 1,
+    "tool_call_count": 1,
+    "total_tokens_used": 719,
+    "total_latency_seconds": 0.07
+  },
+  "final_verdict_authority": "CausalGuard_deterministic_engine",
+  "llm_respected_boundary": true,
+  "provider_telemetry_redacted": [
+    {
+      "call_id": "5a0f13a4-8322-4f06-b1a4-465a2985ddfd",
+      "model": "mock-deterministic-v1",
+      "tokens_used": 719,
+      "latency_seconds": 0.12,
+      "finish_reason": "stop",
+      "had_error": false,
+      "timestamp": 1788577771.9725645
+    }
+  ]
+}

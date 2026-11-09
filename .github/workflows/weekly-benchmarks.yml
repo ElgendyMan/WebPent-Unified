@@ -1,0 +1,68 @@
+# M12 (Part 4 §13/§14, UM-DR-23): the weekly benchmark + qualification
+# canary — the ق5 self-benchmark / weekly-runs enrollment the registry
+# names ("weekly Juice Suite runs + canary scheduler + ق5 self-benchmark
+# wired"). M11 built run_weekly_benchmarks() (deception corpus + Charter
+# baseline replay + the operator-configured dojo suite + the label
+# rollup); this workflow enrolls it on cron (Mondays 03:00 UTC) and on
+# manual dispatch, uploading the dated report artifact.
+#
+# Posture: deterministic/offline (the internal benchmark set only — no
+# live targets, no egress, no auth surface), mirroring nightly.yml.
+name: Weekly qualification benchmarks
+
+on:
+  schedule:
+    - cron: "0 3 * * 1"
+  workflow_dispatch:
+
+jobs:
+  weekly-benchmarks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      LLM_ENABLED: "false"
+      EMBEDDINGS_OFFLINE: "true"
+      DISABLE_RAG: "true"
+      AUTH_ENABLED: "false"
+      WEBPENT_ENTRYPOINT: "ci"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - name: Sync locked dependencies
+        run: uv sync --locked --extra dev
+
+      - name: Run the weekly qualification benchmarks (M11)
+        run: |
+          uv run python - <<'PY'
+          from webpent.qualification import run_weekly_benchmarks
+          report = run_weekly_benchmarks()
+          import json
+          print(json.dumps({
+              "report_path": report.get("report_path"),
+              "deception": {
+                  "fixtures": report["deception_benchmark"]["fixtures_total"],
+                  "false_positives": report["deception_benchmark"]["false_positives"],
+              },
+              "labels": {
+                  name: verdict["label"]
+                  for name, verdict in report["qualification_labels"].items()
+              },
+          }, indent=2))
+          # The gate: the deception benchmark must stay at zero false
+          # positives — a regression here fails the canary loudly.
+          assert report["deception_benchmark"]["false_positives"] == 0
+          PY
+
+      - name: Upload the dated qualification report
+        uses: actions/upload-artifact@v4
+        with:
+          name: weekly-qualification-report
+          path: reports/qualification/
+          if-no-files-found: error

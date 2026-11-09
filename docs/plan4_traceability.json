@@ -1,0 +1,755 @@
+{
+  "git_head": "1887bbb7b412956e451b469c0d880759e66e56d3",
+  "global_safety": {
+    "automatic_disclosure_or_submission": "DISABLED",
+    "live_provider_io": "NOT RUN",
+    "live_target_io": "NOT RUN",
+    "private_keys_in_artifacts": "FORBIDDEN",
+    "waptlab_qualification": "NOT QUALIFIED"
+  },
+  "phases": [
+    {
+      "artifact_files": [
+        {
+          "bytes": 44989,
+          "path": "artifacts/smart_hunter_review/plan_baseline_20260822.log",
+          "present": true,
+          "sha256": "e20dc3d88fd66a699a0f98665c0c145310cc6b38f8846391a6be32e68306d869"
+        },
+        {
+          "bytes": 13392,
+          "path": "artifacts/smart_hunter_review/phase6_recheck_20260822.log",
+          "present": true,
+          "sha256": "38fc69c473c556fa465a6aadf8a8578ca0d26efc376f145057eac656206e3e12"
+        },
+        {
+          "bytes": 90130,
+          "path": "docs/release_manifest.json",
+          "present": true,
+          "sha256": "04c6f4d9d04229d42efe1dba5840553b8ed52313932656e338001b88ebc39c89"
+        }
+      ],
+      "missing_evidence": [],
+      "notes": [
+        "WebPent and bbscout final combined rerun is represented separately in release evidence.",
+        "No generated runtime database, cache, credential, cookie, or private key is evidence for a release."
+      ],
+      "phase": "P0",
+      "requirements": [
+        "Collection/import smoke and full suites must run.",
+        "Both projects must be Ruff-clean and release artifacts redaction-safe."
+      ],
+      "source_files": [
+        {
+          "bytes": 6624,
+          "path": "scripts/build_release_manifest.py",
+          "present": true,
+          "sha256": "d7ad3406108a154676d8663d7e0498c0f14a82bd9b127c2338a218bd6c1b9fcd"
+        },
+        {
+          "bytes": 5833,
+          "path": "scripts/verify_release_artifacts.py",
+          "present": true,
+          "sha256": "6e7949e7194196d9921953226ddd609e883cd946780311e1d2fa2b2348170d71"
+        }
+      ],
+      "status": "PARTIAL",
+      "test_files": [
+        {
+          "bytes": 2408,
+          "path": "tests/test_release_artifact_audit.py",
+          "present": true,
+          "sha256": "b74e9ee99c6c12411915b77fdfbae8a2df2ab4e083e59cdf5915b8d0e1367ff2"
+        },
+        {
+          "bytes": 5193,
+          "path": "tests/test_v70_release_contracts.py",
+          "present": true,
+          "sha256": "d2cc70f377239f9b7e3b43afc1c8ed2951f2dad9902f911ab101e111cae1d4bc"
+        }
+      ],
+      "title": "Reproducible baseline and repository recovery"
+    },
+    {
+      "artifact_files": [
+        {
+          "bytes": 99,
+          "path": "artifacts/smart_hunter_review/phase3_provider_tests_final.log",
+          "present": true,
+          "sha256": "3d92a3a8f179e568c4573609c7246adffbf3ff4608374443cc68ff6e4e8bdf3a"
+        }
+      ],
+      "missing_evidence": [],
+      "notes": [
+        "The provider source is an external integration tree and is not claimed as committed to WebPent Git.",
+        "Fixture contracts are offline and provider-neutral; they are not official live schema validation."
+      ],
+      "phase": "P1",
+      "requirements": [
+        "Provider-neutral records and typed failures normalize offline.",
+        "Unknown/missing policy or scope cannot become ready."
+      ],
+      "source_files": [
+        {
+          "bytes": 995,
+          "path": "../../phase6_bbscout_extract/webpent_bbscout_integration/bbscout/src/bbscout/providers/catalog.py",
+          "present": true,
+          "sha256": "1fdcbb395b30f0f6836826d2fa38dd0d8d4e25e2f8066244762ea2d03812ca54"
+        },
+        {
+          "bytes": 7565,
+          "path": "../../phase6_bbscout_extract/webpent_bbscout_integration/bbscout/src/bbscout/providers/fixture.py",
+          "present": true,
+          "sha256": "c534ea9b361283d110eb4ec773d41dacdb60b1cf6fe6d08807d15de5d12af832"
+        }
+      ],
+      "status": "PASS",
+      "test_files": [],
+      "title": "Repository boundary and provider-neutral contracts"
+    },
+    {
+      "artifact_files": [
+        {
+          "bytes": 47,
+          "path": "artifacts/smart_hunter_review/phase3_provider_smoke_final.log",
+          "present": true,
+          "sha256": "c401bb6381e56a6a4dd4df0b8153d0a4d2aaaf19ca4827d7b9491ece8372fe7b"
+        }
+      ],
+      "missing_evidence": [],
+      "notes": [
+        "Offline fixture smoke is complete for HackerOne, Bugcrowd, Intigriti, and YesWeHack.",
+        "Provider live smoke is NOT RUN: no separate provider authorization was supplied.",
+        "Bugcrowd, Intigriti, and YesWeHack remain fixture-only; no live support is claimed."
+      ],
+      "phase": "P2",
+      "requirements": [
+        "Four provider identities have bounded read-only fixture adapters.",
+        "Live smoke is separately authorized and must remain disabled otherwise."
+      ],
+      "source_files": [
+        {
+          "bytes": 995,
+          "path": "../../phase6_bbscout_extract/webpent_bbscout_integration/bbscout/src/bbscout/providers/catalog.py",
+          "present": true,
+          "sha256": "1fdcbb395b30f0f6836826d2fa38dd0d8d4e25e2f8066244762ea2d03812ca54"
+        },
+        {
+          "bytes": 16589,
+          "path": "../../phase6_bbscout_extract/webpent_bbscout_integration/bbscout/src/bbscout/cli.py",
+          "present": true,
+          "sha256": "b9604e1fa3a8904509127a418af411462bc0c677699257e4de9a55e581f4a923"
+        }
+      ],
+      "status": "PARTIAL",
+      "test_files": [],
+      "title": "Multi-provider discovery and safe credential handling"
+    },
+    {
+      "artifact_files": [
+        {
+          "bytes": 99,
+          "path": "artifacts/smart_hunter_review/phase3_provider_tests_final.log",
+          "present": true,
+          "sha256": "3d92a3a8f179e568c4573609c7246adffbf3ff4608374443cc68ff6e4e8bdf3a"
+        }
+      ],
+      "missing_evidence": [],
+      "notes": [
+        "No bounty size, brand popularity, or domain count is treated as confirmation evidence."
+      ],
+      "phase": "P3",
+      "requirements": [
+        "Eligibility is fail-closed for stale, ambiguous, unsupported, or unevidenced programs.",
+        "Ranking is deterministic and evidence-based."
+      ],
+      "source_files": [
+        {
+          "bytes": 8716,
+          "path": "../../phase6_bbscout_extract/webpent_bbscout_integration/bbscout/src/bbscout/scoring.py",
+          "present": true,
+          "sha256": "b2c75f181834f54de1d9a8dc6a95617abcd0947950792e43e16caff2baa59704"
+        },
+        {
+          "bytes": 8645,
+          "path": "../../phase6_bbscout_extract/webpent_bbscout_integration/bbscout/src/bbscout/scope.py",
+          "present": true,
+          "sha256": "4e9fc84bb9e45fbc5b00db6cd33642d9ae02151fc7709c0def78fb70f3f0f6a1"
+        }
+      ],
+      "status": "PASS",
+      "test_files": [
+        {
+          "bytes": 13443,
+          "path": "tests/test_v61_remaining_plan_artifacts.py",
+          "present": true,
+          "sha256": "7440b3154044e98d1e2180012b0af3872b75d08630d4f1996a6312c0484ce8a3"
+        }
+      ],
+      "title": "Program selection by expected confirmed-finding yield"
+    },
+    {
+      "artifact_files": [
+        {
+          "bytes": 2398,
+          "path": "artifacts/smart_hunter_review/phase4_handoff_proof_validation.log",
+          "present": true,
+          "sha256": "4debf818a91eeec62e15389137561675b07ab3721a8bf842de9f5608c7889d20"
+        }
+      ],
+      "missing_evidence": [],
+      "notes": [
+        "Private signing keys are runtime-only and are not packaged or persisted by the CLI path."
+      ],
+      "phase": "P4",
+      "requirements": [
+        "Canonical scope, detached Ed25519 signing, trust-map verification, and admission are fail-closed.",
+        "Replay, tamper, expiry, wrong target, and missing confirmation are denied before graph start."
+      ],
+      "source_files": [
+        {
+          "bytes": 10354,
+          "path": "src/webpent/shared/package_execution_intake.py",
+          "present": true,
+          "sha256": "31f23de7cc740df4fb3821702d7dba346900b144e955982c013d7d8e68e83754"
+        },
+        {
+          "bytes": 4282,
+          "path": "src/webpent/shared/package_preflight.py",
+          "present": true,
+          "sha256": "fee82d32e4a021842223c6c0d97cb0c4d97959aa36f770de00fdb23e4de73fe9"
+        },
+        {
+          "bytes": 9858,
+          "path": "../../phase6_bbscout_extract/webpent_bbscout_integration/bbscout/src/bbscout/packages.py",
+          "present": true,
+          "sha256": "6cd2f031a653b356fb682b4155929c33948797bb5dd1fcf39aaa121c4b437cad"
+        },
+        {
+          "bytes": 5760,
+          "path": "../../phase6_bbscout_extract/webpent_bbscout_integration/bbscout/src/bbscout/signatures.py",
+          "present": true,
+          "sha256": "5017328051e34cfdfe55d0985dede07bb85f6af951e3a35a93b2bfab71268303"
+        }
+      ],
+      "status": "PASS",
+      "test_files": [
+        {
+          "bytes": 25304,
+          "path": "tests/test_target_package_v2_hardening.py",
+          "present": true,
+          "sha256": "8b237c37337779d68d346a3af3f20c6325cc2e6905bd4c590db7df163f7d0ce6"
+        }
+      ],
+      "title": "Scope normalization, package signing, and admission"
+    },
+    {
+      "artifact_files": [
+        {
+          "bytes": 2398,
+          "path": "artifacts/smart_hunter_review/phase4_handoff_proof_validation.log",
+          "present": true,
+          "sha256": "4debf818a91eeec62e15389137561675b07ab3721a8bf842de9f5608c7889d20"
+        }
+      ],
+      "missing_evidence": [],
+      "notes": [
+        "Evidence is dry-run/mock based; no live target was contacted."
+      ],
+      "phase": "P5",
+      "requirements": [
+        "Signed package context survives entrypoint, intake, worker, graph, execution gate, validator, proof, and report boundaries.",
+        "No alternate direct-I/O path bypasses ActionAuthority and ActionExecutor."
+      ],
+      "source_files": [
+        {
+          "bytes": 75515,
+          "path": "src/webpent/api/app.py",
+          "present": true,
+          "sha256": "531fa9fa802b460dccc76771ba2fee3381767ecb819503fd4e32cb70b793f7b4"
+        },
+        {
+          "bytes": 64503,
+          "path": "src/webpent/workers/pentest_worker.py",
+          "present": true,
+          "sha256": "d9827fb1b7a60aead531c9ba4f7330592957cb36864863b248f8d59093298c00"
+        },
+        {
+          "bytes": 34896,
+          "path": "src/webpent/shared/autonomous_controller.py",
+          "present": true,
+          "sha256": "ae7c52d2d50413fdb60d1ab957565a8b5346d3ebc5e890e80989d72540b7f6c9"
+        }
+      ],
+      "status": "PASS",
+      "test_files": [
+        {
+          "bytes": 25304,
+          "path": "tests/test_target_package_v2_hardening.py",
+          "present": true,
+          "sha256": "8b237c37337779d68d346a3af3f20c6325cc2e6905bd4c590db7df163f7d0ce6"
+        },
+        {
+          "bytes": 22697,
+          "path": "tests/test_autonomy_contracts.py",
+          "present": true,
+          "sha256": "21051a5e942f8b6bc72938a5cc11ffd52962639369be9ff3a84642a4e174892e"
+        }
+      ],
+      "title": "Complete WebPent wiring"
+    },
+    {
+      "artifact_files": [
+        {
+          "bytes": 1205,
+          "path": "artifacts/smart_hunter_review/phase5_target_validator_autonomy.log",
+          "present": true,
+          "sha256": "89d0baa275719963211f78acbb613ee7cbcd37bca8a8a9287e07d8de5c6709dd"
+        }
+      ],
+      "missing_evidence": [],
+      "notes": [
+        "The evidence is offline fixture and mock-transport evidence, not WAPTLab qualification."
+      ],
+      "phase": "P6",
+      "requirements": [
+        "Target model records routes, APIs, workflows, identities, tenants, data flows, and coverage states.",
+        "Hypotheses do not become findings without behavioral evidence."
+      ],
+      "source_files": [
+        {
+          "bytes": 1004,
+          "path": "src/webpent/knowledge/target_model.py",
+          "present": true,
+          "sha256": "9934a1c82781679cef7d406e6fd4533d91b0b8e21df1fc64ce887c25580f802f"
+        },
+        {
+          "bytes": 5699,
+          "path": "src/webpent/knowledge/target_knowledge.py",
+          "present": true,
+          "sha256": "e3f99ecb63325da403681fc9cba08d16f87f7109b99bf0de1884d752e7d75500"
+        },
+        {
+          "bytes": 22801,
+          "path": "src/webpent/shared/workflow_understanding.py",
+          "present": true,
+          "sha256": "3fcc89141e40c2fb67b3f3c584aa08892e49e36982494e65c343638d6805fe3f"
+        }
+      ],
+      "status": "PASS",
+      "test_files": [
+        {
+          "bytes": 823,
+          "path": "tests/test_phase5_target_understanding.py",
+          "present": true,
+          "sha256": "4fb69c7606f75e5bb596aefcd6abc5cd4aee74bacb0c0a0874f3920266b65b38"
+        },
+        {
+          "bytes": 4916,
+          "path": "tests/test_vip_offline_validator_fixtures.py",
+          "present": true,
+          "sha256": "f79fa6401eedc80bd533d008acfcdf8758ee19ccd0006e4080835a0a12f0a4de"
+        }
+      ],
+      "title": "Target understanding and complex-target modeling"
+    },
+    {
+      "artifact_files": [
+        {
+          "bytes": 1205,
+          "path": "artifacts/smart_hunter_review/phase5_target_validator_autonomy.log",
+          "present": true,
+          "sha256": "89d0baa275719963211f78acbb613ee7cbcd37bca8a8a9287e07d8de5c6709dd"
+        }
+      ],
+      "missing_evidence": [],
+      "notes": [
+        "Offline contracts and secret guards are tested.",
+        "No authorized mailbox/browser credential workflow was executed in this run."
+      ],
+      "phase": "P7",
+      "requirements": [
+        "Credential and browser state must be operator supplied, redaction-safe, and isolated from packages/prompts/logs.",
+        "Missing identity or capability must block or remain inconclusive."
+      ],
+      "source_files": [
+        {
+          "bytes": 17800,
+          "path": "src/webpent/shared/identity_provisioning.py",
+          "present": true,
+          "sha256": "c9c4c4161e0e2712e1bacb5c9444c7874bf6d3c88a530d38f6d4a292e87067ca"
+        },
+        {
+          "bytes": 10354,
+          "path": "src/webpent/shared/package_execution_intake.py",
+          "present": true,
+          "sha256": "31f23de7cc740df4fb3821702d7dba346900b144e955982c013d7d8e68e83754"
+        },
+        {
+          "bytes": 28930,
+          "path": "src/webpent/shared/direct_io_inventory.py",
+          "present": true,
+          "sha256": "d1e2a9792d2a13d2d77339425100a233462678487dba85a93f0623c8d249f68e"
+        }
+      ],
+      "status": "PARTIAL",
+      "test_files": [
+        {
+          "bytes": 14306,
+          "path": "tests/test_identity_provisioning.py",
+          "present": true,
+          "sha256": "6478cc0b657b5d5fc93479c71d7f3efb4df4084b7c0270e5e69001b84de692d0"
+        },
+        {
+          "bytes": 3938,
+          "path": "tests/test_v72_idor_validator_replay.py",
+          "present": true,
+          "sha256": "fcaf96fd347b910117f3bdb1e704f5d31894a7de71c3d23bd1643c5442c1ba6b"
+        },
+        {
+          "bytes": 2724,
+          "path": "tests/test_p0_production_secrets_fail_closed.py",
+          "present": true,
+          "sha256": "a424368fdc631d9f1727d158d29d450fc15fcecd3795d6911c3b22fa19562820"
+        }
+      ],
+      "title": "Identity, browser, mailbox, and workflow capability"
+    },
+    {
+      "artifact_files": [
+        {
+          "bytes": 148550,
+          "path": "docs/direct_io_inventory.json",
+          "present": true,
+          "sha256": "0bebc1cce328c5c0dd336db275f87eaa7f951d78077ebc72c06f221a25334e9f"
+        }
+      ],
+      "missing_evidence": [],
+      "notes": [
+        "G-02 is evaluated from generated inventory and runtime/precommit checks, not from a manual assertion."
+      ],
+      "phase": "P8",
+      "requirements": [
+        "Target-facing actions pass through one authority/executor plane.",
+        "Retries, resume, idempotency, budgets, and worker continuity are guarded."
+      ],
+      "source_files": [
+        {
+          "bytes": 14388,
+          "path": "src/webpent/shared/action_authority.py",
+          "present": true,
+          "sha256": "742cc71bdbeaf79135b866ba796b21e4c717da2ef228787068386ad7cf1083cc"
+        },
+        {
+          "bytes": 20922,
+          "path": "src/webpent/shared/campaign_executor.py",
+          "present": true,
+          "sha256": "90740acb417ac066ee7cc5bdd4cd209f0bb5d97e21a92e2b447ee841f900d12b"
+        },
+        {
+          "bytes": 28930,
+          "path": "src/webpent/shared/direct_io_inventory.py",
+          "present": true,
+          "sha256": "d1e2a9792d2a13d2d77339425100a233462678487dba85a93f0623c8d249f68e"
+        }
+      ],
+      "status": "PASS",
+      "test_files": [
+        {
+          "bytes": 4497,
+          "path": "tests/test_production_deployment_contract.py",
+          "present": true,
+          "sha256": "fa359b3f765062885d4cdcaa74597d2f2f0a53009d68d26cdb63481cd8ebb89c"
+        },
+        {
+          "bytes": 22697,
+          "path": "tests/test_autonomy_contracts.py",
+          "present": true,
+          "sha256": "21051a5e942f8b6bc72938a5cc11ffd52962639369be9ff3a84642a4e174892e"
+        }
+      ],
+      "title": "Unified execution plane and distributed safety"
+    },
+    {
+      "artifact_files": [
+        {
+          "bytes": 1205,
+          "path": "artifacts/smart_hunter_review/phase5_target_validator_autonomy.log",
+          "present": true,
+          "sha256": "89d0baa275719963211f78acbb613ee7cbcd37bca8a8a9287e07d8de5c6709dd"
+        }
+      ],
+      "missing_evidence": [],
+      "notes": [
+        "No finding is promoted from URL names, status codes, response text, or LLM confidence alone."
+      ],
+      "phase": "P9",
+      "requirements": [
+        "Validators require causal signals, negative controls, and proof-capable observations.",
+        "Candidate, inconclusive, and confirmed states remain distinct."
+      ],
+      "source_files": [
+        {
+          "bytes": 638,
+          "path": "src/webpent/validators/causal_validator.py",
+          "present": true,
+          "sha256": "c1835ca63babf924f165b3d31532f26d33aa206fa874aaaa608f188c9744bf39"
+        },
+        {
+          "bytes": 621,
+          "path": "src/webpent/validators/replay_validator.py",
+          "present": true,
+          "sha256": "4b5e61383287d95e24167f07a4ebe5dfa0b24c5a2bb707b24946afe96bb22fe8"
+        },
+        {
+          "bytes": 480,
+          "path": "src/webpent/validators/proof_validator.py",
+          "present": true,
+          "sha256": "f1da591b346799558aa50f904163310ad22665ad6d8f67a091ac6db3a28925af"
+        }
+      ],
+      "status": "PASS",
+      "test_files": [
+        {
+          "bytes": 1798,
+          "path": "tests/test_v64_multi_agent_proof_validators.py",
+          "present": true,
+          "sha256": "853a01399bc05d70ad7f8f8ad4741b865d8192e698b37f9e35789ae880d9d6ac"
+        },
+        {
+          "bytes": 5793,
+          "path": "tests/test_vip_validator_plugins.py",
+          "present": true,
+          "sha256": "525ec7c74688f5bd40291245b8ff5be1eff12ff6319ea3434e654d78a36db5b8"
+        }
+      ],
+      "title": "Validator and oracle expansion"
+    },
+    {
+      "artifact_files": [
+        {
+          "bytes": 1205,
+          "path": "artifacts/smart_hunter_review/phase5_target_validator_autonomy.log",
+          "present": true,
+          "sha256": "89d0baa275719963211f78acbb613ee7cbcd37bca8a8a9287e07d8de5c6709dd"
+        }
+      ],
+      "missing_evidence": [],
+      "notes": [
+        "This proves bounded offline controller behavior, not autonomous live exploitation."
+      ],
+      "phase": "P10",
+      "requirements": [
+        "Controller consumes coverage and knowledge gaps, chooses bounded next actions, and replans within budgets.",
+        "LLM remains advisory and cannot authorize or prove a finding."
+      ],
+      "source_files": [
+        {
+          "bytes": 34896,
+          "path": "src/webpent/shared/autonomous_controller.py",
+          "present": true,
+          "sha256": "ae7c52d2d50413fdb60d1ab957565a8b5346d3ebc5e890e80989d72540b7f6c9"
+        },
+        {
+          "bytes": 37336,
+          "path": "src/webpent/shared/research_intelligence.py",
+          "present": true,
+          "sha256": "1e4ed06dcd3a582b986b6caa3c9bdbb3f551844280f46ace34cb681f18fecbc4"
+        },
+        {
+          "bytes": 20722,
+          "path": "src/webpent/shared/campaign_planner.py",
+          "present": true,
+          "sha256": "e652fd8d2b000390e5a7ad7f397a22e481f840df8fceb2ae1c762423df57101f"
+        }
+      ],
+      "status": "PASS",
+      "test_files": [
+        {
+          "bytes": 4280,
+          "path": "tests/test_v94_autonomous_controller.py",
+          "present": true,
+          "sha256": "23358710d55db24a1906e62daf0bc4aca50989d0aab728dba0cb8a6619927ca3"
+        },
+        {
+          "bytes": 1885,
+          "path": "tests/test_v3_autonomous_graph_loop.py",
+          "present": true,
+          "sha256": "ffbfcb6a7cfb15623f0ab9f6eda1c9837694defd02c248fd4c22354567ec1c3a"
+        }
+      ],
+      "title": "Autonomous research loop"
+    },
+    {
+      "artifact_files": [
+        {
+          "bytes": 2398,
+          "path": "artifacts/smart_hunter_review/phase4_handoff_proof_validation.log",
+          "present": true,
+          "sha256": "4debf818a91eeec62e15389137561675b07ab3721a8bf842de9f5608c7889d20"
+        }
+      ],
+      "missing_evidence": [],
+      "notes": [
+        "Proof claims here are from offline/mocked validation paths only."
+      ],
+      "phase": "P11",
+      "requirements": [
+        "Confirmed status requires a valid sealed/replayable ProofBundle with causal and negative-control evidence.",
+        "Reports expose blocked and inconclusive coverage and refuse unsupported confirmation."
+      ],
+      "source_files": [
+        {
+          "bytes": 21332,
+          "path": "src/webpent/shared/proof_engine.py",
+          "present": true,
+          "sha256": "7251fc99929a447c692dbdade62c6bd5c80442b4cefa3f8387bdafb59c60da48"
+        },
+        {
+          "bytes": 3729,
+          "path": "src/webpent/shared/proof_bundle_store.py",
+          "present": true,
+          "sha256": "fe3bc2ba23388ced811151d9baf52d0e14013d5a136411780c4d377f55ef0a42"
+        },
+        {
+          "bytes": 37844,
+          "path": "src/webpent/agents/reporter/agent.py",
+          "present": true,
+          "sha256": "76667fd217cf1facbfea05ea1e05b97f15ffc0796dd3caac27d13285c44596b5"
+        }
+      ],
+      "status": "PASS",
+      "test_files": [
+        {
+          "bytes": 1734,
+          "path": "tests/test_v92_reporter_strict_proof.py",
+          "present": true,
+          "sha256": "b05cddee305cf66e662a4d3a67d47d238ee1136ee3ef0b157688e158a13a093b"
+        },
+        {
+          "bytes": 8693,
+          "path": "tests/test_vip_proof_engine.py",
+          "present": true,
+          "sha256": "df75d440c34c5adaef7de3f5e353d304a95344c1f99c892df717ab4ef0ebffcf"
+        },
+        {
+          "bytes": 1798,
+          "path": "tests/test_v64_multi_agent_proof_validators.py",
+          "present": true,
+          "sha256": "853a01399bc05d70ad7f8f8ad4741b865d8192e698b37f9e35789ae880d9d6ac"
+        }
+      ],
+      "title": "Proof, reporting, and evidence integrity"
+    },
+    {
+      "artifact_files": [
+        {
+          "bytes": 2347,
+          "path": "docs/waptlab_qualification_report.json",
+          "present": true,
+          "sha256": "3a1571635a3cf60c22c0f3461dab26bcd55f1459bb73d03d54bcf6655b9bc3cb"
+        }
+      ],
+      "missing_evidence": [],
+      "notes": [
+        "NOT RUN: no authorized local WAPTLab instance, target package, or separate qualification authorization was provided.",
+        "No live target/provider I/O was performed and no VIP claim is made."
+      ],
+      "phase": "P12",
+      "requirements": [
+        "Three independent clean authorized runs must confirm at least 15/20 classes.",
+        "Precision must be at least 90%, reproducibility at least 95%, proof coverage 100%, and zero scope violations/duplicates/false-clean results."
+      ],
+      "source_files": [
+        {
+          "bytes": 13691,
+          "path": "scripts/run_vip_quality_gate.py",
+          "present": true,
+          "sha256": "bee8bc380f3510e7082eaf43dae9732d3925529b13d37f154cceb7bcaa13e92b"
+        }
+      ],
+      "status": "NOT QUALIFIED",
+      "test_files": [
+        {
+          "bytes": 13443,
+          "path": "tests/test_v61_remaining_plan_artifacts.py",
+          "present": true,
+          "sha256": "7440b3154044e98d1e2180012b0af3872b75d08630d4f1996a6312c0484ce8a3"
+        }
+      ],
+      "title": "WAPTLab qualification and complex-target optimization"
+    },
+    {
+      "artifact_files": [
+        {
+          "bytes": 9588,
+          "path": "docs/vip_quality_gate.json",
+          "present": true,
+          "sha256": "7812afb57a5224fd04d84df2e524e304b09329f42cc788ef26760facba4cd66d"
+        },
+        {
+          "bytes": 90130,
+          "path": "docs/release_manifest.json",
+          "present": true,
+          "sha256": "04c6f4d9d04229d42efe1dba5840553b8ed52313932656e338001b88ebc39c89"
+        }
+      ],
+      "missing_evidence": [],
+      "notes": [
+        "Final combined gate and clean integration archive are generated after this report is created.",
+        "Release decision must remain blocked until all required evidence and authorized qualification exist."
+      ],
+      "phase": "P13",
+      "requirements": [
+        "Release must be redaction-safe, reproducible, statically clean, and verifiable as an archive.",
+        "Production/qualification profiles force proof requirements and remain fail-closed."
+      ],
+      "source_files": [
+        {
+          "bytes": 13691,
+          "path": "scripts/run_vip_quality_gate.py",
+          "present": true,
+          "sha256": "bee8bc380f3510e7082eaf43dae9732d3925529b13d37f154cceb7bcaa13e92b"
+        },
+        {
+          "bytes": 6624,
+          "path": "scripts/build_release_manifest.py",
+          "present": true,
+          "sha256": "d7ad3406108a154676d8663d7e0498c0f14a82bd9b127c2338a218bd6c1b9fcd"
+        },
+        {
+          "bytes": 5833,
+          "path": "scripts/verify_release_artifacts.py",
+          "present": true,
+          "sha256": "6e7949e7194196d9921953226ddd609e883cd946780311e1d2fa2b2348170d71"
+        },
+        {
+          "bytes": 9374,
+          "path": "docker-compose.yml",
+          "present": true,
+          "sha256": "ae1f1b6f230d2a80cc91f6f8a253bc48489b346923fc4478811f7c0fdb5e9168"
+        }
+      ],
+      "status": "PARTIAL",
+      "test_files": [
+        {
+          "bytes": 2408,
+          "path": "tests/test_release_artifact_audit.py",
+          "present": true,
+          "sha256": "b74e9ee99c6c12411915b77fdfbae8a2df2ab4e083e59cdf5915b8d0e1367ff2"
+        },
+        {
+          "bytes": 4497,
+          "path": "tests/test_production_deployment_contract.py",
+          "present": true,
+          "sha256": "fa359b3f765062885d4cdcaa74597d2f2f0a53009d68d26cdb63481cd8ebb89c"
+        }
+      ],
+      "title": "Production hardening and release packaging"
+    }
+  ],
+  "plan_source": "pasted_content_4.txt",
+  "python": "3.12.3",
+  "repository": "WebPent + external bbscout integration tree",
+  "schema_version": "plan4-traceability-v1"
+}

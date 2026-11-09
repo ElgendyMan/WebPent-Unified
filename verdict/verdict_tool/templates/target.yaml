@@ -1,0 +1,34 @@
+# Target configuration — strict schema (U-VERDICT-3).
+# Never put credentials in this file; secrets live in .env outside the repo.
+
+target:
+  name: target_a                # stable id used across the workspace
+  platform: hackerone           # hackerone | bugcrowd | yeswehack | other
+  program_url: https://example.com/security
+  program_handle: example_program
+
+scope:
+  in_scope:
+    - "*.example.com"
+  out_of_scope:
+    - "blog.example.com"
+  excluded_methods:
+    - destructive
+
+policy:
+  automation_allowed: true
+  max_rate_rps: 5
+  safe_harbor: true
+  notes: "Authorization confirmed in writing on 2026-10-18"
+
+credentials:
+  has_test_account: false       # only booleans/notes; NO secrets here
+
+output:
+  run_dir: runs/target_a/
+  log_level: INFO
+
+metadata:
+  legal_review_completed: true
+  reviewed_by: "operator"
+  added_at: "2026-10-18"

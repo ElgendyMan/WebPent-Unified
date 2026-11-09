@@ -1,0 +1,422 @@
+{
+  "diff_001": {
+    "expected_label": "vulnerable",
+    "ground_truth_digest": "89ffd9b9ddec95dd55b904409878af7cc0cf5a965c580912dc91511f06dbf102",
+    "case_family": "easy",
+    "mechanism": "direct_idor",
+    "difficulty": 1
+  },
+  "diff_002": {
+    "expected_label": "vulnerable",
+    "ground_truth_digest": "1064de9cb1463a6815ba866ad1c87e5ee9db887a4ce44acc1378906921090209",
+    "case_family": "easy",
+    "mechanism": "direct_bac",
+    "difficulty": 1
+  },
+  "diff_003": {
+    "expected_label": "vulnerable",
+    "ground_truth_digest": "5ccead6c52c1cc4e25b0c9ad2ce7d35d8a10cac4205e292ebf5d01782143119e",
+    "case_family": "easy",
+    "mechanism": "ownership_mismatch",
+    "difficulty": 1
+  },
+  "diff_004": {
+    "expected_label": "vulnerable",
+    "ground_truth_digest": "16f9274de46877288c9e56e446573cf3f427e66dc0e0e39a404845c758c5a26c",
+    "case_family": "easy",
+    "mechanism": "header_auth_bypass",
+    "difficulty": 1
+  },
+  "diff_005": {
+    "expected_label": "vulnerable",
+    "ground_truth_digest": "5fb96fee8d1dc2c67a1404f7be468563f75f410d0270e0ff8341710a198ac56c",
+    "case_family": "easy",
+    "mechanism": "method_bypass",
+    "difficulty": 1
+  },
+  "diff_006": {
+    "expected_label": "vulnerable",
+    "ground_truth_digest": "8f6ff3bca94355e6c7d34f83dd7d5d94a37776fcc719d493dabad357990eab67",
+    "case_family": "easy",
+    "mechanism": "path_traversal_simple",
+    "difficulty": 1
+  },
+  "diff_007": {
+    "expected_label": "vulnerable",
+    "ground_truth_digest": "e63eea29517f3f8543597cc5295d0b920e8733306185f6277c64f3b51938a52a",
+    "case_family": "easy",
+    "mechanism": "missing_auth_header",
+    "difficulty": 1
+  },
+  "diff_008": {
+    "expected_label": "vulnerable",
+    "ground_truth_digest": "952bca53398572261dbe1a5fe31712998d57c969305ff1eccad8bbe5743a7eba",
+    "case_family": "easy",
+    "mechanism": "actor_echo_mismatch",
+    "difficulty": 1
+  },
+  "diff_009": {
+    "expected_label": "vulnerable",
+    "ground_truth_digest": "d37475a8a52d6e57f2ccddeec95f02541b3753716613b563967a7081c4435b92",
+    "case_family": "easy",
+    "mechanism": "resource_owner_mismatch",
+    "difficulty": 1
+  },
+  "diff_010": {
+    "expected_label": "vulnerable",
+    "ground_truth_digest": "731b9e5ccfb5992dd6a7f275905791694481bd67a639fb7b24af5e18c1651763",
+    "case_family": "easy",
+    "mechanism": "tenant_mismatch",
+    "difficulty": 1
+  },
+  "diff_011": {
+    "expected_label": "clean",
+    "ground_truth_digest": "319e222ad76f981042ce0243f710eb297e60ef37c2f48d95b0c0dcf55c83a4c8",
+    "case_family": "easy",
+    "mechanism": "direct_idor",
+    "difficulty": 1
+  },
+  "diff_012": {
+    "expected_label": "clean",
+    "ground_truth_digest": "6285f437ff6b5be1c40a1f950151bd6ba824ff7266c7ad35098d7bb9309a5c9b",
+    "case_family": "easy",
+    "mechanism": "direct_bac",
+    "difficulty": 1
+  },
+  "diff_013": {
+    "expected_label": "clean",
+    "ground_truth_digest": "f3a717a079aaa04a3f8ff8d4b2671353768ea12d90e11a0bbb4d54ee9aba907d",
+    "case_family": "easy",
+    "mechanism": "ownership_mismatch",
+    "difficulty": 1
+  },
+  "diff_014": {
+    "expected_label": "clean",
+    "ground_truth_digest": "7aef2f60780a439d70ba6dc931a0867b86f6deba972e4531b772ff8222fe9887",
+    "case_family": "easy",
+    "mechanism": "header_auth_bypass",
+    "difficulty": 1
+  },
+  "diff_015": {
+    "expected_label": "clean",
+    "ground_truth_digest": "7f71d4ea5f629b54139bcd1d85bbd5ba852282ca7a8956d84c0b6fb656611b87",
+    "case_family": "easy",
+    "mechanism": "method_bypass",
+    "difficulty": 1
+  },
+  "diff_016": {
+    "expected_label": "clean",
+    "ground_truth_digest": "5cb2f46036af0004e1c4306d913663dc5bc922705c14e1102977b132a5222e4e",
+    "case_family": "easy",
+    "mechanism": "path_traversal_simple",
+    "difficulty": 1
+  },
+  "diff_017": {
+    "expected_label": "clean",
+    "ground_truth_digest": "69d4b1d693e8de4ab155c6764468266b8ea651789ffb6f21f2d505aceb3d922f",
+    "case_family": "easy",
+    "mechanism": "missing_auth_header",
+    "difficulty": 1
+  },
+  "diff_018": {
+    "expected_label": "clean",
+    "ground_truth_digest": "2324625dc0b4d06d42fcb74ab114b5e9881fb5dfe4300228870e0ef48bdef6af",
+    "case_family": "easy",
+    "mechanism": "actor_echo_mismatch",
+    "difficulty": 1
+  },
+  "diff_019": {
+    "expected_label": "clean",
+    "ground_truth_digest": "69903b37401b6be85013193f6007dd569df13776923e2b250f96a4f0fb1823f2",
+    "case_family": "easy",
+    "mechanism": "resource_owner_mismatch",
+    "difficulty": 1
+  },
+  "diff_020": {
+    "expected_label": "clean",
+    "ground_truth_digest": "a3b467f9082005b08f62bdef52119dac886533e9ce14c5e27574a85e879f1bc5",
+    "case_family": "easy",
+    "mechanism": "tenant_mismatch",
+    "difficulty": 1
+  },
+  "diff_021": {
+    "expected_label": "vulnerable",
+    "ground_truth_digest": "642f52801ed70d4113d7c114f54daef82d62f5617731ac25ae0bb9bc2d20356c",
+    "case_family": "reasoning",
+    "mechanism": "multi_step_dependency",
+    "difficulty": 3
+  },
+  "diff_022": {
+    "expected_label": "vulnerable",
+    "ground_truth_digest": "c40dfcea3603137acad232036522f5ba81824e79fc0831c579f3dfc5bf725b36",
+    "case_family": "reasoning",
+    "mechanism": "hidden_prerequisite",
+    "difficulty": 3
+  },
+  "diff_023": {
+    "expected_label": "vulnerable",
+    "ground_truth_digest": "50d35d39de35c3dca5cdbe89ce2471802df45b27eef79e6f0a722794d119f593",
+    "case_family": "reasoning",
+    "mechanism": "relationship_derived_auth",
+    "difficulty": 3
+  },
+  "diff_024": {
+    "expected_label": "vulnerable",
+    "ground_truth_digest": "8444187e1304dda01b310952bde0ff3ab43179f2b0ac285066f699804cfc1944",
+    "case_family": "reasoning",
+    "mechanism": "delayed_consequence",
+    "difficulty": 3
+  },
+  "diff_025": {
+    "expected_label": "vulnerable",
+    "ground_truth_digest": "f90410594b8a9c40ec5781fed75e8ae5cba46dd4d103d821813e0e610d74bcf0",
+    "case_family": "reasoning",
+    "mechanism": "cross_resource_invariant",
+    "difficulty": 3
+  },
+  "diff_026": {
+    "expected_label": "vulnerable",
+    "ground_truth_digest": "e48c7301df1ae5e4b2ed59cf49a182d277655f9c678445ffc870aad6d46b0aac",
+    "case_family": "reasoning",
+    "mechanism": "equivalent_representations",
+    "difficulty": 3
+  },
+  "diff_027": {
+    "expected_label": "vulnerable",
+    "ground_truth_digest": "b41c69733bd1e6dee8826b8bae38baef0fffb9445beff2c1864f44c5b1bb02bc",
+    "case_family": "reasoning",
+    "mechanism": "nested_workflow",
+    "difficulty": 3
+  },
+  "diff_028": {
+    "expected_label": "vulnerable",
+    "ground_truth_digest": "7155afc92a075e9201921d79962bcf35fc5b062fd143ef09ccaeab9ac459c1be",
+    "case_family": "reasoning",
+    "mechanism": "indirect_object_relationship",
+    "difficulty": 3
+  },
+  "diff_029": {
+    "expected_label": "vulnerable",
+    "ground_truth_digest": "c9e5278676e5941ea78191e6df734137c39d2a15e69a9c8eefb35567665c55b1",
+    "case_family": "reasoning",
+    "mechanism": "state_dependent_permission",
+    "difficulty": 3
+  },
+  "diff_030": {
+    "expected_label": "vulnerable",
+    "ground_truth_digest": "a81c46481b14e281299a9d184a6700e6b2a07e278ee582690b0a4ea44ba38d88",
+    "case_family": "reasoning",
+    "mechanism": "counter_based_authorization",
+    "difficulty": 3
+  },
+  "diff_031": {
+    "expected_label": "clean",
+    "ground_truth_digest": "ed687b57f9dd3273a5c4f864ea73c171c056916361fd30e7cc8c8e0abddb9f49",
+    "case_family": "reasoning",
+    "mechanism": "multi_step_dependency",
+    "difficulty": 2
+  },
+  "diff_032": {
+    "expected_label": "clean",
+    "ground_truth_digest": "ddc7f43240db9a1839e7c318513a4c481948d1ba52d3e9f96b0cccf2d4e6d769",
+    "case_family": "reasoning",
+    "mechanism": "hidden_prerequisite",
+    "difficulty": 2
+  },
+  "diff_033": {
+    "expected_label": "clean",
+    "ground_truth_digest": "651d424543aeaac023d54c6b9facd96ca5fc8676378af26f7df94a04b3c4fd53",
+    "case_family": "reasoning",
+    "mechanism": "relationship_derived_auth",
+    "difficulty": 2
+  },
+  "diff_034": {
+    "expected_label": "clean",
+    "ground_truth_digest": "600686e784e289a7b09ebd09e9a74a225d9af6f0f34c622688ae509754ce6a57",
+    "case_family": "reasoning",
+    "mechanism": "delayed_consequence",
+    "difficulty": 2
+  },
+  "diff_035": {
+    "expected_label": "clean",
+    "ground_truth_digest": "edd70e4d7a3caa9f5fd4186b3c07d9591294b3d96e71cb1527572a52764cf52d",
+    "case_family": "reasoning",
+    "mechanism": "cross_resource_invariant",
+    "difficulty": 2
+  },
+  "diff_036": {
+    "expected_label": "clean",
+    "ground_truth_digest": "35d93321ef9dc0bb20d0943d0030bdb005591a652cb356cb4215b431fef0cec5",
+    "case_family": "reasoning",
+    "mechanism": "equivalent_representations",
+    "difficulty": 2
+  },
+  "diff_037": {
+    "expected_label": "clean",
+    "ground_truth_digest": "c4de43fb58e275b1714538b9eea76121909eb0b217e11b39ea2d91b67f429ee2",
+    "case_family": "reasoning",
+    "mechanism": "nested_workflow",
+    "difficulty": 2
+  },
+  "diff_038": {
+    "expected_label": "clean",
+    "ground_truth_digest": "9c4481f19c098f5c0171aecb9b7542877661d013463a27c1f2da4765501e08eb",
+    "case_family": "reasoning",
+    "mechanism": "indirect_object_relationship",
+    "difficulty": 2
+  },
+  "diff_039": {
+    "expected_label": "clean",
+    "ground_truth_digest": "0ae6eef05a154ac3bce3229479356f5a8865906bad49c35952d8d8385bd59d27",
+    "case_family": "reasoning",
+    "mechanism": "state_dependent_permission",
+    "difficulty": 2
+  },
+  "diff_040": {
+    "expected_label": "clean",
+    "ground_truth_digest": "92ae553b537d28c6b26ca8f6150779aa0f713869b3436068e3262528cc774d11",
+    "case_family": "reasoning",
+    "mechanism": "counter_based_authorization",
+    "difficulty": 2
+  },
+  "diff_041": {
+    "expected_label": "vulnerable",
+    "ground_truth_digest": "0f82a58768b77216a03a12ff81c54cec97789ca380b35b928b0886f40a047573",
+    "case_family": "novel",
+    "mechanism": "state_plus_relationship",
+    "difficulty": 5
+  },
+  "diff_042": {
+    "expected_label": "vulnerable",
+    "ground_truth_digest": "16d230104fc5de2965b041234e89d45bd5f48f83ad6cca7b3103eb8e443a6e09",
+    "case_family": "novel",
+    "mechanism": "delayed_plus_multistep",
+    "difficulty": 5
+  },
+  "diff_043": {
+    "expected_label": "vulnerable",
+    "ground_truth_digest": "5629bc6b92e4a59f474cba6b81af7505456fc325086148d97a380b610757843e",
+    "case_family": "novel",
+    "mechanism": "equivalent_plus_workflow",
+    "difficulty": 5
+  },
+  "diff_044": {
+    "expected_label": "vulnerable",
+    "ground_truth_digest": "79a80a9b88dccef3cfb3950488843aa3db6b6147611a87a5e5e441a7a3f6248f",
+    "case_family": "novel",
+    "mechanism": "counter_plus_state",
+    "difficulty": 5
+  },
+  "diff_045": {
+    "expected_label": "vulnerable",
+    "ground_truth_digest": "c77175101881433a767fbb09d4a45803b42ed08e49900d54d1c4a502f956b732",
+    "case_family": "novel",
+    "mechanism": "indirect_plus_equivalent",
+    "difficulty": 5
+  },
+  "diff_046": {
+    "expected_label": "vulnerable",
+    "ground_truth_digest": "5bd16a93867221b54cefdc629b626e6df21399257c014dc7c1e1152158c8405e",
+    "case_family": "novel",
+    "mechanism": "workflow_plus_side_effect",
+    "difficulty": 5
+  },
+  "diff_047": {
+    "expected_label": "vulnerable",
+    "ground_truth_digest": "b8ac2b156bcd74c1df983aa0abb3bf052584417cb72f1a6793d7cd065eef55f8",
+    "case_family": "novel",
+    "mechanism": "cross_resource_plus_counter",
+    "difficulty": 5
+  },
+  "diff_048": {
+    "expected_label": "vulnerable",
+    "ground_truth_digest": "534255acc33f78a1c0fd98fd0ce27c91dbb85a18da63a5c9041afeeb0c90d4f9",
+    "case_family": "novel",
+    "mechanism": "hidden_plus_relationship",
+    "difficulty": 5
+  },
+  "diff_049": {
+    "expected_label": "vulnerable",
+    "ground_truth_digest": "5993e4a5ab002d9ee612b735df148cae018cc5a7dcd3ba68b20bf82b3cb0a655",
+    "case_family": "novel",
+    "mechanism": "prerequisite_plus_state",
+    "difficulty": 5
+  },
+  "diff_050": {
+    "expected_label": "vulnerable",
+    "ground_truth_digest": "001aa6d1d324497eb5474e4fb4c6c6287410f3cf4f7465b1941bea57bf21e399",
+    "case_family": "novel",
+    "mechanism": "composition_chain_3_levels",
+    "difficulty": 5
+  },
+  "diff_051": {
+    "expected_label": "clean",
+    "ground_truth_digest": "7ffc1bfb220c5e118de0e10aa7c5859e2d0fd2399bfeaadce5e8ec6c37bfdf43",
+    "case_family": "novel",
+    "mechanism": "state_plus_relationship",
+    "difficulty": 4
+  },
+  "diff_052": {
+    "expected_label": "clean",
+    "ground_truth_digest": "79e870809e7b5b610a45db10ca1638c90fd386a6d2e4864cf9aecf56383b7623",
+    "case_family": "novel",
+    "mechanism": "delayed_plus_multistep",
+    "difficulty": 4
+  },
+  "diff_053": {
+    "expected_label": "clean",
+    "ground_truth_digest": "71d8aa1ca385aa2eed75297a4b650c4c17e03767937eb4e4689b1f2688debbeb",
+    "case_family": "novel",
+    "mechanism": "equivalent_plus_workflow",
+    "difficulty": 4
+  },
+  "diff_054": {
+    "expected_label": "clean",
+    "ground_truth_digest": "f2dab41a2367bd5dad2e3bd90d783c314747520ba4db065173735f4b50ff32cc",
+    "case_family": "novel",
+    "mechanism": "counter_plus_state",
+    "difficulty": 4
+  },
+  "diff_055": {
+    "expected_label": "clean",
+    "ground_truth_digest": "58eeba3ec2c850b80f7b4d3615bfff23539dd6a854137318fe2b3e6ccd01ae61",
+    "case_family": "novel",
+    "mechanism": "indirect_plus_equivalent",
+    "difficulty": 4
+  },
+  "diff_056": {
+    "expected_label": "clean",
+    "ground_truth_digest": "6e347d865287e986fb72cd75934887d0bd8123d6ce322700c7cb3b10c3b95de8",
+    "case_family": "novel",
+    "mechanism": "workflow_plus_side_effect",
+    "difficulty": 4
+  },
+  "diff_057": {
+    "expected_label": "clean",
+    "ground_truth_digest": "bcce9a51715329a2c89f61b2d06732bc90a222cd601a2be1f1e984f7cfd5a72f",
+    "case_family": "novel",
+    "mechanism": "cross_resource_plus_counter",
+    "difficulty": 4
+  },
+  "diff_058": {
+    "expected_label": "clean",
+    "ground_truth_digest": "963dbcf7cf037123e34866debe14e3bc93e0145680ac3bd89e7bf725cb25a5de",
+    "case_family": "novel",
+    "mechanism": "hidden_plus_relationship",
+    "difficulty": 4
+  },
+  "diff_059": {
+    "expected_label": "clean",
+    "ground_truth_digest": "5422d7098ce6820aaa5ca527112877580f4c103a989b6576596ea7bdeb0740d0",
+    "case_family": "novel",
+    "mechanism": "prerequisite_plus_state",
+    "difficulty": 4
+  },
+  "diff_060": {
+    "expected_label": "clean",
+    "ground_truth_digest": "66f4c038e38fa0ee2d68cf6738ab3496d23d819d197a118104ccbbf092808fd6",
+    "case_family": "novel",
+    "mechanism": "composition_chain_3_levels",
+    "difficulty": 4
+  }
+}

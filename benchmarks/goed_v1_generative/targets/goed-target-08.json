@@ -1,0 +1,190 @@
+{
+  "target_id": "goed-target-08",
+  "port": 8808,
+  "naming_convention": {
+    "route_style": 8,
+    "object_style": 8,
+    "role_set": 8,
+    "tenant_style": 8
+  },
+  "route_prefix": "/core/ENTITY",
+  "roles": [
+    "trainee",
+    "regular",
+    "senior",
+    "exec"
+  ],
+  "tenants": [
+    "instance-0",
+    "instance-1"
+  ],
+  "objects": [
+    "artifact-bdbf",
+    "artifact-fbdd",
+    "artifact-aede",
+    "artifact-daba",
+    "artifact-ffeb",
+    "artifact-affa"
+  ],
+  "cases": {
+    "goed-target-08-case-00": {
+      "case_id": "goed-target-08-case-00",
+      "target_id": "goed-target-08",
+      "class": "idor",
+      "route": "/core/objects/artifact-fbdd",
+      "baseline_route": "/core/objects/artifact-bdbf",
+      "control_route": "/patched/core/objects/artifact-fbdd",
+      "actor_role": "regular",
+      "actor_tenant": "instance-0",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "low"
+    },
+    "goed-target-08-case-01": {
+      "case_id": "goed-target-08-case-01",
+      "target_id": "goed-target-08",
+      "class": "broken_access_control",
+      "route": "/core/admin/dashboard",
+      "baseline_route": "/core/profile",
+      "control_route": "/patched/core/admin/dashboard",
+      "actor_role": "regular",
+      "actor_tenant": "instance-0",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-08-case-02": {
+      "case_id": "goed-target-08-case-02",
+      "target_id": "goed-target-08",
+      "class": "privilege_escalation",
+      "route": "/core/billing/instance-0/records",
+      "baseline_route": "/core/profile",
+      "control_route": "/patched/core/billing/instance-0/records",
+      "actor_role": "regular",
+      "actor_tenant": "instance-0",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "low"
+    },
+    "goed-target-08-case-03": {
+      "case_id": "goed-target-08-case-03",
+      "target_id": "goed-target-08",
+      "class": "business_logic_abuse",
+      "route": "/core/transfer/artifact-bdbf?to=artifact-fbdd&amount=-100",
+      "baseline_route": "/core/transfer/artifact-bdbf?to=artifact-fbdd&amount=10",
+      "control_route": "/patched/core/transfer/artifact-bdbf",
+      "actor_role": "regular",
+      "actor_tenant": "instance-0",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "low"
+    },
+    "goed-target-08-case-04": {
+      "case_id": "goed-target-08-case-04",
+      "target_id": "goed-target-08",
+      "class": "tenant_isolation_failure",
+      "route": "/core/tenant/instance-1/internal",
+      "baseline_route": "/core/tenant/instance-0/internal",
+      "control_route": "/patched/core/tenant/instance-1/internal",
+      "actor_role": "regular",
+      "actor_tenant": "instance-0",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-08-case-05": {
+      "case_id": "goed-target-08-case-05",
+      "target_id": "goed-target-08",
+      "class": "workflow_authorization_failure",
+      "route": "/core/workflows/artifact-aede/approve",
+      "baseline_route": "/core/workflows/artifact-aede/view",
+      "control_route": "/patched/core/workflows/artifact-aede/approve",
+      "actor_role": "trainee",
+      "actor_tenant": "instance-0",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-target-08-case-06": {
+      "case_id": "goed-target-08-case-06",
+      "target_id": "goed-target-08",
+      "class": "sensitive_data_exposure",
+      "route": "/core/messages/artifact-fbdd/inbox",
+      "baseline_route": "/core/messages/artifact-bdbf/inbox",
+      "control_route": "/patched/core/messages/artifact-fbdd/inbox",
+      "actor_role": "regular",
+      "actor_tenant": "instance-0",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-08-case-07": {
+      "case_id": "goed-target-08-case-07",
+      "target_id": "goed-target-08",
+      "class": "multi_step_chain",
+      "route": "/core/auth/reset/request?for=artifact-fbdd",
+      "baseline_route": "/core/auth/reset/request?for=artifact-bdbf",
+      "control_route": "/patched/core/auth/reset/request",
+      "actor_role": "regular",
+      "actor_tenant": "instance-0",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "low"
+    },
+    "goed-target-08-case-08": {
+      "case_id": "goed-target-08-case-08",
+      "target_id": "goed-target-08",
+      "class": "multi_step_chain",
+      "route": "/core/auth/reset/request?for=artifact-fbdd",
+      "baseline_route": "/core/auth/reset/request?for=artifact-bdbf",
+      "control_route": "/patched/core/auth/reset/request",
+      "actor_role": "regular",
+      "actor_tenant": "instance-0",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-target-08-case-09": {
+      "case_id": "goed-target-08-case-09",
+      "target_id": "goed-target-08",
+      "class": "sensitive_data_exposure",
+      "route": "/core/messages/artifact-fbdd/inbox",
+      "baseline_route": "/core/messages/artifact-bdbf/inbox",
+      "control_route": "/patched/core/messages/artifact-fbdd/inbox",
+      "actor_role": "regular",
+      "actor_tenant": "instance-0",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-08-clean-00": {
+      "case_id": "goed-target-08-clean-00",
+      "target_id": "goed-target-08",
+      "class": "clean_public_resource",
+      "route": "/core/public/info-0",
+      "baseline_route": "/core/public/info-0",
+      "control_route": "/core/public/info-0",
+      "actor_role": "regular",
+      "actor_tenant": "instance-0",
+      "expected_verdict": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    },
+    "goed-target-08-clean-01": {
+      "case_id": "goed-target-08-clean-01",
+      "target_id": "goed-target-08",
+      "class": "clean_public_resource",
+      "route": "/core/public/info-1",
+      "baseline_route": "/core/public/info-1",
+      "control_route": "/core/public/info-1",
+      "actor_role": "regular",
+      "actor_tenant": "instance-0",
+      "expected_verdict": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    }
+  },
+  "total_cases": 12,
+  "vulnerable_cases": 10,
+  "clean_cases": 2
+}

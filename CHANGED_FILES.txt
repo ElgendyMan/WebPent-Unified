@@ -1,0 +1,48 @@
+# CHANGED_FILES.txt — TEAM-REVIEW-REFREEZE pass (2026-10-22)
+# Base for this pass: merge-final tree at commit 4e32a86 (Phase 5 deliverable)
+# Result tree: commit 1dfcbe4
+#
+# CODE CHANGES (review remediation)
+MODIFIED  src/webpent/agents/hunter_runner.py
+          Section A finding: the union kept a redundant second
+          _terminal_result() computation (donorV block duplicating donorC's
+          in-summary embed). _terminal_result is pure/reporting-only; the
+          donorV reassignment was behavior-equivalent but a duplicated
+          control flow. Remediation: restored the donorC version
+          BYTE-IDENTICAL (commit 4e32a86). No writer added or removed;
+          py_compile + reimport + writer-count check all clean.
+
+# FREEZE CLOSURE (after Sections A-C PASS)
+MODIFIED  frozen_modules.sha256   [on-disk artifact; matched by .gitignore *.sha256 rule, as in v15.2 lineage]
+          Regenerated over the SAME 719-path scope in the SAME order — no
+          entries added or dropped — from merged tree bytes, per the
+          documented procedure (docs/UNFREEZE_FILES_20261005.md rule 1).
+          sha256: 2424c3d9d3f8751b... -> ca330fd20399c968...
+MODIFIED  docs/integration/WEBPENT_AUTHORITY_MANIFEST.json
+          Re-captured at the re-freeze unit boundary per the manifest's own
+          provenance convention: 1 entry (validator/active_checks.py)
+          re-hashed from merged tree bytes; the other 12 pins — CausalGuard,
+          ProofBundle (model + store), workflow_replay (model + shared),
+          ReplayVerifier, ToolBoundary, tool_scope, profile,
+          governed_artifacts, irta/v3/proof, world_model — verified
+          BYTE-IDENTICAL to their pins (evidence: scripts/verify_frozen_manifest.py
+          reported exactly 1 mismatch pre-capture, 0 after).
+          scripts/verify_frozen_manifest.py -> OK (13 files).
+MODIFIED  docs/UNFREEZE_FILES_20261005.md
+          Dated addendum "TEAM-MERGE re-freeze addendum (2026-10-22)":
+          reviewable-diff reference, regen record, honest gate state, and
+          the authority-manifest re-capture note (documented procedure
+          step (d): doc + baseline policy update).
+ADDED     PRE_HASHES.txt   (manifest + baseline + the 31 divergent paths, pre-regen tree bytes)
+ADDED     POST_HASHES.txt  (manifest + the same 31 paths, now pinned to merged bytes)
+ADDED     REVIEW_REFREEZE_REPORT.md  (this pass's report)
+ADDED     CHANGED_FILES.txt          (this file)
+
+# NOT CHANGED
+- frozen_modules.sha256.baseline_pre_unfreeze — UNTOUCHED
+  (sha256 9aeefdb224d6e4b8eb0df620deb9ea7a92966b4dbdfe36d6a2b2450d1031bbd0)
+- tests/test_frozen_module_gate.py — UNTOUCHED (no-test-rewrite rule)
+- scripts/gate_frozen_delta.py / r3_anchor_check.py anchors — UNTOUCHED
+- All authority components (CausalGuard, ProofBundle, Replay/ReplayVerifier,
+  ToolBoundary, ScopeLaw, PromotionPipeline) — 12/12 authority-manifest pins
+  byte-identical; no authority file was edited in this pass.

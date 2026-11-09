@@ -1,0 +1,141 @@
+{
+  "timestamp": "2026-09-04T11:23:37.860496+00:00",
+  "freeze_ok": true,
+  "freeze_artifacts": {
+    "src/webpent/cqa_v2/causal_guard.py": {
+      "sha256": "b1b9cc1cdcacaf4897a2628510d6c3d7be2f451caa2fc8d4399746a30c74339f",
+      "size_bytes": 25282
+    },
+    "src/webpent/cqa_v2/proof_bundle_builder.py": {
+      "sha256": "8a7a5f04100f4c2f0ae0a3f17ad81b0069ef80bb0527293d5c501b9dee4d15b7",
+      "size_bytes": 9537
+    },
+    "src/webpent/cqa_v2/pipeline.py": {
+      "sha256": "82dfd2f04b680726b328e18dedf09b1023b93c3ebdf688b364acb7a584917eb5",
+      "size_bytes": 7772
+    },
+    "src/webpent/cqa_v2/replay_verifier.py": {
+      "sha256": "1c8535577604719c4ad486bb6747eb46fb76912ce10b34d83f966a9876106913",
+      "size_bytes": 3446
+    },
+    "src/webpent/models/proof_bundle.py": {
+      "sha256": "2f429b3c4c3ef205f471d53163ccee89a773bcd8fe7154f02b6e2eca0f513110",
+      "size_bytes": 22181
+    },
+    "src/webpent/goed_v1/real_stateful_executor.py": {
+      "sha256": "3393cf1a77c1cc56af6a51b36526d331879105261e7d25544f2d60e76ab394ad",
+      "size_bytes": 34525
+    },
+    "src/webpent/goed_v1/business_logic_evaluator.py": {
+      "sha256": "cfcb7f693dd1633bcccd21cda75e35d459933aed488815499d2ef4574f0853df",
+      "size_bytes": 27590
+    },
+    "src/webpent/goed_v1/__init__.py": {
+      "sha256": "79aa89d548e4f193df81a4a3445787b9e0120f14aca887774cdc910236a2c9ea",
+      "size_bytes": 3380
+    },
+    "benchmarks/goed_v1_7_adversarial_v3/manifest.json": {
+      "sha256": "826bb51f307e0a9f6cfedd3d70681bc1d0fc36cc452a4ccce4c6f2f4d2547484",
+      "size_bytes": 9809
+    },
+    "benchmarks/goed_v1_7_adversarial_v3/adversarial_v3_target.py": {
+      "sha256": "3c5c79145f830751b7c4804453dbb46a58def5d5132105c68cd6ac2cfe978498",
+      "size_bytes": 21613
+    },
+    "benchmarks/goed_v1_7_hidden_v2/manifest.json": {
+      "sha256": "74667ee50faed82d9c7daf064fb5b68dfe7a499409facd0797377652d1aa8e5f",
+      "size_bytes": 60049
+    },
+    "benchmarks/goed_v1_7_hidden_v2/ground_truth.json": {
+      "sha256": "c34791f159936d802e11579b1e8419703d2861a1af49444090cb3b74a79d133a",
+      "size_bytes": 49342
+    },
+    "reports/goed_v1_7/adversarial_v3_results.json": {
+      "sha256": "767d492afe12c78d58e9120acf6b48938f8ac8534cefc6503f808f5e6b243b52",
+      "size_bytes": 9599
+    },
+    "reports/goed_v1_7/hidden_v2_results.json": {
+      "sha256": "0f0cea25c631fd0f5adb90fc29731e530e57d178b0b6db85d3b44ea20254e9bc",
+      "size_bytes": 43499
+    },
+    "reports/goed_v1_7/acceptance_gates.json": {
+      "sha256": "5da4fddf7dad6204670ccf7caacd02f6e3c3283ca50f69bc120b3ded25979576",
+      "size_bytes": 1748
+    },
+    "reports/goed_v1_7/canonical_accounting.json": {
+      "sha256": "97cc4c8e5b01a4fa6a6a749250bbddffb94605978bec0e408db435cde731d893",
+      "size_bytes": 10462
+    },
+    "reports/goed_v1_7/GOED_V1_7_FINAL_TRUTH_AUDIT.md": {
+      "sha256": "c3b0d0152f67539780ac0026ef2d850bc3edccef5d028138a599f68e936e035c",
+      "size_bytes": 2551
+    },
+    "WebPent-GOED-v1.7-Full.zip": {
+      "sha256": "abd73b4c5425ad4314e0e029f976a1d90d5065d7fdb7ffbf1db5dae6c71bb6bf",
+      "size_bytes": 1474802
+    }
+  },
+  "health_check_ok": true,
+  "compile_ok": true,
+  "import_ok": true,
+  "prompt_injection": {
+    "target_data_isolation": {
+      "forbidden_metadata_stripped": true,
+      "legitimate_data_preserved": true,
+      "system_policy_unchanged": true,
+      "all_pass": true
+    },
+    "tool_boundary_forbidden_rejection": {
+      "shell_exec_rejected": true,
+      "set_confirmed_rejected": true,
+      "bypass_causal_guard_rejected": true,
+      "empty_hypothesis_rejected": true,
+      "legitimate_tool_authorized": true,
+      "all_calls_logged": true,
+      "all_pass": true
+    },
+    "llm_interface_safety": {
+      "no_confirm_method": true,
+      "no_mark_confirmed_method": true,
+      "no_bypass_method": true,
+      "no_override_method": true,
+      "no_mutate_evidence_method": true,
+      "no_set_verdict_method": true,
+      "hypotheses_not_verdicts": true,
+      "policy_hash_exists": true,
+      "all_pass": true
+    },
+    "llm_client_safety": {
+      "valid_json": true,
+      "no_confirm_in_output": true,
+      "no_authority_claims": true,
+      "has_model_field": true,
+      "is_marked_as_mock": true,
+      "policy_note_present": true,
+      "all_pass": true
+    },
+    "overall": "PASS",
+    "summary": {
+      "total_tests": 4,
+      "passed": 4,
+      "failed": 0
+    }
+  },
+  "allowed_tools": [
+    "discover",
+    "request",
+    "replay",
+    "compare",
+    "inspect_state",
+    "inspect_response",
+    "enumerate_entity",
+    "run_workflow_step",
+    "summarize_memory"
+  ],
+  "governance": {
+    "vip_qualified": false,
+    "qualification_state": "CONDITIONAL",
+    "P10": "CLOSED",
+    "P9": "CLOSED"
+  }
+}

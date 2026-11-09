@@ -1,0 +1,114 @@
+family: race_condition
+scenarios:
+  - scenario_id: race-01
+    title: "The coupon that is single-use"
+    description: "The coupon endpoint enforces one use per code; find the check that can be beaten."
+    difficulty: 1
+    template_id: node_race_condition
+    seed: 7101
+    ground_truth: {vuln_class: race_condition, location: /api/coupon/apply, signature: "DUPLICATE"}
+    hints:
+      - "A single request is correctly rejected after use."
+      - "The flaw appears when the same code is applied concurrently."
+      - "The DUPLICATE pattern is what the lab models."
+    lesson_tags: [race-condition, concurrency]
+    skill_families: [race_condition]
+    request_budget: 16
+  - scenario_id: race-02
+    title: "Double-apply the code"
+    description: "Send the code with the duplicate-application pattern and observe acceptance."
+    difficulty: 1
+    template_id: node_race_condition
+    seed: 7102
+    ground_truth: {vuln_class: race_condition, location: /api/coupon/apply, signature: "DUPLICATE"}
+    hints:
+      - "The code parameter carries the pattern."
+      - "The endpoint needs a session."
+      - "A second acceptance is the proof."
+    lesson_tags: [race-condition, exploitation]
+    skill_families: [race_condition]
+    request_budget: 16
+  - scenario_id: race-03
+    title: "Single is rejected"
+    description: "Distinguish the raceable pattern from the correctly rejected one."
+    difficulty: 2
+    template_id: node_race_condition
+    seed: 7103
+    ground_truth: {vuln_class: race_condition, location: /api/coupon/apply, signature: "DUPLICATE"}
+    hints:
+      - "Single applications are rejected by design."
+      - "Claiming a single-request acceptance is a false positive."
+      - "Only the duplicate pattern yields behavior."
+    lesson_tags: [race-condition, false-positive-control]
+    skill_families: [race_condition]
+    request_budget: 14
+  - scenario_id: race-04
+    title: "Session-aware racing"
+    description: "The endpoint is authenticated; budget covers session and attack."
+    difficulty: 2
+    template_id: node_race_condition
+    seed: 7104
+    ground_truth: {vuln_class: race_condition, location: /api/coupon/apply, signature: "DUPLICATE"}
+    hints:
+      - "Authenticate first, then apply."
+      - "The lab view shows which routes need auth."
+      - "Both steps share one budget."
+    lesson_tags: [race-condition, chaining]
+    skill_families: [race_condition]
+    request_budget: 14
+  - scenario_id: race-05
+    title: "One-request race proof"
+    description: "Tight budget: model the concurrent apply in a single request."
+    difficulty: 3
+    template_id: node_race_condition
+    seed: 7105
+    ground_truth: {vuln_class: race_condition, location: /api/coupon/apply, signature: "DUPLICATE"}
+    hints:
+      - "One request with the duplicate pattern."
+      - "No exploration phase."
+      - "Wasted calls cost score."
+    lesson_tags: [race-condition, opsec]
+    skill_families: [race_condition]
+    request_budget: 10
+  - scenario_id: race-06
+    title: "Rejected is not raced"
+    description: "Report only acceptances that break the single-use rule."
+    difficulty: 3
+    template_id: node_race_condition
+    seed: 7106
+    ground_truth: {vuln_class: race_condition, location: /api/coupon/apply, signature: "DUPLICATE"}
+    hints:
+      - "Rejections return normal responses."
+      - "A normal response is not a finding."
+      - "The duplicate pattern is accepted."
+    lesson_tags: [race-condition, false-positive-control]
+    skill_families: [race_condition]
+    request_budget: 12
+  - scenario_id: race-07
+    title: "Evidence of the second acceptance"
+    description: "Complete proof names the behavior that broke the rule."
+    difficulty: 4
+    template_id: node_race_condition
+    seed: 7107
+    ground_truth: {vuln_class: race_condition, location: /api/coupon/apply, signature: "DUPLICATE"}
+    hints:
+      - "The vuln_hit response names the behavior."
+      - "A hit without the rule violation named is incomplete."
+      - "Capture the response as evidence."
+    lesson_tags: [race-condition, evidence-quality]
+    skill_families: [race_condition]
+    request_budget: 12
+  - scenario_id: race-08
+    title: "Race with zero waste"
+    description: "Hardest tier: session plus modeled race, minimal footprint."
+    difficulty: 5
+    template_id: node_race_condition
+    seed: 7108
+    ground_truth: {vuln_class: race_condition, location: /api/coupon/apply, signature: "DUPLICATE"}
+    hints:
+      - "Two requests total at most."
+      - "Any rejected detour ends the attempt."
+      - "Exact first attempts win here."
+    lesson_tags: [race-condition, opsec, evidence-quality]
+    skill_families: [race_condition]
+    request_budget: 8

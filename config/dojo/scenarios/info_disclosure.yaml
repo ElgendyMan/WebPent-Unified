@@ -1,0 +1,114 @@
+family: info_disclosure
+scenarios:
+  - scenario_id: info-01
+    title: "The actuator left open"
+    description: "A management endpoint answers anyone; read the environment it exposes."
+    difficulty: 1
+    template_id: spring_actuator_exposed
+    seed: 9101
+    ground_truth: {vuln_class: info_disclosure, location: /actuator/env, signature: "env"}
+    hints:
+      - "Management endpoints often sit on a well-known path prefix."
+      - "The environment endpoint lists configuration values."
+      - "A response naming the environment is the proof."
+    lesson_tags: [info_disclosure, misconfiguration]
+    skill_families: [info_disclosure]
+    request_budget: 16
+  - scenario_id: info-02
+    title: "Configuration in plain sight"
+    description: "The env endpoint returns settings no outsider should read."
+    difficulty: 1
+    template_id: spring_actuator_exposed
+    seed: 9102
+    ground_truth: {vuln_class: info_disclosure, location: /actuator/env, signature: "env"}
+    hints:
+      - "The path is /actuator/env in this lab."
+      - "No session is needed; the guard is absent."
+      - "The response body names what leaked."
+    lesson_tags: [info_disclosure, exposure]
+    skill_families: [info_disclosure]
+    request_budget: 16
+  - scenario_id: info-03
+    title: "Some endpoints are closed"
+    description: "Distinguish the open endpoint from the refused ones."
+    difficulty: 2
+    template_id: spring_actuator_exposed
+    seed: 9103
+    ground_truth: {vuln_class: info_disclosure, location: /actuator/env, signature: "env"}
+    hints:
+      - "Other actuator paths refuse every caller."
+      - "Claiming a refused endpoint is a false positive."
+      - "Only the environment endpoint yields behavior."
+    lesson_tags: [info_disclosure, false-positive-control]
+    skill_families: [info_disclosure]
+    request_budget: 14
+  - scenario_id: info-04
+    title: "Enumerate then read"
+    description: "Probe the actuator surface first, then pull the exposed data."
+    difficulty: 2
+    template_id: spring_actuator_exposed
+    seed: 9104
+    ground_truth: {vuln_class: info_disclosure, location: /actuator/env, signature: "env"}
+    hints:
+      - "The lab view hints which prefix exists."
+      - "One path accepts callers, the rest refuse."
+      - "Budget covers both the probe and the read."
+    lesson_tags: [info_disclosure, reconnaissance]
+    skill_families: [info_disclosure]
+    request_budget: 14
+  - scenario_id: info-05
+    title: "Single-request leak"
+    description: "Tight budget: read the exposed configuration in one call."
+    difficulty: 3
+    template_id: spring_actuator_exposed
+    seed: 9105
+    ground_truth: {vuln_class: info_disclosure, location: /actuator/env, signature: "env"}
+    hints:
+      - "No exploration phase; go straight to the env path."
+      - "One request, correct path, no detours."
+      - "Wasted calls lower the score directly."
+    lesson_tags: [info_disclosure, opsec]
+    skill_families: [info_disclosure]
+    request_budget: 10
+  - scenario_id: info-06
+    title: "Refused paths are not leaks"
+    description: "Report only endpoints the server actually answered, not refusals."
+    difficulty: 3
+    template_id: spring_actuator_exposed
+    seed: 9106
+    ground_truth: {vuln_class: info_disclosure, location: /actuator/env, signature: "env"}
+    hints:
+      - "A refusal describes the block, not the data."
+      - "Behavior evidence must come from an answered endpoint."
+      - "The environment endpoint answers everyone."
+    lesson_tags: [info_disclosure, false-positive-control]
+    skill_families: [info_disclosure]
+    request_budget: 12
+  - scenario_id: info-07
+    title: "Evidence with the endpoint named"
+    description: "Complete proof includes the endpoint that answered."
+    difficulty: 4
+    template_id: spring_actuator_exposed
+    seed: 9107
+    ground_truth: {vuln_class: info_disclosure, location: /actuator/env, signature: "env"}
+    hints:
+      - "The vuln_hit response names the answering endpoint."
+      - "A leak without the endpoint recorded is incomplete."
+      - "Keep the response body as your evidence."
+    lesson_tags: [info_disclosure, evidence-quality]
+    skill_families: [info_disclosure]
+    request_budget: 12
+  - scenario_id: info-08
+    title: "Zero-noise disclosure proof"
+    description: "Hardest tier: one request, answered endpoint, complete evidence."
+    difficulty: 5
+    template_id: spring_actuator_exposed
+    seed: 9108
+    ground_truth: {vuln_class: info_disclosure, location: /actuator/env, signature: "env"}
+    hints:
+      - "A single request must hit the env path and gather proof."
+      - "Any refused-path detour is a lost budget point."
+      - "Exact first attempts win here."
+    lesson_tags: [info_disclosure, opsec, evidence-quality]
+    skill_families: [info_disclosure]
+    request_budget: 8

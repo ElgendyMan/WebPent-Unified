@@ -1,0 +1,46 @@
+{
+  "sprint": "five-family+oauth-coverage-v3",
+  "vuln_class_members_total": 37,
+  "scenarios_total": 42,
+  "by_family": {
+    "race": 5,
+    "tenant": 6,
+    "multi_step_auth": 6,
+    "chained_exploit": 7,
+    "business_logic": 6,
+    "oauth": 12
+  },
+  "goed_strategies": [
+    "race_condition",
+    "tenant_isolation",
+    "multi_step_auth_bypass",
+    "chained_exploit",
+    "business_logic",
+    "oauth"
+  ],
+  "deterministic_validators": [
+    "business_logic",
+    "exploit_chain",
+    "multi_step_auth_bypass",
+    "oauth",
+    "race_condition",
+    "tenant_isolation"
+  ],
+  "dispatch_bridge": "dispatch_family_validator (fail-closed)",
+  "business_logic_degraded": true,
+  "tests": {
+    "file": "tests/test_five_families.py",
+    "count": 42,
+    "result": "ALL_PASS"
+  },
+  "fixes_applied": [
+    "P0 registry rubber-stamp closed",
+    "P0 business_logic caller-verdict removed",
+    "validators require state evidence (fail-closed)",
+    "IdempotencyInvariant bug fixed",
+    "tenant hyphen false-positive fixed",
+    "dedup + endpoint attribution added",
+    "Replay type unified",
+    "fail-visible degradation flag"
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "generated_at": "2026-09-06T15:46:00+00:00",
+  "generated_by": "Claude (executing agent), acting on Mohamed's explicit RE-FREEZE (DOCUMENTED) decision",
+  "source_control_available": false,
+  "note_on_source_control": "No .git directory exists anywhere in this snapshot (verified: `git status` fails with 'not a git repository' at the snapshot root). Exact commit hashes cannot be cited. Provenance below is file-hash-based, not commit-based.",
+  "snapshot_identity": {
+    "zip_provided_by_user": "WebPent-GOED-v1_8_4-IN_PROGRESS-Snapshot-FIXED.zip",
+    "unpacked_and_hashed_this_session": true
+  },
+  "deltas_from_v1_8_3_freeze": [
+    {
+      "path": "src/webpent/cqa_v2/replay_verifier.py",
+      "category": "deterministic_core",
+      "delta_summary": "Replay success criteria tightened (STRICT mode) -- evidence in module docstring: verdict_match AND evidence_match AND seal_valid AND seal_match AND replay_executed all required; seal equality alone no longer sufficient.",
+      "corroborating_runtime_evidence": null,
+      "verified_this_session": "docstring read + hash recomputed; no dedicated Phase-18-adjacent test report for this file specifically was found in reports/goed_v1_8_4/"
+    },
+    {
+      "path": "src/webpent/llm_researcher/tool_boundary.py",
+      "category": "llm_interface_v183",
+      "delta_summary": "SSRF guard: absolute-URL base_url-scoping bypass closed; requested host must match client base_url host.",
+      "corroborating_runtime_evidence": "reports/goed_v1_8_4/prompt_injection_v184.json exercises this same module (grep hit) -- not independently re-run this session, see main status report for why.",
+      "verified_this_session": "inline code comment read + hash recomputed"
+    },
+    {
+      "path": "src/webpent/llm_researcher/providers/__init__.py",
+      "category": "llm_providers_v183",
+      "delta_summary": "Now re-exports ProviderPool/LLMRouter/ProviderSlot/SlotStatus/FailureCategory from new pool.py.",
+      "corroborating_runtime_evidence": "reports/goed_v1_8_4/failover_integrity_test.json -- pre-existing report, 8/8 scenarios pass; NOT re-run this session (does not require network, could be re-run on request).",
+      "verified_this_session": "import line read + hash recomputed; pool.py existence confirmed (328 lines, classes SlotStatus/FailureCategory/ProviderSlot/ProviderPool/LLMRouter)"
+    },
+    {
+      "path": "src/webpent/llm_researcher/providers/factory.py",
+      "category": "llm_providers_v183",
+      "delta_summary": "New get_provider_status() function added alongside pre-existing gate functions.",
+      "corroborating_runtime_evidence": "reports/goed_v1_8_4/failover_integrity_test.json (indirect -- pool status plumbing)",
+      "verified_this_session": "function listing read (grep '^def') + hash recomputed"
+    }
+  ],
+  "new_untracked_file_observed": {
+    "path": "src/webpent/llm_researcher/providers/pool.py",
+    "note": "This file did not exist in the v1.8.3 freeze at all (new file, not a modification), so it is not a freeze VIOLATION by definition -- but it is the file that makes providers/__init__.py and factory.py need re-freezing. Not added to the v1.8.4 freeze manifest by this agent: Part A.1 as written only authorized re-freezing the 4 already-identified changed paths. Flagged here so Mohamed can decide whether pool.py should be formally frozen too in a future step -- not decided unilaterally."
+  },
+  "not_re_frozen_and_why": {
+    "WebPent-GOED-v1.8.3-RealLLM-CausalBridge.zip": "Missing from this snapshot's tree entirely (category delivery_v183 in the v1.8.3 freeze). This is a NEW finding, not mentioned in the master plan text, discovered when Phase 18 was re-run this session. Not something the RE-FREEZE decision covered -- surfaced as a separate open item, see main status report."
+  }
+}

@@ -1,0 +1,31 @@
+# Conservative candidate scope derived from Comcast's official responsible-disclosure
+# page and public Comcast/Xfinity domain ownership. Review HackerOne/Bugcrowd
+# engagement assets before any testing; this file is not authorization by itself.
+in_scope:
+  - value: '*.xfinity.com'
+    kind: wildcard
+    protocol: https
+    source: https://hackerone.com/comcast
+  - value: '*.comcast.com'
+    kind: wildcard
+    protocol: https
+    source: https://hackerone.com/comcast
+  - value: '*.comcast.net'
+    kind: wildcard
+    protocol: https
+    source: https://hackerone.com/comcast
+out_of_scope:
+  - value: '*.third-party.com'
+    kind: wildcard
+    source: https://www.xfinity.com/vulnerabilityreport
+limits:
+  max_requests_per_second: 1
+  max_concurrent_requests: 1
+  max_violations: 3
+  no_destructive: true
+blacklisted_payloads:
+  - "DROP TABLE"
+  - "rm -rf"
+instructions:
+  - "Candidate scope only: verify the current Comcast engagement asset list and provider before testing."
+  - "Avoid privacy violations, service degradation, data destruction, and public disclosure."

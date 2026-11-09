@@ -1,0 +1,468 @@
+=== preconditions forced true ===
+src/webpent/agents/smart_campaigns/agent.py:727:        outcomes.append(executor.execute(task, handler, preconditions_met=True))
+=== direct I/O symbols ===
+src/webpent/shared/http_discovery.py:252:    from webpent.shared.http import build_cookie_header, make_safe_httpx_client
+src/webpent/shared/http_discovery.py:282:        client_context = make_safe_httpx_client(
+src/webpent/shared/http.py:18:  * :func:`make_safe_httpx_client` — synchronous :class:`httpx.Client`
+src/webpent/shared/http.py:19:  * :func:`make_safe_httpx_async_client` — async :class:`httpx.AsyncClient`
+src/webpent/shared/http.py:28:    :class:`httpx.RequestError`) if the resolved IP falls in any of
+src/webpent/shared/http.py:47:    :class:`httpx.BaseTransport` (sync) / :class:`httpx.AsyncBaseTransport`
+src/webpent/shared/http.py:68:    was using a raw ``httpx.AsyncClient`` and bypassing the guard
+src/webpent/shared/http.py:79:    from webpent.shared.http import make_safe_httpx_client
+src/webpent/shared/http.py:80:    with make_safe_httpx_client(timeout=10.0, follow_redirects=True, verify=True) as c:
+src/webpent/shared/http.py:91:verbatim to the underlying :class:`httpx.Client` /
+src/webpent/shared/http.py:92::class:`httpx.AsyncClient`. Pre-existing user-supplied ``event_hooks``
+src/webpent/shared/http.py:233:class SSRFRedirectBlockedError(httpx.RequestError):
+src/webpent/shared/http.py:236:    Subclasses :class:`httpx.RequestError` so callers that already
+src/webpent/shared/http.py:336:def _redirect_guard(response: httpx.Response) -> None:
+src/webpent/shared/http.py:404:class SSRFPinningTransport(httpx.BaseTransport):
+src/webpent/shared/http.py:421:        The transport wraps an underlying ``httpx.HTTPTransport`` that
+src/webpent/shared/http.py:427:    def __init__(self, wrapped: httpx.BaseTransport | None = None) -> None:
+src/webpent/shared/http.py:432:        self._wrapped: httpx.BaseTransport = wrapped or httpx.HTTPTransport()
+src/webpent/shared/http.py:434:    def handle_request(self, request: httpx.Request) -> httpx.Response:
+src/webpent/shared/http.py:439:            place via ``request.url = httpx.URL(new_url)``. Two
+src/webpent/shared/http.py:459:            NEW ``httpx.Request`` with the pinned-IP URL, copy the
+src/webpent/shared/http.py:466:            underlying ``httpx.HTTPTransport`` reads
+src/webpent/shared/http.py:578:                new_request = httpx.Request(
+src/webpent/shared/http.py:599:                #   ``httpx.RequestError``) so the caller's existing
+src/webpent/shared/http.py:620:            # already had Host set — but httpx.Request construction
+src/webpent/shared/http.py:643:class AsyncSSRFPinningTransport(httpx.AsyncBaseTransport):
+src/webpent/shared/http.py:649:        (which uses ``httpx.AsyncClient``) is protected by the same
+src/webpent/shared/http.py:653:    def __init__(self, wrapped: httpx.AsyncBaseTransport | None = None) -> None:
+src/webpent/shared/http.py:654:        self._wrapped: httpx.AsyncBaseTransport = wrapped or httpx.AsyncHTTPTransport()
+src/webpent/shared/http.py:656:    async def handle_async_request(self, request: httpx.Request) -> httpx.Response:
+src/webpent/shared/http.py:665:            ``httpx.Request`` with the pinned-IP URL, copy the
+src/webpent/shared/http.py:737:                new_request = httpx.Request(
+src/webpent/shared/http.py:758:                #   ``httpx.RequestError``) so the caller's existing
+src/webpent/shared/http.py:832:def make_safe_httpx_client(**kwargs: Any) -> httpx.Client:
+src/webpent/shared/http.py:833:    """Construct a hardened synchronous :class:`httpx.Client` that blocks SSRF.
+src/webpent/shared/http.py:836:    ``httpx.Client(**kwargs)`` — same timeout, same verify, same
+src/webpent/shared/http.py:853:        Forwarded verbatim to :class:`httpx.Client`. Commonly used
+src/webpent/shared/http.py:865:    httpx.Client
+src/webpent/shared/http.py:867:        (``with make_safe_httpx_client(...) as c:``) so the
+src/webpent/shared/http.py:877:        :class:`httpx.RequestError`, so any existing
+src/webpent/shared/http.py:878:        ``except httpx.RequestError`` or ``except httpx.HTTPError``
+src/webpent/shared/http.py:903:    return httpx.Client(
+src/webpent/shared/http.py:910:def make_safe_httpx_async_client(**kwargs: Any) -> httpx.AsyncClient:
+src/webpent/shared/http.py:911:    """Construct a hardened async :class:`httpx.AsyncClient` that blocks SSRF.
+src/webpent/shared/http.py:914:        The async twin of :func:`make_safe_httpx_client`. Used by
+src/webpent/shared/http.py:924:        Forwarded verbatim to :class:`httpx.AsyncClient`. Same
+src/webpent/shared/http.py:925:        semantics as :func:`make_safe_httpx_client`.
+src/webpent/shared/http.py:929:    httpx.AsyncClient
+src/webpent/shared/http.py:959:    return httpx.AsyncClient(
+src/webpent/shared/llm.py:324:          * ``exc.status_code`` — set by httpx.HTTPStatusError,
+src/webpent/shared/reference_lookup.py:73:        from webpent.shared.http import make_safe_httpx_client
+src/webpent/shared/reference_lookup.py:83:        with make_safe_httpx_client(timeout=15.0, follow_redirects=True) as c:
+src/webpent/shared/adaptive_hunt.py:3:This module deliberately emits *tasks*, not HTTP requests.  An existing
+src/webpent/shared/grounding.py:583:    from webpent.shared.http import make_safe_httpx_client
+src/webpent/shared/grounding.py:590:        with make_safe_httpx_client(
+src/webpent/shared/grounding.py:612:        with make_safe_httpx_client(
+src/webpent/shared/capability_manifest.py:59:        completed = subprocess.run(
+src/webpent/shared/capability_manifest.py:64:    except (OSError, subprocess.SubprocessError):
+src/webpent/agents/access_control/agent.py:326:        from webpent.shared.http import build_cookie_header, make_safe_httpx_client
+src/webpent/agents/access_control/agent.py:337:        with make_safe_httpx_client(
+src/webpent/agents/payload_generator/agent.py:320:    (``safe_prompt_format``, ``make_safe_httpx_client``, allowlist,
+src/webpent/agents/payload_generator/agent.py:401:    # reference_lookup.py (safe_prompt_format + make_safe_httpx_client
+src/webpent/agents/api_testing/agent.py:14:All probes use ``make_safe_httpx_client`` (V6 SSRF guard + V7 P0
+src/webpent/agents/api_testing/agent.py:118:    # No fallback to raw httpx.Client: every network request must pass
+src/webpent/agents/api_testing/agent.py:121:    from webpent.shared.http import make_safe_httpx_client
+src/webpent/agents/api_testing/agent.py:123:    client_factory = make_safe_httpx_client
+src/webpent/agents/api_testing/agent.py:219:    # No fallback to raw httpx.Client: every network request must pass
+src/webpent/agents/api_testing/agent.py:222:    from webpent.shared.http import make_safe_httpx_client
+src/webpent/agents/api_testing/agent.py:224:    client_factory = make_safe_httpx_client
+src/webpent/agents/api_testing/agent.py:389:    # No fallback to raw httpx.Client: every network request must pass
+src/webpent/agents/api_testing/agent.py:392:    from webpent.shared.http import make_safe_httpx_client
+src/webpent/agents/api_testing/agent.py:394:    client_factory = make_safe_httpx_client
+src/webpent/agents/api_testing/agent.py:436:                                    f"requests."
+src/webpent/agents/api_testing/agent.py:477:    ``make_safe_httpx_client`` (SSRF guard + engagement-scope allowlist).
+src/webpent/agents/post_exploit/agent.py:168:    ``subprocess.TimeoutExpired`` and other execution errors gracefully.
+src/webpent/agents/post_exploit/agent.py:335:            from webpent.shared.http import make_safe_httpx_client
+src/webpent/agents/post_exploit/agent.py:337:            with make_safe_httpx_client(timeout=10.0, follow_redirects=True, verify=True) as client:
+src/webpent/agents/request_smuggling/agent.py:477:                        f"to smuggle requests."
+src/webpent/agents/crawler/agent.py:158:    from webpent.shared.http import make_safe_httpx_client
+src/webpent/agents/crawler/agent.py:183:            with make_safe_httpx_client(
+src/webpent/agents/crawler/agent.py:238:        from webpent.shared.http import make_safe_httpx_client
+src/webpent/agents/crawler/agent.py:240:        logger.debug("make_safe_httpx_client not importable — skipping JS secret extraction")
+src/webpent/agents/crawler/agent.py:255:            with make_safe_httpx_client(timeout=10.0, follow_redirects=True, verify=True) as client:
+src/webpent/agents/validator/structural_checks.py:40:  * All HTTP probes use ``make_safe_httpx_client`` (SSRF guard +
+src/webpent/agents/validator/structural_checks.py:41:    engagement-scope allowlist). No raw httpx.
+src/webpent/agents/validator/structural_checks.py:75:        from webpent.shared.http import build_cookie_header, make_safe_httpx_client
+src/webpent/agents/validator/structural_checks.py:79:        with make_safe_httpx_client(timeout=timeout, follow_redirects=False, verify=True) as client:
+src/webpent/agents/validator/structural_checks.py:859:        from webpent.shared.http import build_cookie_header, make_safe_httpx_client
+src/webpent/agents/validator/structural_checks.py:868:                with make_safe_httpx_client(
+src/webpent/agents/validator/agent.py:768:    requests. In such cases the CSRF finding should be flagged as
+src/webpent/agents/validator/agent.py:775:            (e.g. ``httpx.Response.headers`` or a dict).
+src/webpent/agents/validator/agent.py:872:        from webpent.shared.http import make_safe_httpx_client
+src/webpent/agents/validator/agent.py:875:            with make_safe_httpx_client(timeout=10.0, follow_redirects=True) as client:
+src/webpent/agents/validator/agent.py:1045:#   3. Issue the crafted request via httpx.
+src/webpent/agents/validator/agent.py:1234:    from webpent.shared.http import make_safe_httpx_client
+src/webpent/agents/validator/agent.py:1328:            with make_safe_httpx_client(timeout=5.0, follow_redirects=False, verify=True) as client:
+src/webpent/agents/validator/agent.py:1454:    from webpent.shared.http import make_safe_httpx_client
+src/webpent/agents/validator/agent.py:1667:            with make_safe_httpx_client(timeout=5.0, follow_redirects=False, verify=True) as client:
+src/webpent/agents/validator/agent.py:1727:                with make_safe_httpx_client(
+src/webpent/agents/validator/agent.py:2122:    # and rate-limiting before spawning the subprocess.
+src/webpent/agents/validator/agent.py:2174:            from webpent.shared.http import build_cookie_header, make_safe_httpx_client
+src/webpent/agents/validator/agent.py:2177:            with make_safe_httpx_client(
+src/webpent/agents/validator/agent.py:3267:    from webpent.shared.http import build_cookie_header, make_safe_httpx_client
+src/webpent/agents/validator/agent.py:3308:        with make_safe_httpx_client(timeout=5.0, follow_redirects=False, verify=True) as client:
+src/webpent/agents/validator/agent.py:3366:    from webpent.shared.http import build_cookie_header, make_safe_httpx_client
+src/webpent/agents/validator/agent.py:3407:        with make_safe_httpx_client(timeout=10.0, follow_redirects=False, verify=True) as client:
+src/webpent/agents/validator/active_checks.py:121:        from webpent.shared.http import build_cookie_header, make_safe_httpx_client
+src/webpent/agents/validator/active_checks.py:126:        with make_safe_httpx_client(timeout=10.0, follow_redirects=False, verify=True) as client:
+src/webpent/agents/recon/agent.py:468:            "directly with httpx. Nuclei will still run against %s.",
+src/webpent/agents/recon/agent.py:627:    Uses ``make_safe_httpx_client`` for all probes (SSRF guard, which
+src/webpent/agents/recon/agent.py:652:        from webpent.shared.http import make_safe_httpx_client
+src/webpent/agents/recon/agent.py:654:        logger.debug("make_safe_httpx_client not importable — skipping param discovery")
+src/webpent/agents/recon/agent.py:673:            with make_safe_httpx_client(
+src/webpent/agents/recon/agent.py:684:                    with make_safe_httpx_client(
+src/webpent/agents/cloud_storage/agent.py:18:from webpent.shared.http import make_safe_httpx_client
+src/webpent/agents/cloud_storage/agent.py:109:            with make_safe_httpx_client(
+src/webpent/agents/authentication/agent.py:279:        from webpent.shared.http import make_safe_httpx_client
+src/webpent/agents/authentication/agent.py:282:        # to a raw ``httpx.Client``, which BYPASSES the SSRF pinning
+src/webpent/agents/authentication/agent.py:292:            "client (webpent.shared.http.make_safe_httpx_client) could "
+src/webpent/agents/authentication/agent.py:303:        client_factory = make_safe_httpx_client
+src/webpent/agents/javascript_intelligence/agent.py:72:        from webpent.shared.http import make_safe_httpx_client
+src/webpent/agents/javascript_intelligence/agent.py:79:        with make_safe_httpx_client(
+src/webpent/agents/business_logic_fuzzer/agent.py:199:    All requests use ``make_safe_httpx_client`` (SSRF guard +
+src/webpent/agents/business_logic_fuzzer/agent.py:205:    worker thread, so ``make_safe_httpx_client``'s SSRF guard blocks
+src/webpent/agents/business_logic_fuzzer/agent.py:211:    from webpent.shared.http import make_safe_httpx_client
+src/webpent/agents/business_logic_fuzzer/agent.py:231:                with make_safe_httpx_client(
+src/webpent/agents/subdomain_takeover/agent.py:19:from webpent.shared.http import make_safe_httpx_client
+src/webpent/agents/subdomain_takeover/agent.py:140:            with make_safe_httpx_client(
+src/webpent/agents/smart_campaigns/agent.py:33:from webpent.shared.http import make_safe_httpx_client
+src/webpent/agents/smart_campaigns/agent.py:556:        with _declared_target_scope(root), make_safe_httpx_client(
+src/webpent/agents/smart_campaigns/agent.py:631:        with _declared_target_scope(root), make_safe_httpx_client(
+src/webpent/config/settings.py:293:            "state-changing surfaces without executing requests."
+src/webpent/config/settings.py:507:        description="Retries for sqlmap POST form requests.",
+src/webpent/integrations/webhook.py:36:# a raw httpx.AsyncClient, bypassing the SSRF guard installed by
+src/webpent/integrations/webhook.py:37:# make_safe_httpx_client. The webhook URL is attacker-controllable
+src/webpent/integrations/webhook.py:255:        # make_safe_httpx_client used by the sync validator paths.
+src/webpent/cli/git_source.py:71:        completed = subprocess.run(
+src/webpent/cli/git_source.py:84:    except subprocess.TimeoutExpired as exc:
+src/webpent/tools/exploitation/__init__.py:14::func:`webpent.tools.utils.subprocess.run_command`, which provides
+src/webpent/tools/exploitation/dalfox.py:88:    # make_safe_httpx_client. Its --follow-redirects flag can follow
+src/webpent/tools/exploitation/sqlmap.py:239:    # Normalize URL for SQLi paths only for URL/query requests. For a POST
+src/webpent/tools/recon/katana.py:106:    # make_safe_httpx_client. It crawls discovered links to arbitrary
+src/webpent/tools/recon/httpx.py:1:# src/webpent/tools/recon/httpx.py
+src/webpent/tools/recon/httpx.py:33:            launching httpx. Recon tools generate the highest traffic
+src/webpent/tools/recon/httpx.py:38:        httpx. Lines that fail JSON parsing are silently skipped.
+src/webpent/tools/recon/httpx.py:67:    # subprocess and is NOT wrapped by make_safe_httpx_client, so the
+src/webpent/tools/utils/subprocess.py:1:# src/webpent/tools/utils/subprocess.py
+src/webpent/tools/utils/subprocess.py:31:    it to :func:`subprocess.run` without explicitly setting
+src/webpent/tools/utils/subprocess.py:48:      3. **Explicitly passes ``shell=False``** to :func:`subprocess.run`
+src/webpent/tools/utils/subprocess.py:141:    A ``str`` argument would cause :func:`subprocess.run` to interpret
+src/webpent/tools/utils/subprocess.py:231:    # encoding / errors to subprocess.run — we want raw bytes back so
+src/webpent/tools/utils/subprocess.py:239:    process: subprocess.Popen[str] | subprocess.Popen[bytes] | None = None
+src/webpent/tools/utils/subprocess.py:242:            process = subprocess.Popen(
+src/webpent/tools/utils/subprocess.py:244:                stdin=subprocess.PIPE,
+src/webpent/tools/utils/subprocess.py:245:                stdout=subprocess.PIPE,
+src/webpent/tools/utils/subprocess.py:246:                stderr=subprocess.PIPE,
+src/webpent/tools/utils/subprocess.py:256:            process = subprocess.Popen(
+src/webpent/tools/utils/subprocess.py:258:                stdin=subprocess.PIPE,
+src/webpent/tools/utils/subprocess.py:259:                stdout=subprocess.PIPE,
+src/webpent/tools/utils/subprocess.py:260:                stderr=subprocess.PIPE,
+src/webpent/tools/utils/subprocess.py:271:    except subprocess.TimeoutExpired as exc:
+src/webpent/api/app.py:112:# requests. FastAPI runs sync def endpoints in a threadpool, so two
+src/webpent/api/app.py:151:    check-then-set race between concurrent status-poll requests.
+src/webpent/api/app.py:1382:    measuring response latency across many requests.
+=== executor/proof/idempotency/budget/scope symbols ===
+src/webpent/shared/memory_boundary.py:29:        engagement_scope: str | None = None,
+src/webpent/shared/memory_boundary.py:30:        budget: MemoryBudget | None = None,
+src/webpent/shared/memory_boundary.py:33:        self.engagement_scope = engagement_scope
+src/webpent/shared/memory_boundary.py:34:        self.budget = budget or MemoryBudget()
+src/webpent/shared/memory_boundary.py:50:        if len(self._records) >= self.budget.max_records and record.id not in self._records:
+src/webpent/shared/memory_boundary.py:53:            if not self.engagement_scope or record.target_scope != self.engagement_scope:
+src/webpent/shared/memory_boundary.py:55:        elif record.target_scope is not None and record.target_scope != self.engagement_scope:
+src/webpent/shared/memory_boundary.py:58:        if len(record.content) > self.budget.max_content_chars:
+src/webpent/shared/memory_boundary.py:60:                update={"content": record.content[: self.budget.max_content_chars]}
+src/webpent/shared/memory_boundary.py:73:        if not self.engagement_scope:
+src/webpent/shared/memory_boundary.py:79:            target_scope=self.engagement_scope,
+src/webpent/shared/memory_boundary.py:105:        target_scope: str | None = None,
+src/webpent/shared/memory_boundary.py:112:            target_scope=target_scope,
+src/webpent/shared/memory_boundary.py:130:        if self._retrievals >= self.budget.max_retrievals:
+src/webpent/shared/memory_boundary.py:132:                query=clean_query, truncated=True, stop_reason="budget_exhausted"
+src/webpent/shared/memory_boundary.py:138:            limit or self.budget.max_items_per_retrieval, self.budget.max_items_per_retrieval
+src/webpent/shared/memory_boundary.py:141:            max_chars or self.budget.max_chars_per_retrieval, self.budget.max_chars_per_retrieval
+src/webpent/shared/memory_boundary.py:198:            stop_reason="completed" if not truncated else "budget_exhausted",
+src/webpent/shared/memory_boundary.py:212:            or len(self._feedback) >= self.budget.max_feedback_records
+src/webpent/shared/memory_boundary.py:232:            "engagement_scope": self.engagement_scope,
+src/webpent/shared/memory_boundary.py:237:            "retrieval_budget_remaining": max(0, self.budget.max_retrievals - self._retrievals),
+src/webpent/shared/memory_boundary.py:242:            return bool(self.engagement_scope and record.target_scope == self.engagement_scope)
+src/webpent/shared/memory_boundary.py:243:        return record.target_scope is None or record.target_scope == self.engagement_scope
+src/webpent/shared/surface_security.py:383:            "Command/network parameter names were observed; confirmation requires non-destructive canary validation with explicit scope and approval.",
+src/webpent/shared/surface_security.py:491:            "JavaScript intelligence reported one or more redacted secret candidates. Verify ownership, exposure scope, rotation status, and exploitability through an approved human-reviewed workflow; this passive observation is not proof of a usable secret.",
+src/webpent/shared/javascript_intelligence.py:1:"""Bounded, scope-gated static JavaScript intelligence.
+src/webpent/shared/javascript_intelligence.py:174:    """Analyze one in-scope JavaScript asset without retaining source content."""
+src/webpent/shared/javascript_intelligence.py:176:        return JavaScriptIntelligence(coverage_gaps=["js_asset_out_of_scope"])
+src/webpent/shared/javascript_intelligence.py:186:            in_scope=True,
+src/webpent/shared/javascript_intelligence.py:203:        in_scope=True,
+src/webpent/shared/javascript_intelligence.py:220:                route_gaps.append("js_route_out_of_scope")
+src/webpent/shared/javascript_intelligence.py:235:                in_scope=True,
+src/webpent/shared/javascript_intelligence.py:339:                in_scope=True,
+src/webpent/shared/javascript_intelligence.py:365:        gaps.append("no_in_scope_js_routes_observed")
+src/webpent/shared/engagement_scope.py:1:# src/webpent/shared/engagement_scope.py
+src/webpent/shared/engagement_scope.py:2:"""webpent.shared.engagement_scope
+src/webpent/shared/engagement_scope.py:16:"out of scope for being private."
+src/webpent/shared/engagement_scope.py:28:    ``scope_enforcer`` for newly-discovered hosts. This is what keeps
+src/webpent/shared/engagement_scope.py:34:scoped to the current thread/async-task tree, not to the whole
+src/webpent/shared/engagement_scope.py:168:def normalize_scope_host(value: str | None) -> str | None:
+src/webpent/shared/engagement_scope.py:298:    ``scope_enforcer``'s job, not this module's.
+src/webpent/shared/tool_adapters.py:85:        scope_decision: ScopeDecision = "not_checked",
+src/webpent/shared/tool_adapters.py:150:            scope_decision=scope_decision,
+src/webpent/shared/tool_adapters.py:177:                    scope_decision=scope_decision,
+src/webpent/shared/tool_adapters.py:248:    scope_decision: ScopeDecision = "not_checked",
+src/webpent/shared/tool_adapters.py:264:        scope_decision=scope_decision,
+src/webpent/shared/http_discovery.py:380:        # Keep them as a fallback so normal links retain priority at small budgets.
+src/webpent/shared/http.py:109:    :func:`webpent.shared.engagement_scope.is_engagement_target_host`
+src/webpent/shared/http.py:115:    ``shared/engagement_scope.py`` for how the allowlist is populated
+src/webpent/shared/http.py:116:    and scoped (one engagement's target per worker task/CLI run,
+src/webpent/shared/http.py:137:from webpent.shared.engagement_scope import (
+src/webpent/shared/http.py:141:    normalize_scope_host,
+src/webpent/shared/http.py:310:            :func:`webpent.shared.engagement_scope.is_engagement_target_host`" —
+src/webpent/shared/http.py:375:            "OriginPolicy blocked redirect from %s to out-of-scope origin %s.",
+src/webpent/shared/http.py:491:        # webpent.shared.engagement_scope). Any OTHER host — including
+src/webpent/shared/http.py:496:        # host is ALLOWED by the engagement scope, so the operator can
+src/webpent/shared/http.py:500:        # positive signal that the engagement-scope allowlist fired.
+src/webpent/shared/http.py:504:                "engagement-scope allowlist (operator-declared target). "
+src/webpent/shared/http.py:1091:        :func:`webpent.shared.engagement_scope.set_engagement_target_hosts`,
+src/webpent/shared/http.py:1096:        :func:`webpent.shared.engagement_scope.get_engagement_target_hosts`
+src/webpent/shared/http.py:1097:        (the ambient engagement-scope allowlist), read ONCE here in
+src/webpent/shared/http.py:1232:            engagement-scope allowlist (see V7 P0 FIX note above).
+src/webpent/shared/http.py:1238:            normalized for item in target_hosts if (normalized := normalize_scope_host(str(item)))
+src/webpent/shared/http.py:1268:                    "Playwright OriginPolicy blocked request to out-of-scope origin %s.",
+src/webpent/shared/http.py:1289:            # is ALLOWED by the engagement scope, mirroring the httpx
+src/webpent/shared/http.py:1295:                    "%s via engagement-scope allowlist (url=%s).",
+src/webpent/shared/http.py:1371:                    "Playwright OriginPolicy blocked WebSocket to out-of-scope origin %s.",
+src/webpent/shared/report_quality.py:191:            "scope_status",
+src/webpent/shared/report_quality.py:192:            "scope_decision",
+src/webpent/shared/report_quality.py:194:            "scope_policy_result",
+src/webpent/shared/report_quality.py:196:        or _nested_value(_as_dict(bundle), "scope_status", "scope_decision", "policy_result")
+src/webpent/shared/report_quality.py:198:        advisory.append("scope_or_policy_result")
+src/webpent/shared/workflow_understanding.py:31:_ROLE_KEYS = ("role", "actor_role", "user_role", "required_role", "authorization_scope")
+src/webpent/shared/workflow_understanding.py:90:    if record.get("authorization") or record.get("authorization_scope"):
+src/webpent/shared/workflow_understanding.py:104:        boundary = "role_scoped"
+src/webpent/shared/workflow_understanding.py:106:        boundary = "object_scoped"
+src/webpent/shared/workflow_understanding.py:185:            "authorization_scope",
+src/webpent/shared/workflow_understanding.py:220:    if any(record.get(key) for key in (*_ROLE_KEYS, "authorization", "authorization_scope")):
+src/webpent/shared/workflow_understanding.py:235:    scope_checker: Any = None,
+src/webpent/shared/workflow_understanding.py:286:        scope_decision = "unknown"
+src/webpent/shared/workflow_understanding.py:287:        if callable(scope_checker):
+src/webpent/shared/workflow_understanding.py:289:                scope_decision = "allowed" if bool(scope_checker(endpoint)) else "denied"
+src/webpent/shared/workflow_understanding.py:291:                scope_decision = "unknown"
+src/webpent/shared/workflow_understanding.py:340:            scope_decision=scope_decision,
+src/webpent/shared/workflow_understanding.py:358:        if observation.scope_decision == "denied":
+src/webpent/shared/workflow_understanding.py:375:                        "return an idempotent result."
+src/webpent/shared/workflow_understanding.py:397:                        "without owner-scoped data."
+src/webpent/shared/workflow_understanding.py:407:        if observation.authorization_boundary in {"cross_identity", "role_scoped"} or (
+src/webpent/shared/workflow_understanding.py:510:                    request_budget=2 if action_type == "read_only_compare" else 0,
+src/webpent/shared/reference_lookup.py:48:            "reference_lookup: budget exceeded for %s (%d/%d)",
+src/webpent/shared/reference_lookup.py:109:def reset_lookup_budget(finding_id: str | None = None) -> None:
+src/webpent/shared/adaptive_hunt.py:5:HITL, scope enforcement, evidence capture, and reporting contracts are
+src/webpent/shared/adaptive_hunt.py:157:def _budget_for(task_type: str) -> BranchBudget:
+src/webpent/shared/adaptive_hunt.py:219:        budget=_budget_for(task_type),
+src/webpent/shared/adaptive_hunt.py:502:    budget = task.budget.model_copy(update={
+src/webpent/shared/adaptive_hunt.py:503:        "attempts_used": task.budget.attempts_used + 1,
+src/webpent/shared/adaptive_hunt.py:504:        "requests_used": task.budget.requests_used + outcome.requests_used,
+src/webpent/shared/adaptive_hunt.py:505:        "time_seconds_used": task.budget.time_seconds_used + outcome.time_seconds_used,
+src/webpent/shared/adaptive_hunt.py:506:        "llm_units_used": task.budget.llm_units_used + outcome.llm_units_used,
+src/webpent/shared/adaptive_hunt.py:509:    if status not in _TERMINAL_STATUSES and budget.exhausted:
+src/webpent/shared/adaptive_hunt.py:513:        "budget": budget,
+src/webpent/shared/adaptive_hunt.py:592:            "budget": task.budget.model_dump(mode="json"),
+src/webpent/shared/planner_decisions.py:159:            expected_evidence=["reproducible_request", "response_delta", "scope_check"],
+src/webpent/shared/planner_decisions.py:184:        expected_evidence=["target_identity", "scope_decision"],
+src/webpent/shared/planner_decisions.py:189:            "and scope first."
+src/webpent/shared/planner_decisions.py:221:    """Run policy, scope, budget, and tool-availability gates in order."""
+src/webpent/shared/planner_decisions.py:234:        passed.append("scope:target_reference")
+src/webpent/shared/planner_decisions.py:236:        failed.append("scope:target_reference")
+src/webpent/shared/planner_decisions.py:242:            passed.append("scope:hypothesis_reference")
+src/webpent/shared/planner_decisions.py:244:            failed.append("scope:hypothesis_reference")
+src/webpent/shared/planner_decisions.py:246:        failed.append("scope:hypothesis_reference")
+src/webpent/shared/planner_decisions.py:248:        passed.append("scope:hypothesis_reference")
+src/webpent/shared/planner_decisions.py:252:        passed.append("budget:estimated_cost")
+src/webpent/shared/planner_decisions.py:254:        failed.append("budget:estimated_cost")
+src/webpent/shared/self_critique.py:23:    hypothesis that would consume significant budget (heuristic:
+src/webpent/shared/self_critique.py:46:  LLM cannot talk its way past a depth/budget cap by arguing the
+src/webpent/shared/self_critique.py:54:       ambiguous (mid-budget, mid-depth, mixed hit rate), the LLM is
+src/webpent/shared/self_critique.py:93:# significant budget). Explicitly NOT a new always-on graph node running
+src/webpent/shared/self_critique.py:121:    caps (budget exhaustion, depth cap, zero-hit-rate-over-N).
+src/webpent/shared/self_critique.py:139:# budget" and triggers a before_promotion Self-Critique check. Mirrors
+src/webpent/shared/self_critique.py:242:      * ``budget_consumed``: sum of ``estimated_cost`` over all
+src/webpent/shared/self_critique.py:243:        hypotheses in this branch (approximation — the real budget
+src/webpent/shared/self_critique.py:244:        tracker is the Goal Tree node's ``budget_consumed`` field,
+src/webpent/shared/self_critique.py:258:        "budget_consumed": 0.0,
+src/webpent/shared/self_critique.py:330:    budget_sum = 0.0
+src/webpent/shared/self_critique.py:340:                    budget_sum += float(cost)
+src/webpent/shared/self_critique.py:344:    signals["budget_consumed"] = budget_sum
+src/webpent/shared/self_critique.py:382:    signals are ambiguous (mid-budget, mid-depth, mixed hit rate) —
+src/webpent/shared/self_critique.py:424:        "for deterministic budget/depth caps that you cannot see. Your "
+src/webpent/shared/self_critique.py:426:        "deterministic formula will combine with budget/depth/hit-rate "
+src/webpent/shared/self_critique.py:437:        "Budget consumed (estimated): {budget:.2f}\n\n"
+src/webpent/shared/self_critique.py:451:            budget=float(signals.get("budget_consumed", 0.0)),
+src/webpent/shared/self_critique.py:511:         branches >= max_branches, budget >= curiosity_budget_ceiling),
+src/webpent/shared/self_critique.py:527:            for budget tracking.
+src/webpent/shared/self_critique.py:537:            ``current_branches``, ``curiosity_budget_ceiling``,
+src/webpent/shared/self_critique.py:538:            ``curiosity_budget_consumed``. Any cap hit -> ABANDON.
+src/webpent/shared/self_critique.py:662:        budget_ceiling = caps.get("curiosity_budget_ceiling")
+src/webpent/shared/self_critique.py:663:        budget_consumed = caps.get("curiosity_budget_consumed", 0.0)
+src/webpent/shared/self_critique.py:665:            budget_ceiling is not None
+src/webpent/shared/self_critique.py:666:            and budget_consumed >= budget_ceiling
+src/webpent/shared/self_critique.py:669:                f"curiosity_budget {budget_consumed:.2f} >= "
+src/webpent/shared/self_critique.py:670:                f"ceiling {budget_ceiling:.2f}"
+src/webpent/shared/cognitive_components.py:255:        None,  # scope re-check handles out-of-scope hosts; not a forced HITL here
+src/webpent/shared/cognitive_components.py:319:    SCOPE_CHECK_BLOCKED_RELATED = "scope_check_blocked_related"
+src/webpent/shared/cognitive_components.py:450:        # Already visited — no-op (idempotent).
+src/webpent/shared/cognitive_components.py:480:    OUT_OF_SCOPE_HOST = "out_of_scope_host"
+src/webpent/shared/recon_triage.py:234:    # Second pass: fill remaining budget with the strongest unseen endpoints.
+src/webpent/shared/prioritization.py:190:    Novelty changes ordering only; it never bypasses evidence, scope, HITL,
+src/webpent/shared/evidence_contract.py:6:request itself.  Execution remains behind the existing scope, approval, and
+src/webpent/shared/evidence_contract.py:45:    scope.  Unknown/invalid contracts evaluate to unsatisfied.
+src/webpent/shared/application_intent.py:82:            "Infer the application's defensive business purpose for a scoped "
+src/webpent/shared/campaigns.py:199:    explicit state labels and is useful for auth/scope/precondition failures.
+src/webpent/shared/campaign_planner.py:22:        "preconditions": ["header injection point is in scope", "baseline response captured"],
+src/webpent/shared/campaign_planner.py:29:        "budget": 2,
+src/webpent/shared/campaign_planner.py:39:        "budget": 3,
+src/webpent/shared/campaign_planner.py:42:        "preconditions": ["token-bearing path or download route", "scope allows read-only replay"],
+src/webpent/shared/campaign_planner.py:49:        "budget": 3,
+src/webpent/shared/campaign_planner.py:59:        "budget": 2,
+src/webpent/shared/campaign_planner.py:69:        "budget": 4,
+src/webpent/shared/campaign_planner.py:79:        "budget": 3,
+src/webpent/shared/campaign_planner.py:92:        "budget": 4,
+src/webpent/shared/campaign_planner.py:105:        "budget": 3,
+src/webpent/shared/campaign_planner.py:115:        "budget": 3,
+src/webpent/shared/campaign_planner.py:121:        "payload_strategy": ["scope-approved canary URL only"],
+src/webpent/shared/campaign_planner.py:125:        "budget": 3,
+src/webpent/shared/campaign_planner.py:135:        "budget": 3,
+src/webpent/shared/campaign_planner.py:145:        "budget": 3,
+src/webpent/shared/campaign_planner.py:155:        "budget": 2,
+src/webpent/shared/campaign_planner.py:158:        "preconditions": ["in-scope snapshot/service surface observed", "read-only approval"],
+src/webpent/shared/campaign_planner.py:165:        "budget": 2,
+src/webpent/shared/campaign_planner.py:175:        "budget": 2,
+src/webpent/shared/campaign_planner.py:185:        "budget": 2,
+src/webpent/shared/campaign_planner.py:195:        "budget": 1,
+src/webpent/shared/campaign_planner.py:198:        "preconditions": ["in-scope Elasticsearch service fingerprint observed"],
+src/webpent/shared/campaign_planner.py:205:        "budget": 2,
+src/webpent/shared/campaign_planner.py:215:        "budget": 3,
+src/webpent/shared/campaign_planner.py:225:        "budget": 3,
+src/webpent/shared/proof_engine.py:1:"""Evidence-driven proof planning with external scope and approval gates."""
+src/webpent/shared/proof_engine.py:39:        ["target remains in scope", "surface family is declared"],
+src/webpent/shared/proof_engine.py:41:        "stop after one bounded surface observation or a scope/policy block",
+src/webpent/shared/proof_engine.py:55:        ["request shape is in scope"],
+src/webpent/shared/proof_engine.py:71:        ["control request remains in scope"],
+src/webpent/shared/proof_engine.py:172:    if data.get("policy_block") or data.get("scope_block"):
+src/webpent/shared/proof_engine.py:177:                "external policy or scope gate blocked the proof path",
+src/webpent/shared/proof_engine.py:260:                budget_requests=requests,
+src/webpent/shared/proof_engine.py:261:                budget_seconds=seconds,
+src/webpent/shared/proof_engine.py:286:    if status in {"blocked_by_scope", "policy_block"}:
+src/webpent/shared/proof_engine.py:288:    elif status in {"inconclusive", "budget_exhausted"}:
+src/webpent/shared/proof_engine.py:321:        scope_blocks=sum(1 for item in outcomes_list if item.get("status") == "blocked_by_scope"),
+src/webpent/shared/proof_engine.py:328:        budget_exhaustions=sum(
+src/webpent/shared/proof_engine.py:329:            1 for item in outcomes_list if item.get("status") == "budget_exhausted"
+src/webpent/shared/proof_engine.py:428:        elif status in {"inconclusive", "budget_exhausted", "blocked_by_scope", "policy_block"}:
+src/webpent/shared/capability_manifest.py:5:change scope. Callers must treat ``blocked`` capabilities as unavailable.
+src/webpent/shared/application_intent_graph.py:22:_ROLE_KEYS = ("role", "actor_role", "user_role", "required_role", "authorization_scope")
+src/webpent/shared/application_intent_graph.py:102:    if key == "authorization_scope":
+src/webpent/shared/application_intent_graph.py:103:        return "scoped_actor"
+src/webpent/shared/workflow_replay.py:1:"""Plan-only workflow replay with explicit scope, identity, and cleanup gates."""
+src/webpent/shared/workflow_replay.py:48:    ready = observation.scope_decision == "allowed" and session_health == "healthy"
+src/webpent/shared/workflow_replay.py:56:        scope_decision=observation.scope_decision,
+src/webpent/shared/action_authority.py:49:    idempotency_key: str = ""
+src/webpent/shared/action_authority.py:102:        used_budget: float = 0.0,
+src/webpent/shared/action_authority.py:108:        self.used_budget = used_budget
+src/webpent/shared/action_authority.py:151:            reasons.append("scope:target_origin_mismatch")
+src/webpent/shared/action_authority.py:165:            or request.estimated_cost > self.settings.smart_action_budget
+src/webpent/shared/action_authority.py:167:            reasons.append("budget:invalid_or_over_engagement_limit")
+src/webpent/shared/action_authority.py:169:            reasons.append("budget:max_actions_exhausted")
+src/webpent/shared/action_authority.py:170:        if self.used_budget + request.estimated_cost > self.settings.smart_action_budget:
+src/webpent/shared/action_authority.py:171:            reasons.append("budget:action_budget_exhausted")
+src/webpent/shared/action_authority.py:172:        if self.settings.smart_require_idempotency and not request.idempotency_key.strip():
+src/webpent/shared/action_authority.py:173:            reasons.append("idempotency:key_required")
+src/webpent/shared/action_authority.py:195:        self.used_budget += request.estimated_cost
+src/webpent/shared/campaign_executor.py:54:    budget: float = 1.0
+src/webpent/shared/campaign_executor.py:56:    idempotency_key: str = ""
+src/webpent/shared/campaign_executor.py:71:    def normalized_idempotency_key(self) -> str:
+src/webpent/shared/campaign_executor.py:72:        if self.idempotency_key.strip():
+src/webpent/shared/campaign_executor.py:73:            return self.idempotency_key.strip()[:160]
+src/webpent/shared/campaign_executor.py:101:                "budget": self.budget,
+src/webpent/shared/campaign_executor.py:103:                "idempotency_key": self.normalized_idempotency_key(),
+src/webpent/shared/campaign_executor.py:205:        if task.normalized_idempotency_key() in attempted:
+src/webpent/shared/campaign_executor.py:208:        if task.budget <= 1.0:
+src/webpent/shared/campaign_executor.py:262:            idempotency_key=task.normalized_idempotency_key(),
+src/webpent/shared/campaign_executor.py:263:            estimated_cost=task.budget,
+src/webpent/shared/campaign_executor.py:282:        key = task.normalized_idempotency_key()
+src/webpent/shared/campaign_executor.py:292:            self._emit_lifecycle(task, "deduplicated", "duplicate_idempotency_key")
+src/webpent/shared/campaign_executor.py:293:            return self._record(task, CampaignTaskStatus.STOPPED, "duplicate_idempotency_key")
+src/webpent/shared/campaign_executor.py:340:            "idempotency_key": task.normalized_idempotency_key(),
+src/webpent/shared/campaign_executor.py:369:class ActionExecutor(CampaignExecutor):
+src/webpent/shared/campaign_executor.py:374:    "ActionExecutor",
+src/webpent/shared/coverage_ledger.py:44:    if raw in {"blocked_by_precondition", "blocked_by_scope"}:
+src/webpent/shared/coverage_ledger.py:50:    if raw in {"inconclusive", "budget_exhausted", "executed", "ready", "stopped"}:
+src/webpent/shared/finding_aggregation.py:65:    """Derive a stable, non-secret scope for repeated scans of one target."""
+src/webpent/shared/finding_aggregation.py:66:    scope = f"{_normalise_url(target_url)}|{str(client_id or '').strip()}"
+src/webpent/shared/finding_aggregation.py:67:    return f"target-{sha256(scope.encode('utf-8')).hexdigest()[:24]}"
+src/webpent/shared/proof_oracles.py:5:scope gates remain the only components allowed to perform actions.
+src/webpent/shared/persistent_finding_ledger.py:127:        scope = engagement_id.strip()
+src/webpent/shared/persistent_finding_ledger.py:128:        if not scope:
+src/webpent/shared/persistent_finding_ledger.py:138:                    (scope, fingerprint),
+src/webpent/shared/persistent_finding_ledger.py:168:                        scope,
+src/webpent/shared/persistent_finding_ledger.py:175:                                (scope, fingerprint),
+src/webpent/shared/persistent_finding_ledger.py:182:            return self._read_locked(connection, scope)
+src/webpent/shared/persistent_finding_ledger.py:185:        scope = engagement_id.strip()
+src/webpent/shared/persistent_finding_ledger.py:186:        if not scope:
+src/webpent/shared/persistent_finding_ledger.py:189:            return self._read_locked(connection, scope)
+src/webpent/shared/research_intelligence.py:83:    scope_risk: float = 0.0
+src/webpent/shared/research_intelligence.py:88:    idempotency_key: str = ""
+src/webpent/shared/research_intelligence.py:101:            "idempotency_key": _clean(self.idempotency_key, 160),
+src/webpent/shared/research_intelligence.py:119:                "scope_risk": self.scope_risk,
+src/webpent/shared/research_intelligence.py:388:            * max(0.05, 1.0 + action.scope_risk)
+src/webpent/shared/research_intelligence.py:452:    scope: tuple[str, ...] = ()
+src/webpent/shared/research_intelligence.py:460:    """Bounded, scope-aware store for reusable failed paths.
+src/webpent/shared/research_intelligence.py:465:    scope fails closed.
+src/webpent/shared/research_intelligence.py:499:        """Store a scoped negative observation; reject records without client scope."""
+src/webpent/shared/research_intelligence.py:516:        """Return only currently reusable negative evidence in caller scope."""
+src/webpent/shared/autonomous_controller.py:4:executes an action without an explicitly injected handler and ActionExecutor.
+src/webpent/shared/autonomous_controller.py:17:from webpent.shared.campaign_executor import ActionExecutor, CampaignTask
+src/webpent/shared/autonomous_controller.py:27:    fallback. Every actual action must pass through the supplied ActionExecutor.
+src/webpent/shared/autonomous_controller.py:34:        action_executor: ActionExecutor | None = None,
+src/webpent/graph/builder.py:13:  understanding, scope enforcement, and WAF detection.
+src/webpent/graph/builder.py:70:from webpent.agents.scope_enforcer.agent import scope_enforcer_node
+src/webpent/graph/builder.py:96:NODE_SCOPE_ENFORCER = "scope_enforcer"
+src/webpent/graph/builder.py:117:# execution or expand scope (per Section 4).
+src/webpent/graph/builder.py:246:    If ``skip_recon`` is True, bypass the recon/crawler/scope/waf
+src/webpent/graph/builder.py:251:        logger.info("skip_recon=True — bypassing recon/crawler/scope/waf")
+src/webpent/graph/builder.py:533:    graph.add_node(NODE_SCOPE_ENFORCER, scope_enforcer_node)
+src/webpent/agents/payload_generator/agent.py:347:    defense. The lookup budget (MAX_LOOKUPS_PER_FINDING=3) bounds
+src/webpent/agents/payload_generator/agent.py:426:    # V7 Phase 4: Token budget enforcement.
+src/webpent/agents/payload_generator/agent.py:430:        joined = joined[:max_reference_chars] + "\n[...truncated at token budget...]"
+src/webpent/agents/payload_generator/agent.py:678:        # V10/V58 idempotency guard: a later chain/rabbit-hole pass may
+src/webpent/agents/hypothesis_analyzer/agent.py:173:    budget = MemoryBudget(
+src/webpent/agents/hypothesis_analyzer/agent.py:216:        engagement_scope=target_url,
+src/webpent/agents/hypothesis_analyzer/agent.py:217:        budget=budget,
+src/webpent/agents/hypothesis_analyzer/agent.py:220:    # Target facts remain separate from corpus context and are scope-bound.
+src/webpent/agents/hypothesis_analyzer/agent.py:221:    for endpoint in endpoints[: budget.max_records]:
+src/webpent/agents/hypothesis_analyzer/agent.py:223:            content=f"Observed in-scope endpoint: {endpoint}",
+src/webpent/agents/hypothesis_analyzer/agent.py:767:                "engagement_scope": target.url,
+src/webpent/agents/hypothesis_analyzer/agent.py:825:                logger.warning("V5 Feedback Loop: refusing unscoped lesson retrieval")
+src/webpent/agents/reporter/agent.py:278:            "Every promotion, abandonment, scope check, and risk-gate "
+src/webpent/agents/reporter/agent.py:397:    # Reports are cumulative within one explicit engagement scope. The current
+src/webpent/agents/scope_enforcer/agent.py:1:# src/webpent/agents/scope_enforcer/agent.py
+src/webpent/agents/scope_enforcer/agent.py:2:"""webpent.agents.scope_enforcer.agent
+src/webpent/agents/scope_enforcer/agent.py:4:LangGraph node that enforces target scope by filtering out-of-scope URLs.
+src/webpent/agents/scope_enforcer/agent.py:6:V3.5 Phase 2 introduces strict scope enforcement. The ``Target`` model's
+src/webpent/agents/scope_enforcer/agent.py:7:``is_in_scope(url)`` method is used to validate every URL in the
+src/webpent/agents/scope_enforcer/agent.py:8:engagement state. Findings whose URLs are out of scope are discarded,
+src/webpent/agents/scope_enforcer/agent.py:9:and crawled endpoints that fall outside the scope are filtered out.
+src/webpent/agents/scope_enforcer/agent.py:12:to ensure no out-of-scope data propagates downstream.
+src/webpent/agents/scope_enforcer/agent.py:16:(FAIL-CLOSED). It NEVER returns a default "in-scope" status or bypasses
+src/webpent/agents/scope_enforcer/agent.py:17:the scope check.
+src/webpent/agents/scope_enforcer/agent.py:35:    """Critical error raised when the scope enforcer fails-closed.
+src/webpent/agents/scope_enforcer/agent.py:38:    prevent any out-of-scope data from propagating downstream when
+src/webpent/agents/scope_enforcer/agent.py:52:def _enforce_scope_core(
+src/webpent/agents/scope_enforcer/agent.py:57:    """Core scope-enforcement logic.
+src/webpent/agents/scope_enforcer/agent.py:64:            scope validation.
+src/webpent/agents/scope_enforcer/agent.py:74:            in_scope = target.is_in_scope(finding.url)
+src/webpent/agents/scope_enforcer/agent.py:76:            # V4.5 Kill-Switch: Any exception during scope check = FAIL.
+src/webpent/agents/scope_enforcer/agent.py:82:        if in_scope:
+src/webpent/agents/scope_enforcer/agent.py:88:                "Discarding out-of-scope finding %s (URL: %s, host: %s)",
+src/webpent/agents/scope_enforcer/agent.py:116:            in_scope = target.is_in_scope(url)
+src/webpent/agents/scope_enforcer/agent.py:122:        if in_scope:
+src/webpent/agents/scope_enforcer/agent.py:128:                "Discarding out-of-scope crawled endpoint (URL: %s, host: %s)",

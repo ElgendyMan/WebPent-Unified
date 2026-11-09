@@ -1,0 +1,55 @@
+{
+  "schema_version": "webpent-waptlab-live-smoke-v1",
+  "source_commit": "2cb90244877ee8348d760eec4091ebe58f4b252d",
+  "target": "waptlab",
+  "target_url": "http://127.0.0.1:8000",
+  "run_id": "waptlab-q1",
+  "target_contacted": true,
+  "waptlab_modified": false,
+  "scan_completed": true,
+  "scan_status": "completed",
+  "exit_code": 0,
+  "duration_seconds": 139.573,
+  "catalog_count": 20,
+  "attempt_count": 40,
+  "findings_total": 4,
+  "status_counts": {
+    "candidate": 3,
+    "needs_human_review": 1
+  },
+  "reported_confirmed": 0,
+  "strict_confirmed": 0,
+  "evidence_bundle_count": 0,
+  "proof_bundle_count": 0,
+  "strict_gate_counts": {
+    "causal_signal": 0,
+    "negative_control_complete": 0,
+    "proof_bundle_sealed": 0,
+    "reproducible": 0,
+    "promotion_ready": 0
+  },
+  "campaign_summary": {
+    "not_observed": 13,
+    "missing_validator": 7
+  },
+  "coverage_summary": {
+    "blocked_by_precondition": 19,
+    "inconclusive": 1
+  },
+  "capability_blockers": {
+    "oob": "blocked_by_precondition",
+    "ffuf": "disabled",
+    "autopentestx_observation": "adapter_only",
+    "nettacker_observation": "adapter_only"
+  },
+  "qualification_status": "not_qualified",
+  "threshold": {
+    "required_independent_runs": 3,
+    "completed_independent_runs": 1,
+    "minimum_strict_confirmed_per_run": 15,
+    "strict_confirmed_threshold_met": false
+  },
+  "live_qualification": true,
+  "raw_runtime_artifacts_excluded": true,
+  "safety_statement": "This is a redacted live-smoke summary. Candidates, not_observed, missing-validator, blocked, and inconclusive states are not confirmations. No finding is confirmed without causal signal, independent negative control, and a sealed/replayable ProofBundle."
+}

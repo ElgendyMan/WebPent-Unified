@@ -1,0 +1,1194 @@
+{
+  "authorization_ref": "reports/evaluation/owner_decision/LOCAL-CAUSAL-LAB-OPTION-B-OWNER-APPROVAL-IMPORT-v1.json",
+  "authorization_status": "IMPORTED_BOUNDED_DIRECTIVE",
+  "campaign_id": "option-b-local-causal-lab-v1-20260827",
+  "cases": [
+    {
+      "approved_track": true,
+      "baseline": {
+        "reason": "precondition_blocked",
+        "status": "not_run"
+      },
+      "before_after": {
+        "after": "LAB_NOT_READY/PRECONDITION_BLOCKED",
+        "before": "LAB_NOT_READY/PRECONDITION_BLOCKED",
+        "comparison": "No false improvement claimed; no network or state change occurred."
+      },
+      "candidate": {
+        "reason": "precondition_blocked",
+        "status": "not_run"
+      },
+      "case_id": "webgoat.idor.view_other_profile.v1",
+      "causal_oracle": {
+        "reason": "no target-backed candidate/control observations",
+        "status": "not_evaluated"
+      },
+      "cleanup": {
+        "network_attempted": false,
+        "reset_invoked": false,
+        "state_hash": "1167c0814bf3835f2b3a6c79bd9d96007b791d5184c5b2950ab1004b70b33b9b",
+        "status": "verified_no_mutation"
+      },
+      "failure_record": {
+        "code": "OPTION_B_PRECONDITION_BLOCKED",
+        "failure_id": "webgoat.idor.view_other_profile.v1:precondition",
+        "reason": "Lab readiness is blocked: service_artifact_alignment_not_attested",
+        "stage": "precondition"
+      },
+      "final_classification": "LAB_NOT_READY/PRECONDITION_BLOCKED",
+      "fixture_model": {
+        "reset_endpoint_called": false,
+        "session_harness": {
+          "errors": [],
+          "fixture_ready": true,
+          "fixture_state_hash": "dd895b3ac199e02182ead7d6e86c15c37ccf390aefed6a2c66c6b1d079832b05",
+          "identity_model_ready": true,
+          "network_attempted": false,
+          "network_scope_verified": true,
+          "preconditions_ready": true,
+          "reset_verified": true,
+          "runtime_digest_verified": true,
+          "snapshot_id": "harness_snapshot_9aa3a29c0f336dfcdb5b7957",
+          "snapshot_status": "verified",
+          "status": "ready",
+          "target_fixture_injected": false
+        },
+        "snapshot_restore": {
+          "application_mutation_performed": false,
+          "application_reset_endpoint_called": false,
+          "before_state_hash": "1167c0814bf3835f2b3a6c79bd9d96007b791d5184c5b2950ab1004b70b33b9b",
+          "network_attempted": false,
+          "raw_values_persisted": false,
+          "restored_state_hash": "1167c0814bf3835f2b3a6c79bd9d96007b791d5184c5b2950ab1004b70b33b9b",
+          "snapshot_id": "snapshot_aeee7a0739edf5820afe6be5",
+          "state_hash_equal": true,
+          "status": "verified"
+        },
+        "status": "offline_snapshot_restore_verified",
+        "target_fixture_injected": false
+      },
+      "identity_model": {
+        "credentials_or_sessions_created": false,
+        "status": "offline_opaque_only"
+      },
+      "improvement_proposal": {
+        "implementation": "not_implemented",
+        "proposal": "Keep offline fixtures for regression and require a separately authorized, non-credential target fixture/session mechanism before any live case; do not implement an auth bypass or broaden core.",
+        "regression": "precondition and snapshot/restore blocker regression added",
+        "status": "proposal_only"
+      },
+      "independent_negative_control": {
+        "reason": "precondition_blocked",
+        "status": "not_run"
+      },
+      "lab_status": "LAB_NOT_READY",
+      "precondition_classification": "PRECONDITION_BLOCKED",
+      "proof_bundle": {
+        "reason": "Proof requires target-backed baseline/candidate/control observations; none were collected.",
+        "replay": "not_run",
+        "seal": "not_created",
+        "status": "withheld_not_applicable",
+        "verify_seal": "not_run"
+      },
+      "quality_metrics": "WITHHELD_NO_ADMITTED_GROUND_TRUTH_OR_TARGET_EVIDENCE",
+      "root_cause_analysis": {
+        "evidence": [
+          "GET-only approval cannot create the required LessonSession; POST login and built-in lesson credentials are not approved.",
+          "case_precondition_declared_blocked",
+          "approved_boundary_forbids_auth_session_material",
+          "target_fixture_injection_not_attested",
+          "lab_runtime_readiness_not_ready"
+        ],
+        "generic_or_target_local": "target-local",
+        "root_cause": "target_local prerequisite is unavailable under the approved GET-only/no-credentials boundary",
+        "safety_determination": "safe_stop_before_network"
+      },
+      "runnable_precondition": {
+        "approved_track": true,
+        "network_attempted": false,
+        "offline_harness_readiness": {
+          "errors": [],
+          "fixture_ready": true,
+          "fixture_state_hash": "dd895b3ac199e02182ead7d6e86c15c37ccf390aefed6a2c66c6b1d079832b05",
+          "identity_model_ready": true,
+          "network_attempted": false,
+          "network_scope_verified": true,
+          "preconditions_ready": true,
+          "reset_verified": true,
+          "runtime_digest_verified": true,
+          "snapshot_id": "harness_snapshot_9aa3a29c0f336dfcdb5b7957",
+          "snapshot_status": "verified",
+          "status": "ready",
+          "target_fixture_injected": false
+        },
+        "preflight": {
+          "errors": [
+            "case_precondition_declared_blocked",
+            "approved_boundary_forbids_auth_session_material",
+            "target_fixture_injection_not_attested",
+            "lab_runtime_readiness_not_ready"
+          ],
+          "network_allowed": false,
+          "network_attempted": false,
+          "runnable": false,
+          "status": "blocked"
+        },
+        "reason": "GET-only approval cannot create the required LessonSession; POST login and built-in lesson credentials are not approved.",
+        "requires_auth": true,
+        "requires_target_fixture_injection": true,
+        "runnable": false,
+        "runtime_digest_ok": true,
+        "runtime_readiness": "blocked",
+        "service_alignment_status": "not_attested",
+        "source_digest_ok": true,
+        "status": "blocked",
+        "target_live_preconditions_ready": false,
+        "target_live_readiness": {
+          "auth_session_available": false,
+          "network_scope_verified": true,
+          "runtime_digest_verified": false,
+          "service_alignment_verified": false,
+          "target_fixture_injected": false
+        }
+      },
+      "target_id": "owasp_webgoat",
+      "track": "idor"
+    },
+    {
+      "approved_track": true,
+      "baseline": {
+        "reason": "precondition_blocked",
+        "status": "not_run"
+      },
+      "before_after": {
+        "after": "LAB_NOT_READY/PRECONDITION_BLOCKED",
+        "before": "LAB_NOT_READY/PRECONDITION_BLOCKED",
+        "comparison": "No false improvement claimed; no network or state change occurred."
+      },
+      "candidate": {
+        "reason": "precondition_blocked",
+        "status": "not_run"
+      },
+      "case_id": "webgoat.path_traversal.v1",
+      "causal_oracle": {
+        "reason": "no target-backed candidate/control observations",
+        "status": "not_evaluated"
+      },
+      "cleanup": {
+        "network_attempted": false,
+        "reset_invoked": false,
+        "state_hash": "1167c0814bf3835f2b3a6c79bd9d96007b791d5184c5b2950ab1004b70b33b9b",
+        "status": "verified_no_mutation"
+      },
+      "failure_record": {
+        "code": "OPTION_B_PRECONDITION_BLOCKED",
+        "failure_id": "webgoat.path_traversal.v1:precondition",
+        "reason": "Lab readiness is blocked: service_artifact_alignment_not_attested",
+        "stage": "precondition"
+      },
+      "final_classification": "LAB_NOT_READY/PRECONDITION_BLOCKED",
+      "fixture_model": {
+        "reset_endpoint_called": false,
+        "session_harness": {
+          "errors": [],
+          "fixture_ready": true,
+          "fixture_state_hash": "dd895b3ac199e02182ead7d6e86c15c37ccf390aefed6a2c66c6b1d079832b05",
+          "identity_model_ready": true,
+          "network_attempted": false,
+          "network_scope_verified": true,
+          "preconditions_ready": true,
+          "reset_verified": true,
+          "runtime_digest_verified": true,
+          "snapshot_id": "harness_snapshot_9aa3a29c0f336dfcdb5b7957",
+          "snapshot_status": "verified",
+          "status": "ready",
+          "target_fixture_injected": false
+        },
+        "snapshot_restore": {
+          "application_mutation_performed": false,
+          "application_reset_endpoint_called": false,
+          "before_state_hash": "1167c0814bf3835f2b3a6c79bd9d96007b791d5184c5b2950ab1004b70b33b9b",
+          "network_attempted": false,
+          "raw_values_persisted": false,
+          "restored_state_hash": "1167c0814bf3835f2b3a6c79bd9d96007b791d5184c5b2950ab1004b70b33b9b",
+          "snapshot_id": "snapshot_aeee7a0739edf5820afe6be5",
+          "state_hash_equal": true,
+          "status": "verified"
+        },
+        "status": "offline_snapshot_restore_verified",
+        "target_fixture_injected": false
+      },
+      "identity_model": {
+        "credentials_or_sessions_created": false,
+        "status": "offline_opaque_only"
+      },
+      "improvement_proposal": {
+        "implementation": "not_implemented",
+        "proposal": "Keep offline fixtures for regression and require a separately authorized, non-credential target fixture/session mechanism before any live case; do not implement an auth bypass or broaden core.",
+        "regression": "precondition and snapshot/restore blocker regression added",
+        "status": "proposal_only"
+      },
+      "independent_negative_control": {
+        "reason": "precondition_blocked",
+        "status": "not_run"
+      },
+      "lab_status": "LAB_NOT_READY",
+      "precondition_classification": "PRECONDITION_BLOCKED",
+      "proof_bundle": {
+        "reason": "Proof requires target-backed baseline/candidate/control observations; none were collected.",
+        "replay": "not_run",
+        "seal": "not_created",
+        "status": "withheld_not_applicable",
+        "verify_seal": "not_run"
+      },
+      "quality_metrics": "WITHHELD_NO_ADMITTED_GROUND_TRUTH_OR_TARGET_EVIDENCE",
+      "root_cause_analysis": {
+        "evidence": [
+          "The live handler seeds its own lesson file and rejects raw traversal markers; no source-backed target-local disposable canary injection route is available without broad filesystem risk.",
+          "case_precondition_declared_blocked",
+          "target_fixture_injection_not_attested",
+          "lab_runtime_readiness_not_ready"
+        ],
+        "generic_or_target_local": "target-local",
+        "root_cause": "target_local prerequisite is unavailable under the approved GET-only/no-credentials boundary",
+        "safety_determination": "safe_stop_before_network"
+      },
+      "runnable_precondition": {
+        "approved_track": true,
+        "network_attempted": false,
+        "offline_harness_readiness": {
+          "errors": [],
+          "fixture_ready": true,
+          "fixture_state_hash": "dd895b3ac199e02182ead7d6e86c15c37ccf390aefed6a2c66c6b1d079832b05",
+          "identity_model_ready": true,
+          "network_attempted": false,
+          "network_scope_verified": true,
+          "preconditions_ready": true,
+          "reset_verified": true,
+          "runtime_digest_verified": true,
+          "snapshot_id": "harness_snapshot_9aa3a29c0f336dfcdb5b7957",
+          "snapshot_status": "verified",
+          "status": "ready",
+          "target_fixture_injected": false
+        },
+        "preflight": {
+          "errors": [
+            "case_precondition_declared_blocked",
+            "target_fixture_injection_not_attested",
+            "lab_runtime_readiness_not_ready"
+          ],
+          "network_allowed": false,
+          "network_attempted": false,
+          "runnable": false,
+          "status": "blocked"
+        },
+        "reason": "The live handler seeds its own lesson file and rejects raw traversal markers; no source-backed target-local disposable canary injection route is available without broad filesystem risk.",
+        "requires_auth": false,
+        "requires_target_fixture_injection": true,
+        "runnable": false,
+        "runtime_digest_ok": true,
+        "runtime_readiness": "blocked",
+        "service_alignment_status": "not_attested",
+        "source_digest_ok": true,
+        "status": "blocked",
+        "target_live_preconditions_ready": false,
+        "target_live_readiness": {
+          "auth_session_available": false,
+          "network_scope_verified": true,
+          "runtime_digest_verified": false,
+          "service_alignment_verified": false,
+          "target_fixture_injected": false
+        }
+      },
+      "target_id": "owasp_webgoat",
+      "track": "path_traversal"
+    },
+    {
+      "approved_track": true,
+      "baseline": {
+        "reason": "precondition_blocked",
+        "status": "not_run"
+      },
+      "before_after": {
+        "after": "LAB_NOT_READY/PRECONDITION_BLOCKED",
+        "before": "LAB_NOT_READY/PRECONDITION_BLOCKED",
+        "comparison": "No false improvement claimed; no network or state change occurred."
+      },
+      "candidate": {
+        "reason": "precondition_blocked",
+        "status": "not_run"
+      },
+      "case_id": "crapi.profile_video_object_access.v1",
+      "causal_oracle": {
+        "reason": "no target-backed candidate/control observations",
+        "status": "not_evaluated"
+      },
+      "cleanup": {
+        "network_attempted": false,
+        "reset_invoked": false,
+        "state_hash": "71432c6d4e5a2c188b28f4c51b33c1e6eb0f03e86245ac68685a5d84ce384213",
+        "status": "verified_no_mutation"
+      },
+      "failure_record": {
+        "code": "OPTION_B_PRECONDITION_BLOCKED",
+        "failure_id": "crapi.profile_video_object_access.v1:precondition",
+        "reason": "Synthetic authenticated ownership state would require login or token/session injection, which is outside the current GET-only/no-credentials approval; runtime image RepoDigests are pinned. Source service also appears owner-scoped; no live BOLA confirmation is inferred.",
+        "stage": "precondition"
+      },
+      "final_classification": "LAB_NOT_READY/PRECONDITION_BLOCKED",
+      "fixture_model": {
+        "reset_endpoint_called": false,
+        "session_harness": {
+          "errors": [],
+          "fixture_ready": true,
+          "fixture_state_hash": "daf844867b73773f17d3daeaa5464127a0b708258b5779c2ee4373b3412009a4",
+          "identity_model_ready": true,
+          "network_attempted": false,
+          "network_scope_verified": true,
+          "preconditions_ready": true,
+          "reset_verified": true,
+          "runtime_digest_verified": true,
+          "snapshot_id": "harness_snapshot_3bbfae849ed79fb6ebb36a6d",
+          "snapshot_status": "verified",
+          "status": "ready",
+          "target_fixture_injected": false
+        },
+        "snapshot_restore": {
+          "application_mutation_performed": false,
+          "application_reset_endpoint_called": false,
+          "before_state_hash": "71432c6d4e5a2c188b28f4c51b33c1e6eb0f03e86245ac68685a5d84ce384213",
+          "network_attempted": false,
+          "raw_values_persisted": false,
+          "restored_state_hash": "71432c6d4e5a2c188b28f4c51b33c1e6eb0f03e86245ac68685a5d84ce384213",
+          "snapshot_id": "snapshot_42a827ef4d1cd2f81d321870",
+          "state_hash_equal": true,
+          "status": "verified"
+        },
+        "status": "offline_snapshot_restore_verified",
+        "target_fixture_injected": false
+      },
+      "identity_model": {
+        "credentials_or_sessions_created": false,
+        "status": "offline_opaque_only"
+      },
+      "improvement_proposal": {
+        "implementation": "not_implemented",
+        "proposal": "Keep offline fixtures for regression and require a separately authorized, non-credential target fixture/session mechanism before any live case; do not implement an auth bypass or broaden core.",
+        "regression": "precondition and snapshot/restore blocker regression added",
+        "status": "proposal_only"
+      },
+      "independent_negative_control": {
+        "reason": "precondition_blocked",
+        "status": "not_run"
+      },
+      "lab_status": "LAB_NOT_READY",
+      "precondition_classification": "PRECONDITION_BLOCKED",
+      "proof_bundle": {
+        "reason": "Proof requires target-backed baseline/candidate/control observations; none were collected.",
+        "replay": "not_run",
+        "seal": "not_created",
+        "status": "withheld_not_applicable",
+        "verify_seal": "not_run"
+      },
+      "quality_metrics": "WITHHELD_NO_ADMITTED_GROUND_TRUTH_OR_TARGET_EVIDENCE",
+      "root_cause_analysis": {
+        "evidence": [
+          "Synthetic authenticated ownership state would require login or token/session injection, which is outside the current GET-only/no-credentials approval; runtime image RepoDigests are pinned. Source service also appears owner-scoped; no live BOLA confirmation is inferred.",
+          "case_precondition_declared_blocked",
+          "approved_boundary_forbids_auth_session_material",
+          "target_fixture_injection_not_attested"
+        ],
+        "generic_or_target_local": "target-local",
+        "root_cause": "target_local prerequisite is unavailable under the approved GET-only/no-credentials boundary",
+        "safety_determination": "safe_stop_before_network"
+      },
+      "runnable_precondition": {
+        "approved_track": true,
+        "network_attempted": false,
+        "offline_harness_readiness": {
+          "errors": [],
+          "fixture_ready": true,
+          "fixture_state_hash": "daf844867b73773f17d3daeaa5464127a0b708258b5779c2ee4373b3412009a4",
+          "identity_model_ready": true,
+          "network_attempted": false,
+          "network_scope_verified": true,
+          "preconditions_ready": true,
+          "reset_verified": true,
+          "runtime_digest_verified": true,
+          "snapshot_id": "harness_snapshot_3bbfae849ed79fb6ebb36a6d",
+          "snapshot_status": "verified",
+          "status": "ready",
+          "target_fixture_injected": false
+        },
+        "preflight": {
+          "errors": [
+            "case_precondition_declared_blocked",
+            "approved_boundary_forbids_auth_session_material",
+            "target_fixture_injection_not_attested"
+          ],
+          "network_allowed": false,
+          "network_attempted": false,
+          "runnable": false,
+          "status": "blocked"
+        },
+        "reason": "Synthetic authenticated ownership state would require login or token/session injection, which is outside the current GET-only/no-credentials approval; runtime image RepoDigests are pinned. Source service also appears owner-scoped; no live BOLA confirmation is inferred.",
+        "requires_auth": true,
+        "requires_target_fixture_injection": true,
+        "runnable": false,
+        "runtime_digest_ok": true,
+        "runtime_readiness": "ready",
+        "service_alignment_status": "attested",
+        "source_digest_ok": true,
+        "status": "blocked",
+        "target_live_preconditions_ready": false,
+        "target_live_readiness": {
+          "auth_session_available": false,
+          "network_scope_verified": true,
+          "runtime_digest_verified": true,
+          "service_alignment_verified": true,
+          "target_fixture_injected": false
+        }
+      },
+      "target_id": "crapi",
+      "track": "object_access"
+    },
+    {
+      "approved_track": true,
+      "baseline": {
+        "reason": "precondition_blocked",
+        "status": "not_run"
+      },
+      "before_after": {
+        "after": "LAB_NOT_READY/PRECONDITION_BLOCKED",
+        "before": "LAB_NOT_READY/PRECONDITION_BLOCKED",
+        "comparison": "No false improvement claimed; no network or state change occurred."
+      },
+      "candidate": {
+        "reason": "precondition_blocked",
+        "status": "not_run"
+      },
+      "case_id": "crapi.vehicle_location_bola.v1",
+      "causal_oracle": {
+        "reason": "no target-backed candidate/control observations",
+        "status": "not_evaluated"
+      },
+      "cleanup": {
+        "network_attempted": false,
+        "reset_invoked": false,
+        "state_hash": "71432c6d4e5a2c188b28f4c51b33c1e6eb0f03e86245ac68685a5d84ce384213",
+        "status": "verified_no_mutation"
+      },
+      "failure_record": {
+        "code": "OPTION_B_PRECONDITION_BLOCKED",
+        "failure_id": "crapi.vehicle_location_bola.v1:precondition",
+        "reason": "Synthetic authenticated ownership state would require login or token/session injection, which is outside the current GET-only/no-credentials approval; runtime image RepoDigests are pinned. The source-backed direct UUID lookup is a candidate only; no authenticated synthetic owner/requester pair is available.",
+        "stage": "precondition"
+      },
+      "final_classification": "LAB_NOT_READY/PRECONDITION_BLOCKED",
+      "fixture_model": {
+        "reset_endpoint_called": false,
+        "session_harness": {
+          "errors": [],
+          "fixture_ready": true,
+          "fixture_state_hash": "daf844867b73773f17d3daeaa5464127a0b708258b5779c2ee4373b3412009a4",
+          "identity_model_ready": true,
+          "network_attempted": false,
+          "network_scope_verified": true,
+          "preconditions_ready": true,
+          "reset_verified": true,
+          "runtime_digest_verified": true,
+          "snapshot_id": "harness_snapshot_3bbfae849ed79fb6ebb36a6d",
+          "snapshot_status": "verified",
+          "status": "ready",
+          "target_fixture_injected": false
+        },
+        "snapshot_restore": {
+          "application_mutation_performed": false,
+          "application_reset_endpoint_called": false,
+          "before_state_hash": "71432c6d4e5a2c188b28f4c51b33c1e6eb0f03e86245ac68685a5d84ce384213",
+          "network_attempted": false,
+          "raw_values_persisted": false,
+          "restored_state_hash": "71432c6d4e5a2c188b28f4c51b33c1e6eb0f03e86245ac68685a5d84ce384213",
+          "snapshot_id": "snapshot_42a827ef4d1cd2f81d321870",
+          "state_hash_equal": true,
+          "status": "verified"
+        },
+        "status": "offline_snapshot_restore_verified",
+        "target_fixture_injected": false
+      },
+      "identity_model": {
+        "credentials_or_sessions_created": false,
+        "status": "offline_opaque_only"
+      },
+      "improvement_proposal": {
+        "implementation": "not_implemented",
+        "proposal": "Keep offline fixtures for regression and require a separately authorized, non-credential target fixture/session mechanism before any live case; do not implement an auth bypass or broaden core.",
+        "regression": "precondition and snapshot/restore blocker regression added",
+        "status": "proposal_only"
+      },
+      "independent_negative_control": {
+        "reason": "precondition_blocked",
+        "status": "not_run"
+      },
+      "lab_status": "LAB_NOT_READY",
+      "precondition_classification": "PRECONDITION_BLOCKED",
+      "proof_bundle": {
+        "reason": "Proof requires target-backed baseline/candidate/control observations; none were collected.",
+        "replay": "not_run",
+        "seal": "not_created",
+        "status": "withheld_not_applicable",
+        "verify_seal": "not_run"
+      },
+      "quality_metrics": "WITHHELD_NO_ADMITTED_GROUND_TRUTH_OR_TARGET_EVIDENCE",
+      "root_cause_analysis": {
+        "evidence": [
+          "Synthetic authenticated ownership state would require login or token/session injection, which is outside the current GET-only/no-credentials approval; runtime image RepoDigests are pinned. The source-backed direct UUID lookup is a candidate only; no authenticated synthetic owner/requester pair is available.",
+          "case_precondition_declared_blocked",
+          "approved_boundary_forbids_auth_session_material",
+          "target_fixture_injection_not_attested"
+        ],
+        "generic_or_target_local": "target-local",
+        "root_cause": "target_local prerequisite is unavailable under the approved GET-only/no-credentials boundary",
+        "safety_determination": "safe_stop_before_network"
+      },
+      "runnable_precondition": {
+        "approved_track": true,
+        "network_attempted": false,
+        "offline_harness_readiness": {
+          "errors": [],
+          "fixture_ready": true,
+          "fixture_state_hash": "daf844867b73773f17d3daeaa5464127a0b708258b5779c2ee4373b3412009a4",
+          "identity_model_ready": true,
+          "network_attempted": false,
+          "network_scope_verified": true,
+          "preconditions_ready": true,
+          "reset_verified": true,
+          "runtime_digest_verified": true,
+          "snapshot_id": "harness_snapshot_3bbfae849ed79fb6ebb36a6d",
+          "snapshot_status": "verified",
+          "status": "ready",
+          "target_fixture_injected": false
+        },
+        "preflight": {
+          "errors": [
+            "case_precondition_declared_blocked",
+            "approved_boundary_forbids_auth_session_material",
+            "target_fixture_injection_not_attested"
+          ],
+          "network_allowed": false,
+          "network_attempted": false,
+          "runnable": false,
+          "status": "blocked"
+        },
+        "reason": "Synthetic authenticated ownership state would require login or token/session injection, which is outside the current GET-only/no-credentials approval; runtime image RepoDigests are pinned. The source-backed direct UUID lookup is a candidate only; no authenticated synthetic owner/requester pair is available.",
+        "requires_auth": true,
+        "requires_target_fixture_injection": true,
+        "runnable": false,
+        "runtime_digest_ok": true,
+        "runtime_readiness": "ready",
+        "service_alignment_status": "attested",
+        "source_digest_ok": true,
+        "status": "blocked",
+        "target_live_preconditions_ready": false,
+        "target_live_readiness": {
+          "auth_session_available": false,
+          "network_scope_verified": true,
+          "runtime_digest_verified": true,
+          "service_alignment_verified": true,
+          "target_fixture_injected": false
+        }
+      },
+      "target_id": "crapi",
+      "track": "object_access"
+    },
+    {
+      "approved_track": true,
+      "baseline": {
+        "reason": "precondition_blocked",
+        "status": "not_run"
+      },
+      "before_after": {
+        "after": "LAB_NOT_READY/PRECONDITION_BLOCKED",
+        "before": "LAB_NOT_READY/PRECONDITION_BLOCKED",
+        "comparison": "No false improvement claimed; no network or state change occurred."
+      },
+      "candidate": {
+        "reason": "precondition_blocked",
+        "status": "not_run"
+      },
+      "case_id": "crapi.community_post_object_access.v1",
+      "causal_oracle": {
+        "reason": "no target-backed candidate/control observations",
+        "status": "not_evaluated"
+      },
+      "cleanup": {
+        "network_attempted": false,
+        "reset_invoked": false,
+        "state_hash": "71432c6d4e5a2c188b28f4c51b33c1e6eb0f03e86245ac68685a5d84ce384213",
+        "status": "verified_no_mutation"
+      },
+      "failure_record": {
+        "code": "OPTION_B_PRECONDITION_BLOCKED",
+        "failure_id": "crapi.community_post_object_access.v1:precondition",
+        "reason": "Synthetic authenticated ownership state would require login or token/session injection, which is outside the current GET-only/no-credentials approval; runtime image RepoDigests are pinned. Source route is wrapped in authentication middleware; post creation would also be stateful and is not approved.",
+        "stage": "precondition"
+      },
+      "final_classification": "LAB_NOT_READY/PRECONDITION_BLOCKED",
+      "fixture_model": {
+        "reset_endpoint_called": false,
+        "session_harness": {
+          "errors": [],
+          "fixture_ready": true,
+          "fixture_state_hash": "daf844867b73773f17d3daeaa5464127a0b708258b5779c2ee4373b3412009a4",
+          "identity_model_ready": true,
+          "network_attempted": false,
+          "network_scope_verified": true,
+          "preconditions_ready": true,
+          "reset_verified": true,
+          "runtime_digest_verified": true,
+          "snapshot_id": "harness_snapshot_3bbfae849ed79fb6ebb36a6d",
+          "snapshot_status": "verified",
+          "status": "ready",
+          "target_fixture_injected": false
+        },
+        "snapshot_restore": {
+          "application_mutation_performed": false,
+          "application_reset_endpoint_called": false,
+          "before_state_hash": "71432c6d4e5a2c188b28f4c51b33c1e6eb0f03e86245ac68685a5d84ce384213",
+          "network_attempted": false,
+          "raw_values_persisted": false,
+          "restored_state_hash": "71432c6d4e5a2c188b28f4c51b33c1e6eb0f03e86245ac68685a5d84ce384213",
+          "snapshot_id": "snapshot_42a827ef4d1cd2f81d321870",
+          "state_hash_equal": true,
+          "status": "verified"
+        },
+        "status": "offline_snapshot_restore_verified",
+        "target_fixture_injected": false
+      },
+      "identity_model": {
+        "credentials_or_sessions_created": false,
+        "status": "offline_opaque_only"
+      },
+      "improvement_proposal": {
+        "implementation": "not_implemented",
+        "proposal": "Keep offline fixtures for regression and require a separately authorized, non-credential target fixture/session mechanism before any live case; do not implement an auth bypass or broaden core.",
+        "regression": "precondition and snapshot/restore blocker regression added",
+        "status": "proposal_only"
+      },
+      "independent_negative_control": {
+        "reason": "precondition_blocked",
+        "status": "not_run"
+      },
+      "lab_status": "LAB_NOT_READY",
+      "precondition_classification": "PRECONDITION_BLOCKED",
+      "proof_bundle": {
+        "reason": "Proof requires target-backed baseline/candidate/control observations; none were collected.",
+        "replay": "not_run",
+        "seal": "not_created",
+        "status": "withheld_not_applicable",
+        "verify_seal": "not_run"
+      },
+      "quality_metrics": "WITHHELD_NO_ADMITTED_GROUND_TRUTH_OR_TARGET_EVIDENCE",
+      "root_cause_analysis": {
+        "evidence": [
+          "Synthetic authenticated ownership state would require login or token/session injection, which is outside the current GET-only/no-credentials approval; runtime image RepoDigests are pinned. Source route is wrapped in authentication middleware; post creation would also be stateful and is not approved.",
+          "case_precondition_declared_blocked",
+          "approved_boundary_forbids_auth_session_material",
+          "target_fixture_injection_not_attested"
+        ],
+        "generic_or_target_local": "target-local",
+        "root_cause": "target_local prerequisite is unavailable under the approved GET-only/no-credentials boundary",
+        "safety_determination": "safe_stop_before_network"
+      },
+      "runnable_precondition": {
+        "approved_track": true,
+        "network_attempted": false,
+        "offline_harness_readiness": {
+          "errors": [],
+          "fixture_ready": true,
+          "fixture_state_hash": "daf844867b73773f17d3daeaa5464127a0b708258b5779c2ee4373b3412009a4",
+          "identity_model_ready": true,
+          "network_attempted": false,
+          "network_scope_verified": true,
+          "preconditions_ready": true,
+          "reset_verified": true,
+          "runtime_digest_verified": true,
+          "snapshot_id": "harness_snapshot_3bbfae849ed79fb6ebb36a6d",
+          "snapshot_status": "verified",
+          "status": "ready",
+          "target_fixture_injected": false
+        },
+        "preflight": {
+          "errors": [
+            "case_precondition_declared_blocked",
+            "approved_boundary_forbids_auth_session_material",
+            "target_fixture_injection_not_attested"
+          ],
+          "network_allowed": false,
+          "network_attempted": false,
+          "runnable": false,
+          "status": "blocked"
+        },
+        "reason": "Synthetic authenticated ownership state would require login or token/session injection, which is outside the current GET-only/no-credentials approval; runtime image RepoDigests are pinned. Source route is wrapped in authentication middleware; post creation would also be stateful and is not approved.",
+        "requires_auth": true,
+        "requires_target_fixture_injection": true,
+        "runnable": false,
+        "runtime_digest_ok": true,
+        "runtime_readiness": "ready",
+        "service_alignment_status": "attested",
+        "source_digest_ok": true,
+        "status": "blocked",
+        "target_live_preconditions_ready": false,
+        "target_live_readiness": {
+          "auth_session_available": false,
+          "network_scope_verified": true,
+          "runtime_digest_verified": true,
+          "service_alignment_verified": true,
+          "target_fixture_injected": false
+        }
+      },
+      "target_id": "crapi",
+      "track": "object_access"
+    },
+    {
+      "approved_track": true,
+      "baseline": {
+        "reason": "precondition_blocked",
+        "status": "not_run"
+      },
+      "before_after": {
+        "after": "LAB_NOT_READY/PRECONDITION_BLOCKED",
+        "before": "LAB_NOT_READY/PRECONDITION_BLOCKED",
+        "comparison": "No false improvement claimed; no network or state change occurred."
+      },
+      "candidate": {
+        "reason": "precondition_blocked",
+        "status": "not_run"
+      },
+      "case_id": "crapi.mechanic_report_object_access.v1",
+      "causal_oracle": {
+        "reason": "no target-backed candidate/control observations",
+        "status": "not_evaluated"
+      },
+      "cleanup": {
+        "network_attempted": false,
+        "reset_invoked": false,
+        "state_hash": "71432c6d4e5a2c188b28f4c51b33c1e6eb0f03e86245ac68685a5d84ce384213",
+        "status": "verified_no_mutation"
+      },
+      "failure_record": {
+        "code": "OPTION_B_PRECONDITION_BLOCKED",
+        "failure_id": "crapi.mechanic_report_object_access.v1:precondition",
+        "reason": "Synthetic authenticated ownership state would require login or token/session injection, which is outside the current GET-only/no-credentials approval; runtime image RepoDigests are pinned. A report must be created before retrieval, but report creation is stateful and not approved.",
+        "stage": "precondition"
+      },
+      "final_classification": "LAB_NOT_READY/PRECONDITION_BLOCKED",
+      "fixture_model": {
+        "reset_endpoint_called": false,
+        "session_harness": {
+          "errors": [],
+          "fixture_ready": true,
+          "fixture_state_hash": "daf844867b73773f17d3daeaa5464127a0b708258b5779c2ee4373b3412009a4",
+          "identity_model_ready": true,
+          "network_attempted": false,
+          "network_scope_verified": true,
+          "preconditions_ready": true,
+          "reset_verified": true,
+          "runtime_digest_verified": true,
+          "snapshot_id": "harness_snapshot_3bbfae849ed79fb6ebb36a6d",
+          "snapshot_status": "verified",
+          "status": "ready",
+          "target_fixture_injected": false
+        },
+        "snapshot_restore": {
+          "application_mutation_performed": false,
+          "application_reset_endpoint_called": false,
+          "before_state_hash": "71432c6d4e5a2c188b28f4c51b33c1e6eb0f03e86245ac68685a5d84ce384213",
+          "network_attempted": false,
+          "raw_values_persisted": false,
+          "restored_state_hash": "71432c6d4e5a2c188b28f4c51b33c1e6eb0f03e86245ac68685a5d84ce384213",
+          "snapshot_id": "snapshot_42a827ef4d1cd2f81d321870",
+          "state_hash_equal": true,
+          "status": "verified"
+        },
+        "status": "offline_snapshot_restore_verified",
+        "target_fixture_injected": false
+      },
+      "identity_model": {
+        "credentials_or_sessions_created": false,
+        "status": "offline_opaque_only"
+      },
+      "improvement_proposal": {
+        "implementation": "not_implemented",
+        "proposal": "Keep offline fixtures for regression and require a separately authorized, non-credential target fixture/session mechanism before any live case; do not implement an auth bypass or broaden core.",
+        "regression": "precondition and snapshot/restore blocker regression added",
+        "status": "proposal_only"
+      },
+      "independent_negative_control": {
+        "reason": "precondition_blocked",
+        "status": "not_run"
+      },
+      "lab_status": "LAB_NOT_READY",
+      "precondition_classification": "PRECONDITION_BLOCKED",
+      "proof_bundle": {
+        "reason": "Proof requires target-backed baseline/candidate/control observations; none were collected.",
+        "replay": "not_run",
+        "seal": "not_created",
+        "status": "withheld_not_applicable",
+        "verify_seal": "not_run"
+      },
+      "quality_metrics": "WITHHELD_NO_ADMITTED_GROUND_TRUTH_OR_TARGET_EVIDENCE",
+      "root_cause_analysis": {
+        "evidence": [
+          "Synthetic authenticated ownership state would require login or token/session injection, which is outside the current GET-only/no-credentials approval; runtime image RepoDigests are pinned. A report must be created before retrieval, but report creation is stateful and not approved.",
+          "case_precondition_declared_blocked",
+          "approved_boundary_forbids_auth_session_material",
+          "target_fixture_injection_not_attested"
+        ],
+        "generic_or_target_local": "target-local",
+        "root_cause": "target_local prerequisite is unavailable under the approved GET-only/no-credentials boundary",
+        "safety_determination": "safe_stop_before_network"
+      },
+      "runnable_precondition": {
+        "approved_track": true,
+        "network_attempted": false,
+        "offline_harness_readiness": {
+          "errors": [],
+          "fixture_ready": true,
+          "fixture_state_hash": "daf844867b73773f17d3daeaa5464127a0b708258b5779c2ee4373b3412009a4",
+          "identity_model_ready": true,
+          "network_attempted": false,
+          "network_scope_verified": true,
+          "preconditions_ready": true,
+          "reset_verified": true,
+          "runtime_digest_verified": true,
+          "snapshot_id": "harness_snapshot_3bbfae849ed79fb6ebb36a6d",
+          "snapshot_status": "verified",
+          "status": "ready",
+          "target_fixture_injected": false
+        },
+        "preflight": {
+          "errors": [
+            "case_precondition_declared_blocked",
+            "approved_boundary_forbids_auth_session_material",
+            "target_fixture_injection_not_attested"
+          ],
+          "network_allowed": false,
+          "network_attempted": false,
+          "runnable": false,
+          "status": "blocked"
+        },
+        "reason": "Synthetic authenticated ownership state would require login or token/session injection, which is outside the current GET-only/no-credentials approval; runtime image RepoDigests are pinned. A report must be created before retrieval, but report creation is stateful and not approved.",
+        "requires_auth": true,
+        "requires_target_fixture_injection": true,
+        "runnable": false,
+        "runtime_digest_ok": true,
+        "runtime_readiness": "ready",
+        "service_alignment_status": "attested",
+        "source_digest_ok": true,
+        "status": "blocked",
+        "target_live_preconditions_ready": false,
+        "target_live_readiness": {
+          "auth_session_available": false,
+          "network_scope_verified": true,
+          "runtime_digest_verified": true,
+          "service_alignment_verified": true,
+          "target_fixture_injected": false
+        }
+      },
+      "target_id": "crapi",
+      "track": "object_access"
+    }
+  ],
+  "generated_on": "2026-08-27",
+  "non_claims": [
+    "No target-backed causal evidence was collected in this precondition pass.",
+    "Blocked cases are not TP, FP, FN, clean, or confirmed.",
+    "This artifact is not an Official P10 run and does not change scoring or qualification state."
+  ],
+  "readiness": {
+    "offline_harness": {
+      "fixture_ready": true,
+      "identity_model_ready": true,
+      "network_scope_verified": true,
+      "preconditions_ready": true,
+      "reset_verified": true,
+      "runtime_digest_verified": true,
+      "status": "ready"
+    },
+    "target_live": {
+      "preconditions_ready": false,
+      "status": "blocked"
+    }
+  },
+  "schema": "webpent-option-b-local-causal-lab-result-v2",
+  "scope": {
+    "bug_bounty": "BLOCKED",
+    "external_callbacks_or_oast": false,
+    "loopback_only": true,
+    "methods": [
+      "GET"
+    ],
+    "official_isolated_p10_runs_authorized": false,
+    "raw_response_persistence": false,
+    "redirect_following": false,
+    "same_origin_only": true
+  },
+  "summary": {
+    "approved_case_count": 6,
+    "blocked_case_count": 6,
+    "lab_status": "LAB_NOT_READY",
+    "p10": "NOT_QUALIFIED",
+    "p9": "NOT_QUALIFIED",
+    "precondition_blocked_case_count": 6,
+    "proof_bundles_sealed": 0,
+    "quality_metrics": "WITHHELD",
+    "target_backed_causal_confirmations": 0,
+    "vip": "NOT_QUALIFIED"
+  },
+  "target_provenance": {
+    "crapi": {
+      "origin": "http://127.0.0.1:8888",
+      "runtime": {
+        "image_digests": [
+          {
+            "image": "crapi/crapi-web:latest",
+            "repo_digest": "sha256:b27d246c646bd33898e7d1d2095b6e7576c0993a7b81a73aa7386929493d7151"
+          },
+          {
+            "image": "crapi/crapi-chatbot:latest",
+            "repo_digest": "sha256:36d274d54182a8baddba7ede17282035bb43ab9cb9cf87927e1fe7109901e0aa"
+          },
+          {
+            "image": "crapi/gateway-service:latest",
+            "repo_digest": "sha256:97dade9daf0e758547b1686e2d3303c8c9b79838167f728a9211f0ee1f4622b0"
+          },
+          {
+            "image": "crapi/crapi-workshop:latest",
+            "repo_digest": "sha256:d4d2d94d35a31e211b04d5a771881f5ae13e358e8fa0804463ae3bace05dd815"
+          },
+          {
+            "image": "crapi/crapi-community:latest",
+            "repo_digest": "sha256:8ba0c7eda86ae065a673f1fa554d0109a24f25c5a8d65097ae024e5ee715c54e"
+          },
+          {
+            "image": "crapi/crapi-identity:latest",
+            "repo_digest": "sha256:5d1db5b3ba8e02bc68711ec6fc4e35ed7cd8b87e63785ece9e7ff5b5e36c5260"
+          }
+        ],
+        "readiness": {
+          "errors": [],
+          "provenance_manifest_hash": "136fda4aaf016d907827845825531b56270c62ba1935dcaa41abb30b9e4bd017",
+          "runtime_digest": "5f418d985aa610599361d861cf914acf662b9ef86e1598a076ed2cd2dad88d6f",
+          "runtime_digest_status": "pinned",
+          "service_alignment_status": "attested",
+          "source": {
+            "all_match": true,
+            "files": [
+              {
+                "actual_sha256": "80c357806f390e28d3ca8f32e12c40fa3d063efcf8038249d5ac5593043677b0",
+                "expected_sha256": "80c357806f390e28d3ca8f32e12c40fa3d063efcf8038249d5ac5593043677b0",
+                "matches": true,
+                "name": "profile_video",
+                "path": "services/identity/src/main/java/com/crapi/controller/ProfileController.java"
+              },
+              {
+                "actual_sha256": "c49f5ab14aab7b80386c5e309d6e493360ab86f21d41d939002f1d2961f78789",
+                "expected_sha256": "c49f5ab14aab7b80386c5e309d6e493360ab86f21d41d939002f1d2961f78789",
+                "matches": true,
+                "name": "vehicle_location",
+                "path": "services/identity/src/main/java/com/crapi/controller/VehicleController.java"
+              },
+              {
+                "actual_sha256": "65200617a05a35c89445e8977be053247dc90b37fe4ebaa060e1ce60e9cd1d3f",
+                "expected_sha256": "65200617a05a35c89445e8977be053247dc90b37fe4ebaa060e1ce60e9cd1d3f",
+                "matches": true,
+                "name": "community_post",
+                "path": "services/community/api/controllers/post_controller.go"
+              },
+              {
+                "actual_sha256": "037f0ebb9045b21a9ee838e5f32fa1be5da17d978f719a8a738f4bbb15426521",
+                "expected_sha256": "037f0ebb9045b21a9ee838e5f32fa1be5da17d978f719a8a738f4bbb15426521",
+                "matches": true,
+                "name": "mechanic_report",
+                "path": "services/workshop/crapi/mechanic/views.py"
+              }
+            ],
+            "source_revision": "73d309cc8f28bbdeed31dbb35f05dba8354de3c9"
+          },
+          "status": "ready",
+          "target_id": "crapi"
+        },
+        "runtime_digest": "5f418d985aa610599361d861cf914acf662b9ef86e1598a076ed2cd2dad88d6f",
+        "runtime_digest_status": "pinned",
+        "service_alignment_status": "attested",
+        "source_files": [
+          {
+            "name": "profile_video",
+            "path": "services/identity/src/main/java/com/crapi/controller/ProfileController.java",
+            "sha256": "80c357806f390e28d3ca8f32e12c40fa3d063efcf8038249d5ac5593043677b0"
+          },
+          {
+            "name": "vehicle_location",
+            "path": "services/identity/src/main/java/com/crapi/controller/VehicleController.java",
+            "sha256": "c49f5ab14aab7b80386c5e309d6e493360ab86f21d41d939002f1d2961f78789"
+          },
+          {
+            "name": "community_post",
+            "path": "services/community/api/controllers/post_controller.go",
+            "sha256": "65200617a05a35c89445e8977be053247dc90b37fe4ebaa060e1ce60e9cd1d3f"
+          },
+          {
+            "name": "mechanic_report",
+            "path": "services/workshop/crapi/mechanic/views.py",
+            "sha256": "037f0ebb9045b21a9ee838e5f32fa1be5da17d978f719a8a738f4bbb15426521"
+          }
+        ],
+        "source_revision": "73d309cc8f28bbdeed31dbb35f05dba8354de3c9",
+        "target_id": "crapi",
+        "toolchain_digest": null
+      },
+      "source": {
+        "all_files_match": true,
+        "files": [
+          {
+            "actual_sha256": "65200617a05a35c89445e8977be053247dc90b37fe4ebaa060e1ce60e9cd1d3f",
+            "expected_sha256": "65200617a05a35c89445e8977be053247dc90b37fe4ebaa060e1ce60e9cd1d3f",
+            "matches_expected": true,
+            "name": "community_post",
+            "path": "services/community/api/controllers/post_controller.go",
+            "route_actual_sha256": "0c687eaf66beeb128361f9237882f5ce132472d3feca529e60cbeed29cf5fbfe",
+            "route_expected_sha256": "0c687eaf66beeb128361f9237882f5ce132472d3feca529e60cbeed29cf5fbfe",
+            "route_file": "services/community/api/router/routes.go",
+            "route_matches_expected": true
+          },
+          {
+            "actual_sha256": "037f0ebb9045b21a9ee838e5f32fa1be5da17d978f719a8a738f4bbb15426521",
+            "expected_sha256": "037f0ebb9045b21a9ee838e5f32fa1be5da17d978f719a8a738f4bbb15426521",
+            "matches_expected": true,
+            "name": "mechanic_report",
+            "path": "services/workshop/crapi/mechanic/views.py",
+            "route_actual_sha256": "71827f3da6fb806172edd044349890dbe2d3e37e92d2a0657ce5f4eacf756ff9",
+            "route_expected_sha256": "71827f3da6fb806172edd044349890dbe2d3e37e92d2a0657ce5f4eacf756ff9",
+            "route_file": "services/workshop/crapi/mechanic/urls.py",
+            "route_matches_expected": true
+          },
+          {
+            "actual_sha256": "80c357806f390e28d3ca8f32e12c40fa3d063efcf8038249d5ac5593043677b0",
+            "expected_sha256": "80c357806f390e28d3ca8f32e12c40fa3d063efcf8038249d5ac5593043677b0",
+            "matches_expected": true,
+            "name": "profile_video",
+            "path": "services/identity/src/main/java/com/crapi/controller/ProfileController.java"
+          },
+          {
+            "actual_sha256": "c49f5ab14aab7b80386c5e309d6e493360ab86f21d41d939002f1d2961f78789",
+            "expected_sha256": "c49f5ab14aab7b80386c5e309d6e493360ab86f21d41d939002f1d2961f78789",
+            "matches_expected": true,
+            "name": "vehicle_location",
+            "path": "services/identity/src/main/java/com/crapi/controller/VehicleController.java"
+          }
+        ],
+        "source_revision": "73d309cc8f28bbdeed31dbb35f05dba8354de3c9",
+        "source_root": "/tmp/crapi-source"
+      },
+      "target_id": "crapi"
+    },
+    "owasp_webgoat": {
+      "origin": "http://127.0.0.1:8080",
+      "runtime": {
+        "image_digests": [],
+        "java_version": "openjdk version \"25.0.4\" 2026-07-21",
+        "readiness": {
+          "errors": [
+            "service_artifact_alignment_not_attested"
+          ],
+          "provenance_manifest_hash": "884abd047ab972a40ea9e59a51aa4d2c42fb406978b707a99e3ce24fb6fbf873",
+          "runtime_digest": "7aafbbf408ae618ea0abe59474216950591325968ad995bfce3ed08e4f7ccf07",
+          "runtime_digest_status": "pinned",
+          "service_alignment_status": "not_attested",
+          "source": {
+            "all_match": true,
+            "files": [
+              {
+                "actual_sha256": "305cb5c0fc8d63a0b8bb4f48f4ebc6982ee332bc11c7f1dcc0ad248a3f6ac3e6",
+                "expected_sha256": "305cb5c0fc8d63a0b8bb4f48f4ebc6982ee332bc11c7f1dcc0ad248a3f6ac3e6",
+                "matches": true,
+                "name": "idor_view",
+                "path": "src/main/java/org/owasp/webgoat/lessons/idor/IDORViewOtherProfile.java"
+              },
+              {
+                "actual_sha256": "71d8b73188716f253ffafff4de58ec4f9955b75048bf2bdb00ee07362b093ea2",
+                "expected_sha256": "71d8b73188716f253ffafff4de58ec4f9955b75048bf2bdb00ee07362b093ea2",
+                "matches": true,
+                "name": "path_traversal_controller",
+                "path": "src/main/java/org/owasp/webgoat/lessons/pathtraversal/ProfileUploadRetrieval.java"
+              },
+              {
+                "actual_sha256": "d8298e3c3ee511969c34f7611b5047d5563021cba4a944bf09bc8b5bf0280a6d",
+                "expected_sha256": "d8298e3c3ee511969c34f7611b5047d5563021cba4a944bf09bc8b5bf0280a6d",
+                "matches": true,
+                "name": "path_traversal_source",
+                "path": "src/main/java/org/owasp/webgoat/lessons/pathtraversal/PathTraversal.java"
+              }
+            ],
+            "source_revision": "7517acca95d9851da706452454c223dd13545ef4"
+          },
+          "status": "blocked",
+          "target_id": "owasp_webgoat"
+        },
+        "runtime_digest": "7aafbbf408ae618ea0abe59474216950591325968ad995bfce3ed08e4f7ccf07",
+        "runtime_digest_status": "pinned",
+        "service_alignment_status": "not_attested",
+        "source_files": [
+          {
+            "name": "idor_view",
+            "path": "src/main/java/org/owasp/webgoat/lessons/idor/IDORViewOtherProfile.java",
+            "sha256": "305cb5c0fc8d63a0b8bb4f48f4ebc6982ee332bc11c7f1dcc0ad248a3f6ac3e6"
+          },
+          {
+            "name": "path_traversal_controller",
+            "path": "src/main/java/org/owasp/webgoat/lessons/pathtraversal/ProfileUploadRetrieval.java",
+            "sha256": "71d8b73188716f253ffafff4de58ec4f9955b75048bf2bdb00ee07362b093ea2"
+          },
+          {
+            "name": "path_traversal_source",
+            "path": "src/main/java/org/owasp/webgoat/lessons/pathtraversal/PathTraversal.java",
+            "sha256": "d8298e3c3ee511969c34f7611b5047d5563021cba4a944bf09bc8b5bf0280a6d"
+          }
+        ],
+        "source_revision": "7517acca95d9851da706452454c223dd13545ef4",
+        "target_id": "owasp_webgoat",
+        "toolchain_digest": "2a41998843f23adf80ba13b1e2572a55f7a642d630c640ac561b9de8e3b2b660"
+      },
+      "source": {
+        "all_files_match": true,
+        "files": [
+          {
+            "actual_sha256": "305cb5c0fc8d63a0b8bb4f48f4ebc6982ee332bc11c7f1dcc0ad248a3f6ac3e6",
+            "expected_sha256": "305cb5c0fc8d63a0b8bb4f48f4ebc6982ee332bc11c7f1dcc0ad248a3f6ac3e6",
+            "matches_expected": true,
+            "name": "idor_view",
+            "path": "src/main/java/org/owasp/webgoat/lessons/idor/IDORViewOtherProfile.java"
+          },
+          {
+            "actual_sha256": "71d8b73188716f253ffafff4de58ec4f9955b75048bf2bdb00ee07362b093ea2",
+            "expected_sha256": "71d8b73188716f253ffafff4de58ec4f9955b75048bf2bdb00ee07362b093ea2",
+            "matches_expected": true,
+            "name": "path_traversal_controller",
+            "path": "src/main/java/org/owasp/webgoat/lessons/pathtraversal/ProfileUploadRetrieval.java"
+          },
+          {
+            "actual_sha256": "d8298e3c3ee511969c34f7611b5047d5563021cba4a944bf09bc8b5bf0280a6d",
+            "expected_sha256": "d8298e3c3ee511969c34f7611b5047d5563021cba4a944bf09bc8b5bf0280a6d",
+            "matches_expected": true,
+            "name": "path_traversal_source",
+            "path": "src/main/java/org/owasp/webgoat/lessons/pathtraversal/PathTraversal.java"
+          }
+        ],
+        "source_revision": "7517acca95d9851da706452454c223dd13545ef4",
+        "source_root": "/tmp/webgoat-source"
+      },
+      "target_id": "owasp_webgoat"
+    }
+  }
+}

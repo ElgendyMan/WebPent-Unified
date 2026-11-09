@@ -1,0 +1,128 @@
+{
+  "chains_discovered": 1,
+  "chains_confirmed": 1,
+  "chains_refuted": 0,
+  "chains_blocked": 0,
+  "combined_severity_upgrades": 1,
+  "candidates": [
+    {
+      "chain_id": "chain_799517be4246bf0d",
+      "pattern": "xss_to_csrf_bypass",
+      "description": "Stored XSS -> steal CSRF token -> perform actions as user",
+      "step_1_finding": {
+        "finding_id": "xss-reflected",
+        "family": "XSS",
+        "status": "PROMOTED",
+        "target_url": "http://synthetic-chain.test",
+        "engagement_id": "eng-chain-proof-001",
+        "route": "/search?q=",
+        "severity": "5.8",
+        "proof_bundle_ref": "proof_bundle_423ab40741c04d208f83ec9692e6256a",
+        "capabilities": [
+          "script_execution"
+        ],
+        "promotion_gates": [
+          "g1",
+          "g2",
+          "g3",
+          "g4",
+          "g5",
+          "g6",
+          "g7",
+          "g8"
+        ]
+      },
+      "step_2_finding": null,
+      "prerequisites_met": true,
+      "estimated_impact": "HIGH",
+      "confidence": 0.8,
+      "narrative": "Stored script execution is combined with the observed missing CSRF boundary to perform an authenticated action.",
+      "verification_needed": [
+        "execute the governed chain request",
+        "verify combined causal impact"
+      ],
+      "target_url": "http://synthetic-chain.test",
+      "engagement_id": "eng-chain-proof-001",
+      "chain_input": {
+        "source_finding_id": "xss-reflected",
+        "source_resource_id": null,
+        "input_authority": "sealed_step_1_proof_bundle"
+      }
+    }
+  ],
+  "executions": [
+    {
+      "chain_id": "chain_799517be4246bf0d",
+      "status": "chain_confirmed",
+      "confirmed": true,
+      "reason": "M4/AVI/PromotionPipeline passed \u2014 governed chain execution confirmed",
+      "evidence": {
+        "authority": "M4/AVI/PromotionPipeline",
+        "response_digest": "redacted-synthetic-proof",
+        "executor": "deterministic-stub (synthetic proof, not live)"
+      },
+      "proof_bundle_ref": "chain-proof-chain_799517be4246bf0d",
+      "replay_verified": true,
+      "gates_passed": [
+        "g1",
+        "g2",
+        "g3",
+        "g4",
+        "g5",
+        "g6",
+        "g7",
+        "g8"
+      ],
+      "gates_failed": []
+    }
+  ],
+  "reports": [
+    {
+      "chain_id": "chain_799517be4246bf0d",
+      "title": "[HIGH] Combined impact via xss to csrf bypass",
+      "pattern": "xss_to_csrf_bypass",
+      "steps": [
+        {
+          "step": 1,
+          "finding": "xss-reflected",
+          "result": "confirmed prerequisite"
+        },
+        {
+          "step": 3,
+          "chain": "chain_799517be4246bf0d",
+          "result": "governed chain execution confirmed"
+        }
+      ],
+      "combined_severity": "HIGH",
+      "combined_cvss": 7.0,
+      "cvss_justification": "The xss_to_csrf_bypass pattern is confirmed by the individual evidence and a successful governed chain execution; combined impact floor is 7.0, base individual score was 5.8.",
+      "impact": "Stored script execution is combined with the observed missing CSRF boundary to perform an authenticated action.",
+      "evidence": [
+        {
+          "source": "step_1",
+          "proof_bundle_ref": "proof_bundle_423ab40741c04d208f83ec9692e6256a"
+        },
+        {
+          "source": "chain_execution",
+          "evidence": {
+            "authority": "M4/AVI/PromotionPipeline",
+            "response_digest": "redacted-synthetic-proof",
+            "executor": "deterministic-stub (synthetic proof, not live)"
+          }
+        }
+      ],
+      "proof_bundle_ref": "chain-proof-chain_799517be4246bf0d",
+      "replay_verified": true,
+      "gates_passed": [
+        "g1",
+        "g2",
+        "g3",
+        "g4",
+        "g5",
+        "g6",
+        "g7",
+        "g8"
+      ]
+    }
+  ]
+}

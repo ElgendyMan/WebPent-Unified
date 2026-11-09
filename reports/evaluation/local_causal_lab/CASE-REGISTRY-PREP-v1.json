@@ -1,0 +1,125 @@
+{
+  "artifact": "case-registry-preparation-v1",
+  "purpose": "Structure only for engineering evidence tracking; not a qualification decision.",
+  "registry_version": "1.0",
+  "vulnerability_classes": [
+    {
+      "class_id": "idor",
+      "name": "Insecure Direct Object Reference",
+      "causal_predicate_required": "A distinct unauthorized identity receives the protected owner resource semantic identity while the owner baseline is authorized and an independent negative control is denied or unrelated.",
+      "transport_only_insufficient": true
+    },
+    {
+      "class_id": "path_traversal",
+      "name": "Path Traversal",
+      "causal_predicate_required": "Not eligible in the current WebGoat scope without an explicitly approved safe canary and bounded semantic observation.",
+      "transport_only_insufficient": true
+    },
+    {
+      "class_id": "object_access",
+      "name": "Unauthorized Object Access",
+      "causal_predicate_required": "A requester/owner relation must be established with independent identities, resettable state, semantic authorization observations, and an independent denial control.",
+      "transport_only_insufficient": true
+    }
+  ],
+  "approved_case_schema": {
+    "required_fields": [
+      "case_id",
+      "target_id",
+      "target_version_or_source_digest",
+      "vulnerability_class",
+      "hypothesis",
+      "safe_precondition_contract",
+      "baseline_observation_ref",
+      "candidate_observation_ref",
+      "negative_control_observation_ref",
+      "evidence_origin",
+      "causal_oracle_decision",
+      "invariant_analysis",
+      "validator_result",
+      "sealed_digest",
+      "replay_result",
+      "scope_and_governance_status"
+    ],
+    "allowed_evidence_origin": ["target_runtime", "offline_fixture"],
+    "scoring_origin": "target_runtime",
+    "scoring_decision": "CONFIRMED only",
+    "blocked_or_inconclusive_policy": "Never promote, score, or convert to TP/FP/FN/clean."
+  },
+  "evidence_maturity_levels": [
+    {
+      "level": "L0_UNASSESSED",
+      "meaning": "No bounded candidate analysis exists.",
+      "promotion_allowed": false
+    },
+    {
+      "level": "L1_SOURCE_CANDIDATE",
+      "meaning": "Source-backed hypothesis only; no target observations.",
+      "promotion_allowed": false
+    },
+    {
+      "level": "L2_PRECONDITION_READY",
+      "meaning": "Safe preconditions and reset are verified, but no complete causal observation chain exists.",
+      "promotion_allowed": false
+    },
+    {
+      "level": "L3_OBSERVED",
+      "meaning": "Baseline/candidate/control observations exist, but the oracle is not CONFIRMED or evidence is not target_runtime.",
+      "promotion_allowed": false
+    },
+    {
+      "level": "L4_SEALED_REPLAYABLE",
+      "meaning": "A target_runtime CONFIRMED causal result has a sealed ProofBundle and deterministic successful replay.",
+      "promotion_allowed": true,
+      "qualification_note": "Engineering promotion only; official qualification still requires separate governance and run gates."
+    }
+  ],
+  "promotion_workflow": [
+    "source_or_behavior_candidate_review",
+    "safe_precondition_and_reset_verification",
+    "owner_baseline_capture",
+    "distinct_requester_candidate_capture",
+    "independent_negative_control_capture",
+    "typed_causal_oracle_evaluation",
+    "central_verifier_validation",
+    "target_runtime_origin_check",
+    "ProofBundle_seal",
+    "deterministic_replay",
+    "engineering_registry_update",
+    "separate_governance_review_before_qualification"
+  ],
+  "current_entries": [
+    {
+      "case_id": "controlled.idor.owner_resource.v1",
+      "target": "ControlledLocalTarget",
+      "target_version": "1.0",
+      "status": "CONFIRMED_TECHNICAL_PROOF_ONLY",
+      "maturity": "L4_SEALED_REPLAYABLE",
+      "evidence_origin": "target_runtime",
+      "oracle": "CONFIRMED",
+      "replay": true,
+      "approved_scoring_case": false,
+      "qualification_effect": false,
+      "reason": "Purpose-built deterministic loopback target-backed validation with owner baseline, attacker foreign-resource candidate, and attacker unrelated-resource negative control.",
+      "target_backed_proof_bundle": true
+    },
+    {
+      "case_id": "webgoat.idor.view_other_profile.causal-vnext",
+      "target": "WebGoat",
+      "status": "BLOCKED",
+      "maturity": "L1_SOURCE_CANDIDATE",
+      "evidence_origin": null,
+      "reason": "Independent owner/attacker LessonSession fixture, resettable owner resource, and semantic target observation are unavailable within the approved scope.",
+      "target_backed_proof_bundle": false
+    }
+  ],
+  "governance": {
+    "engineering_validation_is_not_qualification": true,
+    "official_isolated_p10_runs_authorized": false,
+    "p10": "NOT_QUALIFIED",
+    "p9": "NOT_QUALIFIED",
+    "vip": "NOT_QUALIFIED",
+    "bug_bounty": "BLOCKED",
+    "human_independent_signoff_obtained": false
+  }
+}

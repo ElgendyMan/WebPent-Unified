@@ -1,0 +1,32 @@
+{
+  "campaign_id": "crapi-workshop-expansion-20261003-r4",
+  "target": "http://127.0.0.1:8888",
+  "auth": {
+    "type": "api_jwt",
+    "vault_bound_principals": 2,
+    "identity_ids_discovered": 2,
+    "credentials_present": false
+  },
+  "surface": {
+    "configured_route_seed_count": 7,
+    "routes_crawled": 32,
+    "candidate_count": 14,
+    "executable_candidate_count": 10,
+    "seed_families": ["/workshop/"]
+  },
+  "promotion": {
+    "finding_id": "finding_bola_232719982d12688e",
+    "vulnerability_class": "BOLA",
+    "validator": "CONFIRMED",
+    "resource_path": "/workshop/api/shop/orders/1",
+    "baseline": {"principal_role": "owner", "status_code": 200, "body_digest": "3aa8caa7b4f80c88"},
+    "candidate": {"principal_role": "foreign-user", "status_code": 200, "body_digest": "3aa8caa7b4f80c88"},
+    "negative_control": {"path": "/workshop/api/shop/orders/2", "status_code": 200, "body_digest": "890cffef9245261e"},
+    "proof_bundle_sealed": true,
+    "replay_verified": true,
+    "all_eight_gates_passed": true,
+    "audit_chain_verified": true
+  },
+  "runtime": {"llm_calls": 12, "observed_cost_usd": 0.049837, "duration_seconds": 219.26},
+  "redaction": {"raw_bodies_included": false, "credentials_included": false, "tokens_included": false}
+}

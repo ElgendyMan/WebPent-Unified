@@ -1,0 +1,11 @@
+{
+  "pivot_id": "PIVOT-01",
+  "scenario": "BAC hypothesis fails on health endpoint \u2192 pivot to tenant boundary",
+  "initial_hypothesis": "Authorization weakness on /api/health",
+  "test_result": "Health endpoint legitimately open to all \u2014 benign variation",
+  "evidence_update": "X-Resource-Tenant differs between responses",
+  "pivot_to": "Tenant boundary violation hypothesis",
+  "new_experiment": "Test cross-tenant access patterns",
+  "outcome": "Tenant isolation failure discovered and confirmed",
+  "cause": "Observed X-Resource-Tenant header difference"
+}

@@ -1,0 +1,59 @@
+{
+  "schema": "webpent-owner-directive-import-b2.1-v1",
+  "record_type": "owner_directive_import_execution_only",
+  "status": "IMPORTED_BOUNDED_DIRECTIVE",
+  "source_artifact": {
+    "filename": "pasted_content_2.txt",
+    "sha256": "a1236f27a2d60785adcfbe9be9445123050a921ebd37a9212e9f474e3fed120c",
+    "raw_content_persisted_in_repo": false
+  },
+  "authority": {
+    "owner_identity_provided": false,
+    "owner_signature_provided": false,
+    "human_independent_signoff_obtained": false,
+    "execution_scope": "B2.1 current bounded task only"
+  },
+  "approved_target": {
+    "target_id": "owasp_webgoat",
+    "source_revision": "7517acca95d9851da706452454c223dd13545ef4",
+    "scope": "local loopback only"
+  },
+  "approved_case_ids": [
+    "webgoat.idor.view_other_profile.v1"
+  ],
+  "approved_methods": [
+    "GET"
+  ],
+  "approved_authentication": {
+    "normal_local_authentication": true,
+    "synthetic_accounts_only": true,
+    "synthetic_session_memory_only": true,
+    "real_credentials_allowed": false,
+    "credential_token_cookie_persistence_allowed": false,
+    "auth_bypass_allowed": false
+  },
+  "approved_state_boundary": {
+    "disposable_fixture_only": true,
+    "snapshot_restore_required": true,
+    "additional_state_mutation_allowed": false,
+    "reset_endpoint_allowed": false,
+    "external_callbacks_allowed": false
+  },
+  "stop_conditions": [
+    "loopback_scope_failure",
+    "service_build_alignment_failure",
+    "synthetic_identity_or_session_failure",
+    "ownership_fixture_or_reset_failure",
+    "oracle_inconclusive",
+    "negative_control_missing_or_not_independent",
+    "raw_material_persistence",
+    "sealing_or_replay_failure"
+  ],
+  "qualification_state": {
+    "official_isolated_p10_runs_authorized": false,
+    "p10": "NOT_QUALIFIED",
+    "p9": "NOT_QUALIFIED",
+    "vip": "NOT_QUALIFIED",
+    "bug_bounty": "BLOCKED"
+  }
+}

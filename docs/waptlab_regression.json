@@ -1,0 +1,226 @@
+{
+  "campaign_count": 20,
+  "campaigns": [
+    {
+      "disposition": "inconclusive",
+      "evidence_complete": false,
+      "id": 1,
+      "key": "header_sqli",
+      "reason": "No local WAPTLab fixture is available; no target was contacted.",
+      "target_contacted": false
+    },
+    {
+      "disposition": "inconclusive",
+      "evidence_complete": false,
+      "id": 2,
+      "key": "csv_ingestion_sqli",
+      "reason": "No local WAPTLab fixture is available; no target was contacted.",
+      "target_contacted": false
+    },
+    {
+      "disposition": "inconclusive",
+      "evidence_complete": false,
+      "id": 3,
+      "key": "jwt_path_traversal",
+      "reason": "No local WAPTLab fixture is available; no target was contacted.",
+      "target_contacted": false
+    },
+    {
+      "disposition": "inconclusive",
+      "evidence_complete": false,
+      "id": 4,
+      "key": "double_slash_redirect",
+      "reason": "No local WAPTLab fixture is available; no target was contacted.",
+      "target_contacted": false
+    },
+    {
+      "disposition": "inconclusive",
+      "evidence_complete": false,
+      "id": 5,
+      "key": "oauth_redirect_uri",
+      "reason": "No local WAPTLab fixture is available; no target was contacted.",
+      "target_contacted": false
+    },
+    {
+      "disposition": "inconclusive",
+      "evidence_complete": false,
+      "id": 6,
+      "key": "download_idor",
+      "reason": "No local WAPTLab fixture is available; no target was contacted.",
+      "target_contacted": false
+    },
+    {
+      "disposition": "inconclusive",
+      "evidence_complete": false,
+      "id": 7,
+      "key": "tenant_context_switching",
+      "reason": "No local WAPTLab fixture is available; no target was contacted.",
+      "target_contacted": false
+    },
+    {
+      "disposition": "inconclusive",
+      "evidence_complete": false,
+      "id": 8,
+      "key": "training_email_ssti",
+      "reason": "No local WAPTLab fixture is available; no target was contacted.",
+      "target_contacted": false
+    },
+    {
+      "disposition": "inconclusive",
+      "evidence_complete": false,
+      "id": 9,
+      "key": "export_blade_ssti",
+      "reason": "No local WAPTLab fixture is available; no target was contacted.",
+      "target_contacted": false
+    },
+    {
+      "disposition": "inconclusive",
+      "evidence_complete": false,
+      "id": 10,
+      "key": "swagger_url_ssrf",
+      "reason": "No local WAPTLab fixture is available; no target was contacted.",
+      "target_contacted": false
+    },
+    {
+      "disposition": "inconclusive",
+      "evidence_complete": false,
+      "id": 11,
+      "key": "image_fetch_ssrf",
+      "reason": "No local WAPTLab fixture is available; no target was contacted.",
+      "target_contacted": false
+    },
+    {
+      "disposition": "inconclusive",
+      "evidence_complete": false,
+      "id": 12,
+      "key": "stored_profile_xss",
+      "reason": "No local WAPTLab fixture is available; no target was contacted.",
+      "target_contacted": false
+    },
+    {
+      "disposition": "inconclusive",
+      "evidence_complete": false,
+      "id": 13,
+      "key": "quoted_field_xss",
+      "reason": "No local WAPTLab fixture is available; no target was contacted.",
+      "target_contacted": false
+    },
+    {
+      "disposition": "missing-validator",
+      "evidence_complete": false,
+      "id": 14,
+      "key": "elasticsearch_snapshot_traversal",
+      "reason": "No complete validator plugin is registered for this campaign.",
+      "target_contacted": false
+    },
+    {
+      "disposition": "inconclusive",
+      "evidence_complete": false,
+      "id": 15,
+      "key": "public_backup_disclosure",
+      "reason": "No local WAPTLab fixture is available; no target was contacted.",
+      "target_contacted": false
+    },
+    {
+      "disposition": "inconclusive",
+      "evidence_complete": false,
+      "id": 16,
+      "key": "laravel_app_debug",
+      "reason": "No local WAPTLab fixture is available; no target was contacted.",
+      "target_contacted": false
+    },
+    {
+      "disposition": "inconclusive",
+      "evidence_complete": false,
+      "id": 17,
+      "key": "frontend_dependency_exposure",
+      "reason": "No local WAPTLab fixture is available; no target was contacted.",
+      "target_contacted": false
+    },
+    {
+      "disposition": "inconclusive",
+      "evidence_complete": false,
+      "id": 18,
+      "key": "public_elasticsearch_exposure",
+      "reason": "No local WAPTLab fixture is available; no target was contacted.",
+      "target_contacted": false
+    },
+    {
+      "disposition": "inconclusive",
+      "evidence_complete": false,
+      "id": 19,
+      "key": "oob_xxe",
+      "reason": "No local WAPTLab fixture is available; no target was contacted.",
+      "target_contacted": false
+    },
+    {
+      "disposition": "missing-validator",
+      "evidence_complete": false,
+      "id": 20,
+      "key": "xslt_injection",
+      "reason": "No complete validator plugin is registered for this campaign.",
+      "target_contacted": false
+    }
+  ],
+  "generated_at": "2026-08-23T08:11:08.002322+00:00",
+  "mode": "local-contract-only",
+  "project": "WebPent v60",
+  "safety_statement": "This artifact validates local campaign accounting and evidence-gap planning only. Inconclusive and missing-validator are not negative findings.",
+  "schema_version": "waptlab-regression-v1",
+  "summary": {
+    "inconclusive": 18,
+    "missing-validator": 2
+  },
+  "synthetic_contract_checks": [
+    {
+      "campaign_key": "download_idor",
+      "changes_plan_on_gap": true,
+      "complete_fixture_gaps": [],
+      "gap_fixture_actions": [
+        "collect_negative_control"
+      ],
+      "gap_fixture_types": [
+        "missing_negative_control"
+      ],
+      "synthetic_contract_only": true
+    },
+    {
+      "campaign_key": "csv_ingestion_sqli",
+      "changes_plan_on_gap": true,
+      "complete_fixture_gaps": [],
+      "gap_fixture_actions": [
+        "collect_negative_control"
+      ],
+      "gap_fixture_types": [
+        "missing_negative_control"
+      ],
+      "synthetic_contract_only": true
+    },
+    {
+      "campaign_key": "tenant_context_switching",
+      "changes_plan_on_gap": true,
+      "complete_fixture_gaps": [],
+      "gap_fixture_actions": [
+        "collect_negative_control"
+      ],
+      "gap_fixture_types": [
+        "missing_negative_control"
+      ],
+      "synthetic_contract_only": true
+    },
+    {
+      "campaign_key": "xslt_injection",
+      "changes_plan_on_gap": true,
+      "complete_fixture_gaps": [],
+      "gap_fixture_actions": [
+        "collect_negative_control"
+      ],
+      "gap_fixture_types": [
+        "missing_negative_control"
+      ],
+      "synthetic_contract_only": true
+    }
+  ],
+  "target_contacted": false,
+  "waptlab_modified": false
+}

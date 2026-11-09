@@ -1,0 +1,3562 @@
+{
+  "date": "2026-09-03T06:39:55.314962+00:00",
+  "total_targets": 10,
+  "total_cases": 120,
+  "classes_covered": [
+    "broken_access_control",
+    "business_logic_abuse",
+    "clean_public_info",
+    "clean_public_resource",
+    "idor",
+    "multi_step_chain",
+    "privilege_escalation",
+    "sensitive_data_exposure",
+    "tenant_isolation_failure",
+    "workflow_authorization_failure"
+  ],
+  "num_classes_covered": 10,
+  "accounting": {
+    "CONFIRMED": 37,
+    "CLEAN": 45,
+    "FN": 53,
+    "INCONCLUSIVE": 56,
+    "BLOCKED": 20,
+    "TP": 37,
+    "TN": 20,
+    "FP": 0,
+    "proof_valid": 82,
+    "replay_valid": 82,
+    "proof_eligible": 82
+  },
+  "metrics": {
+    "tp": 37,
+    "fp": 0,
+    "fn": 53,
+    "tn": 20,
+    "precision": 1.0,
+    "recall": 0.4111,
+    "f1": 0.5827,
+    "proof_completeness": 1.0,
+    "replay_completeness": 1.0
+  },
+  "generative_proofs": {
+    "total": 37,
+    "non_idor": 37,
+    "cases": [
+      {
+        "target": "goed-v1.5-target-00",
+        "case_id": "goed-v1.5-target-00-case-01",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-00",
+        "case_id": "goed-v1.5-target-00-case-02",
+        "class": "privilege_escalation",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-00",
+        "case_id": "goed-v1.5-target-00-case-04",
+        "class": "tenant_isolation_failure",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-00",
+        "case_id": "goed-v1.5-target-00-case-09",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-01",
+        "case_id": "goed-v1.5-target-01-case-01",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-01",
+        "case_id": "goed-v1.5-target-01-case-02",
+        "class": "privilege_escalation",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-01",
+        "case_id": "goed-v1.5-target-01-case-04",
+        "class": "tenant_isolation_failure",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-01",
+        "case_id": "goed-v1.5-target-01-case-09",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-02",
+        "case_id": "goed-v1.5-target-02-case-01",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-02",
+        "case_id": "goed-v1.5-target-02-case-02",
+        "class": "privilege_escalation",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-02",
+        "case_id": "goed-v1.5-target-02-case-04",
+        "class": "tenant_isolation_failure",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-02",
+        "case_id": "goed-v1.5-target-02-case-09",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-03",
+        "case_id": "goed-v1.5-target-03-case-01",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-03",
+        "case_id": "goed-v1.5-target-03-case-02",
+        "class": "privilege_escalation",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-03",
+        "case_id": "goed-v1.5-target-03-case-04",
+        "class": "tenant_isolation_failure",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-03",
+        "case_id": "goed-v1.5-target-03-case-09",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-04",
+        "case_id": "goed-v1.5-target-04-case-01",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-04",
+        "case_id": "goed-v1.5-target-04-case-02",
+        "class": "privilege_escalation",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-04",
+        "case_id": "goed-v1.5-target-04-case-04",
+        "class": "tenant_isolation_failure",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-04",
+        "case_id": "goed-v1.5-target-04-case-09",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-05",
+        "case_id": "goed-v1.5-target-05-case-01",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-05",
+        "case_id": "goed-v1.5-target-05-case-02",
+        "class": "privilege_escalation",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-05",
+        "case_id": "goed-v1.5-target-05-case-04",
+        "class": "tenant_isolation_failure",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-05",
+        "case_id": "goed-v1.5-target-05-case-09",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-06",
+        "case_id": "goed-v1.5-target-06-case-04",
+        "class": "tenant_isolation_failure",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-07",
+        "case_id": "goed-v1.5-target-07-case-01",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-07",
+        "case_id": "goed-v1.5-target-07-case-02",
+        "class": "privilege_escalation",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-07",
+        "case_id": "goed-v1.5-target-07-case-04",
+        "class": "tenant_isolation_failure",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-07",
+        "case_id": "goed-v1.5-target-07-case-09",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-08",
+        "case_id": "goed-v1.5-target-08-case-01",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-08",
+        "case_id": "goed-v1.5-target-08-case-02",
+        "class": "privilege_escalation",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-08",
+        "case_id": "goed-v1.5-target-08-case-04",
+        "class": "tenant_isolation_failure",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-08",
+        "case_id": "goed-v1.5-target-08-case-09",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-09",
+        "case_id": "goed-v1.5-target-09-case-01",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-09",
+        "case_id": "goed-v1.5-target-09-case-02",
+        "class": "privilege_escalation",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-09",
+        "case_id": "goed-v1.5-target-09-case-04",
+        "class": "tenant_isolation_failure",
+        "route_discovered": true,
+        "confidence": 0.99
+      },
+      {
+        "target": "goed-v1.5-target-09",
+        "case_id": "goed-v1.5-target-09-case-09",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "confidence": 0.99
+      }
+    ]
+  },
+  "discovery_traces": {
+    "goed-v1.5-target-00": {
+      "discovered_resources": 30,
+      "resources": {
+        "/": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/api/health": {
+          "source": "json_links_array",
+          "security_relevant": false
+        },
+        "/api/openapi": {
+          "source": "json_links_array",
+          "security_relevant": false
+        },
+        "/api": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/health": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/openapi.json": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/api/objects/{obj_id}": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/patched/api/objects/{obj_id}": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/api/system_config": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/api/system_config": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/api/payment_history/{tenant}": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/api/payment_history/{tenant}": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/api/value_send/{from_user}": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/api/value_send/{from_user}": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/api/tenant/{tenant}/confidential_records": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/api/tenant/{tenant}/confidential_records": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/api/approvals/{wf_id}/view": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/api/approvals/{wf_id}/approve": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/patched/api/approvals/{wf_id}/approve": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/api/private_inbox/{user}/inbox": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/api/private_inbox/{user}/inbox": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/api/access_restore/request": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/api/access_restore/request": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/api/event_history": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/patched/api/event_history": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/docs": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/robots.txt": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/api/objects/{id}": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/api/approvals/{wf}/approve": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/api/value_send/{from}": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        }
+      },
+      "opportunities_generated": 37,
+      "inferred_entities": [
+        "access_restore",
+        "admin_dashboard",
+        "approvals",
+        "audit_log",
+        "auth_reset",
+        "billing_records",
+        "event_history",
+        "health",
+        "health_endpoint",
+        "objects",
+        "openapi",
+        "openapi_spec",
+        "payment_history",
+        "private_inbox",
+        "private_messages",
+        "system_config",
+        "tenant",
+        "tenant_internal",
+        "user_profile",
+        "value_send",
+        "workflow",
+        "workflow_approval",
+        "{obj_id}",
+        "{tenant}",
+        "{user}"
+      ]
+    },
+    "goed-v1.5-target-01": {
+      "discovered_resources": 30,
+      "resources": {
+        "/": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/v1/health": {
+          "source": "json_links_array",
+          "security_relevant": false
+        },
+        "/v1/openapi": {
+          "source": "json_links_array",
+          "security_relevant": false
+        },
+        "/api": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/health": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/openapi.json": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/v1/objects/{obj_id}": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/patched/v1/objects/{obj_id}": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/v1/system_config": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/v1/system_config": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/v1/revenue_reports/{tenant}": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/v1/revenue_reports/{tenant}": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/v1/value_send/{from_user}": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/v1/value_send/{from_user}": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/v1/tenant/{tenant}/private_ops": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/v1/tenant/{tenant}/private_ops": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/v1/workflows/{wf_id}/view": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/v1/workflows/{wf_id}/approve": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/patched/v1/workflows/{wf_id}/approve": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/v1/personal_notifications/{user}/inbox": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/v1/personal_notifications/{user}/inbox": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/v1/auth_reset/request": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/v1/auth_reset/request": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/v1/access_trail": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/v1/access_trail": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/docs": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/robots.txt": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/v1/objects/{id}": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/v1/workflows/{wf}/approve": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/v1/value_send/{from}": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        }
+      },
+      "opportunities_generated": 28,
+      "inferred_entities": [
+        "admin_dashboard",
+        "audit_log",
+        "auth_reset",
+        "billing_records",
+        "health_endpoint",
+        "openapi_spec",
+        "private_messages",
+        "tenant_internal",
+        "user_profile",
+        "workflow",
+        "workflow_approval",
+        "{obj_id}",
+        "{tenant}",
+        "{user}"
+      ]
+    },
+    "goed-v1.5-target-02": {
+      "discovered_resources": 30,
+      "resources": {
+        "/": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/v2/health": {
+          "source": "json_links_array",
+          "security_relevant": false
+        },
+        "/v2/openapi": {
+          "source": "json_links_array",
+          "security_relevant": false
+        },
+        "/api": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/health": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/openapi.json": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/v2/objects/{obj_id}": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/patched/v2/objects/{obj_id}": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/v2/management_console": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/patched/v2/management_console": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/v2/financial_data/{tenant}": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/v2/financial_data/{tenant}": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/v2/funds_transfer/{from_user}": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/v2/funds_transfer/{from_user}": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/v2/tenant/{tenant}/private_ops": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/v2/tenant/{tenant}/private_ops": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/v2/audit_actions/{wf_id}/view": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/v2/audit_actions/{wf_id}/approve": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/v2/audit_actions/{wf_id}/approve": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/v2/personal_notifications/{user}/inbox": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/v2/personal_notifications/{user}/inbox": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/v2/access_restore/request": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/v2/access_restore/request": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/v2/access_trail": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/v2/access_trail": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/docs": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/robots.txt": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/v2/objects/{id}": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/v2/audit_actions/{wf}/approve": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/v2/funds_transfer/{from}": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        }
+      },
+      "opportunities_generated": 30,
+      "inferred_entities": [
+        "admin_dashboard",
+        "audit_log",
+        "auth_reset",
+        "billing_records",
+        "health_endpoint",
+        "openapi_spec",
+        "private_messages",
+        "tenant_internal",
+        "user_profile",
+        "workflow",
+        "workflow_approval",
+        "{obj_id}",
+        "{tenant}",
+        "{user}"
+      ]
+    },
+    "goed-v1.5-target-03": {
+      "discovered_resources": 30,
+      "resources": {
+        "/": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/services/health/rest": {
+          "source": "json_links_array",
+          "security_relevant": false
+        },
+        "/services/openapi/rest": {
+          "source": "json_links_array",
+          "security_relevant": false
+        },
+        "/api": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/health": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/openapi.json": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/services/objects/{obj_id}/rest": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/patched/services/objects/{obj_id}/rest": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/services/system_config/rest": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/services/system_config/rest": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/services/billing_records/{tenant}/rest": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/services/billing_records/{tenant}/rest": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/services/funds_transfer/{from_user}/rest": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/services/funds_transfer/{from_user}/rest": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/services/tenant/{tenant}/internal_resources/rest": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/services/tenant/{tenant}/internal_resources/rest": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/services/review_items/{wf_id}/view/rest": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/services/review_items/{wf_id}/approve/rest": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/patched/services/review_items/{wf_id}/approve/rest": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/services/private_inbox/{user}/inbox/rest": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/services/private_inbox/{user}/inbox/rest": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/services/password_recovery/request/rest": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/patched/services/password_recovery/request/rest": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/services/access_trail/rest": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/services/access_trail/rest": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/docs": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/robots.txt": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/services/objects/{id}/rest": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/services/review_items/{wf}/approve/rest": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/services/funds_transfer/{from}/rest": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        }
+      },
+      "opportunities_generated": 26,
+      "inferred_entities": [
+        "admin_dashboard",
+        "audit_log",
+        "auth_reset",
+        "billing_records",
+        "health_endpoint",
+        "openapi_spec",
+        "private_messages",
+        "tenant_internal",
+        "user_profile",
+        "workflow",
+        "workflow_approval",
+        "{obj_id}",
+        "{tenant}",
+        "{user}"
+      ]
+    },
+    "goed-v1.5-target-04": {
+      "discovered_resources": 30,
+      "resources": {
+        "/": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/internal/health": {
+          "source": "json_links_array",
+          "security_relevant": true
+        },
+        "/internal/openapi": {
+          "source": "json_links_array",
+          "security_relevant": true
+        },
+        "/api": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/health": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/openapi.json": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/internal/objects/{obj_id}": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/internal/objects/{obj_id}": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/internal/admin_dashboard": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/internal/admin_dashboard": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/internal/billing_records/{tenant}": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/internal/billing_records/{tenant}": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/internal/funds_transfer/{from_user}": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/internal/funds_transfer/{from_user}": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/internal/tenant/{tenant}/internal_resources": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/internal/tenant/{tenant}/internal_resources": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/internal/review_items/{wf_id}/view": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/internal/review_items/{wf_id}/approve": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/internal/review_items/{wf_id}/approve": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/internal/messages/{user}/inbox": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/internal/messages/{user}/inbox": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/internal/password_recovery/request": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/internal/password_recovery/request": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/internal/security_records": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/internal/security_records": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/docs": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/robots.txt": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/internal/objects/{id}": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/internal/review_items/{wf}/approve": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/internal/funds_transfer/{from}": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        }
+      },
+      "opportunities_generated": 38,
+      "inferred_entities": [
+        "admin_dashboard",
+        "audit_log",
+        "auth_reset",
+        "billing_records",
+        "health_endpoint",
+        "openapi_spec",
+        "private_messages",
+        "tenant_internal",
+        "user_profile",
+        "workflow",
+        "workflow_approval",
+        "{obj_id}",
+        "{tenant}",
+        "{user}"
+      ]
+    },
+    "goed-v1.5-target-05": {
+      "discovered_resources": 30,
+      "resources": {
+        "/": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/platform/health/api": {
+          "source": "json_links_array",
+          "security_relevant": false
+        },
+        "/platform/openapi/api": {
+          "source": "json_links_array",
+          "security_relevant": false
+        },
+        "/api": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/health": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/openapi.json": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/platform/objects/{obj_id}/api": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/patched/platform/objects/{obj_id}/api": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/platform/admin_dashboard/api": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/platform/admin_dashboard/api": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/platform/financial_data/{tenant}/api": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/platform/financial_data/{tenant}/api": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/platform/funds_transfer/{from_user}/api": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/platform/funds_transfer/{from_user}/api": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/platform/tenant/{tenant}/confidential_records/api": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/platform/tenant/{tenant}/confidential_records/api": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/platform/audit_actions/{wf_id}/view/api": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/platform/audit_actions/{wf_id}/approve/api": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/platform/audit_actions/{wf_id}/approve/api": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/platform/private_inbox/{user}/inbox/api": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/platform/private_inbox/{user}/inbox/api": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/platform/credential_reset/request/api": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/platform/credential_reset/request/api": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/platform/audit_log/api": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/platform/audit_log/api": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/docs": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/robots.txt": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/platform/objects/{id}/api": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/platform/audit_actions/{wf}/approve/api": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/platform/funds_transfer/{from}/api": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        }
+      },
+      "opportunities_generated": 32,
+      "inferred_entities": [
+        "admin_dashboard",
+        "audit_log",
+        "auth_reset",
+        "billing_records",
+        "health_endpoint",
+        "openapi_spec",
+        "private_messages",
+        "tenant_internal",
+        "user_profile",
+        "workflow",
+        "workflow_approval",
+        "{obj_id}",
+        "{tenant}",
+        "{user}"
+      ]
+    },
+    "goed-v1.5-target-06": {
+      "discovered_resources": 30,
+      "resources": {
+        "/": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/data/health/access": {
+          "source": "json_links_array",
+          "security_relevant": true
+        },
+        "/data/openapi/access": {
+          "source": "json_links_array",
+          "security_relevant": true
+        },
+        "/api": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/health": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/openapi.json": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/data/objects/{obj_id}/access": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/data/objects/{obj_id}/access": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/data/control_panel/access": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/data/control_panel/access": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/data/revenue_reports/{tenant}/access": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/data/revenue_reports/{tenant}/access": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/data/credit_exchange/{from_user}/access": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/data/credit_exchange/{from_user}/access": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/data/tenant/{tenant}/confidential_records/access": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/data/tenant/{tenant}/confidential_records/access": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/data/workflows/{wf_id}/view/access": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/data/workflows/{wf_id}/approve/access": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/data/workflows/{wf_id}/approve/access": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/data/confidential_mail/{user}/inbox/access": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/data/confidential_mail/{user}/inbox/access": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/data/credential_reset/request/access": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/data/credential_reset/request/access": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/data/event_history/access": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/data/event_history/access": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/docs": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/robots.txt": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/data/objects/{id}/access": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/data/workflows/{wf}/approve/access": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/data/credit_exchange/{from}/access": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        }
+      },
+      "opportunities_generated": 38,
+      "inferred_entities": [
+        "admin_dashboard",
+        "audit_log",
+        "auth_reset",
+        "billing_records",
+        "health_endpoint",
+        "openapi_spec",
+        "private_messages",
+        "tenant_internal",
+        "user_profile",
+        "workflow",
+        "workflow_approval",
+        "{obj_id}",
+        "{tenant}",
+        "{user}"
+      ]
+    },
+    "goed-v1.5-target-07": {
+      "discovered_resources": 30,
+      "resources": {
+        "/": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/core/health": {
+          "source": "json_links_array",
+          "security_relevant": false
+        },
+        "/core/openapi": {
+          "source": "json_links_array",
+          "security_relevant": false
+        },
+        "/api": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/health": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/openapi.json": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/core/objects/{obj_id}": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/patched/core/objects/{obj_id}": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/core/admin_dashboard": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/core/admin_dashboard": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/core/payment_history/{tenant}": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/core/payment_history/{tenant}": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/core/funds_transfer/{from_user}": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/core/funds_transfer/{from_user}": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/core/tenant/{tenant}/private_ops": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/core/tenant/{tenant}/private_ops": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/core/workflows/{wf_id}/view": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/core/workflows/{wf_id}/approve": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/patched/core/workflows/{wf_id}/approve": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/core/messages/{user}/inbox": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/core/messages/{user}/inbox": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/core/credential_reset/request": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/core/credential_reset/request": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/core/access_trail": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/core/access_trail": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/docs": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/robots.txt": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/core/objects/{id}": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/core/workflows/{wf}/approve": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/core/funds_transfer/{from}": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        }
+      },
+      "opportunities_generated": 28,
+      "inferred_entities": [
+        "admin_dashboard",
+        "audit_log",
+        "auth_reset",
+        "billing_records",
+        "health_endpoint",
+        "openapi_spec",
+        "private_messages",
+        "tenant_internal",
+        "user_profile",
+        "workflow",
+        "workflow_approval",
+        "{obj_id}",
+        "{tenant}",
+        "{user}"
+      ]
+    },
+    "goed-v1.5-target-08": {
+      "discovered_resources": 30,
+      "resources": {
+        "/": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/gateway/health/invoke": {
+          "source": "json_links_array",
+          "security_relevant": false
+        },
+        "/gateway/openapi/invoke": {
+          "source": "json_links_array",
+          "security_relevant": false
+        },
+        "/api": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/health": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/openapi.json": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/gateway/objects/{obj_id}/invoke": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/patched/gateway/objects/{obj_id}/invoke": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/gateway/admin_dashboard/invoke": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/gateway/admin_dashboard/invoke": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/gateway/financial_data/{tenant}/invoke": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/gateway/financial_data/{tenant}/invoke": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/gateway/balance_move/{from_user}/invoke": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/gateway/balance_move/{from_user}/invoke": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/gateway/tenant/{tenant}/private_ops/invoke": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/gateway/tenant/{tenant}/private_ops/invoke": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/gateway/audit_actions/{wf_id}/view/invoke": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/gateway/audit_actions/{wf_id}/approve/invoke": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/gateway/audit_actions/{wf_id}/approve/invoke": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/gateway/messages/{user}/inbox/invoke": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/gateway/messages/{user}/inbox/invoke": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/gateway/credential_reset/request/invoke": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/gateway/credential_reset/request/invoke": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/gateway/access_trail/invoke": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/gateway/access_trail/invoke": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/docs": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/robots.txt": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/gateway/objects/{id}/invoke": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/gateway/audit_actions/{wf}/approve/invoke": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/gateway/balance_move/{from}/invoke": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        }
+      },
+      "opportunities_generated": 32,
+      "inferred_entities": [
+        "admin_dashboard",
+        "audit_log",
+        "auth_reset",
+        "billing_records",
+        "health_endpoint",
+        "openapi_spec",
+        "private_messages",
+        "tenant_internal",
+        "user_profile",
+        "workflow",
+        "workflow_approval",
+        "{obj_id}",
+        "{tenant}",
+        "{user}"
+      ]
+    },
+    "goed-v1.5-target-09": {
+      "discovered_resources": 30,
+      "resources": {
+        "/": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/app/health/endpoint": {
+          "source": "json_links_array",
+          "security_relevant": false
+        },
+        "/app/openapi/endpoint": {
+          "source": "json_links_array",
+          "security_relevant": false
+        },
+        "/api": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/health": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/openapi.json": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/app/objects/{obj_id}/endpoint": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/patched/app/objects/{obj_id}/endpoint": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/app/management_console/endpoint": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/patched/app/management_console/endpoint": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/app/revenue_reports/{tenant}/endpoint": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/app/revenue_reports/{tenant}/endpoint": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/app/funds_transfer/{from_user}/endpoint": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/app/funds_transfer/{from_user}/endpoint": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/app/tenant/{tenant}/confidential_records/endpoint": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/app/tenant/{tenant}/confidential_records/endpoint": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/app/workflows/{wf_id}/view/endpoint": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/app/workflows/{wf_id}/approve/endpoint": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/patched/app/workflows/{wf_id}/approve/endpoint": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/app/personal_notifications/{user}/inbox/endpoint": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/app/personal_notifications/{user}/inbox/endpoint": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/app/password_recovery/request/endpoint": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/patched/app/password_recovery/request/endpoint": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/app/access_trail/endpoint": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/patched/app/access_trail/endpoint": {
+          "source": "json_openapi_paths",
+          "security_relevant": true
+        },
+        "/docs": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/robots.txt": {
+          "source": "entry_point_convention",
+          "security_relevant": false
+        },
+        "/app/objects/{id}/endpoint": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/app/workflows/{wf}/approve/endpoint": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        },
+        "/app/funds_transfer/{from}/endpoint": {
+          "source": "json_openapi_paths",
+          "security_relevant": false
+        }
+      },
+      "opportunities_generated": 24,
+      "inferred_entities": [
+        "admin_dashboard",
+        "audit_log",
+        "auth_reset",
+        "billing_records",
+        "health_endpoint",
+        "openapi_spec",
+        "private_messages",
+        "tenant_internal",
+        "user_profile",
+        "workflow",
+        "workflow_approval",
+        "{obj_id}",
+        "{tenant}",
+        "{user}"
+      ]
+    }
+  },
+  "per_target_results": {
+    "goed-v1.5-target-00": {
+      "goed-v1.5-target-00-case-00": {
+        "case_id": "goed-v1.5-target-00-case-00",
+        "class": "idor",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "FN",
+        "confidence": 0.89,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-00-case-01": {
+        "case_id": "goed-v1.5-target-00-case-01",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-00-case-02": {
+        "case_id": "goed-v1.5-target-00-case-02",
+        "class": "privilege_escalation",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-00-case-03": {
+        "case_id": "goed-v1.5-target-00-case-03",
+        "class": "business_logic_abuse",
+        "route_discovered": true,
+        "causal_verdict": "INCONCLUSIVE",
+        "scoring": "INCONCLUSIVE",
+        "confidence": 0.4,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-00-case-04": {
+        "case_id": "goed-v1.5-target-00-case-04",
+        "class": "tenant_isolation_failure",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-00-case-05": {
+        "case_id": "goed-v1.5-target-00-case-05",
+        "class": "workflow_authorization_failure",
+        "route_discovered": true,
+        "causal_verdict": "INCONCLUSIVE",
+        "scoring": "INCONCLUSIVE",
+        "confidence": 0.4,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-00-case-06": {
+        "case_id": "goed-v1.5-target-00-case-06",
+        "class": "sensitive_data_exposure",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "FN",
+        "confidence": 0.89,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-00-case-07": {
+        "case_id": "goed-v1.5-target-00-case-07",
+        "class": "multi_step_chain",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "FN",
+        "confidence": 0.91,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-00-case-08": {
+        "case_id": "goed-v1.5-target-00-case-08",
+        "class": "idor",
+        "route_discovered": true,
+        "causal_verdict": "INCONCLUSIVE",
+        "scoring": "INCONCLUSIVE",
+        "confidence": 0.4,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-00-case-09": {
+        "case_id": "goed-v1.5-target-00-case-09",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-00-case-10": {
+        "case_id": "goed-v1.5-target-00-case-10",
+        "class": "clean_public_resource",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "TN",
+        "confidence": 0.91,
+        "is_vulnerable": false,
+        "expected": "CLEAN",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-00-case-11": {
+        "case_id": "goed-v1.5-target-00-case-11",
+        "class": "clean_public_info",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "TN",
+        "confidence": 0.91,
+        "is_vulnerable": false,
+        "expected": "CLEAN",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      }
+    },
+    "goed-v1.5-target-01": {
+      "goed-v1.5-target-01-case-00": {
+        "case_id": "goed-v1.5-target-01-case-00",
+        "class": "idor",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "FN",
+        "confidence": 0.89,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-01-case-01": {
+        "case_id": "goed-v1.5-target-01-case-01",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-01-case-02": {
+        "case_id": "goed-v1.5-target-01-case-02",
+        "class": "privilege_escalation",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-01-case-03": {
+        "case_id": "goed-v1.5-target-01-case-03",
+        "class": "business_logic_abuse",
+        "route_discovered": true,
+        "causal_verdict": "INCONCLUSIVE",
+        "scoring": "INCONCLUSIVE",
+        "confidence": 0.4,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-01-case-04": {
+        "case_id": "goed-v1.5-target-01-case-04",
+        "class": "tenant_isolation_failure",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-01-case-05": {
+        "case_id": "goed-v1.5-target-01-case-05",
+        "class": "workflow_authorization_failure",
+        "route_discovered": true,
+        "causal_verdict": "INCONCLUSIVE",
+        "scoring": "INCONCLUSIVE",
+        "confidence": 0.4,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-01-case-06": {
+        "case_id": "goed-v1.5-target-01-case-06",
+        "class": "sensitive_data_exposure",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "FN",
+        "confidence": 0.89,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-01-case-07": {
+        "case_id": "goed-v1.5-target-01-case-07",
+        "class": "multi_step_chain",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "FN",
+        "confidence": 0.91,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-01-case-08": {
+        "case_id": "goed-v1.5-target-01-case-08",
+        "class": "idor",
+        "route_discovered": true,
+        "causal_verdict": "INCONCLUSIVE",
+        "scoring": "INCONCLUSIVE",
+        "confidence": 0.4,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-01-case-09": {
+        "case_id": "goed-v1.5-target-01-case-09",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-01-case-10": {
+        "case_id": "goed-v1.5-target-01-case-10",
+        "class": "clean_public_resource",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "TN",
+        "confidence": 0.91,
+        "is_vulnerable": false,
+        "expected": "CLEAN",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-01-case-11": {
+        "case_id": "goed-v1.5-target-01-case-11",
+        "class": "clean_public_info",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "TN",
+        "confidence": 0.91,
+        "is_vulnerable": false,
+        "expected": "CLEAN",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      }
+    },
+    "goed-v1.5-target-02": {
+      "goed-v1.5-target-02-case-00": {
+        "case_id": "goed-v1.5-target-02-case-00",
+        "class": "idor",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "FN",
+        "confidence": 0.89,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-02-case-01": {
+        "case_id": "goed-v1.5-target-02-case-01",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-02-case-02": {
+        "case_id": "goed-v1.5-target-02-case-02",
+        "class": "privilege_escalation",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-02-case-03": {
+        "case_id": "goed-v1.5-target-02-case-03",
+        "class": "business_logic_abuse",
+        "route_discovered": true,
+        "causal_verdict": "INCONCLUSIVE",
+        "scoring": "INCONCLUSIVE",
+        "confidence": 0.4,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-02-case-04": {
+        "case_id": "goed-v1.5-target-02-case-04",
+        "class": "tenant_isolation_failure",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-02-case-05": {
+        "case_id": "goed-v1.5-target-02-case-05",
+        "class": "workflow_authorization_failure",
+        "route_discovered": true,
+        "causal_verdict": "INCONCLUSIVE",
+        "scoring": "INCONCLUSIVE",
+        "confidence": 0.4,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-02-case-06": {
+        "case_id": "goed-v1.5-target-02-case-06",
+        "class": "sensitive_data_exposure",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "FN",
+        "confidence": 0.89,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-02-case-07": {
+        "case_id": "goed-v1.5-target-02-case-07",
+        "class": "multi_step_chain",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "FN",
+        "confidence": 0.91,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-02-case-08": {
+        "case_id": "goed-v1.5-target-02-case-08",
+        "class": "idor",
+        "route_discovered": true,
+        "causal_verdict": "INCONCLUSIVE",
+        "scoring": "INCONCLUSIVE",
+        "confidence": 0.4,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-02-case-09": {
+        "case_id": "goed-v1.5-target-02-case-09",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-02-case-10": {
+        "case_id": "goed-v1.5-target-02-case-10",
+        "class": "clean_public_resource",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "TN",
+        "confidence": 0.91,
+        "is_vulnerable": false,
+        "expected": "CLEAN",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-02-case-11": {
+        "case_id": "goed-v1.5-target-02-case-11",
+        "class": "clean_public_info",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "TN",
+        "confidence": 0.91,
+        "is_vulnerable": false,
+        "expected": "CLEAN",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      }
+    },
+    "goed-v1.5-target-03": {
+      "goed-v1.5-target-03-case-00": {
+        "case_id": "goed-v1.5-target-03-case-00",
+        "class": "idor",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "FN",
+        "confidence": 0.89,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-03-case-01": {
+        "case_id": "goed-v1.5-target-03-case-01",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-03-case-02": {
+        "case_id": "goed-v1.5-target-03-case-02",
+        "class": "privilege_escalation",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-03-case-03": {
+        "case_id": "goed-v1.5-target-03-case-03",
+        "class": "business_logic_abuse",
+        "route_discovered": true,
+        "causal_verdict": "BLOCKED",
+        "scoring": "BLOCKED",
+        "confidence": 0.0,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 404,
+        "candidate_status": 404,
+        "control_status": 200
+      },
+      "goed-v1.5-target-03-case-04": {
+        "case_id": "goed-v1.5-target-03-case-04",
+        "class": "tenant_isolation_failure",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-03-case-05": {
+        "case_id": "goed-v1.5-target-03-case-05",
+        "class": "workflow_authorization_failure",
+        "route_discovered": true,
+        "causal_verdict": "INCONCLUSIVE",
+        "scoring": "INCONCLUSIVE",
+        "confidence": 0.4,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-03-case-06": {
+        "case_id": "goed-v1.5-target-03-case-06",
+        "class": "sensitive_data_exposure",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "FN",
+        "confidence": 0.89,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-03-case-07": {
+        "case_id": "goed-v1.5-target-03-case-07",
+        "class": "multi_step_chain",
+        "route_discovered": true,
+        "causal_verdict": "BLOCKED",
+        "scoring": "BLOCKED",
+        "confidence": 0.0,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 404,
+        "candidate_status": 404,
+        "control_status": 200
+      },
+      "goed-v1.5-target-03-case-08": {
+        "case_id": "goed-v1.5-target-03-case-08",
+        "class": "idor",
+        "route_discovered": true,
+        "causal_verdict": "INCONCLUSIVE",
+        "scoring": "INCONCLUSIVE",
+        "confidence": 0.4,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-03-case-09": {
+        "case_id": "goed-v1.5-target-03-case-09",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-03-case-10": {
+        "case_id": "goed-v1.5-target-03-case-10",
+        "class": "clean_public_resource",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "TN",
+        "confidence": 0.91,
+        "is_vulnerable": false,
+        "expected": "CLEAN",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-03-case-11": {
+        "case_id": "goed-v1.5-target-03-case-11",
+        "class": "clean_public_info",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "TN",
+        "confidence": 0.91,
+        "is_vulnerable": false,
+        "expected": "CLEAN",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      }
+    },
+    "goed-v1.5-target-04": {
+      "goed-v1.5-target-04-case-00": {
+        "case_id": "goed-v1.5-target-04-case-00",
+        "class": "idor",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "FN",
+        "confidence": 0.89,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-04-case-01": {
+        "case_id": "goed-v1.5-target-04-case-01",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-04-case-02": {
+        "case_id": "goed-v1.5-target-04-case-02",
+        "class": "privilege_escalation",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-04-case-03": {
+        "case_id": "goed-v1.5-target-04-case-03",
+        "class": "business_logic_abuse",
+        "route_discovered": true,
+        "causal_verdict": "INCONCLUSIVE",
+        "scoring": "INCONCLUSIVE",
+        "confidence": 0.4,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-04-case-04": {
+        "case_id": "goed-v1.5-target-04-case-04",
+        "class": "tenant_isolation_failure",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-04-case-05": {
+        "case_id": "goed-v1.5-target-04-case-05",
+        "class": "workflow_authorization_failure",
+        "route_discovered": true,
+        "causal_verdict": "INCONCLUSIVE",
+        "scoring": "INCONCLUSIVE",
+        "confidence": 0.4,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-04-case-06": {
+        "case_id": "goed-v1.5-target-04-case-06",
+        "class": "sensitive_data_exposure",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "FN",
+        "confidence": 0.89,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-04-case-07": {
+        "case_id": "goed-v1.5-target-04-case-07",
+        "class": "multi_step_chain",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "FN",
+        "confidence": 0.91,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-04-case-08": {
+        "case_id": "goed-v1.5-target-04-case-08",
+        "class": "idor",
+        "route_discovered": true,
+        "causal_verdict": "INCONCLUSIVE",
+        "scoring": "INCONCLUSIVE",
+        "confidence": 0.4,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-04-case-09": {
+        "case_id": "goed-v1.5-target-04-case-09",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-04-case-10": {
+        "case_id": "goed-v1.5-target-04-case-10",
+        "class": "clean_public_resource",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "TN",
+        "confidence": 0.91,
+        "is_vulnerable": false,
+        "expected": "CLEAN",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-04-case-11": {
+        "case_id": "goed-v1.5-target-04-case-11",
+        "class": "clean_public_info",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "TN",
+        "confidence": 0.91,
+        "is_vulnerable": false,
+        "expected": "CLEAN",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      }
+    },
+    "goed-v1.5-target-05": {
+      "goed-v1.5-target-05-case-00": {
+        "case_id": "goed-v1.5-target-05-case-00",
+        "class": "idor",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "FN",
+        "confidence": 0.89,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-05-case-01": {
+        "case_id": "goed-v1.5-target-05-case-01",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-05-case-02": {
+        "case_id": "goed-v1.5-target-05-case-02",
+        "class": "privilege_escalation",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-05-case-03": {
+        "case_id": "goed-v1.5-target-05-case-03",
+        "class": "business_logic_abuse",
+        "route_discovered": true,
+        "causal_verdict": "BLOCKED",
+        "scoring": "BLOCKED",
+        "confidence": 0.0,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 404,
+        "candidate_status": 404,
+        "control_status": 200
+      },
+      "goed-v1.5-target-05-case-04": {
+        "case_id": "goed-v1.5-target-05-case-04",
+        "class": "tenant_isolation_failure",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-05-case-05": {
+        "case_id": "goed-v1.5-target-05-case-05",
+        "class": "workflow_authorization_failure",
+        "route_discovered": true,
+        "causal_verdict": "INCONCLUSIVE",
+        "scoring": "INCONCLUSIVE",
+        "confidence": 0.4,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-05-case-06": {
+        "case_id": "goed-v1.5-target-05-case-06",
+        "class": "sensitive_data_exposure",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "FN",
+        "confidence": 0.89,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-05-case-07": {
+        "case_id": "goed-v1.5-target-05-case-07",
+        "class": "multi_step_chain",
+        "route_discovered": true,
+        "causal_verdict": "BLOCKED",
+        "scoring": "BLOCKED",
+        "confidence": 0.0,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 404,
+        "candidate_status": 404,
+        "control_status": 200
+      },
+      "goed-v1.5-target-05-case-08": {
+        "case_id": "goed-v1.5-target-05-case-08",
+        "class": "idor",
+        "route_discovered": true,
+        "causal_verdict": "INCONCLUSIVE",
+        "scoring": "INCONCLUSIVE",
+        "confidence": 0.4,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-05-case-09": {
+        "case_id": "goed-v1.5-target-05-case-09",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-05-case-10": {
+        "case_id": "goed-v1.5-target-05-case-10",
+        "class": "clean_public_resource",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "TN",
+        "confidence": 0.91,
+        "is_vulnerable": false,
+        "expected": "CLEAN",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-05-case-11": {
+        "case_id": "goed-v1.5-target-05-case-11",
+        "class": "clean_public_info",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "TN",
+        "confidence": 0.91,
+        "is_vulnerable": false,
+        "expected": "CLEAN",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      }
+    },
+    "goed-v1.5-target-06": {
+      "goed-v1.5-target-06-case-00": {
+        "case_id": "goed-v1.5-target-06-case-00",
+        "class": "idor",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "FN",
+        "confidence": 0.89,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-06-case-01": {
+        "case_id": "goed-v1.5-target-06-case-01",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "causal_verdict": "INCONCLUSIVE",
+        "scoring": "INCONCLUSIVE",
+        "confidence": 0.4,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-06-case-02": {
+        "case_id": "goed-v1.5-target-06-case-02",
+        "class": "privilege_escalation",
+        "route_discovered": true,
+        "causal_verdict": "INCONCLUSIVE",
+        "scoring": "INCONCLUSIVE",
+        "confidence": 0.4,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-06-case-03": {
+        "case_id": "goed-v1.5-target-06-case-03",
+        "class": "business_logic_abuse",
+        "route_discovered": true,
+        "causal_verdict": "BLOCKED",
+        "scoring": "BLOCKED",
+        "confidence": 0.0,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 404,
+        "candidate_status": 404,
+        "control_status": 200
+      },
+      "goed-v1.5-target-06-case-04": {
+        "case_id": "goed-v1.5-target-06-case-04",
+        "class": "tenant_isolation_failure",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-06-case-05": {
+        "case_id": "goed-v1.5-target-06-case-05",
+        "class": "workflow_authorization_failure",
+        "route_discovered": true,
+        "causal_verdict": "INCONCLUSIVE",
+        "scoring": "INCONCLUSIVE",
+        "confidence": 0.4,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-06-case-06": {
+        "case_id": "goed-v1.5-target-06-case-06",
+        "class": "sensitive_data_exposure",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "FN",
+        "confidence": 0.89,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-06-case-07": {
+        "case_id": "goed-v1.5-target-06-case-07",
+        "class": "multi_step_chain",
+        "route_discovered": true,
+        "causal_verdict": "BLOCKED",
+        "scoring": "BLOCKED",
+        "confidence": 0.0,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 404,
+        "candidate_status": 404,
+        "control_status": 200
+      },
+      "goed-v1.5-target-06-case-08": {
+        "case_id": "goed-v1.5-target-06-case-08",
+        "class": "idor",
+        "route_discovered": true,
+        "causal_verdict": "INCONCLUSIVE",
+        "scoring": "INCONCLUSIVE",
+        "confidence": 0.4,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-06-case-09": {
+        "case_id": "goed-v1.5-target-06-case-09",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "causal_verdict": "INCONCLUSIVE",
+        "scoring": "INCONCLUSIVE",
+        "confidence": 0.4,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-06-case-10": {
+        "case_id": "goed-v1.5-target-06-case-10",
+        "class": "clean_public_resource",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "TN",
+        "confidence": 0.91,
+        "is_vulnerable": false,
+        "expected": "CLEAN",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-06-case-11": {
+        "case_id": "goed-v1.5-target-06-case-11",
+        "class": "clean_public_info",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "TN",
+        "confidence": 0.91,
+        "is_vulnerable": false,
+        "expected": "CLEAN",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      }
+    },
+    "goed-v1.5-target-07": {
+      "goed-v1.5-target-07-case-00": {
+        "case_id": "goed-v1.5-target-07-case-00",
+        "class": "idor",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "FN",
+        "confidence": 0.89,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-07-case-01": {
+        "case_id": "goed-v1.5-target-07-case-01",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-07-case-02": {
+        "case_id": "goed-v1.5-target-07-case-02",
+        "class": "privilege_escalation",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-07-case-03": {
+        "case_id": "goed-v1.5-target-07-case-03",
+        "class": "business_logic_abuse",
+        "route_discovered": true,
+        "causal_verdict": "INCONCLUSIVE",
+        "scoring": "INCONCLUSIVE",
+        "confidence": 0.4,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-07-case-04": {
+        "case_id": "goed-v1.5-target-07-case-04",
+        "class": "tenant_isolation_failure",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-07-case-05": {
+        "case_id": "goed-v1.5-target-07-case-05",
+        "class": "workflow_authorization_failure",
+        "route_discovered": true,
+        "causal_verdict": "INCONCLUSIVE",
+        "scoring": "INCONCLUSIVE",
+        "confidence": 0.4,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-07-case-06": {
+        "case_id": "goed-v1.5-target-07-case-06",
+        "class": "sensitive_data_exposure",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "FN",
+        "confidence": 0.89,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-07-case-07": {
+        "case_id": "goed-v1.5-target-07-case-07",
+        "class": "multi_step_chain",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "FN",
+        "confidence": 0.91,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-07-case-08": {
+        "case_id": "goed-v1.5-target-07-case-08",
+        "class": "idor",
+        "route_discovered": true,
+        "causal_verdict": "INCONCLUSIVE",
+        "scoring": "INCONCLUSIVE",
+        "confidence": 0.4,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-07-case-09": {
+        "case_id": "goed-v1.5-target-07-case-09",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-07-case-10": {
+        "case_id": "goed-v1.5-target-07-case-10",
+        "class": "clean_public_resource",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "TN",
+        "confidence": 0.91,
+        "is_vulnerable": false,
+        "expected": "CLEAN",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-07-case-11": {
+        "case_id": "goed-v1.5-target-07-case-11",
+        "class": "clean_public_info",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "TN",
+        "confidence": 0.91,
+        "is_vulnerable": false,
+        "expected": "CLEAN",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      }
+    },
+    "goed-v1.5-target-08": {
+      "goed-v1.5-target-08-case-00": {
+        "case_id": "goed-v1.5-target-08-case-00",
+        "class": "idor",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "FN",
+        "confidence": 0.89,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-08-case-01": {
+        "case_id": "goed-v1.5-target-08-case-01",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-08-case-02": {
+        "case_id": "goed-v1.5-target-08-case-02",
+        "class": "privilege_escalation",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-08-case-03": {
+        "case_id": "goed-v1.5-target-08-case-03",
+        "class": "business_logic_abuse",
+        "route_discovered": true,
+        "causal_verdict": "BLOCKED",
+        "scoring": "BLOCKED",
+        "confidence": 0.0,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 404,
+        "candidate_status": 404,
+        "control_status": 200
+      },
+      "goed-v1.5-target-08-case-04": {
+        "case_id": "goed-v1.5-target-08-case-04",
+        "class": "tenant_isolation_failure",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-08-case-05": {
+        "case_id": "goed-v1.5-target-08-case-05",
+        "class": "workflow_authorization_failure",
+        "route_discovered": true,
+        "causal_verdict": "INCONCLUSIVE",
+        "scoring": "INCONCLUSIVE",
+        "confidence": 0.4,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-08-case-06": {
+        "case_id": "goed-v1.5-target-08-case-06",
+        "class": "sensitive_data_exposure",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "FN",
+        "confidence": 0.89,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-08-case-07": {
+        "case_id": "goed-v1.5-target-08-case-07",
+        "class": "multi_step_chain",
+        "route_discovered": true,
+        "causal_verdict": "BLOCKED",
+        "scoring": "BLOCKED",
+        "confidence": 0.0,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 404,
+        "candidate_status": 404,
+        "control_status": 200
+      },
+      "goed-v1.5-target-08-case-08": {
+        "case_id": "goed-v1.5-target-08-case-08",
+        "class": "idor",
+        "route_discovered": true,
+        "causal_verdict": "INCONCLUSIVE",
+        "scoring": "INCONCLUSIVE",
+        "confidence": 0.4,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-08-case-09": {
+        "case_id": "goed-v1.5-target-08-case-09",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-08-case-10": {
+        "case_id": "goed-v1.5-target-08-case-10",
+        "class": "clean_public_resource",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "TN",
+        "confidence": 0.91,
+        "is_vulnerable": false,
+        "expected": "CLEAN",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-08-case-11": {
+        "case_id": "goed-v1.5-target-08-case-11",
+        "class": "clean_public_info",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "TN",
+        "confidence": 0.91,
+        "is_vulnerable": false,
+        "expected": "CLEAN",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      }
+    },
+    "goed-v1.5-target-09": {
+      "goed-v1.5-target-09-case-00": {
+        "case_id": "goed-v1.5-target-09-case-00",
+        "class": "idor",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "FN",
+        "confidence": 0.89,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-09-case-01": {
+        "case_id": "goed-v1.5-target-09-case-01",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-09-case-02": {
+        "case_id": "goed-v1.5-target-09-case-02",
+        "class": "privilege_escalation",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-09-case-03": {
+        "case_id": "goed-v1.5-target-09-case-03",
+        "class": "business_logic_abuse",
+        "route_discovered": true,
+        "causal_verdict": "BLOCKED",
+        "scoring": "BLOCKED",
+        "confidence": 0.0,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 404,
+        "candidate_status": 404,
+        "control_status": 200
+      },
+      "goed-v1.5-target-09-case-04": {
+        "case_id": "goed-v1.5-target-09-case-04",
+        "class": "tenant_isolation_failure",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-09-case-05": {
+        "case_id": "goed-v1.5-target-09-case-05",
+        "class": "workflow_authorization_failure",
+        "route_discovered": true,
+        "causal_verdict": "INCONCLUSIVE",
+        "scoring": "INCONCLUSIVE",
+        "confidence": 0.4,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-09-case-06": {
+        "case_id": "goed-v1.5-target-09-case-06",
+        "class": "sensitive_data_exposure",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "FN",
+        "confidence": 0.89,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-09-case-07": {
+        "case_id": "goed-v1.5-target-09-case-07",
+        "class": "multi_step_chain",
+        "route_discovered": true,
+        "causal_verdict": "BLOCKED",
+        "scoring": "BLOCKED",
+        "confidence": 0.0,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 404,
+        "candidate_status": 404,
+        "control_status": 200
+      },
+      "goed-v1.5-target-09-case-08": {
+        "case_id": "goed-v1.5-target-09-case-08",
+        "class": "idor",
+        "route_discovered": true,
+        "causal_verdict": "INCONCLUSIVE",
+        "scoring": "INCONCLUSIVE",
+        "confidence": 0.4,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": false,
+        "replay_valid": false,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-09-case-09": {
+        "case_id": "goed-v1.5-target-09-case-09",
+        "class": "broken_access_control",
+        "route_discovered": true,
+        "causal_verdict": "CONFIRMED",
+        "scoring": "TP",
+        "confidence": 0.99,
+        "is_vulnerable": true,
+        "expected": "CONFIRMED",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 403
+      },
+      "goed-v1.5-target-09-case-10": {
+        "case_id": "goed-v1.5-target-09-case-10",
+        "class": "clean_public_resource",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "TN",
+        "confidence": 0.91,
+        "is_vulnerable": false,
+        "expected": "CLEAN",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      },
+      "goed-v1.5-target-09-case-11": {
+        "case_id": "goed-v1.5-target-09-case-11",
+        "class": "clean_public_info",
+        "route_discovered": true,
+        "causal_verdict": "CLEAN",
+        "scoring": "TN",
+        "confidence": 0.91,
+        "is_vulnerable": false,
+        "expected": "CLEAN",
+        "proof_valid": true,
+        "replay_valid": true,
+        "baseline_status": 200,
+        "candidate_status": 200,
+        "control_status": 200
+      }
+    }
+  }
+}

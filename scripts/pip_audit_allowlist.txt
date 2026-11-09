@@ -1,0 +1,18 @@
+# pip-audit allowlist — WebPent Phase-2 gate (P2-202, 2026-11-01)
+#
+# Format (one entry per line):
+#   <package>==<exact-version>  <advisory-id>  # <rationale> | review-by: <date>
+#
+# Rules enforced by scripts/pip_audit_filter.py:
+#   1. Entries are version-pinned: ANY package upgrade invalidates the entry
+#      and fails the gate until the entry is re-reviewed (ratchet).
+#   2. Every entry MUST cover at least one advisory in the audit output; an
+#      entry that no longer matches (advisory fixed/withdrawn) is STALE and
+#      fails the gate, forcing removal. Duplicate IDs in the audit output
+#      (alias listings) are covered by a single entry.
+#   3. Anything not listed here and not fixed = gate failure.
+#
+chromadb==1.5.9  PYSEC-2026-311   # No fixed release published upstream as of 2026-11-01 (pip-audit fix_versions empty). Mitigation is architectural, not a version bump: the vector store runs embedded-only (in-process, no chroma server component, no network listener) and is disabled in CI/offline environments (EMBEDDINGS_OFFLINE=true, DISABLE_RAG=true). | review-by: 2026-12-01
+chromadb==1.5.9  PYSEC-2026-3813  # No fixed release published upstream as of 2026-11-01. Same architectural mitigation as PYSEC-2026-311 (embedded-only, no server process, no TCP listener; disabled in CI/offline). | review-by: 2026-12-01
+chromadb==1.5.9  PYSEC-2026-3814  # No fixed release published upstream as of 2026-11-01. Same architectural mitigation as PYSEC-2026-311 (embedded-only, no server process, no TCP listener; disabled in CI/offline). | review-by: 2026-12-01
+chromadb==1.5.9  PYSEC-2026-3815  # No fixed release published upstream as of 2026-11-01. Same architectural mitigation as PYSEC-2026-311 (embedded-only, no server process, no TCP listener; disabled in CI/offline). | review-by: 2026-12-01

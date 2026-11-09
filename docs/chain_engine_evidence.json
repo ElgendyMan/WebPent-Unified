@@ -1,0 +1,58 @@
+{
+  "implementation": {
+    "module": "src/webpent/agents/chain_engine.py",
+    "patterns": [
+      "info_disclosure_to_idor",
+      "idor_to_account_takeover",
+      "ssrf_to_internal_access",
+      "xss_to_csrf_bypass",
+      "idor_to_privilege_escalation"
+    ],
+    "max_chains_per_campaign": 5,
+    "direct_target_io": false,
+    "m4_avi_executor_required": true
+  },
+  "campaigns": {
+    "juice_shop": {
+      "campaign_id": "juice-chain-20261003-r1",
+      "individual_confirmed": 3,
+      "individual_blocked": 2,
+      "chains_discovered": 0,
+      "chains_confirmed": 0,
+      "combined_severity_upgrades": 0,
+      "llm_calls": 11,
+      "observed_cost_usd": 0.0403395,
+      "audit_verified": true,
+      "credentials_in_artifacts": false
+    },
+    "crapi": {
+      "campaign_id": "crapi-chain-20261003-r1",
+      "individual_confirmed": 2,
+      "individual_blocked": 3,
+      "chains_discovered": 0,
+      "chains_confirmed": 0,
+      "combined_severity_upgrades": 0,
+      "llm_calls": 11,
+      "observed_cost_usd": 0.04597475,
+      "audit_verified": true,
+      "credentials_in_artifacts": false
+    }
+  },
+  "validation": {
+    "full_suite_passed": 2137,
+    "full_suite_failed": 0,
+    "acceptance_rounds": [20, 20, 20],
+    "frozen_manifest_files_ok": 13,
+    "test_count": 2137,
+    "test_count_floor": 1940,
+    "direct_io_contract_tests_passed": 4,
+    "security_gates_passed": 5
+  },
+  "honesty": {
+    "critical_chain_claimed": false,
+    "individual_findings_modified": false,
+    "unsupported_chain_fabricated": false,
+    "raw_target_bodies_included": false,
+    "credentials_included": false
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "artifact_type": "superagentic_wiring_audit",
+  "direct_executor_calls": 1,
+  "entries": [
+    {
+      "direct_executor_calls": 1,
+      "path": "src/webpent/agents/smart_campaigns/agent.py",
+      "run_agent_proposal_calls": 1
+    }
+  ],
+  "harness_is_common_execution_path": false,
+  "limitations": [
+    "AST counts do not prove runtime reachability or live qualification.",
+    "Direct executor calls remain a wiring gap until each production path is migrated safely."
+  ],
+  "parse_errors": 0,
+  "qualification_class": "source-contract",
+  "run_agent_proposal_calls": 1,
+  "schema_version": "superagentic-wiring-v1",
+  "static_only": true,
+  "target_contacted": false
+}

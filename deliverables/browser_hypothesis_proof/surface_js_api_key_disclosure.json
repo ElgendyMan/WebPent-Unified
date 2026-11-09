@@ -1,0 +1,31 @@
+{
+  "hypotheses": [
+    {
+      "id": "dfabd5d1-caf9-4a37-982f-bcb3580ab3ac",
+      "vuln_class": "info_disclosure",
+      "statement": "JS analysis disclosed hardcoded api_key in client-side code; information disclosure / credential exposure.",
+      "origin": "deep_recon",
+      "origin_detail": "browser_observed:js_secret:api_key",
+      "confidence": 0.6
+    }
+  ],
+  "validator_traces": [
+    {
+      "hypothesis_id": "dfabd5d1-caf9-4a37-982f-bcb3580ab3ac",
+      "vuln_class": "info_disclosure",
+      "origin_detail": "browser_observed:js_secret:api_key",
+      "validator": "validate_info_disclosure",
+      "outcome": "ValidationOutcome.CONFIRMED",
+      "is_confirmation_grade": true,
+      "discriminating_signal": "candidate leaks 3 sensitive pattern classes",
+      "note": "Info disclosure confirmed: verbose 500 leaks credential + internal host + stack trace",
+      "trace": [
+        "browser_surface",
+        "bridge_hypothesis",
+        "candidate_built",
+        "M4_validator",
+        "ValidationOutcome.CONFIRMED"
+      ]
+    }
+  ]
+}

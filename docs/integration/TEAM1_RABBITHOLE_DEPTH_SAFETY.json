@@ -1,0 +1,28 @@
+{
+  "document_id": "TEAM1_RABBITHOLE_DEPTH_SAFETY-1.0",
+  "date": "2026-09-10",
+  "adaptive_steps": 3,
+  "priority_trace": [
+    [
+      32
+    ],
+    [
+      61
+    ],
+    [
+      78,
+      74
+    ]
+  ],
+  "selection_trace": [
+    "agenda::branch::hyp::X",
+    "agenda::branch::hyp::X",
+    "agenda::branch::hyp::Y"
+  ],
+  "each_step_causally_influenced": true,
+  "step3_different_branch": true,
+  "max_depth_enforced": true,
+  "loop_termination": "bounded by budget/depth",
+  "dedup": "signal_ids dedup via dict.fromkeys",
+  "safe_stop": "ResearchBudget SAFE_STOP preserved"
+}

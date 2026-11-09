@@ -1,0 +1,21 @@
+# THE PRISM — Wave 3 learning params (v89).
+# PRISM-L-3: learning is structured — no accuracy claim before min_samples,
+# no adjustment below the confidence floor, no delta beyond the cap,
+# stale patterns decay after stale_days.
+
+version: 1
+
+min_samples: 5
+confidence_floor: 0.6
+adjustment_cap: 0.20
+stale_days: 90
+
+pattern_types:
+  - technique_effectiveness
+  - evidence_quality
+  - stack_specific
+  - family_transfer
+  - target_archetype
+
+outcomes:
+  valid_results: [confirmed, refuted, inconclusive]

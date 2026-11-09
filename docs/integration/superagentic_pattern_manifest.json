@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Provenance and safety review for transferable Superagentic patterns in WebPent",
+  "repositories": [
+    {
+      "name": "Agent-Engineering-101",
+      "url": "https://github.com/SuperagenticAI/Agent-Engineering-101",
+      "pinned_commit": "d04c8847ba104cddf81c1bc69e11c81fc73d69d5",
+      "tree_hash": "c607049008eefd02d692e2127ff0412e528f5eeb",
+      "file_count": 50,
+      "license": "NO_EXPLICIT_LICENSE_FILE_FOUND",
+      "license_decision": "do_not_copy_code",
+      "provenance_class": "conceptual_only",
+      "observed_scope": "React/Vite educational slide deck about reliable agent engineering",
+      "security_review": "No runtime pentesting implementation adopted; no assets or source code copied.",
+      "decision": "adapt"
+    },
+    {
+      "name": "superclaw",
+      "url": "https://github.com/SuperagenticAI/superclaw",
+      "pinned_commit": "b1652221ea0c1f80bf6761680d292d7cfbb2c049",
+      "tree_hash": "015d4ad9821a32b091d48ca8b3de59ae2105e4a7",
+      "file_count": 77,
+      "license": "Apache-2.0",
+      "license_decision": "compatible_for_concepts; no source copied",
+      "provenance_class": "conceptual_and_interface_inspiration",
+      "observed_scope": "Scenario-driven pre-deployment security testing for AI coding agents",
+      "security_review": "Attack/adapters/reporting are not allowed to bypass WebPent ActionAuthority, scope compiler, executor, or ProofEngine.",
+      "decision": "adapt"
+    }
+  ],
+  "integration_policy": {
+    "source_code_copied": false,
+    "external_runtime_dependencies_added": false,
+    "second_policy_engine_added": false,
+    "direct_target_io_added": false,
+    "llm_authority_added": false,
+    "license_obligation": "Apache-2.0 source remains external and is not redistributed as copied WebPent code; Agent-Engineering-101 is used only as an unlicensed conceptual reference.",
+    "review_owner": "WebPent release engineering",
+    "review_status": "approved_for_adaptation_only"
+  },
+  "pattern_matrix": [
+    {
+      "source_path": "Agent-Engineering-101/README.md",
+      "observed_behavior": "Educational slide deck presents reliability, evaluation, memory, and agent-engineering concepts.",
+      "transferable_idea": "Make reliability boundaries and evaluation explicit.",
+      "webpent_destination": "shared/runtime.py, shared/autonomous_controller.py, docs/qualification/",
+      "license_compatibility": "Concept only; no explicit source license found.",
+      "security_risk": "Low when reimplemented natively; high if slide/source assets are copied.",
+      "test_required": "release and qualification documentation checks",
+      "decision": "adapt"
+    },
+    {
+      "source_path": "superclaw/docs/architecture/overview.md",
+      "observed_behavior": "Modular CLI/core/adapters/behaviors/scenarios/reporting architecture and evidence ledger.",
+      "transferable_idea": "Scenario-driven behavior testing and evidence-first reporting.",
+      "webpent_destination": "shared/behavior_scenarios/, shared/evaluation_runner.py, docs/qualification/",
+      "license_compatibility": "Apache-2.0 permits adaptation; no source copied.",
+      "security_risk": "A generic adapter could bypass target authorization if transplanted.",
+      "test_required": "forbidden-action, redaction, and fail-closed behavior suites",
+      "decision": "adapt"
+    },
+    {
+      "source_path": "superclaw/src/superclaw/behaviors/",
+      "observed_behavior": "Behavior specifications expose explicit contracts and evaluation criteria.",
+      "transferable_idea": "Versioned behavior scenario contracts with expected safe/progress/stop outcomes.",
+      "webpent_destination": "shared/behavior_scenarios/",
+      "license_compatibility": "Apache-2.0 compatible for an independent reimplementation.",
+      "security_risk": "Behavior pass must never become target vulnerability confirmation.",
+      "test_required": "local scenario runner and policy gate",
+      "decision": "adapt"
+    },
+    {
+      "source_path": "superclaw/src/superclaw/bloom/",
+      "observed_behavior": "Scenario ideation, rollout, and judgment are separate stages.",
+      "transferable_idea": "Separate discovery from confirmation and keep evaluation structured.",
+      "webpent_destination": "shared/agent_harness.py, shared/plan_reviewer.py, shared/finding_reviewer.py",
+      "license_compatibility": "Apache-2.0 compatible for an independent reimplementation.",
+      "security_risk": "LLM-generated scenarios could smuggle actions or credentials.",
+      "test_required": "typed proposal validation, redaction, and authority delegation",
+      "decision": "adapt"
+    },
+    {
+      "source_path": "superclaw/src/superclaw/adapters/",
+      "observed_behavior": "Target adapters encapsulate communication, including a mock adapter.",
+      "transferable_idea": "Use local deterministic adapters for behavior evaluation.",
+      "webpent_destination": "shared/behavior_scenarios/runner.py",
+      "license_compatibility": "Apache-2.0 compatible for an independent reimplementation.",
+      "security_risk": "Direct network or arbitrary adapter execution is forbidden.",
+      "test_required": "adapter registry and direct-I/O inventory checks",
+      "decision": "adapt"
+    },
+    {
+      "source_path": "superclaw/src/superclaw/reporting/",
+      "observed_behavior": "Reports expose JSON/HTML/SARIF projections.",
+      "transferable_idea": "Machine-readable, redacted evaluation artifacts.",
+      "webpent_destination": "existing reporter and docs/qualification/ artifacts",
+      "license_compatibility": "No source copied; existing WebPent reporters retained.",
+      "security_risk": "Raw prompts, credentials, or target content could leak.",
+      "test_required": "redaction and release artifact policy",
+      "decision": "reject_as_copy; adapt_concept"
+    },
+    {
+      "source_path": "superclaw/README.md security guidance",
+      "observed_behavior": "Authorized-only use, local-only default, and findings treated as signals until verified.",
+      "transferable_idea": "Explicit local/offline safety boundary and evidence honesty.",
+      "webpent_destination": "behavior scenarios, quality gate, and CURRENT_RELEASE.md",
+      "license_compatibility": "Documentation concept only.",
+      "security_risk": "False confidence if safety claims are not backed by tests.",
+      "test_required": "scope, proof, and false-clean regression suites",
+      "decision": "adapt"
+    }
+  ],
+  "rejected_components": [
+    "Wholesale source copy from either repository",
+    "Any adapter that performs target I/O outside ActionAuthority/ActionExecutor",
+    "Any LLM judge that can promote a finding or override a policy block",
+    "Any browser, subprocess, or provider integration without an audited WebPent wrapper",
+    "Any pattern relying on unlicensed Agent-Engineering-101 source or assets"
+  ]
+}

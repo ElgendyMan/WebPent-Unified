@@ -1,0 +1,114 @@
+{
+  "answers": {
+    "auth_mechanism_detected": "not independently asserted by untouched runner",
+    "crawler_discovered_application": true,
+    "exploiter_real_requests": "see validation counts and production trace",
+    "hypotheses_generated": 8,
+    "promoted_findings": 0,
+    "validator_confirmations": {
+      "confirmed": 0,
+      "inconclusive": 6,
+      "refuted": 0
+    }
+  },
+  "artifact_root": "/tmp/webpent_remediation_project/docs/generalization_evidence/phase5_final_20261002t0201z/dvwa",
+  "credentials_in_llm_context": false,
+  "duration_seconds": 196.254,
+  "modifications_during_phase": true,
+  "phase": "phase5_final_rerun",
+  "principal_count": 0,
+  "started_at_epoch": 1790895867.1446357,
+  "status": "completed",
+  "summary": {
+    "agent_graph_events": 31,
+    "audit_verification": {
+      "event_count": 4,
+      "root_hash": "cf4c2622996e066e85f9f4bfdaac9af5537359e6f9a2e56448da1e35a33e597d",
+      "verified": true
+    },
+    "campaign_id": "generalization-20261002t0201z-dvwa",
+    "candidates_executable": 4,
+    "candidates_generated": 8,
+    "confirmed_findings": [],
+    "crawl_events": 35,
+    "curiosity_flags": 5,
+    "duration_seconds": 196.229,
+    "llm_calls": 12,
+    "llm_cost_usd": 0.04866175,
+    "persona": {
+      "allowed_tools": [
+        "m4_principal_comparison",
+        "token_role_metadata",
+        "bounded_id_mutation"
+      ],
+      "display_name": "Stok / API Breaker",
+      "focus_areas": [
+        "idor",
+        "bola",
+        "bfla",
+        "token_role_comparison",
+        "id_parameter_fuzzing"
+      ],
+      "name": "stok",
+      "personality": "I break APIs by switching identities.",
+      "preferred_families": [
+        "IDOR",
+        "BOLA",
+        "AUTH_BYPASS"
+      ],
+      "prompt_template": "You are an API security specialist. For user-specific endpoints, compare owner, foreign, and invalid identities through the authorized M4 chain.",
+      "safety_constraints": [
+        "advisory_only",
+        "scope_law_and_tool_boundary_required",
+        "m4_credentials_only",
+        "no_external_targets_without_explicit_scope",
+        "validator_and_promotion_pipeline_authoritative"
+      ]
+    },
+    "production_trace": {
+      "complete": false,
+      "config_digest": "54f9ccbbb99d029d",
+      "entrypoint": "direct_invoke",
+      "missing_required_stages": [
+        "replan"
+      ],
+      "spine_version": "production_spine_v1",
+      "stage_count": 17,
+      "stages_seen": [
+        "audit_event",
+        "audit_finalization",
+        "bounded_tool_execution",
+        "causal_guard_evaluation",
+        "deep_recon",
+        "entrypoint_resolve",
+        "flag_resolution",
+        "observation",
+        "outcome_recording",
+        "promotion_decision",
+        "proof_bundle_creation",
+        "research_decision",
+        "spine_activation",
+        "world_model_mutation"
+      ],
+      "trace_digest": "ffa2a6e707df127e9845735545ab27f72e8178541a89c1dad50ce16cb031155b"
+    },
+    "routes_crawled": 18,
+    "security_boundary": {
+      "credentials_attached_by": "M4 only",
+      "execution_authority": "ModernOrchestrator/ScopeLaw/AVI/PromotionPipeline",
+      "raw_target_content_returned": false
+    },
+    "target_url": "http://127.0.0.1:8081",
+    "validation_counts": {
+      "confirmed": 0,
+      "inconclusive": 6,
+      "refuted": 0
+    }
+  },
+  "system_path": "run_hunter_campaign -> AutonomousCrawler/httpx -> HunterGraph -> ModernOrchestrator/AVI",
+  "target": {
+    "name": "dvwa",
+    "target_note": "DVWA classic PHP/MySQL app",
+    "target_url": "http://127.0.0.1:8081"
+  }
+}

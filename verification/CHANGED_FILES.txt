@@ -1,0 +1,17 @@
+# CHANGED_FILES — FINAL VERIFICATION + COMPLETION pass (2026-09-15)
+# Base: WebPent-RIT-FIXED-20260914.zip (sha256 90542606a1622461dc91b5738ad172c7d807deed79e40ba9c7c5eb2cc03340d5)
+# Principle: minimal safe patches only. No files deleted. Authority not weakened.
+#
+# FV-1 (defect fix): ScopeLaw poison detection did NOT deny — a poisoned
+#   invocation (metadata SSRF IP, --os-shell, exotic scheme) whose target URL
+#   was in scope reported in_scope=True with the poison merely annotated.
+#   Any consumer honoring the boolean alone would execute poisoned argv.
+#   Fix: poison is now a hard deny (in_scope=False) regardless of target scope.
+src/webpent/live_hunter/tool_scope.py            # authorize_invocation: poisoned => in_scope=False (1-line semantic change + comment)
+tests/test_fv1_scopelaw_poison_deny.py           # NEW: 5 regression locks (poison deny, clean allow, out-of-scope deny, unregistered deny)
+#
+# FV-2 (false-claim fix, docstring only): deep_recon.py claimed
+#   ResearchControlLoop is "THE one authoritative research decision path" while
+#   runtime authority is ResearchDecisionEngine + SmartNextBestActionEngine
+#   (proven live in this pass: fv_phase2_outcome_ranking.json).
+src/webpent/live_hunter/deep_recon.py            # docstring correction ONLY (no code change)

@@ -1,0 +1,101 @@
+# ORACLE-L-5: every source documents its legal basis. ORACLE-L-1: all of
+# these are third-party/passive services — none of them is the target.
+# rate_limit_per_minute is the hard per-source ceiling the aggregator
+# enforces (token bucket keyed on source id).
+sources:
+  - source_id: github_secret_scanning
+    priority: 1
+    category: credential
+    rate_limit_per_minute: 10
+    requires_key: true
+    legal_basis: "GitHub public REST API ToS; public repository data only"
+  - source_id: crtsh
+    priority: 2
+    category: subdomain
+    rate_limit_per_minute: 20
+    requires_key: false
+    legal_basis: "Public Certificate Transparency logs (RFC 6962)"
+  - source_id: wayback
+    priority: 3
+    category: endpoint
+    rate_limit_per_minute: 15
+    requires_key: false
+    legal_basis: "Internet Archive CDX API public access"
+  - source_id: shodan
+    priority: 4
+    category: tech
+    rate_limit_per_minute: 10
+    requires_key: true
+    legal_basis: "Shodan ToS — personal plan, banner data only"
+  - source_id: censys
+    priority: 5
+    category: tech
+    rate_limit_per_minute: 10
+    requires_key: true
+    legal_basis: "Censys Search ToS — registered account"
+  - source_id: job_postings
+    priority: 6
+    category: tech
+    rate_limit_per_minute: 5
+    requires_key: false
+    legal_basis: "Public job boards; aggregate tech-stack mentions only"
+  - source_id: cloud_buckets
+    priority: 7
+    category: data_leak
+    rate_limit_per_minute: 6
+    requires_key: false
+    legal_basis: "Passive naming-pattern enumeration; no bucket listing performed"
+  - source_id: hibp
+    priority: 8
+    category: credential
+    rate_limit_per_minute: 6
+    requires_key: true
+    legal_basis: "HaveIBeenPwned API ToS — breach metadata, no passwords stored"
+  - source_id: mobile_apps
+    priority: 9
+    category: endpoint
+    rate_limit_per_minute: 4
+    requires_key: false
+    legal_basis: "Public app-store metadata and publicly distributed packages"
+  - source_id: browser_extensions
+    priority: 10
+    category: endpoint
+    rate_limit_per_minute: 4
+    requires_key: false
+    legal_basis: "Public extension stores; manifest data only"
+  - source_id: dns_history
+    priority: 11
+    category: subdomain
+    rate_limit_per_minute: 10
+    requires_key: true
+    legal_basis: "PassiveDNS provider ToS (SecurityTrails/ViewDNS) — registered"
+  - source_id: whois_history
+    priority: 12
+    category: subdomain
+    rate_limit_per_minute: 12
+    requires_key: false
+    legal_basis: "Public WHOIS registration records"
+  - source_id: code_search
+    priority: 13
+    category: data_leak
+    rate_limit_per_minute: 8
+    requires_key: false
+    legal_basis: "Public code indexes (grep.app/sourcegraph) ToS"
+  - source_id: google_dorks
+    priority: 14
+    category: data_leak
+    rate_limit_per_minute: 6
+    requires_key: false
+    legal_basis: "Public search engine queries against third-party indexes"
+  - source_id: public_chat
+    priority: 15
+    category: data_leak
+    rate_limit_per_minute: 5
+    requires_key: false
+    legal_basis: "Public community spaces; no membership or private access"
+  - source_id: acquisitions
+    priority: 16
+    category: tech
+    rate_limit_per_minute: 10
+    requires_key: false
+    legal_basis: "Public press and corporate registry announcements"

@@ -1,0 +1,114 @@
+family: sqli
+scenarios:
+  - scenario_id: sqli-01
+    title: "The login that always succeeds"
+    description: "The login form builds its query by concatenation; break the comparison."
+    difficulty: 1
+    template_id: flask_sqli_login
+    seed: 3101
+    ground_truth: {vuln_class: sqli, location: /login, signature: "' OR 1=1"}
+    hints:
+      - "Close the quote, then add a condition that is always true."
+      - "The classic tautology is all you need here."
+      - "A successful login for a nonexistent user is the proof."
+    lesson_tags: [sqli, auth-bypass]
+    skill_families: [sqli]
+    request_budget: 16
+  - scenario_id: sqli-02
+    title: "Classic tautology"
+    description: "Submit the canonical always-true condition to the username field."
+    difficulty: 1
+    template_id: flask_sqli_login
+    seed: 3102
+    ground_truth: {vuln_class: sqli, location: /login, signature: "' OR 1=1"}
+    hints:
+      - "The username field reaches the query raw."
+      - "The password field is irrelevant to the flaw."
+      - "Response success indicates the query changed shape."
+    lesson_tags: [sqli, injection]
+    skill_families: [sqli]
+    request_budget: 16
+  - scenario_id: sqli-03
+    title: "UNION is not the flaw here"
+    description: "Distinguish the exploitable injection from the collapsed one."
+    difficulty: 2
+    template_id: flask_sqli_login
+    seed: 3103
+    ground_truth: {vuln_class: sqli, location: /login, signature: "' OR 1=1"}
+    hints:
+      - "UNION payloads are collapsed by the driver."
+      - "Claiming UNION success is a false positive."
+      - "The tautology is the class the evidence supports."
+    lesson_tags: [sqli, false-positive-control]
+    skill_families: [sqli]
+    request_budget: 14
+  - scenario_id: sqli-04
+    title: "Post-login confirmation"
+    description: "Prove the bypass by reaching the authenticated view behind it."
+    difficulty: 2
+    template_id: flask_sqli_login
+    seed: 3104
+    ground_truth: {vuln_class: sqli, location: /login, signature: "' OR 1=1"}
+    hints:
+      - "The dashboard route needs a session."
+      - "The login response issues one when the query is bent."
+      - "Two requests: bend the login, then load the dashboard."
+    lesson_tags: [sqli, chaining]
+    skill_families: [sqli]
+    request_budget: 14
+  - scenario_id: sqli-05
+    title: "One-shot authentication bypass"
+    description: "Tight budget: bend the login query with a single request."
+    difficulty: 3
+    template_id: flask_sqli_login
+    seed: 3105
+    ground_truth: {vuln_class: sqli, location: /login, signature: "' OR 1=1"}
+    hints:
+      - "You already know the field and the form."
+      - "One request, correct payload, no exploration."
+      - "Wasted attempts lower the score directly."
+    lesson_tags: [sqli, opsec]
+    skill_families: [sqli]
+    request_budget: 10
+  - scenario_id: sqli-06
+    title: "Escaped payloads are not findings"
+    description: "Some payloads reflect but do nothing; report only real behavior."
+    difficulty: 3
+    template_id: flask_sqli_login
+    seed: 3106
+    ground_truth: {vuln_class: sqli, location: /login, signature: "' OR 1=1"}
+    hints:
+      - "Reflection without behavior change is noise."
+      - "The driver neutralizes some input shapes."
+      - "The tautology produces actual behavior."
+    lesson_tags: [sqli, false-positive-control]
+    skill_families: [sqli]
+    request_budget: 12
+  - scenario_id: sqli-07
+    title: "Complete the evidence chain"
+    description: "A countable finding needs the observed behavior named."
+    difficulty: 4
+    template_id: flask_sqli_login
+    seed: 3107
+    ground_truth: {vuln_class: sqli, location: /login, signature: "' OR 1=1"}
+    hints:
+      - "The vuln_hit response names the behavior class."
+      - "Bypass evidence must include the session issued."
+      - "Collect the hit and the follow-on view."
+    lesson_tags: [sqli, evidence-quality]
+    skill_families: [sqli]
+    request_budget: 12
+  - scenario_id: sqli-08
+    title: "Silent bypass, full proof"
+    description: "Hardest tier: prove the bypass end to end inside a tiny budget."
+    difficulty: 5
+    template_id: flask_sqli_login
+    seed: 3108
+    ground_truth: {vuln_class: sqli, location: /login, signature: "' OR 1=1"}
+    hints:
+      - "Two requests total, both meaningful."
+      - "No room for failed payloads."
+      - "Precision and speed both count."
+    lesson_tags: [sqli, opsec, evidence-quality]
+    skill_families: [sqli]
+    request_budget: 8

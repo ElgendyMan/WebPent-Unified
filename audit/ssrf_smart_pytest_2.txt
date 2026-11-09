@@ -1,0 +1,26 @@
+...............F...                                                      [100%]
+=================================== FAILURES ===================================
+____ test_authorized_active_direct_swagger_probe_confirms_existing_finding _____
+tests/test_smart_campaigns_node.py:460: in test_authorized_active_direct_swagger_probe_confirms_existing_finding
+    assert len(direct) == 1
+E   assert 0 == 1
+E    +  where 0 = len([])
+=============================== warnings summary ===============================
+tests/test_smart_campaigns_node.py::test_safe_smart_governance_is_persisted_in_initial_state
+tests/test_smart_campaigns_node.py::test_initial_state_accepts_per_run_authorized_active_override
+tests/test_smart_campaigns_node.py::test_user_agent_falls_back_to_settings_when_state_has_no_settings
+tests/test_smart_campaigns_node.py::test_user_agent_fallback_replaces_legacy_default
+  /tmp/webpent_v60_review_stage/webpent_v60_smart_stage/.venv/lib/python3.12/site-packages/pydantic/main.py:263: UserWarning: INSECURE audit_secret_key in dev mode — evidence hashes are HMAC'd with a publicly-known key and can be forged. Set AUDIT_SECRET_KEY to a strong random value for any non-local deployment.
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+
+tests/test_smart_campaigns_node.py::test_safe_smart_governance_is_persisted_in_initial_state
+tests/test_smart_campaigns_node.py::test_initial_state_accepts_per_run_authorized_active_override
+tests/test_smart_campaigns_node.py::test_user_agent_falls_back_to_settings_when_state_has_no_settings
+tests/test_smart_campaigns_node.py::test_user_agent_fallback_replaces_legacy_default
+  /tmp/webpent_v60_review_stage/webpent_v60_smart_stage/.venv/lib/python3.12/site-packages/pydantic/main.py:263: UserWarning: INSECURE celery_payload_key in dev mode — task passwords are encrypted with a publicly-known key and can be decrypted by anyone with Redis access. Set CELERY_PAYLOAD_KEY to a strong random value for any non-local deployment.
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_smart_campaigns_node.py::test_authorized_active_direct_swagger_probe_confirms_existing_finding
+1 failed, 18 passed, 8 warnings in 0.29s

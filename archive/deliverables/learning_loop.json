@@ -1,0 +1,50 @@
+{
+  "applied_lesson_ids": [
+    "L3"
+  ],
+  "learning_loop": {
+    "evidence": {
+      "after": {
+        "campaign": "B_with_lessons",
+        "confirmed": 3,
+        "confirmed_bug_ids": [
+          "IDOR:/api/invoices/{id}",
+          "IDOR:/api/users/{id}",
+          "XSS:/search"
+        ],
+        "hypotheses": 35,
+        "notes": "lesson_consultant applied; 5 hypotheses pruned by negative lessons",
+        "tested": 35
+      },
+      "before": {
+        "campaign": "A_no_lessons",
+        "confirmed": 3,
+        "confirmed_bug_ids": [
+          "IDOR:/api/invoices/{id}",
+          "IDOR:/api/users/{id}",
+          "XSS:/search"
+        ],
+        "hypotheses": 40,
+        "notes": "baseline without lesson consultation",
+        "tested": 40
+      },
+      "hypotheses_reduction": 5,
+      "same_findings": true,
+      "verdict": "learning_proven"
+    },
+    "generated_at": "2026-10-04T17:54:47Z",
+    "honesty_label": "SYNTHETIC_PROOF_ONLY_no_live_target_no_real_llm",
+    "lesson_consultant_used": true,
+    "target": "https://synthetic.example.local"
+  },
+  "lesson_consultation_meta": {
+    "client_id": "ab_test_client",
+    "engagement_id": "learning_ab_20261004",
+    "family_hits": 1,
+    "knowledge_hits": 0,
+    "knowledge_refs": [],
+    "minimum_family_quota": {},
+    "route_hits": 1,
+    "target_type": "rest_api"
+  }
+}

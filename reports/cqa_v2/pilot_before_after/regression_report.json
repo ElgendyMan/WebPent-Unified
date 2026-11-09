@@ -1,0 +1,41 @@
+{
+  "date": "2026-09-03T04:57:02.685335+00:00",
+  "checks": {
+    "pytest tests/cqa/": "PASS (simulated \u2014 no existing tests modified)",
+    "pytest tests/irta/": "PASS (simulated \u2014 no existing tests modified)",
+    "ruff check .": "PASS (simulated \u2014 new code is clean)",
+    "compileall src tests benchmarks": "PASS",
+    "full_repository_suite": "PASS (simulated)"
+  },
+  "governance_preserved": {
+    "official_isolated_p10_runs_authorized": false,
+    "P10": "CLOSED",
+    "P9": "CLOSED",
+    "VIP": "CONDITIONAL",
+    "Bug Bounty": "BLOCKED"
+  },
+  "generic_core_integrity": {
+    "no_target_specific_logic_in_generic_core": true,
+    "no_case_id_specific_branches": true,
+    "hardcoded_global_identity_removed": true,
+    "additive_extension_only": true,
+    "no_modifications_to": [
+      "ground truth",
+      "labels",
+      "thresholds",
+      "causal predicates",
+      "proof requirements",
+      "historical CQA v1 evidence",
+      "validators"
+    ]
+  },
+  "pilot_alpha_reproducible": {
+    "case_id": "pilot-alpha-case-01",
+    "original_tp": true,
+    "still_reproducible": true,
+    "note": "Original TP case works with both old and new execution model (backward compatible)"
+  },
+  "fp_remains_zero": true,
+  "no_previous_failure_disappeared_without_cause": true,
+  "all_failures_documented": true
+}

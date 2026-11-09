@@ -1,0 +1,1052 @@
+{
+  "agent_graph_events": 50,
+  "audit_verification": {
+    "event_count": 60,
+    "root_hash": "6036cc0b5fca76a91ec95262a09b4f503cbe49bbffedc9ecd5f4464e4d087796",
+    "verified": true
+  },
+  "authentication": {
+    "auth_header": "Authorization: Bearer <M4-attached>",
+    "auth_type": "api_jwt",
+    "credential_aliases": [
+      "admin",
+      "foreign"
+    ],
+    "login_fields": {
+      "password_field": "password",
+      "username_field": "email"
+    },
+    "login_method": "POST",
+    "login_url": "http://127.0.0.1:3000/api/auth/login",
+    "registration_urls": [],
+    "signal_count": 8,
+    "signals": [
+      {
+        "auth_header": "Authorization: Bearer <M4-attached>",
+        "auth_type": "api_jwt",
+        "confidence": 0.85,
+        "login_fields": {
+          "password_field": "password",
+          "username_field": "email"
+        },
+        "login_method": "POST",
+        "login_url": "http://127.0.0.1:3000/api/auth/login",
+        "reason": "bounded API auth/login route candidate",
+        "session_cookie_names": [],
+        "source_routes": [
+          "/api/auth/login"
+        ],
+        "token_capture": "JSON token field or Authorization response shape",
+        "token_type": "jwt"
+      },
+      {
+        "auth_header": "Authorization: Bearer <M4-attached>",
+        "auth_type": "api_jwt",
+        "confidence": 0.85,
+        "login_fields": {
+          "password_field": "password",
+          "username_field": "email"
+        },
+        "login_method": "POST",
+        "login_url": "http://127.0.0.1:3000/identity/api/auth/login",
+        "reason": "bounded API auth/login route candidate",
+        "session_cookie_names": [],
+        "source_routes": [
+          "/identity/api/auth/login"
+        ],
+        "token_capture": "JSON token field or Authorization response shape",
+        "token_type": "jwt"
+      },
+      {
+        "auth_header": "Authorization: Bearer <M4-attached>",
+        "auth_type": "api_jwt",
+        "confidence": 0.85,
+        "login_fields": {
+          "password_field": "password",
+          "username_field": "email"
+        },
+        "login_method": "POST",
+        "login_url": "http://127.0.0.1:3000/rest/user/login",
+        "reason": "bounded API auth/login route candidate",
+        "session_cookie_names": [],
+        "source_routes": [
+          "/rest/user/login"
+        ],
+        "token_capture": "JSON token field or Authorization response shape",
+        "token_type": "jwt"
+      },
+      {
+        "auth_header": "Cookie: <M4-attached>",
+        "auth_type": "form_session",
+        "confidence": 0.95,
+        "login_fields": {
+          "password_field": "password",
+          "username_field": "email"
+        },
+        "login_method": "POST",
+        "login_url": "http://127.0.0.1:3000/api/auth/login",
+        "reason": "password form with submit-capable method",
+        "session_cookie_names": [],
+        "source_routes": [
+          "/api/auth/login"
+        ],
+        "token_capture": "Set-Cookie header",
+        "token_type": "session_cookie"
+      },
+      {
+        "auth_header": "Cookie: <M4-attached>",
+        "auth_type": "form_session",
+        "confidence": 0.95,
+        "login_fields": {
+          "password_field": "password",
+          "username_field": "email"
+        },
+        "login_method": "POST",
+        "login_url": "http://127.0.0.1:3000/auth/login",
+        "reason": "password form with submit-capable method",
+        "session_cookie_names": [],
+        "source_routes": [
+          "/auth/login"
+        ],
+        "token_capture": "Set-Cookie header",
+        "token_type": "session_cookie"
+      },
+      {
+        "auth_header": "Cookie: <M4-attached>",
+        "auth_type": "form_session",
+        "confidence": 0.95,
+        "login_fields": {
+          "password_field": "password",
+          "username_field": "email"
+        },
+        "login_method": "POST",
+        "login_url": "http://127.0.0.1:3000/identity/api/auth/login",
+        "reason": "password form with submit-capable method",
+        "session_cookie_names": [],
+        "source_routes": [
+          "/identity/api/auth/login"
+        ],
+        "token_capture": "Set-Cookie header",
+        "token_type": "session_cookie"
+      },
+      {
+        "auth_header": "Cookie: <M4-attached>",
+        "auth_type": "form_session",
+        "confidence": 0.95,
+        "login_fields": {
+          "password_field": "password",
+          "username_field": "email"
+        },
+        "login_method": "POST",
+        "login_url": "http://127.0.0.1:3000/login",
+        "reason": "password form with submit-capable method",
+        "session_cookie_names": [],
+        "source_routes": [
+          "/login"
+        ],
+        "token_capture": "Set-Cookie header",
+        "token_type": "session_cookie"
+      },
+      {
+        "auth_header": "Cookie: <M4-attached>",
+        "auth_type": "form_session",
+        "confidence": 0.95,
+        "login_fields": {
+          "password_field": "password",
+          "username_field": "email"
+        },
+        "login_method": "POST",
+        "login_url": "http://127.0.0.1:3000/rest/user/login",
+        "reason": "password form with submit-capable method",
+        "session_cookie_names": [],
+        "source_routes": [
+          "/rest/user/login"
+        ],
+        "token_capture": "Set-Cookie header",
+        "token_type": "session_cookie"
+      }
+    ],
+    "token_capture": "JSON token field or Authorization response shape",
+    "token_type": "jwt"
+  },
+  "campaign_id": "regression-juice-live-v2-20261003",
+  "candidates_executable": 2,
+  "candidates_generated": 4,
+  "chains": {
+    "candidates": [],
+    "chains_blocked": 0,
+    "chains_confirmed": 0,
+    "chains_discovered": 0,
+    "chains_refuted": 0,
+    "combined_severity_upgrades": 0,
+    "executions": [],
+    "reports": []
+  },
+  "client_id": null,
+  "confirmed_findings": [],
+  "crawl_events": 57,
+  "curiosity_flags": 30,
+  "duration_seconds": 322.968,
+  "learning": {},
+  "lesson_consultation": {
+    "applied_lesson_ids": [],
+    "enabled": false,
+    "family_hits": 0,
+    "knowledge_hits": 0,
+    "route_hits": 0,
+    "target_type": "generic_web"
+  },
+  "llm_calls": 19,
+  "llm_cost_usd": 0.074022,
+  "persona": {
+    "allowed_tools": [
+      "structural_route_analysis",
+      "certificate_metadata",
+      "bounded_subdomain_metadata",
+      "m4_principal_comparison",
+      "token_role_metadata",
+      "bounded_id_mutation",
+      "workflow_state_analysis",
+      "bounded_concurrency_candidate",
+      "timing_comparison"
+    ],
+    "display_name": "All hunter personas",
+    "focus_areas": [
+      "subdomains",
+      "certificates",
+      "backups",
+      "public_repositories",
+      "exposed_configuration",
+      "idor",
+      "bola",
+      "bfla",
+      "token_role_comparison",
+      "id_parameter_fuzzing",
+      "workflow_state",
+      "price_invariants",
+      "coupon_reuse",
+      "step_skipping",
+      "timing"
+    ],
+    "name": "all",
+    "personality": "I find old, forgotten, and leaked assets.; I break APIs by switching identities.; I break business rules, not just input validation.",
+    "preferred_families": [
+      "INFO_DISCLOSURE",
+      "SSRF",
+      "OPEN_REDIRECT",
+      "IDOR",
+      "BOLA",
+      "AUTH_BYPASS"
+    ],
+    "prompt_template": "You are a reconnaissance specialist. Map forgotten assets and exposed configuration from authorized structural evidence. Ask: what did the developer forget to clean up?\n\nYou are an API security specialist. For user-specific endpoints, compare owner, foreign, and invalid identities through the authorized M4 chain.\n\nYou are a business-logic specialist. Read the authorized workflow structure, identify assumptions, and propose bounded invariant checks with matched controls.",
+    "safety_constraints": [
+      "advisory_only",
+      "scope_law_and_tool_boundary_required",
+      "m4_credentials_only",
+      "no_external_targets_without_explicit_scope",
+      "validator_and_promotion_pipeline_authoritative"
+    ]
+  },
+  "principal_provisioning": {
+    "available_aliases": [
+      "owner",
+      "foreign"
+    ],
+    "detection": {
+      "auth_header": "Authorization: Bearer <M4-attached>",
+      "auth_type": "api_jwt",
+      "credential_aliases": [
+        "admin",
+        "foreign"
+      ],
+      "login_fields": {
+        "password_field": "password",
+        "username_field": "email"
+      },
+      "login_method": "POST",
+      "login_url": "http://127.0.0.1:3000/api/auth/login",
+      "registration_urls": [],
+      "signal_count": 8,
+      "signals": [
+        {
+          "auth_header": "Authorization: Bearer <M4-attached>",
+          "auth_type": "api_jwt",
+          "confidence": 0.85,
+          "login_fields": {
+            "password_field": "password",
+            "username_field": "email"
+          },
+          "login_method": "POST",
+          "login_url": "http://127.0.0.1:3000/api/auth/login",
+          "reason": "bounded API auth/login route candidate",
+          "session_cookie_names": [],
+          "source_routes": [
+            "/api/auth/login"
+          ],
+          "token_capture": "JSON token field or Authorization response shape",
+          "token_type": "jwt"
+        },
+        {
+          "auth_header": "Authorization: Bearer <M4-attached>",
+          "auth_type": "api_jwt",
+          "confidence": 0.85,
+          "login_fields": {
+            "password_field": "password",
+            "username_field": "email"
+          },
+          "login_method": "POST",
+          "login_url": "http://127.0.0.1:3000/identity/api/auth/login",
+          "reason": "bounded API auth/login route candidate",
+          "session_cookie_names": [],
+          "source_routes": [
+            "/identity/api/auth/login"
+          ],
+          "token_capture": "JSON token field or Authorization response shape",
+          "token_type": "jwt"
+        },
+        {
+          "auth_header": "Authorization: Bearer <M4-attached>",
+          "auth_type": "api_jwt",
+          "confidence": 0.85,
+          "login_fields": {
+            "password_field": "password",
+            "username_field": "email"
+          },
+          "login_method": "POST",
+          "login_url": "http://127.0.0.1:3000/rest/user/login",
+          "reason": "bounded API auth/login route candidate",
+          "session_cookie_names": [],
+          "source_routes": [
+            "/rest/user/login"
+          ],
+          "token_capture": "JSON token field or Authorization response shape",
+          "token_type": "jwt"
+        },
+        {
+          "auth_header": "Cookie: <M4-attached>",
+          "auth_type": "form_session",
+          "confidence": 0.95,
+          "login_fields": {
+            "password_field": "password",
+            "username_field": "email"
+          },
+          "login_method": "POST",
+          "login_url": "http://127.0.0.1:3000/api/auth/login",
+          "reason": "password form with submit-capable method",
+          "session_cookie_names": [],
+          "source_routes": [
+            "/api/auth/login"
+          ],
+          "token_capture": "Set-Cookie header",
+          "token_type": "session_cookie"
+        },
+        {
+          "auth_header": "Cookie: <M4-attached>",
+          "auth_type": "form_session",
+          "confidence": 0.95,
+          "login_fields": {
+            "password_field": "password",
+            "username_field": "email"
+          },
+          "login_method": "POST",
+          "login_url": "http://127.0.0.1:3000/auth/login",
+          "reason": "password form with submit-capable method",
+          "session_cookie_names": [],
+          "source_routes": [
+            "/auth/login"
+          ],
+          "token_capture": "Set-Cookie header",
+          "token_type": "session_cookie"
+        },
+        {
+          "auth_header": "Cookie: <M4-attached>",
+          "auth_type": "form_session",
+          "confidence": 0.95,
+          "login_fields": {
+            "password_field": "password",
+            "username_field": "email"
+          },
+          "login_method": "POST",
+          "login_url": "http://127.0.0.1:3000/identity/api/auth/login",
+          "reason": "password form with submit-capable method",
+          "session_cookie_names": [],
+          "source_routes": [
+            "/identity/api/auth/login"
+          ],
+          "token_capture": "Set-Cookie header",
+          "token_type": "session_cookie"
+        },
+        {
+          "auth_header": "Cookie: <M4-attached>",
+          "auth_type": "form_session",
+          "confidence": 0.95,
+          "login_fields": {
+            "password_field": "password",
+            "username_field": "email"
+          },
+          "login_method": "POST",
+          "login_url": "http://127.0.0.1:3000/login",
+          "reason": "password form with submit-capable method",
+          "session_cookie_names": [],
+          "source_routes": [
+            "/login"
+          ],
+          "token_capture": "Set-Cookie header",
+          "token_type": "session_cookie"
+        },
+        {
+          "auth_header": "Cookie: <M4-attached>",
+          "auth_type": "form_session",
+          "confidence": 0.95,
+          "login_fields": {
+            "password_field": "password",
+            "username_field": "email"
+          },
+          "login_method": "POST",
+          "login_url": "http://127.0.0.1:3000/rest/user/login",
+          "reason": "password form with submit-capable method",
+          "session_cookie_names": [],
+          "source_routes": [
+            "/rest/user/login"
+          ],
+          "token_capture": "Set-Cookie header",
+          "token_type": "session_cookie"
+        }
+      ],
+      "token_capture": "JSON token field or Authorization response shape",
+      "token_type": "jwt"
+    },
+    "identity_ids_discovered": [],
+    "principals": [
+      {
+        "alias": "owner",
+        "auth_type": "api_jwt",
+        "credential_alias": "admin",
+        "identity_discovery": {
+          "alias": "owner",
+          "attempts": [
+            {
+              "json_object": true,
+              "path": "/rest/user/whoami",
+              "status_code": 200
+            },
+            {
+              "json_object": false,
+              "path": "/identity/api/v2/user/me",
+              "status_code": 200
+            },
+            {
+              "json_object": false,
+              "path": "/identity/api/v2/user/current",
+              "status_code": 200
+            },
+            {
+              "json_object": false,
+              "path": "/identity/api/me",
+              "status_code": 200
+            },
+            {
+              "json_object": false,
+              "path": "/identity/api/v2/user/dashboard",
+              "status_code": 200
+            }
+          ],
+          "reason": "no_numeric_identity_id_discovered",
+          "resource_id_names": [],
+          "resource_templates": [],
+          "source_field": null,
+          "source_url": null,
+          "status_code": null,
+          "success": false,
+          "user_id_digest": null,
+          "user_id_present": false
+        },
+        "login_url": "http://127.0.0.1:3000/rest/user/login",
+        "material": {
+          "digest": "e0100647716f26ff",
+          "kind": "bearer",
+          "name": "token",
+          "source": "api_response"
+        },
+        "reason": "jwt_login_response_validated",
+        "registration_attempted": false,
+        "registration_status_code": null,
+        "registration_success": false,
+        "role": "owner",
+        "status_code": 200,
+        "success": true,
+        "validation_status_code": 200,
+        "validation_url": "http://127.0.0.1:3000/rest/user/login",
+        "vault_bound": true,
+        "vault_key_digest": "8e09de138cbbc6f5"
+      },
+      {
+        "alias": "foreign",
+        "auth_type": "api_jwt",
+        "credential_alias": "foreign",
+        "identity_discovery": {
+          "alias": "foreign",
+          "attempts": [
+            {
+              "json_object": true,
+              "path": "/rest/user/whoami",
+              "status_code": 200
+            },
+            {
+              "json_object": false,
+              "path": "/identity/api/v2/user/me",
+              "status_code": 200
+            },
+            {
+              "json_object": false,
+              "path": "/identity/api/v2/user/current",
+              "status_code": 200
+            },
+            {
+              "json_object": false,
+              "path": "/identity/api/me",
+              "status_code": 200
+            },
+            {
+              "json_object": false,
+              "path": "/identity/api/v2/user/dashboard",
+              "status_code": 200
+            }
+          ],
+          "reason": "no_numeric_identity_id_discovered",
+          "resource_id_names": [],
+          "resource_templates": [],
+          "source_field": null,
+          "source_url": null,
+          "status_code": null,
+          "success": false,
+          "user_id_digest": null,
+          "user_id_present": false
+        },
+        "login_url": "http://127.0.0.1:3000/rest/user/login",
+        "material": {
+          "digest": "7eafc712df491817",
+          "kind": "bearer",
+          "name": "token",
+          "source": "api_response"
+        },
+        "reason": "jwt_login_response_validated",
+        "registration_attempted": false,
+        "registration_status_code": null,
+        "registration_success": false,
+        "role": "foreign-user",
+        "status_code": 200,
+        "success": true,
+        "validation_status_code": 200,
+        "validation_url": "http://127.0.0.1:3000/rest/user/login",
+        "vault_bound": true,
+        "vault_key_digest": "d503bbb9fcd0607d"
+      }
+    ],
+    "reason": "three_or_fewer_operator_principals_attempted",
+    "resource_template_count": 0,
+    "successful_count": 2,
+    "target_fingerprint": "7f0f5b4c620b8ed6"
+  },
+  "production_trace": {
+    "bounded_stage_count": 14,
+    "complete": true,
+    "config_digest": "77401ce5fb7e5c8e",
+    "entrypoint": "direct_invoke",
+    "missing_required_stages": [],
+    "spine_version": "production_spine_v1",
+    "stage_count": 74,
+    "stages_seen": [
+      "audit_event",
+      "audit_finalization",
+      "bounded_tool_execution",
+      "causal_guard_evaluation",
+      "deep_recon",
+      "entrypoint_resolve",
+      "flag_resolution",
+      "observation",
+      "outcome_recording",
+      "promotion_decision",
+      "proof_bundle_creation",
+      "replan",
+      "research_decision",
+      "spine_activation",
+      "world_model_mutation"
+    ],
+    "trace_digest": "e0e18683813a16f7d85bbec84b2b1e28e7a26c2580c7ef36a13773cd9cd926af"
+  },
+  "program_scope": {
+    "enabled": true,
+    "events": [
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "method": "GET",
+          "rule_source": "ultimate-validation-local-juice-shop"
+        },
+        "event_type": "scope.check.in_scope"
+      },
+      {
+        "details": {
+          "code": "unknown_scope",
+          "method": "GET"
+        },
+        "event_type": "scope.violation.blocked"
+      },
+      {
+        "details": {
+          "code": "unknown_scope",
+          "method": "GET"
+        },
+        "event_type": "scope.violation.blocked"
+      },
+      {
+        "details": {
+          "code": "unknown_scope",
+          "method": "GET"
+        },
+        "event_type": "scope.violation.blocked"
+      },
+      {
+        "details": {
+          "code": "unknown_scope",
+          "method": "GET"
+        },
+        "event_type": "scope.violation.blocked"
+      }
+    ],
+    "fingerprint": "sha256:cc3231a5b349f226fbe0e2d516cad2b6fd9d55297c02cdffd98e3ef0391b19f6",
+    "halted": false,
+    "rule_count": 2,
+    "violation_count": 4
+  },
+  "routes_crawled": 35,
+  "security_boundary": {
+    "credentials_attached_by": "M4 only",
+    "execution_authority": "ModernOrchestrator/ScopeLaw/AVI/PromotionPipeline",
+    "raw_target_content_returned": false
+  },
+  "surface_expansion": {
+    "configured_route_seed_count": 0,
+    "configured_route_seed_paths": []
+  },
+  "target_url": "http://127.0.0.1:3000",
+  "validation_counts": {
+    "blocked": 0,
+    "confirmed": 0,
+    "inconclusive": 8,
+    "refuted": 0
+  }
+}

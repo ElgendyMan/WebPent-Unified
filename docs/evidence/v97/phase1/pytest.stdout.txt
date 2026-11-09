@@ -1,0 +1,38 @@
+........................................................................ [  4%]
+........................................................................ [  9%]
+........................................................................ [ 14%]
+........................................................................ [ 19%]
+........................................................................ [ 24%]
+........................................................................ [ 29%]
+........................................................................ [ 34%]
+........................................................................ [ 39%]
+........................................................................ [ 44%]
+........................................................................ [ 49%]
+........................................................................ [ 54%]
+........................................................................ [ 59%]
+........................................................................ [ 64%]
+........................................................................ [ 69%]
+........................................................................ [ 74%]
+........................................................................ [ 79%]
+........................................................................ [ 84%]
+........................................................................ [ 89%]
+........................................................................ [ 94%]
+........................................................................ [ 99%]
+.........                                                                [100%]
+=============================== warnings summary ===============================
+tests/test_v58_post_form_hypotheses.py::test_post_form_generates_method_body_and_target_parameter
+  /tmp/webpent-fixes-git/src/webpent/memory/embeddings.py:97: DeprecationWarning: `langchain-community` is being sunset and is no longer actively maintained. See https://github.com/langchain-ai/langchain-community/issues/674 for details and migration guidance toward standalone integration packages.
+    from langchain_community.embeddings import HuggingFaceEmbeddings
+
+tests/test_v58_post_form_hypotheses.py::test_post_form_generates_method_body_and_target_parameter
+  /tmp/webpent-fixes-git/src/webpent/memory/embeddings.py:118: LangChainDeprecationWarning: The class `HuggingFaceEmbeddings` was deprecated in LangChain 0.2.2 and will be removed in 1.0. An updated version of the class exists in the `langchain-huggingface package and should be used instead. To use it run `pip install -U `langchain-huggingface` and import as `from `langchain_huggingface import HuggingFaceEmbeddings``.
+    embeddings = HuggingFaceEmbeddings(**kwargs)
+
+tests/test_v58_post_form_hypotheses.py: 20 warnings
+tests/test_v72_json_request_context.py: 24 warnings
+tests/test_v72_request_context_and_primary_identity.py: 10 warnings
+  /tmp/webpent-fixes-git/.venv/lib/python3.12/site-packages/chromadb/types.py:144: PydanticDeprecatedSince211: Accessing the 'model_fields' attribute on the instance is deprecated. Instead, you should access this attribute from the model class. Deprecated in Pydantic V2.11 to be removed in V3.0.
+    return self.model_fields  # pydantic 2.x
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1449 passed, 56 warnings in 97.20s (0:01:37)

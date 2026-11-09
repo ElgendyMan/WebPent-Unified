@@ -1,0 +1,245 @@
+{
+  "target_id": "goed-v1.5-target-03",
+  "seed": 3,
+  "port": 8903,
+  "naming": {
+    "route_style_index": 3,
+    "role_set_index": 3,
+    "tenant_style_index": 3,
+    "object_style_index": 3
+  },
+  "route_prefix_example": "/services/ENTITY/rest",
+  "roles": [
+    "read_only",
+    "read_write",
+    "admin",
+    "super_admin"
+  ],
+  "role_level": {
+    "read_only": 0,
+    "read_write": 1,
+    "admin": 2,
+    "super_admin": 3
+  },
+  "tenants": [
+    "domain-efbfbe",
+    "domain-aeaeee"
+  ],
+  "objects": [
+    "asset_0000",
+    "asset_0001",
+    "asset_0002",
+    "asset_0003",
+    "asset_0004",
+    "asset_0005",
+    "asset_0006",
+    "asset_0007"
+  ],
+  "fields": {
+    "id_field": "user_id",
+    "name_field": "title",
+    "secret_field": "private_id",
+    "email_field": "mail_address",
+    "balance_field": "funds"
+  },
+  "actors": {
+    "dave": {
+      "user_id": "asset_0000",
+      "role": "read_only",
+      "tenant": "domain-efbfbe"
+    },
+    "eve": {
+      "user_id": "asset_0001",
+      "role": "read_write",
+      "tenant": "domain-efbfbe"
+    },
+    "frank": {
+      "user_id": "asset_0002",
+      "role": "read_only",
+      "tenant": "domain-aeaeee"
+    },
+    "grace": {
+      "user_id": "asset_0003",
+      "role": "read_write",
+      "tenant": "domain-aeaeee"
+    }
+  },
+  "actor_list": [
+    "dave",
+    "eve",
+    "frank",
+    "grace"
+  ],
+  "sensitive_data": {
+    "asset_0000": {
+      "title": "Alice",
+      "private_id": "XXX-XX-1000",
+      "mail_address": "alice@domain-efbfbe.example",
+      "funds": 3998
+    },
+    "asset_0001": {
+      "title": "Bob",
+      "private_id": "XXX-XX-1001",
+      "mail_address": "bob@domain-efbfbe.example",
+      "funds": 9809
+    },
+    "asset_0002": {
+      "title": "Carol",
+      "private_id": "XXX-XX-1002",
+      "mail_address": "carol@domain-efbfbe.example",
+      "funds": 9016
+    },
+    "asset_0003": {
+      "title": "Dave",
+      "private_id": "XXX-XX-1003",
+      "mail_address": "dave@domain-aeaeee.example",
+      "funds": 2236
+    },
+    "asset_0004": {
+      "title": "Eve",
+      "private_id": "XXX-XX-1004",
+      "mail_address": "eve@domain-aeaeee.example",
+      "funds": 6161
+    },
+    "asset_0005": {
+      "title": "Frank",
+      "private_id": "XXX-XX-1005",
+      "mail_address": "frank@domain-aeaeee.example",
+      "funds": 9994
+    }
+  },
+  "admin_entity": "system_config",
+  "billing_entity": "billing_records",
+  "transfer_entity": "funds_transfer",
+  "internal_entity": "internal_resources",
+  "wf_entity": "review_items",
+  "wf_id": "wf-asset_0002",
+  "msg_entity": "private_inbox",
+  "auth_entity": "password_recovery",
+  "audit_entity": "access_trail",
+  "cases": {
+    "goed-v1.5-target-03-case-00": {
+      "class": "idor",
+      "vulnerable_route": "/services/objects/asset_0001/rest",
+      "baseline_route": "/services/objects/asset_0000/rest",
+      "control_route": "/patched/services/objects/asset_0001/rest",
+      "actor": "eve",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-03-case-01": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/services/system_config/rest",
+      "baseline_route": "/services/health/rest",
+      "control_route": "/patched/services/system_config/rest",
+      "actor": "eve",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-03-case-02": {
+      "class": "privilege_escalation",
+      "vulnerable_route": "/services/billing_records/domain-efbfbe/rest",
+      "baseline_route": "/services/health/rest",
+      "control_route": "/patched/services/billing_records/domain-efbfbe/rest",
+      "actor": "eve",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-03-case-03": {
+      "class": "business_logic_abuse",
+      "vulnerable_route": "/services/funds_transfer/asset_0000?to=asset_0001&amount=-100/rest",
+      "baseline_route": "/services/funds_transfer/asset_0000?to=asset_0001&amount=10/rest",
+      "control_route": "/patched/services/funds_transfer/asset_0000/rest",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-03-case-04": {
+      "class": "tenant_isolation_failure",
+      "vulnerable_route": "/services/tenant/domain-aeaeee/internal_resources/rest",
+      "baseline_route": "/services/tenant/domain-efbfbe/internal_resources/rest",
+      "control_route": "/patched/services/tenant/domain-aeaeee/internal_resources/rest",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-03-case-05": {
+      "class": "workflow_authorization_failure",
+      "vulnerable_route": "/services/review_items/wf-asset_0002/approve/rest",
+      "baseline_route": "/services/review_items/wf-asset_0002/view/rest",
+      "control_route": "/patched/services/review_items/wf-asset_0002/approve/rest",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-03-case-06": {
+      "class": "sensitive_data_exposure",
+      "vulnerable_route": "/services/private_inbox/asset_0001/inbox/rest",
+      "baseline_route": "/services/private_inbox/asset_0000/inbox/rest",
+      "control_route": "/patched/services/private_inbox/asset_0001/inbox/rest",
+      "actor": "eve",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-03-case-07": {
+      "class": "multi_step_chain",
+      "vulnerable_route": "/services/password_recovery/request?for=asset_0001/rest",
+      "baseline_route": "/services/password_recovery/request?for=asset_0000/rest",
+      "control_route": "/patched/services/password_recovery/request/rest",
+      "actor": "eve",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "critical"
+    },
+    "goed-v1.5-target-03-case-08": {
+      "class": "idor",
+      "vulnerable_route": "/services/objects/asset_0003/rest",
+      "baseline_route": "/services/objects/asset_0000/rest",
+      "control_route": "/patched/services/objects/asset_0003/rest",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-03-case-09": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/services/access_trail/rest",
+      "baseline_route": "/services/health/rest",
+      "control_route": "/patched/services/access_trail/rest",
+      "actor": "frank",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-03-case-10": {
+      "class": "clean_public_resource",
+      "vulnerable_route": "/services/health/rest",
+      "baseline_route": "/services/health/rest",
+      "control_route": "/services/health/rest",
+      "actor": "dave",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    },
+    "goed-v1.5-target-03-case-11": {
+      "class": "clean_public_info",
+      "vulnerable_route": "/services/openapi/rest",
+      "baseline_route": "/services/openapi/rest",
+      "control_route": "/services/openapi/rest",
+      "actor": "dave",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    }
+  },
+  "total_cases": 12,
+  "vulnerable_cases": 10,
+  "clean_cases": 2
+}

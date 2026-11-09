@@ -1,0 +1,61 @@
+{
+  "blockers": [
+    {
+      "capability": "oob",
+      "reason": "blocked_by_precondition"
+    },
+    {
+      "capability": "active_workflow",
+      "reason": "disabled_by_profile"
+    }
+  ],
+  "capabilities": {
+    "active_workflow": {
+      "available": false,
+      "policy": "read-only",
+      "status": "disabled_by_profile"
+    },
+    "browser": {
+      "available": true,
+      "browser_executable_available": true,
+      "executable_path": "/usr/bin/chromium",
+      "package_available": true,
+      "sha256": "36cbbb620daeb933ae7861de07fcff05b5e1f7527303b5992459b8aa6707b845",
+      "status": "available",
+      "version": "Chromium 151.0.7922.71 built on Ubuntu 24.04.4 LTS"
+    },
+    "ffuf": {
+      "available": false,
+      "status": "disabled"
+    },
+    "http_read": {
+      "available": true,
+      "status": "available"
+    },
+    "httpx": {
+      "available": true,
+      "configured": "httpx-pd",
+      "status": "available"
+    },
+    "katana": {
+      "available": true,
+      "configured": "katana",
+      "status": "available"
+    },
+    "llm": {
+      "available": true,
+      "status": "available"
+    },
+    "nuclei": {
+      "available": true,
+      "configured": "nuclei",
+      "status": "available"
+    },
+    "oob": {
+      "available": false,
+      "status": "blocked_by_precondition"
+    }
+  },
+  "fail_closed": true,
+  "profile": "legacy"
+}

@@ -1,0 +1,10 @@
+# CEM schedule defaults (v83, U-CEM-4).
+# The polite scheduler loads these unless the operator overrides them.
+# All times are UTC. The scheduler never sends anything itself; these
+# numbers bound what a cycle may request, never what it must.
+
+active_hours: "08:00-20:00"     # wrap-around windows like "22:00-06:00" are valid
+daily_request_cap: 2000          # hard ceiling on requests per UTC day
+max_requests_per_cycle: 200      # a single cycle may spend at most this much
+latency_brake_seconds: 5.0       # mean observed latency above this engages the brake
+brake_cooldown_hours: 6.0        # how long an emergency brake pauses engagement

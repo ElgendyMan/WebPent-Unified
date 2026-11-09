@@ -1,0 +1,104 @@
+# The Apex Predator — Chain Templates (v87, U-APEX-4)
+#
+# APEX-L-1 TOOLS NOT CODE: chains express which vetted tools run in which
+# order per hypothesis type; the builder instantiates them per target.
+# APEX-L-5 PARALLEL BY DEFAULT: steps without an explicit `after` dependency
+# are independent and eligible for concurrent execution.
+# Speeds/ids must reference tools registered in config/apex/tools.yaml.
+
+fallback:
+  description: "advisory default for unrecognized hypothesis types"
+  steps:
+    - tool_id: subfinder
+      capability: subdomain_enum
+    - tool_id: httpx
+      capability: http_probe
+      after: [subfinder]
+    - tool_id: nuclei
+      capability: template_scan
+      after: [httpx]
+
+chains:
+  subdomain_takeover:
+    hypothesis_type: subdomain_takeover
+    steps:
+      - tool_id: subfinder
+        capability: subdomain_enum
+      - tool_id: dnsx
+        capability: dns_records
+        after: [subfinder]
+      - tool_id: httpx
+        capability: http_probe
+        after: [subfinder]
+      - tool_id: nuclei
+        capability: cve_detection
+        after: [httpx, dnsx]
+
+  exposed_panels:
+    hypothesis_type: exposed_panels
+    steps:
+      - tool_id: httpx
+        capability: http_probe
+      - tool_id: gobuster
+        capability: dir_fuzz
+        after: [httpx]
+      - tool_id: nuclei
+        capability: misconfig
+        after: [httpx]
+
+  sqli:
+    hypothesis_type: sqli
+    steps:
+      - tool_id: katana
+        capability: endpoint_extraction
+      - tool_id: arjun
+        capability: param_discovery
+        after: [katana]
+      - tool_id: sqlmap
+        capability: sqli_detection
+        after: [arjun]
+
+  xss:
+    hypothesis_type: xss
+    steps:
+      - tool_id: gau
+        capability: url_discovery
+      - tool_id: dalfox
+        capability: xss_detection
+        after: [gau]
+
+  leaked_secrets:
+    hypothesis_type: leaked_secrets
+    steps:
+      - tool_id: gau
+        capability: url_discovery
+      - tool_id: trufflehog
+        capability: secret_scan
+        after: [gau]
+      - tool_id: gitleaks
+        capability: secret_scan
+        after: [gau]
+
+  cve_exposure:
+    hypothesis_type: cve_exposure
+    steps:
+      - tool_id: httpx
+        capability: tech_detection
+      - tool_id: searchsploit
+        capability: exploit_lookup
+        after: [httpx]
+      - tool_id: nuclei
+        capability: cve_detection
+        after: [httpx]
+
+  directory_enumeration:
+    hypothesis_type: directory_enumeration
+    steps:
+      - tool_id: waybackurls
+        capability: url_discovery
+      - tool_id: ffuf
+        capability: dir_fuzz
+        after: [waybackurls]
+      - tool_id: katana
+        capability: web_crawl
+        after: [waybackurls]

@@ -1,0 +1,10 @@
+# Judgment Council verdict rules (U-JC-5).
+# AdvocateScore = sum(weighted evidence) x (1 - max challenge severity)
+# Confidence    = AgreementLevel x (1 - max challenge severity)
+verdict:
+  confidence_thresholds:
+    high: 0.85
+    medium: 0.60
+  clear_winner_ratio: 1.5
+  tie_epsilon: 1.0e-9
+  escalate_on_low_confidence: true

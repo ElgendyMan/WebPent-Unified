@@ -1,0 +1,97 @@
+=== BASELINE UTC ===
+2026-08-19T14:31:39Z
+=== GIT ===
+28194f66da866237512eb8eac4702bc4958c5fd3
+ [31mM[m README.md
+=== FILE COUNTS ===
+718
+=== COMPILEALL ===
+compile_exit=0
+=== PYTEST ===
+........................................................................ [  9%]
+........................................................................ [ 18%]
+........................................................................ [ 28%]
+........................................................................ [ 37%]
+........................................................................ [ 47%]
+........................................................................ [ 56%]
+........................................................................ [ 65%]
+........................................................................ [ 75%]
+........................................................................ [ 84%]
+........................................................................ [ 94%]
+............................................                             [100%]
+=============================== warnings summary ===============================
+../webpent_v60_review_stage/webpent_v60_smart_stage/.venv/lib/python3.12/site-packages/langgraph/checkpoint/base/__init__.py:18
+  /tmp/webpent_v60_review_stage/webpent_v60_smart_stage/.venv/lib/python3.12/site-packages/langgraph/checkpoint/base/__init__.py:18: LangChainPendingDeprecationWarning: The default value of `allowed_objects` will change in a future version. Pass an explicit value (e.g., allowed_objects='messages' or allowed_objects='core') to suppress this warning.
+    from langgraph.checkpoint.serde.jsonplus import JsonPlusSerializer
+
+../webpent_v60_review_stage/webpent_v60_smart_stage/.venv/lib/python3.12/site-packages/pydantic/main.py:263: 1 warning
+tests/test_campaign_executor.py: 4 warnings
+tests/test_p1_config_contracts.py: 1 warning
+tests/test_p1_task_crypto_fail_closed.py: 4 warnings
+tests/test_report_hash_integrity.py: 1 warning
+tests/test_settings_hardening.py: 2 warnings
+tests/test_smart_action_authority.py: 9 warnings
+tests/test_smart_campaigns_node.py: 4 warnings
+tests/test_v10_exhaustive_audit.py: 3 warnings
+tests/test_v10_p0_status_sqlmap_skiprecon_findings.py: 1 warning
+tests/test_v15_review_hardening.py: 2 warnings
+tests/test_v20_attack_graph_wiring.py: 2 warnings
+tests/test_v22_planner_policy.py: 5 warnings
+tests/test_v24_authorization_matrix.py: 1 warning
+tests/test_v25_javascript_intelligence.py: 1 warning
+tests/test_v26_report_quality.py: 1 warning
+tests/test_v28_structure_aware_triage.py: 2 warnings
+tests/test_v29_surface_security.py: 1 warning
+tests/test_v57_readability_wiring.py: 4 warnings
+tests/test_v59_p0_hardening.py: 2 warnings
+tests/test_v92_action_executor_proof_bundle.py: 3 warnings
+tests/test_vip_shared_reauth_vault.py: 1 warning
+tests/test_waptlab_live_improvements.py: 2 warnings
+  /tmp/webpent_v60_review_stage/webpent_v60_smart_stage/.venv/lib/python3.12/site-packages/pydantic/main.py:263: UserWarning: INSECURE audit_secret_key in dev mode — evidence hashes are HMAC'd with a publicly-known key and can be forged. Set AUDIT_SECRET_KEY to a strong random value for any non-local deployment.
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+
+../webpent_v60_review_stage/webpent_v60_smart_stage/.venv/lib/python3.12/site-packages/pydantic/main.py:263: 1 warning
+tests/test_campaign_executor.py: 4 warnings
+tests/test_p1_config_contracts.py: 1 warning
+tests/test_report_hash_integrity.py: 1 warning
+tests/test_settings_hardening.py: 2 warnings
+tests/test_smart_action_authority.py: 9 warnings
+tests/test_smart_campaigns_node.py: 4 warnings
+tests/test_v10_exhaustive_audit.py: 1 warning
+tests/test_v10_p0_status_sqlmap_skiprecon_findings.py: 1 warning
+tests/test_v15_review_hardening.py: 2 warnings
+tests/test_v20_attack_graph_wiring.py: 2 warnings
+tests/test_v22_planner_policy.py: 5 warnings
+tests/test_v24_authorization_matrix.py: 1 warning
+tests/test_v25_javascript_intelligence.py: 1 warning
+tests/test_v26_report_quality.py: 1 warning
+tests/test_v28_structure_aware_triage.py: 2 warnings
+tests/test_v29_surface_security.py: 1 warning
+tests/test_v57_readability_wiring.py: 4 warnings
+tests/test_v59_p0_hardening.py: 2 warnings
+tests/test_v92_action_executor_proof_bundle.py: 3 warnings
+tests/test_vip_shared_reauth_vault.py: 1 warning
+tests/test_waptlab_live_improvements.py: 2 warnings
+  /tmp/webpent_v60_review_stage/webpent_v60_smart_stage/.venv/lib/python3.12/site-packages/pydantic/main.py:263: UserWarning: INSECURE celery_payload_key in dev mode — task passwords are encrypted with a publicly-known key and can be decrypted by anyone with Redis access. Set CELERY_PAYLOAD_KEY to a strong random value for any non-local deployment.
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+
+tests/test_v58_post_form_hypotheses.py::test_post_form_generates_method_body_and_target_parameter
+  /tmp/webpent_v60_smart_implementation/src/webpent/memory/embeddings.py:118: LangChainDeprecationWarning: The class `HuggingFaceEmbeddings` was deprecated in LangChain 0.2.2 and will be removed in 1.0. An updated version of the class exists in the :class:`~langchain-huggingface package and should be used instead. To use it run `pip install -U :class:`~langchain-huggingface` and import as `from :class:`~langchain_huggingface import HuggingFaceEmbeddings``.
+    embeddings = HuggingFaceEmbeddings(**kwargs)
+
+tests/test_v58_post_form_hypotheses.py: 20 warnings
+  /tmp/webpent_v60_review_stage/webpent_v60_smart_stage/.venv/lib/python3.12/site-packages/chromadb/types.py:144: PydanticDeprecatedSince211: Accessing the 'model_fields' attribute on the instance is deprecated. Instead, you should access this attribute from the model class. Deprecated in Pydantic V2.11 to be removed in V3.0.
+    return self.model_fields  # pydantic 2.x
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+764 passed, 130 warnings in 25.11s
+pytest_exit=0
+=== RUFF ===
+[1;32mAll checks passed![0m
+ruff_exit=0
+=== PYTEST COLLECTION ===
+  /tmp/webpent_v60_review_stage/webpent_v60_smart_stage/.venv/lib/python3.12/site-packages/pydantic/main.py:263: UserWarning: INSECURE celery_payload_key in dev mode — task passwords are encrypted with a publicly-known key and can be decrypted by anyone with Redis access. Set CELERY_PAYLOAD_KEY to a strong random value for any non-local deployment.
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+764 tests collected in 4.99s

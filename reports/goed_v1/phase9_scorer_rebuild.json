@@ -1,0 +1,20 @@
+{
+  "phase": "9_scorer_rebuild",
+  "date": "2026-09-03",
+  "scorer_principles": {
+    "operates_over_complete_independent_case_universe": true,
+    "every_ground_truth_case_accounted_for": true,
+    "blocked_capability_explicitly_distinguished_from_fn": true,
+    "fn_not_inferred_from_missing_output": true,
+    "explicit_case_eligibility_model": true
+  },
+  "case_eligibility_model": {
+    "ELIGIBLE": "Case can be executed with current capabilities",
+    "BLOCKED_CAPABILITY": "Execution capability genuinely absent",
+    "FIXTURE_MISMATCH": "Fixture specification mismatch",
+    "UNVERIFIED": "Eligibility undetermined"
+  },
+  "causal_guard_mandatory_for_TP": true,
+  "proof_mandatory_for_TP": true,
+  "replay_mandatory_for_TP": true
+}

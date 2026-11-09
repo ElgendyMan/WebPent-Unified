@@ -1,0 +1,43 @@
+{
+  "schema_version": "juice_shop.loopback_runtime_manifest.v1",
+  "observed_at_utc": "2026-08-26T19:23:10Z",
+  "target_scope": {
+    "origin": "http://127.0.0.1:3000",
+    "package_version": "20.2.0",
+    "source_commit": "1618a611b173b4bf114028e6e02549950606e29d"
+  },
+  "launch_control": {
+    "method": "local_preload_shim",
+    "shim_sha256": "sha256:f1502ef516a2fe5b59818b017e2af8518d180e51eb12362dff8537d8449d9227",
+    "source_modified": false,
+    "generic_core_modified": false,
+    "frozen_p10_artifacts_modified": false
+  },
+  "binding_verification": {
+    "observed_listener": "127.0.0.1:3000",
+    "wildcard_listener_absent": true,
+    "external_interface_listener_absent": true,
+    "readiness_get_succeeded": true,
+    "readiness_request": "GET /rest/products/search?q=apple",
+    "raw_response_retained": false
+  },
+  "telemetry_safety": {
+    "otel_traces_exporter": "none",
+    "otel_metrics_exporter": "none",
+    "otel_logs_exporter": "none",
+    "otel_exporter_otlp_endpoint_present": false,
+    "external_destinations": false,
+    "credentials_used": false
+  },
+  "governance": {
+    "official_isolated_p10_runs_started": false,
+    "official_isolated_p10_runs_authorized": false,
+    "governance_status": "PENDING_INDEPENDENT_GOVERNANCE_SIGNOFF",
+    "qualification": {
+      "p10": "NOT_QUALIFIED",
+      "p9": "NOT_QUALIFIED",
+      "vip": "NOT_QUALIFIED",
+      "bug_bounty": "BLOCKED"
+    }
+  }
+}

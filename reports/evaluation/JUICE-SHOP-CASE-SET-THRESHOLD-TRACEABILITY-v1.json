@@ -1,0 +1,316 @@
+{
+  "approved_set": {
+    "case_ids": [
+      "juice.error_handling.v1",
+      "juice.exposed_metrics.v1",
+      "juice.local_xss.v1"
+    ],
+    "class_names": [
+      "Security Misconfiguration",
+      "Observability Failures",
+      "XSS"
+    ],
+    "human_signoff_required": true,
+    "status": "proposed_pending_independent_governance_signoff"
+  },
+  "authoritative_artifacts": {
+    "expansion_plan": {
+      "path": "docs/juice_shop_p10_expansion_plan_v1.json",
+      "sha256": "sha256:0a5a1d38c6f2fe9b7434245acf186cb21a7a3e006682d0116acc491a887776d6"
+    },
+    "governance_packet": {
+      "path": "docs/juice_shop_governance_decision_v1.json",
+      "sha256": "sha256:34e02a1b1b20c02d77b1afb946f16650e5aac3b1f396ffafdb310a6a393c3dd0"
+    },
+    "ground_truth": {
+      "path": "docs/juice_shop_p10_ground_truth_v1.json",
+      "sha256": "sha256:84bf4111235b546b337fbd3e76207d43a8e7a05f39685dd9ed51f739468aea52"
+    },
+    "oracle_decision": {
+      "path": "docs/p10_oracle_semantics_decision_v1.json",
+      "sha256": "sha256:637b1f7e10e4224d60e3bcf29abdcaadb2e87aa66ed03d776668b94f1454a97c"
+    }
+  },
+  "case_rows": [
+    {
+      "case_id": "juice.access_log_disclosure.v1",
+      "category": "Observability Failures",
+      "expected": true,
+      "governance_disposition": "implemented_pending_governance_confirmation",
+      "mapping_status": "approved",
+      "official_scoring_status": "not_in_final_approved_set",
+      "oracle_status": "frozen_contract_pending_live_proof",
+      "path": "/ftp/access.log",
+      "source_ref": "https://github.com/juice-shop/juice-shop/tree/master/routes"
+    },
+    {
+      "case_id": "juice.application_version_surface.v1",
+      "category": "Sensitive Data Exposure",
+      "expected": false,
+      "governance_disposition": "not_in_current_governance_non_scoring_registry",
+      "mapping_status": "out_of_scope",
+      "official_scoring_status": "not_currently_scored",
+      "oracle_status": "out_of_scope",
+      "path": null,
+      "source_ref": "https://github.com/juice-shop/juice-shop/blob/master/server.ts"
+    },
+    {
+      "case_id": "juice.basket_manipulate.v1",
+      "category": "Broken Access Control",
+      "expected": false,
+      "governance_disposition": "not_in_current_governance_non_scoring_registry",
+      "mapping_status": "out_of_scope",
+      "official_scoring_status": "not_currently_scored",
+      "oracle_status": "out_of_scope",
+      "path": null,
+      "source_ref": null
+    },
+    {
+      "case_id": "juice.deprecated_interface.v1",
+      "category": "Security Misconfiguration",
+      "expected": false,
+      "governance_disposition": "not_in_current_governance_non_scoring_registry",
+      "mapping_status": "out_of_scope",
+      "official_scoring_status": "not_currently_scored",
+      "oracle_status": "out_of_scope",
+      "path": null,
+      "source_ref": null
+    },
+    {
+      "case_id": "juice.directory_listing.v1",
+      "category": "Sensitive Data Exposure",
+      "expected": true,
+      "governance_disposition": "blocked",
+      "mapping_status": "approved",
+      "official_scoring_status": "excluded_until_reopened",
+      "oracle_status": "frozen_contract_pending_live_proof",
+      "path": "/ftp",
+      "source_ref": "https://github.com/juice-shop/juice-shop/tree/master/routes"
+    },
+    {
+      "case_id": "juice.error_handling.v1",
+      "category": "Security Misconfiguration",
+      "expected": true,
+      "governance_disposition": "approved_oracle_set_proposed_pending_signoff",
+      "mapping_status": "approved",
+      "official_scoring_status": "proposed_scoring",
+      "oracle_status": "approved_oracle_pending_full_set_metrics",
+      "path": "/rest/qwertz",
+      "source_ref": "https://github.com/juice-shop/juice-shop/tree/master/routes"
+    },
+    {
+      "case_id": "juice.exposed_metrics.v1",
+      "category": "Observability Failures",
+      "expected": true,
+      "governance_disposition": "approved_oracle_set_proposed_pending_signoff",
+      "mapping_status": "approved",
+      "official_scoring_status": "proposed_scoring",
+      "oracle_status": "approved_oracle_pending_full_set_metrics",
+      "path": "/metrics",
+      "source_ref": "https://github.com/juice-shop/juice-shop/blob/master/server.ts"
+    },
+    {
+      "case_id": "juice.forgotten_backup.v1",
+      "category": "Sensitive Data Exposure",
+      "expected": true,
+      "governance_disposition": "blocked",
+      "mapping_status": "approved",
+      "official_scoring_status": "excluded_until_reopened",
+      "oracle_status": "frozen_contract_pending_live_proof",
+      "path": "/ftp/coupons_2013.md.bak",
+      "source_ref": "https://github.com/juice-shop/juice-shop/tree/master/routes"
+    },
+    {
+      "case_id": "juice.local_xss.v1",
+      "category": "XSS",
+      "expected": true,
+      "governance_disposition": "approved_oracle_set_proposed_pending_signoff",
+      "mapping_status": "approved",
+      "official_scoring_status": "proposed_scoring",
+      "oracle_status": "approved_oracle_pending_full_set_metrics",
+      "path": "/",
+      "source_ref": "https://github.com/juice-shop/juice-shop/blob/master/frontend/src/app/search-result/search-result.component.ts"
+    },
+    {
+      "case_id": "juice.login_admin.v1",
+      "category": "Injection",
+      "expected": false,
+      "governance_disposition": "not_in_current_governance_non_scoring_registry",
+      "mapping_status": "out_of_scope",
+      "official_scoring_status": "not_currently_scored",
+      "oracle_status": "out_of_scope",
+      "path": null,
+      "source_ref": null
+    },
+    {
+      "case_id": "juice.misplaced_signature_file.v1",
+      "category": "Observability Failures",
+      "expected": true,
+      "governance_disposition": "blocked",
+      "mapping_status": "approved",
+      "official_scoring_status": "excluded_until_reopened",
+      "oracle_status": "frozen_contract_pending_live_proof",
+      "path": "/ftp/suspicious_errors.yml",
+      "source_ref": "https://github.com/juice-shop/juice-shop/tree/master/routes"
+    },
+    {
+      "case_id": "juice.negative_order.v1",
+      "category": "Improper Input Validation",
+      "expected": false,
+      "governance_disposition": "not_in_current_governance_non_scoring_registry",
+      "mapping_status": "out_of_scope",
+      "official_scoring_status": "not_currently_scored",
+      "oracle_status": "out_of_scope",
+      "path": null,
+      "source_ref": null
+    },
+    {
+      "case_id": "juice.nosql_command.v1",
+      "category": "Injection",
+      "expected": false,
+      "governance_disposition": "not_in_current_governance_non_scoring_registry",
+      "mapping_status": "out_of_scope",
+      "official_scoring_status": "not_currently_scored",
+      "oracle_status": "out_of_scope",
+      "path": null,
+      "source_ref": null
+    },
+    {
+      "case_id": "juice.persisted_xss_feedback.v1",
+      "category": "XSS",
+      "expected": false,
+      "governance_disposition": "not_in_current_governance_non_scoring_registry",
+      "mapping_status": "out_of_scope",
+      "official_scoring_status": "not_currently_scored",
+      "oracle_status": "out_of_scope",
+      "path": null,
+      "source_ref": null
+    },
+    {
+      "case_id": "juice.privacy_policy_proof.v1",
+      "category": "Security through Obscurity",
+      "expected": true,
+      "governance_disposition": "out_of_scope",
+      "mapping_status": "approved",
+      "official_scoring_status": "non_scoring_pending_governance_confirmation",
+      "oracle_status": "frozen_contract_pending_live_proof",
+      "path": "/we/may/also/instruct/you/to/refuse/all/reasonably/necessary/responsibility",
+      "source_ref": "https://github.com/juice-shop/juice-shop/tree/master/routes"
+    },
+    {
+      "case_id": "juice.public_scoreboard_route.v1",
+      "category": "Miscellaneous",
+      "expected": true,
+      "governance_disposition": "out_of_scope",
+      "mapping_status": "approved",
+      "official_scoring_status": "non_scoring_pending_governance_confirmation",
+      "oracle_status": "frozen_contract_pending_live_proof",
+      "path": "/score-board",
+      "source_ref": "https://github.com/juice-shop/juice-shop/blob/master/server.ts"
+    },
+    {
+      "case_id": "juice.redirect_crypto.v1",
+      "category": "Unvalidated Redirects",
+      "expected": false,
+      "governance_disposition": "not_in_current_governance_non_scoring_registry",
+      "mapping_status": "out_of_scope",
+      "official_scoring_status": "not_currently_scored",
+      "oracle_status": "out_of_scope",
+      "path": null,
+      "source_ref": null
+    },
+    {
+      "case_id": "juice.redirect_local.v1",
+      "category": "Unvalidated Redirects",
+      "expected": false,
+      "governance_disposition": "not_in_current_governance_non_scoring_registry",
+      "mapping_status": "out_of_scope",
+      "official_scoring_status": "not_currently_scored",
+      "oracle_status": "out_of_scope",
+      "path": null,
+      "source_ref": "https://github.com/juice-shop/juice-shop/tree/master/routes"
+    },
+    {
+      "case_id": "juice.reflected_xss.v1",
+      "category": "XSS",
+      "expected": false,
+      "governance_disposition": "not_in_current_governance_non_scoring_registry",
+      "mapping_status": "out_of_scope",
+      "official_scoring_status": "not_currently_scored",
+      "oracle_status": "out_of_scope",
+      "path": null,
+      "source_ref": null
+    },
+    {
+      "case_id": "juice.security_policy.v1",
+      "category": "Miscellaneous",
+      "expected": true,
+      "governance_disposition": "out_of_scope",
+      "mapping_status": "approved",
+      "official_scoring_status": "non_scoring_pending_governance_confirmation",
+      "oracle_status": "frozen_contract_pending_live_proof",
+      "path": "/security.txt",
+      "source_ref": "https://github.com/juice-shop/juice-shop/blob/master/server.ts"
+    },
+    {
+      "case_id": "juice.well_known_security_policy.v1",
+      "category": "Miscellaneous",
+      "expected": true,
+      "governance_disposition": "out_of_scope",
+      "mapping_status": "approved",
+      "official_scoring_status": "non_scoring_pending_governance_confirmation",
+      "oracle_status": "frozen_contract_pending_live_proof",
+      "path": "/.well-known/security.txt",
+      "source_ref": "https://github.com/juice-shop/juice-shop/blob/master/server.ts"
+    }
+  ],
+  "case_set_counts": {
+    "current_proposed_scoring_cases": 3,
+    "governance_non_scoring_dispositions": {
+      "blocked": 3,
+      "implemented_pending_governance_confirmation": 1,
+      "out_of_scope": 4
+    },
+    "governance_non_scoring_registry_total": 8,
+    "ground_truth_cases_total": 21,
+    "ground_truth_expected_value_counts": {
+      "False": 10,
+      "True": 11
+    },
+    "ground_truth_mapping_status_counts": {
+      "approved": 11,
+      "out_of_scope": 10
+    }
+  },
+  "human_independent_signoff_obtained": false,
+  "non_scoring_policy": {
+    "blocked_observation_only_and_out_of_scope_are_not_fn": true,
+    "do_not_modify_frozen_ground_truth_to_close_gap": true,
+    "do_not_promote_without_causal_oracle": true
+  },
+  "official_isolated_p10_runs_authorized": false,
+  "qualification": {
+    "p10": "NOT_QUALIFIED",
+    "p9": "NOT_QUALIFIED",
+    "vip": "NOT_QUALIFIED"
+  },
+  "review_type": "AI_INDEPENDENT_TECHNICAL_REVIEW",
+  "reviewer_attribution": "non_human_attributable_ai",
+  "schema_version": "juice_shop.case_set_traceability.v1",
+  "source_revision": {
+    "juice_shop_source_snapshot": null,
+    "webpent_head": "71dfde37e550ac7c4b78f3e2dae9d6c781a91776",
+    "webpent_origin_master": "71dfde37e550ac7c4b78f3e2dae9d6c781a91776",
+    "webpent_tree": "7524fb33c7c1669f2b3552fcc91650a98ad2406d"
+  },
+  "threshold_review": {
+    "additional_cases_required": 7,
+    "additional_classes_required": 3,
+    "current_proposed_approved_cases": 3,
+    "current_proposed_approved_classes": 3,
+    "isolated_runs_completed": 0,
+    "minimum_approved_cases": 10,
+    "minimum_approved_classes": 6,
+    "minimum_isolated_runs": 3
+  }
+}

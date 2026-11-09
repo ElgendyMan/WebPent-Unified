@@ -1,0 +1,80 @@
+{
+  "benchmark_id": "goed_v1_generative",
+  "date": "2026-09-03T06:22:07.044256+00:00",
+  "description": "GOED v1 Generative Benchmark \u2014 10 independent targets, 8 vulnerability classes",
+  "generation_seed": 42,
+  "total_targets": 10,
+  "total_cases": 120,
+  "vulnerable_cases": 100,
+  "clean_cases": 20,
+  "vulnerability_classes_covered": 8,
+  "classes": [
+    "idor",
+    "broken_access_control",
+    "privilege_escalation",
+    "business_logic_abuse",
+    "tenant_isolation_failure",
+    "workflow_authorization_failure",
+    "sensitive_data_exposure",
+    "multi_step_chain"
+  ],
+  "naming_diversity": {
+    "route_conventions": 10,
+    "object_conventions": 10,
+    "role_conventions": 10,
+    "tenant_conventions": 10
+  },
+  "critical_note": "Targets generated AFTER detector implementation frozen. Generator is NOT a hidden source of detector knowledge. Detector receives ONLY base URL and authorized actor contexts.",
+  "targets": [
+    {
+      "target_id": "goed-target-00",
+      "port": 8800,
+      "cases": 12
+    },
+    {
+      "target_id": "goed-target-01",
+      "port": 8801,
+      "cases": 12
+    },
+    {
+      "target_id": "goed-target-02",
+      "port": 8802,
+      "cases": 12
+    },
+    {
+      "target_id": "goed-target-03",
+      "port": 8803,
+      "cases": 12
+    },
+    {
+      "target_id": "goed-target-04",
+      "port": 8804,
+      "cases": 12
+    },
+    {
+      "target_id": "goed-target-05",
+      "port": 8805,
+      "cases": 12
+    },
+    {
+      "target_id": "goed-target-06",
+      "port": 8806,
+      "cases": 12
+    },
+    {
+      "target_id": "goed-target-07",
+      "port": 8807,
+      "cases": 12
+    },
+    {
+      "target_id": "goed-target-08",
+      "port": 8808,
+      "cases": 12
+    },
+    {
+      "target_id": "goed-target-09",
+      "port": 8809,
+      "cases": 12
+    }
+  ]
+}

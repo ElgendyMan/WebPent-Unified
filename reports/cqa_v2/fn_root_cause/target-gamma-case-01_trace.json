@@ -1,0 +1,54 @@
+{
+  "case_id": "target-gamma-case-01",
+  "vulnerability_class": "Privilege Escalation",
+  "causal_trace": {
+    "case_specification": "Low-privilege user can access admin endpoint",
+    "target_route": "/api/gamma/admin/users",
+    "actor_identity_current": "gamma-admin",
+    "actor_identity_required": "gamma-viewer (low privilege)",
+    "tenant_context_current": "tenant-gamma",
+    "tenant_context_required": "tenant-gamma",
+    "role_current": "admin",
+    "role_required": "viewer",
+    "baseline_observation": "GET /api/health \u2014 200 OK",
+    "candidate_observation_current": "GET /api/gamma/admin/users as gamma-admin \u2014 200 OK (legitimate, admin is authorized)",
+    "candidate_observation_required": "GET /api/gamma/admin/users as gamma-viewer \u2014 200 OK (PRIVILEGE ESCALATION)",
+    "negative_control_current": "/patched/... \u2014 200 OK (admin legitimately authorized in both)",
+    "negative_control_required": "/patched/... \u2014 403 Forbidden for viewer",
+    "observed_response_current": "No differential because executed as admin in both paths",
+    "causal_predicate_current": "Same authorization level \u2192 CLEAN",
+    "causal_predicate_required": "Viewer gets 200 in candidate but 403 in control \u2192 CONFIRMED",
+    "proof_bundle_eligibility": "Eligible but built on wrong role context",
+    "replay_eligibility": "Replays admin context, not viewer"
+  },
+  "identity_matrix_tested": [
+    {
+      "identity": "gamma-admin",
+      "tenant": "tenant-gamma",
+      "role": "admin",
+      "route": "/api/gamma/admin/users",
+      "status": 200,
+      "semantic": "AUTHORIZED"
+    },
+    {
+      "identity": "gamma-editor",
+      "tenant": "tenant-gamma",
+      "role": "editor",
+      "route": "/api/gamma/admin/users",
+      "status": 403,
+      "semantic": "FORBIDDEN"
+    },
+    {
+      "identity": "gamma-viewer",
+      "tenant": "tenant-gamma",
+      "role": "viewer",
+      "route": "/api/gamma/admin/users",
+      "status": 200,
+      "semantic": "ESCALATION \u2014 VULNERABLE"
+    }
+  ],
+  "object_matrix": [],
+  "root_cause_classification": "EXECUTION_CAPABILITY_LIMITATION",
+  "specific_issue": "CaseExecutionSpec lacks ActorContext \u2014 executed with admin role instead of the low-privilege viewer role required to demonstrate escalation",
+  "evidence": "When executed with gamma-viewer, the privilege escalation is reachable and detectable"
+}

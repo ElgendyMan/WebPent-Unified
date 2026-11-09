@@ -1,0 +1,176 @@
+{
+  "campaign": {
+    "case_count": 18,
+    "evaluation_count": 18,
+    "run_id": "dcvu-v1-local-campaign",
+    "target_count": 3,
+    "traces": [
+      {
+        "discovered_surface_count": 6,
+        "evaluated_case_ids": [
+          "fixture-a.idor_bola.v1",
+          "fixture-a.privilege_escalation.v1",
+          "fixture-a.function_level_authorization.v1",
+          "fixture-a.business_logic_abuse.v1",
+          "fixture-a.tenant_isolation.v1",
+          "fixture-a.workflow_authorization.v1"
+        ],
+        "execution_events": [],
+        "proposed_case_ids": [
+          "fixture-a.idor_bola.v1",
+          "fixture-a.privilege_escalation.v1",
+          "fixture-a.function_level_authorization.v1",
+          "fixture-a.business_logic_abuse.v1",
+          "fixture-a.tenant_isolation.v1",
+          "fixture-a.workflow_authorization.v1"
+        ],
+        "target_id": "fixture-a"
+      },
+      {
+        "discovered_surface_count": 6,
+        "evaluated_case_ids": [
+          "fixture-b.idor_bola.v1",
+          "fixture-b.privilege_escalation.v1",
+          "fixture-b.function_level_authorization.v1",
+          "fixture-b.business_logic_abuse.v1",
+          "fixture-b.tenant_isolation.v1",
+          "fixture-b.workflow_authorization.v1"
+        ],
+        "execution_events": [],
+        "proposed_case_ids": [
+          "fixture-b.idor_bola.v1",
+          "fixture-b.privilege_escalation.v1",
+          "fixture-b.function_level_authorization.v1",
+          "fixture-b.business_logic_abuse.v1",
+          "fixture-b.tenant_isolation.v1",
+          "fixture-b.workflow_authorization.v1"
+        ],
+        "target_id": "fixture-b"
+      },
+      {
+        "discovered_surface_count": 6,
+        "evaluated_case_ids": [
+          "fixture-c.idor_bola.v1",
+          "fixture-c.privilege_escalation.v1",
+          "fixture-c.function_level_authorization.v1",
+          "fixture-c.business_logic_abuse.v1",
+          "fixture-c.tenant_isolation.v1",
+          "fixture-c.workflow_authorization.v1"
+        ],
+        "execution_events": [],
+        "proposed_case_ids": [
+          "fixture-c.idor_bola.v1",
+          "fixture-c.privilege_escalation.v1",
+          "fixture-c.function_level_authorization.v1",
+          "fixture-c.business_logic_abuse.v1",
+          "fixture-c.tenant_isolation.v1",
+          "fixture-c.workflow_authorization.v1"
+        ],
+        "target_id": "fixture-c"
+      }
+    ]
+  },
+  "governance": {
+    "credentials_used": false,
+    "external_scope": false,
+    "official_isolated_p10_runs_authorized": false,
+    "qualification_effect": false,
+    "state_mutation": false
+  },
+  "limitations": [
+    "Fixture-backed offline evidence is not field detection quality.",
+    "Synthetic identities are not real credentials and no login was performed.",
+    "No network, external target, state mutation, finding creation, or qualification effect occurred.",
+    "Metrics are engineering validation results and do not qualify P10, P9, VIP, or bug bounty access."
+  ],
+  "metrics": [
+    {
+      "attempted_cases": 6,
+      "class_coverage": 1.0,
+      "f1": 1.0,
+      "false_negative": 0,
+      "false_positive": 0,
+      "notes": [
+        "fixture_backed_offline_metrics",
+        "not_official_qualification"
+      ],
+      "precision": 1.0,
+      "proof_completeness": 1.0,
+      "recall": 1.0,
+      "scored_cases": 6,
+      "scoring_eligible": true,
+      "target_id": "fixture-a",
+      "true_negative": 0,
+      "true_positive": 6
+    },
+    {
+      "attempted_cases": 6,
+      "class_coverage": 1.0,
+      "f1": 1.0,
+      "false_negative": 0,
+      "false_positive": 0,
+      "notes": [
+        "fixture_backed_offline_metrics",
+        "not_official_qualification"
+      ],
+      "precision": 1.0,
+      "proof_completeness": 1.0,
+      "recall": 1.0,
+      "scored_cases": 6,
+      "scoring_eligible": true,
+      "target_id": "fixture-b",
+      "true_negative": 2,
+      "true_positive": 4
+    },
+    {
+      "attempted_cases": 6,
+      "class_coverage": 1.0,
+      "f1": 1.0,
+      "false_negative": 0,
+      "false_positive": 0,
+      "notes": [
+        "fixture_backed_offline_metrics",
+        "not_official_qualification"
+      ],
+      "precision": 1.0,
+      "proof_completeness": 1.0,
+      "recall": 1.0,
+      "scored_cases": 6,
+      "scoring_eligible": true,
+      "target_id": "fixture-c",
+      "true_negative": 3,
+      "true_positive": 3
+    }
+  ],
+  "official_isolated_p10_runs_authorized": false,
+  "qualification_claim": false,
+  "report_id": "dcvu-v1-autonomous-bug-hunter-capability",
+  "scope": "local_disposable_in_process_fixtures_only",
+  "targets": [
+    {
+      "disposable": true,
+      "local_only": true,
+      "source_digest": "sha256:dcvu-fixture-a-v1",
+      "target_id": "fixture-a",
+      "version": "1.0.0"
+    },
+    {
+      "disposable": true,
+      "local_only": true,
+      "source_digest": "sha256:dcvu-fixture-b-v1",
+      "target_id": "fixture-b",
+      "version": "1.0.0"
+    },
+    {
+      "disposable": true,
+      "local_only": true,
+      "source_digest": "sha256:dcvu-fixture-c-v1",
+      "target_id": "fixture-c",
+      "version": "1.0.0"
+    }
+  ],
+  "verdict_counts": {
+    "true_negative": 5,
+    "true_positive": 13
+  }
+}

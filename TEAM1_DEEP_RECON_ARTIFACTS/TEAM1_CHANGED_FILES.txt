@@ -1,0 +1,12 @@
+# TEAM1_CHANGED_FILES.txt — Deep Recon & Schema-to-Hypothesis V1
+
+## NEW (additive only — zero existing files modified)
+src/webpent/live_hunter/deep_recon.py (DeepReconEngine: recon contract, surface discovery, schema ingestion, relationship inference, trust boundary extraction, hypothesis candidate generation, world model projection)
+tests/test_team1_deep_recon.py (22 tests)
+
+## MODIFIED: none
+
+## INTEGRATION POINTS (seam only, no authority modification)
+DeepReconEngine → EvidenceGraph (producer of entities/relations/unresolved questions)
+DeepReconEngine.generate_hypothesis_candidates() → ResearchControlLoop.register_hypothesis/register_candidate
+ResearchControlLoop remains the ONE authoritative planner. Deep Recon is a producer, NOT a second planner.

@@ -1,0 +1,24 @@
+{
+  "document_id": "TEAM1_PRIORITY_RUNTIME_PROOF-1.0",
+  "date": "2026-09-10",
+  "scenario": "weak signal then critical signal on same hypothesis",
+  "initial_priority": 32,
+  "computed_priority": 74,
+  "stored_priority": 74,
+  "priority_delta": 42,
+  "initial_order": [
+    "hyp::weak"
+  ],
+  "final_order": [
+    "hyp::crit",
+    "hyp::weak"
+  ],
+  "selected_task_before": "agenda::branch::hyp::weak",
+  "selected_task_after": "agenda::branch::hyp::crit",
+  "acceptance": {
+    "computed_equals_stored": true,
+    "delta_gt_zero": true,
+    "ordering_changed": true,
+    "critical_branch_selected": true
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "target": "http://127.0.0.1:3000",
+  "campaign_id": "juice-real-id-regression-20261003",
+  "login": {
+    "owner": {"status": 200, "token_captured": true},
+    "foreign": {"status": 200, "token_captured": true}
+  },
+  "identity_discovery": {
+    "available_aliases": ["owner", "foreign"],
+    "successful_count": 2,
+    "operator_declared_collection_path": "/api/Users"
+  },
+  "promoted_access_control": {
+    "count": 3,
+    "families": ["BOLA", "IDOR"],
+    "owner_resource": "/rest/basket/1",
+    "negative_control": "/rest/basket/26",
+    "baseline_status": 200,
+    "candidate_status": 200
+  },
+  "validation": {"confirmed": 3, "refuted": 0, "inconclusive": 1, "blocked": 2, "promoted": 3},
+  "llm_calls": 14,
+  "actual_cost_usd": 0.0596025,
+  "audit": {"verified": true, "event_count": 12, "root_hash": "47afaddebbec01bf29791270b88941cef3c58448900c9f44ab88f046a1c2dbf4"},
+  "raw_target_bodies_included": false,
+  "credentials_included": false
+}

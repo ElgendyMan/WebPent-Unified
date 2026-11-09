@@ -1,0 +1,127 @@
+{
+ "artifact": "TEAM2_AVI_V1_2_POST_CLOSURE_VALIDATION",
+ "generated_at": "2026-09-19T10:53:25.052103+00:00",
+ "validator_role": "TEAM-2 independent post-closure validation",
+ "validated_artifact": "AVI V1.2 blocker closure by TEAM-1",
+ "method": "Runtime evidence only. TEAM-1 reports were used for ORIENTATION and cross-checking, never trusted as proof. All evidence regenerated independently by TEAM-2 scripts (scripts/team2_*.py). No source code, tests, validators, PromotionPipeline, CausalGuard or ProofBundle were modified by TEAM-2.",
+ "classification": "A \u2014 TRUST HARDENING VALIDATED",
+ "classification_rule": "A only if all critical checks pass; C if any trust boundary bypass exists; B otherwise.",
+ "phase_results": {
+  "PHASE_1_environment": "PASS",
+  "PHASE_2_trace_contract": "PASS",
+  "PHASE_3_regression_attacks": "PASS",
+  "PHASE_4_campaign": "PASS",
+  "PHASE_5_reproducibility": "PASS",
+  "PHASE_6_world_model": "PASS_WITH_DEVIATION",
+  "supplementary_test_suites": "PASS_WITH_DOCUMENTED_FAILURES"
+ },
+ "blocker_verification": {
+  "BLOCKER_1_security_report_trace_contract": {
+   "status": "VERIFIED",
+   "evidence": {
+    "promoted_findings_inspected": 8,
+    "all_have_complete_9_field_trace": true,
+    "all_consistency_checks_pass": true,
+    "fields_sourced_from_existing_authorities": true,
+    "campaign_promoted_findings_all_traced": true,
+    "tamper_remove_proof_field": "PASS",
+    "tamper_forge_trace_field": "PASS",
+    "tamper_modify_semantic_identity": "PASS",
+    "tamper_modify_replay_result": "PASS"
+   }
+  },
+  "BLOCKER_2_independent_100_decision_campaign": {
+   "status": "VERIFIED",
+   "evidence": {
+    "team2_decisions_executed": 100,
+    "promoted": 25,
+    "rejected": 75,
+    "false_positives_on_patched_families": 0,
+    "rest_targets": 2,
+    "graphql_targets": 2,
+    "families_covered": 6,
+    "multiple_actors": true,
+    "negative_controls_every_hypothesis": true,
+    "per_decision_records_complete": true,
+    "all_chains_verified": true
+   }
+  },
+  "BLOCKER_3_reproducible_environment": {
+   "status": "VERIFIED",
+   "evidence": {
+    "python": "Python 3.12.14",
+    "lock_file_present": true,
+    "uv_lock_sha256": "fcd0e8d544c40f033d90590aedb19ca4167116f7be3a9bf024942ea409078375",
+    "uv_lock_sha256_matches_team1_declared": true,
+    "installed_dependency_count": 191,
+    "uv_lock_package_entries": 248,
+    "install_command": "uv sync --frozen --all-extras"
+   }
+  },
+  "BLOCKER_4_provenance_integrity": {
+   "status": "VERIFIED",
+   "evidence": {
+    "team1_manifest_lines_verified_ok": "18",
+    "team1_manifest_failed_lines": "none",
+    "independent_source_manifest_sha256": "2f2c9046c6c179192faf9d74a7871e3a80b199936a07376e81d2392f311be36b",
+    "matches_team1_declared_195dbf88": true,
+    "match_note": "manifest with sorted LINES reproduces TEAM-1's declared SOURCE_MANIFEST_SHA256 exactly \u2014 source tree is byte-identical to the closure hash",
+    "git_statement": "A git repository EXISTS at the WORKSPACE root (/home/z/my-project) created by the validation environment AFTER the TEAM-1 archive was delivered (sandbox baseline commits, not project history). The delivered webpent-goed source tree itself carries NO upstream project git metadata (no project commits/tags/remotes for the AVI development history). Provenance therefore remains CONTENT-HASH based (sha256), consistent with TEAM-1's declared NO_GIT_METADATA_AVAILABLE statement for the delivered archive. No git provenance is faked here."
+   }
+  }
+ },
+ "honest_deviations_and_observations": [
+  {
+   "id": "OBS-1",
+   "severity": "observation_non_boundary",
+   "title": "PHASE 6 B1: same-candidate value DECREASES after its own useful CONFIRMED outcome",
+   "detail": "The TEAM-2 brief expected an increase. Runtime shows the production value function (compute_candidate_value) decreases it because a confirmed hypothesis is resolved \u2014 the evidence_relevance component (confidence<0.7 gate) is captured and dominates the +0.2 exploitation_value gain. The increase channels ARE proven: exploitation_value component increases (B3) and return-to-exploitation raises saturated-branch candidate value after a HIGH confirmed outcome (B2). Anti-redundancy by design; OutcomeTracker demonstrably affects future candidate value in both directions. NOT a trust boundary bypass."
+  },
+  {
+   "id": "OBS-2",
+   "severity": "observation_non_boundary",
+   "title": "GraphQL status semantics: 4/6 families structurally cannot bind identity on GraphQL targets",
+   "detail": "Identity binding checks HTTP statuses (403/404/401/400) for IDOR/SSRF/AUTH_BYPASS negative controls; the GraphQL harness fixture answers 200 with structured errors, so these families fail-closed on GraphQL (no false promotions, reduced GraphQL sensitivity). Pre-registered by TEAM-2 from the binding code and confirmed at runtime; consistent with TEAM-1's own runtime (their GraphQL promotions are only OPEN_REDIRECT/INFO_DISCLOSURE). Conservative behavior, not a bypass."
+  },
+  {
+   "id": "OBS-3",
+   "severity": "observation_non_boundary",
+   "title": "MASS_ASSIGNMENT 0 promotions on the vulnerable GraphQL target (stateful contamination)",
+   "detail": "First candidate mutates shared profile state; later variants see contaminated baseline and fail-closed (validator downgrade, no promotion). Reproduces TEAM-1's honest finding independently. Fail-closed correct; harness/validators were NOT modified."
+  },
+  {
+   "id": "OBS-4",
+   "severity": "packaging_gap",
+   "title": "TEAM-1 closure generator scripts absent from the delivered tree",
+   "detail": "scripts/team1_v12_*.py referenced in TEAM-1's worklog are not present in the archive. Runtime artifacts ARE present and were independently validated here, so results stand; however the closure PACKAGING is not fully self-reproducing. Recorded for the release owner."
+  },
+  {
+   "id": "OBS-5",
+   "severity": "documented_intended",
+   "title": "2 stale synthetic-handler test expectations fail",
+   "detail": "tests/team1_acceptance/test_avi_v1_production_release.py::TestThirtyDecisionCampaign (2 tests) assert promoted_count>=1 from a campaign WITHOUT explicit request specs. V1.2 identity binding correctly refuses to promote synthetic observations, so 0 promotions occur and the stale assertions fail. Matches TEAM-1's documented intended behavior; failure mode verified by TEAM-2 (assert 0 >= 1 on synthetic campaign)."
+  },
+  {
+   "id": "OBS-6",
+   "severity": "provenance_note",
+   "title": "Git availability: workspace-level repo post-dates the archive",
+   "detail": "A git repository EXISTS at the WORKSPACE root (/home/z/my-project) created by the validation environment AFTER the TEAM-1 archive was delivered (sandbox baseline commits, not project history). The delivered webpent-goed source tree itself carries NO upstream project git metadata (no project commits/tags/remotes for the AVI development history). Provenance therefore remains CONTENT-HASH based (sha256), consistent with TEAM-1's declared NO_GIT_METADATA_AVAILABLE statement for the delivered archive. No git provenance is faked here."
+  }
+ ],
+ "constraint_compliance": {
+  "no_source_modified_by_team2": true,
+  "no_tests_modified_by_team2": true,
+  "no_weakened_assertions": true,
+  "no_evidence_regenerated_to_force_pass": true,
+  "no_validator_or_pipeline_change": true,
+  "no_causalguard_change": true,
+  "no_proofbundle_change": true,
+  "team2_code_location": "scripts/team2_*.py (outside the source tree)"
+ },
+ "deliverables": {
+  "runtime_evidence": "TEAM2_AVI_V1_2_RUNTIME_EVIDENCE.json",
+  "this_document_json": "TEAM2_AVI_V1_2_POST_CLOSURE_VALIDATION.json",
+  "report_md": "TEAM2_AVI_V1_2_POST_CLOSURE_VALIDATION.md"
+ },
+ "stop_statement": "STOP. No source changes were made. Final release acceptance is NOT performed by TEAM-2; this report is the independent post-closure validation input for the release owner."
+}

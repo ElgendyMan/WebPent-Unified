@@ -1,0 +1,43 @@
+{
+  "budget": {
+    "cost_usd": 0.0024355,
+    "halted": false,
+    "llm_calls": 1,
+    "max_cost_usd": 1.0,
+    "max_hypotheses": 8,
+    "max_iterations_per_hypothesis": 5,
+    "max_llm_calls": 20,
+    "max_wall_seconds": 900.0
+  },
+  "confirmed_findings": [],
+  "curiosity_flags": [],
+  "current_hypothesis_index": 0,
+  "exploitation_results": [],
+  "graph_events": [
+    {
+      "at_monotonic": 37305.879556,
+      "detail_digest": "sha256:cb9d2917d1e0fe9154e8885c9e66321a1cf0326e8d3529e71131829d95f7b059",
+      "node": "planner",
+      "status": "PLANNED"
+    }
+  ],
+  "hypotheses": [],
+  "notes": [
+    "# Hunt Notes \u2014 http://127.0.0.1:8082/WebGoat\n\n- Campaign: `generalization-phase5-fixed-webgoat`\n- Content policy: sanitized structural evidence only\n\n## Authentication\n\n- None recorded.\n\n## Interesting Endpoints\n\n- [planner] Crawled 1 routes and prepared 0 governed candidates. (sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945) `event:83b2f78e18991fca7bef472f`\n\n## Curiosity Flags\n\n- [curiosity] Detected 0 structural anomaly flags. (sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945) `event:4269ad960f965dfeaed4c1a2`\n\n## Attempts\n\n- None recorded.\n\n## Confirmed Findings\n\n- None recorded.\n\n## Refuted Attempts\n\n- None recorded.\n\n## Hypotheses\n\n- None recorded.\n\n## Chains to Explore\n\n- None recorded.\n"
+  ],
+  "persona": "stok",
+  "session_state": {},
+  "status": "COMPLETED",
+  "surface_data": {
+    "browser_intelligence": {},
+    "candidate_catalog": [],
+    "routes": [
+      "{'route': '/WebGoat', 'method': 'GET', 'status_code': 302, 'content_type': '', 'response_digest': 'sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'response_length': 0, 'depth': 0, 'auth_required': False, 'login_si"
+    ],
+    "scope_fingerprint": "inferred_from_url",
+    "target_host": "127.0.0.1",
+    "target_url": "http://127.0.0.1:8082/WebGoat"
+  },
+  "tech_stack": {},
+  "validation_verdicts": []
+}

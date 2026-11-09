@@ -1,0 +1,39 @@
+{
+  "document_id": "TEAM1_WIRING_GRAPH-1.0",
+  "date": "2026-09-10",
+  "method": "static import/call-site analysis (grep) + live test run; no runtime execution of real targets",
+  "single_entity_properties": {
+    "one_canonical_graph": "src/webpent/graph/builder.py::build_graph -> StateGraph(PentestState), single compile(checkpointer=)",
+    "one_canonical_state": "src/webpent/state/state.py::PentestState (TypedDict) + reducers; research_engine/research_state.py::ResearchState (engagement-scoped)",
+    "one_canonical_world_model": "src/webpent/llm_researcher/world_model.py::WorldModel/ObservationStore (add-only, dedup)",
+    "one_canonical_finding_ledger": "state/reducers.merge_findings + persistent_finding_ledger + memory/db",
+    "one_canonical_evidence_chain": "models/proof_bundle.py::ProofBundle (sha256 digests, seal, replay binding)",
+    "one_canonical_prioritization_authority": "shared/prioritization.py + research_engine/priority_engine.py (deterministic); LLM/integration PriorityProposal is advisory only",
+    "one_canonical_safety_authority": "shared/safety_gate.py (EngagementSafetyGate + EngagementKillSwitch) + shared/action_authority.py",
+    "one_canonical_verdict_authority": "cqa_v2/causal_guard.py::guarded_causal_evaluate (SOLE CONFIRMED authority); proof_oracles is independent advisory"
+  },
+  "live_components": [
+    "graph/builder.py (31 nodes)", "state/state.py", "state/reducers.py", "cqa_v2/*",
+    "shared/{action_authority,safety_gate,llm,prioritization,proof_oracles,resume_capability}.py",
+    "llm_researcher/{interface,tool_boundary,world_model,causal_feedback_bridge,research_loop,providers/*}.py",
+    "agents/*", "validators/*", "reporter/*", "memory/db.py", "workers/pentest_worker.py",
+    "api/app.py", "cli/commands.py", "research_engine/{orchestrator,priority_engine,research_state,research_budget,autonomous_scheduler,evidence_aware_loop,confidence_engine,feedback_loop,hypothesis_manager,execution_router,campaign_state,campaign_hypothesis_lifecycle,knowledge_gap,projection_adapter}.py",
+    "intelligence/*", "attack_graph/{engine,builder,reasoner,__init__}.py"
+  ],
+  "optional_live_components": [
+    {"component": "research_engine/agenda_bridge.py (AgendaBridge)", "activation": "passed as agenda_bridge= to EvidenceAwareAgentLoop.evaluate (additive hook, default None -> historical behavior unchanged); Settings.enable_integration_agenda default False", "downstream_effect": "changes selected experiment ordering (proven by A/B test test_agenda_enabled_changes_selected_experiment)", "can_issue_verdict": false, "can_bypass_gates": false},
+    {"component": "integration/* (8 modules)", "activation": "consumed only via AgendaBridge; no live graph-node caller", "can_issue_verdict": false},
+    {"component": "attack_graph/source_lane.py", "activation": "exported from attack_graph/__init__; no live caller", "can_issue_verdict": false},
+    {"component": "smart/* (VIPSmartHunter)", "activation": "--enable-smart CLI opt-in", "can_issue_verdict": false}
+  ],
+  "dormant_components": ["goed_v1_8/..goed_v1_8_4/* (historical harnesses, one-way dependency, nothing in src imports them)"],
+  "duplicated_components": [{"component": "validators/causal_validator.py + validation/causal_validator.py", "nature": "intentional facade, not drift"}],
+  "independent_state_writers": ["NONE outside canonical state/reducers; all writes flow through PentestState reducers or ResearchState.admit_task (scope/dedup/budget gated)"],
+  "independent_verdict_issuers": ["NONE except CausalGuard (sole) + proof_oracles (independent deterministic oracle, advisory). Integration/LLM components issue ZERO final verdicts."],
+  "priority_influencers": [
+    {"component": "shared/prioritization.py + research_engine/priority_engine.py", "authority": "final, deterministic"},
+    {"component": "smart/SmartPrioritizer", "authority": "advisory, opt-in"},
+    {"component": "integration/priority_policy.py (PriorityProposal)", "authority": "advisory only; final PriorityDecision deterministic; LLM cannot assign final priority"}
+  ],
+  "parallel_mini_hunters": "NONE verified. No component makes independent final decisions."
+}

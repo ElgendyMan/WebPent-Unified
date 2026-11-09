@@ -1,0 +1,64 @@
+# PRE_HASHES.txt — TEAM-REVIEW-REFREEZE 2026-10-22 (before manifest regeneration)
+# frozen_modules.sha256 (v15.2-lineage manifest, 719 entries, UNCHANGED by merge):
+
+# manifest sha256: 2424c3d9d3f8751bbea1eaf4180f4c07bdbd508ebe826b4a826f6afc6c06c454
+# baseline_pre_unfreeze sha256 (untouched, recorded for completeness): 9aeefdb224d6e4b8eb0df620deb9ea7a92966b4dbdfe36d6a2b2450d1031bbd0
+#
+# 31 divergent frozen paths (tree bytes vs manifest) — Section B reviewed set:
+fc952812c8ff23e0cfe80afdf865f012ddf73bb3c5a52fc05b23b881551a943e  src/webpent/agents/api_testing/agent.py
+832893d8a4bb3989b6c6b26d6b38a7507fec78a7f83d39dab272c05908411eea  src/webpent/agents/business_logic_fuzzer/agent.py
+f6d11bd9e5eab31b0c3ee87f407362e9ec56573142fca72b0084bf54f0276c99  src/webpent/agents/cloud_storage/agent.py
+e4a81a5704b9a61a0b84fec9ccc05f70a715c99dfea119250c2105365caf3d96  src/webpent/agents/devils_advocate/agent.py
+cfa2841e721aa77932c4a3d0b20b290f3682cee7b91fc46d75551cca8e47304c  src/webpent/agents/hunter_runner.py
+2d4f92ac05682170be8263e83a21bf6caff440a1f2448ab01cc05743e581f341  src/webpent/agents/hypothesis_analyzer/agent.py
+f00fa4e64df24dd9ce0306ead63ed967177cc2ec9fc122e79225a5f787923765  src/webpent/agents/payload_generator/agent.py
+32a7f87c9defe10e9d3d064ab6b272086677d331909bd5c28c27e905d3c2ffed  src/webpent/agents/subdomain_takeover/agent.py
+1678099ed48ee8e7a8c88b81a26d57aac1d78886099e3c964588ae4031e040ad  src/webpent/agents/validator/active_checks.py
+dbf3f9313d74a4d294bfde590be266c5256d732ca9e9234c421e7007a00b89c7  src/webpent/agents/validator/postp0_checks.py
+4611887964f7f50d7e3b28ba8d33a22a6e24854f6e78bde0574334d846a38005  src/webpent/agents/validator/structural_checks.py
+2b454f14efe5d377eb485f11ef31d9bf1ac56a5a919103a0d93378e6668994b2  src/webpent/api/app.py
+ac50276d5329443f5ce03c2903aedf59f80fea8db50b50e874e18eed76edc8b9  src/webpent/cli/commands.py
+42d21a10b627e1d85b33602670a1bc22f6f0b34ab08d41d05c85856b008e31bd  src/webpent/cli/git_source.py
+d1c716a09eb39b3dbfb222c68804beefe8358af49209acb1b9841a359b5afc94  src/webpent/production/advisory_registration.py
+39212f6464a6a444b0d898c7285bfd2e6be1d05985cb6fd39cb3a988144387b7  src/webpent/production/modern_spine_integration.py
+6f375a520a469b3facbbbf536d7b147dab414f739f2b11c46776523fb0b0b65e  src/webpent/recon/autonomous_crawler.py
+edca63007f7c8b18dbe3eb7cb06cf51348fd13a0b23e926703b46456f0515738  src/webpent/recon/browser_crawler.py
+1dbe93996ffa8a4f01628ba6645beb9016476216b397fd69f76d87a6d90e1ea6  src/webpent/recon/login_executor.py
+39d40355df8f8666aee3ad8460148280af755915d4d8bfe7129b99e455126bf0  src/webpent/recon/principal_provisioning.py
+ba5093612bd3d9cfa7e126d62c4b19c257eab24f914c105ed48b23577c4f01dc  src/webpent/reporter/bounty_report.py
+c648ea35348f22172829ea4e58bab0d555600e1765b768f71101c61885324379  src/webpent/reporter/poc_export.py
+c70ec59ab90cc7834235a4bc3f3a603bd8d07599bac02e9bb21825150de3b35d  src/webpent/scope/enforcer.py
+b536c2b565e79e4b513aec00cdb4aac76390a7450f0265670589311446258ac6  src/webpent/scope/models.py
+274b6f246341caf9b091ef5309e2b6d4cc0c2e7bd7d1401b55fe6cec4fb83dc0  src/webpent/scope/parser.py
+aabe3e8805dc8de4c7819cd0d6a7adf2ab628da64bc8159e56170f1597dbcf7c  src/webpent/service/facade.py
+65504b78281d24387737453836f59f05cc1c5d66053118f2539d9cb5e8a141c7  src/webpent/service/manager.py
+b4f482dc4b3097477e15891e5db63904a75ba4b186596c1d91df397aabadf62f  src/webpent/service/models.py
+4d33a764808c1588f71e548fd476adbf56d4a1bce31e7992c2b26b28813fa0a7  src/webpent/shared/action_ledger.py
+c246a52ff35f9fa310edf7310a3606413ad518d91cc1f8007d8d8a822d5900d8  src/webpent/shared/jwt_deep_testing.py
+b7e3bea5c007ecb6b952aa196efc4ccccfd8e371ca02334386f6f1ded8473d50  src/webpent/workers/pentest_worker.py
+# ---------------------------------------------------------------------------
+# PROJECT-ZERO PRODUCTION WIRING 2026-10-22 (item 3 of user-approved follow-ups)
+# before manifest regeneration: anchor ca330fd2...53dc18bf
+# 7 frozen paths edited additively, default-off:
+e9beee2013a0c12a9f65407adc092db40cb8297736a65b330b1bf7dba948aa68  src/webpent/agents/crawler/agent.py
+e4a81a5704b9a61a0b84fec9ccc05f70a715c99dfea119250c2105365caf3d96  src/webpent/agents/devils_advocate/agent.py
+6217ba69a74d29a4364038569ee906277acb1d03fb24dcbbd45a9d23df0d4b1c  src/webpent/agents/validator/agent.py
+5a49f7baebc101fea5cdeb3a8d1f80c49feca99b52867a8f55d068715bf985d7  src/webpent/config/settings.py
+ccec44c9c95046917e35f179726b58a2eeb9b202acdc23442a2aed097e0d8a1b  src/webpent/models/surface_security.py
+3849100aa44c757af75aa8361e13e7dcdbb77d9f26c446644896dd22ea13c122  src/webpent/shared/surface_security.py
+dcabee8a0c9f1d989ef552718ca2b26b113c129ca19d78b3fa1acecdc4d73a88  src/webpent/state/state.py
+
+--- Item 4: 2026-10-24 catalog-fix re-freeze (red-team follow-up) ---
+Pre-state manifest sha256: cfbc347a54d7e7176e7594a9d2a51760d3437b19584faec49bd788e96d60c88b
+Pre-state per-file hashes (git HEAD bytes) of the 4 edited frozen paths:
+  src/webpent/config/settings.py: 23c06487b624b1b589013852e711ae624b242ba7fc580ea5fe638dd5ea311c4e
+  src/webpent/state/state.py: 10ce3ea533c2be2318584151b2d69c71bfe14c05ef6e9a0d38cd2582923e3ba4
+  src/webpent/agents/crawler/agent.py: 95d7f9c1598102ba24ab969124d6bc2d7c57b6e25f4bddb99b6819f17676f09f
+  src/webpent/agents/reporter/agent.py: a795276c9b1462f07be95b54a14e817373e6d3514f177c995b71e76efb90141f
+
+--- Item 5: 2026-10-24 VIP-wiring re-freeze (layer 2 of the VIP tier) ---
+Pre-state manifest sha256: 5957a1b57b60e71baf7970b1d394976ad0f0f52659f7613fda972e36b5fcdb8e
+Pre-state per-file hashes (git HEAD bytes) of the 3 edited frozen paths:
+  src/webpent/config/settings.py: 867e94da26b3b3cddb9aec58c2c156fb805c592a8734544cf11d74b3d67e518a
+  src/webpent/graph/builder.py: c46f7b0e177752864078ee0526a21e4850c81652dbd89ab9cd6640dd276d0a43
+  src/webpent/state/state.py: bf49df69eda3fad94f4275023a04d48130d6734bea3cb0aeaebea7ef127c2285

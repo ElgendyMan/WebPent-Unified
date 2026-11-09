@@ -1,0 +1,917 @@
+{
+  "phase": "1_discovery_knowledge_inventory",
+  "date": "2026-09-03",
+  "summary": {
+    "A_generic_discovery": 1,
+    "B_target_independent": 52,
+    "C_target_specific": 28,
+    "D_benchmark_leakage_risk": 47
+  },
+  "classifications": {
+    "A_generic_discovery": [
+      {
+        "type": "hardcoded_route",
+        "value": "/api/v1/scans",
+        "file": "src/webpent/api/app.py",
+        "line": 801,
+        "note": ""
+      }
+    ],
+    "B_target_independent": [
+      {
+        "type": "probe_pattern_def",
+        "value": "route_pattern",
+        "file": "src/webpent/adapters/crapi/option_b.py",
+        "line": 81,
+        "note": ""
+      },
+      {
+        "type": "probe_pattern_def",
+        "value": "route_pattern",
+        "file": "src/webpent/adapters/crapi/option_b.py",
+        "line": 98,
+        "note": ""
+      },
+      {
+        "type": "probe_pattern_def",
+        "value": "route_pattern",
+        "file": "src/webpent/adapters/crapi/option_b.py",
+        "line": 118,
+        "note": ""
+      },
+      {
+        "type": "probe_pattern_def",
+        "value": "route_pattern",
+        "file": "src/webpent/adapters/crapi/option_b.py",
+        "line": 138,
+        "note": ""
+      },
+      {
+        "type": "probe_pattern_def",
+        "value": "route_pattern",
+        "file": "src/webpent/adapters/local_causal_lab/option_b_contract.py",
+        "line": 76,
+        "note": ""
+      },
+      {
+        "type": "probe_pattern_def",
+        "value": "route_pattern",
+        "file": "src/webpent/adapters/local_causal_lab/option_b_contract.py",
+        "line": 151,
+        "note": ""
+      },
+      {
+        "type": "probe_pattern_def",
+        "value": "route_pattern",
+        "file": "src/webpent/adapters/webgoat/option_b.py",
+        "line": 46,
+        "note": ""
+      },
+      {
+        "type": "probe_pattern_def",
+        "value": "route_pattern",
+        "file": "src/webpent/adapters/webgoat/option_b.py",
+        "line": 65,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/v1/user",
+        "file": "src/webpent/agents/api_testing/agent.py",
+        "line": 39,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/graphql",
+        "file": "src/webpent/agents/api_testing/agent.py",
+        "line": 98,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/query",
+        "file": "src/webpent/agents/api_testing/agent.py",
+        "line": 101,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/v1/me",
+        "file": "src/webpent/agents/api_testing/agent.py",
+        "line": 260,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/v1/user",
+        "file": "src/webpent/agents/api_testing/agent.py",
+        "line": 261,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/me",
+        "file": "src/webpent/agents/api_testing/agent.py",
+        "line": 262,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/v1/profile",
+        "file": "src/webpent/agents/api_testing/agent.py",
+        "line": 264,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/v1/user",
+        "file": "src/webpent/agents/api_testing/agent.py",
+        "line": 519,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/v1/users/me",
+        "file": "src/webpent/agents/api_testing/agent.py",
+        "line": 519,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/user",
+        "file": "src/webpent/agents/api_testing/agent.py",
+        "line": 519,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/profile",
+        "file": "src/webpent/agents/api_testing/agent.py",
+        "line": 519,
+        "note": ""
+      },
+      {
+        "type": "probe_pattern_def",
+        "value": "ROUTE_PATTERN",
+        "file": "src/webpent/agents/smart_campaigns/agent.py",
+        "line": 77,
+        "note": ""
+      },
+      {
+        "type": "probe_pattern_def",
+        "value": "ROUTE_PATTERN",
+        "file": "src/webpent/agents/smart_campaigns/agent.py",
+        "line": 94,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/v1/user",
+        "file": "src/webpent/agents/validator/structural_checks.py",
+        "line": 117,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/v1/me",
+        "file": "src/webpent/api/app.py",
+        "line": 795,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/health",
+        "file": "src/webpent/cqa_v2/autonomous_loop.py",
+        "line": 48,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/admin/users",
+        "file": "src/webpent/cqa_v2/autonomous_loop.py",
+        "line": 117,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/admin/settings",
+        "file": "src/webpent/cqa_v2/autonomous_loop.py",
+        "line": 119,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/self/profile",
+        "file": "src/webpent/cqa_v2/autonomous_loop.py",
+        "line": 133,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/team/dashboard",
+        "file": "src/webpent/cqa_v2/autonomous_loop.py",
+        "line": 135,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/protected/admin-only",
+        "file": "src/webpent/cqa_v2/autonomous_loop.py",
+        "line": 137,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/self/orders",
+        "file": "src/webpent/cqa_v2/autonomous_loop.py",
+        "line": 141,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/openapi-lite",
+        "file": "src/webpent/rta/discovery.py",
+        "line": 114,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/openapi-lite",
+        "file": "src/webpent/rta/discovery.py",
+        "line": 144,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/me",
+        "file": "src/webpent/rta/harness.py",
+        "line": 85,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/admin/reports",
+        "file": "src/webpent/rta/harness.py",
+        "line": 87,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/admin/privilege-preview",
+        "file": "src/webpent/rta/harness.py",
+        "line": 91,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/me",
+        "file": "src/webpent/rta/harness.py",
+        "line": 140,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/documents/doc-a-1",
+        "file": "src/webpent/rta/harness.py",
+        "line": 140,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/admin/reports",
+        "file": "src/webpent/rta/harness.py",
+        "line": 141,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/orders/order-a-1/summary",
+        "file": "src/webpent/rta/harness.py",
+        "line": 142,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/openapi-lite",
+        "file": "src/webpent/rta/harness.py",
+        "line": 144,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/me",
+        "file": "src/webpent/rta/harness.py",
+        "line": 151,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/admin/reports",
+        "file": "src/webpent/rta/harness.py",
+        "line": 153,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/admin/privilege-preview",
+        "file": "src/webpent/rta/harness.py",
+        "line": 165,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/me",
+        "file": "src/webpent/rta/harness.py",
+        "line": 174,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/admin/reports",
+        "file": "src/webpent/rta/harness.py",
+        "line": 200,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/admin/privilege-preview",
+        "file": "src/webpent/rta/harness.py",
+        "line": 268,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/documents/doc-a-2",
+        "file": "src/webpent/rta/validation.py",
+        "line": 15,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/admin/reports",
+        "file": "src/webpent/rta/validation.py",
+        "line": 16,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/admin/privilege-preview",
+        "file": "src/webpent/rta/validation.py",
+        "line": 31,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/orders/order-a-1/summary",
+        "file": "src/webpent/rta/validation.py",
+        "line": 37,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/me",
+        "file": "src/webpent/rta/validation.py",
+        "line": 206,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/me",
+        "file": "src/webpent/rta/validation.py",
+        "line": 216,
+        "note": ""
+      }
+    ],
+    "C_target_specific": [
+      {
+        "type": "hardcoded_id",
+        "value": "tenant-a",
+        "file": "src/webpent/dcvu/engine.py",
+        "line": 72,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_id",
+        "value": "tenant-a",
+        "file": "src/webpent/dcvu/engine.py",
+        "line": 93,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_id",
+        "value": "tenant-a",
+        "file": "src/webpent/dcvu/engine.py",
+        "line": 105,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_id",
+        "value": "tenant-a",
+        "file": "src/webpent/dcvu/fixtures.py",
+        "line": 173,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_id",
+        "value": "tenant-a",
+        "file": "src/webpent/dcvu/fixtures.py",
+        "line": 174,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_id",
+        "value": "tenant-a",
+        "file": "src/webpent/dcvu/fixtures.py",
+        "line": 175,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_id",
+        "value": "tenant-b",
+        "file": "src/webpent/dcvu/fixtures.py",
+        "line": 176,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_id",
+        "value": "tenant-a",
+        "file": "src/webpent/dcvu/ground_truth.py",
+        "line": 107,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/admin/audit",
+        "file": "src/webpent/irta/generator/generator.py",
+        "line": 100,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/workflows/wf-a-1/preview",
+        "file": "src/webpent/rta/harness.py",
+        "line": 141,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_id",
+        "value": "tenant-a",
+        "file": "src/webpent/rta/harness.py",
+        "line": 38,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_id",
+        "value": "tenant-a",
+        "file": "src/webpent/rta/harness.py",
+        "line": 41,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_id",
+        "value": "tenant-a",
+        "file": "src/webpent/rta/harness.py",
+        "line": 44,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_id",
+        "value": "tenant-b",
+        "file": "src/webpent/rta/harness.py",
+        "line": 49,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_id",
+        "value": "tenant-a",
+        "file": "src/webpent/rta/harness.py",
+        "line": 56,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_id",
+        "value": "tenant-a",
+        "file": "src/webpent/rta/harness.py",
+        "line": 64,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_id",
+        "value": "tenant-a",
+        "file": "src/webpent/rta/harness.py",
+        "line": 65,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_id",
+        "value": "tenant-b",
+        "file": "src/webpent/rta/harness.py",
+        "line": 66,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_id",
+        "value": "tenant-a",
+        "file": "src/webpent/rta/harness.py",
+        "line": 71,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_id",
+        "value": "tenant-a",
+        "file": "src/webpent/rta/harness.py",
+        "line": 72,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_id",
+        "value": "tenant-b",
+        "file": "src/webpent/rta/harness.py",
+        "line": 73,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/tenant/tenant-b/documents/doc-b-1",
+        "file": "src/webpent/rta/validation.py",
+        "line": 19,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/workflows/wf-a-1/preview",
+        "file": "src/webpent/rta/validation.py",
+        "line": 25,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_route",
+        "value": "/api/tenant/tenant-b/billing-summary",
+        "file": "src/webpent/rta/validation.py",
+        "line": 43,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_id",
+        "value": "tenant-a",
+        "file": "src/webpent/rta/validation.py",
+        "line": 94,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_id",
+        "value": "tenant-a",
+        "file": "src/webpent/rta/validation.py",
+        "line": 97,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_id",
+        "value": "tenant-a",
+        "file": "src/webpent/rta/validation.py",
+        "line": 100,
+        "note": ""
+      },
+      {
+        "type": "hardcoded_id",
+        "value": "tenant-b",
+        "file": "src/webpent/rta/validation.py",
+        "line": 105,
+        "note": ""
+      }
+    ],
+    "D_benchmark_leakage_risk": [
+      {
+        "type": "benchmark_definition",
+        "value": "__init__.py",
+        "file": "benchmarks/__init__.py",
+        "line": null,
+        "note": "Benchmark definitions \u2014 must NOT be accessible to generative engine"
+      },
+      {
+        "type": "benchmark_definition",
+        "value": "abhc_v3_controlled.py",
+        "file": "benchmarks/abhc_v3_controlled.py",
+        "line": null,
+        "note": "Benchmark definitions \u2014 must NOT be accessible to generative engine"
+      },
+      {
+        "type": "benchmark_definition",
+        "value": "abhie_v4_controlled.py",
+        "file": "benchmarks/abhie_v4_controlled.py",
+        "line": null,
+        "note": "Benchmark definitions \u2014 must NOT be accessible to generative engine"
+      },
+      {
+        "type": "benchmark_definition",
+        "value": "abhie_v4_quality.py",
+        "file": "benchmarks/abhie_v4_quality.py",
+        "line": null,
+        "note": "Benchmark definitions \u2014 must NOT be accessible to generative engine"
+      },
+      {
+        "type": "benchmark_definition",
+        "value": "abhie_v6_controlled.py",
+        "file": "benchmarks/abhie_v6_controlled.py",
+        "line": null,
+        "note": "Benchmark definitions \u2014 must NOT be accessible to generative engine"
+      },
+      {
+        "type": "benchmark_definition",
+        "value": "abhie_v6_scorecard.py",
+        "file": "benchmarks/abhie_v6_scorecard.py",
+        "line": null,
+        "note": "Benchmark definitions \u2014 must NOT be accessible to generative engine"
+      },
+      {
+        "type": "benchmark_definition",
+        "value": "abhip_v4_controlled.py",
+        "file": "benchmarks/abhip_v4_controlled.py",
+        "line": null,
+        "note": "Benchmark definitions \u2014 must NOT be accessible to generative engine"
+      },
+      {
+        "type": "benchmark_definition",
+        "value": "abhip_v4_metrics.py",
+        "file": "benchmarks/abhip_v4_metrics.py",
+        "line": null,
+        "note": "Benchmark definitions \u2014 must NOT be accessible to generative engine"
+      },
+      {
+        "type": "benchmark_definition",
+        "value": "adi_multistep_controlled.py",
+        "file": "benchmarks/adi_multistep_controlled.py",
+        "line": null,
+        "note": "Benchmark definitions \u2014 must NOT be accessible to generative engine"
+      },
+      {
+        "type": "benchmark_definition",
+        "value": "avde_multiclass_controlled.py",
+        "file": "benchmarks/avde_multiclass_controlled.py",
+        "line": null,
+        "note": "Benchmark definitions \u2014 must NOT be accessible to generative engine"
+      },
+      {
+        "type": "benchmark_definition",
+        "value": "avrip_deep_controlled.py",
+        "file": "benchmarks/avrip_deep_controlled.py",
+        "line": null,
+        "note": "Benchmark definitions \u2014 must NOT be accessible to generative engine"
+      },
+      {
+        "type": "benchmark_definition",
+        "value": "avrp_multiclass_controlled.py",
+        "file": "benchmarks/avrp_multiclass_controlled.py",
+        "line": null,
+        "note": "Benchmark definitions \u2014 must NOT be accessible to generative engine"
+      },
+      {
+        "type": "benchmark_definition",
+        "value": "failure_matrix.py",
+        "file": "benchmarks/failure_matrix.py",
+        "line": null,
+        "note": "Benchmark definitions \u2014 must NOT be accessible to generative engine"
+      },
+      {
+        "type": "benchmark_definition",
+        "value": "metrics.py",
+        "file": "benchmarks/metrics.py",
+        "line": null,
+        "note": "Benchmark definitions \u2014 must NOT be accessible to generative engine"
+      },
+      {
+        "type": "benchmark_definition",
+        "value": "run_dcvu_v1.py",
+        "file": "benchmarks/run_dcvu_v1.py",
+        "line": null,
+        "note": "Benchmark definitions \u2014 must NOT be accessible to generative engine"
+      },
+      {
+        "type": "benchmark_definition",
+        "value": "run_rta_v1.py",
+        "file": "benchmarks/run_rta_v1.py",
+        "line": null,
+        "note": "Benchmark definitions \u2014 must NOT be accessible to generative engine"
+      },
+      {
+        "type": "benchmark_definition",
+        "value": "vabh_core_intelligence_v2.py",
+        "file": "benchmarks/vabh_core_intelligence_v2.py",
+        "line": null,
+        "note": "Benchmark definitions \u2014 must NOT be accessible to generative engine"
+      },
+      {
+        "type": "benchmark_definition",
+        "value": "vabh_fqr_v9_controlled.py",
+        "file": "benchmarks/vabh_fqr_v9_controlled.py",
+        "line": null,
+        "note": "Benchmark definitions \u2014 must NOT be accessible to generative engine"
+      },
+      {
+        "type": "benchmark_definition",
+        "value": "vabhfil_v8_controlled.py",
+        "file": "benchmarks/vabhfil_v8_controlled.py",
+        "line": null,
+        "note": "Benchmark definitions \u2014 must NOT be accessible to generative engine"
+      },
+      {
+        "type": "benchmark_definition",
+        "value": "vabhic_v7_controlled.py",
+        "file": "benchmarks/vabhic_v7_controlled.py",
+        "line": null,
+        "note": "Benchmark definitions \u2014 must NOT be accessible to generative engine"
+      },
+      {
+        "type": "benchmark_definition",
+        "value": "expected_findings.json",
+        "file": "benchmarks/vip_v1/expected_findings.json",
+        "line": null,
+        "note": "Benchmark definitions \u2014 must NOT be accessible to generative engine"
+      },
+      {
+        "type": "benchmark_definition",
+        "value": "manifest.json",
+        "file": "benchmarks/vip_v1/manifest.json",
+        "line": null,
+        "note": "Benchmark definitions \u2014 must NOT be accessible to generative engine"
+      },
+      {
+        "type": "benchmark_definition",
+        "value": "scenarios.json",
+        "file": "benchmarks/vip_v1/scenarios.json",
+        "line": null,
+        "note": "Benchmark definitions \u2014 must NOT be accessible to generative engine"
+      },
+      {
+        "type": "benchmark_definition",
+        "value": "manifest.json",
+        "file": "benchmarks/vip_v2/manifest.json",
+        "line": null,
+        "note": "Benchmark definitions \u2014 must NOT be accessible to generative engine"
+      },
+      {
+        "type": "benchmark_definition",
+        "value": "scenarios.json",
+        "file": "benchmarks/vip_v2/scenarios.json",
+        "line": null,
+        "note": "Benchmark definitions \u2014 must NOT be accessible to generative engine"
+      },
+      {
+        "type": "qualification_artifact",
+        "value": "evidence_pack.json",
+        "file": "vip_qualification/DELIVERY_PACK/evidence/evidence_pack.json",
+        "line": null,
+        "note": "Qualification artifacts \u2014 isolated from generative engine"
+      },
+      {
+        "type": "qualification_artifact",
+        "value": "benchmark_results.json",
+        "file": "vip_qualification/benchmark/benchmark_results.json",
+        "line": null,
+        "note": "Qualification artifacts \u2014 isolated from generative engine"
+      },
+      {
+        "type": "qualification_artifact",
+        "value": "benchmark_results_v2.json",
+        "file": "vip_qualification/benchmark/benchmark_results_v2.json",
+        "line": null,
+        "note": "Qualification artifacts \u2014 isolated from generative engine"
+      },
+      {
+        "type": "qualification_artifact",
+        "value": "ground_truth.json",
+        "file": "vip_qualification/benchmark/ground_truth/ground_truth.json",
+        "line": null,
+        "note": "Qualification artifacts \u2014 isolated from generative engine"
+      },
+      {
+        "type": "qualification_artifact",
+        "value": "ablation_results.json",
+        "file": "vip_qualification/gate11/ablation_results.json",
+        "line": null,
+        "note": "Qualification artifacts \u2014 isolated from generative engine"
+      },
+      {
+        "type": "qualification_artifact",
+        "value": "ground_truth_a.json",
+        "file": "vip_qualification/gate11/ground_truth_a.json",
+        "line": null,
+        "note": "Qualification artifacts \u2014 isolated from generative engine"
+      },
+      {
+        "type": "qualification_artifact",
+        "value": "ground_truth_b.json",
+        "file": "vip_qualification/gate11/ground_truth_b.json",
+        "line": null,
+        "note": "Qualification artifacts \u2014 isolated from generative engine"
+      },
+      {
+        "type": "qualification_artifact",
+        "value": "output_target_a_smart_off.json",
+        "file": "vip_qualification/gate11/output_target_a_smart_off.json",
+        "line": null,
+        "note": "Qualification artifacts \u2014 isolated from generative engine"
+      },
+      {
+        "type": "qualification_artifact",
+        "value": "output_target_a_smart_off_scored.json",
+        "file": "vip_qualification/gate11/output_target_a_smart_off_scored.json",
+        "line": null,
+        "note": "Qualification artifacts \u2014 isolated from generative engine"
+      },
+      {
+        "type": "qualification_artifact",
+        "value": "output_target_a_smart_on.json",
+        "file": "vip_qualification/gate11/output_target_a_smart_on.json",
+        "line": null,
+        "note": "Qualification artifacts \u2014 isolated from generative engine"
+      },
+      {
+        "type": "qualification_artifact",
+        "value": "output_target_a_smart_on_scored.json",
+        "file": "vip_qualification/gate11/output_target_a_smart_on_scored.json",
+        "line": null,
+        "note": "Qualification artifacts \u2014 isolated from generative engine"
+      },
+      {
+        "type": "qualification_artifact",
+        "value": "output_target_b_smart_off.json",
+        "file": "vip_qualification/gate11/output_target_b_smart_off.json",
+        "line": null,
+        "note": "Qualification artifacts \u2014 isolated from generative engine"
+      },
+      {
+        "type": "qualification_artifact",
+        "value": "output_target_b_smart_off_scored.json",
+        "file": "vip_qualification/gate11/output_target_b_smart_off_scored.json",
+        "line": null,
+        "note": "Qualification artifacts \u2014 isolated from generative engine"
+      },
+      {
+        "type": "qualification_artifact",
+        "value": "output_target_b_smart_on.json",
+        "file": "vip_qualification/gate11/output_target_b_smart_on.json",
+        "line": null,
+        "note": "Qualification artifacts \u2014 isolated from generative engine"
+      },
+      {
+        "type": "qualification_artifact",
+        "value": "output_target_b_smart_on_scored.json",
+        "file": "vip_qualification/gate11/output_target_b_smart_on_scored.json",
+        "line": null,
+        "note": "Qualification artifacts \u2014 isolated from generative engine"
+      },
+      {
+        "type": "qualification_artifact",
+        "value": "quick_test_a_smart_on.json",
+        "file": "vip_qualification/gate11/quick_test_a_smart_on.json",
+        "line": null,
+        "note": "Qualification artifacts \u2014 isolated from generative engine"
+      },
+      {
+        "type": "qualification_artifact",
+        "value": "quick_test_a_smart_on_scored.json",
+        "file": "vip_qualification/gate11/quick_test_a_smart_on_scored.json",
+        "line": null,
+        "note": "Qualification artifacts \u2014 isolated from generative engine"
+      },
+      {
+        "type": "qualification_artifact",
+        "value": "evidence_pack.json",
+        "file": "vip_qualification/phase1/evidence_pack/evidence_pack.json",
+        "line": null,
+        "note": "Qualification artifacts \u2014 isolated from generative engine"
+      },
+      {
+        "type": "qualification_artifact",
+        "value": "aggregate_metrics.json",
+        "file": "vip_qualification/phase3_runs/run_results/aggregate_metrics.json",
+        "line": null,
+        "note": "Qualification artifacts \u2014 isolated from generative engine"
+      },
+      {
+        "type": "qualification_artifact",
+        "value": "run_1_report.json",
+        "file": "vip_qualification/phase3_runs/run_results/run_1_report.json",
+        "line": null,
+        "note": "Qualification artifacts \u2014 isolated from generative engine"
+      },
+      {
+        "type": "qualification_artifact",
+        "value": "run_2_report.json",
+        "file": "vip_qualification/phase3_runs/run_results/run_2_report.json",
+        "line": null,
+        "note": "Qualification artifacts \u2014 isolated from generative engine"
+      },
+      {
+        "type": "qualification_artifact",
+        "value": "run_3_report.json",
+        "file": "vip_qualification/phase3_runs/run_results/run_3_report.json",
+        "line": null,
+        "note": "Qualification artifacts \u2014 isolated from generative engine"
+      }
+    ]
+  },
+  "total_items": 128
+}

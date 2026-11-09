@@ -1,0 +1,92 @@
+{
+  "schema": "webpent-target-scoring-readiness-pack-v1",
+  "pack_id": "crapi-scoring-readiness-v1",
+  "generated_at": "2026-08-27T00:00:00Z",
+  "readiness_status": "blocked_no_admitted_scoring_cases",
+  "qualification_claim": null,
+  "scope": {
+    "mode": "bounded_local_loopback",
+    "origin": "http://127.0.0.1:8888",
+    "scope_paths": ["/health"],
+    "methods": ["GET"],
+    "credentials_used": false,
+    "state_mutation": false,
+    "external_contact": false,
+    "oast_or_callbacks": false,
+    "raw_bodies_headers_cookies_persistent": false,
+    "official_isolated_p10_runs_authorized": false
+  },
+  "target": {
+    "target_id": "crapi",
+    "product": "crAPI",
+    "source_path": "/tmp/crapi-source",
+    "source_revision": "73d309cc8f28bbdeed31dbb35f05dba8354de3c9",
+    "runtime_version_declaration": "latest",
+    "runtime_reproducibility": "not_admitted",
+    "runtime_reproducibility_reason": "compose configuration uses mutable latest image references; immutable image digest was not admitted into this pack",
+    "source_manifest_ref": "reports/evaluation/vip_vertical_slice/VIP-MULTI-TARGET-LOCAL-MANIFEST-v1.json",
+    "target_spec": {
+      "scope": ["http://127.0.0.1:8888/health"],
+      "method_policy": ["GET"],
+      "redirect_policy": "same_origin_only",
+      "authorization_ref": "owner-authorized-local-loopback-vip-multitarget-v1",
+      "adapter": null,
+      "manifest": null
+    },
+    "campaign_id": "crapi-scoring-readiness-v1"
+  },
+  "ground_truth": {
+    "status": "not_admitted_for_scoring",
+    "independent_ground_truth_ref": null,
+    "source_to_ground_truth_mapping_hash": null,
+    "oracle_contract_hash": null,
+    "approved_case_ids": [],
+    "approved_case_count": 0,
+    "approved_class_count": 0,
+    "not_scored_is_not_fn": true,
+    "reason": "No independent crAPI source-to-ground-truth mapping and no target-local causal-oracle contract were admitted in this cycle.",
+    "prohibited_shortcuts": [
+      "health response is not a vulnerability predicate",
+      "HTTP 200 or route reachability is not a vulnerability predicate",
+      "blocked or observation-only rows are not FN, clean, TP, FP, or confirmed"
+    ]
+  },
+  "case_contracts": [],
+  "quality_baseline": {
+    "lifecycle_artifact": "reports/evaluation/vip_vertical_slice/VIP-AUTONOMOUS-MULTI-TARGET-LOCAL-E2E-v1.json",
+    "campaign_id": "vip-crapi-loopback-local-e2e-v1",
+    "lifecycle_result": "observation_only",
+    "quality_metrics": null,
+    "proof_bundles": [],
+    "reason_metrics_withheld": "zero admitted causal cases/classes and non-immutable runtime image provenance"
+  },
+  "required_before_scoring": {
+    "immutable_runtime_image_digest": true,
+    "target_local_adapter": true,
+    "source_backed_candidate_inventory": true,
+    "independent_ground_truth": true,
+    "approved_case_ids": true,
+    "causal_oracle_contract_per_case": true,
+    "safe_precondition_per_case": true,
+    "independent_negative_control_per_case": true,
+    "central_verifier_mapping_per_case": true,
+    "sealed_replayable_proof_procedure": true,
+    "regression_suite": true,
+    "baseline_quality_run": true,
+    "same_condition_retest_and_before_after": true
+  },
+  "proof_procedure": {
+    "status": "not_available_until_case_contracts_and_immutable_runtime_are_admitted",
+    "required_sequence": ["baseline", "candidate", "independent_negative_control", "quality_measurement", "diagnosis", "proposal", "generic_vs_target_local_classification", "safe_implementation", "regression", "same_condition_retest", "before_after", "central_verifier", "seal", "verify_seal", "replay", "metrics_recompute"],
+    "retained_data_policy": "metadata/digests only; no raw bodies, headers, cookies, credentials, or seed secrets"
+  },
+  "governance_blockers": [
+    "no crAPI scoring adapter/profile is registered",
+    "no independent ground truth is admitted",
+    "no causal oracle or negative-control contract is admitted",
+    "compose runtime uses mutable latest references",
+    "official_isolated_p10_runs_authorized=false",
+    "P10, P9, and VIP remain NOT_QUALIFIED",
+    "Bug Bounty remains BLOCKED"
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "release_version": "GOED-v1.8-RC1",
+  "release_date": "2026-09-04",
+  "governance": {
+    "vip_qualified": false,
+    "qualification_state": "CONDITIONAL",
+    "P10": "CLOSED",
+    "P9": "CLOSED",
+    "scope": "local_synthetic_authorized_targets_only",
+    "external_targets_forbidden": true,
+    "real_credentials_forbidden": true,
+    "destructive_actions_forbidden": true
+  },
+  "llm_policy": {
+    "enabled": true,
+    "can_confirm_vulnerability": false,
+    "can_bypass_causal_guard": false,
+    "can_mutate_evidence": false,
+    "can_modify_proof_bundle": false,
+    "can_override_blocked": false,
+    "max_tool_calls_per_loop": 20,
+    "max_experiments_per_hypothesis": 5,
+    "tool_boundary_enforced": true
+  },
+  "tool_boundary": {
+    "allowed_tools": [
+      "discover",
+      "request",
+      "replay",
+      "compare",
+      "inspect_state",
+      "inspect_response",
+      "enumerate_entity",
+      "run_workflow_step",
+      "summarize_memory"
+    ],
+    "forbidden_tools": [
+      "shell_exec",
+      "file_write",
+      "modify_detector",
+      "set_confirmed"
+    ],
+    "max_requests_per_tool_call": 10,
+    "request_timeout_seconds": 10,
+    "scope_enforced": true
+  },
+  "evidence": {
+    "proof_bundle_required_for_claim": true,
+    "deterministic_validation_mandatory": true,
+    "replay_verification_required": true
+  }
+}

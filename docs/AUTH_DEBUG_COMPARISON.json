@@ -1,0 +1,38 @@
+{
+  "executor": {
+    "captured_request": {
+      "body_keys": [
+        "email",
+        "password"
+      ],
+      "content_type": "application/json",
+      "method": "POST",
+      "url_path": "/rest/user/login",
+      "value_lengths": {
+        "email": 14,
+        "password": 17
+      }
+    },
+    "material": {
+      "digest": "9cea4754e26298f9",
+      "kind": "bearer",
+      "name": "token",
+      "source": "api_response"
+    },
+    "reason": "jwt_login_response_validated",
+    "status_code": 200,
+    "success": true
+  },
+  "manual_curl": {
+    "request_body_keys": [
+      "email",
+      "password"
+    ],
+    "request_content_type": "application/json",
+    "response_keys": [
+      "authentication"
+    ],
+    "status_code": 200,
+    "token_present": true
+  }
+}

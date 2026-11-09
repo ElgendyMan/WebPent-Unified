@@ -1,0 +1,45 @@
+{
+  "case_count": 2,
+  "cases": [
+    {
+      "case_id": "controlled-id-or-001",
+      "evidence_quality": 1.0,
+      "expected_rank": 1,
+      "ground_truth_outcome": "confirmed",
+      "hypothesis_generated": true,
+      "information_gain": 0.95,
+      "proof_complete": true,
+      "rank": 1,
+      "requests_used": 3,
+      "target_id": "controlled-local-id-or",
+      "validation_outcome": "confirmed"
+    },
+    {
+      "case_id": "controlled-id-or-negative-control-001",
+      "evidence_quality": 1.0,
+      "expected_rank": 2,
+      "ground_truth_outcome": "blocked",
+      "hypothesis_generated": true,
+      "information_gain": 0.7,
+      "proof_complete": false,
+      "rank": 2,
+      "requests_used": 0,
+      "target_id": "controlled-local-id-or",
+      "validation_outcome": "blocked"
+    }
+  ],
+  "controlled_experiment": true,
+  "engagement_id": "local-controlled-research-v1",
+  "evidence_quality": 1.0,
+  "hypothesis_quality": 1.0,
+  "proof_completeness": 0.5,
+  "qualification_effect": false,
+  "real_world_detection_rate_measured": false,
+  "requests_used": 3,
+  "research_efficiency": 0.33,
+  "schema_version": "research-intelligence-evaluation-v1",
+  "target_ids": [
+    "controlled-local-id-or"
+  ],
+  "validation_accuracy": 1.0
+}

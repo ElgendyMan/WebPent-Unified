@@ -1,0 +1,132 @@
+{
+  "schema": "webpent-source-backed-target-candidate-inventory-v1",
+  "inventory_id": "crapi-source-backed-candidates-v1",
+  "global_safety": {
+    "scope": "authorized local loopback only",
+    "methods": [
+      "GET"
+    ],
+    "credentials_used": false,
+    "state_mutation": false,
+    "external_contact": false,
+    "oast_or_callbacks": false,
+    "raw_bodies_headers_cookies_persisted": false,
+    "official_isolated_p10_runs_authorized": false,
+    "blocked_or_observation_only_are_not_metrics": true
+  },
+  "qualification_state": {
+    "juice_shop_approved_cases": 3,
+    "juice_shop_approved_classes": 3,
+    "p10_minimum_cases": 10,
+    "p10_minimum_classes": 6,
+    "official_isolated_p10_runs_authorized": false,
+    "p10": "NOT_QUALIFIED",
+    "p9": "NOT_QUALIFIED",
+    "vip": "NOT_QUALIFIED",
+    "bug_bounty": "BLOCKED"
+  },
+  "target": {
+    "target_id": "crapi",
+    "product": "crAPI",
+    "version": "local compose source with VERSION=latest; immutable image digest not admitted",
+    "source_path": "/tmp/crapi-source",
+    "source_revision": "73d309cc8f28bbdeed31dbb35f05dba8354de3c9",
+    "target_spec_ref": "reports/evaluation/scoring_readiness/CRAPI-SCORING-READINESS-PACK-v1.json",
+    "ground_truth_manifest": {
+      "status": "not_admitted_for_scoring",
+      "ref": "reports/evaluation/scoring_readiness/MULTI-TARGET-GROUND-TRUTH-MATRIX-v1.json",
+      "approved_case_ids": [],
+      "not_scored_is_not_fn": true
+    },
+    "source_candidate_surfaces": [
+      {
+        "case_id": "crapi.profile_video_object_access.v1",
+        "class": "Broken Access Control",
+        "decision": "blocked",
+        "not_fn": true,
+        "source_file": "services/identity/src/main/java/com/crapi/controller/ProfileController.java",
+        "source_sha256": "80c357806f390e28d3ca8f32e12c40fa3d063efcf8038249d5ac5593043677b0",
+        "line_hint": "42,95,113,129",
+        "reason": "requires authenticated identities and cross-object authorization comparison; no admitted GT/oracle"
+      },
+      {
+        "case_id": "crapi.vehicle_location_bola.v1",
+        "class": "Broken Access Control",
+        "decision": "blocked",
+        "not_fn": true,
+        "source_file": "services/identity/src/main/java/com/crapi/controller/VehicleController.java",
+        "source_sha256": "c49f5ab14aab7b80386c5e309d6e493360ab86f21d41d939002f1d2961f78789",
+        "line_hint": "88,121",
+        "reason": "requires authenticated user/vehicle ownership precondition and safe cross-user comparison"
+      },
+      {
+        "case_id": "crapi.community_post_object_access.v1",
+        "class": "Broken Access Control",
+        "decision": "blocked",
+        "not_fn": true,
+        "source_file": "services/community/api/controllers/post_controller.go",
+        "source_sha256": "65200617a05a35c89445e8977be053247dc90b37fe4ebaa060e1ce60e9cd1d3f",
+        "line_hint": "34,67,81,115,157",
+        "reason": "requires authenticated seeded identities and target-local authorization oracle; no admitted GT"
+      },
+      {
+        "case_id": "crapi.coupon_validation.v1",
+        "class": "Business Logic",
+        "decision": "blocked",
+        "not_fn": true,
+        "source_file": "services/community/api/controllers/coupon_controller.go",
+        "source_sha256": "c5b927219b012d8be1ee97e25d4ae5df3750bee177e66eda7fa50ccddcf0304a",
+        "line_hint": "32,72",
+        "reason": "requires stateful business workflow and mutation, outside current GET-only scope"
+      },
+      {
+        "case_id": "crapi.mechanic_report_object_access.v1",
+        "class": "Broken Access Control",
+        "decision": "blocked",
+        "not_fn": true,
+        "source_file": "services/workshop/crapi/mechanic/views.py",
+        "source_sha256": "037f0ebb9045b21a9ee838e5f32fa1be5da17d978f719a8a738f4bbb15426521",
+        "line_hint": "125,208,247,342,377",
+        "reason": "requires authenticated ownership and report/service-request causal comparison; no admitted GT/oracle"
+      },
+      {
+        "case_id": "crapi.login_with_token.v1",
+        "class": "Authentication",
+        "decision": "out_of_scope",
+        "not_fn": true,
+        "source_file": "services/identity/src/main/java/com/crapi/controller/AuthController.java",
+        "line_hint": "157,169",
+        "reason": "requires credentials/tokens and authentication state, prohibited"
+      },
+      {
+        "case_id": "crapi.reset_test_users.v1",
+        "class": "State Management",
+        "decision": "out_of_scope",
+        "not_fn": true,
+        "source_file": "services/identity/src/main/java/com/crapi/controller/AuthController.java",
+        "line_hint": "180",
+        "source_sha256": "eb2b2a6eb3cdeab5ece53543c16a3de5bc1e28259e0ff5d18d7e9edd4ef2bf33",
+        "reason": "explicit state-changing reset endpoint, prohibited"
+      }
+    ],
+    "execution_status": "source_analysis_only; no live scoring test authorized or required",
+    "quality_status": "withheld; no causal GT/oracle admitted and VERSION=latest prevents strict reproducibility",
+    "required_for_admission": [
+      "immutable image digest",
+      "independent GT snapshot",
+      "target-local causal oracle",
+      "safe precondition",
+      "independent negative control",
+      "central verifier mapping",
+      "sealed/replayable proof procedure",
+      "regression and same-condition live evidence"
+    ]
+  },
+  "decision_summary": {
+    "accepted": 0,
+    "blocked": 5,
+    "observation_only": 0,
+    "out_of_scope": 2,
+    "quality_metrics_computed": false
+  }
+}

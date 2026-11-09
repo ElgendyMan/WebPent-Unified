@@ -1,0 +1,31 @@
+{
+  "hypotheses": [
+    {
+      "id": "6a3323f6-550a-4908-b162-cece1f362495",
+      "vuln_class": "idor",
+      "statement": "Authenticated route '/dashboard' (principal=alice) discovered via browser state transition; test IDOR/auth-bypass with foreign principal.",
+      "origin": "deep_recon",
+      "origin_detail": "browser_observed:auth_transition:/dashboard",
+      "confidence": 0.5
+    }
+  ],
+  "validator_traces": [
+    {
+      "hypothesis_id": "6a3323f6-550a-4908-b162-cece1f362495",
+      "vuln_class": "idor",
+      "origin_detail": "browser_observed:auth_transition:/dashboard",
+      "validator": "validate_idor",
+      "outcome": "ValidationOutcome.CONFIRMED",
+      "is_confirmation_grade": true,
+      "discriminating_signal": "foreign principal reached owner-equivalent resource (baseline 200, candidate 200, control 404)",
+      "note": "IDOR cross-user access confirmed via responses_similar (owner==foreign, control 404)",
+      "trace": [
+        "browser_surface",
+        "bridge_hypothesis",
+        "candidate_built",
+        "M4_validator",
+        "ValidationOutcome.CONFIRMED"
+      ]
+    }
+  ]
+}

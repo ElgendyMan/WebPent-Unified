@@ -1,0 +1,177 @@
+{
+  "phase": "4_competing_hypotheses",
+  "date": "2026-09-03T06:23:33.754288+00:00",
+  "source_delta": {
+    "attribute": "x-authorization-outcome",
+    "value_a": "granted_full",
+    "value_b": "denied",
+    "context_a": "bob accessing /services/objects/res_a1/rest",
+    "context_b": "bob accessing /patched/services/objects/res_a1/rest",
+    "significance": 0.8
+  },
+  "opportunity": {
+    "opportunity_id": "GRO-98a6713ac9",
+    "source_observation": "Attribute 'x-authorization-outcome' differs: 'granted_full' (bob accessing /services/objects/res_a1/rest) vs 'denied' (bob accessing /patched/services/objects/res_a1/rest)",
+    "security_assumption": "Actors without authorization should not access or infer protected data",
+    "affected_entity": "/services/objects/{id}/rest",
+    "inferred_relationship": "Actor context correlates with response content variation",
+    "hypothesis": {
+      "hypothesis_id": "H-224baa9a",
+      "description": "Authorization boundary may not be correctly enforced for this resource",
+      "type": "authorization_weakness",
+      "supporting": [
+        "Attribute 'x-authorization-outcome' shows meaningful difference"
+      ],
+      "contradicting": [],
+      "discriminating_experiment": "Test with additional context combinations to isolate cause",
+      "confidence": "speculative",
+      "security_relevant": true
+    },
+    "alternative_hypotheses": [
+      {
+        "hypothesis_id": "H-bca1a8dd",
+        "description": "Legitimate role-based content variation",
+        "type": "research_direction",
+        "supporting": [
+          "Common pattern in legitimate applications"
+        ],
+        "contradicting": [],
+        "discriminating_experiment": "Test whether behavior is consistent across same-role identities",
+        "confidence": "speculative",
+        "security_relevant": false
+      },
+      {
+        "hypothesis_id": "H-a4d385bf",
+        "description": "Expected tenant-scoped data difference",
+        "type": "research_direction",
+        "supporting": [
+          "Common pattern in legitimate applications"
+        ],
+        "contradicting": [],
+        "discriminating_experiment": "Test whether behavior is consistent across same-role identities",
+        "confidence": "speculative",
+        "security_relevant": false
+      },
+      {
+        "hypothesis_id": "H-fe627879",
+        "description": "Tenant/organization boundary may be permeable",
+        "type": "boundary_violation",
+        "supporting": [
+          "Plausible alternative security interpretation"
+        ],
+        "contradicting": [],
+        "discriminating_experiment": "Design experiment to discriminate from authorization_weakness",
+        "confidence": "speculative",
+        "security_relevant": true
+      },
+      {
+        "hypothesis_id": "H-debd95e9",
+        "description": "Observed behavior may violate an assumed security invariant",
+        "type": "invariant_break",
+        "supporting": [
+          "Plausible alternative security interpretation"
+        ],
+        "contradicting": [],
+        "discriminating_experiment": "Design experiment to discriminate from authorization_weakness",
+        "confidence": "speculative",
+        "security_relevant": true
+      }
+    ],
+    "expected_signal": "Authorization differential between candidate and control paths",
+    "validation_plan": "Execute same-context comparison across candidate and negative control",
+    "confidence": "speculative",
+    "evidence_dependencies": [],
+    "generation_reason": "Meaningful difference observed in 'x-authorization-outcome' across contexts",
+    "context_differences": {
+      "attribute": "x-authorization-outcome",
+      "value_a": "granted_full",
+      "value_b": "denied"
+    },
+    "exploration_priority": 0.7,
+    "investigated": false,
+    "investigation_result": null
+  },
+  "ranked_hypotheses": [
+    {
+      "hypothesis": {
+        "hypothesis_id": "H-224baa9a",
+        "description": "Authorization boundary may not be correctly enforced for this resource",
+        "type": "authorization_weakness",
+        "supporting": [
+          "Attribute 'x-authorization-outcome' shows meaningful difference"
+        ],
+        "contradicting": [],
+        "discriminating_experiment": "Test with additional context combinations to isolate cause",
+        "confidence": "speculative",
+        "security_relevant": true
+      },
+      "score": 0.55
+    },
+    {
+      "hypothesis": {
+        "hypothesis_id": "H-fe627879",
+        "description": "Tenant/organization boundary may be permeable",
+        "type": "boundary_violation",
+        "supporting": [
+          "Plausible alternative security interpretation"
+        ],
+        "contradicting": [],
+        "discriminating_experiment": "Design experiment to discriminate from authorization_weakness",
+        "confidence": "speculative",
+        "security_relevant": true
+      },
+      "score": 0.55
+    },
+    {
+      "hypothesis": {
+        "hypothesis_id": "H-debd95e9",
+        "description": "Observed behavior may violate an assumed security invariant",
+        "type": "invariant_break",
+        "supporting": [
+          "Plausible alternative security interpretation"
+        ],
+        "contradicting": [],
+        "discriminating_experiment": "Design experiment to discriminate from authorization_weakness",
+        "confidence": "speculative",
+        "security_relevant": true
+      },
+      "score": 0.55
+    },
+    {
+      "hypothesis": {
+        "hypothesis_id": "H-bca1a8dd",
+        "description": "Legitimate role-based content variation",
+        "type": "research_direction",
+        "supporting": [
+          "Common pattern in legitimate applications"
+        ],
+        "contradicting": [],
+        "discriminating_experiment": "Test whether behavior is consistent across same-role identities",
+        "confidence": "speculative",
+        "security_relevant": false
+      },
+      "score": 0.45
+    },
+    {
+      "hypothesis": {
+        "hypothesis_id": "H-a4d385bf",
+        "description": "Expected tenant-scoped data difference",
+        "type": "research_direction",
+        "supporting": [
+          "Common pattern in legitimate applications"
+        ],
+        "contradicting": [],
+        "discriminating_experiment": "Test whether behavior is consistent across same-role identities",
+        "confidence": "speculative",
+        "security_relevant": false
+      },
+      "score": 0.45
+    }
+  ],
+  "discriminating_experiment": "Test with additional context combinations to isolate cause",
+  "governance_check": {
+    "multiple_hypotheses_generated": true,
+    "benign_alternatives_included": true,
+    "security_hypothesis_not_auto_promoted": true
+  }
+}

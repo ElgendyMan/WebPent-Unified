@@ -1,0 +1,321 @@
+........................................................................ [  4%]
+........................................................................ [  9%]
+........................................................................ [ 14%]
+........................................................................ [ 19%]
+........................................................................ [ 24%]
+........................................................................ [ 29%]
+........................................................................ [ 34%]
+........................................................................ [ 39%]
+........................................................................ [ 44%]
+........................................................................ [ 49%]
+........................................................................ [ 54%]
+........................................................................ [ 59%]
+........................................................................ [ 64%]
+........................................................................ [ 69%]
+........................................................................ [ 74%]
+........................................................................ [ 79%]
+........................................................................ [ 84%]
+........................................................................ [ 89%]
+........................................................................ [ 94%]
+........................................................................ [ 99%]
+........                                                                 [100%]
+=============================== warnings summary ===============================
+tests/test_v58_post_form_hypotheses.py::test_post_form_generates_method_body_and_target_parameter
+  /tmp/webpent-fixes-git/src/webpent/memory/embeddings.py:97: DeprecationWarning: `langchain-community` is being sunset and is no longer actively maintained. See https://github.com/langchain-ai/langchain-community/issues/674 for details and migration guidance toward standalone integration packages.
+    from langchain_community.embeddings import HuggingFaceEmbeddings
+
+tests/test_v58_post_form_hypotheses.py::test_post_form_generates_method_body_and_target_parameter
+  /tmp/webpent-fixes-git/src/webpent/memory/embeddings.py:118: LangChainDeprecationWarning: The class `HuggingFaceEmbeddings` was deprecated in LangChain 0.2.2 and will be removed in 1.0. An updated version of the class exists in the `langchain-huggingface package and should be used instead. To use it run `pip install -U `langchain-huggingface` and import as `from `langchain_huggingface import HuggingFaceEmbeddings``.
+    embeddings = HuggingFaceEmbeddings(**kwargs)
+
+tests/test_v58_post_form_hypotheses.py: 20 warnings
+tests/test_v72_json_request_context.py: 24 warnings
+tests/test_v72_request_context_and_primary_identity.py: 10 warnings
+  /tmp/webpent-fixes-git/.venv/lib/python3.12/site-packages/chromadb/types.py:144: PydanticDeprecatedSince211: Accessing the 'model_fields' attribute on the instance is deprecated. Instead, you should access this attribute from the model class. Deprecated in Pydantic V2.11 to be removed in V3.0.
+    return self.model_fields  # pydantic 2.x
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================================ tests coverage ================================
+_______________ coverage: platform linux, python 3.12.3-final-0 ________________
+
+Name                                                     Stmts   Miss  Cover   Missing
+--------------------------------------------------------------------------------------
+src/webpent/__init__.py                                      1      0   100%
+src/webpent/agents/__init__.py                               0      0   100%
+src/webpent/agents/access_control/__init__.py                0      0   100%
+src/webpent/agents/access_control/agent.py                 514    150    71%   61, 65, 74, 83-87, 107-108, 119, 129, 138-139, 143, 146, 151, 157, 194-199, 206, 212, 216, 240, 260, 273-274, 292-296, 361, 367-374, 391-393, 450, 479-480, 486-487, 505-526, 541-610, 634-635, 661-664, 677-678, 727, 768, 785-792, 858-873, 900, 989, 1002-1004, 1047, 1052, 1073, 1078, 1086, 1145-1146
+src/webpent/agents/api_testing/__init__.py                   0      0   100%
+src/webpent/agents/api_testing/agent.py                    179     93    48%   53, 140-236, 322-323, 330-332, 362-372, 381, 387, 392-399, 495-496, 511-597, 608-696
+src/webpent/agents/attack_graph/__init__.py                  2      0   100%
+src/webpent/agents/attack_graph/agent.py                    19     11    42%   19-22, 31-52
+src/webpent/agents/authentication/__init__.py                0      0   100%
+src/webpent/agents/authentication/agent.py                 393    140    64%   63, 67, 70, 178-179, 182-195, 251-256, 276-277, 345-347, 358-359, 368-369, 379-380, 388-401, 412-428, 446-447, 450-451, 459-461, 470-475, 513-514, 525, 558-560, 662-668, 672-682, 686, 693, 702, 721, 728-732, 740, 787-789, 795, 811, 818, 820, 825-834, 900-950, 959-1002, 1028, 1057-1058, 1089, 1109-1135
+src/webpent/agents/business_impact/__init__.py               0      0   100%
+src/webpent/agents/business_impact/agent.py                 57     44    23%   65-140, 165-194
+src/webpent/agents/business_logic_fuzzer/__init__.py         0      0   100%
+src/webpent/agents/business_logic_fuzzer/agent.py          163    111    32%   55-57, 61-63, 77-121, 161-166, 178-181, 209-289, 299-300, 333-337, 377-501
+src/webpent/agents/cloud_storage/__init__.py                 0      0   100%
+src/webpent/agents/cloud_storage/agent.py                   91     39    57%   29-50, 62-66, 78, 80, 97, 101-102, 160-163, 176-183
+src/webpent/agents/crawler/__init__.py                       0      0   100%
+src/webpent/agents/crawler/agent.py                        316     90    72%   114-118, 178-180, 191, 193-194, 197-217, 240-242, 259, 265, 269-277, 306, 324-329, 405, 423-428, 449-451, 526-527, 530-539, 574-577, 594-596, 626-628, 691-698, 713-737, 764-766, 799, 807-808, 823, 844
+src/webpent/agents/cross_reasoning/__init__.py               0      0   100%
+src/webpent/agents/cross_reasoning/agent.py                 90     66    27%   96-111, 120-154, 192-300
+src/webpent/agents/cvss_engine/__init__.py                   0      0   100%
+src/webpent/agents/cvss_engine/agent.py                     86     30    65%   81, 85-90, 95-96, 157, 175, 199-205, 209-213, 260-291
+src/webpent/agents/devils_advocate/__init__.py               0      0   100%
+src/webpent/agents/devils_advocate/agent.py                106     53    50%   109-127, 138, 176-278, 304, 324-326, 368-369, 396-397, 403
+src/webpent/agents/disclosed_report_intel/agent.py          43     19    56%   22, 24-30, 33-47
+src/webpent/agents/execution_sandbox/__init__.py             0      0   100%
+src/webpent/agents/execution_sandbox/agent.py              398    246    38%   73-78, 81-85, 96, 99-106, 123, 127, 136, 150, 181-182, 186-194, 205-286, 310-428, 460-464, 515, 575-588, 597-601, 616-719, 823-824, 843-844, 852-858, 867-869, 873-874, 876, 921-922
+src/webpent/agents/executive_summary/__init__.py             0      0   100%
+src/webpent/agents/executive_summary/agent.py               62     36    42%   134, 139-151, 156-177, 196-250, 272-286
+src/webpent/agents/exploit_chainer/__init__.py               0      0   100%
+src/webpent/agents/exploit_chainer/agent.py                117     55    53%   102-103, 134-136, 148, 221, 237-238, 284-308, 342-483
+src/webpent/agents/hypothesis_analyzer/__init__.py           0      0   100%
+src/webpent/agents/hypothesis_analyzer/agent.py            408     69    83%   122-141, 191-223, 343, 387, 395-396, 664-665, 723, 725, 783, 785, 801, 881, 890, 935, 937, 939, 952, 1042-1045, 1113, 1115-1124, 1127, 1131, 1158, 1167, 1270-1274, 1297, 1314, 1317, 1330-1338, 1384, 1417-1418, 1488-1489
+src/webpent/agents/javascript_intelligence/__init__.py       2      0   100%
+src/webpent/agents/javascript_intelligence/agent.py        117     22    81%   37, 40, 45, 48, 50, 79, 83, 87-88, 106-107, 110-122, 134-139, 163-164, 217
+src/webpent/agents/payload_generator/__init__.py             0      0   100%
+src/webpent/agents/payload_generator/agent.py              210    105    50%   231, 233, 235, 239, 241, 262, 264, 283-294, 362-433, 484-616, 662, 731-733, 740-742, 811-831
+src/webpent/agents/payload_optimizer/__init__.py             0      0   100%
+src/webpent/agents/payload_optimizer/agent.py              142     49    65%   157, 161-163, 169, 184, 227, 229, 239, 254, 259-268, 274-332, 354, 356, 360-362, 369-375, 392-398, 429
+src/webpent/agents/planner/__init__.py                       0      0   100%
+src/webpent/agents/planner/agent.py                         90     13    86%   111, 114-116, 123-129, 171-172, 180-181, 188-189
+src/webpent/agents/post_exploit/__init__.py                  0      0   100%
+src/webpent/agents/post_exploit/agent.py                   176    154    12%   123, 147-155, 175-275, 288-349, 364-370, 389-526, 548-561
+src/webpent/agents/rabbit_hole/__init__.py                   0      0   100%
+src/webpent/agents/rabbit_hole/agent.py                    215    163    24%   186, 193, 227-304, 341-360, 388-397, 449-480, 515-815, 832, 837, 842, 859-885
+src/webpent/agents/recon/__init__.py                         0      0   100%
+src/webpent/agents/recon/agent.py                          316    234    26%   56-57, 60-61, 64-65, 69-70, 114, 118-119, 134, 137-138, 144, 233-236, 238-240, 246, 274-317, 366, 373, 375, 433-452, 481-523, 532-544, 558-571, 593-618, 643-755, 777-945
+src/webpent/agents/reflection/__init__.py                    0      0   100%
+src/webpent/agents/reflection/agent.py                     143    122    15%   103-121, 130-148, 158-194, 219-295, 321-439
+src/webpent/agents/reporter/__init__.py                      0      0   100%
+src/webpent/agents/reporter/agent.py                       291    116    60%   135-139, 148-156, 184, 209-223, 259-263, 283-314, 318-321, 367-401, 423-440, 455, 471-489, 534-553, 611-612, 652, 735-760, 772, 833, 846-870
+src/webpent/agents/request_smuggling/__init__.py             0      0   100%
+src/webpent/agents/request_smuggling/agent.py              180    106    41%   87-123, 126-127, 150-226, 233, 251-304, 311, 341, 353, 370-393, 455-461, 465-470, 511-517, 521-523, 540-541
+src/webpent/agents/scope_enforcer/__init__.py                0      0   100%
+src/webpent/agents/scope_enforcer/agent.py                 100     87    13%   46-50, 67-136, 158-250
+src/webpent/agents/smart_campaigns/__init__.py               2      0   100%
+src/webpent/agents/smart_campaigns/agent.py                861    134    84%   126-127, 150, 160, 168, 171-172, 243, 245, 263, 268-274, 276, 316, 321, 331, 388, 413, 426, 440, 460, 467-468, 496, 498, 503, 505, 611, 633-642, 645-654, 690, 694, 697-698, 703-704, 712, 767, 769, 825-831, 865-866, 914-931, 975-979, 984, 1015, 1150, 1233, 1268, 1290, 1297, 1338, 1351, 1354, 1362, 1435, 1485-1487, 1535-1538, 1572, 1617, 1621, 1636, 1638, 1642, 1645, 1648, 1657, 1660, 1676, 1686-1688, 1715-1721, 1733, 1761-1762, 1768-1769, 1782, 1784, 1790, 1795, 1826-1828, 1848, 1856, 1866, 1903, 1907, 1909, 1935, 1948, 2009-2010, 2013-2014, 2064-2065
+src/webpent/agents/strategist/__init__.py                    0      0   100%
+src/webpent/agents/strategist/agent.py                     186     78    58%   148-150, 164-165, 170-172, 175-176, 204-248, 263-270, 302-321, 335, 359-360, 377-393, 410-432, 466-467, 495-509, 545-546, 553, 563-592, 608-609, 624-625, 656, 658
+src/webpent/agents/subdomain_takeover/__init__.py            0      0   100%
+src/webpent/agents/subdomain_takeover/agent.py             127     26    80%   82-97, 102, 107, 136-138, 198-201, 216, 244
+src/webpent/agents/target_understanding/__init__.py          2      0   100%
+src/webpent/agents/target_understanding/agent.py           189     35    81%   38-43, 48, 52, 76, 85, 95, 97, 100, 126, 170-185, 200, 204, 225, 236, 258, 296-297, 345-347
+src/webpent/agents/team.py                                  23      1    96%   80
+src/webpent/agents/validator/__init__.py                     0      0   100%
+src/webpent/agents/validator/active_checks.py              213     49    77%   94, 106, 109, 111, 121, 125-136, 164-210, 270-274, 317, 408, 455, 501, 527, 544, 560, 584, 607-608
+src/webpent/agents/validator/agent.py                     1019    541    47%   86-97, 186-228, 297, 309, 312-316, 395, 399, 402, 436-493, 606, 613-627, 659-699, 716-717, 744-811, 834-854, 889-1084, 1146-1180, 1197, 1204, 1230-1233, 1238, 1241, 1295, 1329-1330, 1348-1369, 1378-1380, 1386, 1407-1414, 1514, 1543-1544, 1590-1603, 1610-1617, 1631-1638, 1645-1652, 1690-1821, 1922-1923, 1930-1931, 1940, 1950, 1957, 1965, 2022-2099, 2182-2265, 2393-2402, 2427-2428, 2464-2469, 2582-2590, 2597-2622, 2633-2657, 2697-2703, 2877-2915, 2931-2989, 3036, 3040, 3049, 3060-3061, 3071, 3075, 3105-3106, 3156, 3159, 3161, 3163, 3165, 3201-3203, 3306-3313, 3316-3334, 3342-3380, 3386, 3388, 3390, 3392, 3394, 3396, 3436, 3447-3450, 3469-3483, 3498, 3503, 3512-3517, 3527, 3529, 3538, 3546, 3569-3663, 3699, 3701, 3722, 3724, 3729, 3741-3743
+src/webpent/agents/validator/registry.py                    29      3    90%   137, 142-143
+src/webpent/agents/validator/structural_checks.py          383    198    48%   107-109, 122-136, 148-157, 214-280, 310-403, 446, 454, 474-488, 512, 568-573, 589-590, 598, 692, 723, 732, 752-762, 796, 804, 824, 848, 877-927, 956-1012, 1039-1169, 1213, 1226, 1296, 1343-1352, 1374, 1500
+src/webpent/agents/waf_detector/__init__.py                  0      0   100%
+src/webpent/agents/waf_detector/agent.py                    59     45    24%   64-81, 86-101, 117-170
+src/webpent/api/__init__.py                                  0      0   100%
+src/webpent/api/app.py                                     593    254    57%   198, 218, 262-264, 318, 323, 337-359, 373-386, 505, 512-513, 515, 530, 533, 535, 542, 548, 558, 560, 563, 565, 573, 582-605, 630-652, 753-758, 763-764, 784-792, 798, 822, 858, 864-866, 934-936, 962-969, 1038-1040, 1055-1056, 1073-1086, 1091-1092, 1105-1161, 1204-1205, 1213-1230, 1246-1296, 1343-1347, 1351-1355, 1396-1399, 1419-1426, 1489-1493, 1510-1529, 1540-1550, 1568-1575, 1587-1588, 1607-1688, 1719-1721
+src/webpent/api/auth.py                                    233    101    57%   79, 88-101, 113-119, 128-137, 146-151, 185-197, 222, 226-253, 260-264, 283, 285, 288, 290, 324, 365, 385-386, 396, 410-411, 428-434, 489-497, 504-515, 521-528, 532-539, 556-570
+src/webpent/api/rate_limit.py                               95     23    76%   93, 109-123, 147, 161, 163, 169, 178, 180, 184, 195, 198-204
+src/webpent/api/scan_registry.py                           191     91    52%   181, 185-188, 213, 238-246, 251-273, 287-311, 324-330, 350, 358, 368, 371, 375-376, 390-392, 407, 436-438, 443-464, 474-482, 491-505
+src/webpent/attack_graph/__init__.py                         4      0   100%
+src/webpent/attack_graph/builder.py                          8      0   100%
+src/webpent/attack_graph/path_ranker.py                     11      0   100%
+src/webpent/attack_graph/reasoner.py                        14      7    50%   13-25, 33-34
+src/webpent/auth/__init__.py                                 2      0   100%
+src/webpent/auth/reauth_vault.py                           250     56    78%   77-78, 85-87, 96-98, 107-108, 117, 119-121, 127, 137, 144-145, 163-164, 173-174, 176, 184, 189-191, 201, 213-223, 233, 249, 255, 263, 266, 277, 282, 287, 292-293, 295, 303, 306, 317, 322, 327, 332-333, 340
+src/webpent/benchmark/__init__.py                            3      0   100%
+src/webpent/benchmark/metrics.py                            32      0   100%
+src/webpent/benchmark/qualification.py                     172     16    91%   36, 43, 46-48, 57, 61, 69-70, 75, 79, 257, 273, 298, 306, 316
+src/webpent/cli/__init__.py                                722    413    43%   75-81, 98, 118, 132-152, 163-164, 179-182, 232-235, 302-317, 500-1003, 1020-1069, 1146, 1150, 1168-1170, 1185-1186, 1189-1191, 1221-1222, 1239-1249, 1275-1276, 1292-1294, 1302, 1336-1344, 1360-1362, 1364-1365, 1370-1375, 1389, 1395, 1401, 1410-1425, 1438-1451, 1494-1495, 1501-1508, 1526-1527, 1530-1532, 1534-1535, 1543-1552, 1635, 1652, 1654, 1664, 1676-1691, 1711-1712
+src/webpent/cli/git_source.py                               42     11    74%   31, 50, 84-89, 92-97
+src/webpent/cli/ingest.py                                  141    108    23%   40-41, 98-115, 119-125, 135-151, 155-163, 172-200, 204-253, 257
+src/webpent/cli/loaders.py                                 105     29    72%   24, 27-28, 30, 33-34, 39, 44, 46, 61-62, 65, 67, 69-72, 74, 76, 81, 94-98, 110, 113, 127, 132
+src/webpent/cli/manifest.py                                114     27    76%   35, 37, 44, 63, 69, 77-80, 82, 85, 94, 102-105, 110, 139, 144, 165, 171-177, 181-182
+src/webpent/config/__init__.py                               0      0   100%
+src/webpent/config/policies.py                              67     30    55%   142-148, 159-169, 337-363, 373-375
+src/webpent/config/settings.py                             273     12    96%   73, 97, 1345, 1392, 1421-1423, 1436, 1448, 1455, 1459, 1467-1468
+src/webpent/copilot/__init__.py                              4      0   100%
+src/webpent/copilot/critic.py                               18      6    67%   24, 33-37
+src/webpent/copilot/explainer.py                            10      0   100%
+src/webpent/copilot/planner.py                              18      1    94%   31
+src/webpent/coverage/__init__.py                             3      3     0%   3-6
+src/webpent/coverage/coverage_map.py                        15     15     0%   3-32
+src/webpent/coverage/gap_detector.py                        12     12     0%   3-36
+src/webpent/experience/__init__.py                           2      0   100%
+src/webpent/experience/store.py                             45      9    80%   29, 60, 77, 106, 109-113
+src/webpent/graph/__init__.py                                0      0   100%
+src/webpent/graph/builder.py                               519    100    81%   221-222, 249-251, 256, 263, 266-267, 281, 287-288, 304, 309-310, 320, 324-325, 348, 360-382, 416-532, 537-541, 559, 602-603, 611-612, 619-620, 631-632, 670, 680, 693-696, 753-754, 849-851, 856-857, 861, 885, 910, 912, 914, 929, 936, 950
+src/webpent/graph/checkpoints.py                           198     32    84%   70-71, 87, 89, 99, 107-108, 135, 147-149, 171, 201, 214, 237, 252-254, 269-275, 279, 320-321, 339, 359-360, 364, 371-374
+src/webpent/integrations/__init__.py                         0      0   100%
+src/webpent/integrations/webhook.py                        114     48    58%   77-105, 114-135, 149-156, 167-168, 170, 172, 174, 189, 191, 234-235, 268-277, 295-300, 321
+src/webpent/knowledge/__init__.py                            8      0   100%
+src/webpent/knowledge/auth_model.py                         19      3    84%   22-23, 30
+src/webpent/knowledge/builder.py                           104     25    76%   35, 63, 67-68, 83, 98, 136, 140-149, 160-175, 187-194
+src/webpent/knowledge/data_flow_model.py                    15      2    87%   22, 29
+src/webpent/knowledge/entity_graph.py                       36      3    92%   29, 36-37
+src/webpent/knowledge/target_knowledge.py                   90      1    99%   124
+src/webpent/knowledge/target_model.py                        8      1    88%   28
+src/webpent/knowledge/workflow_model.py                     16      3    81%   22-23, 26
+src/webpent/memory/__init__.py                               0      0   100%
+src/webpent/memory/db.py                                   412    110    73%   48-49, 61, 63, 235-247, 264-265, 289, 358, 386, 433-436, 486, 490, 493, 545-546, 582-591, 620-621, 631-632, 634-635, 637-638, 640-641, 643-644, 646-647, 649-650, 652-655, 657-658, 660-661, 663-664, 671-672, 674-675, 678-679, 681-684, 686-687, 689-690, 796-800, 856-874, 891-895, 906, 929-933, 950-951, 1072-1081, 1090-1091, 1103-1104, 1129-1134, 1184-1185
+src/webpent/memory/decision_log.py                         125     46    63%   104-110, 113, 117, 159-172, 186-187, 204, 263-267, 271-275, 279-283, 288-301
+src/webpent/memory/embeddings.py                            34      9    74%   91-94, 98-99, 117, 121-131
+src/webpent/memory/lessons.py                              238     60    75%   238, 245, 301, 331, 335, 353, 359-361, 388-396, 399, 403, 580-581, 607, 619, 660-668, 716, 827-852, 861-865, 905-913, 984-1000, 1024
+src/webpent/memory/vectorstore.py                          246     77    69%   130-140, 145-153, 165, 170-171, 176, 181-182, 186-187, 195, 206-208, 216-218, 222-225, 230, 267, 278, 287-288, 307, 318, 326-328, 332-343, 367, 370, 377, 393-408, 446, 449, 459, 466, 473-475, 520-521, 558-560
+src/webpent/models/__init__.py                               0      0   100%
+src/webpent/models/adaptive_hunt.py                         97      1    99%   130
+src/webpent/models/application_intent.py                    69      0   100%
+src/webpent/models/attack_graph.py                          41      0   100%
+src/webpent/models/authorization_matrix.py                  56      1    98%   77
+src/webpent/models/campaigns.py                             71      0   100%
+src/webpent/models/decision_log.py                          35      3    91%   154, 156, 165
+src/webpent/models/evidence.py                             207     10    95%   95, 102, 123-128, 302-303
+src/webpent/models/evidence_ledger.py                       37      0   100%
+src/webpent/models/findings.py                             128      5    96%   414, 441, 486, 497, 510
+src/webpent/models/goal_tree.py                            149     58    61%   187, 189, 196, 198, 208, 212, 286, 330, 332, 335-336, 343, 352, 361, 379-415, 437-464, 482, 485, 494-497, 500
+src/webpent/models/hypothesis.py                            84      6    93%   321, 330, 339, 360, 374, 399
+src/webpent/models/javascript_intelligence.py               70      0   100%
+src/webpent/models/memory.py                                83      1    99%   74
+src/webpent/models/mental_model.py                         417    118    72%   250, 259, 261, 316, 370, 490, 497, 499, 506-507, 513, 517, 531, 538, 556, 637-638, 644, 647, 670, 673, 680, 683, 735-736, 740-766, 775-801, 810-817, 829-839, 853, 860, 891, 903, 944, 951, 956, 1023, 1026, 1028, 1030, 1040, 1079, 1081, 1090, 1093-1094, 1098-1104, 1133-1162, 1191-1194, 1224, 1227, 1239-1244
+src/webpent/models/planner.py                               72      3    96%   64, 76, 78
+src/webpent/models/proof_bundle.py                         140      5    96%   123, 147, 185, 205, 366
+src/webpent/models/proof_engine.py                         125      2    98%   152-153
+src/webpent/models/research.py                             160      2    99%   176-177
+src/webpent/models/surface_graph.py                         61      1    98%   99
+src/webpent/models/surface_security.py                      71      0   100%
+src/webpent/models/targets.py                               60      8    87%   78, 82, 91-92, 124, 138-139, 162
+src/webpent/models/workflow_replay.py                       83      0   100%
+src/webpent/models/workflows.py                             58      0   100%
+src/webpent/persistence/__init__.py                          2      0   100%
+src/webpent/persistence/backend_capability.py               19      2    89%   33, 45
+src/webpent/reporter/__init__.py                             0      0   100%
+src/webpent/reporter/export.py                             170     40    76%   73-74, 202, 208, 499, 521-525, 572-574, 666-733, 772, 802, 807
+src/webpent/research/__init__.py                             4      0   100%
+src/webpent/research/experiment_manager.py                  17      1    94%   21
+src/webpent/research/hypothesis_engine.py                   63     10    84%   62-64, 89, 103, 135, 167, 188-198
+src/webpent/research/hypothesis_ranker.py                   15      0   100%
+src/webpent/shared/__init__.py                               0      0   100%
+src/webpent/shared/action_authority.py                     181     12    93%   168, 189, 191, 200-202, 220, 239, 245, 259, 261, 270
+src/webpent/shared/action_ledger.py                         80     13    84%   97, 99, 101, 142-143, 178-180, 194, 212-213, 232-233
+src/webpent/shared/adaptive_hunt.py                        251     47    81%   71, 87, 91, 95-99, 101-102, 118, 200, 243, 263, 301, 312, 324, 342, 344, 359-369, 472, 476-478, 484-487, 489, 491, 501, 522-526, 539-540, 560
+src/webpent/shared/application_intent.py                    56     13    77%   36, 53, 55, 80, 103-113, 153
+src/webpent/shared/application_intent_graph.py             156     11    93%   43, 65, 112, 119, 231, 310-317, 325, 364, 366-367
+src/webpent/shared/attack_graph.py                         261     47    82%   54-55, 68-69, 71, 75, 77, 95, 107, 112-113, 121-122, 152, 156, 175, 183, 203, 218-220, 227, 269, 272, 287, 302, 305, 332-334, 359, 391, 394, 423, 426, 445, 448, 471, 475, 488, 491, 494-496, 538, 542, 573
+src/webpent/shared/authorization_matrix.py                 125     20    84%   41, 56-57, 84, 111-112, 115-116, 125-127, 161, 165-166, 179-182, 204, 216, 225
+src/webpent/shared/autonomous_controller.py                335     58    83%   102, 111, 114, 117, 120, 122, 125, 127, 130, 132, 218, 228, 254-255, 273, 280, 297, 299, 315-316, 348, 389-390, 408-428, 465-490, 578-579, 657-659, 736-797
+src/webpent/shared/autonomy_contracts.py                   101     11    89%   40-41, 47-48, 88, 94-96, 101, 107-108
+src/webpent/shared/autopentestx_adapter.py                 127     13    90%   79, 98-102, 105, 107, 126-131, 222
+src/webpent/shared/bac_identity_tester.py                  137     19    86%   66, 69, 89-102, 132, 165, 177
+src/webpent/shared/campaign_executor.py                    225     15    93%   153, 217-218, 230-231, 236-237, 283, 304, 307, 428, 430, 435, 437, 440
+src/webpent/shared/campaign_planner.py                     102      5    95%   261-263, 321-322
+src/webpent/shared/campaigns.py                             37      1    97%   249
+src/webpent/shared/capability_manifest.py                   86      7    92%   26, 45, 52, 56-57, 64-65
+src/webpent/shared/causal_research.py                      132     25    81%   31-35, 72, 86, 117-118, 167, 200-213, 234-235, 245, 248
+src/webpent/shared/cognitive_components.py                  79     24    70%   90-99, 273-275, 415-419, 447-453
+src/webpent/shared/confidence.py                           102     16    84%   197, 207-208, 214-215, 232-233, 274-281, 369-370
+src/webpent/shared/console.py                               76     76     0%   28-314
+src/webpent/shared/control_plane.py                        405     33    92%   61, 68, 74, 81, 88-89, 92, 141, 154, 183, 191, 202, 250-251, 270, 282, 312, 316, 318, 321-322, 324, 359, 410, 431, 516, 541, 636, 651, 655, 669, 672-673
+src/webpent/shared/control_plane_runtime.py                340     51    85%   75, 87-90, 92, 94, 97, 116, 118, 120, 138, 166, 169, 199, 201, 208-209, 244, 290, 313, 315, 319-324, 358, 364, 370, 376, 419, 421, 451, 487, 500-514, 531, 537, 580-588, 631
+src/webpent/shared/control_plane_spine.py                   98      9    91%   52, 59, 72, 83, 118, 219, 242, 247, 285
+src/webpent/shared/copilot_boundary.py                      33      1    97%   42
+src/webpent/shared/coverage_ledger.py                      108      7    94%   46, 56, 129, 137, 140, 194, 202
+src/webpent/shared/deserialization.py                       73      8    89%   18-19, 35, 80, 94, 96, 106-107
+src/webpent/shared/differential_workflow.py                133     18    86%   47, 58, 78, 80, 82, 84, 157, 159, 161, 171, 176, 181, 183, 189, 199, 201, 224, 228
+src/webpent/shared/direct_io_inventory.py                  282     20    93%   366, 368, 391-395, 410, 470, 475, 477, 679-680, 683-687, 723, 728, 733, 750
+src/webpent/shared/disclosed_report_intel.py                61      5    92%   76, 90, 93, 139, 156
+src/webpent/shared/engagement_factory.py                   118     19    84%   96, 105, 107, 110, 113-114, 127, 129, 131, 134, 166, 185, 207, 216, 249, 260, 263, 265, 267
+src/webpent/shared/engagement_scope.py                     161     28    83%   122, 127, 130, 155, 166-167, 187, 200-201, 207, 210, 217, 240, 247, 252-253, 282, 290, 324-333, 373, 376-377
+src/webpent/shared/ensemble.py                              64      9    86%   37, 44-45, 47, 50, 76-77, 84-85
+src/webpent/shared/evidence_contract.py                    116     34    71%   70, 72, 74, 76, 94-99, 105, 107, 110-116, 126-127, 145-152, 154-156, 182, 196-199
+src/webpent/shared/evidence_ledger.py                       26      0   100%
+src/webpent/shared/evidence_quality.py                     102      5    95%   60-61, 77, 110, 133
+src/webpent/shared/exceptions.py                            21      0   100%
+src/webpent/shared/finding_aggregation.py                   47      6    87%   61-62, 102-105
+src/webpent/shared/g02_contract.py                          16      0   100%
+src/webpent/shared/grounding.py                            179     16    91%   124, 148, 193-194, 197, 416, 474-479, 539, 606, 632-637, 656-661
+src/webpent/shared/http.py                                 314     85    73%   296, 301, 326-327, 329, 371-372, 377, 379, 402-438, 527, 548, 576, 630-658, 683, 718, 721, 733-738, 747, 779-832, 849-850, 857-863, 867-868, 1039, 1096, 1099, 1112-1113, 1123, 1281, 1308-1309, 1346-1369, 1413-1414, 1434-1442, 1472-1473, 1495, 1498, 1503
+src/webpent/shared/http_discovery.py                       387     64    83%   41, 44, 47-48, 56, 62, 144-147, 149-152, 158, 162, 167-169, 171-173, 192-193, 198, 211-212, 241-242, 269, 290, 371-372, 417-418, 436-437, 456-457, 485, 507, 509, 511, 515, 523-525, 566-576, 608-610, 652-653, 664
+src/webpent/shared/identity_provisioning.py                228     22    90%   120-121, 161, 173, 178, 207-208, 210, 235, 242-243, 245, 311, 315, 331, 348, 357, 373, 386, 415-416, 432
+src/webpent/shared/javascript_intelligence.py              188     36    81%   121, 149, 155-165, 181, 184-194, 218, 227, 231, 248, 250, 262, 271, 293, 313-319, 334, 358, 372, 394
+src/webpent/shared/jwt_deep_testing.py                     112     20    82%   56-57, 73, 76, 80, 102, 109, 114, 119, 128, 131, 137-138, 157, 163-173, 222-233, 277, 284
+src/webpent/shared/kev.py                                   23      1    96%   23
+src/webpent/shared/knowledge_retrieval.py                   76     16    79%   44, 57, 65-69, 80, 90, 119-120, 138-142, 152, 155
+src/webpent/shared/llm.py                                  495     92    81%   169, 210-215, 220-224, 233, 273, 285, 333-337, 390, 393, 637-640, 644, 688-690, 717-719, 755-757, 777-779, 819-820, 824-831, 835-842, 845-852, 923-943, 1000-1003, 1026, 1030, 1034, 1041-1081, 1101, 1104, 1114, 1269-1275, 1306, 1314, 1399-1406, 1423-1427, 1449, 1451, 1633, 1665, 1811
+src/webpent/shared/llm_reliability.py                      141     13    91%   109-110, 112, 177, 179, 181, 191, 211, 252-254, 257-258
+src/webpent/shared/memory_boundary.py                       95     12    87%   46, 57, 59, 74, 164-166, 185-186, 189-190, 214, 242
+src/webpent/shared/nettacker_adapter.py                    156     20    87%   103, 117-122, 133-137, 140, 142, 166, 168, 170, 175, 179, 193, 200, 277
+src/webpent/shared/novel_behavior.py                        46     13    72%   33-35, 39-40, 42, 44, 51, 81, 85, 88-91
+src/webpent/shared/offline_validator_fixtures.py            77      7    91%   81, 97, 99, 101, 122, 126, 128
+src/webpent/shared/package_capabilities.py                  90     18    80%   38, 42, 55, 57-64, 68, 84, 88-92, 99, 125-126, 133-134
+src/webpent/shared/package_execution_intake.py             159     50    69%   48, 57-70, 77, 86, 89, 92, 94, 99-100, 103-109, 115, 117, 124, 134-135, 145, 150-151, 153, 166, 175-176, 191, 200, 217-218, 228, 230, 235, 237, 239
+src/webpent/shared/package_preflight.py                     36      5    86%   27, 31, 45-46, 73
+src/webpent/shared/package_scope.py                        172     40    77%   41, 122, 125, 133, 140, 157-166, 169, 173-175, 180-182, 189, 197, 201, 204, 207, 210, 212-213, 225, 231-233, 235, 239, 275, 277, 279-286
+src/webpent/shared/persistent_finding_ledger.py            120     22    82%   69-70, 77, 82-83, 105-106, 139-154, 189, 197, 219-220, 222, 224, 264, 293-303
+src/webpent/shared/planner_decisions.py                    169     21    88%   50, 54, 57, 63-64, 70, 103, 106, 109, 112, 115, 169, 201, 204, 207, 228, 236, 244, 246, 254, 261
+src/webpent/shared/poc_policy.py                            52      2    96%   109, 115
+src/webpent/shared/preflight.py                            212     35    83%   58-59, 84-85, 93-94, 105-106, 121, 126, 146-147, 163, 173, 219-222, 307-308, 313, 357-369, 416, 429-435, 448, 455, 462, 474, 509-512
+src/webpent/shared/prioritization.py                       239     71    70%   82-83, 195-196, 199, 205, 210, 214-215, 250-251, 258-259, 264-270, 274-280, 287-306, 426-427, 437-447, 496-509, 651-653, 717, 745-746, 750-751, 761-762, 850-852, 914-919
+src/webpent/shared/proof_bundle_store.py                    54      5    91%   33, 44, 58, 67, 77
+src/webpent/shared/proof_engine.py                         161     17    89%   113, 201-204, 229, 291, 302, 407, 413, 438, 443, 450-453, 456, 461
+src/webpent/shared/proof_oracles.py                        110     17    85%   95, 117, 119, 126, 128, 135, 137, 148, 154, 161, 163, 170, 172, 179, 181, 188, 190
+src/webpent/shared/rate_governor.py                         95     33    65%   91-98, 172-175, 178-183, 190-204, 239, 247-253, 261-262, 266-270, 274-276, 308, 320-323
+src/webpent/shared/recon_triage.py                         114      5    96%   86, 172, 176, 226, 237
+src/webpent/shared/redaction.py                             20      0   100%
+src/webpent/shared/reference_lookup.py                      84     47    44%   18-26, 34, 49-50, 55, 58-59, 64, 73-137, 141-144
+src/webpent/shared/report_quality.py                       145     16    89%   85-89, 125, 127, 137, 140, 164, 166, 170-171, 246, 249, 289
+src/webpent/shared/research_contracts.py                   181     22    88%   86, 111-112, 184-185, 190, 273, 318-319, 323-324, 347, 349, 398, 403-404, 422-426, 444
+src/webpent/shared/research_intelligence.py                431     39    91%   64-65, 209, 214, 281, 283, 318, 380-389, 511-512, 514, 604-610, 615, 618-619, 634, 638, 642, 644, 653, 689, 770-771, 920
+src/webpent/shared/research_nodes.py                        66     27    59%   30-68, 114-115, 165-166, 193-204
+src/webpent/shared/resume_capability.py                     62      8    87%   28, 39, 45, 48, 58, 72, 74, 100
+src/webpent/shared/runtime.py                              296     15    95%   113, 170-171, 198, 219, 552-553, 556, 563-564, 671-673, 697-698
+src/webpent/shared/safety_gate.py                          133     14    89%   115, 117, 121-122, 134, 154, 156, 158, 160, 179, 196, 198, 207, 216
+src/webpent/shared/scope_drift.py                           16      1    94%   12
+src/webpent/shared/secondary_io_scanner.py                 104      5    95%   95, 106, 162-163, 251
+src/webpent/shared/secret_vault.py                          95     16    83%   37, 39, 51, 53, 62, 80, 82, 108-109, 125-128, 131-132, 137
+src/webpent/shared/self_critique.py                        207    102    51%   206-207, 264-265, 269-270, 283-284, 296, 302, 320-326, 336, 339-342, 349-359, 397-485, 575-637, 657-674, 691-694, 712-713
+src/webpent/shared/skill_selector.py                        34     34     0%   3-55
+src/webpent/shared/stealth.py                              114     49    57%   58-64, 100-105, 126, 130, 155-166, 192, 235-261, 271-275
+src/webpent/shared/surface_evidence_graph.py               126     13    90%   22, 27-28, 36, 49, 60, 76, 78, 80, 82, 86, 88, 107
+src/webpent/shared/surface_security.py                     181     19    90%   50, 57-58, 64-68, 81, 92-93, 280, 407, 420, 435, 506, 518, 566, 620
+src/webpent/shared/target_package_context.py               130     19    85%   64, 67-68, 146, 150, 153, 155, 166, 168, 177, 179, 182, 185, 187, 189, 242, 276, 278, 280
+src/webpent/shared/target_workspace.py                      83      1    99%   24
+src/webpent/shared/target_workspace_context.py              18      1    94%   37
+src/webpent/shared/tool_adapters.py                         95     15    84%   108-111, 122, 192-194, 198-200, 204-206, 233-236
+src/webpent/shared/trust_matrix.py                          55      6    89%   16, 25, 55-58, 95
+src/webpent/shared/validator_plugins.py                     46      1    98%   118
+src/webpent/shared/verifier.py                              67     10    85%   45-48, 59, 116-120, 199-203, 255-259
+src/webpent/shared/wildcard_scope.py                       122     16    87%   71-72, 74, 85, 96, 99, 106, 108, 111, 113, 118-119, 150, 162, 187, 201
+src/webpent/shared/workflow_replay.py                       16      0   100%
+src/webpent/shared/workflow_understanding.py               231     28    88%   51, 56, 60-62, 89, 102, 107-110, 167, 169, 171, 173, 175, 209, 223, 257, 267, 288, 293-294, 309, 364, 435, 496, 549, 559
+src/webpent/state/__init__.py                                0      0   100%
+src/webpent/state/initial_state.py                          72      7    90%   70-71, 122, 130, 146, 148, 161
+src/webpent/state/reducers.py                              137     74    46%   62, 87, 95, 129-143, 151-154, 207-208, 213, 216-217, 226-234, 246-255, 296-312, 327-354
+src/webpent/state/state.py                                 162      0   100%
+src/webpent/tools/__init__.py                                2      0   100%
+src/webpent/tools/exploitation/__init__.py                   0      0   100%
+src/webpent/tools/exploitation/dalfox.py                    74     30    59%   79-85, 116-122, 154-157, 166-167, 175-179, 193, 200-225, 235-241, 253
+src/webpent/tools/exploitation/phpggc.py                    55     15    73%   74, 78, 82, 142-150, 191-194, 211-212
+src/webpent/tools/exploitation/sqlmap.py                   142     56    61%   140-142, 168, 255-259, 288-289, 338-339, 393-504
+src/webpent/tools/exploitation/ysoserial.py                 57     16    72%   77, 99, 104, 109, 171-181, 197-200, 220-221
+src/webpent/tools/recon/__init__.py                          0      0   100%
+src/webpent/tools/recon/ffuf.py                            103     33    68%   45-46, 56-57, 60, 63-66, 87-89, 93-94, 97-102, 110-120, 128, 131-132, 148, 150, 152, 162, 171, 173
+src/webpent/tools/recon/httpx.py                            60     49    18%   46-138
+src/webpent/tools/recon/katana.py                           87     74    15%   53-63, 95-259
+src/webpent/tools/recon/nuclei.py                          110     29    74%   46, 51-52, 54, 56, 70, 77-78, 125-132, 138-144, 157-160, 172-173, 186, 198-199, 202-215, 221
+src/webpent/tools/recon/subfinder.py                        34     25    26%   43-92
+src/webpent/tools/registry.py                               69      7    90%   101, 118-119, 143-144, 218-219
+src/webpent/tools/utils/__init__.py                          0      0   100%
+src/webpent/tools/utils/subprocess.py                       71     13    82%   134-136, 158, 161, 216-217, 227, 279, 283-284, 296-302
+src/webpent/utils/__init__.py                                0      0   100%
+src/webpent/utils/compliance.py                             24      7    71%   126, 130, 156, 173-180
+src/webpent/utils/crypto.py                                 48      9    81%   61, 79, 110, 157-162
+src/webpent/utils/task_crypto.py                           161     22    86%   116, 135-137, 152, 165, 169, 195, 204-206, 228, 233-244, 301-302, 305-311
+src/webpent/validators/__init__.py                           4      0   100%
+src/webpent/validators/causal_validator.py                   9      0   100%
+src/webpent/validators/proof_validator.py                    5      0   100%
+src/webpent/validators/replay_validator.py                   9      0   100%
+src/webpent/workers/__init__.py                              0      0   100%
+src/webpent/workers/observability.py                        63      1    98%   56
+src/webpent/workers/pentest_worker.py                      397    230    42%   29-31, 102-103, 116-117, 135-147, 169-171, 187-188, 204, 207-208, 240-241, 257-258, 329-365, 396-435, 580-581, 600, 602-603, 607, 654-661, 664-747, 773, 780-783, 824-915, 926, 941-969, 979-1018, 1047, 1083-1404
+--------------------------------------------------------------------------------------
+TOTAL                                                    30431   8219    73%
+1448 passed, 56 warnings in 161.59s (0:02:41)

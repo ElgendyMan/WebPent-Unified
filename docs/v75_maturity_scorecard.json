@@ -1,0 +1,116 @@
+{
+  "scorecard_id": "webpent-v75-engineering-maturity",
+  "version": 3,
+  "purpose": "Transparent engineering maturity score; not a live vulnerability count and not VIP qualification.",
+  "weights": {
+    "build_release_quality": 20,
+    "scope_execution_safety": 20,
+    "discovery_campaign_coverage": 20,
+    "validator_proof_completeness": 20,
+    "autonomy_recovery": 10,
+    "runtime_qualification": 10
+  },
+  "components": [
+    {
+      "id": "build_release_quality",
+      "weight": 20,
+      "verified_points": 20,
+      "status": "verified",
+      "evidence": [
+        "1512 passed in the final offline/full regression recorded for the Phase 10/12 release gate",
+        "Ruff, compileall, and git diff --check passed",
+        "G-02 direct-I/O inventory remains deterministic and its targeted tests passed",
+        "latest source commit 8571c67 is pushed to origin/master"
+      ],
+      "remaining_gap": "Keep dependency, warning, and release-artifact review current for future releases."
+    },
+    {
+      "id": "scope_execution_safety",
+      "weight": 20,
+      "verified_points": 20,
+      "status": "verified",
+      "evidence": [
+        "WAPTLab live scope is local owner-authorized only",
+        "same-origin surface planning and action authority remain fail-closed",
+        "qualification artifacts omit raw bodies, headers, cookies, credentials, and payloads",
+        "subprocess uses argv validation, executable allowlisting, shell=False, bounded timeouts, separate sessions, and parent-death protection"
+      ],
+      "remaining_gap": "Continue validating scope behavior for every newly added active adapter."
+    },
+    {
+      "id": "discovery_campaign_coverage",
+      "weight": 20,
+      "verified_points": 12,
+      "status": "partially_verified",
+      "evidence": [
+        "typed WorkflowObservation normalization is covered by a regression",
+        "smart campaign tasks remain bounded and require observed same-origin surfaces",
+        "latest completed smoke contained four candidate rows",
+        "campaign planning still records not_observed and missing-validator gaps without counting them as findings",
+        "offline golden benchmark cases are explicit and reproducible"
+      ],
+      "remaining_gap": "Increase observed workflow and validator coverage without manufacturing routes, tasks, or findings."
+    },
+    {
+      "id": "validator_proof_completeness",
+      "weight": 20,
+      "verified_points": 8,
+      "status": "contract_present_live_proof_missing",
+      "evidence": [
+        "strict promotion requires causal signal, independent negative control, sealed replayable ProofBundle, and replay",
+        "IDOR and information-disclosure validators are registered",
+        "latest smoke reported four tentative candidate rows and no strict confirmed promotion",
+        "no promoted proof-bundle files were found in the smoke artifact tree",
+        "golden benchmark measures evidence/reproducibility contracts offline only"
+      ],
+      "remaining_gap": "Produce target-backed proof bundles in completed authorized runs without weakening any gate."
+    },
+    {
+      "id": "autonomy_recovery",
+      "weight": 10,
+      "verified_points": 9,
+      "status": "verified_with_end_to_end_gap",
+      "evidence": [
+        "bounded graph/campaign execution and no-LLM fallback exist",
+        "parent-death regression prevents orphaned tool children when the orchestrator dies",
+        "bounded autonomy stops on no-progress/repeated-action conditions",
+        "latest post-hardening smoke completed and exported reports"
+      ],
+      "remaining_gap": "Add a repeatable end-to-end interruption/recovery qualification artifact."
+    },
+    {
+      "id": "runtime_qualification",
+      "weight": 10,
+      "verified_points": 7,
+      "status": "completed_smoke_not_vip_qualified",
+      "evidence": [
+        "one authorized WAPTLab smoke completed in 172.398 seconds under a 240-second bound",
+        "target_reachable=true and live_target_executed=true",
+        "report.json, report.html, report.pdf, and report.md were exported",
+        "four candidate rows were reported, all tentative/pending/human-review rather than strict confirmed",
+        "strict_confirmed=0 and promoted ProofBundles=0"
+      ],
+      "remaining_gap": "Run three qualifying runs only after proof-producing behavior is demonstrated in a single post-fix smoke."
+    }
+  ],
+  "verified_score_points": 76,
+  "maximum_points": 100,
+  "target_score": 75,
+  "current_maturity_verdict": "target_reached_as_engineering_maturity_only",
+  "calculation": "20 + 20 + 12 + 8 + 9 + 7 = 76",
+  "vip_qualification": {
+    "status": "NOT_QUALIFIED",
+    "reason": "Engineering maturity is separate from VIP status; the required multi-run strict evidence thresholds are not met.",
+    "strict_confirmed": 0,
+    "proof_bundles": 0,
+    "qualifying_runs_completed": 0,
+    "smoke_runs_completed": 2
+  },
+  "score_integrity": {
+    "baseline_60_percent": "not_formally_defined_in_repository",
+    "candidate_or_inventory_counted_as_finding": false,
+    "gates_lowered": false,
+    "live_target_scope": "WAPTLab local owner-authorized only",
+    "source_commit": "8571c67"
+  }
+}

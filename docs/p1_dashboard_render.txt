@@ -1,0 +1,51 @@
+WebPent P1 dashboard render
+Campaign: eng_avi_release_evidence
+
+Tool-Confirmed (10)
+--------------
+- AUTH_BYPASS [finding_auth_bypass_94a840b2]
+  evidence: {"api_type": "graphql", "bundle_id": "proof_bundle_6dd04e4594774fdba0fc64b1314ed9f8", "discriminating_signal": "bypass payload got 200 (baseline 401, nc 401)", "evidence_quality": 2, "outcome": "CONFIRMED", "seal_digest": "sha256:9d73c260e384702767d67ba469bda3512226a1d850564a10106a410c643d3c9a"}
+- INFO_DISCLOSURE [finding_info_disclosure_778693ac]
+  evidence: {"api_type": "graphql", "bundle_id": "proof_bundle_8d0a7005325248dda52c4e5ebe90523d", "discriminating_signal": "candidate leaks 5 sensitive patterns (baseline 0, nc 0)", "evidence_quality": 2, "outcome": "CONFIRMED", "seal_digest": "sha256:b53999582f95ef573bfd94f0c21eebc12a4e03f5262cce04feac3893daec4032"}
+- MASS_ASSIGNMENT [finding_mass_assignment_dd64c71f]
+  evidence: {"api_type": "graphql", "bundle_id": "proof_bundle_ebfa22926bd54b7f97ede03ccb526420", "discriminating_signal": "candidate set protected field (role) \u2014 baseline/nc clean", "evidence_quality": 2, "outcome": "CONFIRMED", "seal_digest": "sha256:ff197afe103b3e2926ae6d328d3f329daff8a7e939c471dbedd94304a42e0bf7"}
+- SSRF [finding_ssrf_b1bd1496]
+  evidence: {"api_type": "graphql", "bundle_id": "proof_bundle_f37b421701fb49638673d9ecd089eade", "discriminating_signal": "candidate response contains 5 SSRF indicators (baseline 0, nc 400)", "evidence_quality": 2, "outcome": "CONFIRMED", "seal_digest": "sha256:32a8abf28ad5388c4131df8363515e467c6f6f0292ad9ccdf2382c7c94f4f178"}
+- OPEN_REDIRECT [finding_open_redirect_bbb2a7b5]
+  evidence: {"api_type": "graphql", "bundle_id": "proof_bundle_ca2544bb045d4dd8ba855f041872cfcf", "discriminating_signal": "candidate redirects to untrusted URL: https://evil.com/steal", "evidence_quality": 2, "outcome": "CONFIRMED", "seal_digest": "sha256:2330341e487a82446a0a6b1c89e60fd56652c61e1f0b41e864f14a35154c8677"}
+- IDOR [finding_idor_7dc4dcf0]
+  evidence: {"api_type": "graphql", "bundle_id": "proof_bundle_ac008f14870c4149bc29fa832a93fa40", "discriminating_signal": "foreign principal got 200 on owner resource (baseline 200, nc 404)", "evidence_quality": 2, "outcome": "CONFIRMED", "seal_digest": "sha256:5886d6ce9eb3fd898bc801fe5de0604aea4aa1f1402e54537deaea7099cb3c17"}
+- AUTH_BYPASS [finding_auth_bypass_2f5c160b]
+  evidence: {"api_type": "rest", "bundle_id": "proof_bundle_a9d3a3f81669465a99b5b6893a25f642", "discriminating_signal": "bypass payload got 200 (baseline 401, nc 401)", "evidence_quality": 2, "outcome": "CONFIRMED", "seal_digest": "sha256:ae4c655a781c9869da201d920f05988f117336e09a06dd01bb78745e2a810828"}
+- INFO_DISCLOSURE [finding_info_disclosure_8b498115]
+  evidence: {"api_type": "rest", "bundle_id": "proof_bundle_9168bfbbac8a475cbbc36b8b211e08ff", "discriminating_signal": "candidate leaks 5 sensitive patterns (baseline 0, nc 0)", "evidence_quality": 2, "outcome": "CONFIRMED", "seal_digest": "sha256:f11d686bee956bb7060de67c9258d8efc8eafb3881b852bf8555f566d7d38a82"}
+- MASS_ASSIGNMENT [finding_mass_assignment_7fb8b0d2]
+  evidence: {"api_type": "rest", "bundle_id": "proof_bundle_9237f804455643f783782e01a30d20c0", "discriminating_signal": "candidate set protected field (role) \u2014 baseline/nc clean", "evidence_quality": 2, "outcome": "CONFIRMED", "seal_digest": "sha256:0b94c4f947b65bb9ab46fdcf77f817850643f321ed881b945f63fa015d7b39a4"}
+- SSRF [finding_ssrf_2dcf3c56]
+  evidence: {"api_type": "rest", "bundle_id": "proof_bundle_98a1f7d70dd24589949c78178f0e2c6c", "discriminating_signal": "candidate response contains 5 SSRF indicators (baseline 0, nc 400)", "evidence_quality": 2, "outcome": "CONFIRMED", "seal_digest": "sha256:5ec7b0b9f670536909cc20516af55b33a0e30880d35afd6ba7a7883e3558edde"}
+
+Needs Human Review (0)
+------------------
+
+Inconclusive (8)
+------------
+- AUTH_BYPASS [h_36_graphql_inconclusive_auth_bypass]
+  evidence: {"gates_failed": ["causal_validator_confirmed"], "reason": "causal_validator_confirmed:rejected"}
+- AUTH_BYPASS [h_35_graphql_refute_auth_bypass]
+  evidence: {"gates_failed": ["causal_validator_confirmed"], "reason": "causal_validator_confirmed:rejected"}
+- INFO_DISCLOSURE [h_33_graphql_inconclusive_info_disclosure]
+  evidence: {"gates_failed": ["causal_validator_confirmed"], "reason": "causal_validator_confirmed:rejected"}
+- INFO_DISCLOSURE [h_32_graphql_refute_info_disclosure]
+  evidence: {"gates_failed": ["causal_validator_confirmed"], "reason": "causal_validator_confirmed:rejected"}
+- MASS_ASSIGNMENT [h_30_graphql_inconclusive_mass_assignment]
+  evidence: {"gates_failed": ["causal_validator_confirmed"], "reason": "causal_validator_confirmed:rejected"}
+- MASS_ASSIGNMENT [h_29_graphql_refute_mass_assignment]
+  evidence: {"gates_failed": ["causal_validator_confirmed"], "reason": "causal_validator_confirmed:rejected"}
+- SSRF [h_27_graphql_inconclusive_ssrf]
+  evidence: {"gates_failed": ["causal_validator_confirmed"], "reason": "causal_validator_confirmed:rejected"}
+- SSRF [h_26_graphql_refute_ssrf]
+  evidence: {"gates_failed": ["causal_validator_confirmed"], "reason": "causal_validator_confirmed:rejected"}
+
+Refuted (0)
+-------
+

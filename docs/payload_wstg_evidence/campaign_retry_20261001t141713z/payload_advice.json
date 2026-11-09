@@ -1,0 +1,112 @@
+[
+  {
+    "confidence": 0.0,
+    "family": "OPEN_REDIRECT",
+    "parameter": "to",
+    "payload_id": "redirect_absolute",
+    "payload_value": "https://evil.com",
+    "rationale_digest": "760ce3202cd5e377",
+    "route": "/redirect?to=",
+    "source": "llm_advisory"
+  },
+  {
+    "confidence": 0.0,
+    "family": "OPEN_REDIRECT",
+    "parameter": "to",
+    "payload_id": "redirect_protocol_relative",
+    "payload_value": "//evil.com",
+    "rationale_digest": "e32088ec7bc927d5",
+    "route": "/redirect?to=",
+    "source": "llm_advisory"
+  },
+  {
+    "confidence": 0.0,
+    "family": "OPEN_REDIRECT",
+    "parameter": "to",
+    "payload_id": "redirect_javascript",
+    "payload_value": "javascript:alert(1)",
+    "rationale_digest": "df227cc5d8bc988e",
+    "route": "/redirect?to=",
+    "source": "llm_advisory"
+  },
+  {
+    "confidence": 0.0,
+    "family": "SSRF",
+    "parameter": "to",
+    "payload_id": "ssrf_loopback",
+    "payload_value": "http://127.0.0.1",
+    "rationale_digest": "f9e01435c1ca1f11",
+    "route": "/redirect?to=",
+    "source": "llm_advisory"
+  },
+  {
+    "confidence": 0.0,
+    "family": "SSRF",
+    "parameter": "to",
+    "payload_id": "ssrf_metadata",
+    "payload_value": "http://169.254.169.254",
+    "rationale_digest": "01702d314ddd0ad8",
+    "route": "/redirect?to=",
+    "source": "llm_advisory"
+  },
+  {
+    "confidence": 0.0,
+    "family": "XSS",
+    "parameter": "to",
+    "payload_id": "xss_javascript_marker",
+    "payload_value": "javascript:alert(1)",
+    "rationale_digest": "7194f78302942663",
+    "route": "/redirect?to=",
+    "source": "llm_advisory"
+  },
+  {
+    "confidence": 0.0,
+    "family": "IDOR",
+    "parameter": "path_segment_3",
+    "payload_id": "idor_next_id",
+    "payload_value": "2",
+    "rationale_digest": "345b24be5c057459",
+    "route": "/rest/basket/1",
+    "source": "llm_advisory"
+  },
+  {
+    "confidence": 0.0,
+    "family": "XSS",
+    "parameter": "q",
+    "payload_id": "xss_script_marker",
+    "payload_value": "webpent_xss_probe_7f1",
+    "rationale_digest": "811ca13ef6b4d2dc",
+    "route": "/rest/products/search?q=",
+    "source": "llm_advisory"
+  },
+  {
+    "confidence": 0.0,
+    "family": "SQLI",
+    "parameter": "q",
+    "payload_id": "sqli_boolean_or",
+    "payload_value": "' OR 1=1--",
+    "rationale_digest": "cf69a0110b8909ed",
+    "route": "/rest/products/search?q=",
+    "source": "llm_advisory"
+  },
+  {
+    "confidence": 0.0,
+    "family": "XSS",
+    "parameter": "q",
+    "payload_id": "xss_script_marker",
+    "payload_value": "webpent_xss_probe_7f1",
+    "rationale_digest": "cdd3d6cd2ef61851",
+    "route": "/search?q=",
+    "source": "llm_advisory"
+  },
+  {
+    "confidence": 0.0,
+    "family": "SQLI",
+    "parameter": "q",
+    "payload_id": "sqli_union_marker",
+    "payload_value": "' UNION SELECT--",
+    "rationale_digest": "3e74b950f1c4e4fb",
+    "route": "/search?q=",
+    "source": "llm_advisory"
+  }
+]

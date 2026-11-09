@@ -1,0 +1,22 @@
+{
+  "phase": "10_generative_novelty",
+  "definition_met": [
+    "1. Detector did not receive case ID",
+    "2. Detector did not receive vulnerability class labels",
+    "3. Detector did not receive route (derived from OpenAPI evidence)",
+    "4. Route derived from target evidence",
+    "5. Hypothesis generated from observed behavior",
+    "6. Attack strategy selected without benchmark hints",
+    "7. Vulnerability causally confirmed",
+    "8. ProofBundle valid",
+    "9. Replay succeeds"
+  ],
+  "novelty_classification": {
+    "NOVEL_ROUTE": "v1.5 targets use 10 different route conventions \u2014 engine discovers across all",
+    "NOVEL_PARAMETERIZATION": "Hidden targets randomize parameter locations",
+    "NOVEL_INTERACTION": "Phase 6 semantic differential detects owner mismatch patterns",
+    "NOVEL_SECURITY_INVARIANT": "Tenant isolation and ownership boundaries inferred"
+  },
+  "generative_proofs_count": 47,
+  "critical_note": "v1.5 template patterns across renamed targets = repeated generator pattern, NOT independent novelty categories"
+}

@@ -1,0 +1,114 @@
+{
+  "answers": {
+    "auth_mechanism_detected": "not independently asserted by untouched runner",
+    "crawler_discovered_application": true,
+    "exploiter_real_requests": "see validation counts and production trace",
+    "hypotheses_generated": 2,
+    "promoted_findings": 0,
+    "validator_confirmations": {
+      "confirmed": 0,
+      "inconclusive": 7,
+      "refuted": 0
+    }
+  },
+  "artifact_root": "/tmp/webpent_remediation_project/docs/generalization_evidence/phase5_final_20261002t0201z/webgoat",
+  "credentials_in_llm_context": false,
+  "duration_seconds": 198.404,
+  "modifications_during_phase": true,
+  "phase": "phase5_final_rerun",
+  "principal_count": 0,
+  "started_at_epoch": 1790896272.616916,
+  "status": "completed",
+  "summary": {
+    "agent_graph_events": 35,
+    "audit_verification": {
+      "event_count": 4,
+      "root_hash": "13b395ac7a1a7d2b42b24686f72c8224ea8a7b749f90927fd5ff8f6eb75c0a3f",
+      "verified": true
+    },
+    "campaign_id": "generalization-20261002t0201z-webgoat",
+    "candidates_executable": 2,
+    "candidates_generated": 2,
+    "confirmed_findings": [],
+    "crawl_events": 34,
+    "curiosity_flags": 0,
+    "duration_seconds": 198.382,
+    "llm_calls": 12,
+    "llm_cost_usd": 0.04859225,
+    "persona": {
+      "allowed_tools": [
+        "m4_principal_comparison",
+        "token_role_metadata",
+        "bounded_id_mutation"
+      ],
+      "display_name": "Stok / API Breaker",
+      "focus_areas": [
+        "idor",
+        "bola",
+        "bfla",
+        "token_role_comparison",
+        "id_parameter_fuzzing"
+      ],
+      "name": "stok",
+      "personality": "I break APIs by switching identities.",
+      "preferred_families": [
+        "IDOR",
+        "BOLA",
+        "AUTH_BYPASS"
+      ],
+      "prompt_template": "You are an API security specialist. For user-specific endpoints, compare owner, foreign, and invalid identities through the authorized M4 chain.",
+      "safety_constraints": [
+        "advisory_only",
+        "scope_law_and_tool_boundary_required",
+        "m4_credentials_only",
+        "no_external_targets_without_explicit_scope",
+        "validator_and_promotion_pipeline_authoritative"
+      ]
+    },
+    "production_trace": {
+      "complete": false,
+      "config_digest": "615c0fe6266c8ea2",
+      "entrypoint": "direct_invoke",
+      "missing_required_stages": [
+        "replan"
+      ],
+      "spine_version": "production_spine_v1",
+      "stage_count": 17,
+      "stages_seen": [
+        "audit_event",
+        "audit_finalization",
+        "bounded_tool_execution",
+        "causal_guard_evaluation",
+        "deep_recon",
+        "entrypoint_resolve",
+        "flag_resolution",
+        "observation",
+        "outcome_recording",
+        "promotion_decision",
+        "proof_bundle_creation",
+        "research_decision",
+        "spine_activation",
+        "world_model_mutation"
+      ],
+      "trace_digest": "1d10c2874bd6a856f756b4a32151836d9e5859d4e0365d428073e1a39cf04929"
+    },
+    "routes_crawled": 3,
+    "security_boundary": {
+      "credentials_attached_by": "M4 only",
+      "execution_authority": "ModernOrchestrator/ScopeLaw/AVI/PromotionPipeline",
+      "raw_target_content_returned": false
+    },
+    "target_url": "http://127.0.0.1:8082/WebGoat",
+    "validation_counts": {
+      "confirmed": 0,
+      "inconclusive": 7,
+      "refuted": 0
+    }
+  },
+  "system_path": "run_hunter_campaign -> AutonomousCrawler/httpx -> HunterGraph -> ModernOrchestrator/AVI",
+  "target": {
+    "name": "webgoat",
+    "target_note": "WebGoat Spring app",
+    "target_url": "http://127.0.0.1:8082/WebGoat"
+  }
+}

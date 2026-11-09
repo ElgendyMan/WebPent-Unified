@@ -1,0 +1,65 @@
+{
+  "benchmark_scope": {
+    "credentials": false,
+    "external_network": false,
+    "mode": "offline_replay_of_recorded_controlled_campaign",
+    "network_scope": "loopback_only",
+    "requests_sent_by_this_runner": 0,
+    "state_mutation": false,
+    "target_ids": [
+      "controlled_local_idor_target_v1"
+    ]
+  },
+  "case_disposition": {
+    "blocked_case_ids": [
+      "asros-blocked-business_logic-v1",
+      "asros-blocked-information_disclosure-v1",
+      "asros-blocked-privilege_escalation-v1"
+    ],
+    "blocked_excluded_from_tp_fp_fn": true,
+    "scorable_case_ids": [
+      "controlled.idor.owner_resource.v1"
+    ],
+    "synthetic_observations_created": false,
+    "synthetic_proof_bundles_created": false
+  },
+  "governance": {
+    "bug_bounty_status": "BLOCKED",
+    "human_signoff": false,
+    "official_isolated_p10_runs_authorized": false,
+    "p10_status": "NOT_QUALIFIED",
+    "p9_status": "NOT_QUALIFIED",
+    "qualification_effect": false,
+    "vip_status": "NOT_QUALIFIED"
+  },
+  "metrics": {
+    "average_selected_rank": 1.0,
+    "blocked_or_inconclusive_case_count": 3,
+    "duplicate_case_ids_detected": false,
+    "hypothesis_precision": 1.0,
+    "missing_required_classes": [
+      "authentication_boundary_issue",
+      "business_logic_abuse",
+      "data_exposure",
+      "information_disclosure",
+      "privilege_escalation"
+    ],
+    "proof_bundle_quality": 1.0,
+    "proof_completeness": 1.0,
+    "raw_scorable_classes": [
+      "idor"
+    ],
+    "real_world_detection_rate_measured": false,
+    "recorded_case_count": 4,
+    "requests_used_for_scorable_cases": 3,
+    "required_class_count": 6,
+    "scorable_case_count": 1,
+    "scorable_class_count": 1,
+    "scorable_classes": [
+      "broken_access_control"
+    ],
+    "source_reported_metrics": 0.25
+  },
+  "schema_version": "avde-controlled-benchmark-v1",
+  "source_schema_version": "asros-advanced-controlled-benchmark-v1"
+}

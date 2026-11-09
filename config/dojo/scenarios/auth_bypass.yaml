@@ -1,0 +1,114 @@
+family: auth_bypass
+scenarios:
+  - scenario_id: ab-01
+    title: "The admin panel with a default door"
+    description: "An admin panel guards its routes by role; find a way in as nobody."
+    difficulty: 1
+    template_id: express_auth_bypass_panel
+    seed: 8101
+    ground_truth: {vuln_class: auth_bypass, location: /admin, signature: "administrator"}
+    hints:
+      - "Authorization is claimed by the client, not enforced by the server."
+      - "Try the admin route with no session at all."
+      - "A role name in the response is the proof of entry."
+    lesson_tags: [auth_bypass, access-control]
+    skill_families: [auth_bypass]
+    request_budget: 16
+  - scenario_id: ab-02
+    title: "Role comes from the request"
+    description: "The role parameter is honored from user input; elevate yourself."
+    difficulty: 1
+    template_id: express_auth_bypass_panel
+    seed: 8102
+    ground_truth: {vuln_class: auth_bypass, location: /admin, signature: "administrator"}
+    hints:
+      - "The role value travels in the request."
+      - "The privileged role name appears in the lab view."
+      - "The panel response names the role it accepted."
+    lesson_tags: [auth_bypass, privilege-escalation]
+    skill_families: [auth_bypass]
+    request_budget: 16
+  - scenario_id: ab-03
+    title: "Panel requires a header you can guess"
+    description: "Distinguish the real bypass from routes that refuse everyone."
+    difficulty: 2
+    template_id: express_auth_bypass_panel
+    seed: 8103
+    ground_truth: {vuln_class: auth_bypass, location: /admin, signature: "administrator"}
+    hints:
+      - "Some routes refuse every caller; those are not the flaw."
+      - "Claiming a blocked route is a false positive."
+      - "Only one route accepts a forged role."
+    lesson_tags: [auth_bypass, false-positive-control]
+    skill_families: [auth_bypass]
+    request_budget: 14
+  - scenario_id: ab-04
+    title: "Recon then escalate"
+    description: "Map the panel surface first, then exploit the weakest route."
+    difficulty: 2
+    template_id: express_auth_bypass_panel
+    seed: 8104
+    ground_truth: {vuln_class: auth_bypass, location: /admin, signature: "administrator"}
+    hints:
+      - "The lab view lists every route and its guard."
+      - "The weakest guard accepts role input directly."
+      - "Budget covers both the mapping and the attack."
+    lesson_tags: [auth_bypass, reconnaissance]
+    skill_families: [auth_bypass]
+    request_budget: 14
+  - scenario_id: ab-05
+    title: "One-request privilege escalation"
+    description: "Tight budget: reach the panel with a single crafted call."
+    difficulty: 3
+    template_id: express_auth_bypass_panel
+    seed: 8105
+    ground_truth: {vuln_class: auth_bypass, location: /admin, signature: "administrator"}
+    hints:
+      - "No exploration phase; the route is known."
+      - "One request carries the elevated role."
+      - "Wasted calls lower the score directly."
+    lesson_tags: [auth_bypass, opsec]
+    skill_families: [auth_bypass]
+    request_budget: 10
+  - scenario_id: ab-06
+    title: "Refused is not bypassed"
+    description: "Report only entries the server actually granted, not refusals."
+    difficulty: 3
+    template_id: express_auth_bypass_panel
+    seed: 8106
+    ground_truth: {vuln_class: auth_bypass, location: /admin, signature: "administrator"}
+    hints:
+      - "A refusal names the block, not the role."
+      - "Behavior evidence must come from a granted entry."
+      - "The forged role is the one that gets granted."
+    lesson_tags: [auth_bypass, false-positive-control]
+    skill_families: [auth_bypass]
+    request_budget: 12
+  - scenario_id: ab-07
+    title: "Evidence with the role named"
+    description: "Complete proof includes the role the server accepted."
+    difficulty: 4
+    template_id: express_auth_bypass_panel
+    seed: 8107
+    ground_truth: {vuln_class: auth_bypass, location: /admin, signature: "administrator"}
+    hints:
+      - "The vuln_hit response carries the accepted role."
+      - "Entry without the role recorded is incomplete."
+      - "Keep the response flags as your evidence."
+    lesson_tags: [auth_bypass, evidence-quality]
+    skill_families: [auth_bypass]
+    request_budget: 12
+  - scenario_id: ab-08
+    title: "Zero-noise escalation"
+    description: "Hardest tier: one request, granted entry, complete evidence."
+    difficulty: 5
+    template_id: express_auth_bypass_panel
+    seed: 8108
+    ground_truth: {vuln_class: auth_bypass, location: /admin, signature: "administrator"}
+    hints:
+      - "A single request must forge the role and gather proof."
+      - "Any refusal detour is a lost budget point."
+      - "Exact first attempts win here."
+    lesson_tags: [auth_bypass, opsec, evidence-quality]
+    skill_families: [auth_bypass]
+    request_budget: 8

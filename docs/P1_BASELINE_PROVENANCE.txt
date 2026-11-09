@@ -1,0 +1,30 @@
+# P1 baseline provenance
+UTC:2026-10-01T08:23:21Z
+Python 3.12.3
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+2058 tests collected in 20.26s
+## frozen hashes
+e08dfae5b67a2067683a2bb96549f17109f42e222a21315a211e4b1f37b59169  src/webpent/cqa_v2/causal_guard.py
+2f429b3c4c3ef205f471d53163ccee89a773bcd8fe7154f02b6e2eca0f513110  src/webpent/models/proof_bundle.py
+f83eb667a72e0ebab950c665e7588a4181b3cc83230cfb709c68b27bb8d07d95  src/webpent/models/workflow_replay.py
+c46608c3add66d66898ede7b9e89345c3ddaa7cc14bf624ae1ccac57cf2a0cd0  src/webpent/llm_researcher/tool_boundary.py
+465f99e7bd60f0fbe62bfa429c56d533a882e3b855d42c39b58de8ca708817bb  src/webpent/live_hunter/tool_scope.py
+30fd86c61156e7a5883205b9ce4b2f6c3f856f78e1561676345ad988d9c5b663  src/webpent/live_hunter/profile.py
+e6c89b3bdd8584b733d7085962244c56b00998921516b11c09257c38f0360ea8  src/webpent/agents/validator/active_checks.py
+fe3bc2ba23388ced811151d9baf52d0e14013d5a136411780c4d377f55ef0a42  src/webpent/shared/proof_bundle_store.py
+e4861aea94bdf5afa165af03814b66dacc8b36da7120c9ef50a1b95ef6dc5665  src/webpent/shared/governed_artifacts.py
+6907aa6ed901251531faab48e0ecb2fbc076f26d5cfe59895ec26a58b30f7634  src/webpent/irta/v3/proof.py
+d78233e20f8a3e60be80a30658a1fb2e1743e931981057c087c7fc777e590fa3  src/webpent/shared/workflow_replay.py
+ba16d252e598e940a1646d93c879b233e49c255e2c9a9c95b282916a303111ad  src/webpent/cqa_v2/replay_verifier.py
+154a8de85c2d1a175cc428e8c2a9aeb33c57ad3ffbc371d61a6ba98a7682693e  src/webpent/llm_researcher/world_model.py
+## broad exception counts
+src/webpent/production/autonomous_validation_v1.py 12
+src/webpent/production/validators.py 0
+src/webpent/shared/http.py 9
+src/webpent/production/modern_spine.py 6
+src/webpent/production/context_authority.py 1
+src/webpent/shared/fixture_registry.py 0
+src/webpent/shared/untrusted_content.py 1
+src/webpent/graph/builder.py 17
+src/webpent/agents/validator/agent.py 33

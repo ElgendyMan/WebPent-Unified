@@ -1,0 +1,114 @@
+family: xss
+scenarios:
+  - scenario_id: xss-01
+    title: "The comment board that trusts input"
+    description: "Comments are rendered back raw; make the board execute your markup."
+    difficulty: 1
+    template_id: php_xss_comment_board
+    seed: 5101
+    ground_truth: {vuln_class: xss, location: /comment, signature: "<script>"}
+    hints:
+      - "The text field of a comment reaches the page unescaped."
+      - "The classic script tag is the probe."
+      - "A hit confirms the payload survives rendering."
+    lesson_tags: [xss, reflected]
+    skill_families: [xss]
+    request_budget: 16
+  - scenario_id: xss-02
+    title: "Script tag survives posting"
+    description: "Post a comment whose body is a script tag and observe the render."
+    difficulty: 1
+    template_id: php_xss_comment_board
+    seed: 5102
+    ground_truth: {vuln_class: xss, location: /comment, signature: "<script>"}
+    hints:
+      - "One POST to /comment is enough."
+      - "The response names the behavior class when it fires."
+      - "The board route shows the rendered result."
+    lesson_tags: [xss, injection]
+    skill_families: [xss]
+    request_budget: 16
+  - scenario_id: xss-03
+    title: "Image tags are sanitized"
+    description: "Distinguish the exploitable tag from the stripped one."
+    difficulty: 2
+    template_id: php_xss_comment_board
+    seed: 5103
+    ground_truth: {vuln_class: xss, location: /comment, signature: "<script>"}
+    hints:
+      - "Image tags are neutralized before storage."
+      - "Claiming an image-tag hit is a false positive."
+      - "Only the script tag yields behavior."
+    lesson_tags: [xss, false-positive-control]
+    skill_families: [xss]
+    request_budget: 14
+  - scenario_id: xss-04
+    title: "From posting to rendering"
+    description: "Chain the post and the board view into one proof."
+    difficulty: 2
+    template_id: php_xss_comment_board
+    seed: 5104
+    ground_truth: {vuln_class: xss, location: /comment, signature: "<script>"}
+    hints:
+      - "Post first, then load /board."
+      - "The hit fires at posting time in this lab."
+      - "Both routes are open, no session needed."
+    lesson_tags: [xss, chaining]
+    skill_families: [xss]
+    request_budget: 14
+  - scenario_id: xss-05
+    title: "One-request reflection proof"
+    description: "Tight budget: prove the flaw with a single POST."
+    difficulty: 3
+    template_id: php_xss_comment_board
+    seed: 5105
+    ground_truth: {vuln_class: xss, location: /comment, signature: "<script>"}
+    hints:
+      - "The POST itself returns the behavior evidence."
+      - "Skip the board view; it costs budget."
+      - "Precision beats thoroughness here."
+    lesson_tags: [xss, opsec]
+    skill_families: [xss]
+    request_budget: 10
+  - scenario_id: xss-06
+    title: "Sanitized is not stored"
+    description: "Report only payloads that actually persist and execute."
+    difficulty: 3
+    template_id: php_xss_comment_board
+    seed: 5106
+    ground_truth: {vuln_class: xss, location: /comment, signature: "<script>"}
+    hints:
+      - "Neutralized payloads return a normal response."
+      - "A normal response is not a finding."
+      - "The script tag is the one that survives."
+    lesson_tags: [xss, false-positive-control]
+    skill_families: [xss]
+    request_budget: 12
+  - scenario_id: xss-07
+    title: "Evidence with the payload named"
+    description: "Complete proof includes the exact payload class that executed."
+    difficulty: 4
+    template_id: php_xss_comment_board
+    seed: 5107
+    ground_truth: {vuln_class: xss, location: /comment, signature: "<script>"}
+    hints:
+      - "The vuln_hit response carries the class name."
+      - "A hit without the class recorded is incomplete."
+      - "Capture the response flags as evidence."
+    lesson_tags: [xss, evidence-quality]
+    skill_families: [xss]
+    request_budget: 12
+  - scenario_id: xss-08
+    title: "Zero-waste script injection"
+    description: "Hardest tier: one request, one payload, complete evidence."
+    difficulty: 5
+    template_id: php_xss_comment_board
+    seed: 5108
+    ground_truth: {vuln_class: xss, location: /comment, signature: "<script>"}
+    hints:
+      - "A single POST must carry the payload and yield proof."
+      - "Any sanitized detour is a lost point."
+      - "Exact first attempts win here."
+    lesson_tags: [xss, opsec, evidence-quality]
+    skill_families: [xss]
+    request_budget: 8

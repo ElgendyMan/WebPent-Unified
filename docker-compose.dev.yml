@@ -1,0 +1,155 @@
+# docker-compose.dev.yml
+# =============================================================================
+# WebPent V10 — DEVELOPMENT / LAB Compose (NOT FOR PRODUCTION)
+# =============================================================================
+# WARNING: this compose file is for local lab and development ONLY.
+# It has AUTH_ENABLED=false, weak/default secrets, and exposed ports
+# for easy debugging. NEVER deploy this to a production environment.
+# For production, use docker-compose.yml (which has AUTH_ENABLED=true,
+# no weak fallbacks, and internal-only networking).
+#
+# Volume mounts for instant code changes. uvicorn --reload for live API restart.
+# Security features (auth, rate limiting) default to disabled via .env.
+#
+# Usage:
+#   docker-compose -f docker-compose.dev.yml up -d --build
+#   docker-compose -f docker-compose.dev.yml logs -f api worker
+#   docker-compose -f docker-compose.dev.yml down
+# =============================================================================
+
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: webpent-dev-redis
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    networks:
+      - webpent-dev
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: webpent-dev-api
+    # V7 Ready-For-Kali FIX (regression restored): removed the
+    # `user: "${UID:-1000}:${GID:-1000}"` directive again. It conflicts
+    # with entrypoint.sh (which needs to start as root to chown
+    # bind-mounted files, then drops privileges itself via gosu) and
+    # $UID rarely resolves to the real host UID anyway (bash shell
+    # parameter, not an exported env var, in most configs). See
+    # entrypoint.sh for the actual, working fix.
+    # V7 Fix 2.1+2.2: Plain reload flag (uvicorn monitors WORKDIR=/app
+    # by default). Fix app module from server:app to webpent.api.app:app.
+    command: >-
+      uvicorn webpent.api.app:app
+      --host 0.0.0.0
+      --port 8000
+      --reload
+    ports:
+      # M1-A (H-1, 2026-11-05): loopback-only publish — this compose file
+      # runs the API with AUTH_ENABLED=false (dev posture below); binding
+      # the published port to 127.0.0.1 keeps that posture local. Use the
+      # production compose (auth on + real secrets) for shared access.
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      redis:
+        condition: service_healthy
+    env_file: .env
+    environment:
+      - WEBPENT_REDIS_URL=redis://redis:6379/0
+      - PYTHONUNBUFFERED=1
+      # V6 Develop-First: auth + rate limit disabled by default
+      - AUTH_ENABLED=false
+      - RATE_LIMIT_ENABLED=false
+      - LOG_FORMAT=text
+      - LOG_LEVEL=DEBUG
+      # TEAM-1 Phase 2 (workspace parity): api and worker share the SAME
+      # database file and workspace root via the ./runtime mount. The old
+      # ./webpent.db single-file bind split WAL visibility per container.
+      - WEBPENT_DATABASE_URL=sqlite:////app/runtime/webpent.db
+      - WEBPENT_TARGET_WORKSPACE_ROOT=/app/runtime/workspaces
+      # V6.1 P2: Uncomment for macOS/Windows live-reload support
+      # - WATCHFILES_FORCE_POLLING=1
+    volumes:
+      - ./src:/app/src
+      - ./scripts:/app/scripts
+      - ./tests:/app/tests
+      - ./main.py:/app/main.py
+      - ./server.py:/app/server.py
+      - ./worker.py:/app/worker.py
+      - ./pyproject.toml:/app/pyproject.toml
+      - ./output:/app/output
+      - ./memory:/app/memory
+      - ./runtime:/app/runtime
+    networks:
+      - webpent-dev
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: webpent-dev-worker
+    # V7 Ready-For-Kali FIX (regression restored): see the api service's
+    # comment above -- removed for the same reason.
+    # V7 Fix 2.3: Removed reload flags from celery (unsupported natively).
+    command: >-
+      celery -A worker.celery_app worker
+      --loglevel=debug
+      --concurrency=1
+    # V6.1 P1: Disable healthcheck on worker — it inherits the API's
+    # HEALTHCHECK from the Dockerfile which checks :8000/health.
+    # The worker doesn't serve HTTP, so the check always fails and
+    # marks it as unhealthy.
+    healthcheck:
+      disable: true
+    depends_on:
+      redis:
+        condition: service_healthy
+    env_file: .env
+    environment:
+      - WEBPENT_REDIS_URL=redis://redis:6379/0
+      - PYTHONUNBUFFERED=1
+      - AUTH_ENABLED=false
+      - RATE_LIMIT_ENABLED=false
+      - LOG_FORMAT=text
+      - LOG_LEVEL=DEBUG
+      # TEAM-1 Phase 2 (workspace parity): identical to the api service.
+      - WEBPENT_DATABASE_URL=sqlite:////app/runtime/webpent.db
+      - WEBPENT_TARGET_WORKSPACE_ROOT=/app/runtime/workspaces
+      # V6.1 P2: Uncomment for macOS/Windows live-reload support
+      # - WATCHFILES_FORCE_POLLING=1
+    volumes:
+      - ./src:/app/src
+      - ./scripts:/app/scripts
+      - ./tests:/app/tests
+      - ./main.py:/app/main.py
+      - ./server.py:/app/server.py
+      - ./worker.py:/app/worker.py
+      - ./pyproject.toml:/app/pyproject.toml
+      - ./output:/app/output
+      - ./memory:/app/memory
+      - ./runtime:/app/runtime
+    networks:
+      - webpent-dev
+
+  # V6 Ultimate: Cloudflare Tunnel for OOB callbacks
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: webpent-dev-tunnel
+    command: tunnel --url http://api:8000
+    depends_on:
+      - api
+    restart: unless-stopped
+    networks:
+      - webpent-dev
+    profiles:
+      - tunnel  # Only starts with --profile tunnel
+
+networks:
+  webpent-dev:
+    driver: bridge
+    name: webpent-dev-net

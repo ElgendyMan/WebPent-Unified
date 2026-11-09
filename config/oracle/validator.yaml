@@ -1,0 +1,7 @@
+# U-ORACLE-10: prediction validation. The Oracle may only claim an
+# accuracy figure once a minimum number of outcomes exist; below that
+# threshold the validator refuses to state any rate (no claim without
+# evidence). The ledger stores prediction ids, kinds and outcomes only —
+# never raw findings, secrets or target paths (ORACLE-L-3/L-8/L-11).
+min_samples: 10
+allowed_outcomes: [confirmed, refuted]

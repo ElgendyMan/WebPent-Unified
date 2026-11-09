@@ -1,0 +1,47 @@
+{
+  "chain_id": "chain_1698e2e742e92e97",
+  "title": "[CRITICAL] Combined impact via ssrf to internal access",
+  "pattern": "ssrf_to_internal_access",
+  "steps": [
+    {
+      "step": 1,
+      "finding": "ssrf-metadata",
+      "result": "confirmed prerequisite"
+    },
+    {
+      "step": 3,
+      "chain": "chain_1698e2e742e92e97",
+      "result": "governed chain execution confirmed"
+    }
+  ],
+  "combined_severity": "CRITICAL",
+  "combined_cvss": 9.0,
+  "cvss_justification": "The ssrf_to_internal_access pattern is confirmed by the individual evidence and a successful governed chain execution; combined impact floor is 9.0, base individual score was 8.0.",
+  "impact": "The SSRF reaches an internal resource or metadata service, demonstrating an internal-access impact.",
+  "evidence": [
+    {
+      "source": "step_1",
+      "proof_bundle_ref": "proof_bundle_416f4154c23e4f26b8f93bc5c573a059"
+    },
+    {
+      "source": "chain_execution",
+      "evidence": {
+        "authority": "M4/AVI/PromotionPipeline",
+        "response_digest": "redacted-synthetic-proof",
+        "executor": "deterministic-stub (synthetic proof, not live)"
+      }
+    }
+  ],
+  "proof_bundle_ref": "chain-proof-chain_1698e2e742e92e97",
+  "replay_verified": true,
+  "gates_passed": [
+    "g1",
+    "g2",
+    "g3",
+    "g4",
+    "g5",
+    "g6",
+    "g7",
+    "g8"
+  ]
+}

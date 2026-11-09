@@ -1,0 +1,245 @@
+{
+  "target_id": "goed-v1.5-target-07",
+  "seed": 7,
+  "port": 8907,
+  "naming": {
+    "route_style_index": 7,
+    "role_set_index": 7,
+    "tenant_style_index": 7,
+    "object_style_index": 7
+  },
+  "route_prefix_example": "/core/ENTITY",
+  "roles": [
+    "reporter",
+    "developer",
+    "lead",
+    "principal"
+  ],
+  "role_level": {
+    "reporter": 0,
+    "developer": 1,
+    "lead": 2,
+    "principal": 3
+  },
+  "tenants": [
+    "ns-374",
+    "ns-155"
+  ],
+  "objects": [
+    "artifact-acdf",
+    "artifact-eeea",
+    "artifact-fcda",
+    "artifact-bfaa",
+    "artifact-bccc",
+    "artifact-bacb",
+    "artifact-ddec",
+    "artifact-cdfd"
+  ],
+  "fields": {
+    "id_field": "subject",
+    "name_field": "full_name",
+    "secret_field": "sensitive_code",
+    "email_field": "electronic_address",
+    "balance_field": "balance"
+  },
+  "actors": {
+    "dave": {
+      "subject": "artifact-acdf",
+      "role": "reporter",
+      "tenant": "ns-374"
+    },
+    "eve": {
+      "subject": "artifact-eeea",
+      "role": "developer",
+      "tenant": "ns-374"
+    },
+    "frank": {
+      "subject": "artifact-fcda",
+      "role": "reporter",
+      "tenant": "ns-155"
+    },
+    "grace": {
+      "subject": "artifact-bfaa",
+      "role": "developer",
+      "tenant": "ns-155"
+    }
+  },
+  "actor_list": [
+    "dave",
+    "eve",
+    "frank",
+    "grace"
+  ],
+  "sensitive_data": {
+    "artifact-acdf": {
+      "full_name": "Alice",
+      "sensitive_code": "XXX-XX-1000",
+      "electronic_address": "alice@ns-374.example",
+      "balance": 5405
+    },
+    "artifact-eeea": {
+      "full_name": "Bob",
+      "sensitive_code": "XXX-XX-1001",
+      "electronic_address": "bob@ns-374.example",
+      "balance": 2571
+    },
+    "artifact-fcda": {
+      "full_name": "Carol",
+      "sensitive_code": "XXX-XX-1002",
+      "electronic_address": "carol@ns-374.example",
+      "balance": 6568
+    },
+    "artifact-bfaa": {
+      "full_name": "Dave",
+      "sensitive_code": "XXX-XX-1003",
+      "electronic_address": "dave@ns-155.example",
+      "balance": 891
+    },
+    "artifact-bccc": {
+      "full_name": "Eve",
+      "sensitive_code": "XXX-XX-1004",
+      "electronic_address": "eve@ns-155.example",
+      "balance": 1286
+    },
+    "artifact-bacb": {
+      "full_name": "Frank",
+      "sensitive_code": "XXX-XX-1005",
+      "electronic_address": "frank@ns-155.example",
+      "balance": 8879
+    }
+  },
+  "admin_entity": "admin_dashboard",
+  "billing_entity": "payment_history",
+  "transfer_entity": "funds_transfer",
+  "internal_entity": "private_ops",
+  "wf_entity": "workflows",
+  "wf_id": "wf-artifact-fcda",
+  "msg_entity": "messages",
+  "auth_entity": "credential_reset",
+  "audit_entity": "access_trail",
+  "cases": {
+    "goed-v1.5-target-07-case-00": {
+      "class": "idor",
+      "vulnerable_route": "/core/objects/artifact-eeea",
+      "baseline_route": "/core/objects/artifact-acdf",
+      "control_route": "/patched/core/objects/artifact-eeea",
+      "actor": "eve",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-07-case-01": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/core/admin_dashboard",
+      "baseline_route": "/core/health",
+      "control_route": "/patched/core/admin_dashboard",
+      "actor": "eve",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-07-case-02": {
+      "class": "privilege_escalation",
+      "vulnerable_route": "/core/payment_history/ns-374",
+      "baseline_route": "/core/health",
+      "control_route": "/patched/core/payment_history/ns-374",
+      "actor": "eve",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-07-case-03": {
+      "class": "business_logic_abuse",
+      "vulnerable_route": "/core/funds_transfer/artifact-acdf?to=artifact-eeea&amount=-100",
+      "baseline_route": "/core/funds_transfer/artifact-acdf?to=artifact-eeea&amount=10",
+      "control_route": "/patched/core/funds_transfer/artifact-acdf",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-07-case-04": {
+      "class": "tenant_isolation_failure",
+      "vulnerable_route": "/core/tenant/ns-155/private_ops",
+      "baseline_route": "/core/tenant/ns-374/private_ops",
+      "control_route": "/patched/core/tenant/ns-155/private_ops",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-07-case-05": {
+      "class": "workflow_authorization_failure",
+      "vulnerable_route": "/core/workflows/wf-artifact-fcda/approve",
+      "baseline_route": "/core/workflows/wf-artifact-fcda/view",
+      "control_route": "/patched/core/workflows/wf-artifact-fcda/approve",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-07-case-06": {
+      "class": "sensitive_data_exposure",
+      "vulnerable_route": "/core/messages/artifact-eeea/inbox",
+      "baseline_route": "/core/messages/artifact-acdf/inbox",
+      "control_route": "/patched/core/messages/artifact-eeea/inbox",
+      "actor": "eve",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-07-case-07": {
+      "class": "multi_step_chain",
+      "vulnerable_route": "/core/credential_reset/request?for=artifact-eeea",
+      "baseline_route": "/core/credential_reset/request?for=artifact-acdf",
+      "control_route": "/patched/core/credential_reset/request",
+      "actor": "eve",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "critical"
+    },
+    "goed-v1.5-target-07-case-08": {
+      "class": "idor",
+      "vulnerable_route": "/core/objects/artifact-bfaa",
+      "baseline_route": "/core/objects/artifact-acdf",
+      "control_route": "/patched/core/objects/artifact-bfaa",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-07-case-09": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/core/access_trail",
+      "baseline_route": "/core/health",
+      "control_route": "/patched/core/access_trail",
+      "actor": "frank",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-07-case-10": {
+      "class": "clean_public_resource",
+      "vulnerable_route": "/core/health",
+      "baseline_route": "/core/health",
+      "control_route": "/core/health",
+      "actor": "dave",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    },
+    "goed-v1.5-target-07-case-11": {
+      "class": "clean_public_info",
+      "vulnerable_route": "/core/openapi",
+      "baseline_route": "/core/openapi",
+      "control_route": "/core/openapi",
+      "actor": "dave",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    }
+  },
+  "total_cases": 12,
+  "vulnerable_cases": 10,
+  "clean_cases": 2
+}

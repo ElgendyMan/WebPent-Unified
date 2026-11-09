@@ -1,0 +1,25 @@
+{
+  "target": "http://127.0.0.1:8888",
+  "campaign_id": "crapi-real-id-discovery-20261003-r5",
+  "login": {
+    "owner": {"status": 200, "token_captured": true},
+    "foreign": {"status": 200, "token_captured": true}
+  },
+  "identity_discovery": {
+    "owner_user_id": "5",
+    "foreign_user_id": "8",
+    "source": "/identity/api/v2/user/dashboard",
+    "template": "/identity/api/v2/user/{id}"
+  },
+  "governed_real_id_triple": {
+    "baseline": {"path": "/identity/api/v2/user/5", "principal": "owner", "status": 404},
+    "candidate": {"path": "/identity/api/v2/user/5", "principal": "foreign", "status": 404},
+    "negative_control": {"path": "/identity/api/v2/user/9", "principal": "foreign", "status": 404}
+  },
+  "validation": {"confirmed": 0, "refuted": 1, "inconclusive": 1, "blocked": 4, "promoted": 0},
+  "llm_calls": 14,
+  "actual_cost_usd": 0.05783625,
+  "audit": {"verified": true, "event_count": 12, "root_hash": "ccefeb294e8a59b374554d51886f06899d98c9c7b51344c63faa306544c73151"},
+  "raw_target_bodies_included": false,
+  "credentials_included": false
+}

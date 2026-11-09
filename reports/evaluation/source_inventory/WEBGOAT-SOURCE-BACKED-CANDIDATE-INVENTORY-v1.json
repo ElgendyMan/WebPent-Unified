@@ -1,0 +1,122 @@
+{
+  "schema": "webpent-source-backed-target-candidate-inventory-v1",
+  "inventory_id": "owasp_webgoat-source-backed-candidates-v1",
+  "global_safety": {
+    "scope": "authorized local loopback only",
+    "methods": [
+      "GET"
+    ],
+    "credentials_used": false,
+    "state_mutation": false,
+    "external_contact": false,
+    "oast_or_callbacks": false,
+    "raw_bodies_headers_cookies_persisted": false,
+    "official_isolated_p10_runs_authorized": false,
+    "blocked_or_observation_only_are_not_metrics": true
+  },
+  "qualification_state": {
+    "juice_shop_approved_cases": 3,
+    "juice_shop_approved_classes": 3,
+    "p10_minimum_cases": 10,
+    "p10_minimum_classes": 6,
+    "official_isolated_p10_runs_authorized": false,
+    "p10": "NOT_QUALIFIED",
+    "p9": "NOT_QUALIFIED",
+    "vip": "NOT_QUALIFIED",
+    "bug_bounty": "BLOCKED"
+  },
+  "target": {
+    "target_id": "owasp_webgoat",
+    "product": "OWASP WebGoat",
+    "version": "source build requiring Java 25",
+    "source_path": "/tmp/webgoat-source",
+    "source_revision": "7517acca95d9851da706452454c223dd13545ef4",
+    "target_spec_ref": "reports/evaluation/scoring_readiness/WEBGOAT-SCORING-READINESS-PACK-v1.json",
+    "ground_truth_manifest": {
+      "status": "not_admitted_for_scoring",
+      "ref": "reports/evaluation/scoring_readiness/MULTI-TARGET-GROUND-TRUTH-MATRIX-v1.json",
+      "approved_case_ids": [],
+      "not_scored_is_not_fn": true
+    },
+    "source_candidate_surfaces": [
+      {
+        "case_id": "webgoat.idor.view_other_profile.v1",
+        "class": "Broken Access Control",
+        "decision": "blocked",
+        "not_fn": true,
+        "source_file": "src/main/java/org/owasp/webgoat/lessons/idor/IDORViewOtherProfile.java",
+        "source_sha256": "305cb5c0fc8d63a0b8bb4f48f4ebc6982ee332bc11c7f1dcc0ad248a3f6ac3e6",
+        "line_hint": "31,39",
+        "reason": "requires authenticated identities and cross-user causal comparison; no admitted GT/oracle"
+      },
+      {
+        "case_id": "webgoat.stored_xss.comments.v1",
+        "class": "XSS",
+        "decision": "blocked",
+        "not_fn": true,
+        "source_file": "src/main/java/org/owasp/webgoat/lessons/xss/stored/StoredXssComments.java",
+        "source_sha256": "bb8f16fb0abc875537cccc70d8522854be000a10a76cccd0514fdfd254dbcc16",
+        "line_hint": "34,57,73",
+        "reason": "requires state-changing POST and persisted semantic proof; no admitted GT/oracle"
+      },
+      {
+        "case_id": "webgoat.sql_injection.advanced.v1",
+        "class": "Injection",
+        "decision": "blocked",
+        "not_fn": true,
+        "source_file": "src/main/java/org/owasp/webgoat/lessons/sqlinjection/advanced/SqlInjectionChallenge.java",
+        "source_sha256": "808928166547b3a822de3f732eec50217dbd7cfe5caf0b45b9364e02867e4b1a",
+        "line_hint": "39,47",
+        "reason": "requires payload and PUT workflow outside current GET-only scope; no admitted GT/oracle"
+      },
+      {
+        "case_id": "webgoat.ssrf.task1.v1",
+        "class": "SSRF",
+        "decision": "out_of_scope",
+        "not_fn": true,
+        "source_file": "src/main/java/org/owasp/webgoat/lessons/ssrf/SSRFTask1.java",
+        "source_sha256": "076d0b5a16ceae8b7fc7eb986cbea4ecdc4a7471281160781a1140b25ff9ae8f",
+        "line_hint": "20,22",
+        "reason": "SSRF validation would require external/OAST or callback evidence, prohibited"
+      },
+      {
+        "case_id": "webgoat.path_traversal.v1",
+        "class": "Path Traversal",
+        "decision": "blocked",
+        "not_fn": true,
+        "source_file": "src/main/java/org/owasp/webgoat/lessons/pathtraversal/PathTraversal.java",
+        "source_sha256": "d8298e3c3ee511969c34f7611b5047d5563021cba4a944bf09bc8b5bf0280a6d",
+        "line_hint": "12",
+        "reason": "lesson module presence does not establish a safe causal oracle or admitted GT"
+      },
+      {
+        "case_id": "webgoat.csrf.get_flag.v1",
+        "class": "CSRF",
+        "decision": "out_of_scope",
+        "not_fn": true,
+        "source_file": "src/main/java/org/owasp/webgoat/lessons/csrf/CSRFGetFlag.java",
+        "source_sha256": "c6db218e3223a360897a5e5607540055da6c7883b0e778d265d7be60f9b1f79c",
+        "line_hint": "20,25",
+        "reason": "state-changing cross-site POST behavior is outside current scope"
+      }
+    ],
+    "execution_status": "source_analysis_only; no live scoring test authorized or required",
+    "quality_status": "withheld; no causal GT/oracle admitted",
+    "required_for_admission": [
+      "independent GT snapshot",
+      "target-local causal oracle",
+      "safe precondition",
+      "independent negative control",
+      "central verifier mapping",
+      "sealed/replayable proof procedure",
+      "regression and same-condition live evidence"
+    ]
+  },
+  "decision_summary": {
+    "accepted": 0,
+    "blocked": 4,
+    "observation_only": 0,
+    "out_of_scope": 2,
+    "quality_metrics_computed": false
+  }
+}

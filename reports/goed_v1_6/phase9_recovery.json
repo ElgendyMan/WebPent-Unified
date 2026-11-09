@@ -1,0 +1,87 @@
+{
+  "phase": "9_non_idor_recovery",
+  "status": "PARTIAL",
+  "results": {
+    "idor": {
+      "vuln": 20,
+      "tp": 10,
+      "fn": 10,
+      "tn": 0,
+      "recall": 0.5
+    },
+    "broken_access_control": {
+      "vuln": 20,
+      "tp": 18,
+      "fn": 2,
+      "tn": 0,
+      "recall": 0.9
+    },
+    "privilege_escalation": {
+      "vuln": 10,
+      "tp": 9,
+      "fn": 1,
+      "tn": 0,
+      "recall": 0.9
+    },
+    "business_logic_abuse": {
+      "vuln": 10,
+      "tp": 0,
+      "fn": 5,
+      "tn": 0,
+      "recall": 0.0
+    },
+    "tenant_isolation_failure": {
+      "vuln": 10,
+      "tp": 10,
+      "fn": 0,
+      "tn": 0,
+      "recall": 1.0
+    },
+    "workflow_authorization_failure": {
+      "vuln": 10,
+      "tp": 0,
+      "fn": 10,
+      "tn": 0,
+      "recall": 0.0
+    },
+    "sensitive_data_exposure": {
+      "vuln": 10,
+      "tp": 0,
+      "fn": 10,
+      "tn": 0,
+      "recall": 0.0
+    },
+    "multi_step_chain": {
+      "vuln": 10,
+      "tp": 0,
+      "fn": 5,
+      "tn": 0,
+      "recall": 0.0
+    },
+    "clean_public_resource": {
+      "vuln": 0,
+      "tp": 0,
+      "fn": 0,
+      "tn": 10,
+      "recall": 0.0
+    },
+    "clean_public_info": {
+      "vuln": 0,
+      "tp": 0,
+      "fn": 0,
+      "tn": 10,
+      "recall": 0.0
+    }
+  },
+  "recovered_classes": [
+    "idor (0.00 \u2192 0.50)"
+  ],
+  "still_zero": [
+    "business_logic_abuse",
+    "workflow_authorization_failure",
+    "sensitive_data_exposure",
+    "multi_step_chain"
+  ],
+  "reason_for_remaining_zero": "Require Phase 7 stateful execution and Phase 8 invariant strategies",
+  "precision_preserved": true
+}

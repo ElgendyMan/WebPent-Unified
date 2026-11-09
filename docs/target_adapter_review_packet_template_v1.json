@@ -1,0 +1,99 @@
+{
+  "schema": "webpent.target_adapter_review_packet.v1",
+  "packet_status": "draft",
+  "packet_purpose": "adapter_mapping_and_safe_proof_review_only",
+  "qualification_claim": false,
+  "target": {
+    "target_id": "",
+    "target_origin": "",
+    "source_ref": "",
+    "adapter_module": "",
+    "adapter_version": "",
+    "scope_digest": "",
+    "authorization_ref": ""
+  },
+  "policy": {
+    "policy_ref": "",
+    "proof_contract": "central-causal-negative-sealed-replay-v1",
+    "allowed_operations": [
+      "navigate",
+      "typed_search"
+    ],
+    "forbidden_operations": [
+      "credential_creation",
+      "credential_recovery",
+      "otp_or_mfa_bypass",
+      "captcha_bypass",
+      "ssrf_or_oast",
+      "raw_request_or_response_retention",
+      "raw_cookie_or_token_retention"
+    ],
+    "raw_evidence_retained": false
+  },
+  "workflows": [
+    {
+      "workflow_id": "",
+      "operation": "",
+      "reviewed": false,
+      "executor_required": false,
+      "executor_callable": false,
+      "executor_is_target_local": true,
+      "allowlisted": false,
+      "notes": ""
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "",
+      "operation": "",
+      "path": "",
+      "workflow_id": "",
+      "oracle_id": "",
+      "semantic_profile": "",
+      "mapping_status": "pending",
+      "expected_disposition": "pending",
+      "causal_signal_contract": {
+        "defined": false,
+        "target_backed": false,
+        "observation_only": true,
+        "description": ""
+      },
+      "negative_control_contract": {
+        "defined": false,
+        "independent": false,
+        "description": ""
+      },
+      "proof_requirements": {
+        "three_isolated_runs": true,
+        "sealed_proof_bundle": true,
+        "replay_required": true,
+        "verify_seal_required": true
+      },
+      "safety_notes": ""
+    }
+  ],
+  "review": {
+    "reviewer_id": "",
+    "reviewed_at_utc": "",
+    "results_seen_by_reviewer": false,
+    "reviewed_mapping_sha256": "",
+    "reviewed_oracle_contract_sha256": "",
+    "approved_case_ids": [],
+    "out_of_scope_case_ids": [],
+    "rejected_case_ids": [],
+    "approval_decision": "pending",
+    "approval_scope": "",
+    "reviewer_notes": ""
+  },
+  "live_runs": {
+    "authorized": false,
+    "run_ids": [],
+    "executed_case_ids": [],
+    "proof_bundle_ids": [],
+    "run_case_matrix": {},
+    "replay_statuses": {},
+    "verify_seal_results": {},
+    "metrics": null,
+    "qualification_status": "not_qualified"
+  }
+}

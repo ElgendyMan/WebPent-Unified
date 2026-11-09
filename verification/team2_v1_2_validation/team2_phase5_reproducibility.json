@@ -1,0 +1,37 @@
+{
+ "phase": "PHASE_5_REPRODUCIBILITY",
+ "captured_at": "2026-09-19T10:47:24.045913+00:00",
+ "reproA_decisions": 100,
+ "reproB_decisions": 100,
+ "same_decision_keys": true,
+ "signatures_compared": 100,
+ "mismatch_count": 0,
+ "mismatches": [],
+ "runA_aggregate": {
+  "promoted": 25,
+  "rejected": 75,
+  "identity_bound": 26,
+  "replay_verified": 100,
+  "validator_outcomes": {
+   "CONFIRMED": 25,
+   "REFUTED": 53,
+   "INCONCLUSIVE": 22
+  }
+ },
+ "runB_aggregate": {
+  "promoted": 25,
+  "rejected": 75,
+  "identity_bound": 26,
+  "replay_verified": 100,
+  "validator_outcomes": {
+   "CONFIRMED": 25,
+   "REFUTED": 53,
+   "INCONCLUSIVE": 22
+  }
+ },
+ "aggregates_identical": true,
+ "phase4_crosscheck_compared": 100,
+ "phase4_crosscheck_mismatches": 0,
+ "expected": "same logical outcome across runs (timestamps/uuids/hmac excluded)",
+ "result": "PASS"
+}

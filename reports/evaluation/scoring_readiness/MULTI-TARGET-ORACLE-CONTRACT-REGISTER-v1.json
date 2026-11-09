@@ -1,0 +1,57 @@
+{
+  "schema": "webpent-multi-target-oracle-contract-register-v1",
+  "register_id": "multi-target-oracle-contract-register-v1",
+  "status": "partial_admission_only",
+  "official_isolated_p10_runs_authorized": false,
+  "contracts": [
+    {
+      "target_id": "owasp_juice_shop",
+      "case_id": "juice.error_handling.v1",
+      "oracle_id": "juice.error_disclosure.v1",
+      "status": "admitted_partial",
+      "predicate_type": "semantic_error_disclosure_with_benign_control",
+      "causal_signal": "mapped verbose server-error disclosure shape plus verifier-approved difference from benign invalid-path control; status code alone is insufficient",
+      "safe_precondition": "anonymous loopback target, allowlisted GET, no state mutation, redacted metadata only",
+      "negative_control": "independent benign invalid path with redacted error-shape comparison",
+      "central_verifier": "JuiceShopTargetAdapter -> central causal/negative verifier",
+      "proof": {"seal": true, "verify_seal": true, "replay": true, "bundle_id": "proof_bundle_37c175b8441f4b50b9552944a2c4c743"}
+    },
+    {
+      "target_id": "owasp_juice_shop",
+      "case_id": "juice.exposed_metrics.v1",
+      "oracle_id": "juice.exposed_metrics.v1",
+      "status": "admitted_partial",
+      "predicate_type": "semantic_unauthenticated_metrics_publication",
+      "causal_signal": "mapped bounded metrics publication shape with verifier-approved control; endpoint existence or HTTP status alone is insufficient",
+      "safe_precondition": "anonymous loopback target, allowlisted GET, bounded shape counters only, no metric names/values retained",
+      "negative_control": "independent unrelated public endpoint with redacted comparison",
+      "central_verifier": "JuiceShopTargetAdapter -> central causal/negative verifier",
+      "proof": {"seal": true, "verify_seal": true, "replay": true, "bundle_id": "proof_bundle_66ae7b5408354a8c809c3a0f2a4f9955"}
+    },
+    {
+      "target_id": "owasp_juice_shop",
+      "case_id": "juice.local_xss.v1",
+      "oracle_id": "dom.safe_search_sink_observation",
+      "status": "admitted_partial",
+      "predicate_type": "bounded_dom_sink_and_alert_semantics",
+      "causal_signal": "mapped DOM/XSS semantic predicate requiring sink/alert evidence and an independent benign search control",
+      "safe_precondition": "anonymous loopback browser context, reviewed typed-search workflow, no credentials/state-changing submission, probe/source data not persisted",
+      "negative_control": "independent benign control search with redacted DOM/dialog comparison",
+      "central_verifier": "JuiceShopTargetAdapter -> central causal/negative verifier",
+      "proof": {"seal": true, "verify_seal": true, "replay": true, "bundle_id": "proof_bundle_e1a5078be6074f97b2e604f5a61704cb"}
+    }
+  ],
+  "unadmitted_targets": [
+    {
+      "target_id": "owasp_webgoat",
+      "status": "no_contract_admitted",
+      "required_next_evidence": ["source-backed semantic predicate", "independent ground truth", "safe precondition", "independent negative control", "central verifier mapping", "sealed/replayable proof"]
+    },
+    {
+      "target_id": "crapi",
+      "status": "no_contract_admitted",
+      "required_next_evidence": ["immutable image digest", "source-backed semantic predicate", "independent ground truth", "safe precondition", "independent negative control", "central verifier mapping", "sealed/replayable proof"]
+    }
+  ],
+  "forbidden_inference": "No route reachability, HTTP 200/302, health response, lesson completion, observation_only, inconclusive, blocked, or out_of_scope state may be treated as a causal finding or a quality metric."
+}

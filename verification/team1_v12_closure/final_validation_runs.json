@@ -1,0 +1,29 @@
+{
+  "v12_tests_v1_v11_v12_semantic": {
+    "command": "pytest tests/team1_acceptance/test_avi_v1_production_release.py tests/team1_acceptance/test_avi_v1_1_real_target_qualification.py tests/team1_acceptance/test_c_proof_semantic_integrity.py",
+    "exit_code": 1,
+    "duration_s": 19.5,
+    "passed": 43,
+    "failed": 2,
+    "errors": 0,
+    "skipped": 0,
+    "summary": "================== 2 failed, 43 passed, 1 warning in 16.85s ===================",
+    "failed_tests": [
+      "TestThirtyDecisionCampaign::test_outcomes_include_confirmed_refuted_inconclusive",
+      "TestThirtyDecisionCampaign::test_thirty_decisions_full_pipeline"
+    ],
+    "blocked": 0
+  },
+  "team3_regression_hostile_test_files": {
+    "command": "pytest tests/test_e2e_chain_promotion_locks.py tests/team1_acceptance/test_hmac_proof_authority.py tests/team1_acceptance/test_teamt2_hostile_fixes.py tests/test_v10_hostile_fixes.py tests/test_v9_hostile_audit_fixes.py tests/test_fv1_scopelaw_poison_deny.py",
+    "exit_code": 0,
+    "duration_s": 44.9,
+    "passed": 82,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "summary": "====================== 82 passed, 6 warnings in 26.79s ========================",
+    "failed_tests": [],
+    "blocked": 0
+  }
+}

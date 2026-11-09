@@ -1,0 +1,29 @@
+{
+  "version": "GOED-v1.8-RC1",
+  "date": "2026-09-04T11:23:37.860496+00:00",
+  "status": "CONDITIONAL",
+  "governance": {
+    "date": "2026-09-04T11:23:37.860496+00:00",
+    "vip_qualified": false,
+    "qualification_state": "CONDITIONAL",
+    "P10": "CLOSED",
+    "P9": "CLOSED",
+    "scope": "local_synthetic_authorized_targets_only",
+    "external_targets_forbidden": true,
+    "real_credentials_forbidden": true,
+    "destructive_actions_forbidden": true,
+    "llm_policy_hash": "versioned_in_llm_researcher_interface",
+    "tool_boundary_enforced": true,
+    "llm_cannot_confirm_vulnerability": true,
+    "llm_cannot_bypass_causal_guard": true,
+    "deterministic_oracle_authoritative": true
+  },
+  "artifacts": {
+    "truth_audit": "reports/goed_v1_8/GOED_V1_8_FINAL_TRUTH_AUDIT.md",
+    "executive_summary": "reports/goed_v1_8/GOED_V1_8_EXECUTIVE_SUMMARY.md",
+    "engineering_results": "reports/goed_v1_8/engineering_results.json",
+    "prompt_injection": "reports/goed_v1_8/prompt_injection_results.json",
+    "governance_manifest": "reports/goed_v1_8/governance_manifest.json",
+    "v1.7_freeze": "docs/archive/goed-v1.7/freeze_manifest.json"
+  }
+}

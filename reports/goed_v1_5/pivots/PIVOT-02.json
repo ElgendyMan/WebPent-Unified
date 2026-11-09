@@ -1,0 +1,11 @@
+{
+  "pivot_id": "PIVOT-02",
+  "scenario": "Control shows partial authorization \u2192 pivot to invariant break",
+  "initial_hypothesis": "Simple authorization weakness expected",
+  "test_result": "Control returns 200 with partial data, not 403",
+  "evidence_update": "Partial authorization pattern observed, not binary allow/deny",
+  "pivot_to": "Security invariant break (partial enforcement)",
+  "new_experiment": "Test with multiple privilege levels to map boundary",
+  "outcome": "Discovered partial authorization gap",
+  "cause": "Non-binary authorization outcome in control"
+}

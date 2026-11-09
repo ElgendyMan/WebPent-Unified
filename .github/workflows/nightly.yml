@@ -1,0 +1,66 @@
+# Nightly lab canary + deep evidence (Track 2, بند 5 of the unified roadmap).
+#
+# Roadmap contract: "إنشاء canary ليلي في مختبر ضعيف عمدًا، مع baseline
+# ثابت وقياس regression في جودة النتائج والتكلفة والاستقرار" — a NIGHTLY
+# canary in a deliberately vulnerable lab, with a stable baseline and
+# regression measurement of result quality, cost, and stability.
+#
+# Until 0.25.0 the canary existed only as a manual script
+# (scripts/canary_7x_20261028.py) with evidence in reports/canary/ —
+# there was NO schedule, so nothing ran it nightly. This workflow wires
+# the existing, already-validated script into cron (02:00 UTC daily)
+# plus manual dispatch, and uploads the evidence artifact. It runs the
+# deterministic/offline lab posture (no real targets, no egress) — the
+# script's smoke is in-process, in-network-free by construction.
+
+name: Nightly lab canary
+
+on:
+  schedule:
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+
+jobs:
+  canary:
+    runs-on: ubuntu-latest
+    env:
+      LLM_ENABLED: "false"
+      EMBEDDINGS_OFFLINE: "true"
+      DISABLE_RAG: "true"
+      AUTH_ENABLED: "false"
+      FFUF_ENABLED: "false"
+      WEBHOOK_ENABLED: "false"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - name: Sync locked dependencies
+        run: uv sync --locked --extra dev
+
+      - name: Run the 7x lab canary (regression + functional smoke, baseline diff)
+        run: uv run python scripts/canary_7x_20261028.py
+
+      # M1-C (UM-DR-12): ق5 continuous self-benchmark wired into the nightly
+      # (M1_READINESS_REVIEW §5.5 — no frozen-tree edit needed): the dojo
+      # self-benchmark suite runs as the hunting-performance regression
+      # (discovery/time/cost per family, judged by the dojo's truth judge),
+      # and the honest-coverage ratchet re-measures its pinned scope
+      # nightly so the floor's evidence stays fresh.
+      - name: ق5 self-benchmark suite (hunting-performance regression)
+        run: uv run pytest -q tests/dojo/test_self_benchmark.py tests/dojo/test_u_dojo_1.py
+
+      - name: Coverage ratchet (enforcement, nightly re-measure)
+        run: make coverage-ratchet
+
+      - name: Upload canary evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: canary-evidence
+          path: reports/canary/
+          if-no-files-found: error

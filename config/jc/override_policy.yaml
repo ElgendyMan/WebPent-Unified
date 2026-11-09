@@ -1,0 +1,13 @@
+# Judgment Council override policy (U-JC-11, JC-L-7: operator sovereign).
+# The operator may override any verdict with full/partial/advisory scope;
+# a reason is always required and every override is logged with its
+# outcome so operator accuracy can be tracked like any other voice.
+override_policy:
+  require_reason: true
+  min_reason_chars: 10
+  allowed_modes:
+    - full
+    - partial
+    - advisory
+  log_retention_days: 180
+  track_operator_accuracy: true

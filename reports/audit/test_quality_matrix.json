@@ -1,0 +1,2191 @@
+{
+  "summary": {
+    "total_tests": 363,
+    "counts": {
+      "Contract Test": 56,
+      "Integration Test": 233,
+      "Capability Test": 45,
+      "Benchmark Test": 29
+    }
+  },
+  "tests": [
+    {
+      "test": "tests/irta/test_benchmark.py",
+      "category": "Benchmark Test",
+      "capability_proven": "quality measurement or scoring contract",
+      "strength": "strong if independent ground truth is present"
+    },
+    {
+      "test": "tests/irta/test_components.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/irta/test_generator.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/irta/test_mutations.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/regression/test_MOCK_FN_001_regression.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/security_invariants/test_authority_invariants.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/security_invariants/test_engagement_concurrency.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/security_invariants/test_engagement_invariants.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/security_invariants/test_ledger_state.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/security_invariants/test_llm_boundary.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/security_invariants/test_proof_invariants.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/security_invariants/test_scope_invariants.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/security_invariants/test_target_brain_scope.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_abhc_v3.py",
+      "category": "Benchmark Test",
+      "capability_proven": "quality measurement or scoring contract",
+      "strength": "strong if independent ground truth is present"
+    },
+    {
+      "test": "tests/test_abhie_benchmark.py",
+      "category": "Benchmark Test",
+      "capability_proven": "quality measurement or scoring contract",
+      "strength": "strong if independent ground truth is present"
+    },
+    {
+      "test": "tests/test_abhie_v4.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_abhie_v6.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_abhie_v6_benchmark.py",
+      "category": "Benchmark Test",
+      "capability_proven": "quality measurement or scoring contract",
+      "strength": "strong if independent ground truth is present"
+    },
+    {
+      "test": "tests/test_abhip_benchmark.py",
+      "category": "Benchmark Test",
+      "capability_proven": "quality measurement or scoring contract",
+      "strength": "strong if independent ground truth is present"
+    },
+    {
+      "test": "tests/test_abhip_v5.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_action_ledger.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_adi.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_adi_benchmark.py",
+      "category": "Benchmark Test",
+      "capability_proven": "quality measurement or scoring contract",
+      "strength": "strong if independent ground truth is present"
+    },
+    {
+      "test": "tests/test_ai_review_owner_approval_boundary.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_api_ledger_scope.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_application_intent_smart_wiring.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_arex_agent_roles.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_arex_controlled_campaign.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_arex_scheduler_router.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_asros_adaptive_surface.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_asros_advanced_benchmark.py",
+      "category": "Benchmark Test",
+      "capability_proven": "quality measurement or scoring contract",
+      "strength": "strong if independent ground truth is present"
+    },
+    {
+      "test": "tests/test_asros_knowledge_graph_memory.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_asros_quality_controller.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_asros_reasoning.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_asros_world_model.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_attack_graph_engine_v2.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_audit_remediation_p0.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_audit_remediation_p1.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_audit_remediation_p2.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_auth_state_cookie_normalization.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_autonomy_contracts.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_autopentestx_adapter.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_autopentestx_benchmark_metrics.py",
+      "category": "Benchmark Test",
+      "capability_proven": "quality measurement or scoring contract",
+      "strength": "strong if independent ground truth is present"
+    },
+    {
+      "test": "tests/test_avde.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_avde_benchmark.py",
+      "category": "Benchmark Test",
+      "capability_proven": "quality measurement or scoring contract",
+      "strength": "strong if independent ground truth is present"
+    },
+    {
+      "test": "tests/test_avde_pipeline.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_avrip_benchmark.py",
+      "category": "Benchmark Test",
+      "capability_proven": "quality measurement or scoring contract",
+      "strength": "strong if independent ground truth is present"
+    },
+    {
+      "test": "tests/test_avrip_v2.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_avrp.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_avrp_benchmark.py",
+      "category": "Benchmark Test",
+      "capability_proven": "quality measurement or scoring contract",
+      "strength": "strong if independent ground truth is present"
+    },
+    {
+      "test": "tests/test_b21_owner_approval_import.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_b2_target_live_runner.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_bbscout_bridge.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_bbscout_settings.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_benchmark_profiles.py",
+      "category": "Benchmark Test",
+      "capability_proven": "quality measurement or scoring contract",
+      "strength": "strong if independent ground truth is present"
+    },
+    {
+      "test": "tests/test_browser_evidence_contract.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_browser_proof_runner.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_browser_readiness.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_browser_target_backed_proof.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_business_logic_facades.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_byte_level.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_campaign_executor.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_campaign_hypothesis_lifecycle.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_campaign_state.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_canonical_tool_registry_expansion.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_capability_unknown_contract.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_causal_engineering_metrics.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_causal_foundation.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_checkpoint_redaction.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_checkpoint_runtime_context.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_cli_identity_profiles_ownership.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_confirmation_intelligence.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_control_plane_contracts.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_control_plane_local_harness.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_control_plane_runtime.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_control_plane_spine.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_controlled_local_lab.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_controlled_target_idor.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_core_intelligence_upgrade.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_coverage_ledger.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_crapi_offline_fixture.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_cross_process_action_ledger.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_dalfox_headless_fallback.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_dalfox_wrapper.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_dcvu_campaign.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_dcvu_contracts.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_dcvu_engine.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_dcvu_fixtures.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_dcvu_ground_truth.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_dcvu_metrics.py",
+      "category": "Benchmark Test",
+      "capability_proven": "quality measurement or scoring contract",
+      "strength": "strong if independent ground truth is present"
+    },
+    {
+      "test": "tests/test_decision_loop.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_differential_workflow.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_distributed_storage_contracts.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_docker_runtime_contracts.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_evidence_aware_loop.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_evidence_bounds.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_evidence_quality_assessment.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_exception_redaction.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_execution_sandbox_browser_promotion.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_finding_aggregation.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_finding_reducer_strength.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_g02_adversarial_indirection.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_g02_direct_io_inventory.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_g02_execution_plane.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_g02_precommit_enforcement.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_g02_runtime_invariants.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_g02_scanner_expansion.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_generic_case_runner.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_generic_target_swap.py",
+      "category": "Benchmark Test",
+      "capability_proven": "quality measurement or scoring contract",
+      "strength": "strong if independent ground truth is present"
+    },
+    {
+      "test": "tests/test_generic_web_adapter.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_golden_benchmark.py",
+      "category": "Benchmark Test",
+      "capability_proven": "quality measurement or scoring contract",
+      "strength": "strong if independent ground truth is present"
+    },
+    {
+      "test": "tests/test_hitl_policy.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_hypothesis_bridge.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_hypothesis_planner_v2.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_identity_matrix_facade.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_identity_provisioning.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_intelligence_contracts.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_intelligence_models.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_juice_shop_access_log_contract.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_juice_shop_full_run.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_juice_shop_p10_expansion_plan.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_juice_shop_safe_cases.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_katana_wrapper_contract.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_llm_budget_guard.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_llm_doctor_contract.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_llm_provider_compatibility.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_local_causal_lab_fixtures.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_local_causal_lab_option_b_approval.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_local_causal_lab_option_b_contract.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_local_causal_lab_packet.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_local_causal_lab_runtime_provenance.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_local_causal_lab_session_harness.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_nettacker_adapter.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_no_llm_rag_guard.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_nuclei_template_contract.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_observation_feedback_loop.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_oob_provider.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_operations_ux_upgrade.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_optimizer_no_progress_guard.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_option_b_local_causal_lab_runner.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_p0_ffuf_preflight.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_p0_p1_active_validators.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_p0_production_secrets_fail_closed.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_p0_secondary_identity_entrypoint.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_p0_websocket_webhook.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_p10_benchmark.py",
+      "category": "Benchmark Test",
+      "capability_proven": "quality measurement or scoring contract",
+      "strength": "strong if independent ground truth is present"
+    },
+    {
+      "test": "tests/test_p10_coverage.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_p10_gate.py",
+      "category": "Benchmark Test",
+      "capability_proven": "quality measurement or scoring contract",
+      "strength": "strong if independent ground truth is present"
+    },
+    {
+      "test": "tests/test_p10_review.py",
+      "category": "Benchmark Test",
+      "capability_proven": "quality measurement or scoring contract",
+      "strength": "strong if independent ground truth is present"
+    },
+    {
+      "test": "tests/test_p10_review_packet.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_p1_config_contracts.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_p1_task_crypto_fail_closed.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_p1_tls_enforcement.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_p2_execution_gate.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_p9_qualification_ledger.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_persistent_finding_ledger.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_phase4_research_loop.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_phase5_coverage_intelligence.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_phase5_information_execution.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_phase5_target_understanding.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_playwright_async_bridge.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_playwright_failure_diagnostics.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_production_deployment_contract.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_production_qualification.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_proof_bundle.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_proof_oracles.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_qualification_harness.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_race_condition_validator_contract.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_rag_knowledge_pack.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_reflection_no_llm.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_release_artifact_audit.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_release_manifest_provenance.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_release_manifest_qualification_scope.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_report_hash_integrity.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_research_engine_core.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_research_intelligence_evaluation.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_research_intelligence_feedback.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_research_loop_contract.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_research_nodes_runtime_wiring.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_research_projection_adapter.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_resume_capability_diagnostics.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_rta_auth_campaign.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_rta_contracts.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_rta_discovery.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_rta_harness.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_rta_validation.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_runtime_case_lifecycle.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_safety_gate.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_scoring_readiness_packages.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_secret_vault.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_security_reasoning_memory.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_semantic_adapters.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_server_launcher.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_settings_hardening.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_settings_secret_defaults.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_skill_selector.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_smart_action_authority.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_smart_campaigns_node.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_source_archive_contract.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_source_backed_candidate_inventory.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_specialist_planners.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_structural_rate_limit_retry.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_subprocess_lifecycle.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_superagentic_evaluation_contracts.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_superagentic_exploration_contracts.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_superagentic_integration_contracts.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_superagentic_provider_boundaries.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_superagentic_recovery_contracts.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_superagentic_runtime_wiring.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_superagentic_wiring_audit.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_target_adapter_review_packet.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_target_backed_differential.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_target_brain.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_target_context_layer.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_target_evidence_readiness.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_target_isolation.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_target_knowledge_v2.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_target_live_fixture_session_injection_packet.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_target_package_integration.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_target_package_v2_hardening.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_target_spec_contract.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v10_audit_fixes.py",
+      "category": "Benchmark Test",
+      "capability_proven": "quality measurement or scoring contract",
+      "strength": "strong if independent ground truth is present"
+    },
+    {
+      "test": "tests/test_v10_exhaustive_audit.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v10_hostile_fixes.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v10_p0_reauth_vault_and_emergency_persist.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v10_p0_status_sqlmap_skiprecon_findings.py",
+      "category": "Benchmark Test",
+      "capability_proven": "quality measurement or scoring contract",
+      "strength": "strong if independent ground truth is present"
+    },
+    {
+      "test": "tests/test_v10_p0p1_rca_followup.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v10_p1_rca_followup.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v11_bac_identity.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v12_takeover_cloud.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v13_jwt_advisory.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v14_entrypoint_wiring.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v15_review_hardening.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v16_canonical_evidence.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v17_target_understanding.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v18_workflow_understanding.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v19_attack_graph.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v20_attack_graph_wiring.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v21_adaptive_hunt.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v22_planner_policy.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v23_cli_commands.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v24_authorization_matrix.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v25_javascript_intelligence.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v26_report_quality.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v27_memory_boundary.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v28_structure_aware_triage.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v29_surface_security.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v30_evidence_poc_contracts.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v3_autonomous_graph_loop.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_v3_direct_io_and_adversarial.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v3_phase_a_characterization.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v3_qualification_harness.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v3_research_evidence_mapping.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v3_runtime_spine.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v3_strict_proof_bundle.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v57_readability_wiring.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v58_http_discovery.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v58_post_form_hypotheses.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v58_structural_evidence_gate.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v58_validator_idempotency.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v59_p0_hardening.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v61_cognitive_upgrade.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v61_phase1_remediation.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v61_phase2_bac.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v61_phase3_remediation.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v61_remaining_plan_artifacts.py",
+      "category": "Benchmark Test",
+      "capability_proven": "quality measurement or scoring contract",
+      "strength": "strong if independent ground truth is present"
+    },
+    {
+      "test": "tests/test_v62_attack_graph_target_knowledge.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v62_ingest_and_memory_isolation.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v62_target_knowledge.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v63_hypothesis_engine.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v63_vip_security_regression.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v64_multi_agent_proof_validators.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_v65_coverage_copilot_boundary.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_v66_benchmark_metrics.py",
+      "category": "Benchmark Test",
+      "capability_proven": "quality measurement or scoring contract",
+      "strength": "strong if independent ground truth is present"
+    },
+    {
+      "test": "tests/test_v66_cli_coverage_contract.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_v70_release_contracts.py",
+      "category": "Benchmark Test",
+      "capability_proven": "quality measurement or scoring contract",
+      "strength": "strong if independent ground truth is present"
+    },
+    {
+      "test": "tests/test_v71_plan_gap_contracts.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v71_remaining_plan_contracts.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v72_api_jwt_probe.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v72_auth_validation_headers.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v72_bac_cooldown_env.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v72_declared_origins.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v72_httpx_pd_manifest.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v72_idor_validator_replay.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v72_json_request_context.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v72_jwt_differential_validator.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v72_legacy_evidence_bundle.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v72_llm_caller_contracts.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_v72_phase4_promotion_contracts.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v72_quality_gate_tool_resolution.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_v72_request_context_and_primary_identity.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v72_request_context_persistence_and_reporting.py",
+      "category": "Benchmark Test",
+      "capability_proven": "quality measurement or scoring contract",
+      "strength": "strong if independent ground truth is present"
+    },
+    {
+      "test": "tests/test_v72_sprint1_contracts.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v72_structural_idor_proof_bundle.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v75_maturity_scorecard.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_v90_confidence_scoring.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_v90_lessons_scope_isolation.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v90_llm_cache_wiring.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_v91_research_intelligence.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v91_smart_campaigns_intelligence.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v92_action_executor_proof_bundle.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v92_proof_quality_gate.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v92_reporter_strict_proof.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v93_capability_registry.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v94_autonomous_controller.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v95_benchmark_evaluator.py",
+      "category": "Benchmark Test",
+      "capability_proven": "quality measurement or scoring contract",
+      "strength": "strong if independent ground truth is present"
+    },
+    {
+      "test": "tests/test_v95_devils_advocate_gate.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v95_ensemble_voting.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v95_report_budget_trace.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v95_scope_and_budget_guards.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v96_strict_verifier.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v97_campaign_registry.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_v97_recon_behavior.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v9_fix2_path_promotion.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v9_hostile_audit_fixes.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v9_p0_hotfix_sqlmap_reauth.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_v9_round2_wiring_fixes.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_vabh_final_audit_v10.py",
+      "category": "Benchmark Test",
+      "capability_proven": "quality measurement or scoring contract",
+      "strength": "strong if independent ground truth is present"
+    },
+    {
+      "test": "tests/test_vabhfil_v8.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_vabhfqr_v9.py",
+      "category": "Benchmark Test",
+      "capability_proven": "quality measurement or scoring contract",
+      "strength": "strong if independent ground truth is present"
+    },
+    {
+      "test": "tests/test_vabhic_v7.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_validation_facades.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_validation_status.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_validator_merge_back.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_verify_all_docker_contract.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_vip_action_authority_contract.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_vip_active_research.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_vip_application_intent_graph.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_vip_audit_gap_closure.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_vip_auth_posture.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_vip_baseline.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_vip_benchmark.py",
+      "category": "Benchmark Test",
+      "capability_proven": "quality measurement or scoring contract",
+      "strength": "strong if independent ground truth is present"
+    },
+    {
+      "test": "tests/test_vip_campaign_planner.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_vip_causal_research.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_vip_failure_matrix.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_vip_jwt_validator_revalidation.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_vip_llm_reliability.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_vip_offline_validator_fixtures.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_vip_parallel_controller.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_vip_phase4_intelligence.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_vip_proof_bundle_contract.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_vip_proof_bundle_store.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_vip_proof_engine.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_vip_quality_gate_contract.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_vip_recovery_loop.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_vip_research_contracts.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_vip_runtime_browser_adapter_bootstrap.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_vip_runtime_capability_gaps.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_vip_security_reasoners.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_vip_shared_reauth_vault.py",
+      "category": "Contract Test",
+      "capability_proven": "API/dataclass/invariant behavior",
+      "strength": "contract strength; not a live capability claim"
+    },
+    {
+      "test": "tests/test_vip_surface_intent.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_vip_v2_benchmark.py",
+      "category": "Benchmark Test",
+      "capability_proven": "quality measurement or scoring contract",
+      "strength": "strong if independent ground truth is present"
+    },
+    {
+      "test": "tests/test_vip_validator_plugins.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_vip_vertical_slice.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_vip_waptlab_regression.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_vip_workflow_replay.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_waptlab_catalog_manifest.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_waptlab_detector_improvements.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_waptlab_live_improvements.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_webgoat_causal_experiment.py",
+      "category": "Capability Test",
+      "capability_proven": "security capability or safety invariant",
+      "strength": "medium to strong depending on independent evidence"
+    },
+    {
+      "test": "tests/test_webpent_diagnostics.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_wildcard_scope.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    },
+    {
+      "test": "tests/test_workflow_surface_wiring.py",
+      "category": "Integration Test",
+      "capability_proven": "component/HTTP integration behavior",
+      "strength": "medium; inspect causal oracle separately"
+    }
+  ]
+}

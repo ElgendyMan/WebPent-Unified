@@ -1,0 +1,120 @@
+{
+  "schema_version": "webpent-p8-p11-execution-v3",
+  "qualification_status": "NOT_QUALIFIED",
+  "scope": {
+    "authorized_targets_only": true,
+    "active_target": "http://127.0.0.1:3000",
+    "target_name": "OWASP Juice Shop local",
+    "loopback_only": true,
+    "waptlab_live_workflow_used": false,
+    "raw_response_bodies_saved": false,
+    "raw_headers_saved": false,
+    "secrets_saved": false
+  },
+  "p8": {
+    "status": "demonstrated_for_one_typed_local_workflow",
+    "workflow_id": "juice-shop-mat-search",
+    "vulnerability_class": "XSS",
+    "strict_requirements_observed": {
+      "baseline_candidate_negative_control": true,
+      "target_backed_observations": true,
+      "causal_signal": true,
+      "central_store_put": true,
+      "proof_bundle_sealed": true,
+      "verify_seal": true,
+      "central_replay": true,
+      "replay_status": "passed"
+    },
+    "successful_run_ids": ["xss02", "xss03", "xss04"],
+    "failed_run_ids": ["xss01"],
+    "qualification_boundary": "This demonstrates the strict P8 proof path for one explicitly allowlisted Juice Shop search workflow; it is not full P10 catalog qualification or VIP qualification.",
+    "source_artifact": "docs/juice_shop_qualification_report.json",
+    "central_bundle_log_sha256": "a8744906fe74003f5291f49bb44d289053dfe4722b579059fc246a49cd3c0d8b"
+  },
+  "p9": {
+    "status": "not_qualified",
+    "source_artifact": "docs/p9_distributed_runtime_evidence.json",
+    "observed_progress": {
+      "two_workers": true,
+      "killed_worker_redelivery": true,
+      "checkpoint_resume": true,
+      "retry_exhaustion_and_redacted_dlq": true,
+      "cross_process_ledger_idempotency": true,
+      "target_contacted": false
+    },
+    "required_checks_still_false": [
+      "multi_worker_lease_contention",
+      "broker_idempotency",
+      "tls_enforced",
+      "logs_redacted",
+      "retention_policy_verified",
+      "backup_restore"
+    ],
+    "qualification_boundary": "The target-free local runtime evidence is real progress but does not qualify production-like distributed P9."
+  },
+  "p10": {
+    "status": "not_qualified",
+    "source_artifact": "docs/juice_shop_qualification_report.json",
+    "independent_ground_truth": {
+      "challenge_count": 116,
+      "challenge_id_set_digest": "sha256:48eb75e272c91e6ec03d9a33d9fa856beba4dc13eb1383bbde3fb33754aec34f",
+      "mapping_status": "partial_not_approved_for_recall"
+    },
+    "proof_run_summary": {
+      "isolated_runs": 4,
+      "successful_strict_proof_runs": 3,
+      "failed_strict_proof_runs": 1,
+      "classes_exercised": ["XSS"],
+      "workflow_count": 1
+    },
+    "metrics": {
+      "precision": null,
+      "recall": null,
+      "class_coverage": null,
+      "false_positives": null,
+      "false_negatives": null
+    },
+    "blocking_reasons": [
+      "ground-truth case mapping is partial and recall/precision cannot be computed",
+      "only one XSS workflow/class was exercised",
+      "benchmark runs are proof runs, not a complete catalog benchmark"
+    ]
+  },
+  "p11": {
+    "status": "fail_closed_not_qualified",
+    "source_artifact": "docs/vip_quality_gate.json",
+    "source_checks": "engineering and security checks executed by the release gate",
+    "dynamic_checks": {
+      "p8_live_proof_artifact": true,
+      "p9_distributed_qualification_artifact": false,
+      "p10_juice_shop_benchmark_artifact": false
+    },
+    "hard_checks_passed": false,
+    "passed": false,
+    "blockers": [
+      "P9 distributed qualification is incomplete",
+      "P10 Juice Shop benchmark is incomplete or not qualified"
+    ],
+    "release_manifest_verification": true
+  },
+  "provenance": {
+    "project_commit_at_capture": "26634eabb75671dcb2a89632c0e0b07f9a4e79b7",
+    "source_log_sha256": {
+      "p10_juice_xss01.log": "8724bba5886997e93a8704994242043ef44b9eba108b573cdc401a61c82011b6",
+      "p10_juice_xss02.log": "824baeef462bb2edd3483f6cca8d48913b9d1586db73d96adeaa9f57cc4c28d1",
+      "p10_juice_xss03.log": "d17db7781a0be13785451e8f8946d962867bde33d31fe3cccf3c628f7e286bab",
+      "p10_juice_xss04.log": "c78c0f8ac99b841813bf57aa17aa7d44818987a920578fd8de66f18b216685f8",
+      "p8_typed_juice_central_bundle2.log": "a8744906fe74003f5291f49bb44d289053dfe4722b579059fc246a49cd3c0d8b"
+    },
+    "retained_raw_logs_in_repository": false
+  },
+  "promotion": {
+    "current_state": "ENGINEERING_READY_WITH_PARTIAL_LIVE_EVIDENCE",
+    "vip_qualified": false,
+    "required_before_promotion": [
+      "Complete P9 distributed runtime evidence",
+      "Approved Juice Shop ground-truth mapping and complete P10 metrics",
+      "Independent review of final evidence and release artifacts"
+    ]
+  }
+}

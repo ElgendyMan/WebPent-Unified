@@ -1,0 +1,127 @@
+{
+  "validation_date": "2026-09-03T04:57:02.685335+00:00",
+  "targets_validated": {
+    "target-beta": {
+      "actor_vocabulary_exposed": [
+        "beta-user-01 (owner)",
+        "beta-user-02 (non-member)",
+        "global_default_user"
+      ],
+      "tenant_vocabulary": [
+        "tenant-alpha",
+        "tenant-beta"
+      ],
+      "role_vocabulary": [
+        "owner",
+        "member",
+        "non_member",
+        "guest"
+      ],
+      "routes_implemented": [
+        "/api/projects/beta-proj-01/documents",
+        "/api/projects/beta-proj-01/meta",
+        "/api/health"
+      ],
+      "methods_implemented": [
+        "GET"
+      ],
+      "case_route_match": true,
+      "vulnerability_mechanism_reachable": true,
+      "workflow_transitions_required": false,
+      "classification": "EXECUTABLE_WITH_ACTOR_CONTEXT",
+      "fixture_specification_match": true
+    },
+    "target-gamma": {
+      "actor_vocabulary_exposed": [
+        "gamma-admin",
+        "gamma-editor",
+        "gamma-viewer"
+      ],
+      "tenant_vocabulary": [
+        "tenant-gamma"
+      ],
+      "role_vocabulary": [
+        "admin",
+        "editor",
+        "viewer"
+      ],
+      "routes_implemented": [
+        "/api/gamma/admin/users",
+        "/api/gamma/user/profile",
+        "/api/gamma/health"
+      ],
+      "methods_implemented": [
+        "GET"
+      ],
+      "case_route_match": true,
+      "vulnerability_mechanism_reachable": true,
+      "workflow_transitions_required": false,
+      "classification": "EXECUTABLE_WITH_ACTOR_CONTEXT",
+      "fixture_specification_match": true
+    },
+    "target-delta": {
+      "actor_vocabulary_exposed": [
+        "delta-A-user",
+        "delta-B-user"
+      ],
+      "tenant_vocabulary": [
+        "tenant-delta-A",
+        "tenant-delta-B"
+      ],
+      "role_vocabulary": [
+        "user"
+      ],
+      "routes_implemented": [
+        "/api/tenants/delta-A/data/records",
+        "/api/tenants/delta-B/data/records",
+        "/api/health"
+      ],
+      "methods_implemented": [
+        "GET"
+      ],
+      "case_route_match": true,
+      "vulnerability_mechanism_reachable": true,
+      "workflow_transitions_required": false,
+      "tenant_header_support": true,
+      "classification": "EXECUTABLE_WITH_ACTOR_CONTEXT",
+      "fixture_specification_match": true
+    },
+    "target-epsilon": {
+      "actor_vocabulary_exposed": [
+        "epsilon-user-01",
+        "epsilon-approver"
+      ],
+      "tenant_vocabulary": [
+        "tenant-epsilon"
+      ],
+      "role_vocabulary": [
+        "requester",
+        "approver"
+      ],
+      "routes_implemented": [
+        "/api/epsilon/workflows/request",
+        "/api/epsilon/workflows/approve",
+        "/api/epsilon/workflows/{id}/execute"
+      ],
+      "methods_implemented": [
+        "GET",
+        "POST"
+      ],
+      "case_route_match": true,
+      "vulnerability_mechanism_reachable": true,
+      "workflow_transitions_required": true,
+      "classification": "EXECUTION_CAPABILITY_INSUFFICIENT",
+      "reason": "Multi-step workflow sequence required (request \u2192 approve \u2192 execute). Current single-GET execution model cannot exercise this.",
+      "fixture_specification_match": true,
+      "fixture_correction_needed": false
+    }
+  },
+  "summary": {
+    "targets_validated": 4,
+    "executable_with_actor_context": 3,
+    "execution_capability_insufficient": 1,
+    "fixture_specification_mismatches": 0,
+    "no_fixture_modifications_made": true,
+    "no_truth_label_changes": true
+  }
+}

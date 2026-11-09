@@ -1,0 +1,62 @@
+{
+  "document_id": "TEAM1_CANDIDATE_SELECTION_CONTRACT-1.0",
+  "date": "2026-09-12",
+  "before_contract": "top_candidate -> one_hypothesis -> LLM selects tool type -> map tool back to candidate (LLM cannot compare alternatives)",
+  "after_contract": "bounded admissible candidate set (sanitized metadata) -> LLM returns selected_candidate_id -> validated against exact set -> existing deterministic gates -> ToolBoundary",
+  "response_schema": {
+    "required": [
+      "selected_candidate_id"
+    ],
+    "optional": [
+      "decision_reason"
+    ],
+    "reason_is_advisory_only": true
+  },
+  "candidate_context_schema": [
+    "candidate_id",
+    "action_class",
+    "capability",
+    "objective",
+    "expected_information_gain",
+    "novelty",
+    "coverage_value",
+    "priority_score",
+    "previously_executed",
+    "requires_approval"
+  ],
+  "max_candidates_exposed": 8,
+  "fail_closed_on": [
+    "missing_id",
+    "malformed",
+    "unknown_id",
+    "inadmissible",
+    "provider_failure"
+  ],
+  "deterministic_authoritative": [
+    "admissibility",
+    "scope",
+    "budget",
+    "capability",
+    "authorization",
+    "causal_validation",
+    "proof"
+  ],
+  "llm_disabled_behavior": "byte-identical deterministic path",
+  "changed_functions": [
+    "LLMResearchSelector.select_from_candidates (rewritten)",
+    "LLMResearchSelector._sanitized_candidate_context (new)",
+    "LLMResearchSelector._build_candidate_selection_prompt (new)",
+    "LLMResearchSelector._parse_candidate_decision (new)"
+  ],
+  "files_modified": [
+    "src/webpent/integration/llm_research_adapter.py",
+    "tests/test_team1_llm_live_integration.py (test schema update)",
+    "tests/test_team1_llm_lifecycle.py (assertion update)"
+  ],
+  "files_added": [
+    "tests/test_team1_candidate_selection.py (11 tests)"
+  ],
+  "files_deleted": 0,
+  "files_renamed": 0,
+  "governance_changed": 0
+}

@@ -1,0 +1,20 @@
+{
+  "schema": "webpent.authority-manifest.v1",
+  "authority": "remediation-baseline-current-tree",
+  "provenance": "Re-captured at the TC-2 v14.2 unit boundary per C-7 (re-freeze at unit boundary). Prior capture predates the hostile-audit remediation; the resurrection commit 45b6a88 modified tool_boundary.py and profile.py without re-capture \u2014 both re-hashed here from current tree bytes. Historical TEAM1 manifests remain legacy references. TEAM-MERGE 2026-10-22 re-capture: after the TEAM-REVIEW-REFREEZE pass (Sections A-C PASS; MERGE_REPORT.md reviewable diff), active_checks.py was re-hashed from merged-tree bytes at the re-freeze unit boundary; the other 12 pinned files verified byte-identical to their pins.",
+  "files": {
+    "src/webpent/cqa_v2/causal_guard.py": "e08dfae5b67a2067683a2bb96549f17109f42e222a21315a211e4b1f37b59169",
+    "src/webpent/models/proof_bundle.py": "2f429b3c4c3ef205f471d53163ccee89a773bcd8fe7154f02b6e2eca0f513110",
+    "src/webpent/models/workflow_replay.py": "f83eb667a72e0ebab950c665e7588a4181b3cc83230cfb709c68b27bb8d07d95",
+    "src/webpent/llm_researcher/tool_boundary.py": "01dafce37a6eea81b1c6a6dee46f2836f8e8850ef7fb6d4a2d8f21a86a11e616",
+    "src/webpent/live_hunter/tool_scope.py": "465f99e7bd60f0fbe62bfa429c56d533a882e3b855d42c39b58de8ca708817bb",
+    "src/webpent/live_hunter/profile.py": "9bec94c9d521f59e651de8d29368c8ad641b7b2e814df924ffced7a597002aa3",
+    "src/webpent/agents/validator/active_checks.py": "1678099ed48ee8e7a8c88b81a26d57aac1d78886099e3c964588ae4031e040ad",
+    "src/webpent/shared/proof_bundle_store.py": "fe3bc2ba23388ced811151d9baf52d0e14013d5a136411780c4d377f55ef0a42",
+    "src/webpent/shared/governed_artifacts.py": "e4861aea94bdf5afa165af03814b66dacc8b36da7120c9ef50a1b95ef6dc5665",
+    "src/webpent/irta/v3/proof.py": "6907aa6ed901251531faab48e0ecb2fbc076f26d5cfe59895ec26a58b30f7634",
+    "src/webpent/shared/workflow_replay.py": "d78233e20f8a3e60be80a30658a1fb2e1743e931981057c087c7fc777e590fa3",
+    "src/webpent/cqa_v2/replay_verifier.py": "ba16d252e598e940a1646d93c879b233e49c255e2c9a9c95b282916a303111ad",
+    "src/webpent/llm_researcher/world_model.py": "154a8de85c2d1a175cc428e8c2a9aeb33c57ad3ffbc371d61a6ba98a7682693e"
+  }
+}

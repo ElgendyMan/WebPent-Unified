@@ -1,0 +1,215 @@
+{
+  "phase": "3_generator_leakage_audit",
+  "date": "2026-09-03T07:04:29.564377+00:00",
+  "total_findings": 23,
+  "by_classification": {
+    "GROUND-TRUTH-ONLY": 2,
+    "NONE": 7,
+    "TARGET-INDEPENDENT HEURISTIC": 8,
+    "GENERIC": 5,
+    "LEAKAGE-RISK": 1
+  },
+  "by_risk": {
+    "MEDIUM/HIGH": 1,
+    "LOW": 14,
+    "NONE": 8
+  },
+  "findings": [
+    {
+      "item": "vulnerability_class:idor",
+      "in_generator": true,
+      "in_discovery_engine": false,
+      "in_hypothesis_engine": false,
+      "classification": "GROUND-TRUTH-ONLY",
+      "risk": "LOW"
+    },
+    {
+      "item": "vulnerability_class:broken_access_control",
+      "in_generator": false,
+      "in_discovery_engine": false,
+      "in_hypothesis_engine": false,
+      "classification": "NONE",
+      "risk": "NONE"
+    },
+    {
+      "item": "vulnerability_class:privilege_escalation",
+      "in_generator": false,
+      "in_discovery_engine": false,
+      "in_hypothesis_engine": false,
+      "classification": "NONE",
+      "risk": "NONE"
+    },
+    {
+      "item": "vulnerability_class:business_logic_abuse",
+      "in_generator": false,
+      "in_discovery_engine": false,
+      "in_hypothesis_engine": false,
+      "classification": "NONE",
+      "risk": "NONE"
+    },
+    {
+      "item": "vulnerability_class:tenant_isolation_failure",
+      "in_generator": false,
+      "in_discovery_engine": false,
+      "in_hypothesis_engine": false,
+      "classification": "NONE",
+      "risk": "NONE"
+    },
+    {
+      "item": "vulnerability_class:workflow_authorization_failure",
+      "in_generator": false,
+      "in_discovery_engine": false,
+      "in_hypothesis_engine": false,
+      "classification": "NONE",
+      "risk": "NONE"
+    },
+    {
+      "item": "vulnerability_class:sensitive_data_exposure",
+      "in_generator": false,
+      "in_discovery_engine": false,
+      "in_hypothesis_engine": false,
+      "classification": "NONE",
+      "risk": "NONE"
+    },
+    {
+      "item": "vulnerability_class:multi_step_chain",
+      "in_generator": false,
+      "in_discovery_engine": false,
+      "in_hypothesis_engine": false,
+      "classification": "NONE",
+      "risk": "NONE"
+    },
+    {
+      "item": "route_convention:/patched/",
+      "in_generator": true,
+      "in_discovery_engine": false,
+      "classification": "GROUND-TRUTH-ONLY",
+      "risk": "LOW",
+      "note": "Control routes use /patched/ prefix. If discovery engine knows this pattern, it could shortcut generative reasoning."
+    },
+    {
+      "item": "semantic_name:admin",
+      "in_generator": true,
+      "in_discovery_engine": true,
+      "classification": "TARGET-INDEPENDENT HEURISTIC",
+      "risk": "LOW",
+      "note": "Used in security-relevant resource detection \u2014 generic web convention heuristic, not target-specific"
+    },
+    {
+      "item": "semantic_name:billing",
+      "in_generator": true,
+      "in_discovery_engine": true,
+      "classification": "TARGET-INDEPENDENT HEURISTIC",
+      "risk": "LOW",
+      "note": "Used in security-relevant resource detection \u2014 generic web convention heuristic, not target-specific"
+    },
+    {
+      "item": "semantic_name:audit",
+      "in_generator": true,
+      "in_discovery_engine": true,
+      "classification": "TARGET-INDEPENDENT HEURISTIC",
+      "risk": "LOW",
+      "note": "Used in security-relevant resource detection \u2014 generic web convention heuristic, not target-specific"
+    },
+    {
+      "item": "semantic_name:internal",
+      "in_generator": true,
+      "in_discovery_engine": true,
+      "classification": "TARGET-INDEPENDENT HEURISTIC",
+      "risk": "LOW",
+      "note": "Used in security-relevant resource detection \u2014 generic web convention heuristic, not target-specific"
+    },
+    {
+      "item": "semantic_name:auth",
+      "in_generator": true,
+      "in_discovery_engine": true,
+      "classification": "TARGET-INDEPENDENT HEURISTIC",
+      "risk": "LOW",
+      "note": "Used in security-relevant resource detection \u2014 generic web convention heuristic, not target-specific"
+    },
+    {
+      "item": "semantic_name:health",
+      "in_generator": true,
+      "in_discovery_engine": true,
+      "classification": "TARGET-INDEPENDENT HEURISTIC",
+      "risk": "LOW",
+      "note": "Used in security-relevant resource detection \u2014 generic web convention heuristic, not target-specific"
+    },
+    {
+      "item": "semantic_name:openapi",
+      "in_generator": true,
+      "in_discovery_engine": true,
+      "classification": "TARGET-INDEPENDENT HEURISTIC",
+      "risk": "LOW",
+      "note": "Used in security-relevant resource detection \u2014 generic web convention heuristic, not target-specific"
+    },
+    {
+      "item": "status_code_pattern:200/403",
+      "in_generator": true,
+      "in_discovery_engine": false,
+      "classification": "GENERIC",
+      "risk": "NONE",
+      "note": "HTTP status codes are generic web knowledge, not benchmark leakage"
+    },
+    {
+      "item": "actor_identity:eve",
+      "in_generator": true,
+      "in_discovery_engine": true,
+      "classification": "LEAKAGE-RISK",
+      "risk": "MEDIUM",
+      "note": "Actor name 'eve' appears in discovery engine. Check if used as knowledge or just as example."
+    },
+    {
+      "item": "route_family:/api/",
+      "in_generator": false,
+      "in_discovery_engine": true,
+      "classification": "TARGET-INDEPENDENT HEURISTIC",
+      "risk": "LOW",
+      "note": "Standard web prefix conventions \u2014 legitimate generic heuristic"
+    },
+    {
+      "item": "route_family:/v1/",
+      "in_generator": false,
+      "in_discovery_engine": false,
+      "classification": "GENERIC",
+      "risk": "LOW",
+      "note": "Standard web prefix conventions \u2014 legitimate generic heuristic"
+    },
+    {
+      "item": "route_family:/v2/",
+      "in_generator": false,
+      "in_discovery_engine": false,
+      "classification": "GENERIC",
+      "risk": "LOW",
+      "note": "Standard web prefix conventions \u2014 legitimate generic heuristic"
+    },
+    {
+      "item": "route_family:/services/",
+      "in_generator": false,
+      "in_discovery_engine": false,
+      "classification": "GENERIC",
+      "risk": "LOW",
+      "note": "Standard web prefix conventions \u2014 legitimate generic heuristic"
+    },
+    {
+      "item": "route_family:/internal/",
+      "in_generator": false,
+      "in_discovery_engine": false,
+      "classification": "GENERIC",
+      "risk": "LOW",
+      "note": "Standard web prefix conventions \u2014 legitimate generic heuristic"
+    }
+  ],
+  "risk_items": [
+    {
+      "item": "actor_identity:eve",
+      "in_generator": true,
+      "in_discovery_engine": true,
+      "classification": "LEAKAGE-RISK",
+      "risk": "MEDIUM",
+      "note": "Actor name 'eve' appears in discovery engine. Check if used as knowledge or just as example."
+    }
+  ],
+  "conclusion": "Most dependencies are GENERIC or TARGET-INDEPENDENT HEURISTIC. Key risks: (1) /patched/ route convention shared between generator and evaluator (but NOT used by discovery engine for runtime discovery \u2014 only evaluator uses it for control route construction). (2) Actor names in discovery engine appear only in docstrings/examples, not in runtime logic. CRITICAL: No vulnerability class names, route templates, or semantic endpoint names enter the generative RUNTIME. They exist in ground truth and evaluator only.",
+  "runtime_leakage": "NONE_CONFIRMED"
+}

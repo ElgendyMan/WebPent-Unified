@@ -1,0 +1,28 @@
+{
+  "baseline_id": "v62-c9938cd-20260823",
+  "captured_at": "2026-08-23",
+  "git_commit": "c9938cdbc7984086d6fa441e15417c67b0347317",
+  "python": "3.12.3",
+  "uv": "0.12.1",
+  "ruff": "0.16.3",
+  "os": "Ubuntu 24.04.4 LTS",
+  "kernel": "6.1.102-1-amd64",
+  "docker": "29.1.3",
+  "chromium": "151.0.7922.71",
+  "redis_server_binary": null,
+  "sqlite3_binary": null,
+  "python_packages": {
+    "pytest": "9.1.1",
+    "pydantic": "2.13.4",
+    "langgraph": "1.2.11",
+    "playwright": "1.48.0",
+    "celery": "5.6.3",
+    "redis": "5.3.1",
+    "cryptography": "50.0.0"
+  },
+  "notes": [
+    "Docker is installed but no Docker service was started by this baseline.",
+    "Redis server and sqlite3 CLI binaries are unavailable; Python sqlite support is exercised by the test suite.",
+    "The baseline is local/offline except for no network-dependent test action; no external target was contacted."
+  ]
+}

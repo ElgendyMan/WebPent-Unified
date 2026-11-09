@@ -1,0 +1,427 @@
+"""Generic operator-authorized login execution for local/in-scope targets.
+
+This module deliberately has no target adapters. It performs bounded same-origin
+HTTPX requests using an AuthSignal and operator-provided runtime credentials.
+Secrets exist only in memory until the caller immediately seals the returned
+material through M4. ``to_dict`` methods contain digests and names only.
+"""
+from __future__ import annotations
+
+import base64
+import hashlib
+import json
+import re
+from dataclasses import dataclass, field
+from html.parser import HTMLParser
+from typing import Any, Mapping
+from urllib.parse import urljoin, urlsplit
+
+from webpent.recon.auth_detector import AuthSignal
+from webpent.shared.engagement_scope import (
+    clear_engagement_target_hosts,
+    set_engagement_target_hosts,
+)
+from webpent.shared.http import build_cookie_header, make_safe_httpx_client
+from webpent.shared.untrusted_content import wrap_httpx_response
+
+_SECRET_KEYS = {"token", "access_token", "accessToken", "id_token", "idToken", "jwt", "api_key", "apiKey", "session_token"}
+_SESSION_COOKIE_RE = re.compile(r"(?:session|phpsessid|jsessionid|connect\.sid|sid|auth|token|jwt)", re.I)
+_NON_AUTH_COOKIE_RE = re.compile(r"(?:consent|language|preferences?|theme|analytics)", re.I)
+SUPPORTED_AUTH_TYPES = ("form_session", "api_jwt", "basic", "oauth", "api_key")
+
+
+@dataclass(frozen=True)
+class LoginMaterial:
+    """Private runtime material; never serialize this object directly."""
+
+    kind: str
+    name: str
+    value: str = field(repr=False, compare=False)
+    source: str = ""
+
+    @property
+    def digest(self) -> str:
+        return hashlib.sha256(self.value.encode("utf-8", "replace")).hexdigest()[:16]
+
+    def m4_secret(self) -> str:
+        if self.kind == "bearer":
+            return f"bearer:{self.value}"
+        if self.kind == "cookie":
+            return f"cookie:{self.name}={self.value}"
+        if self.kind == "basic":
+            return f"basic:{self.value}"
+        if self.kind == "api_key":
+            return f"api-key:{self.name}={self.value}"
+        raise ValueError("unsupported_m4_material_kind")
+
+    def redacted(self) -> dict[str, Any]:
+        return {"kind": self.kind, "name": self.name[:128], "digest": self.digest, "source": self.source[:128]}
+
+
+@dataclass(frozen=True)
+class LoginResult:
+    alias: str
+    success: bool
+    auth_type: str
+    login_url: str | None
+    status_code: int | None
+    reason: str = ""
+    material: LoginMaterial | None = field(default=None, repr=False, compare=False)
+    validation_status_code: int | None = None
+    validation_url: str | None = None
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "alias": self.alias[:128],
+            "success": self.success,
+            "auth_type": self.auth_type,
+            "login_url": self.login_url,
+            "status_code": self.status_code,
+            "reason": self.reason[:240],
+            "material": self.material.redacted() if self.material else None,
+            "vault_bound": False,
+            "validation_status_code": self.validation_status_code,
+            "validation_url": self.validation_url,
+        }
+
+
+@dataclass(frozen=True)
+class RegistrationResult:
+    alias: str
+    success: bool
+    registration_url: str | None
+    status_code: int | None
+    reason: str = ""
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "alias": self.alias[:128],
+            "success": self.success,
+            "registration_url": self.registration_url,
+            "status_code": self.status_code,
+            "reason": self.reason[:240],
+        }
+
+
+class _HiddenInputParser(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.values: dict[str, str] = {}
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if tag.lower() != "input":
+            return
+        values = {str(key).lower(): str(value or "") for key, value in attrs}
+        if values.get("type", "").lower() == "hidden" and values.get("name"):
+            self.values[values["name"][:128]] = values.get("value", "")[:16_384]
+
+
+def _clean_url(target_url: str, candidate: str | None) -> str | None:
+    if not candidate:
+        return None
+    value = urljoin(target_url.rstrip("/") + "/", str(candidate))
+    target = urlsplit(target_url)
+    parsed = urlsplit(value)
+    if parsed.scheme not in {"http", "https"} or not parsed.hostname or parsed.hostname.lower() != (target.hostname or "").lower():
+        return None
+    if parsed.port != target.port and not (parsed.port is None and target.port in {None, 80, 443}):
+        return None
+    return value.split("#", 1)[0][:2048]
+
+
+def _credential_value(credentials: Mapping[str, Any], *keys: str) -> str:
+    nested = credentials.get("credentials") if isinstance(credentials.get("credentials"), Mapping) else credentials
+    for key in keys:
+        value = nested.get(key) if isinstance(nested, Mapping) else None
+        if isinstance(value, str) and value:
+            return value[:16_384]
+    return ""
+
+
+def _cookie_from_mapping(cookies: Mapping[str, Any], preferred: tuple[str, ...] = ()) -> LoginMaterial | None:
+    ranked = list(preferred) + [str(name) for name in cookies.keys()]
+    for name in ranked:
+        value = cookies.get(name)
+        if not isinstance(value, str) or not value or _NON_AUTH_COOKIE_RE.search(name) or not _SESSION_COOKIE_RE.search(name):
+            continue
+        return LoginMaterial("cookie", name[:128], value[:16_384], "operator_session")
+    return None
+
+
+def _cookie_from_client(client: Any, preferred: tuple[str, ...] = ()) -> LoginMaterial | None:
+    try:
+        cookies = {str(cookie.name): str(cookie.value) for cookie in client.cookies.jar}
+    except (AttributeError, TypeError, ValueError):
+        cookies = {}
+    return _cookie_from_mapping(cookies, preferred)
+
+
+def _token_from_json(value: Any) -> tuple[str, str] | None:
+    if isinstance(value, Mapping):
+        for key, item in value.items():
+            if str(key) in _SECRET_KEYS and isinstance(item, str) and item.strip():
+                return str(key), item.strip()[:16_384]
+            found = _token_from_json(item)
+            if found:
+                return found
+    if isinstance(value, list):
+        for item in value[:32]:
+            found = _token_from_json(item)
+            if found:
+                return found
+    return None
+
+
+class LoginExecutor:
+    """Perform one bounded login with a fresh HTTPX client per principal."""
+
+    def __init__(self, *, target_url: str, timeout_seconds: float = 10.0, max_response_bytes: int = 512_000) -> None:
+        self.target_url = target_url.rstrip("/")
+        if not _clean_url(self.target_url, self.target_url):
+            raise ValueError("target_url must be an absolute HTTP(S) URL")
+        self.timeout_seconds = max(0.1, min(float(timeout_seconds), 60.0))
+        self.max_response_bytes = max(1024, min(int(max_response_bytes), 2_000_000))
+
+    def login(self, *, alias: str, signal: AuthSignal, credentials: Mapping[str, Any]) -> LoginResult:
+        alias = str(alias).strip()[:128]
+        if not alias:
+            return LoginResult("", False, signal.auth_type, signal.login_url, None, "principal_alias_required")
+        if signal.auth_type not in SUPPORTED_AUTH_TYPES:
+            return LoginResult(alias, False, signal.auth_type, signal.login_url, None, "unsupported_auth_type")
+        # Operator-supplied session material is accepted only as a starting point
+        # and is still validated against a same-origin protected response.
+        supplied_cookies = credentials.get("cookies") or credentials.get("session_cookies")
+        if isinstance(supplied_cookies, Mapping) and supplied_cookies:
+            material = _cookie_from_mapping(supplied_cookies, signal.session_cookie_names)
+            if material:
+                return self._validate_material(alias, signal, material, credentials)
+        supplied_token = _credential_value(credentials, "token", "access_token", "jwt", "api_key")
+        if supplied_token:
+            kind = "api_key" if "api" in str(credentials).lower() and not supplied_token.count(".") == 2 else "bearer"
+            material = LoginMaterial(kind, "Authorization" if kind == "bearer" else "X-API-Key", supplied_token, "operator_token")
+            return self._validate_material(alias, signal, material, credentials)
+
+        username = _credential_value(credentials, "username", "email", "user", "login")
+        password = _credential_value(credentials, "password", "pass")
+        if signal.auth_type in {"oauth"}:
+            return LoginResult(alias, False, signal.auth_type, signal.login_url, None, "oauth_requires_operator_authorized_session_or_token")
+        if signal.auth_type == "basic":
+            if not username or not password:
+                return LoginResult(alias, False, signal.auth_type, signal.login_url, None, "username_and_password_required")
+            return self._perform_basic(alias, signal, username, password, credentials)
+        if signal.auth_type == "api_jwt":
+            return self._perform_api(alias, signal, username, password, credentials)
+        return self._perform_form(alias, signal, username, password, credentials)
+
+    def login_with_api_key(
+        self,
+        *,
+        alias: str,
+        value: str,
+        name: str = "X-API-Key",
+        validation_url: str | None = None,
+    ) -> LoginResult:
+        """Validate an operator-supplied API key and return sealable M4 material.
+
+        Additive convenience entry point (Unfreeze 2026-10-05, File 3). Delegates
+        to the existing ``_validate_material`` path; introduces no new authority.
+        The header ``name`` is preserved on the sealed ``LoginMaterial``
+        (``api-key:name=value``). Default-off: callers must opt in.
+        """
+        alias = str(alias).strip()[:128]
+        if not alias:
+            return LoginResult("", False, "api_key", None, None, "principal_alias_required")
+        clean_name = str(name or "X-API-Key").strip()[:128] or "X-API-Key"
+        clean_value = str(value or "")[:16_384]
+        if not clean_value:
+            return LoginResult(alias, False, "api_key", None, None, "api_key_value_required")
+        # Unfreeze fix 2026-10-05 (TEAM-RED D7): fail-closed. Without an
+        # operator-supplied protected validation URL we would fall back to the
+        # target root, where any 200 would mark any key as valid. Require it.
+        if not validation_url:
+            return LoginResult(alias, False, "api_key", None, None, "validation_url_required")
+        material = LoginMaterial("api_key", clean_name, clean_value, "operator_api_key")
+        signal = AuthSignal(
+            auth_type="api_key",
+            login_url=None,
+            token_type="api_key",
+            auth_header=f"{clean_name}: <M4-attached>",
+            confidence=0.9,
+            reason="operator_supplied_api_key",
+        )
+        credentials: dict[str, Any] = {"protected_url": validation_url} if validation_url else {}
+        return self._validate_material(alias, signal, material, credentials)
+
+    def register(
+        self,
+        *,
+        alias: str,
+        registration_url: str,
+        credentials: Mapping[str, Any],
+        field_map: Mapping[str, Any] | None = None,
+        extra_fields: Mapping[str, Any] | None = None,
+    ) -> RegistrationResult:
+        """Perform one operator-authorized same-origin JSON signup attempt."""
+        url = _clean_url(self.target_url, registration_url)
+        username = _credential_value(credentials, "username", "email", "user", "login")
+        password = _credential_value(credentials, "password", "pass")
+        if not url:
+            return RegistrationResult(alias, False, None, None, "same_origin_registration_url_unavailable")
+        if not username or not password:
+            return RegistrationResult(alias, False, url, None, "username_and_password_required")
+        mapping = field_map if isinstance(field_map, Mapping) else {}
+        username_field = str(mapping.get("username_field") or "email")[:128]
+        password_field = str(mapping.get("password_field") or "password")[:128]
+        repeat_field = str(mapping.get("password_repeat_field") or "passwordRepeat")[:128]
+        body: dict[str, Any] = {
+            username_field: username,
+            password_field: password,
+            repeat_field: password,
+        }
+        if isinstance(extra_fields, Mapping):
+            for key, value in list(extra_fields.items())[:16]:
+                if isinstance(key, str) and key and isinstance(value, (str, int, float, bool)):
+                    body[key[:128]] = value
+        target_token = set_engagement_target_hosts(self.target_url)
+        try:
+            with self._client() as client:
+                response = client.post(url, json=body)
+                status = int(getattr(response, "status_code", 0) or 0)
+                if 200 <= status < 300:
+                    return RegistrationResult(alias, True, url, status, "registration_succeeded")
+                if status == 409:
+                    return RegistrationResult(alias, True, url, status, "registration_already_exists")
+                return RegistrationResult(alias, False, url, status, "registration_rejected")
+        except Exception as exc:
+            return RegistrationResult(alias, False, url, None, type(exc).__name__)
+        finally:
+            clear_engagement_target_hosts(target_token)
+
+    def _client(self) -> Any:
+        return make_safe_httpx_client(
+            timeout=self.timeout_seconds,
+            follow_redirects=False,
+            headers={"User-Agent": "WebPent-PrincipalProvisioner/1.0", "Accept": "text/html,application/json;q=0.9,*/*;q=0.1"},
+        )
+
+    def _perform_form(self, alias: str, signal: AuthSignal, username: str, password: str, credentials: Mapping[str, Any]) -> LoginResult:
+        if not username or not password:
+            return LoginResult(alias, False, signal.auth_type, signal.login_url, None, "username_and_password_required")
+        login_url = _clean_url(self.target_url, signal.login_url) or _clean_url(self.target_url, "/login")
+        if not login_url:
+            return LoginResult(alias, False, signal.auth_type, None, None, "same_origin_login_url_unavailable")
+        target_token = set_engagement_target_hosts(self.target_url)
+        try:
+            with self._client() as client:
+                page = client.get(login_url)
+                hidden = _HiddenInputParser()
+                if "html" in page.headers.get("content-type", "").lower() or page.text.lstrip().startswith("<"):
+                    hidden.feed(page.text[: self.max_response_bytes])
+                fields = dict(hidden.values)
+                username_field = signal.login_fields.get("username_field", "username")
+                password_field = signal.login_fields.get("password_field", "password")
+                fields[username_field] = username
+                fields[password_field] = password
+                response = client.post(login_url, data=fields)
+                material = _cookie_from_client(client, signal.session_cookie_names) or _cookie_from_mapping({str(cookie.name): str(cookie.value) for cookie in response.cookies.jar}, signal.session_cookie_names)
+                if not material:
+                    return LoginResult(alias, False, signal.auth_type, login_url, response.status_code, "no_session_cookie_captured")
+                return self._validate_material(alias, signal, material, credentials, client=client, login_response=response)
+        except Exception as exc:
+            return LoginResult(alias, False, signal.auth_type, login_url, None, type(exc).__name__)
+        finally:
+            clear_engagement_target_hosts(target_token)
+
+    def _perform_api(self, alias: str, signal: AuthSignal, username: str, password: str, credentials: Mapping[str, Any]) -> LoginResult:
+        if not username or not password:
+            return LoginResult(alias, False, signal.auth_type, signal.login_url, None, "username_and_password_required")
+        login_url = _clean_url(self.target_url, signal.login_url)
+        if not login_url:
+            return LoginResult(alias, False, signal.auth_type, None, None, "same_origin_api_login_url_unavailable")
+        target_token = set_engagement_target_hosts(self.target_url)
+        try:
+            with self._client() as client:
+                body = {signal.login_fields.get("username_field", "username"): username, signal.login_fields.get("password_field", "password"): password}
+                response = client.post(login_url, json=body)
+                material = _cookie_from_client(client, signal.session_cookie_names)
+                try:
+                    payload = response.json()
+                except (ValueError, json.JSONDecodeError):
+                    payload = None
+                token = _token_from_json(payload)
+                if token:
+                    key, value = token
+                    material = LoginMaterial("bearer", key, value, "api_response")
+                if not material:
+                    return LoginResult(alias, False, signal.auth_type, login_url, response.status_code, "no_token_or_session_cookie_captured")
+                if token and 200 <= int(response.status_code) < 300 and not (credentials.get("protected_url") or credentials.get("validation_url")):
+                    return LoginResult(alias, True, signal.auth_type, login_url, response.status_code, "jwt_login_response_validated", material=material, validation_status_code=response.status_code, validation_url=login_url)
+                return self._validate_material(alias, signal, material, credentials, client=client, login_response=response)
+        except Exception as exc:
+            return LoginResult(alias, False, signal.auth_type, login_url, None, type(exc).__name__)
+        finally:
+            clear_engagement_target_hosts(target_token)
+
+    def _perform_basic(self, alias: str, signal: AuthSignal, username: str, password: str, credentials: Mapping[str, Any]) -> LoginResult:
+        validation_url = self._validation_url(signal, credentials)
+        target_token = set_engagement_target_hosts(self.target_url)
+        try:
+            with self._client() as client:
+                response = client.get(validation_url, auth=(username, password))
+                raw = f"{username}:{password}".encode("utf-8", "replace")
+                encoded = base64.b64encode(raw).decode("ascii")
+                material = LoginMaterial("basic", "Authorization", encoded, "basic_challenge")
+                if not (200 <= response.status_code < 300):
+                    return LoginResult(alias, False, signal.auth_type, validation_url, response.status_code, "basic_validation_rejected", validation_status_code=response.status_code, validation_url=validation_url)
+                return LoginResult(alias, True, signal.auth_type, validation_url, response.status_code, "basic_session_validated", material=material, validation_status_code=response.status_code, validation_url=validation_url)
+        except Exception as exc:
+            return LoginResult(alias, False, signal.auth_type, validation_url, None, type(exc).__name__)
+        finally:
+            clear_engagement_target_hosts(target_token)
+
+    def _validation_url(self, signal: AuthSignal, credentials: Mapping[str, Any]) -> str:
+        configured = credentials.get("protected_url") or credentials.get("validation_url")
+        return _clean_url(self.target_url, str(configured)) or _clean_url(self.target_url, signal.login_url) or self.target_url
+
+    def _validate_material(self, alias: str, signal: AuthSignal, material: LoginMaterial, credentials: Mapping[str, Any], *, client: Any | None = None, login_response: Any | None = None) -> LoginResult:
+        validation_url = self._validation_url(signal, credentials)
+        target_token = set_engagement_target_hosts(self.target_url)
+        owns_client = client is None
+        try:
+            active_client = client or self._client()
+            if material.kind == "cookie":
+                active_client.cookies.set(material.name, material.value, domain=urlsplit(self.target_url).hostname, path="/")
+                response = active_client.get(validation_url)
+            elif material.kind == "api_key":
+                # Unfreeze 2026-10-05: honour the operator-supplied header name
+                # (sealed as ``api-key:name=value``). Default remains X-API-Key.
+                response = active_client.get(validation_url, headers={material.name: material.value})
+            else:
+                header = "Basic " + material.value if material.kind == "basic" else "Bearer " + material.value
+                response = active_client.get(validation_url, headers={"Authorization": header})
+            status = int(getattr(response, "status_code", 0) or 0)
+            location = str(getattr(response, "headers", {}).get("location", ""))
+            login_redirect = bool(location and re.search(r"(?:login|signin|auth)", location, re.I))
+            if 300 <= status < 400 and location and not login_redirect:
+                follow_url = _clean_url(validation_url, location)
+                if follow_url:
+                    response = active_client.get(follow_url)
+                    status = int(getattr(response, "status_code", 0) or 0)
+                    location = str(getattr(response, "headers", {}).get("location", ""))
+                    login_redirect = bool(location and re.search(r"(?:login|signin|auth)", location, re.I))
+            valid = 200 <= status < 300 and not login_redirect
+            if not valid:
+                return LoginResult(alias, False, signal.auth_type, signal.login_url, getattr(login_response, "status_code", status), "session_validation_rejected", material=material, validation_status_code=status, validation_url=validation_url)
+            return LoginResult(alias, True, signal.auth_type, signal.login_url, getattr(login_response, "status_code", status), "session_validated", material=material, validation_status_code=status, validation_url=validation_url)
+        except Exception as exc:
+            return LoginResult(alias, False, signal.auth_type, signal.login_url, getattr(login_response, "status_code", None), type(exc).__name__, material=material, validation_url=validation_url)
+        finally:
+            if owns_client:
+                try:
+                    active_client.close()
+                except Exception:
+                    pass
+            clear_engagement_target_hosts(target_token)
+
+
+__all__ = ["LoginExecutor", "LoginMaterial", "LoginResult", "RegistrationResult"]

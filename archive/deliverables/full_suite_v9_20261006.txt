@@ -1,0 +1,91 @@
+........................................................................ [  2%]
+........................................................................ [  4%]
+........................................................................ [  6%]
+........................................................................ [  9%]
+........................................................................ [ 11%]
+........................................................................ [ 13%]
+........................................................................ [ 15%]
+........................................................................ [ 18%]
+........................................................................ [ 20%]
+........................................................................ [ 22%]
+........................................................................ [ 24%]
+........................................................................ [ 27%]
+........................................................................ [ 29%]
+........................................................................ [ 31%]
+........................................................................ [ 33%]
+........................................................................ [ 36%]
+........................................................................ [ 38%]
+........................................................................ [ 40%]
+........................................................................ [ 42%]
+........................................................................ [ 45%]
+........................................................................ [ 47%]
+........................................................................ [ 49%]
+........................................................................ [ 51%]
+........................................................................ [ 54%]
+........................................................................ [ 56%]
+........................................................................ [ 58%]
+........................................................................ [ 60%]
+........................................................................ [ 63%]
+........................................................................ [ 65%]
+......................x................................................. [ 67%]
+........................................................................ [ 69%]
+........................................................................ [ 72%]
+........................................................................ [ 74%]
+........................................................................ [ 76%]
+........................................................................ [ 78%]
+........................................................................ [ 81%]
+........................................................................ [ 83%]
+........................................................................ [ 85%]
+........................................................................ [ 87%]
+........................................................................ [ 90%]
+........................................................................ [ 92%]
+........................................................................ [ 94%]
+........................................................................ [ 97%]
+........................................................................ [ 99%]
+.......................                                                  [100%]
+=============================== warnings summary ===============================
+../../../../.venv/lib/python3.12/site-packages/typer/__init__.py:24
+  /home/z/.venv/lib/python3.12/site-packages/typer/__init__.py:24: DeprecationWarning: 'click.utils.get_binary_stream' is deprecated and will be removed in Click 9.0.
+    from click.utils import get_binary_stream as get_binary_stream
+
+../../../../.venv/lib/python3.12/site-packages/typer/__init__.py:25
+  /home/z/.venv/lib/python3.12/site-packages/typer/__init__.py:25: DeprecationWarning: 'click.utils.get_text_stream' is deprecated and will be removed in Click 9.0.
+    from click.utils import get_text_stream as get_text_stream
+
+../../../../.venv/lib/python3.12/site-packages/pydantic/main.py:250
+tests/team1_acceptance/test_sprint_i1b_part2_secrets_gate.py::TestDevModeWarns::test_dev_mode_still_boots_despite_warning
+tests/test_v10_exhaustive_audit.py::TestCeleryPayloadKeyEnvAlias::test_neither_set_keeps_the_documented_insecure_dev_default
+  /home/z/.venv/lib/python3.12/site-packages/pydantic/main.py:250: UserWarning: INSECURE celery_payload_key in dev mode — task passwords are encrypted with a publicly-known key and can be decrypted by anyone with Redis access. Set CELERY_PAYLOAD_KEY to a strong random value for any non-local deployment.
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+
+../../../../.venv/lib/python3.12/site-packages/ddtrace/internal/module.py:313
+  /home/z/.venv/lib/python3.12/site-packages/ddtrace/internal/module.py:313: DeprecationWarning: `langchain-community` is being sunset and is no longer actively maintained. See https://github.com/langchain-ai/langchain-community/issues/674 for details and migration guidance toward standalone integration packages.
+    self.loader.exec_module(module)
+
+src/webpent/memory/embeddings.py:159
+  /home/z/my-project/work/m2impl/v7x/src/webpent/memory/embeddings.py:159: LangChainDeprecationWarning: The class `HuggingFaceEmbeddings` was deprecated in LangChain 0.2.2 and will be removed in 1.0. An updated version of the class exists in the `langchain-huggingface package and should be used instead. To use it run `pip install -U `langchain-huggingface` and import as `from `langchain_huggingface import HuggingFaceEmbeddings``.
+    embeddings = HuggingFaceEmbeddings(**kwargs)
+
+tests/team1_acceptance/test_sprint_i1b_part2_secrets_gate.py::TestDevModeWarns::test_dev_mode_still_boots_despite_warning
+  /home/z/.venv/lib/python3.12/site-packages/pydantic/main.py:250: UserWarning: INSECURE audit_secret_key in dev mode — evidence hashes are HMAC'd with a publicly-known key and can be forged. Set AUDIT_SECRET_KEY to a strong random value for any non-local deployment.
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+
+tests/team1_acceptance/test_sprint_i2_e2e_walking_skeleton.py::Test61Positive::test_positive_full_chain_promoted
+  /home/z/.venv/lib/python3.12/site-packages/websockets/legacy/__init__.py:6: DeprecationWarning: websockets.legacy is deprecated; see https://websockets.readthedocs.io/en/stable/howto/upgrade.html for upgrade instructions
+    warnings.warn(  # deprecated in 14.0 - 2024-11-09
+
+tests/team1_acceptance/test_sprint_i2_e2e_walking_skeleton.py::Test61Positive::test_positive_full_chain_promoted
+  /home/z/.venv/lib/python3.12/site-packages/uvicorn/protocols/websockets/websockets_impl.py:17: DeprecationWarning: websockets.server.WebSocketServerProtocol is deprecated
+    from websockets.server import WebSocketServerProtocol
+
+tests/test_postp0_phase6_tool_first.py::test_xss_llm_failure_still_seeds_payloads_and_invokes_dalfox
+tests/test_postp0_phase8_flow_replay.py::test_flow_replay_emits_observations_with_session
+tests/test_scenario_auth_surface_contract.py::test_auth_node_snapshots_anonymously_before_login
+tests/test_v58_http_discovery.py::test_crawler_uses_http_fallback_when_katana_is_missing
+  /home/z/.venv/lib/python3.12/site-packages/httpx/_client.py:1053: DeprecationWarning: Setting per-request cookies=<...> is being deprecated, because the expected behaviour on cookie persistence is ambiguous. Set cookies directly on the client instance instead.
+    return self.request(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+XFAIL tests/test_r2_spine_authority_contracts.py::test_t07b_campaign_worker_entrypoint_is_campaign_worker - B-06 residual (D2/R2-04): ratified entrypoint is 'campaign_worker'; v5 uses 'worker' and KNOWN_ENTRYPOINTS (frozen) does not contain 'campaign_worker'. DENIED for R3 — E-3 unfreeze denied, deferred to M3 (Ruling R3-002 §3.5); campaign_worker.py is explicitly NOT THAWED, so this stays xfail(strict) through Phase 1.
+3190 passed, 1 xfailed, 14 warnings in 212.02s (0:03:32)

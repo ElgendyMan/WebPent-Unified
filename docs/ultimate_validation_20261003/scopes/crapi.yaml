@@ -1,0 +1,32 @@
+in_scope:
+  - url: http://127.0.0.1:8888
+    allowed_methods: [GET, POST, OPTIONS, HEAD]
+    max_severity: critical
+    source: ultimate-validation-local-crapi
+  - domain: 127.0.0.1
+    port: 8443
+    allowed_methods: [GET, POST, OPTIONS, HEAD]
+    max_severity: critical
+    source: official-local-crapi-gateway-https-port
+  - domain: 127.0.0.1
+    port: 30080
+    allowed_methods: [GET, POST, OPTIONS, HEAD]
+    max_severity: critical
+    source: official-local-crapi-web-port
+  - domain: 127.0.0.1
+    port: 30443
+    allowed_methods: [GET, POST, OPTIONS, HEAD]
+    max_severity: critical
+    source: official-local-crapi-web-https-port
+out_of_scope:
+  - url: http://127.0.0.1:8889
+    source: explicit-other-local-port
+limits:
+  max_requests_per_second: 10
+  max_concurrent_requests: 1
+  max_violations: 10
+  no_destructive: true
+blacklisted_payloads:
+  - "rm -rf"
+instructions:
+  - "Authorized local lab only; no external hosts."

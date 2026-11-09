@@ -1,0 +1,85 @@
+=== declared dependencies ===
+[project]
+name = "webpent"
+version = "0.3.0"
+description = "WebPent Framework V3 - Autonomous pentesting with HITL approval, RAG, active browser exploitation, GPU acceleration, and professional HTML reporting"
+readme = "README.md"
+requires-python = "==3.12.3"
+license = { text = "MIT" }
+authors = [
+    { name = "WebPent Team", email = "security@example.com" },
+]
+keywords = ["security", "pentesting", "langgraph", "multi-agent", "web-security", "autonomous-exploitation", "rag", "hitl", "gpu"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Security",
+]
+
+dependencies = [
+    "torch>=2.2.0",
+    # Security floor: these exact LangGraph packages match the validated
+    # Python 3.12.3 release environment and its uv.lock resolution.
+    "langgraph==1.2.11",
+    "langgraph-checkpoint-sqlite==3.1.1",
+    "langchain-core>=1.2.22,<2.0",
+    "langchain-community>=0.4.2,<1.0",
+    # V7 Phase 6 FIX: Cloudflare Workers AI now lives in its own
+    # standalone package (LangChain's ongoing trend of splitting
+    # providers out of langchain-community). _build_cloudflare() in
+    # src/webpent/shared/llm.py tries langchain_cloudflare first and
+    # falls back to langchain_community for backward compatibility.
+    "langchain-cloudflare>=0.1.0",
+    "pyyaml>=6.0",
+    "langchain-openai>=1.1.14,<2.0",
+    "langchain-mistralai>=1.0.0,<2.0",
+    "langchain-google-genai>=4.0.0,<5.0",
+    "langchain-cohere>=0.6.0,<0.7",
+    # Providers are imported lazily, so offline mode remains available;
+    # these floors keep configured online paths reproducible and patched.
+    "langchain-anthropic>=1.4.6,<2.0",
+    # Security floor: PYSEC-2026-3655/PYSEC-2026-3656 are fixed in 6.15.0.
+    "pypdf>=6.15.0",
+    "pydantic>=2.7.0",
+    "pydantic-settings>=2.3.0",
+    "python-dotenv>=1.0.0",
+    "httpx>=0.27.0",
+    "beautifulsoup4>=4.12.0",
+    # P0-4: route_web_socket() was added in Playwright 1.48 and is
+    # required for the browser SSRF guard to cover ws:// and wss://.
+    # Keep the dependency aligned with Dockerfile.base's preinstalled
+    # browser so pip does not silently install a mismatched Chromium.
+    "playwright>=1.48.0,<1.49",
+    # V10 P0-1 (RCA follow-up): alembic was previously NOT listed as a
+    # runtime dependency — db.init_db() silently fell back to legacy DDL
+    # whenever alembic was unavailable, masking real migration failures.
+    # Now a real runtime dep so the healthy path logs "Database
+    # initialized via Alembic migration" and the fallback is the
+    # exception, not the norm.
+    "alembic>=1.13.0",
+    "docker>=7.0.0",
+    "fastapi>=0.100.0",
+    "uvicorn>=0.23.0",
+    "celery>=5.3.0",
+    # V8 Phase 5: pin redis client to 5.x range to match redis:7-alpine
+    # in docker-compose. Prevents a future redis-py 6.x major bump from
+    # introducing breaking API changes against the running Redis 7 server.
+    "redis>=5.0.0,<6.0",
+    "Jinja2>=3.1.0",
+    "rich>=13.7.0",
+    "typer>=0.12.0",
+    "python-multipart>=0.0.6",
+    "bcrypt>=4.0.1",
+    "PyJWT>=2.8.0",
+    "structlog>=24.1.0",
+]
+
+[project.optional-dependencies]
+
+=== lock files ===
+./docs/requirements-audit-release.txt
+./requirements-audit-v63.txt
+./uv.lock

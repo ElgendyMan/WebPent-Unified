@@ -1,0 +1,70 @@
+{
+  "_doc": "General identity-resolution vocabulary (r6c). Generic REST conventions only — no target-specific routes, ids, or values. The loader in webpent.recon.identity_discovery mirrors these defaults fail-soft and applies the same bounds; operator-supplied files may only narrow or reorder within the documented caps. Guardrails: values are structural vocabulary, never credentials; the discoverer never serializes mined values (digests only).",
+  "self_paths": [
+    "/whoami",
+    "/me",
+    "/api/me",
+    "/api/whoami",
+    "/users/me",
+    "/user/me",
+    "/api/user/me",
+    "/api/users/me",
+    "/identity/api/v2/user/me",
+    "/identity/api/v2/user/current",
+    "/identity/api/me",
+    "/identity/api/v2/user/dashboard",
+    "/self",
+    "/account",
+    "/profile",
+    "/api/profile"
+  ],
+  "user_id_keys": [
+    "userid",
+    "user_id",
+    "user-id",
+    "subject_id",
+    "subjectid",
+    "sub",
+    "uid",
+    "identity_id",
+    "member_id",
+    "memberid"
+  ],
+  "resource_id_keys": [
+    "bid",
+    "basket_id",
+    "basketid",
+    "cart_id",
+    "cartid",
+    "order_id",
+    "orderid",
+    "item_id",
+    "itemid",
+    "product_id",
+    "productid",
+    "row_id",
+    "rowid",
+    "card_id",
+    "cardid",
+    "comment_id",
+    "commentid",
+    "review_id",
+    "reviewid"
+  ],
+  "self_actions": [
+    "dashboard",
+    "me",
+    "current",
+    "profile",
+    "details",
+    "self",
+    "account",
+    "whoami"
+  ],
+  "bounds": {
+    "max_probe_paths": 16,
+    "max_s3_variants_per_path": 3,
+    "max_resource_seeds": 16,
+    "max_attempts_records": 48
+  }
+}

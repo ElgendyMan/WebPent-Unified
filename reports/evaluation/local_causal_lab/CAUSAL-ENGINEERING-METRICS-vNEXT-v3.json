@@ -1,0 +1,54 @@
+{
+  "schema": "webpent-causal-engineering-metrics-vnext-v3",
+  "scope": "Controlled local target-backed causal validation; local-only bounded validation",
+  "target_backed_preflight_attempts": 1,
+  "target_backed_experiments_executed": 1,
+  "controlled_local_target_experiments_executed": 1,
+  "offline_fixture_experiments_executed": 1,
+  "oracle_decisions_by_origin": {
+    "offline_fixture": {
+      "CONFIRMED": 1,
+      "CLEAN": 0,
+      "INCONCLUSIVE": 0,
+      "BLOCKED": 0
+    },
+    "target_runtime": {
+      "CONFIRMED": 1,
+      "CLEAN": 0,
+      "INCONCLUSIVE": 0,
+      "BLOCKED": 0
+    }
+  },
+  "target_readiness_preflight_decisions": {
+    "BLOCKED": 1,
+    "READY": 1
+  },
+  "target_backed_causal_confirmations": 1,
+  "controlled_local_target_backed_confirmations": 1,
+  "offline_fixture_confirmations": 1,
+  "technical_proof_bundles_created": 1,
+  "scoring_proof_bundles_created": 0,
+  "sealed_proof_bundles_created": 1,
+  "replay_successes": 1,
+  "target_backed_replay_successes": 1,
+  "replay_mismatch_rejections_tested": 4,
+  "actual_local_get_observations": 3,
+  "quality_metrics": {
+    "precision": null,
+    "recall": null,
+    "false_positive_rate": null,
+    "false_negative_rate": null,
+    "reason": "No approved ground-truth scoring set or official isolated runs; controlled target validates causal proof mechanics only."
+  },
+  "interpretation": "One purpose-built deterministic loopback target produced three actual redacted GET observations, a CONFIRMED target_runtime causal result, one sealed technical ProofBundle, and successful replay. This is not an approved scoring case and has no qualification effect. The earlier WebGoat preflight remains a separate BLOCKED environment limitation.",
+  "prohibited_quality_metrics_present": false,
+  "governance": {
+    "official_isolated_p10_runs_authorized": false,
+    "human_independent_signoff_obtained": false,
+    "p10": "NOT_QUALIFIED",
+    "p9": "NOT_QUALIFIED",
+    "vip": "NOT_QUALIFIED",
+    "bug_bounty": "BLOCKED",
+    "scoring_promotion": false
+  }
+}

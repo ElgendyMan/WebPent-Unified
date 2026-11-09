@@ -1,0 +1,190 @@
+{
+  "target_id": "goed-target-07",
+  "port": 8807,
+  "naming_convention": {
+    "route_style": 7,
+    "object_style": 7,
+    "role_set": 7,
+    "tenant_style": 7
+  },
+  "route_prefix": "/platform/ENTITY/v2",
+  "roles": [
+    "reporter",
+    "developer",
+    "lead",
+    "principal"
+  ],
+  "tenants": [
+    "namespace-cfdf",
+    "namespace-faee"
+  ],
+  "objects": [
+    "unit.00000",
+    "unit.00001",
+    "unit.00002",
+    "unit.00003",
+    "unit.00004",
+    "unit.00005"
+  ],
+  "cases": {
+    "goed-target-07-case-00": {
+      "case_id": "goed-target-07-case-00",
+      "target_id": "goed-target-07",
+      "class": "idor",
+      "route": "/platform/objects/unit.00001/v2",
+      "baseline_route": "/platform/objects/unit.00000/v2",
+      "control_route": "/patched/platform/objects/unit.00001/v2",
+      "actor_role": "developer",
+      "actor_tenant": "namespace-cfdf",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-07-case-01": {
+      "case_id": "goed-target-07-case-01",
+      "target_id": "goed-target-07",
+      "class": "broken_access_control",
+      "route": "/platform/admin/dashboard/v2",
+      "baseline_route": "/platform/profile/v2",
+      "control_route": "/patched/platform/admin/dashboard/v2",
+      "actor_role": "developer",
+      "actor_tenant": "namespace-cfdf",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-target-07-case-02": {
+      "case_id": "goed-target-07-case-02",
+      "target_id": "goed-target-07",
+      "class": "privilege_escalation",
+      "route": "/platform/billing/namespace-cfdf/records/v2",
+      "baseline_route": "/platform/profile/v2",
+      "control_route": "/patched/platform/billing/namespace-cfdf/records/v2",
+      "actor_role": "developer",
+      "actor_tenant": "namespace-cfdf",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "low"
+    },
+    "goed-target-07-case-03": {
+      "case_id": "goed-target-07-case-03",
+      "target_id": "goed-target-07",
+      "class": "business_logic_abuse",
+      "route": "/platform/transfer/unit.00000?to=unit.00001&amount=-100/v2",
+      "baseline_route": "/platform/transfer/unit.00000?to=unit.00001&amount=10/v2",
+      "control_route": "/patched/platform/transfer/unit.00000",
+      "actor_role": "developer",
+      "actor_tenant": "namespace-cfdf",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-target-07-case-04": {
+      "case_id": "goed-target-07-case-04",
+      "target_id": "goed-target-07",
+      "class": "tenant_isolation_failure",
+      "route": "/platform/tenant/namespace-faee/internal/v2",
+      "baseline_route": "/platform/tenant/namespace-cfdf/internal/v2",
+      "control_route": "/patched/platform/tenant/namespace-faee/internal/v2",
+      "actor_role": "developer",
+      "actor_tenant": "namespace-cfdf",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-target-07-case-05": {
+      "case_id": "goed-target-07-case-05",
+      "target_id": "goed-target-07",
+      "class": "workflow_authorization_failure",
+      "route": "/platform/workflows/unit.00002/approve/v2",
+      "baseline_route": "/platform/workflows/unit.00002/view/v2",
+      "control_route": "/patched/platform/workflows/unit.00002/approve/v2",
+      "actor_role": "reporter",
+      "actor_tenant": "namespace-cfdf",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "low"
+    },
+    "goed-target-07-case-06": {
+      "case_id": "goed-target-07-case-06",
+      "target_id": "goed-target-07",
+      "class": "sensitive_data_exposure",
+      "route": "/platform/messages/unit.00001/inbox/v2",
+      "baseline_route": "/platform/messages/unit.00000/inbox/v2",
+      "control_route": "/patched/platform/messages/unit.00001/inbox/v2",
+      "actor_role": "developer",
+      "actor_tenant": "namespace-cfdf",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-target-07-case-07": {
+      "case_id": "goed-target-07-case-07",
+      "target_id": "goed-target-07",
+      "class": "multi_step_chain",
+      "route": "/platform/auth/reset/request?for=unit.00001/v2",
+      "baseline_route": "/platform/auth/reset/request?for=unit.00000/v2",
+      "control_route": "/patched/platform/auth/reset/request",
+      "actor_role": "developer",
+      "actor_tenant": "namespace-cfdf",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "low"
+    },
+    "goed-target-07-case-08": {
+      "case_id": "goed-target-07-case-08",
+      "target_id": "goed-target-07",
+      "class": "tenant_isolation_failure",
+      "route": "/platform/tenant/namespace-faee/internal/v2",
+      "baseline_route": "/platform/tenant/namespace-cfdf/internal/v2",
+      "control_route": "/patched/platform/tenant/namespace-faee/internal/v2",
+      "actor_role": "developer",
+      "actor_tenant": "namespace-cfdf",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-07-case-09": {
+      "case_id": "goed-target-07-case-09",
+      "target_id": "goed-target-07",
+      "class": "sensitive_data_exposure",
+      "route": "/platform/messages/unit.00001/inbox/v2",
+      "baseline_route": "/platform/messages/unit.00000/inbox/v2",
+      "control_route": "/patched/platform/messages/unit.00001/inbox/v2",
+      "actor_role": "developer",
+      "actor_tenant": "namespace-cfdf",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-07-clean-00": {
+      "case_id": "goed-target-07-clean-00",
+      "target_id": "goed-target-07",
+      "class": "clean_public_resource",
+      "route": "/platform/public/info-0/v2",
+      "baseline_route": "/platform/public/info-0/v2",
+      "control_route": "/platform/public/info-0/v2",
+      "actor_role": "developer",
+      "actor_tenant": "namespace-cfdf",
+      "expected_verdict": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    },
+    "goed-target-07-clean-01": {
+      "case_id": "goed-target-07-clean-01",
+      "target_id": "goed-target-07",
+      "class": "clean_public_resource",
+      "route": "/platform/public/info-1/v2",
+      "baseline_route": "/platform/public/info-1/v2",
+      "control_route": "/platform/public/info-1/v2",
+      "actor_role": "developer",
+      "actor_tenant": "namespace-cfdf",
+      "expected_verdict": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    }
+  },
+  "total_cases": 12,
+  "vulnerable_cases": 10,
+  "clean_cases": 2
+}

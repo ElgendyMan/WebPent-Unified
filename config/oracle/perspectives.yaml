@@ -1,0 +1,98 @@
+# U-ORACLE-8: six analytic lenses over the same passive evidence
+# (ORACLE-L-7). Each perspective weighs evidence categories and carries
+# observation triggers: when findings of the category exist, the lens
+# speaks. Weights are within [0, 1]; priorities derive from them.
+perspectives:
+  - perspective_id: PS-ATTACKER
+    name: attacker
+    description: how an adversary would chain the exposed evidence
+    weights:
+      credential: 0.9
+      data_leak: 0.8
+      subdomain: 0.6
+      endpoint: 0.5
+      tech: 0.4
+    triggers:
+      - category: credential
+        observation: "a credential is exposed in public sources; an adversary starts here"
+      - category: subdomain
+        observation: "dangling subdomain records widen the interception surface"
+      - category: data_leak
+        observation: "leaked datasets shorten the path to internal knowledge"
+
+  - perspective_id: PS-DEFENDER
+    name: defender
+    description: which exposures are cheapest to close first
+    weights:
+      endpoint: 0.9
+      tech: 0.7
+      credential: 0.6
+      subdomain: 0.5
+      data_leak: 0.4
+    triggers:
+      - category: endpoint
+        observation: "forgotten endpoints are removable in one change window"
+      - category: tech
+        observation: "fingerprinted components should be patched or hidden"
+      - category: subdomain
+        observation: "dangling dns records can be deleted at the registrar"
+
+  - perspective_id: PS-IMPACT
+    name: business_impact
+    description: what the exposure costs if the hypothesis holds
+    weights:
+      data_leak: 0.9
+      credential: 0.8
+      tech: 0.4
+      endpoint: 0.3
+      subdomain: 0.3
+    triggers:
+      - category: data_leak
+        observation: "exposed data carries direct regulatory and trust cost"
+      - category: credential
+        observation: "live credential exposure converts directly to account risk"
+
+  - perspective_id: PS-COMPLIANCE
+    name: compliance
+    description: legal basis and disclosure posture of the evidence itself
+    weights:
+      credential: 0.7
+      data_leak: 0.7
+      endpoint: 0.3
+      subdomain: 0.3
+      tech: 0.2
+    triggers:
+      - category: credential
+        observation: "credential evidence demands strict handling before any disclosure"
+      - category: data_leak
+        observation: "leaked personal data triggers notification obligations for its owner"
+
+  - perspective_id: PS-ENGINEER
+    name: engineer
+    description: concrete remediation steps on the stack
+    weights:
+      tech: 0.9
+      endpoint: 0.7
+      subdomain: 0.4
+      credential: 0.5
+      data_leak: 0.3
+    triggers:
+      - category: tech
+        observation: "each fingerprinted version maps to a known upgrade path"
+      - category: endpoint
+        observation: "archived endpoints can be re-checked against current routes"
+
+  - perspective_id: PS-RESEARCHER
+    name: researcher
+    description: corroboration strength and report readiness
+    weights:
+      credential: 0.6
+      data_leak: 0.6
+      subdomain: 0.5
+      endpoint: 0.5
+      tech: 0.5
+    triggers:
+      - category: credential
+        observation: "multi-source credential corroboration meets the reporting bar"
+      - category: subdomain
+        observation: "subdomain evidence is cheap to corroborate across archives"

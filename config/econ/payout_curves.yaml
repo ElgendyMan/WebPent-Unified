@@ -1,0 +1,13 @@
+# config/econ/payout_curves.yaml — global fallback payout curves
+# (NC-ECON-1, U-ECON-1)
+#
+# Used by MarketKB.get_payout_range() when a program has no curve for a
+# severity. Values are conservative public-data baselines in USD; a
+# program's own curve always wins. Sources documented in
+# docs/econ/schema.md; refresh via offline ingestion only (L-2).
+
+curves:
+  critical: {min: 3000, max: 25000, typical: 8000}
+  high: {min: 1000, max: 5000, typical: 2500}
+  medium: {min: 300, max: 1500, typical: 600}
+  low: {min: 50, max: 500, typical: 150}

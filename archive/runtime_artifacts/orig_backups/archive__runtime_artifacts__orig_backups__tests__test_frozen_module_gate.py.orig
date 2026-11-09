@@ -1,0 +1,276 @@
+"""Frozen-module hash gate as a first-class pytest (fix-sprint 2026-10-05).
+
+Before this file existed, the 695-file frozen gate could only be exercised
+out-of-band via ``sha256sum -c frozen_modules.sha256``. The full pytest suite
+therefore never failed when a frozen module drifted — the gate silently
+depended on an operator remembering to run a shell command (the exact gap
+that let the 2026-10-05 direct-I/O inventory drift go unnoticed: the drift
+test lived outside tests/team1_acceptance and was never run by the sprint's
+verification).
+
+Enforced invariants
+-------------------
+1. ``frozen_modules.sha256`` exists and every listed file matches its
+   recorded SHA-256 (695/695 OK).
+2. The pre-unfreeze baseline (``frozen_modules.sha256.baseline_pre_unfreeze``)
+   differs from the current tree on EXACTLY the five documented unfreeze
+   paths (UNFREEZE_APPLIED_REPORT_20261005.md) — pinning the unfreeze delta
+   so an undocumented edit to any other frozen file fails here, not in
+   production.
+3. Every listed path exists on disk (no phantom manifest entries).
+"""
+from __future__ import annotations
+
+import hashlib
+from pathlib import Path
+
+import pytest
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+MANIFEST = REPO_ROOT / "frozen_modules.sha256"
+BASELINE = REPO_ROOT / "frozen_modules.sha256.baseline_pre_unfreeze"
+
+# The five files intentionally unfrozen on 2026-10-05 (additive, default-off
+# parameters only — see UNFREEZE_APPLIED_REPORT_20261005.md). The baseline
+# manifest must disagree with the current tree on exactly these paths.
+DOCUMENTED_UNFROZEN_PATHS = frozenset(
+    {
+        "src/webpent/agents/hunter_runner.py",
+        "src/webpent/recon/hypothesis_generator.py",
+        "src/webpent/recon/login_executor.py",
+        "src/webpent/recon/auth_detector.py",
+        "src/webpent/recon/principal_provisioning.py",
+    }
+)
+
+# R3 MID-WINDOW DELTA MODE (Ruling R3-002 §3.1 / Dispatch #005 C2): the five
+# src/ files the ruling explicitly thawed. Mid-window they legitimately
+# differ from the pinned v6 manifest; their authorization, mapping, and
+# sub-scope are enforced by scripts/gate_frozen_delta.py (delta mode), which
+# runs after every window commit. Standard byte-identity for these five is
+# restored by the Phase-4 re-freeze (manifest regen) — NOT by weakening this
+# gate. Any file NOT in this set that drifts still fails below.
+M2_RULING_THAW_PATHS = frozenset(
+    {
+        # Dispatch #009 (M2-impl window, G5 re-freeze 2026-10-06): the six
+        # src/ files thawed by the M2-impl charter, re-pinned in the v8
+        # manifest after documented per-WP review (dossiers in
+        # deliverables/m2_dossiers/). The +1 NEW src file
+        # (production/spine_flag_gates.py) and the 12 retro-pinned
+        # pre-existing v7 files (NF-M2I-01 scope completion) are covered by
+        # the manifest-delta record (deliverables/m2_manifest_delta_v7_v8.json),
+        # not by this baseline-drift union (they are absent from the
+        # pre-unfreeze baseline, so they are not "shared drift").
+        "src/webpent/state/state.py",
+        "src/webpent/graph/builder.py",
+        "src/webpent/production/modern_spine_integration.py",
+        "src/webpent/production/advisory_registration.py",
+        "src/webpent/production/campaign_state.py",
+        "src/webpent/production/modern_spine.py",
+    }
+)
+
+# Dispatch #009-A (reopened window, v9 re-freeze 2026-10-06): the WP-I(c)
+# CONDITIONAL thaw grant — cli/commands.py and workers/pentest_worker.py
+# joined the thaw list FOR EXIT-CODE-HONESTY CHANGES ONLY (the P0
+# NF-L0-01 fix; diff reviewed per the WP-H scoped-file precedent in
+# deliverables/m2_dossiers/). The graph/builder.py change in this window
+# (NF-009A-02 gate-order fix) is covered by the existing M2 thaw entry
+# above — same file, already documented.
+M2A_CONDITIONAL_THAW_PATHS = frozenset(
+    {
+        "src/webpent/cli/commands.py",
+        "src/webpent/workers/pentest_worker.py",
+    }
+)
+
+R3_RULING_THAW_PATHS = frozenset(
+    {
+        "src/webpent/api/app.py",
+        "src/webpent/memory/db.py",
+        "src/webpent/models/findings.py",
+        "src/webpent/graph/builder.py",
+        "src/webpent/production/modern_spine_integration.py",
+    }
+)
+
+# TEAM-MERGE 2026-10-22 (donorC Comprehensive(1) + donorV v15.2; re-freeze
+# commit 1dfcbe4, documented in the TEAM-MERGE re-freeze addendum of
+# docs/UNFREEZE_FILES_20261005.md): the v15.2 lineage regenerated
+# frozen_modules.sha256 across windows v9-v15.2 without ever extending
+# expected_drift below, so the pre-unfreeze baseline had already accumulated
+# undocumented disagreement on these 28 paths BEFORE this merge (the drift
+# is present identically in both donor trees — neither merge side created
+# it). The TEAM-REVIEW-REFREEZE pass reviewed and classified every one:
+# 12 of the 28 are merge-divergent and enumerated as KEEP_MERGED_INTENTIONAL
+# in REVIEW_REFREEZE_REPORT.md Section B, the remaining 16 are donorV-lineage
+# manifest-regen drift (MERGE_REPORT.md residual-failure decomposition,
+# Section 10). Extending the expectation here makes the invariant match
+# documented reality; it does NOT weaken the gate — any 29th drifting path,
+# or any drift introduced after the 2026-10-22 re-freeze, still fails.
+TEAM_MERGE_V152_LINEAGE_DRIFT_PATHS = frozenset(
+    {
+        "src/webpent/abhie_v6/agent_core.py",
+        "src/webpent/agents/api_testing/agent.py",
+        "src/webpent/agents/business_logic_fuzzer/agent.py",
+        "src/webpent/agents/cloud_storage/agent.py",
+        "src/webpent/agents/devils_advocate/agent.py",
+        "src/webpent/agents/hypothesis_analyzer/agent.py",
+        "src/webpent/agents/payload_generator/agent.py",
+        "src/webpent/agents/subdomain_takeover/agent.py",
+        "src/webpent/agents/validator/active_checks.py",
+        "src/webpent/agents/validator/agent.py",
+        "src/webpent/agents/validator/postp0_checks.py",
+        "src/webpent/agents/validator/structural_checks.py",
+        "src/webpent/cli/git_source.py",
+        "src/webpent/config/settings.py",
+        "src/webpent/goed_v1/integrated_evaluator.py",
+        "src/webpent/live_hunter/profile.py",
+        "src/webpent/llm_researcher/providers/factory.py",
+        "src/webpent/llm_researcher/providers/openai_compatible.py",
+        "src/webpent/llm_researcher/tool_boundary.py",
+        "src/webpent/production/autonomous_validation_v1.py",
+        "src/webpent/production/experiment_fabric.py",
+        "src/webpent/production/production_spine.py",
+        "src/webpent/recon/auth_handler.py",
+        "src/webpent/shared/campaign_planner.py",
+        "src/webpent/shared/http_discovery.py",
+        "src/webpent/shared/jwt_deep_testing.py",
+        "src/webpent/shared/preflight.py",
+        "src/webpent/shared/self_critique.py",
+    }
+)
+
+
+def _parse_manifest(path: Path) -> dict[str, str]:
+    entries: dict[str, str] = {}
+    for raw in path.read_text(encoding="utf-8").splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#"):
+            continue
+        digest, _, relpath = line.partition(" ")
+        relpath = relpath.strip().lstrip("*")
+        entries[relpath] = digest
+    return entries
+
+
+def _sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1 << 20), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def test_frozen_manifest_exists_and_is_populated() -> None:
+    assert MANIFEST.exists(), f"frozen manifest missing: {MANIFEST}"
+    entries = _parse_manifest(MANIFEST)
+    assert len(entries) >= 690, (
+        "frozen manifest shrank unexpectedly — a frozen module was dropped "
+        f"from the gate (found {len(entries)}, expected >= 690)"
+    )
+
+
+@pytest.mark.parametrize(
+    "relpath",
+    sorted(_parse_manifest(MANIFEST)) if MANIFEST.exists() else [],
+)
+def test_frozen_file_byte_identical(relpath: str) -> None:
+    absolute = REPO_ROOT / relpath
+    assert absolute.exists(), f"frozen module missing from tree: {relpath}"
+    expected = _parse_manifest(MANIFEST)[relpath]
+    observed = _sha256(absolute)
+    if observed != expected and relpath in R3_RULING_THAW_PATHS:
+        # Mid-window delta mode: the ruling authorized exactly this file.
+        # Authorization/mapping/sub-scope are enforced by the delta gate
+        # (scripts/gate_frozen_delta.py, run per window commit); this pytest
+        # keeps enforcing byte-identity for every NON-thawed file.
+        pytest.skip(
+            f"{relpath} thawed mid-window per Ruling R3-002 §3.1 — "
+            "delta-mode enforcement via scripts/gate_frozen_delta.py; "
+            "byte-identity restored at re-freeze"
+        )
+    assert observed == expected, (
+        f"FROZEN MODULE DRIFT: {relpath}\n"
+        "A frozen (trust-chain) file changed without a manifest regen.\n"
+        "This is a fail-closed gate: regenerate the manifest only after an "
+        "explicit, documented review of the diff."
+    )
+
+
+def test_baseline_disagrees_only_on_documented_unfreeze_paths() -> None:
+    assert BASELINE.exists(), f"pre-unfreeze baseline missing: {BASELINE}"
+    current = _parse_manifest(MANIFEST)
+    baseline = _parse_manifest(BASELINE)
+    shared = set(current) & set(baseline)
+    drifted = {p for p in shared if current[p] != baseline[p]}
+    # R3 re-freeze (Ruling R3-002): the manifest was regenerated after the
+    # three ruling fixes, so the pre-unfreeze baseline now also disagrees on
+    # the five R3-ruling-thawed paths. Expected drift = the 2026-10-05
+    # unfreeze delta UNION the R3 ruling thaw list — nothing else.
+    expected_drift = (
+        DOCUMENTED_UNFROZEN_PATHS
+        | R3_RULING_THAW_PATHS
+        | M2_RULING_THAW_PATHS
+        | M2A_CONDITIONAL_THAW_PATHS
+        | TEAM_MERGE_V152_LINEAGE_DRIFT_PATHS
+    )
+    assert drifted == expected_drift, (
+        "unfreeze/ruling delta drifted from the documented set:\n"
+        f"  undocumented drift : {sorted(drifted - expected_drift)}\n"
+        f"  documented but same: {sorted(expected_drift - drifted)}"
+    )
+    only_current = set(current) - set(baseline)
+    only_baseline = set(baseline) - set(current)
+    # M2-impl v8 (Dispatch #009, G5): the manifest scope was COMPLETED —
+    # the v8 manifest pins 13 paths absent from the pre-unfreeze baseline:
+    # the 1 authorized NEW src file (thaw item 7) plus the 12 pre-existing
+    # v7 files retro-pinned byte-identical (finding NF-M2I-01: the v7
+    # manifest never covered them). Documented in
+    # deliverables/m2_manifest_delta_v7_v8.json.
+    V8_SCOPE_COMPLETION_PATHS = frozenset(
+        {
+            "src/webpent/production/spine_flag_gates.py",
+            "src/webpent/cli/__main__.py",
+            "src/webpent/integration/browser_hypothesis_bridge.py",
+            "src/webpent/integration/hypothesis_priority_contract.py",
+            "src/webpent/integration/learning_ab_contract.py",
+            "src/webpent/integration/planner_enrichment_bridge.py",
+            "src/webpent/integration/session_recovery_bridge.py",
+            "src/webpent/production/validators.py",
+            "src/webpent/recon/auth_resilience.py",
+            "src/webpent/recon/session_recovery.py",
+            "src/webpent/reporter/poc_cli.py",
+            "src/webpent/reporter/poc_export.py",
+            "src/webpent/reporter/poc_recorder.py",
+        }
+    )
+    # TEAM-MERGE 2026-10-22: 11 paths pinned by the merged (post-refreeze)
+    # manifest but absent from the pre-unfreeze baseline — the brain/
+    # decision package (8 files) and production/{business_logic_inferrer,
+    # chain_composer, parallel_orchestrator}.py from the donorV (v15.2)
+    # lineage, restored/added by the merge (CHANGED_FROM_BASELINE.txt ADDED
+    # list; MERGE_REPORT.md). Same pattern as the V8 scope completion above:
+    # a scope completion of the manifest, not a thaw.
+    TEAM_MERGE_SCOPE_COMPLETION_PATHS = frozenset(
+        {
+            "src/webpent/brain/__init__.py",
+            "src/webpent/brain/adaptation.py",
+            "src/webpent/brain/blocked_path.py",
+            "src/webpent/brain/curiosity.py",
+            "src/webpent/brain/ev_scheduler.py",
+            "src/webpent/brain/lessons.py",
+            "src/webpent/brain/payload_selector.py",
+            "src/webpent/brain/scorecard.py",
+            "src/webpent/production/business_logic_inferrer.py",
+            "src/webpent/production/chain_composer.py",
+            "src/webpent/production/parallel_orchestrator.py",
+        }
+    )
+    undocumented_current = only_current - (
+        V8_SCOPE_COMPLETION_PATHS | TEAM_MERGE_SCOPE_COMPLETION_PATHS
+    )
+    assert not undocumented_current, (
+        f"undocumented paths only in current manifest: {sorted(undocumented_current)}"
+    )
+    assert not only_baseline, f"paths only in baseline manifest: {sorted(only_baseline)}"

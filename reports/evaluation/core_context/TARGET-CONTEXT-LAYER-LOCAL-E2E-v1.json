@@ -1,0 +1,120 @@
+{
+  "artifact_version": "target-context-local-e2e.v1",
+  "milestone": "CORE_MILESTONE_AUTHORIZED_GENERIC_TARGET_CONTEXT_EXECUTION_LAYER",
+  "scope": {
+    "network": "none_for_context_lifecycle_tests",
+    "external_targets": false,
+    "credentials": false,
+    "tokens": false,
+    "raw_headers_or_bodies_persisted": false,
+    "official_p10": false,
+    "bug_bounty": false
+  },
+  "generic_contract": {
+    "version": "target-context.v1",
+    "scope_binding": ["target_spec_id", "campaign_id", "run_id", "target_origin", "scope_digest"],
+    "forbidden_default_capabilities": [
+      "credentials",
+      "credential_use",
+      "token_generation",
+      "external_network",
+      "external_callback",
+      "auth_bypass",
+      "state_mutation",
+      "destructive_action"
+    ],
+    "roles": ["baseline", "candidate", "negative_control"],
+    "statuses": [
+      "ready",
+      "lab_not_ready",
+      "precondition_blocked",
+      "capability_unavailable",
+      "session_unavailable",
+      "fixture_unavailable",
+      "oracle_inconclusive",
+      "confirmed",
+      "expired",
+      "restore_failed",
+      "disposal_failed"
+    ]
+  },
+  "providers": {
+    "mock": {
+      "mode": "offline_deterministic",
+      "ready": true,
+      "negative_variants_tested": [
+        "blocked_state",
+        "expired_capability",
+        "missing_session",
+        "snapshot_restore_failure",
+        "negative_control_isolation",
+        "cleanup_failure"
+      ]
+    },
+    "juice_shop": {
+      "mode": "offline_adapter_contract",
+      "ready": true,
+      "network_requests": 0,
+      "target_specific_business_logic_in_generic_core": false
+    },
+    "webgoat": {
+      "mode": "offline_adapter_contract",
+      "ready": true,
+      "network_requests": 0,
+      "target_specific_business_logic_in_generic_core": false
+    },
+    "crapi": {
+      "mode": "offline_adapter_contract",
+      "ready": true,
+      "network_requests": 0,
+      "target_specific_business_logic_in_generic_core": false
+    }
+  },
+  "campaign_executor": {
+    "context_enabled": true,
+    "lifecycle": [
+      "target_context_acquisition",
+      "capability_lease",
+      "readiness",
+      "session_and_fixture_preparation",
+      "snapshot",
+      "execution_boundary",
+      "restore",
+      "dispose"
+    ],
+    "backward_compatibility": true,
+    "failed_context_blocks_handler": true,
+    "dispose_revokes_lease": true,
+    "fixture_failure_revokes_session": true
+  },
+  "regression": {
+    "targeted_tests": 39,
+    "targeted_tests_passed": 39,
+    "ruff": "pass",
+    "compileall": "pass",
+    "targets_covered": ["Mock", "Juice Shop", "WebGoat", "crAPI"]
+  },
+  "same_condition_live_evidence": {
+    "webgoat_idor": {
+      "status": "inconclusive",
+      "observations": 3,
+      "semantics": "baseline_candidate_negative_control_all_returned_302_redirect",
+      "causal_confirmation": false,
+      "sealed_proof_bundle": false
+    },
+    "crapi_object_access": {
+      "status": "blocked",
+      "observations": 0,
+      "reason": "safe_requester_owner_fixture_injection_and_reset_not_proven",
+      "causal_confirmation": false,
+      "sealed_proof_bundle": false
+    }
+  },
+  "qualification": {
+    "official_isolated_p10_runs_authorized": false,
+    "p10": "NOT_QUALIFIED",
+    "p9": "NOT_QUALIFIED",
+    "vip": "NOT_QUALIFIED",
+    "bug_bounty": "BLOCKED"
+  }
+}

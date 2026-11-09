@@ -1,0 +1,152 @@
+........................................................................ [  3%]
+........................................................................ [  6%]
+........................................................................ [  9%]
+........................................................................ [ 12%]
+........................................................................ [ 15%]
+........................................................................ [ 18%]
+........................................................................ [ 22%]
+........................................................................ [ 25%]
+............................................................F........... [ 28%]
+.......FF..................................................FFF.......... [ 31%]
+........................................................................ [ 34%]
+........................................................................ [ 37%]
+........................................................................ [ 41%]
+........................................................................ [ 44%]
+..................................F..................................... [ 47%]
+........................................................................ [ 50%]
+........................................................................ [ 53%]
+........................................................................ [ 56%]
+........................................................................ [ 60%]
+........................................................................ [ 63%]
+........................................................................ [ 66%]
+........................................................................ [ 69%]
+........................................................................ [ 72%]
+........................................................................ [ 75%]
+........................................................................ [ 79%]
+........................................................................ [ 82%]
+........................................................................ [ 85%]
+........................................................................ [ 88%]
+........................................................................ [ 91%]
+........................................................................ [ 94%]
+........................................................................ [ 98%]
+.............................................                            [100%]
+=================================== FAILURES ===================================
+_______ test_option_b_import_validates_and_original_packet_stays_pending _______
+
+    def test_option_b_import_validates_and_original_packet_stays_pending() -> None:
+>       assert validate(IMPORT, PACKET, INVENTORY, APPROVAL) == []
+E       AssertionError: assert ['approval_so...ash_mismatch'] == []
+E         
+E         Left contains one more item: 'approval_source_hash_mismatch'
+E         Use -v to get more diff
+
+tests/test_local_causal_lab_option_b_approval.py:27: AssertionError
+_________ test_webgoat_source_pin_matches_but_service_alignment_blocks _________
+
+    def test_webgoat_source_pin_matches_but_service_alignment_blocks() -> None:
+        provenance = _provenance_for_webgoat()
+        assert provenance.validate() == ()
+        result = readiness_check(provenance, WEBGOAT_ROOT)
+>       assert result["source"]["all_match"] is True
+E       assert False is True
+
+tests/test_local_causal_lab_runtime_provenance.py:59: AssertionError
+_______________ test_crapi_source_and_runtime_pins_are_attested ________________
+
+    def test_crapi_source_and_runtime_pins_are_attested() -> None:
+        provenance = _provenance_for_crapi()
+        assert provenance.validate() == ()
+        result = readiness_check(provenance, CRAPI_ROOT)
+>       assert result["source"]["all_match"] is True
+E       assert False is True
+
+tests/test_local_causal_lab_runtime_provenance.py:68: AssertionError
+___________ test_option_b_runner_emits_only_redacted_blocked_records ___________
+
+    def test_option_b_runner_emits_only_redacted_blocked_records() -> None:
+>       result = build_result()
+                 ^^^^^^^^^^^^^^
+
+tests/test_option_b_local_causal_lab_runner.py:7: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+import_path = PosixPath('/tmp/webpent-work/reports/evaluation/owner_decision/LOCAL-CAUSAL-LAB-OPTION-B-OWNER-APPROVAL-IMPORT-v1.json')
+
+    def build_result(
+        import_path: Path = ROOT
+        / "reports/evaluation/owner_decision/LOCAL-CAUSAL-LAB-OPTION-B-OWNER-APPROVAL-IMPORT-v1.json",
+    ) -> dict[str, Any]:
+        approval_errors = validate_approval(import_path=import_path)
+        if approval_errors:
+>           raise ValueError("approval_boundary_failed:" + ",".join(approval_errors))
+E           ValueError: approval_boundary_failed:approval_source_hash_mismatch
+
+scripts/run_option_b_local_causal_lab.py:339: ValueError
+_ test_option_b_runner_records_runtime_digest_blockers_without_sensitive_material _
+
+    def test_option_b_runner_records_runtime_digest_blockers_without_sensitive_material() -> None:
+>       result = build_result()
+                 ^^^^^^^^^^^^^^
+
+tests/test_option_b_local_causal_lab_runner.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+import_path = PosixPath('/tmp/webpent-work/reports/evaluation/owner_decision/LOCAL-CAUSAL-LAB-OPTION-B-OWNER-APPROVAL-IMPORT-v1.json')
+
+    def build_result(
+        import_path: Path = ROOT
+        / "reports/evaluation/owner_decision/LOCAL-CAUSAL-LAB-OPTION-B-OWNER-APPROVAL-IMPORT-v1.json",
+    ) -> dict[str, Any]:
+        approval_errors = validate_approval(import_path=import_path)
+        if approval_errors:
+>           raise ValueError("approval_boundary_failed:" + ",".join(approval_errors))
+E           ValueError: approval_boundary_failed:approval_source_hash_mismatch
+
+scripts/run_option_b_local_causal_lab.py:339: ValueError
+______ test_option_b_runner_exposes_offline_harness_readiness_separately _______
+
+    def test_option_b_runner_exposes_offline_harness_readiness_separately() -> None:
+>       result = build_result()
+                 ^^^^^^^^^^^^^^
+
+tests/test_option_b_local_causal_lab_runner.py:56: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+import_path = PosixPath('/tmp/webpent-work/reports/evaluation/owner_decision/LOCAL-CAUSAL-LAB-OPTION-B-OWNER-APPROVAL-IMPORT-v1.json')
+
+    def build_result(
+        import_path: Path = ROOT
+        / "reports/evaluation/owner_decision/LOCAL-CAUSAL-LAB-OPTION-B-OWNER-APPROVAL-IMPORT-v1.json",
+    ) -> dict[str, Any]:
+        approval_errors = validate_approval(import_path=import_path)
+        if approval_errors:
+>           raise ValueError("approval_boundary_failed:" + ",".join(approval_errors))
+E           ValueError: approval_boundary_failed:approval_source_hash_mismatch
+
+scripts/run_option_b_local_causal_lab.py:339: ValueError
+_______________________ test_inventory_validator_passes ________________________
+
+    def test_inventory_validator_passes() -> None:
+        result = subprocess.run(
+            [sys.executable, str(ROOT / "scripts/check_source_backed_candidate_inventory.py")],
+            cwd=ROOT,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: FAIL: source evidence file missing: /tmp/juice-shop-source/data/static/challenges.yml
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/usr/bin/python', '/tmp/webpent-work/scripts/check_source_backed_candidate_inventory.py'], returncode=1, stdout='', stderr='FAIL: source evidence file missing: /tmp/juice-shop-source/data/static/challenges.yml\n').returncode
+
+tests/test_source_backed_candidate_inventory.py:24: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_local_causal_lab_option_b_approval.py::test_option_b_import_validates_and_original_packet_stays_pending
+FAILED tests/test_local_causal_lab_runtime_provenance.py::test_webgoat_source_pin_matches_but_service_alignment_blocks
+FAILED tests/test_local_causal_lab_runtime_provenance.py::test_crapi_source_and_runtime_pins_are_attested
+FAILED tests/test_option_b_local_causal_lab_runner.py::test_option_b_runner_emits_only_redacted_blocked_records
+FAILED tests/test_option_b_local_causal_lab_runner.py::test_option_b_runner_records_runtime_digest_blockers_without_sensitive_material
+FAILED tests/test_option_b_local_causal_lab_runner.py::test_option_b_runner_exposes_offline_harness_readiness_separately
+FAILED tests/test_source_backed_candidate_inventory.py::test_inventory_validator_passes
+7 failed, 2270 passed in 107.11s (0:01:47)

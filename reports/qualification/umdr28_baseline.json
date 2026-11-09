@@ -1,0 +1,60 @@
+{
+  "window": "UM-DR-28",
+  "recorded_at": "2026-11-07T05:10:00Z",
+  "purpose": "Phase 0 baseline: the pre-change repository truth audit, captured BEFORE any UM-DR-28 source modification",
+  "repository_state": {
+    "branch": "main",
+    "head_commit": "9b08b43",
+    "head_subject": "UM-DR-27 delivery: WebPent_UNIFIED_v0.34.0_UMDR27.zip",
+    "working_tree": "clean (no modified tracked files)",
+    "untracked": [
+      "upload/Pasted Content_1794025683619.txt",
+      "upload/Pasted Content_1794025740503.txt"
+    ]
+  },
+  "um_dr_27_verification": {
+    "commits_present": [
+      "d992317 UM-DR-27 RECALL-GENERALIZATION WINDOW",
+      "ba2880a housekeeping revert of test side-effect",
+      "6cc9a34 BUILD_INFO re-freeze 8542->8569",
+      "9b08b43 delivery zip"
+    ],
+    "transition_sources_present": true,
+    "stateful_probe_source_driven_phase2_present": true,
+    "generalization_fixture_present": true,
+    "documents_a_b_present": true,
+    "campaign_integration_status": "NOT CAMPAIGN-INTEGRATED (prover invoked by tests only; observed_source_from_campaign_state exists but has no production caller - the M10 RCA honestly recorded this as the remaining gap)"
+  },
+  "baseline_suite": {
+    "methodology": "chunked serial full-suite (13 chunks of ~55 files, scripts/run_umdr28_batch.sh, -p no:cacheprovider, no xdist)",
+    "collected": 8569,
+    "passed": 8558,
+    "skipped": 6,
+    "xfailed": 3,
+    "failed": 2,
+    "failures": [
+      {
+        "test": "tests/test_g02_direct_io_inventory.py::test_inventory_records_match_recorded_artifact_no_drift",
+        "classification": "SELF-INFLICTED MEASUREMENT ARTIFACT",
+        "detail": "the UM-DR-28 window created new source files mid-measurement (cqa_v2/representation_oracle.py, production/stateful_discovery.py); the direct-I/O scan reads the live tree, so the count drifted 1186->1194. Proven clean at HEAD: with the new files stashed, the gate passes 4/4. The deliberate DR-009 regen happens at window close."
+      },
+      {
+        "test": "tests/test_umdr24_release_gate_compliance.py::test_build_info_suite_count_coherent_with_collected_reality",
+        "classification": "PRE-EXISTING DEFECT (UM-DR-27 regression)",
+        "detail": "the UM-DR-27 BUILD_INFO re-freeze (6cc9a34) rewrote suite_evidence without the literal 'UM-DR-24' string the test pins. The UM-DR-27 window's own suite run preceded its BUILD_INFO re-freeze commit, so the regression escaped that window's evidence. Root cause class: the assertion pins stale prose instead of the invariant (evidence names a window that exists in DRIFT_REGISTER). Fix owned by UM-DR-28: strengthen the assertion to verify the invariant, and re-freeze BUILD_INFO naming UM-DR-28."
+      }
+    ],
+    "intermittent_p102": "NOT REPRODUCED in this baseline run (test_p102_parallel_ticks_never_execute_same_run_twice passed in chunk 6); the flake class remains documented in BUILD_INFO suite_evidence"
+  },
+  "baseline_gates": {
+    "frozen_module_gate": "not run standalone in Phase 0 (covered by the chunked suite: tests/test_frozen_module_gate.py passed in chunk run - tree unmodified at collection time)",
+    "direct_io_gate": "passes at HEAD (proven via stash); drift appears only with the window's new files (expected, DR-009 regen at close)",
+    "broad_exception_gate": "passed in chunk run"
+  },
+  "baseline_measurement_genealogy_note": "the recall baselines are NOT re-measured here - they are recorded constants (0.137 original blind target, absent; replica/generalization fixture measurements per reports/qualification/*). UM-DR-28 adds the equivalence-fixture population (body-represented authorization semantics) as a NEW, separately-labeled population.",
+  "environment": {
+    "python": "3.12.16 (uv venv /home/z/.venv)",
+    "reinstall_recipe": "langchain-core==1.6.7 langgraph==1.2.10 langgraph-checkpoint-sqlite==3.1.1 bcrypt esprima celery jsbeautifier aiosqlite alembic structlog + --no-deps -e .",
+    "note": "sandbox recycled the venv a 4th time before this window; recipe re-applied, ENV OK"
+  }
+}

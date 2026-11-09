@@ -1,0 +1,55 @@
+# THE PRISM — Wave 4 curiosity params (v89).
+# PRISM-L-5: value over volume — an anomaly is only a signal when its
+# expected value clears a threshold. PRISM-L-7: rabbit holes are losses,
+# so the protector's thresholds live here, configurable, not in code.
+
+version: 1
+
+anomaly_filter:
+  default_prior: 0.3        # no learned prior for this anomaly type yet
+  default_historical: 0.5   # no history for this anomaly type yet
+  default_context_match: 0.4
+  proven_context_match: 0.8
+  default_impact: 0.5
+  pursue_threshold: 0.60    # combined_value >= this → pursue
+  hold_threshold: 0.35      # >= this (and < pursue) → hold; below → discard
+  request_cost_step: 0.25   # each extra request beyond the first divides value
+  hour_cost_step: 2.0       # each estimated hour of work divides value
+
+value_weighter:
+  # the seven components; they MUST sum to exactly 1.0
+  component_weights:
+    prior_probability: 0.20
+    historical_success: 0.20
+    context_match: 0.15
+    evidence_strength: 0.20
+    novelty: 0.10
+    cost_penalty: 0.10
+    risk_penalty: 0.05
+  default_prior: 0.3
+  default_historical: 0.5
+  default_context_match: 0.4
+  proven_context_match: 0.8
+  confidence_width: 0.10    # half-width of the CI at zero evidence strength
+  recommendation_thresholds:
+    prioritize: 0.75
+    keep: 0.50
+    backlog: 0.30   # below → drop
+
+rabbit_hole:
+  max_depth: 5
+  max_time_hours: 0.5
+  diminishing_window: 3
+  sunk_cost_markers: ["already spent", "sunk cost", "we already"]
+
+known_holes:
+  - name: infinite_reflection_loop
+    note: reflection that only echoes its own input, never executes
+  - name: rate_limited_bruteforce
+    note: credential brute force against an aggressive rate limiter
+  - name: endless_subdomain_enum
+    note: enumeration with no per-host follow-up value
+  - name: blind_xxe_no_feedback
+    note: blind XXE with no out-of-band channel available
+  - name: sql_blind_very_slow
+    note: blind SQLi where one boolean question costs minutes

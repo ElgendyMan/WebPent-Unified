@@ -1,0 +1,114 @@
+{
+  "schema_version": "webpent.runbook_execution_status.v1",
+  "status": "completed_with_governed_blockers",
+  "runbook_file": "pasted_content.txt",
+  "runbook_execution_scope": "local_loopback_only_no_external_targets",
+  "baseline": {
+    "current_commit": "89ca0596fc979d56da1525302bdeac19979f6dea",
+    "current_tree": "ad140135ec35b133be12f99852acb4e0a69b0a0b",
+    "branch": "master",
+    "remote_parity": "verified",
+    "working_tree_tracked_changes": false,
+    "active_target": "Juice Shop",
+    "active_target_version": "20.2.0",
+    "juice_shop_source_commit": "1618a611b173b4bf114028e6e02549950606e29d",
+    "ground_truth_version": "juice_shop_p10_ground_truth_v1",
+    "runtime_origin": "http://127.0.0.1:3000",
+    "runtime_binding": "127.0.0.1:3000_only",
+    "otel_external_endpoint_present": false
+  },
+  "quality_loop": {
+    "mock_target": {
+      "status": "closed",
+      "default_fixture": "blocked",
+      "ready_fixture": "opt_in_success_path",
+      "proof_requirements": "verified_in_prior_independent_review"
+    },
+    "juice_shop": {
+      "baseline_status": "completed",
+      "safe_inventory_run_id": "runbook-juice-baseline-20260826",
+      "safe_inventory_result_count": 13,
+      "official_p10_run": false,
+      "quality_evaluation": "p10_passed=false_metrics_withheld",
+      "blocking_reasons": [
+        "approved_ground_truth_cases_below_minimum",
+        "approved_vulnerability_classes_below_minimum",
+        "live_findings_not_proven_for_all_runs",
+        "minimum_isolated_runs_not_met",
+        "p10_metrics_withheld_until_all_gates_pass"
+      ],
+      "non_scoring_reconciliation": {
+        "authoritative_juice_shop_non_scoring_cases_in_11_case_mapping": 8,
+        "additional_frozen_excluded_cases_tracked_separately": 2,
+        "total_safe_inventory_rows": 13,
+        "access_log": "implemented_pending_independent_governance_confirmation",
+        "blocked_cases": 3,
+        "out_of_scope_cases_in_authoritative_11_case_set": 4,
+        "additional_out_of_scope_cases_outside_authoritative_11_case_set": 2,
+        "counting_rule": "blocked_and_out_of_scope_are_not_FN_and_are_not_scoring_cases"
+      }
+    },
+    "webgoat": {
+      "status": "BLOCKED_NO_AUTHORIZED_LOCAL_INSTANCE",
+      "reason": "No local WebGoat source or listener was available; no external target was contacted and no unapproved instance was provisioned."
+    },
+    "crapi": {
+      "status": "BLOCKED_NO_AUTHORIZED_LOCAL_INSTANCE",
+      "reason": "No local crAPI source or listener was available; no external target was contacted. Docker/distributed provisioning was not performed under the project safety boundary."
+    }
+  },
+  "governance": {
+    "packet_state": "PENDING_INDEPENDENT_GOVERNANCE_SIGNOFF",
+    "independent_reviewer": "missing",
+    "self_approval": false,
+    "current_proposed_scoring_cases": [
+      "juice.error_handling.v1",
+      "juice.exposed_metrics.v1",
+      "juice.local_xss.v1"
+    ],
+    "current_approved_case_count": 3,
+    "current_approved_class_count": 3,
+    "p10_minimum_case_count": 10,
+    "p10_minimum_class_count": 6,
+    "official_isolated_p10_runs_authorized": false,
+    "required_reviewer_decisions": [
+      "archive provenance and hashes",
+      "Juice Shop source commit versus WebPent source-manifest commit",
+      "access-log mapping between frozen and current source paths",
+      "current oracle contract re-approval",
+      "complete decisions for all eight authoritative non-scoring cases"
+    ]
+  },
+  "quality_gates": {
+    "governance_validator": "PASS",
+    "full_pytest": "1902 passed",
+    "p10_review_tests": "17 passed",
+    "juice_shop_contract_tests": "7 passed",
+    "p10_expansion_tests": "12 passed",
+    "ruff": "PASS",
+    "compileall": "PASS",
+    "direct_io_scan": "PASS",
+    "generic_target_neutrality": "PASS",
+    "target_adapter_review_packet": "PASS",
+    "g02_runtime": "PASS_external_target_contacted_false",
+    "g02_precommit": "PASS_external_target_contacted_false",
+    "tracked_secret_scan": "PASS",
+    "git_diff_check": "PASS",
+    "official_qualification_process_present": false
+  },
+  "qualification": {
+    "p10": "NOT_QUALIFIED",
+    "p9": "NOT_QUALIFIED",
+    "vip": "NOT_QUALIFIED",
+    "bug_bounty": "BLOCKED"
+  },
+  "safety": {
+    "external_targets_contacted": false,
+    "oast_or_ssrf_callbacks": false,
+    "auth_or_otp_bypass": false,
+    "destructive_actions": false,
+    "raw_response_or_cookie_artifacts": false,
+    "generic_core_modified_for_juice_shop": false,
+    "frozen_ground_truth_modified_to_hide_drift": false
+  }
+}

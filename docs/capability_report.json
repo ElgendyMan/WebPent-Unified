@@ -1,0 +1,514 @@
+{
+  "catalog": "docs/waptlab_vulnerability_catalog.yml",
+  "catalog_count": 20,
+  "entries": [
+    {
+      "category": "sqli",
+      "cleanup": "required",
+      "disposition": "candidate_or_review",
+      "evidence_mode": "deterministic",
+      "evidence_state": "incomplete",
+      "id": 1,
+      "key": "header_sqli",
+      "live_waptlab_evidence": false,
+      "negative_control": "required",
+      "validator": "sqli",
+      "validator_id": "sqli",
+      "validator_status": "tested"
+    },
+    {
+      "category": "sqli",
+      "cleanup": "required",
+      "disposition": "candidate_or_review",
+      "evidence_mode": "deterministic",
+      "evidence_state": "incomplete",
+      "id": 2,
+      "key": "csv_ingestion_sqli",
+      "live_waptlab_evidence": false,
+      "negative_control": "required",
+      "validator": "sqli",
+      "validator_id": "sqli",
+      "validator_status": "tested"
+    },
+    {
+      "category": "path_traversal",
+      "cleanup": "required",
+      "disposition": "tested",
+      "evidence_mode": "deterministic",
+      "evidence_state": "complete",
+      "id": 3,
+      "key": "jwt_path_traversal",
+      "live_waptlab_evidence": false,
+      "negative_control": "required",
+      "validator": "path_traversal",
+      "validator_id": "path_traversal",
+      "validator_status": "tested"
+    },
+    {
+      "category": "open_redirect",
+      "cleanup": "not_applicable",
+      "disposition": "candidate_or_review",
+      "evidence_mode": "deterministic",
+      "evidence_state": "incomplete",
+      "id": 4,
+      "key": "double_slash_redirect",
+      "live_waptlab_evidence": false,
+      "negative_control": "required",
+      "validator": "open_redirect",
+      "validator_id": "open_redirect",
+      "validator_status": "tested"
+    },
+    {
+      "category": "open_redirect",
+      "cleanup": "not_applicable",
+      "disposition": "candidate_or_review",
+      "evidence_mode": "deterministic",
+      "evidence_state": "incomplete",
+      "id": 5,
+      "key": "oauth_redirect_uri",
+      "live_waptlab_evidence": false,
+      "negative_control": "required",
+      "validator": "open_redirect",
+      "validator_id": "open_redirect",
+      "validator_status": "tested"
+    },
+    {
+      "category": "idor",
+      "cleanup": "required",
+      "disposition": "candidate_or_review",
+      "evidence_mode": "deterministic",
+      "evidence_state": "incomplete",
+      "id": 6,
+      "key": "download_idor",
+      "live_waptlab_evidence": false,
+      "negative_control": "required",
+      "validator": "idor",
+      "validator_id": "idor",
+      "validator_status": "tested"
+    },
+    {
+      "category": "tenant_isolation",
+      "cleanup": "required",
+      "disposition": "candidate_or_review",
+      "evidence_mode": "deterministic",
+      "evidence_state": "incomplete",
+      "id": 7,
+      "key": "tenant_context_switching",
+      "live_waptlab_evidence": false,
+      "negative_control": "required",
+      "validator": "idor",
+      "validator_id": "idor",
+      "validator_status": "tested"
+    },
+    {
+      "category": "ssti",
+      "cleanup": "required",
+      "disposition": "tested",
+      "evidence_mode": "deterministic",
+      "evidence_state": "complete",
+      "id": 8,
+      "key": "training_email_ssti",
+      "live_waptlab_evidence": false,
+      "negative_control": "required",
+      "validator": "ssti",
+      "validator_id": "ssti",
+      "validator_status": "tested"
+    },
+    {
+      "category": "ssti",
+      "cleanup": "required",
+      "disposition": "tested",
+      "evidence_mode": "deterministic",
+      "evidence_state": "complete",
+      "id": 9,
+      "key": "export_blade_ssti",
+      "live_waptlab_evidence": false,
+      "negative_control": "required",
+      "validator": "ssti",
+      "validator_id": "ssti",
+      "validator_status": "tested"
+    },
+    {
+      "category": "ssrf",
+      "cleanup": "required",
+      "disposition": "candidate_or_review",
+      "evidence_mode": "deterministic",
+      "evidence_state": "incomplete",
+      "id": 10,
+      "key": "swagger_url_ssrf",
+      "live_waptlab_evidence": false,
+      "negative_control": "required",
+      "validator": "ssrf",
+      "validator_id": "ssrf",
+      "validator_status": "tested"
+    },
+    {
+      "category": "ssrf",
+      "cleanup": "required",
+      "disposition": "candidate_or_review",
+      "evidence_mode": "deterministic",
+      "evidence_state": "incomplete",
+      "id": 11,
+      "key": "image_fetch_ssrf",
+      "live_waptlab_evidence": false,
+      "negative_control": "required",
+      "validator": "ssrf",
+      "validator_id": "ssrf",
+      "validator_status": "tested"
+    },
+    {
+      "category": "xss",
+      "cleanup": "required",
+      "disposition": "candidate_or_review",
+      "evidence_mode": "deterministic",
+      "evidence_state": "incomplete",
+      "id": 12,
+      "key": "stored_profile_xss",
+      "live_waptlab_evidence": false,
+      "negative_control": "required",
+      "validator": "xss",
+      "validator_id": "xss",
+      "validator_status": "tested"
+    },
+    {
+      "category": "xss",
+      "cleanup": "required",
+      "disposition": "candidate_or_review",
+      "evidence_mode": "deterministic",
+      "evidence_state": "incomplete",
+      "id": 13,
+      "key": "quoted_field_xss",
+      "live_waptlab_evidence": false,
+      "negative_control": "required",
+      "validator": "xss",
+      "validator_id": "xss",
+      "validator_status": "tested"
+    },
+    {
+      "category": "path_traversal",
+      "cleanup": "required",
+      "disposition": "candidate_or_review",
+      "evidence_mode": "offline-contract",
+      "evidence_state": "incomplete",
+      "id": 14,
+      "key": "elasticsearch_snapshot_traversal",
+      "live_waptlab_evidence": false,
+      "negative_control": "required",
+      "validator": "elasticsearch_snapshot_traversal",
+      "validator_id": "offline-fixture:elasticsearch_snapshot_traversal",
+      "validator_status": "offline-fixture"
+    },
+    {
+      "category": "info_disclosure",
+      "cleanup": "not_applicable",
+      "disposition": "tested",
+      "evidence_mode": "deterministic",
+      "evidence_state": "complete",
+      "id": 15,
+      "key": "public_backup_disclosure",
+      "live_waptlab_evidence": false,
+      "negative_control": "required",
+      "validator": "info_disclosure",
+      "validator_id": "info_disclosure",
+      "validator_status": "tested"
+    },
+    {
+      "category": "info_disclosure",
+      "cleanup": "not_applicable",
+      "disposition": "tested",
+      "evidence_mode": "deterministic",
+      "evidence_state": "complete",
+      "id": 16,
+      "key": "laravel_app_debug",
+      "live_waptlab_evidence": false,
+      "negative_control": "required",
+      "validator": "info_disclosure",
+      "validator_id": "info_disclosure",
+      "validator_status": "tested"
+    },
+    {
+      "category": "outdated_component",
+      "cleanup": "not_applicable",
+      "disposition": "candidate_or_review",
+      "evidence_mode": "deterministic",
+      "evidence_state": "incomplete",
+      "id": 17,
+      "key": "frontend_dependency_exposure",
+      "live_waptlab_evidence": false,
+      "negative_control": "required",
+      "validator": "javascript",
+      "validator_id": "javascript",
+      "validator_status": "tested"
+    },
+    {
+      "category": "info_disclosure",
+      "cleanup": "not_applicable",
+      "disposition": "candidate_or_review",
+      "evidence_mode": "deterministic",
+      "evidence_state": "incomplete",
+      "id": 18,
+      "key": "public_elasticsearch_exposure",
+      "live_waptlab_evidence": false,
+      "negative_control": "required",
+      "validator": "info_disclosure",
+      "validator_id": "info_disclosure",
+      "validator_status": "tested"
+    },
+    {
+      "category": "xxe",
+      "cleanup": "required",
+      "disposition": "candidate_or_review",
+      "evidence_mode": "deterministic",
+      "evidence_state": "incomplete",
+      "id": 19,
+      "key": "oob_xxe",
+      "live_waptlab_evidence": false,
+      "negative_control": "required",
+      "validator": "xxe",
+      "validator_id": "xxe",
+      "validator_status": "tested"
+    },
+    {
+      "category": "xslt",
+      "cleanup": "required",
+      "disposition": "candidate_or_review",
+      "evidence_mode": "offline-contract",
+      "evidence_state": "incomplete",
+      "id": 20,
+      "key": "xslt_injection",
+      "live_waptlab_evidence": false,
+      "negative_control": "required",
+      "validator": "xslt_injection",
+      "validator_id": "offline-fixture:xslt_injection",
+      "validator_status": "offline-fixture"
+    }
+  ],
+  "generated_at": "2026-08-25T21:22:10.022198+00:00",
+  "ledger": "docs/waptlab_coverage_ledger.json",
+  "live_qualification": false,
+  "notes": [
+    "A registered validator does not imply a confirmed vulnerability.",
+    "Only deterministic evidence and completed negative controls may support confirmation.",
+    "This report is contract/local evidence unless live_qualification is explicitly true.",
+    "The WAPTLab catalog view must not be interpreted as complete VIP-scope validator coverage.",
+    "VIP-scope missing validators are explicit blockers, not clean results."
+  ],
+  "schema_version": "webpent-capability-report-v1",
+  "validator_status_counts": {
+    "offline-fixture": 2,
+    "tested": 18
+  },
+  "vip_scope_count": 34,
+  "vip_scope_entries": [
+    {
+      "evidence_mode": "deterministic",
+      "validator_id": "xss",
+      "validator_status": "tested",
+      "vuln_class": "xss"
+    },
+    {
+      "evidence_mode": "deterministic",
+      "validator_id": "sqli",
+      "validator_status": "tested",
+      "vuln_class": "sqli"
+    },
+    {
+      "evidence_mode": "deterministic",
+      "validator_id": "ssrf",
+      "validator_status": "tested",
+      "vuln_class": "ssrf"
+    },
+    {
+      "evidence_mode": "deterministic",
+      "validator_id": "lfi",
+      "validator_status": "tested",
+      "vuln_class": "lfi"
+    },
+    {
+      "evidence_mode": "deterministic",
+      "validator_id": "rfi",
+      "validator_status": "tested",
+      "vuln_class": "rfi"
+    },
+    {
+      "evidence_mode": "deterministic",
+      "validator_id": "rce",
+      "validator_status": "tested",
+      "vuln_class": "rce"
+    },
+    {
+      "evidence_mode": "deterministic",
+      "validator_id": "ssti",
+      "validator_status": "tested",
+      "vuln_class": "ssti"
+    },
+    {
+      "evidence_mode": "deterministic",
+      "validator_id": "open_redirect",
+      "validator_status": "tested",
+      "vuln_class": "open_redirect"
+    },
+    {
+      "evidence_mode": "deterministic",
+      "validator_id": "xxe",
+      "validator_status": "tested",
+      "vuln_class": "xxe"
+    },
+    {
+      "evidence_mode": "deterministic",
+      "validator_id": "csrf",
+      "validator_status": "tested",
+      "vuln_class": "csrf"
+    },
+    {
+      "evidence_mode": "deterministic",
+      "validator_id": "deserialization",
+      "validator_status": "tested",
+      "vuln_class": "deserialization"
+    },
+    {
+      "evidence_mode": "deterministic",
+      "validator_id": "path_traversal",
+      "validator_status": "tested",
+      "vuln_class": "path_traversal"
+    },
+    {
+      "evidence_mode": "deterministic",
+      "validator_id": "command_injection",
+      "validator_status": "tested",
+      "vuln_class": "command_injection"
+    },
+    {
+      "evidence_mode": "deterministic",
+      "validator_id": "nosql_injection",
+      "validator_status": "tested",
+      "vuln_class": "nosql_injection"
+    },
+    {
+      "evidence_mode": "deterministic",
+      "validator_id": "info_disclosure",
+      "validator_status": "tested",
+      "vuln_class": "info_disclosure"
+    },
+    {
+      "evidence_mode": "deterministic",
+      "validator_id": "race_condition",
+      "validator_status": "tested",
+      "vuln_class": "race_condition"
+    },
+    {
+      "evidence_mode": "deterministic",
+      "validator_id": "idor",
+      "validator_status": "tested",
+      "vuln_class": "idor"
+    },
+    {
+      "evidence_mode": "deterministic",
+      "validator_id": "auth_bypass",
+      "validator_status": "tested",
+      "vuln_class": "auth_bypass"
+    },
+    {
+      "evidence_mode": "offline-contract",
+      "validator_id": "offline-fixture:mass_assignment",
+      "validator_status": "offline-fixture",
+      "vuln_class": "mass_assignment"
+    },
+    {
+      "evidence_mode": "offline-contract",
+      "validator_id": "offline-fixture:request_smuggling",
+      "validator_status": "offline-fixture",
+      "vuln_class": "request_smuggling"
+    },
+    {
+      "evidence_mode": "deterministic",
+      "validator_id": "brute_force",
+      "validator_status": "tested",
+      "vuln_class": "brute_force"
+    },
+    {
+      "evidence_mode": "deterministic",
+      "validator_id": "captcha",
+      "validator_status": "tested",
+      "vuln_class": "captcha"
+    },
+    {
+      "evidence_mode": "deterministic",
+      "validator_id": "weak_session",
+      "validator_status": "tested",
+      "vuln_class": "weak_session"
+    },
+    {
+      "evidence_mode": "deterministic",
+      "validator_id": "csp",
+      "validator_status": "tested",
+      "vuln_class": "csp"
+    },
+    {
+      "evidence_mode": "deterministic",
+      "validator_id": "javascript",
+      "validator_status": "tested",
+      "vuln_class": "javascript"
+    },
+    {
+      "evidence_mode": "deterministic",
+      "validator_id": "cryptography",
+      "validator_status": "tested",
+      "vuln_class": "cryptography"
+    },
+    {
+      "evidence_mode": "deterministic",
+      "validator_id": "api_issue",
+      "validator_status": "tested",
+      "vuln_class": "api_issue"
+    },
+    {
+      "evidence_mode": "offline-contract",
+      "validator_id": "offline-fixture:subdomain_takeover",
+      "validator_status": "offline-fixture",
+      "vuln_class": "subdomain_takeover"
+    },
+    {
+      "evidence_mode": "offline-contract",
+      "validator_id": "offline-fixture:cloud_storage_exposure",
+      "validator_status": "offline-fixture",
+      "vuln_class": "cloud_storage_exposure"
+    },
+    {
+      "evidence_mode": "deterministic",
+      "validator_id": "jwt_weakness",
+      "validator_status": "tested",
+      "vuln_class": "jwt_weakness"
+    },
+    {
+      "evidence_mode": "offline-contract",
+      "validator_id": "offline-fixture:jwt_key_confusion",
+      "validator_status": "offline-fixture",
+      "vuln_class": "jwt_key_confusion"
+    },
+    {
+      "evidence_mode": "offline-contract",
+      "validator_id": "offline-fixture:elasticsearch_snapshot_traversal",
+      "validator_status": "offline-fixture",
+      "vuln_class": "elasticsearch_snapshot_traversal"
+    },
+    {
+      "evidence_mode": "offline-contract",
+      "validator_id": "offline-fixture:xslt_injection",
+      "validator_status": "offline-fixture",
+      "vuln_class": "xslt_injection"
+    },
+    {
+      "evidence_mode": "human-review",
+      "validator_id": null,
+      "validator_status": "not_applicable",
+      "vuln_class": "unknown"
+    }
+  ],
+  "vip_scope_missing_validators": [],
+  "vip_scope_validator_status_counts": {
+    "not_applicable": 1,
+    "offline-fixture": 7,
+    "tested": 26
+  }
+}

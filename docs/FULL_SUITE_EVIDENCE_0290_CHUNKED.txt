@@ -1,0 +1,80 @@
+# Test Run Evidence — 0.29.0 G-1 REMOVAL window (chunked full suite)
+# Date: 2026-10-31
+# Runner: pytest 9.0.2, webpent 0.29.0 (editable, --no-deps in sandbox)
+# Command pattern: python3 -m pytest <chunk> -q -p no:cacheprovider --tb=line
+#
+# --- CHUNK SUMMARIES (pytest tails, verbatim) ---
+# chunk 1  tests/*.py root files (all subdirs ignored):
+#          "4071 passed, 3 skipped, 3 xfailed, 7 warnings in 228.08s (0:03:48)"
+# chunk 2  tests/oracle tests/dojo tests/prism tests/jc:
+#          "1046 passed in 31.77s"
+# chunk 3  tests/forge tests/apex tests/deep tests/campaign tests/egaie:
+#          "698 passed in 47.21s"
+# chunk 4  tests/econ tests/vip tests/bridge tests/lab tests/team1_acceptance
+#          tests/scenario_lab tests/ground_truth:
+#          "931 passed, 4 warnings in 54.51s"
+#
+# --- TOTAL ---
+# Collected (scripts/verify_test_count.py): 6752
+# Passed:  4071 + 1046 + 698 + 931 = 6746
+# Skipped: 3   (2 optional external-source + 1 root-only entrypoint functional test)
+# Xfailed: 3   (ratified B-06/M3 strict xfails)
+# 6746 + 3 + 3 = 6752 = collected — EXACT reconciliation, 0 failed, 0 errors.
+#
+# Reconciliation vs 0.28.0 (6758 collected): −1 frozen-gate parametrized
+# byte-identity test (manifest 659 -> 658 entries after the declared G-1
+# deletion) − 5 tests of the deleted tests/test_u15_lessons.py = 6752.
+#
+# --- 0.29.0 WINDOW GATES (docs/PRODUCTION_FIX_PLAN_0270.md G-1 window) ---
+# [GATE] targeted batch ............ tests/test_frozen_module_gate.py +
+#                                    test_resurrect_residue_aware.py +
+#                                    test_lcs2_sweep_instrument.py +
+#                                    test_production_deployment_contract.py +
+#                                    test_release_packaging.py:
+#                                    "684 passed, 1 skipped in 8.25s"
+#                                    (skip = root-only drop-verification functional)
+# [GATE] negative proof ............ zero non-documentation references to
+#                                    webpent.brain.lessons in src/ tests/
+#                                    scripts/ after the deletion (the only
+#                                    remaining hits are the G-1 docs, the
+#                                    instrument's local stand-in docstrings,
+#                                    and the refreeze script's declared
+#                                    removal list)
+# [GATE] canary 7x STABLE .......... reports/canary/CANARY_7X_20261031_0.29.0.json
+#                                    stable_7x=true, 7/7 byte-identical,
+#                                    ruff_clean=true, exit 0
+# [GATE] ruff ratchet .............. 6224 <= baseline; baseline FROZEN at
+#                                    6224 via --update-baseline (reason:
+#                                    G-1 deletion removed the retired
+#                                    module's findings; measured on ruff
+#                                    0.16.3 = uv.lock version)
+#                                    + ratchet harness hardening: rc=1 with
+#                                    empty stdout (ruff missing) now aborts
+#                                    fail-closed instead of counting 0
+#                                    findings (scripts/check_ruff_ratchet.py)
+# [GATE] test-count floor .......... 6752 collected >= floor 1940
+# [GATE] frozen manifest ........... re-frozen by
+#                                    scripts/refreeze_manifest_0290_g1_lessons_removal.py:
+#                                    659 -> 658 entries (−1 declared removal:
+#                                    src/webpent/brain/lessons.py; +1 declared
+#                                    change: src/webpent/__init__.py version
+#                                    bump, path already in
+#                                    MERGE_20261026_THAW_PATHS); the gate test
+#                                    needed NO exemption edits — the
+#                                    pre-unfreeze baseline never pinned
+#                                    brain/* (2026-10-22 team-merge scope
+#                                    completion), so the deleted path is in
+#                                    neither set of the baseline-diff
+#                                    assertions
+# [GATE] version identity .......... pyproject = __init__ = BUILD_INFO =
+#                                    CURRENT_RELEASE = Dockerfile ARG = 0.29.0
+#                                    (release-packaging gate green; the fossil
+#                                    "== 0.28.0" pin the 0.28.0 window had
+#                                    reintroduced in test_version_sources_agree
+#                                    was removed again per the SSOT doctrine;
+#                                    changelog head carries 0.29.0 + date)
+#
+# --- PLAN CLOSURE ---
+# Every item of docs/PRODUCTION_FIX_PLAN_0270.md is now closed:
+# C-9 ✅ (0.27.0)  C-10 ✅ (0.27.0)  D-1 ✅ (0.28.0)  D-2 ✅ (0.27.0 early)
+# G-1 ✅ (0.29.0 — this window)

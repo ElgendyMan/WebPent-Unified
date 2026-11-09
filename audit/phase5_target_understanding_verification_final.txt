@@ -1,0 +1,14 @@
+== targeted pytest ==
+.......                                                                  [100%]
+=============================== warnings summary ===============================
+../webpent_v60_review_stage/webpent_v60_smart_stage/.venv/lib/python3.12/site-packages/langgraph/cache/base/__init__.py:8
+  /tmp/webpent_v60_review_stage/webpent_v60_smart_stage/.venv/lib/python3.12/site-packages/langgraph/cache/base/__init__.py:8: LangChainPendingDeprecationWarning: The default value of `allowed_objects` will change in a future version. Pass an explicit value (e.g., allowed_objects='messages' or allowed_objects='core') to suppress this warning.
+    from langgraph.checkpoint.serde.jsonplus import JsonPlusSerializer
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+7 passed, 1 warning in 4.05s
+== ruff existing project paths ==
+[1;32mAll checks passed![0m
+== compileall ==
+== benchmark path status ==
+benchmarks_absent

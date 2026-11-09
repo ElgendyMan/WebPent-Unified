@@ -1,0 +1,35 @@
+{
+  "manifest_version": "1.0",
+  "baseline_id": "v62-c9938cd-20260823",
+  "git": {
+    "commit": "c9938cdbc7984086d6fa441e15417c67b0347317",
+    "branch": "master",
+    "working_tree_clean_at_capture": true
+  },
+  "artifacts": {
+    "environment": "environment.json",
+    "dependencies": "dependencies.json",
+    "test_results": "test-results.json",
+    "coverage": "coverage.json",
+    "security_scan": "security-scan.json",
+    "ruff": "ruff.txt"
+  },
+  "quality_summary": {
+    "full_pytest_passed": true,
+    "focused_security_passed": true,
+    "ruff_passed": true,
+    "compileall_passed": true,
+    "diff_check_passed": true,
+    "dependency_audit_passed": true,
+    "secret_scan_passed": true
+  },
+  "qualification_status": {
+    "live_vip": "NOT_QUALIFIED",
+    "reason": "Baseline is offline and does not provide three independent target-backed causal ProofBundle replays."
+  },
+  "reproducibility": {
+    "same_commit_required": true,
+    "dependency_lock_required": true,
+    "raw_runtime_artifacts_excluded_from_repo": true
+  }
+}

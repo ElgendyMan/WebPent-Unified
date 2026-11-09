@@ -1,0 +1,191 @@
+# THE PRISM — U-PRISM-2 classifier patterns (v89).
+# Matched in file order (first match wins, PRISM-L-9). Every pattern must
+# carry a pattern_id, a signal_kind known to the taxonomy, a strength level,
+# a non-empty 'when' condition map and a rationale (PRISM-L-1/L-4).
+#
+# 'when' condition syntax:
+#   key: value          -> equality
+#   key: [v1, v2]       -> membership
+#   key: {contains: s}  -> substring of str(value)
+#   key: {min: n, max: m} -> numeric range (either bound optional)
+
+version: 1
+
+patterns:
+  # -- header anomalies (specific before generic) --------------------------------
+  - pattern_id: header_cors_wildcard
+    when:
+      header_name: Access-Control-Allow-Origin
+      header_value: "*"
+    signal_kind: header_anomaly
+    strength: strong
+    rationale: "A wildcard CORS allow-origin header is strong anomaly evidence."
+
+  - pattern_id: header_missing_security
+    when:
+      missing_header: {contains: ""}
+    signal_kind: header_anomaly
+    strength: weak
+    rationale: "A missing security header is an anomaly, weak on its own."
+
+  - pattern_id: header_value_anomalous
+    when:
+      header_value: {contains: ""}
+    signal_kind: header_anomaly
+    strength: moderate
+    rationale: "An anomalous header value is moderate anomaly evidence."
+
+  # -- direct responses ----------------------------------------------------------
+  - pattern_id: direct_reflection_proven
+    when:
+      reflected: true
+      status_code: {min: 200, max: 599}
+    signal_kind: direct_response
+    strength: strong
+    rationale: "The payload echoed back in the response proves direct reachability."
+
+  - pattern_id: direct_directory_listing
+    when:
+      body_contains: "Index of /"
+    signal_kind: direct_response
+    strength: strong
+    rationale: "A directory listing is direct, strong evidence of exposed structure."
+
+  - pattern_id: direct_status_auth_matrix
+    when:
+      status_code: [401, 403]
+    signal_kind: direct_response
+    strength: moderate
+    rationale: "An authentication boundary response is direct evidence of an access decision."
+
+  - pattern_id: direct_redirect_open
+    when:
+      redirect_location: {contains: "://"}
+    signal_kind: direct_response
+    strength: moderate
+    rationale: "An absolute redirect location is direct evidence of navigation behavior."
+
+  - pattern_id: direct_version_banner
+    when:
+      banner: {contains: ""}
+    signal_kind: direct_response
+    strength: weak
+    rationale: "A version banner is direct but weak evidence without a matching CVE."
+
+  # -- error messages --------------------------------------------------------------
+  - pattern_id: error_stack_trace
+    when:
+      error_message: {contains: "Traceback"}
+    signal_kind: error_message
+    strength: strong
+    rationale: "A stack trace is strong evidence of an unhandled code path."
+
+  - pattern_id: error_sql_syntax
+    when:
+      error_message: {contains: "SQL"}
+    signal_kind: error_message
+    strength: strong
+    rationale: "A SQL error message is strong evidence of query construction."
+
+  - pattern_id: error_debug_page
+    when:
+      error_message: {contains: "Debug"}
+    signal_kind: error_message
+    strength: moderate
+    rationale: "A debug page is moderate evidence of verbose error handling."
+
+  - pattern_id: error_generic
+    when:
+      error_message: {contains: ""}
+    signal_kind: error_message
+    strength: moderate
+    rationale: "Any server-generated error message is direct evidence of the path taken."
+
+  # -- timing deltas ----------------------------------------------------------------
+  - pattern_id: timing_large_delta
+    when:
+      timing_delta_ms: {min: 50}
+    signal_kind: timing_delta
+    strength: moderate
+    rationale: "A large timing delta suggests a measurable processing difference."
+
+  - pattern_id: timing_small_delta
+    when:
+      timing_delta_ms: {min: 0}
+    signal_kind: timing_delta
+    strength: weak
+    rationale: "A small timing delta is weak, noise-prone evidence."
+
+  - pattern_id: timing_no_baseline
+    when:
+      timing_baseline_missing: true
+    signal_kind: timing_delta
+    strength: negligible
+    rationale: "Timing without a baseline is negligible evidence."
+
+  # -- behavior differences ------------------------------------------------------------
+  - pattern_id: behavior_role_diff
+    when:
+      behavior_diff: true
+      role_context: true
+    signal_kind: behavior_diff
+    strength: strong
+    rationale: "A behavior difference across roles is strong evidence of an authorization flaw."
+
+  - pattern_id: behavior_generic_diff
+    when:
+      behavior_diff: true
+    signal_kind: behavior_diff
+    strength: moderate
+    rationale: "A behavior difference between two identical requests is anomaly evidence."
+
+  # -- side effects ----------------------------------------------------------------------
+  - pattern_id: side_effect_artifact_created
+    when:
+      side_effect: artifact_created
+    signal_kind: side_effect
+    strength: decisive
+    rationale: "An artifact the payload created is decisive proof the input executed."
+
+  - pattern_id: side_effect_outbound_callback
+    when:
+      side_effect: outbound_callback
+    signal_kind: side_effect
+    strength: decisive
+    rationale: "An out-of-band callback is decisive proof of server-side execution."
+
+  - pattern_id: side_effect_state_changed
+    when:
+      side_effect: state_changed
+    signal_kind: side_effect
+    strength: strong
+    rationale: "An observed state change is strong evidence the input had effect."
+
+  - pattern_id: side_effect_unverified
+    when:
+      side_effect_reported: true
+    signal_kind: side_effect
+    strength: weak
+    rationale: "A reported but unverified side effect is weak evidence."
+
+  # -- inference -----------------------------------------------------------------------------
+  - pattern_id: inference_confirmed_analog
+    when:
+      inferred_from: confirmed_same_family
+    signal_kind: inference
+    strength: moderate
+    rationale: "Transfer from a confirmed same-family result is moderate inference."
+
+  - pattern_id: inference_stack_profile
+    when:
+      inferred_from: stack_profile
+    signal_kind: inference
+    strength: weak
+    rationale: "Stack-based inference is weak evidence until a probe confirms it."
+
+  - pattern_id: inference_heuristic_only
+    when:
+      inferred_from: {contains: ""}
+    signal_kind: inference
+    strength: negligible
+    rationale: "Heuristic-only inference is negligible evidence on its own."

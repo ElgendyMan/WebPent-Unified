@@ -1,0 +1,42 @@
+{
+  "schema": "webpent-b2-target-live-owner-approval-import-v2",
+  "approval_source": {
+    "filename": "pasted_content.txt",
+    "sha256": "b3284fde9ca1c61ad93d54bc974a60a598b50079141392ab589df1d23f3c0737",
+    "status": "OWNER_APPROVED_FOR_BOUNDED_LOCAL_EXECUTION"
+  },
+  "scope": {
+    "targets": ["owasp_webgoat", "crapi"],
+    "origin_scope": "loopback_only",
+    "candidate_methods": ["GET"],
+    "bootstrap": "synthetic local fixture/session bootstrap only; normal local authentication may be used in-memory when required by the approved case",
+    "allowed_case_ids": [
+      "webgoat.idor.view_other_profile.v1",
+      "webgoat.path_traversal.v1",
+      "crapi.profile_video_object_access.v1",
+      "crapi.vehicle_location_bola.v1",
+      "crapi.community_post_object_access.v1",
+      "crapi.mechanic_report_object_access.v1"
+    ],
+    "raw_material_persistence": false,
+    "external_callbacks": false,
+    "destructive_actions": false
+  },
+  "execution_policy": {
+    "target_local_semantics_only": true,
+    "proof_bundle_requires_real_candidate_control_observations": true,
+    "inconclusive_observations_do_not_promote": true,
+    "blocked_cases_are_not_detection_failures": true,
+    "no_official_p10": true,
+    "no_external_target": true
+  },
+  "global_invariants": {
+    "human_independent_signoff_obtained": false,
+    "official_isolated_p10_runs_authorized": false,
+    "p10": "NOT_QUALIFIED",
+    "p9": "NOT_QUALIFIED",
+    "vip": "NOT_QUALIFIED",
+    "bug_bounty": "BLOCKED",
+    "scoring_promotion": false
+  }
+}

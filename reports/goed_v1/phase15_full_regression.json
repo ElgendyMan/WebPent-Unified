@@ -1,0 +1,16 @@
+{
+  "phase": "15_full_regression",
+  "date": "2026-09-03",
+  "required_checks": [
+    "pytest",
+    "ruff",
+    "compileall",
+    "import_smoke",
+    "generic_neutrality",
+    "secret_scan",
+    "G-02_governance",
+    "provenance"
+  ],
+  "critical_rule": "Preserve every existing failure. Never solve CI by deleting tests.",
+  "status": "GOED_V1_IS_ADDITIVE_EXISTING_BEHAVIOR_UNCHANGED"
+}

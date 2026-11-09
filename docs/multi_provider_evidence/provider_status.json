@@ -1,0 +1,109 @@
+{
+  "providers": [
+    {
+      "budget_used": 0.0,
+      "cost_per_1k_tokens": null,
+      "free": false,
+      "key_fingerprint": "key_403540bf1f5c",
+      "last_error_type": null,
+      "last_used": null,
+      "model": "gpt-5-mini",
+      "priority": 0,
+      "provider": "openai",
+      "rate_limit_hit_at": null,
+      "requests_today": 0,
+      "retry_at": null,
+      "role": "general",
+      "status": "AVAILABLE",
+      "tokens_today": 0
+    }
+  ],
+  "routing": {
+    "configured_providers": [
+      "openai"
+    ],
+    "tasks": {
+      "code_exploit_write": [
+        {
+          "model": "gpt-5-mini",
+          "prompt_style": "code",
+          "provider": "openai",
+          "reason": "configured_openai_compatible",
+          "tier": "compatibility"
+        }
+      ],
+      "endpoint_extract": [
+        {
+          "model": "gpt-5-mini",
+          "prompt_style": "extraction",
+          "provider": "openai",
+          "reason": "configured_openai_compatible",
+          "tier": "compatibility"
+        }
+      ],
+      "error_fix": [
+        {
+          "model": "gpt-5-mini",
+          "prompt_style": "fast_fix",
+          "provider": "openai",
+          "reason": "configured_openai_compatible",
+          "tier": "compatibility"
+        }
+      ],
+      "hypothesis_generate": [
+        {
+          "model": "gpt-5-mini",
+          "prompt_style": "creative_analytical",
+          "provider": "openai",
+          "reason": "configured_openai_compatible",
+          "tier": "compatibility"
+        }
+      ],
+      "lightweight_classify": [
+        {
+          "model": "gpt-5-mini",
+          "prompt_style": "fast",
+          "provider": "openai",
+          "reason": "configured_openai_compatible",
+          "tier": "compatibility"
+        }
+      ],
+      "output_analyze": [
+        {
+          "model": "gpt-5-mini",
+          "prompt_style": "analytical",
+          "provider": "openai",
+          "reason": "configured_openai_compatible",
+          "tier": "compatibility"
+        }
+      ],
+      "payload_select": [
+        {
+          "model": "gpt-5-mini",
+          "prompt_style": "technical",
+          "provider": "openai",
+          "reason": "configured_openai_compatible",
+          "tier": "compatibility"
+        }
+      ],
+      "recon_analyze_page": [
+        {
+          "model": "gpt-5-mini",
+          "prompt_style": "analytical",
+          "provider": "openai",
+          "reason": "configured_openai_compatible",
+          "tier": "compatibility"
+        }
+      ],
+      "web_recon_search": [
+        {
+          "model": "gpt-5-mini",
+          "prompt_style": "search",
+          "provider": "openai",
+          "reason": "configured_openai_compatible",
+          "tier": "compatibility"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "benchmark_id": "webpent-vip-smart-research-v2",
+  "schema_version": 2,
+  "project": "WebPent",
+  "target_family": "authorized-lab-only",
+  "source_of_truth": "../vip_v1/expected_findings.json",
+  "scenarios": "scenarios.json",
+  "results": null,
+  "metric_contract": {
+    "identity": "stable case key",
+    "candidate_and_confirmation_separate": true,
+    "minimum_independent_repetitions": 3,
+    "confirmed_only": true,
+    "required_confirmation_fields": [
+      "causal_signal",
+      "negative_control_complete",
+      "proof_bundle_sealed",
+      "successful_replay"
+    ],
+    "duplicate_policy": "set semantics",
+    "unknown_ground_truth_is_not_inferred": true
+  },
+  "safety": {
+    "offline_fixture_runner_only": true,
+    "modifies_target": false,
+    "requires_explicit_authorization": true,
+    "allows_destructive_actions": false,
+    "external_network": false,
+    "external_provider_calls": false
+  },
+  "release_gates": [
+    "manifest_schema_valid",
+    "minimum_three_deterministic_runs",
+    "candidate_and_confirmation_are_reported_separately",
+    "proof_and_replay_rates_use_supplied_artifacts",
+    "no_live_qualification_claim_without_explicit_live_evidence"
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "baseline_version": "webpent-v61-autonomous-upgrade",
+  "captured_at_utc": "2026-08-19T14:31:39Z",
+  "repository": {
+    "path": "/tmp/webpent_v60_smart_implementation",
+    "commit": "28194f66da866237512eb8eac4702bc4958c5fd3",
+    "branch": "master",
+    "remote": "ElgendyMan/webpent-v61",
+    "working_tree_before_upgrade": ["README.md"],
+    "tracked_source_and_test_file_count": 718
+  },
+  "environment": {
+    "python": "3.12",
+    "venv": "/tmp/webpent_v60_review_stage/webpent_v60_smart_stage/.venv",
+    "pythonpath": "/tmp/webpent_v60_smart_implementation/src",
+    "ruff_line_length": 100,
+    "rag_scan_safety": "DISABLE_RAG=true is required for scan execution"
+  },
+  "quality_gates": {
+    "compileall": {"status": "pass", "exit_code": 0},
+    "pytest": {"status": "pass", "passed": 764, "failed": 0, "warnings": 130, "collected": 764, "exit_code": 0},
+    "ruff": {"status": "pass", "errors": 0, "exit_code": 0}
+  },
+  "known_pre_existing_warnings": {
+    "count": 130,
+    "categories": [
+      "LangGraph pending deprecation",
+      "insecure development audit_secret_key warning",
+      "insecure development celery_payload_key warning",
+      "HuggingFaceEmbeddings deprecation",
+      "Chroma/Pydantic model_fields deprecation"
+    ],
+    "release_blocking": true,
+    "raw_log": "audit/autonomous_upgrade_baseline_raw.txt"
+  },
+  "safety_invariants_to_preserve": {
+    "enable_idor_enumeration_default": false,
+    "enable_autonomous_controller_default": false,
+    "no_waptlab_or_juice_shop_source_modification": true,
+    "finding_promotion_requires_causal_signal_and_negative_control": true,
+    "new_components_additive_and_fail_closed": true,
+    "client_and_engagement_isolation": true
+  },
+  "baseline_commands": [
+    "python -m compileall src -q",
+    "pytest tests -q --tb=short",
+    "ruff check src tests --line-length 100 --output-format concise"
+  ]
+}

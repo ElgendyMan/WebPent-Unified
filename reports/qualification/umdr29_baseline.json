@@ -1,0 +1,32 @@
+{
+  "window": "UM-DR-29",
+  "recorded_at": "2026-11-07T08:08:28Z",
+  "pre_change": {
+    "git_head": "b547dc4 (junk workspace commit; window base b752b46)",
+    "collected": 8617,
+    "passed": 8608,
+    "failed": 0,
+    "skipped": 6,
+    "xfailed": 3,
+    "key_gates": {
+      "frozen_module_gate": 663,
+      "blind_v3_replica": 20,
+      "m1b_channel_matrix": 6,
+      "m1b_workspace_artifact_ownership": 7
+    },
+    "command": "chunked serial pytest, 13x55 files, scripts/run_umdr29_batch.sh"
+  },
+  "post_change": {
+    "collected": 8595,
+    "delta_vs_pre": "-22 = frozen-gate parametrized cases for 22 removed manifest entries (661->639)",
+    "honest_skips_added": 2,
+    "frozen_manifest_entries": 639,
+    "direct_io_records": 1149,
+    "version": "0.35.0"
+  },
+  "known_limitations": [
+    "no independent holdout corpus (M10 closed)",
+    "no authorized competitor access (Gate H blocked)",
+    "knowledge-graph / adaptive-planner / coverage-gap-map capabilities are unit-tested but not campaign-wired"
+  ]
+}

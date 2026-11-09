@@ -1,0 +1,76 @@
+{
+  "phase": "0_preflight",
+  "timestamp": "2026-09-07T09:04:21.358216",
+  "runtime": {
+    "python_version": "3.10.12",
+    "python_implementation": "CPython",
+    "platform": "Linux-6.6.95.bck.2-rc1-amd64-x86_64-with-glibc2.35",
+    "executable": "/home/user/.super_doubao/super-doubao-runtime/uservenv/bin/python3"
+  },
+  "repository_integrity": {
+    "all_paths_exist": true,
+    "checks": {
+      "src/webpent/cqa_v2/causal_guard.py": true,
+      "src/webpent/llm_researcher/interface.py": true,
+      "src/webpent/llm_researcher/causal_feedback_bridge.py": true,
+      "src/webpent/llm_researcher/providers/base.py": true,
+      "src/webpent/llm_researcher/providers/openai_compatible.py": true,
+      "src/webpent/models/proof_bundle.py": true,
+      "benchmarks/blind_v3/manifest.json": true,
+      "benchmarks/differential_v2/differential_target_v2.py": true,
+      "docs/archive/goed-v1.8.3/freeze_manifest.json": true,
+      "docs/archive/goed-v1.8.4/GOED_V1_8_4_FREEZE_MANIFEST.json": true
+    }
+  },
+  "v183_freeze_manifest": {
+    "exists": true,
+    "self_hash": "9b2a7ea29e4938bd86fef13e63293a4c19c98b8bc2e2341703b6c2ac4d070d06",
+    "freeze_policy": "IMMUTABLE - v1.8.4 must NOT modify these artifacts",
+    "total_artifacts": 26
+  },
+  "v184_freeze_manifest": {
+    "exists": true,
+    "self_hash": "3fb0c81d0687c72164c4a9df8afe614e2374476b863a0a0212401e859ffcacec",
+    "supersedes_count": 2,
+    "artifacts_count": 6
+  },
+  "freeze_provenance_exists": true,
+  "freeze_diff_exists": true,
+  "provider_configuration": {
+    "LLM_PROVIDER": "openai_compatible",
+    "LLM_API_KEY_set": true,
+    "LLM_BASE_URL": "https://api.groq.com/openai/v1",
+    "LLM_MODEL": "qwen/qwen3.8-27b",
+    "LLM_API_KEY_2_set": false,
+    "available_provider_slots": 1
+  },
+  "provider_metadata": {
+    "provider_type": "REAL_API",
+    "provider": "groq_openai_compatible",
+    "model": "qwen/qwen3.8-27b",
+    "base_url": "https://api.groq.com/openai/v1",
+    "config_hash": "67ed60d99f0f5382",
+    "test_tokens_used": 25
+  },
+  "network_reachability": {
+    "groq_api_reachable": true,
+    "groq_api_status_code": 200,
+    "available_models_count": 14,
+    "requested_model_available": true,
+    "test_completion_status": 200,
+    "test_completion_success": true
+  },
+  "provider_status": "REAL_API",
+  "credential_scan": {
+    "files_scanned_dirs": [
+      "src",
+      "goed_v1_8_4",
+      "docs",
+      "benchmarks"
+    ],
+    "secrets_found_count": 0,
+    "secrets_found": [],
+    "no_credentials_in_repo": true
+  },
+  "overall_status": "OK"
+}

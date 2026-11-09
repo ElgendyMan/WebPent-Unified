@@ -1,0 +1,2157 @@
+{
+  "phase": "7_8_blind_v3_execution",
+  "status": "OK",
+  "timestamp": 1788760397.0825446,
+  "elapsed_seconds": 36.8,
+  "num_cases": 120,
+  "manifest_path": "/sandboxdata/workspace/file/benchmarks/blind_v3/manifest.json",
+  "ground_truth_loaded_by_executor": false,
+  "provider_metadata": {
+    "provider_type": "REAL_API",
+    "mock_provider": false,
+    "provider_class": "OpenAICompatibleProvider",
+    "model": "qwen/qwen3.8-27b",
+    "base_url": "https://api.groq.com/openai/v1",
+    "has_organization": false,
+    "api_key_env_var": "LLM_API_KEY",
+    "api_key_configured": true,
+    "api_key_prefix": "gsk_...",
+    "config_hash": "51424aa4802e887a2e7affdf340e539648d6fd645372ab6ae9efedca77878120",
+    "prompt_version_hash": "blind-v3",
+    "api_requests_succeeded": 3,
+    "first_successful_response_evidence": {
+      "response_id": "chatcmpl-fbfc9393-fc51-438b-bfd1-ca16e9194384",
+      "model": "qwen/qwen3.8-27b",
+      "finish_reason": "stop",
+      "timestamp": 1788760362.6350296,
+      "tokens_used": 1301
+    }
+  },
+  "by_family_manifest_only": {
+    "simple": {
+      "total": 40,
+      "CONFIRMED": 25,
+      "INCONCLUSIVE": 15,
+      "BENIGN": 0,
+      "ERROR": 0
+    },
+    "reasoning": {
+      "total": 40,
+      "CONFIRMED": 20,
+      "INCONCLUSIVE": 20,
+      "BENIGN": 0,
+      "ERROR": 0
+    },
+    "compositional": {
+      "total": 40,
+      "CONFIRMED": 0,
+      "INCONCLUSIVE": 10,
+      "BENIGN": 0,
+      "ERROR": 0
+    }
+  },
+  "per_case": [
+    {
+      "case_id": "bv3_001",
+      "family": "simple",
+      "verdict": "CONFIRMED",
+      "loops_run": 0,
+      "num_trajectory_steps": 1,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_002",
+      "family": "simple",
+      "verdict": "CONFIRMED",
+      "loops_run": 0,
+      "num_trajectory_steps": 1,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_003",
+      "family": "simple",
+      "verdict": "CONFIRMED",
+      "loops_run": 0,
+      "num_trajectory_steps": 1,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_004",
+      "family": "simple",
+      "verdict": "CONFIRMED",
+      "loops_run": 0,
+      "num_trajectory_steps": 1,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_005",
+      "family": "simple",
+      "verdict": "CONFIRMED",
+      "loops_run": 0,
+      "num_trajectory_steps": 1,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_006",
+      "family": "simple",
+      "verdict": "CONFIRMED",
+      "loops_run": 0,
+      "num_trajectory_steps": 1,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_007",
+      "family": "simple",
+      "verdict": "CONFIRMED",
+      "loops_run": 0,
+      "num_trajectory_steps": 1,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_008",
+      "family": "simple",
+      "verdict": "CONFIRMED",
+      "loops_run": 0,
+      "num_trajectory_steps": 1,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_009",
+      "family": "simple",
+      "verdict": "CONFIRMED",
+      "loops_run": 0,
+      "num_trajectory_steps": 1,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_010",
+      "family": "simple",
+      "verdict": "CONFIRMED",
+      "loops_run": 0,
+      "num_trajectory_steps": 1,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_011",
+      "family": "simple",
+      "verdict": "CONFIRMED",
+      "loops_run": 0,
+      "num_trajectory_steps": 1,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_012",
+      "family": "simple",
+      "verdict": "CONFIRMED",
+      "loops_run": 0,
+      "num_trajectory_steps": 1,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_013",
+      "family": "simple",
+      "verdict": "CONFIRMED",
+      "loops_run": 0,
+      "num_trajectory_steps": 1,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_014",
+      "family": "simple",
+      "verdict": "CONFIRMED",
+      "loops_run": 0,
+      "num_trajectory_steps": 1,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_015",
+      "family": "simple",
+      "verdict": "CONFIRMED",
+      "loops_run": 0,
+      "num_trajectory_steps": 1,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_016",
+      "family": "simple",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 3,
+      "num_trajectory_steps": 4,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "600612ffbff3a6292bcfb664312aefbdf678dadf1f33a800e306d8049d81b79a",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_017",
+      "family": "simple",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_018",
+      "family": "simple",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_019",
+      "family": "simple",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_020",
+      "family": "simple",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_021",
+      "family": "simple",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_022",
+      "family": "simple",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_023",
+      "family": "simple",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_024",
+      "family": "simple",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_025",
+      "family": "simple",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_026",
+      "family": "simple",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_027",
+      "family": "simple",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_028",
+      "family": "simple",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_029",
+      "family": "simple",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_030",
+      "family": "simple",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_031",
+      "family": "simple",
+      "verdict": "CONFIRMED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_032",
+      "family": "simple",
+      "verdict": "CONFIRMED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_033",
+      "family": "simple",
+      "verdict": "CONFIRMED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_034",
+      "family": "simple",
+      "verdict": "CONFIRMED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_035",
+      "family": "simple",
+      "verdict": "CONFIRMED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_036",
+      "family": "simple",
+      "verdict": "CONFIRMED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_037",
+      "family": "simple",
+      "verdict": "CONFIRMED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_038",
+      "family": "simple",
+      "verdict": "CONFIRMED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_039",
+      "family": "simple",
+      "verdict": "CONFIRMED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_040",
+      "family": "simple",
+      "verdict": "CONFIRMED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_041",
+      "family": "reasoning",
+      "verdict": "CONFIRMED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_042",
+      "family": "reasoning",
+      "verdict": "CONFIRMED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_043",
+      "family": "reasoning",
+      "verdict": "CONFIRMED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_044",
+      "family": "reasoning",
+      "verdict": "CONFIRMED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_045",
+      "family": "reasoning",
+      "verdict": "CONFIRMED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_046",
+      "family": "reasoning",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_047",
+      "family": "reasoning",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_048",
+      "family": "reasoning",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_049",
+      "family": "reasoning",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_050",
+      "family": "reasoning",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_051",
+      "family": "reasoning",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_052",
+      "family": "reasoning",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_053",
+      "family": "reasoning",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_054",
+      "family": "reasoning",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_055",
+      "family": "reasoning",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_056",
+      "family": "reasoning",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_057",
+      "family": "reasoning",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "2acce830a90c6d03a12123b42909922ded245170a8f0972dafcd5f350a867b08"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_058",
+      "family": "reasoning",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_059",
+      "family": "reasoning",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_060",
+      "family": "reasoning",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_061",
+      "family": "reasoning",
+      "verdict": "CONFIRMED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_062",
+      "family": "reasoning",
+      "verdict": "CONFIRMED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_063",
+      "family": "reasoning",
+      "verdict": "CONFIRMED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_064",
+      "family": "reasoning",
+      "verdict": "CONFIRMED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_065",
+      "family": "reasoning",
+      "verdict": "CONFIRMED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_066",
+      "family": "reasoning",
+      "verdict": "CONFIRMED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_067",
+      "family": "reasoning",
+      "verdict": "CONFIRMED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_068",
+      "family": "reasoning",
+      "verdict": "CONFIRMED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_069",
+      "family": "reasoning",
+      "verdict": "CONFIRMED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_070",
+      "family": "reasoning",
+      "verdict": "CONFIRMED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_071",
+      "family": "reasoning",
+      "verdict": "CONFIRMED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_072",
+      "family": "reasoning",
+      "verdict": "CONFIRMED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_073",
+      "family": "reasoning",
+      "verdict": "CONFIRMED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_074",
+      "family": "reasoning",
+      "verdict": "CONFIRMED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_075",
+      "family": "reasoning",
+      "verdict": "CONFIRMED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_076",
+      "family": "reasoning",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_077",
+      "family": "reasoning",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_078",
+      "family": "reasoning",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_079",
+      "family": "reasoning",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_080",
+      "family": "reasoning",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_081",
+      "family": "compositional",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_082",
+      "family": "compositional",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_083",
+      "family": "compositional",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_084",
+      "family": "compositional",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_085",
+      "family": "compositional",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_086",
+      "family": "compositional",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_087",
+      "family": "compositional",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_088",
+      "family": "compositional",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_089",
+      "family": "compositional",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_090",
+      "family": "compositional",
+      "verdict": "INCONCLUSIVE",
+      "loops_run": 2,
+      "num_trajectory_steps": 3,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "50f36905e13f69d3d2352135d2169fb492d4f80c2df02d23b8d4ca4b72b85f3b",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_091",
+      "family": "compositional",
+      "verdict": "BLOCKED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_092",
+      "family": "compositional",
+      "verdict": "BLOCKED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_093",
+      "family": "compositional",
+      "verdict": "BLOCKED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_094",
+      "family": "compositional",
+      "verdict": "BLOCKED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_095",
+      "family": "compositional",
+      "verdict": "BLOCKED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_096",
+      "family": "compositional",
+      "verdict": "BLOCKED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_097",
+      "family": "compositional",
+      "verdict": "BLOCKED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_098",
+      "family": "compositional",
+      "verdict": "BLOCKED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_099",
+      "family": "compositional",
+      "verdict": "BLOCKED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_100",
+      "family": "compositional",
+      "verdict": "BLOCKED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_101",
+      "family": "compositional",
+      "verdict": "BLOCKED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_102",
+      "family": "compositional",
+      "verdict": "BLOCKED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_103",
+      "family": "compositional",
+      "verdict": "BLOCKED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_104",
+      "family": "compositional",
+      "verdict": "BLOCKED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_105",
+      "family": "compositional",
+      "verdict": "BLOCKED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_106",
+      "family": "compositional",
+      "verdict": "BLOCKED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_107",
+      "family": "compositional",
+      "verdict": "BLOCKED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_108",
+      "family": "compositional",
+      "verdict": "BLOCKED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_109",
+      "family": "compositional",
+      "verdict": "BLOCKED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_110",
+      "family": "compositional",
+      "verdict": "BLOCKED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_111",
+      "family": "compositional",
+      "verdict": "BLOCKED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_112",
+      "family": "compositional",
+      "verdict": "BLOCKED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_113",
+      "family": "compositional",
+      "verdict": "BLOCKED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_114",
+      "family": "compositional",
+      "verdict": "BLOCKED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_115",
+      "family": "compositional",
+      "verdict": "BLOCKED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_116",
+      "family": "compositional",
+      "verdict": "BLOCKED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_117",
+      "family": "compositional",
+      "verdict": "BLOCKED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_118",
+      "family": "compositional",
+      "verdict": "BLOCKED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_119",
+      "family": "compositional",
+      "verdict": "BLOCKED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    },
+    {
+      "case_id": "bv3_120",
+      "family": "compositional",
+      "verdict": "BLOCKED",
+      "loops_run": 1,
+      "num_trajectory_steps": 2,
+      "confidence": 0.0,
+      "runtime_evidence_digests": [
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      ],
+      "top_hypothesis_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08432b27d9a4cd45e50b7770c96a7b7dbc986d5895c79740f1fd553e816e258d"
+      ],
+      "status": "OK"
+    }
+  ]
+}

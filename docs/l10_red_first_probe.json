@@ -1,0 +1,2122 @@
+[
+ {
+  "strategy": "l8-engine",
+  "instance_id": "cs-171",
+  "app": "consign",
+  "variant": "defective",
+  "budget": 32,
+  "requests": 41,
+  "http_requests": 41,
+  "seconds": 0.485,
+  "tp": 0,
+  "tp_families": [],
+  "fp": 0,
+  "fn": 1,
+  "raw_confirmed": 0,
+  "confirmed_families": [],
+  "confirmed_paths": [],
+  "requests_per_tp": null,
+  "hypotheses_generated": 8,
+  "hypotheses_by_family": {
+   "WORKFLOW_ORDER": 4,
+   "WORKFLOW_IDENTITY": 4
+  },
+  "status_tally": {
+   "contradicted": 8
+  },
+  "outcome_tally": {
+   "clean": 8
+  },
+  "executed_count": 8,
+  "duplicate_experiments": 0,
+  "terminal_reason": "objectives_complete",
+  "budget_binding": false,
+  "rounds_used": 9,
+  "seal": {
+   "confirmed_findings": 0,
+   "bundle_count": 0,
+   "all_replay_valid": null
+  },
+  "prerequisites": {},
+  "prerequisite_statuses": {},
+  "trace": {
+   "candidate_pool_size": 8,
+   "proposals": [
+    {
+     "round": 0,
+     "count": 4
+    },
+    {
+     "round": 4,
+     "count": 4
+    }
+   ],
+   "proposal_events": 2,
+   "executed_order": [
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04",
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04"
+   ],
+   "executed_count": 8,
+   "rounds_used": 9,
+   "budget": 32,
+   "budget_binding": false,
+   "terminal_reason": "objectives_complete",
+   "outcome_tally": {
+    "clean": 8
+   },
+   "confirmed": [],
+   "duplicate_experiments": 0,
+   "signature_examples": [
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04",
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04"
+   ]
+  }
+ },
+ {
+  "strategy": "planner",
+  "instance_id": "cs-171",
+  "app": "consign",
+  "variant": "defective",
+  "budget": 32,
+  "requests": 41,
+  "http_requests": 41,
+  "seconds": 0.464,
+  "tp": 0,
+  "tp_families": [],
+  "fp": 0,
+  "fn": 1,
+  "raw_confirmed": 0,
+  "confirmed_families": [],
+  "confirmed_paths": [],
+  "requests_per_tp": null,
+  "hypotheses_generated": 8,
+  "hypotheses_by_family": {
+   "WORKFLOW_ORDER": 4,
+   "WORKFLOW_IDENTITY": 4
+  },
+  "status_tally": {
+   "contradicted": 8
+  },
+  "outcome_tally": {
+   "clean": 8
+  },
+  "executed_count": 8,
+  "duplicate_experiments": 0,
+  "terminal_reason": "objectives_complete",
+  "budget_binding": false,
+  "rounds_used": 9,
+  "seal": {
+   "confirmed_findings": 0,
+   "bundle_count": 0,
+   "all_replay_valid": null
+  },
+  "prerequisites": {
+   "observed": 0,
+   "inferred": 0,
+   "establishable": 0,
+   "unattainable": 0
+  },
+  "prerequisite_statuses": {},
+  "trace": {
+   "candidate_pool_size": 8,
+   "proposals": [
+    {
+     "round": 0,
+     "count": 4
+    },
+    {
+     "round": 4,
+     "count": 4
+    }
+   ],
+   "proposal_events": 2,
+   "executed_order": [
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04",
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04"
+   ],
+   "executed_count": 8,
+   "rounds_used": 9,
+   "budget": 32,
+   "budget_binding": false,
+   "terminal_reason": "objectives_complete",
+   "outcome_tally": {
+    "clean": 8
+   },
+   "confirmed": [],
+   "duplicate_experiments": 0,
+   "signature_examples": [
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04",
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04"
+   ]
+  }
+ },
+ {
+  "strategy": "planner-no-prereq",
+  "instance_id": "cs-171",
+  "app": "consign",
+  "variant": "defective",
+  "budget": 32,
+  "requests": 41,
+  "http_requests": 41,
+  "seconds": 0.458,
+  "tp": 0,
+  "tp_families": [],
+  "fp": 0,
+  "fn": 1,
+  "raw_confirmed": 0,
+  "confirmed_families": [],
+  "confirmed_paths": [],
+  "requests_per_tp": null,
+  "hypotheses_generated": 8,
+  "hypotheses_by_family": {
+   "WORKFLOW_ORDER": 4,
+   "WORKFLOW_IDENTITY": 4
+  },
+  "status_tally": {
+   "contradicted": 8
+  },
+  "outcome_tally": {
+   "clean": 8
+  },
+  "executed_count": 8,
+  "duplicate_experiments": 0,
+  "terminal_reason": "objectives_complete",
+  "budget_binding": false,
+  "rounds_used": 9,
+  "seal": {
+   "confirmed_findings": 0,
+   "bundle_count": 0,
+   "all_replay_valid": null
+  },
+  "prerequisites": {
+   "observed": 0,
+   "inferred": 0,
+   "establishable": 0,
+   "unattainable": 0
+  },
+  "prerequisite_statuses": {},
+  "trace": {
+   "candidate_pool_size": 8,
+   "proposals": [
+    {
+     "round": 0,
+     "count": 4
+    },
+    {
+     "round": 4,
+     "count": 4
+    }
+   ],
+   "proposal_events": 2,
+   "executed_order": [
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04",
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04"
+   ],
+   "executed_count": 8,
+   "rounds_used": 9,
+   "budget": 32,
+   "budget_binding": false,
+   "terminal_reason": "objectives_complete",
+   "outcome_tally": {
+    "clean": 8
+   },
+   "confirmed": [],
+   "duplicate_experiments": 0,
+   "signature_examples": [
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04",
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04"
+   ]
+  }
+ },
+ {
+  "strategy": "l8-engine",
+  "instance_id": "cs-172",
+  "app": "consign",
+  "variant": "secured",
+  "budget": 32,
+  "requests": 41,
+  "http_requests": 41,
+  "seconds": 0.517,
+  "tp": 0,
+  "tp_families": [],
+  "fp": 0,
+  "fn": 0,
+  "raw_confirmed": 0,
+  "confirmed_families": [],
+  "confirmed_paths": [],
+  "requests_per_tp": null,
+  "hypotheses_generated": 8,
+  "hypotheses_by_family": {
+   "WORKFLOW_ORDER": 4,
+   "WORKFLOW_IDENTITY": 4
+  },
+  "status_tally": {
+   "contradicted": 8
+  },
+  "outcome_tally": {
+   "clean": 8
+  },
+  "executed_count": 8,
+  "duplicate_experiments": 0,
+  "terminal_reason": "objectives_complete",
+  "budget_binding": false,
+  "rounds_used": 9,
+  "seal": {
+   "confirmed_findings": 0,
+   "bundle_count": 0,
+   "all_replay_valid": null
+  },
+  "prerequisites": {},
+  "prerequisite_statuses": {},
+  "trace": {
+   "candidate_pool_size": 8,
+   "proposals": [
+    {
+     "round": 0,
+     "count": 4
+    },
+    {
+     "round": 4,
+     "count": 4
+    }
+   ],
+   "proposal_events": 2,
+   "executed_order": [
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04",
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04"
+   ],
+   "executed_count": 8,
+   "rounds_used": 9,
+   "budget": 32,
+   "budget_binding": false,
+   "terminal_reason": "objectives_complete",
+   "outcome_tally": {
+    "clean": 8
+   },
+   "confirmed": [],
+   "duplicate_experiments": 0,
+   "signature_examples": [
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04",
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04"
+   ]
+  }
+ },
+ {
+  "strategy": "planner",
+  "instance_id": "cs-172",
+  "app": "consign",
+  "variant": "secured",
+  "budget": 32,
+  "requests": 41,
+  "http_requests": 41,
+  "seconds": 0.457,
+  "tp": 0,
+  "tp_families": [],
+  "fp": 0,
+  "fn": 0,
+  "raw_confirmed": 0,
+  "confirmed_families": [],
+  "confirmed_paths": [],
+  "requests_per_tp": null,
+  "hypotheses_generated": 8,
+  "hypotheses_by_family": {
+   "WORKFLOW_ORDER": 4,
+   "WORKFLOW_IDENTITY": 4
+  },
+  "status_tally": {
+   "contradicted": 8
+  },
+  "outcome_tally": {
+   "clean": 8
+  },
+  "executed_count": 8,
+  "duplicate_experiments": 0,
+  "terminal_reason": "objectives_complete",
+  "budget_binding": false,
+  "rounds_used": 9,
+  "seal": {
+   "confirmed_findings": 0,
+   "bundle_count": 0,
+   "all_replay_valid": null
+  },
+  "prerequisites": {
+   "observed": 0,
+   "inferred": 0,
+   "establishable": 0,
+   "unattainable": 0
+  },
+  "prerequisite_statuses": {},
+  "trace": {
+   "candidate_pool_size": 8,
+   "proposals": [
+    {
+     "round": 0,
+     "count": 4
+    },
+    {
+     "round": 4,
+     "count": 4
+    }
+   ],
+   "proposal_events": 2,
+   "executed_order": [
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04",
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04"
+   ],
+   "executed_count": 8,
+   "rounds_used": 9,
+   "budget": 32,
+   "budget_binding": false,
+   "terminal_reason": "objectives_complete",
+   "outcome_tally": {
+    "clean": 8
+   },
+   "confirmed": [],
+   "duplicate_experiments": 0,
+   "signature_examples": [
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04",
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04"
+   ]
+  }
+ },
+ {
+  "strategy": "planner-no-prereq",
+  "instance_id": "cs-172",
+  "app": "consign",
+  "variant": "secured",
+  "budget": 32,
+  "requests": 41,
+  "http_requests": 41,
+  "seconds": 0.432,
+  "tp": 0,
+  "tp_families": [],
+  "fp": 0,
+  "fn": 0,
+  "raw_confirmed": 0,
+  "confirmed_families": [],
+  "confirmed_paths": [],
+  "requests_per_tp": null,
+  "hypotheses_generated": 8,
+  "hypotheses_by_family": {
+   "WORKFLOW_ORDER": 4,
+   "WORKFLOW_IDENTITY": 4
+  },
+  "status_tally": {
+   "contradicted": 8
+  },
+  "outcome_tally": {
+   "clean": 8
+  },
+  "executed_count": 8,
+  "duplicate_experiments": 0,
+  "terminal_reason": "objectives_complete",
+  "budget_binding": false,
+  "rounds_used": 9,
+  "seal": {
+   "confirmed_findings": 0,
+   "bundle_count": 0,
+   "all_replay_valid": null
+  },
+  "prerequisites": {
+   "observed": 0,
+   "inferred": 0,
+   "establishable": 0,
+   "unattainable": 0
+  },
+  "prerequisite_statuses": {},
+  "trace": {
+   "candidate_pool_size": 8,
+   "proposals": [
+    {
+     "round": 0,
+     "count": 4
+    },
+    {
+     "round": 4,
+     "count": 4
+    }
+   ],
+   "proposal_events": 2,
+   "executed_order": [
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04",
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04"
+   ],
+   "executed_count": 8,
+   "rounds_used": 9,
+   "budget": 32,
+   "budget_binding": false,
+   "terminal_reason": "objectives_complete",
+   "outcome_tally": {
+    "clean": 8
+   },
+   "confirmed": [],
+   "duplicate_experiments": 0,
+   "signature_examples": [
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04",
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04"
+   ]
+  }
+ },
+ {
+  "strategy": "l8-engine",
+  "instance_id": "cs-173",
+  "app": "consign",
+  "variant": "transition_no_vuln",
+  "budget": 32,
+  "requests": 41,
+  "http_requests": 41,
+  "seconds": 0.44,
+  "tp": 0,
+  "tp_families": [],
+  "fp": 0,
+  "fn": 0,
+  "raw_confirmed": 0,
+  "confirmed_families": [],
+  "confirmed_paths": [],
+  "requests_per_tp": null,
+  "hypotheses_generated": 8,
+  "hypotheses_by_family": {
+   "WORKFLOW_ORDER": 4,
+   "WORKFLOW_IDENTITY": 4
+  },
+  "status_tally": {
+   "contradicted": 8
+  },
+  "outcome_tally": {
+   "clean": 8
+  },
+  "executed_count": 8,
+  "duplicate_experiments": 0,
+  "terminal_reason": "objectives_complete",
+  "budget_binding": false,
+  "rounds_used": 9,
+  "seal": {
+   "confirmed_findings": 0,
+   "bundle_count": 0,
+   "all_replay_valid": null
+  },
+  "prerequisites": {},
+  "prerequisite_statuses": {},
+  "trace": {
+   "candidate_pool_size": 8,
+   "proposals": [
+    {
+     "round": 0,
+     "count": 4
+    },
+    {
+     "round": 4,
+     "count": 4
+    }
+   ],
+   "proposal_events": 2,
+   "executed_order": [
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04",
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04"
+   ],
+   "executed_count": 8,
+   "rounds_used": 9,
+   "budget": 32,
+   "budget_binding": false,
+   "terminal_reason": "objectives_complete",
+   "outcome_tally": {
+    "clean": 8
+   },
+   "confirmed": [],
+   "duplicate_experiments": 0,
+   "signature_examples": [
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04",
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04"
+   ]
+  }
+ },
+ {
+  "strategy": "planner",
+  "instance_id": "cs-173",
+  "app": "consign",
+  "variant": "transition_no_vuln",
+  "budget": 32,
+  "requests": 41,
+  "http_requests": 41,
+  "seconds": 0.467,
+  "tp": 0,
+  "tp_families": [],
+  "fp": 0,
+  "fn": 0,
+  "raw_confirmed": 0,
+  "confirmed_families": [],
+  "confirmed_paths": [],
+  "requests_per_tp": null,
+  "hypotheses_generated": 8,
+  "hypotheses_by_family": {
+   "WORKFLOW_ORDER": 4,
+   "WORKFLOW_IDENTITY": 4
+  },
+  "status_tally": {
+   "contradicted": 8
+  },
+  "outcome_tally": {
+   "clean": 8
+  },
+  "executed_count": 8,
+  "duplicate_experiments": 0,
+  "terminal_reason": "objectives_complete",
+  "budget_binding": false,
+  "rounds_used": 9,
+  "seal": {
+   "confirmed_findings": 0,
+   "bundle_count": 0,
+   "all_replay_valid": null
+  },
+  "prerequisites": {
+   "observed": 0,
+   "inferred": 0,
+   "establishable": 0,
+   "unattainable": 0
+  },
+  "prerequisite_statuses": {},
+  "trace": {
+   "candidate_pool_size": 8,
+   "proposals": [
+    {
+     "round": 0,
+     "count": 4
+    },
+    {
+     "round": 4,
+     "count": 4
+    }
+   ],
+   "proposal_events": 2,
+   "executed_order": [
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04",
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04"
+   ],
+   "executed_count": 8,
+   "rounds_used": 9,
+   "budget": 32,
+   "budget_binding": false,
+   "terminal_reason": "objectives_complete",
+   "outcome_tally": {
+    "clean": 8
+   },
+   "confirmed": [],
+   "duplicate_experiments": 0,
+   "signature_examples": [
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04",
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04"
+   ]
+  }
+ },
+ {
+  "strategy": "planner-no-prereq",
+  "instance_id": "cs-173",
+  "app": "consign",
+  "variant": "transition_no_vuln",
+  "budget": 32,
+  "requests": 41,
+  "http_requests": 41,
+  "seconds": 0.478,
+  "tp": 0,
+  "tp_families": [],
+  "fp": 0,
+  "fn": 0,
+  "raw_confirmed": 0,
+  "confirmed_families": [],
+  "confirmed_paths": [],
+  "requests_per_tp": null,
+  "hypotheses_generated": 8,
+  "hypotheses_by_family": {
+   "WORKFLOW_ORDER": 4,
+   "WORKFLOW_IDENTITY": 4
+  },
+  "status_tally": {
+   "contradicted": 8
+  },
+  "outcome_tally": {
+   "clean": 8
+  },
+  "executed_count": 8,
+  "duplicate_experiments": 0,
+  "terminal_reason": "objectives_complete",
+  "budget_binding": false,
+  "rounds_used": 9,
+  "seal": {
+   "confirmed_findings": 0,
+   "bundle_count": 0,
+   "all_replay_valid": null
+  },
+  "prerequisites": {
+   "observed": 0,
+   "inferred": 0,
+   "establishable": 0,
+   "unattainable": 0
+  },
+  "prerequisite_statuses": {},
+  "trace": {
+   "candidate_pool_size": 8,
+   "proposals": [
+    {
+     "round": 0,
+     "count": 4
+    },
+    {
+     "round": 4,
+     "count": 4
+    }
+   ],
+   "proposal_events": 2,
+   "executed_order": [
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04",
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04"
+   ],
+   "executed_count": 8,
+   "rounds_used": 9,
+   "budget": 32,
+   "budget_binding": false,
+   "terminal_reason": "objectives_complete",
+   "outcome_tally": {
+    "clean": 8
+   },
+   "confirmed": [],
+   "duplicate_experiments": 0,
+   "signature_examples": [
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04",
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04"
+   ]
+  }
+ },
+ {
+  "strategy": "l8-engine",
+  "instance_id": "cs-174",
+  "app": "consign",
+  "variant": "unavailable_prereq",
+  "budget": 32,
+  "requests": 41,
+  "http_requests": 41,
+  "seconds": 0.487,
+  "tp": 0,
+  "tp_families": [],
+  "fp": 0,
+  "fn": 0,
+  "raw_confirmed": 0,
+  "confirmed_families": [],
+  "confirmed_paths": [],
+  "requests_per_tp": null,
+  "hypotheses_generated": 8,
+  "hypotheses_by_family": {
+   "WORKFLOW_ORDER": 4,
+   "WORKFLOW_IDENTITY": 4
+  },
+  "status_tally": {
+   "contradicted": 8
+  },
+  "outcome_tally": {
+   "clean": 8
+  },
+  "executed_count": 8,
+  "duplicate_experiments": 0,
+  "terminal_reason": "objectives_complete",
+  "budget_binding": false,
+  "rounds_used": 9,
+  "seal": {
+   "confirmed_findings": 0,
+   "bundle_count": 0,
+   "all_replay_valid": null
+  },
+  "prerequisites": {},
+  "prerequisite_statuses": {},
+  "trace": {
+   "candidate_pool_size": 8,
+   "proposals": [
+    {
+     "round": 0,
+     "count": 4
+    },
+    {
+     "round": 4,
+     "count": 4
+    }
+   ],
+   "proposal_events": 2,
+   "executed_order": [
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04",
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04"
+   ],
+   "executed_count": 8,
+   "rounds_used": 9,
+   "budget": 32,
+   "budget_binding": false,
+   "terminal_reason": "objectives_complete",
+   "outcome_tally": {
+    "clean": 8
+   },
+   "confirmed": [],
+   "duplicate_experiments": 0,
+   "signature_examples": [
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04",
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04"
+   ]
+  }
+ },
+ {
+  "strategy": "planner",
+  "instance_id": "cs-174",
+  "app": "consign",
+  "variant": "unavailable_prereq",
+  "budget": 32,
+  "requests": 41,
+  "http_requests": 41,
+  "seconds": 0.483,
+  "tp": 0,
+  "tp_families": [],
+  "fp": 0,
+  "fn": 0,
+  "raw_confirmed": 0,
+  "confirmed_families": [],
+  "confirmed_paths": [],
+  "requests_per_tp": null,
+  "hypotheses_generated": 8,
+  "hypotheses_by_family": {
+   "WORKFLOW_ORDER": 4,
+   "WORKFLOW_IDENTITY": 4
+  },
+  "status_tally": {
+   "contradicted": 8
+  },
+  "outcome_tally": {
+   "clean": 8
+  },
+  "executed_count": 8,
+  "duplicate_experiments": 0,
+  "terminal_reason": "objectives_complete",
+  "budget_binding": false,
+  "rounds_used": 9,
+  "seal": {
+   "confirmed_findings": 0,
+   "bundle_count": 0,
+   "all_replay_valid": null
+  },
+  "prerequisites": {
+   "observed": 0,
+   "inferred": 0,
+   "establishable": 0,
+   "unattainable": 0
+  },
+  "prerequisite_statuses": {},
+  "trace": {
+   "candidate_pool_size": 8,
+   "proposals": [
+    {
+     "round": 0,
+     "count": 4
+    },
+    {
+     "round": 4,
+     "count": 4
+    }
+   ],
+   "proposal_events": 2,
+   "executed_order": [
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04",
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04"
+   ],
+   "executed_count": 8,
+   "rounds_used": 9,
+   "budget": 32,
+   "budget_binding": false,
+   "terminal_reason": "objectives_complete",
+   "outcome_tally": {
+    "clean": 8
+   },
+   "confirmed": [],
+   "duplicate_experiments": 0,
+   "signature_examples": [
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04",
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04"
+   ]
+  }
+ },
+ {
+  "strategy": "planner-no-prereq",
+  "instance_id": "cs-174",
+  "app": "consign",
+  "variant": "unavailable_prereq",
+  "budget": 32,
+  "requests": 41,
+  "http_requests": 41,
+  "seconds": 0.43,
+  "tp": 0,
+  "tp_families": [],
+  "fp": 0,
+  "fn": 0,
+  "raw_confirmed": 0,
+  "confirmed_families": [],
+  "confirmed_paths": [],
+  "requests_per_tp": null,
+  "hypotheses_generated": 8,
+  "hypotheses_by_family": {
+   "WORKFLOW_ORDER": 4,
+   "WORKFLOW_IDENTITY": 4
+  },
+  "status_tally": {
+   "contradicted": 8
+  },
+  "outcome_tally": {
+   "clean": 8
+  },
+  "executed_count": 8,
+  "duplicate_experiments": 0,
+  "terminal_reason": "objectives_complete",
+  "budget_binding": false,
+  "rounds_used": 9,
+  "seal": {
+   "confirmed_findings": 0,
+   "bundle_count": 0,
+   "all_replay_valid": null
+  },
+  "prerequisites": {
+   "observed": 0,
+   "inferred": 0,
+   "establishable": 0,
+   "unattainable": 0
+  },
+  "prerequisite_statuses": {},
+  "trace": {
+   "candidate_pool_size": 8,
+   "proposals": [
+    {
+     "round": 0,
+     "count": 4
+    },
+    {
+     "round": 4,
+     "count": 4
+    }
+   ],
+   "proposal_events": 2,
+   "executed_order": [
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04",
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04"
+   ],
+   "executed_count": 8,
+   "rounds_used": 9,
+   "budget": 32,
+   "budget_binding": false,
+   "terminal_reason": "objectives_complete",
+   "outcome_tally": {
+    "clean": 8
+   },
+   "confirmed": [],
+   "duplicate_experiments": 0,
+   "signature_examples": [
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04",
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04"
+   ]
+  }
+ },
+ {
+  "strategy": "l8-engine",
+  "instance_id": "pm-181",
+  "app": "permit",
+  "variant": "defective",
+  "budget": 32,
+  "requests": 41,
+  "http_requests": 41,
+  "seconds": 0.47,
+  "tp": 0,
+  "tp_families": [],
+  "fp": 0,
+  "fn": 1,
+  "raw_confirmed": 0,
+  "confirmed_families": [],
+  "confirmed_paths": [],
+  "requests_per_tp": null,
+  "hypotheses_generated": 8,
+  "hypotheses_by_family": {
+   "WORKFLOW_ORDER": 4,
+   "WORKFLOW_IDENTITY": 4
+  },
+  "status_tally": {
+   "contradicted": 8
+  },
+  "outcome_tally": {
+   "clean": 8
+  },
+  "executed_count": 8,
+  "duplicate_experiments": 0,
+  "terminal_reason": "objectives_complete",
+  "budget_binding": false,
+  "rounds_used": 9,
+  "seal": {
+   "confirmed_findings": 0,
+   "bundle_count": 0,
+   "all_replay_valid": null
+  },
+  "prerequisites": {},
+  "prerequisite_statuses": {},
+  "trace": {
+   "candidate_pool_size": 8,
+   "proposals": [
+    {
+     "round": 0,
+     "count": 4
+    },
+    {
+     "round": 4,
+     "count": 4
+    }
+   ],
+   "proposal_events": 2,
+   "executed_order": [
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04",
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04"
+   ],
+   "executed_count": 8,
+   "rounds_used": 9,
+   "budget": 32,
+   "budget_binding": false,
+   "terminal_reason": "objectives_complete",
+   "outcome_tally": {
+    "clean": 8
+   },
+   "confirmed": [],
+   "duplicate_experiments": 0,
+   "signature_examples": [
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04",
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04"
+   ]
+  }
+ },
+ {
+  "strategy": "planner",
+  "instance_id": "pm-181",
+  "app": "permit",
+  "variant": "defective",
+  "budget": 32,
+  "requests": 41,
+  "http_requests": 41,
+  "seconds": 0.482,
+  "tp": 0,
+  "tp_families": [],
+  "fp": 0,
+  "fn": 1,
+  "raw_confirmed": 0,
+  "confirmed_families": [],
+  "confirmed_paths": [],
+  "requests_per_tp": null,
+  "hypotheses_generated": 8,
+  "hypotheses_by_family": {
+   "WORKFLOW_ORDER": 4,
+   "WORKFLOW_IDENTITY": 4
+  },
+  "status_tally": {
+   "contradicted": 8
+  },
+  "outcome_tally": {
+   "clean": 8
+  },
+  "executed_count": 8,
+  "duplicate_experiments": 0,
+  "terminal_reason": "objectives_complete",
+  "budget_binding": false,
+  "rounds_used": 9,
+  "seal": {
+   "confirmed_findings": 0,
+   "bundle_count": 0,
+   "all_replay_valid": null
+  },
+  "prerequisites": {
+   "observed": 0,
+   "inferred": 0,
+   "establishable": 0,
+   "unattainable": 0
+  },
+  "prerequisite_statuses": {},
+  "trace": {
+   "candidate_pool_size": 8,
+   "proposals": [
+    {
+     "round": 0,
+     "count": 4
+    },
+    {
+     "round": 4,
+     "count": 4
+    }
+   ],
+   "proposal_events": 2,
+   "executed_order": [
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04",
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04"
+   ],
+   "executed_count": 8,
+   "rounds_used": 9,
+   "budget": 32,
+   "budget_binding": false,
+   "terminal_reason": "objectives_complete",
+   "outcome_tally": {
+    "clean": 8
+   },
+   "confirmed": [],
+   "duplicate_experiments": 0,
+   "signature_examples": [
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04",
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04"
+   ]
+  }
+ },
+ {
+  "strategy": "planner-no-prereq",
+  "instance_id": "pm-181",
+  "app": "permit",
+  "variant": "defective",
+  "budget": 32,
+  "requests": 41,
+  "http_requests": 41,
+  "seconds": 0.449,
+  "tp": 0,
+  "tp_families": [],
+  "fp": 0,
+  "fn": 1,
+  "raw_confirmed": 0,
+  "confirmed_families": [],
+  "confirmed_paths": [],
+  "requests_per_tp": null,
+  "hypotheses_generated": 8,
+  "hypotheses_by_family": {
+   "WORKFLOW_ORDER": 4,
+   "WORKFLOW_IDENTITY": 4
+  },
+  "status_tally": {
+   "contradicted": 8
+  },
+  "outcome_tally": {
+   "clean": 8
+  },
+  "executed_count": 8,
+  "duplicate_experiments": 0,
+  "terminal_reason": "objectives_complete",
+  "budget_binding": false,
+  "rounds_used": 9,
+  "seal": {
+   "confirmed_findings": 0,
+   "bundle_count": 0,
+   "all_replay_valid": null
+  },
+  "prerequisites": {
+   "observed": 0,
+   "inferred": 0,
+   "establishable": 0,
+   "unattainable": 0
+  },
+  "prerequisite_statuses": {},
+  "trace": {
+   "candidate_pool_size": 8,
+   "proposals": [
+    {
+     "round": 0,
+     "count": 4
+    },
+    {
+     "round": 4,
+     "count": 4
+    }
+   ],
+   "proposal_events": 2,
+   "executed_order": [
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04",
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04"
+   ],
+   "executed_count": 8,
+   "rounds_used": 9,
+   "budget": 32,
+   "budget_binding": false,
+   "terminal_reason": "objectives_complete",
+   "outcome_tally": {
+    "clean": 8
+   },
+   "confirmed": [],
+   "duplicate_experiments": 0,
+   "signature_examples": [
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04",
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04"
+   ]
+  }
+ },
+ {
+  "strategy": "l8-engine",
+  "instance_id": "pm-182",
+  "app": "permit",
+  "variant": "secured",
+  "budget": 32,
+  "requests": 41,
+  "http_requests": 41,
+  "seconds": 0.444,
+  "tp": 0,
+  "tp_families": [],
+  "fp": 0,
+  "fn": 0,
+  "raw_confirmed": 0,
+  "confirmed_families": [],
+  "confirmed_paths": [],
+  "requests_per_tp": null,
+  "hypotheses_generated": 8,
+  "hypotheses_by_family": {
+   "WORKFLOW_ORDER": 4,
+   "WORKFLOW_IDENTITY": 4
+  },
+  "status_tally": {
+   "contradicted": 8
+  },
+  "outcome_tally": {
+   "clean": 8
+  },
+  "executed_count": 8,
+  "duplicate_experiments": 0,
+  "terminal_reason": "objectives_complete",
+  "budget_binding": false,
+  "rounds_used": 9,
+  "seal": {
+   "confirmed_findings": 0,
+   "bundle_count": 0,
+   "all_replay_valid": null
+  },
+  "prerequisites": {},
+  "prerequisite_statuses": {},
+  "trace": {
+   "candidate_pool_size": 8,
+   "proposals": [
+    {
+     "round": 0,
+     "count": 4
+    },
+    {
+     "round": 4,
+     "count": 4
+    }
+   ],
+   "proposal_events": 2,
+   "executed_order": [
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04",
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04"
+   ],
+   "executed_count": 8,
+   "rounds_used": 9,
+   "budget": 32,
+   "budget_binding": false,
+   "terminal_reason": "objectives_complete",
+   "outcome_tally": {
+    "clean": 8
+   },
+   "confirmed": [],
+   "duplicate_experiments": 0,
+   "signature_examples": [
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04",
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04"
+   ]
+  }
+ },
+ {
+  "strategy": "planner",
+  "instance_id": "pm-182",
+  "app": "permit",
+  "variant": "secured",
+  "budget": 32,
+  "requests": 41,
+  "http_requests": 41,
+  "seconds": 0.452,
+  "tp": 0,
+  "tp_families": [],
+  "fp": 0,
+  "fn": 0,
+  "raw_confirmed": 0,
+  "confirmed_families": [],
+  "confirmed_paths": [],
+  "requests_per_tp": null,
+  "hypotheses_generated": 8,
+  "hypotheses_by_family": {
+   "WORKFLOW_ORDER": 4,
+   "WORKFLOW_IDENTITY": 4
+  },
+  "status_tally": {
+   "contradicted": 8
+  },
+  "outcome_tally": {
+   "clean": 8
+  },
+  "executed_count": 8,
+  "duplicate_experiments": 0,
+  "terminal_reason": "objectives_complete",
+  "budget_binding": false,
+  "rounds_used": 9,
+  "seal": {
+   "confirmed_findings": 0,
+   "bundle_count": 0,
+   "all_replay_valid": null
+  },
+  "prerequisites": {
+   "observed": 0,
+   "inferred": 0,
+   "establishable": 0,
+   "unattainable": 0
+  },
+  "prerequisite_statuses": {},
+  "trace": {
+   "candidate_pool_size": 8,
+   "proposals": [
+    {
+     "round": 0,
+     "count": 4
+    },
+    {
+     "round": 4,
+     "count": 4
+    }
+   ],
+   "proposal_events": 2,
+   "executed_order": [
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04",
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04"
+   ],
+   "executed_count": 8,
+   "rounds_used": 9,
+   "budget": 32,
+   "budget_binding": false,
+   "terminal_reason": "objectives_complete",
+   "outcome_tally": {
+    "clean": 8
+   },
+   "confirmed": [],
+   "duplicate_experiments": 0,
+   "signature_examples": [
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04",
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04"
+   ]
+  }
+ },
+ {
+  "strategy": "planner-no-prereq",
+  "instance_id": "pm-182",
+  "app": "permit",
+  "variant": "secured",
+  "budget": 32,
+  "requests": 41,
+  "http_requests": 41,
+  "seconds": 0.452,
+  "tp": 0,
+  "tp_families": [],
+  "fp": 0,
+  "fn": 0,
+  "raw_confirmed": 0,
+  "confirmed_families": [],
+  "confirmed_paths": [],
+  "requests_per_tp": null,
+  "hypotheses_generated": 8,
+  "hypotheses_by_family": {
+   "WORKFLOW_ORDER": 4,
+   "WORKFLOW_IDENTITY": 4
+  },
+  "status_tally": {
+   "contradicted": 8
+  },
+  "outcome_tally": {
+   "clean": 8
+  },
+  "executed_count": 8,
+  "duplicate_experiments": 0,
+  "terminal_reason": "objectives_complete",
+  "budget_binding": false,
+  "rounds_used": 9,
+  "seal": {
+   "confirmed_findings": 0,
+   "bundle_count": 0,
+   "all_replay_valid": null
+  },
+  "prerequisites": {
+   "observed": 0,
+   "inferred": 0,
+   "establishable": 0,
+   "unattainable": 0
+  },
+  "prerequisite_statuses": {},
+  "trace": {
+   "candidate_pool_size": 8,
+   "proposals": [
+    {
+     "round": 0,
+     "count": 4
+    },
+    {
+     "round": 4,
+     "count": 4
+    }
+   ],
+   "proposal_events": 2,
+   "executed_order": [
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04",
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04"
+   ],
+   "executed_count": 8,
+   "rounds_used": 9,
+   "budget": 32,
+   "budget_binding": false,
+   "terminal_reason": "objectives_complete",
+   "outcome_tally": {
+    "clean": 8
+   },
+   "confirmed": [],
+   "duplicate_experiments": 0,
+   "signature_examples": [
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04",
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04"
+   ]
+  }
+ },
+ {
+  "strategy": "l8-engine",
+  "instance_id": "pm-183",
+  "app": "permit",
+  "variant": "transition_no_vuln",
+  "budget": 32,
+  "requests": 41,
+  "http_requests": 41,
+  "seconds": 0.442,
+  "tp": 0,
+  "tp_families": [],
+  "fp": 0,
+  "fn": 0,
+  "raw_confirmed": 0,
+  "confirmed_families": [],
+  "confirmed_paths": [],
+  "requests_per_tp": null,
+  "hypotheses_generated": 8,
+  "hypotheses_by_family": {
+   "WORKFLOW_ORDER": 4,
+   "WORKFLOW_IDENTITY": 4
+  },
+  "status_tally": {
+   "contradicted": 8
+  },
+  "outcome_tally": {
+   "clean": 8
+  },
+  "executed_count": 8,
+  "duplicate_experiments": 0,
+  "terminal_reason": "objectives_complete",
+  "budget_binding": false,
+  "rounds_used": 9,
+  "seal": {
+   "confirmed_findings": 0,
+   "bundle_count": 0,
+   "all_replay_valid": null
+  },
+  "prerequisites": {},
+  "prerequisite_statuses": {},
+  "trace": {
+   "candidate_pool_size": 8,
+   "proposals": [
+    {
+     "round": 0,
+     "count": 4
+    },
+    {
+     "round": 4,
+     "count": 4
+    }
+   ],
+   "proposal_events": 2,
+   "executed_order": [
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04",
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04"
+   ],
+   "executed_count": 8,
+   "rounds_used": 9,
+   "budget": 32,
+   "budget_binding": false,
+   "terminal_reason": "objectives_complete",
+   "outcome_tally": {
+    "clean": 8
+   },
+   "confirmed": [],
+   "duplicate_experiments": 0,
+   "signature_examples": [
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04",
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04"
+   ]
+  }
+ },
+ {
+  "strategy": "planner",
+  "instance_id": "pm-183",
+  "app": "permit",
+  "variant": "transition_no_vuln",
+  "budget": 32,
+  "requests": 41,
+  "http_requests": 41,
+  "seconds": 0.484,
+  "tp": 0,
+  "tp_families": [],
+  "fp": 0,
+  "fn": 0,
+  "raw_confirmed": 0,
+  "confirmed_families": [],
+  "confirmed_paths": [],
+  "requests_per_tp": null,
+  "hypotheses_generated": 8,
+  "hypotheses_by_family": {
+   "WORKFLOW_ORDER": 4,
+   "WORKFLOW_IDENTITY": 4
+  },
+  "status_tally": {
+   "contradicted": 8
+  },
+  "outcome_tally": {
+   "clean": 8
+  },
+  "executed_count": 8,
+  "duplicate_experiments": 0,
+  "terminal_reason": "objectives_complete",
+  "budget_binding": false,
+  "rounds_used": 9,
+  "seal": {
+   "confirmed_findings": 0,
+   "bundle_count": 0,
+   "all_replay_valid": null
+  },
+  "prerequisites": {
+   "observed": 0,
+   "inferred": 0,
+   "establishable": 0,
+   "unattainable": 0
+  },
+  "prerequisite_statuses": {},
+  "trace": {
+   "candidate_pool_size": 8,
+   "proposals": [
+    {
+     "round": 0,
+     "count": 4
+    },
+    {
+     "round": 4,
+     "count": 4
+    }
+   ],
+   "proposal_events": 2,
+   "executed_order": [
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04",
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04"
+   ],
+   "executed_count": 8,
+   "rounds_used": 9,
+   "budget": 32,
+   "budget_binding": false,
+   "terminal_reason": "objectives_complete",
+   "outcome_tally": {
+    "clean": 8
+   },
+   "confirmed": [],
+   "duplicate_experiments": 0,
+   "signature_examples": [
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04",
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04"
+   ]
+  }
+ },
+ {
+  "strategy": "planner-no-prereq",
+  "instance_id": "pm-183",
+  "app": "permit",
+  "variant": "transition_no_vuln",
+  "budget": 32,
+  "requests": 41,
+  "http_requests": 41,
+  "seconds": 0.451,
+  "tp": 0,
+  "tp_families": [],
+  "fp": 0,
+  "fn": 0,
+  "raw_confirmed": 0,
+  "confirmed_families": [],
+  "confirmed_paths": [],
+  "requests_per_tp": null,
+  "hypotheses_generated": 8,
+  "hypotheses_by_family": {
+   "WORKFLOW_ORDER": 4,
+   "WORKFLOW_IDENTITY": 4
+  },
+  "status_tally": {
+   "contradicted": 8
+  },
+  "outcome_tally": {
+   "clean": 8
+  },
+  "executed_count": 8,
+  "duplicate_experiments": 0,
+  "terminal_reason": "objectives_complete",
+  "budget_binding": false,
+  "rounds_used": 9,
+  "seal": {
+   "confirmed_findings": 0,
+   "bundle_count": 0,
+   "all_replay_valid": null
+  },
+  "prerequisites": {
+   "observed": 0,
+   "inferred": 0,
+   "establishable": 0,
+   "unattainable": 0
+  },
+  "prerequisite_statuses": {},
+  "trace": {
+   "candidate_pool_size": 8,
+   "proposals": [
+    {
+     "round": 0,
+     "count": 4
+    },
+    {
+     "round": 4,
+     "count": 4
+    }
+   ],
+   "proposal_events": 2,
+   "executed_order": [
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04",
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04"
+   ],
+   "executed_count": 8,
+   "rounds_used": 9,
+   "budget": 32,
+   "budget_binding": false,
+   "terminal_reason": "objectives_complete",
+   "outcome_tally": {
+    "clean": 8
+   },
+   "confirmed": [],
+   "duplicate_experiments": 0,
+   "signature_examples": [
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04",
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04"
+   ]
+  }
+ },
+ {
+  "strategy": "l8-engine",
+  "instance_id": "pm-184",
+  "app": "permit",
+  "variant": "unavailable_prereq",
+  "budget": 32,
+  "requests": 41,
+  "http_requests": 41,
+  "seconds": 0.433,
+  "tp": 0,
+  "tp_families": [],
+  "fp": 0,
+  "fn": 0,
+  "raw_confirmed": 0,
+  "confirmed_families": [],
+  "confirmed_paths": [],
+  "requests_per_tp": null,
+  "hypotheses_generated": 8,
+  "hypotheses_by_family": {
+   "WORKFLOW_ORDER": 4,
+   "WORKFLOW_IDENTITY": 4
+  },
+  "status_tally": {
+   "contradicted": 8
+  },
+  "outcome_tally": {
+   "clean": 8
+  },
+  "executed_count": 8,
+  "duplicate_experiments": 0,
+  "terminal_reason": "objectives_complete",
+  "budget_binding": false,
+  "rounds_used": 9,
+  "seal": {
+   "confirmed_findings": 0,
+   "bundle_count": 0,
+   "all_replay_valid": null
+  },
+  "prerequisites": {},
+  "prerequisite_statuses": {},
+  "trace": {
+   "candidate_pool_size": 8,
+   "proposals": [
+    {
+     "round": 0,
+     "count": 4
+    },
+    {
+     "round": 4,
+     "count": 4
+    }
+   ],
+   "proposal_events": 2,
+   "executed_order": [
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04",
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04"
+   ],
+   "executed_count": 8,
+   "rounds_used": 9,
+   "budget": 32,
+   "budget_binding": false,
+   "terminal_reason": "objectives_complete",
+   "outcome_tally": {
+    "clean": 8
+   },
+   "confirmed": [],
+   "duplicate_experiments": 0,
+   "signature_examples": [
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04",
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04"
+   ]
+  }
+ },
+ {
+  "strategy": "planner",
+  "instance_id": "pm-184",
+  "app": "permit",
+  "variant": "unavailable_prereq",
+  "budget": 32,
+  "requests": 41,
+  "http_requests": 41,
+  "seconds": 0.433,
+  "tp": 0,
+  "tp_families": [],
+  "fp": 0,
+  "fn": 0,
+  "raw_confirmed": 0,
+  "confirmed_families": [],
+  "confirmed_paths": [],
+  "requests_per_tp": null,
+  "hypotheses_generated": 8,
+  "hypotheses_by_family": {
+   "WORKFLOW_ORDER": 4,
+   "WORKFLOW_IDENTITY": 4
+  },
+  "status_tally": {
+   "contradicted": 8
+  },
+  "outcome_tally": {
+   "clean": 8
+  },
+  "executed_count": 8,
+  "duplicate_experiments": 0,
+  "terminal_reason": "objectives_complete",
+  "budget_binding": false,
+  "rounds_used": 9,
+  "seal": {
+   "confirmed_findings": 0,
+   "bundle_count": 0,
+   "all_replay_valid": null
+  },
+  "prerequisites": {
+   "observed": 0,
+   "inferred": 0,
+   "establishable": 0,
+   "unattainable": 0
+  },
+  "prerequisite_statuses": {},
+  "trace": {
+   "candidate_pool_size": 8,
+   "proposals": [
+    {
+     "round": 0,
+     "count": 4
+    },
+    {
+     "round": 4,
+     "count": 4
+    }
+   ],
+   "proposal_events": 2,
+   "executed_order": [
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04",
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04"
+   ],
+   "executed_count": 8,
+   "rounds_used": 9,
+   "budget": 32,
+   "budget_binding": false,
+   "terminal_reason": "objectives_complete",
+   "outcome_tally": {
+    "clean": 8
+   },
+   "confirmed": [],
+   "duplicate_experiments": 0,
+   "signature_examples": [
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04",
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04"
+   ]
+  }
+ },
+ {
+  "strategy": "planner-no-prereq",
+  "instance_id": "pm-184",
+  "app": "permit",
+  "variant": "unavailable_prereq",
+  "budget": 32,
+  "requests": 41,
+  "http_requests": 41,
+  "seconds": 0.454,
+  "tp": 0,
+  "tp_families": [],
+  "fp": 0,
+  "fn": 0,
+  "raw_confirmed": 0,
+  "confirmed_families": [],
+  "confirmed_paths": [],
+  "requests_per_tp": null,
+  "hypotheses_generated": 8,
+  "hypotheses_by_family": {
+   "WORKFLOW_ORDER": 4,
+   "WORKFLOW_IDENTITY": 4
+  },
+  "status_tally": {
+   "contradicted": 8
+  },
+  "outcome_tally": {
+   "clean": 8
+  },
+  "executed_count": 8,
+  "duplicate_experiments": 0,
+  "terminal_reason": "objectives_complete",
+  "budget_binding": false,
+  "rounds_used": 9,
+  "seal": {
+   "confirmed_findings": 0,
+   "bundle_count": 0,
+   "all_replay_valid": null
+  },
+  "prerequisites": {
+   "observed": 0,
+   "inferred": 0,
+   "establishable": 0,
+   "unattainable": 0
+  },
+  "prerequisite_statuses": {},
+  "trace": {
+   "candidate_pool_size": 8,
+   "proposals": [
+    {
+     "round": 0,
+     "count": 4
+    },
+    {
+     "round": 4,
+     "count": 4
+    }
+   ],
+   "proposal_events": 2,
+   "executed_order": [
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04",
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04"
+   ],
+   "executed_count": 8,
+   "rounds_used": 9,
+   "budget": 32,
+   "budget_binding": false,
+   "terminal_reason": "objectives_complete",
+   "outcome_tally": {
+    "clean": 8
+   },
+   "confirmed": [],
+   "duplicate_experiments": 0,
+   "signature_examples": [
+    "e-workflow-identity-01",
+    "e-workflow-identity-02",
+    "e-workflow-identity-03",
+    "e-workflow-identity-04",
+    "e-workflow-order-01",
+    "e-workflow-order-02",
+    "e-workflow-order-03",
+    "e-workflow-order-04"
+   ]
+  }
+ }
+]

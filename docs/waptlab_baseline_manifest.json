@@ -1,0 +1,96 @@
+{
+  "schema_version": "waptlab-baseline-manifest-v1",
+  "project": "WebPent v60",
+  "target": "WAPTLab",
+  "catalog_version": "waptlab-v1",
+  "source_archive_sha256": "48b242c3711a983bcbf35ce041f29499656b26046005ab6e8f140d78a74a0b4b",
+  "commit_sha": null,
+  "image_digest": null,
+  "seed_hash": null,
+  "config_profile": "local-mock-safe",
+  "waptlab_modified": false,
+  "target_contacted": false,
+  "live_runtime": {
+    "status": "blocked",
+    "reason": "Docker startup reached a kernel iptables/raw-table restriction in the sandbox",
+    "endpoint": null
+  },
+  "runs": [
+    {
+      "run_id": "static-ground-truth-20260818",
+      "mode": "static-source-review",
+      "status": "completed",
+      "surface_coverage": "source-derived",
+      "hypothesis_coverage": "source-derived",
+      "validator_coverage": "not_applicable",
+      "confirmed": 0,
+      "false_positive_candidates": 0,
+      "not_discovered": 20,
+      "missing_validator": 7,
+      "probe_error": 0,
+      "scope_events": 0,
+      "execution_events": 0,
+      "evidence_hashes": [],
+      "artifact": "docs/waptlab_static_ground_truth.md"
+    },
+    {
+      "run_id": "mock-matrix-20260818T125335Z",
+      "mode": "loopback-mock-detector-coverage",
+      "status": "completed",
+      "surface_coverage": "20/20 exercised",
+      "hypothesis_coverage": "20/20 campaign probes",
+      "validator_coverage": "5 confirmed; 15 candidate/review",
+      "confirmed": 5,
+      "false_positive_candidates": 15,
+      "not_discovered": 0,
+      "missing_validator": 7,
+      "probe_error": 0,
+      "scope_events": 0,
+      "execution_events": 20,
+      "evidence_hashes": [],
+      "artifact": "docs/waptlab_mock_matrix.json",
+      "target_contacted": false
+    }
+  ],
+  "reproducibility": {
+    "status": "stable",
+    "runs": 3,
+    "artifact": "docs/waptlab_mock_reproducibility.json",
+    "summary": {
+      "candidate-or-review": 15,
+      "tool-confirmed": 5
+    }
+  },
+  "coverage_ledger": {
+    "status": "complete_for_mock",
+    "artifact": "docs/waptlab_coverage_ledger.json",
+    "campaigns": 20,
+    "tested": 5,
+    "candidate_or_review": 15,
+    "live_qualification": false
+  },
+  "dependency_inventory": {
+    "artifact": "docs/python_environment_inventory.json",
+    "standard_sbom": false,
+    "strict_release_gate": false,
+    "pip_audit_strict": false,
+    "bandit": "unavailable"
+  },
+  "required_follow_up_runs": [
+    "mock-baseline-01",
+    "mock-baseline-02",
+    "mock-baseline-03",
+    "live-waptlab-01",
+    "live-waptlab-02",
+    "live-waptlab-03"
+  ],
+  "acceptance": {
+    "sprint_threshold": 11,
+    "feature_complete_threshold": 15,
+    "vip_threshold": 15,
+    "vip_consecutive_runs": 3,
+    "precision_threshold": 0.9,
+    "current_vip_ready": false
+  },
+  "safety_statement": "This manifest records source-review and loopback synthetic-fixture measurements only. It does not claim live WAPTLab confirmation."
+}

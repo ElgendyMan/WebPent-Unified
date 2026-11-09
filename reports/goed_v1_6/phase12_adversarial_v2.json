@@ -1,0 +1,208 @@
+{
+  "date": "2026-09-04T09:35:18.554961+00:00",
+  "patterns_defined": 12,
+  "test_cases_executed": 24,
+  "metrics": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 5,
+    "tn": 17,
+    "precision": 1.0,
+    "recall": 0.1667
+  },
+  "key_finding": "FP rate on adversarial clean cases = 0/17 = 0.0%",
+  "per_case_results": [
+    {
+      "name": "p1a_same_status_vuln",
+      "pattern": "same_status_diff_semantics",
+      "verdict": "CONFIRMED",
+      "outcome": "TP",
+      "is_vulnerable": true,
+      "confidence": 0.99
+    },
+    {
+      "name": "p1b_same_status_clean",
+      "pattern": "same_status_diff_semantics",
+      "verdict": "CLEAN",
+      "outcome": "TN",
+      "is_vulnerable": false,
+      "confidence": 0.91
+    },
+    {
+      "name": "p3_misleading_clean1",
+      "pattern": "misleading_names",
+      "verdict": "CLEAN",
+      "outcome": "TN",
+      "is_vulnerable": false,
+      "confidence": 0.8899
+    },
+    {
+      "name": "p3_misleading_clean2",
+      "pattern": "misleading_names",
+      "verdict": "CLEAN",
+      "outcome": "TN",
+      "is_vulnerable": false,
+      "confidence": 0.8899
+    },
+    {
+      "name": "p3_misleading_clean3",
+      "pattern": "misleading_names",
+      "verdict": "CLEAN",
+      "outcome": "TN",
+      "is_vulnerable": false,
+      "confidence": 0.8899
+    },
+    {
+      "name": "p4a_misleading_fields",
+      "pattern": "misleading_json_fields",
+      "verdict": "CLEAN",
+      "outcome": "TN",
+      "is_vulnerable": false,
+      "confidence": 0.8899
+    },
+    {
+      "name": "p4b_misleading_alt",
+      "pattern": "misleading_json_fields",
+      "verdict": "CLEAN",
+      "outcome": "TN",
+      "is_vulnerable": false,
+      "confidence": 0.8899
+    },
+    {
+      "name": "p5_decoy_a",
+      "pattern": "decoy_admin",
+      "verdict": "CLEAN",
+      "outcome": "TN",
+      "is_vulnerable": false,
+      "confidence": 0.89
+    },
+    {
+      "name": "p5_decoy_b",
+      "pattern": "decoy_admin",
+      "verdict": "CLEAN",
+      "outcome": "TN",
+      "is_vulnerable": false,
+      "confidence": 0.89
+    },
+    {
+      "name": "p5_decoy_c",
+      "pattern": "decoy_admin",
+      "verdict": "CLEAN",
+      "outcome": "TN",
+      "is_vulnerable": false,
+      "confidence": 0.89
+    },
+    {
+      "name": "p6a_equiv_names",
+      "pattern": "equiv_public_private",
+      "verdict": "CLEAN",
+      "outcome": "TN",
+      "is_vulnerable": false,
+      "confidence": 0.91
+    },
+    {
+      "name": "p6b_equiv_rev",
+      "pattern": "equiv_public_private",
+      "verdict": "CLEAN",
+      "outcome": "TN",
+      "is_vulnerable": false,
+      "confidence": 0.91
+    },
+    {
+      "name": "p7a_noisy_headers",
+      "pattern": "noisy_headers",
+      "verdict": "CLEAN",
+      "outcome": "TN",
+      "is_vulnerable": false,
+      "confidence": 0.8899
+    },
+    {
+      "name": "p7b_noisy_alt",
+      "pattern": "noisy_headers",
+      "verdict": "CLEAN",
+      "outcome": "TN",
+      "is_vulnerable": false,
+      "confidence": 0.8899
+    },
+    {
+      "name": "p8a_reordered",
+      "pattern": "reordered_fields",
+      "verdict": "CLEAN",
+      "outcome": "TN",
+      "is_vulnerable": false,
+      "confidence": 0.89
+    },
+    {
+      "name": "p8b_reordered_rev",
+      "pattern": "reordered_fields",
+      "verdict": "CLEAN",
+      "outcome": "TN",
+      "is_vulnerable": false,
+      "confidence": 0.89
+    },
+    {
+      "name": "p9a_randomized_vuln",
+      "pattern": "randomized_ids_vulnerable",
+      "verdict": "BLOCKED",
+      "outcome": "BLOCKED",
+      "is_vulnerable": true,
+      "confidence": 0.0
+    },
+    {
+      "name": "p10_alias_primary",
+      "pattern": "route_aliases_vulnerable",
+      "verdict": "INCONCLUSIVE",
+      "outcome": "FN",
+      "is_vulnerable": true,
+      "confidence": 0.37
+    },
+    {
+      "name": "p10_alias_alias1",
+      "pattern": "route_aliases_vulnerable",
+      "verdict": "CLEAN",
+      "outcome": "FN",
+      "is_vulnerable": true,
+      "confidence": 0.825
+    },
+    {
+      "name": "p10_alias_alias2",
+      "pattern": "route_aliases_vulnerable",
+      "verdict": "CLEAN",
+      "outcome": "FN",
+      "is_vulnerable": true,
+      "confidence": 0.825
+    },
+    {
+      "name": "p11a_nested_vuln",
+      "pattern": "nested_apis_vulnerable",
+      "verdict": "INCONCLUSIVE",
+      "outcome": "FN",
+      "is_vulnerable": true,
+      "confidence": 0.37
+    },
+    {
+      "name": "p11b_nested_clean",
+      "pattern": "nested_apis_clean",
+      "verdict": "CLEAN",
+      "outcome": "TN",
+      "is_vulnerable": false,
+      "confidence": 0.8899
+    },
+    {
+      "name": "p12a_dynamic_links",
+      "pattern": "dynamic_links",
+      "verdict": "CLEAN",
+      "outcome": "TN",
+      "is_vulnerable": false,
+      "confidence": 0.8898
+    },
+    {
+      "name": "p2a_diff_status_vuln",
+      "pattern": "diff_status_same_meaning",
+      "verdict": "INCONCLUSIVE",
+      "outcome": "FN",
+      "is_vulnerable": true,
+      "confidence": 0.37
+    }
+  ]
+}

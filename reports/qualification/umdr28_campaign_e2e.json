@@ -1,0 +1,25 @@
+{
+  "window": "UM-DR-28",
+  "level": "campaign node e2e (family_execution_node, real state, real executor, live controlled target)",
+  "population": "campaign_stateful_target (team-authored, author-known) \u2014 NOT an independent holdout",
+  "cases_mined": 9,
+  "cases_probed": 7,
+  "cases_scope_refused": 2,
+  "confirmed": 3,
+  "verdicts": {
+    "INCONCLUSIVE": 4,
+    "CONFIRMED": 3
+  },
+  "requests_issued": 69,
+  "ground_truth": {
+    "/api/ledger/accounts/acct_3": "vulnerable (IDOR after settle)",
+    "/api/ledger/accounts/acct_5": "vulnerable (alias escalation after commit)",
+    "/api/ledger/accounts/acct_6": "vulnerable (compositional pend+close)",
+    "acct_2/acct_4/acct_7/acct_8": "safe",
+    "internal/*": "out of scope (must be refused)"
+  },
+  "limitations": [
+    "team-authored controlled target (the honesty boundary)",
+    "a full 45-node LLM campaign run requires operator credentials; the LangGraph-level proof below covers the runtime integration through the real wiring function"
+  ]
+}

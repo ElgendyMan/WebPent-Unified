@@ -1,0 +1,10 @@
+# Judgment Council calibration (U-JC-7).
+# Brier score over (predicted confidence, actual outcome) pairs; adjust()
+# stays a no-op until min_samples is reached so early data cannot distort
+# the council's confidence.
+calibration:
+  min_samples: 20
+  drift_threshold: 0.1
+  bucket_width: 0.1
+  window_days: 30
+  retention_days: 180

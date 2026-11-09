@@ -1,0 +1,79 @@
+{
+  "artifact_version": "controlled-local-idor-result.v1",
+  "case": {
+    "approved_scoring_case": false,
+    "case_id": "controlled.idor.owner_resource.v1",
+    "qualification_effect": false,
+    "vulnerability_class": "idor"
+  },
+  "classification": "controlled_local_target_backed_validation",
+  "governance": {
+    "bug_bounty": "BLOCKED",
+    "human_independent_signoff_obtained": false,
+    "official_isolated_p10_runs_authorized": false,
+    "p10": "NOT_QUALIFIED",
+    "p9": "NOT_QUALIFIED",
+    "vip": "NOT_QUALIFIED"
+  },
+  "lifecycle": {
+    "observation_refs": [
+      "target:controlled-run-3ee90c9ff4e9:baseline",
+      "target:controlled-run-3ee90c9ff4e9:candidate",
+      "target:controlled-run-3ee90c9ff4e9:negative_control"
+    ],
+    "reason": "verified_replay",
+    "request_count": 3,
+    "status": "confirmed"
+  },
+  "proof": {
+    "created": true,
+    "evidence_count": 3,
+    "evidence_origin": "target_runtime",
+    "oracle_decision": "CONFIRMED",
+    "passed": true,
+    "replay_context_keys": [
+      "campaign_id",
+      "engagement_id",
+      "evidence_origin",
+      "evidence_refs",
+      "finding_id",
+      "hypothesis_id",
+      "identity_context",
+      "invariant_analysis",
+      "oracle_decision",
+      "run_id",
+      "scope_context",
+      "sealed_digest",
+      "target_context_hash",
+      "target_fingerprint",
+      "target_identity",
+      "vulnerability_class"
+    ],
+    "replay_verified": true,
+    "seal_verified": true,
+    "sealed_digest": "sha256:d17bd847a6edb4f4c39995881dd465893c73a68279c48d41d2bf54fb96449bb0",
+    "target_backed": true
+  },
+  "readiness": {
+    "fixture_ready": true,
+    "identity_model_ready": true,
+    "network_scope_verified": true,
+    "preconditions_ready": true,
+    "reset_verified": true,
+    "runtime_digest_verified": true,
+    "state_hash": "sha256:096b3bb8665a0f662808e5978a1a6cf8f46a16f1634cd8bcc886c32c6a89a0a8"
+  },
+  "reset_verification": {
+    "after_hash": "sha256:096b3bb8665a0f662808e5978a1a6cf8f46a16f1634cd8bcc886c32c6a89a0a8",
+    "before_hash": "sha256:096b3bb8665a0f662808e5978a1a6cf8f46a16f1634cd8bcc886c32c6a89a0a8",
+    "deterministic": true
+  },
+  "target": {
+    "external_scope": false,
+    "network_scope": "127.0.0.1_ephemeral_only",
+    "origin": "http://127.0.0.1:42285",
+    "raw_bodies_persisted": false,
+    "target_id": "controlled_local_idor_target_v1",
+    "target_version": "1.0"
+  }
+}

@@ -1,0 +1,22 @@
+# Monitoring configuration — what the emulator collects and alerts on.
+log_sources:
+  access_log: /logs/access.log
+  error_log: /logs/error.log
+  audit_log: /logs/modsec_audit.log
+  fail2ban_log: /logs/fail2ban.log
+
+dashboard:
+  port: 9090
+  refresh_seconds: 5
+  panels:
+    - requests_per_ip
+    - blocked_403_count
+    - throttled_429_count
+    - top_attackers
+    - waf_trigger_rate
+    - ban_events
+
+alerts:
+  waf_trigger_rate_per_minute: 10   # more than this many 403s/min from one IP
+  rate_limit_hits_per_minute: 20    # more than this many 429s/min from one IP
+  ban_event: immediate              # every fail2ban ban is an alert

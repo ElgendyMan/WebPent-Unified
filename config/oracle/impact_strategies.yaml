@@ -1,0 +1,50 @@
+# U-ORACLE-9: impact-maximization strategies (ORACLE-L-9: impact over
+# severity). A strategy is a passive reasoning frame that raises or keeps
+# an estimated payout for a chain hypothesis; it never acts (ORACLE-L-10).
+# Condition kinds: always | category_present | min_nodes | payout_above.
+impact_strategies:
+  - strategy_id: ST-001
+    name: corroboration frame
+    description: multi-source agreement makes the payout estimate firmer, so it counts fully
+    condition: {kind: always}
+    payout_multiplier: 1.05
+  - strategy_id: ST-002
+    name: data-volume framing
+    description: leaked datasets are priced by what they expose, not by their size
+    condition: {kind: category_present, categories: [data_leak]}
+    payout_multiplier: 1.2
+  - strategy_id: ST-003
+    name: credential blast radius
+    description: one live credential can gate many accounts; the estimate reflects the breadth
+    condition: {kind: category_present, categories: [credential]}
+    payout_multiplier: 1.25
+  - strategy_id: ST-004
+    name: takeover chaining
+    description: a claimable subdomain compounds every other exposure at the same host
+    condition: {kind: category_present, categories: [subdomain]}
+    payout_multiplier: 1.15
+  - strategy_id: ST-005
+    name: surface compounding
+    description: chains touching four or more nodes compound beyond their parts
+    condition: {kind: min_nodes, count: 4}
+    payout_multiplier: 1.1
+  - strategy_id: ST-006
+    name: strong baseline
+    description: already-strong hypotheses are scaled again, payouts compound
+    condition: {kind: payout_above, threshold: 0.5}
+    payout_multiplier: 1.08
+  - strategy_id: ST-007
+    name: regulatory consequence
+    description: exposures touching personal data carry notification and fine exposure
+    condition: {kind: category_present, categories: [data_leak, credential]}
+    payout_multiplier: 1.12
+  - strategy_id: ST-008
+    name: infrastructure leverage
+    description: fingerprinted components anchor further findings, lifting the whole estimate
+    condition: {kind: category_present, categories: [tech]}
+    payout_multiplier: 1.06
+  - strategy_id: ST-009
+    name: exploitability context
+    description: forgotten endpoints make hypotheses cheap to realise, raising the estimate
+    condition: {kind: category_present, categories: [endpoint]}
+    payout_multiplier: 1.1

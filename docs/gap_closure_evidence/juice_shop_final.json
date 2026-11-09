@@ -1,0 +1,62 @@
+{
+  "audit_event_count": 12,
+  "audit_verified": true,
+  "campaign_id": "hunter-24db436e5d3d",
+  "candidates_executable": 5,
+  "candidates_generated": 20,
+  "llm_calls": 3,
+  "llm_cost_usd": 0.01341075,
+  "principal_summary": [
+    {
+      "alias": "owner",
+      "auth_type": "api_jwt",
+      "material_digest": "b0e1ae11bc56a63f",
+      "material_kind": "bearer",
+      "material_name": "token",
+      "role": "owner",
+      "status_code": 200,
+      "success": true,
+      "vault_bound": true
+    },
+    {
+      "alias": "foreign",
+      "auth_type": "api_jwt",
+      "material_digest": "1fd46f3bec29d71a",
+      "material_kind": "bearer",
+      "material_name": "token",
+      "role": "foreign-user",
+      "status_code": 200,
+      "success": true,
+      "vault_bound": true
+    }
+  ],
+  "promoted_findings": [
+    {
+      "finding_id": "finding_idor_0d3b5d82",
+      "gates_failed": [],
+      "gates_passed": [
+        "real_runtime_observations",
+        "baseline_present",
+        "negative_control_present",
+        "causal_validator_confirmed",
+        "proof_bundle_signed",
+        "replay_verified",
+        "no_external_scanner_authority",
+        "semantic_identity_bound"
+      ],
+      "hypothesis_id": "h_recon_idor_026e8149b12c",
+      "identity_bound": true,
+      "real_http_executed": true,
+      "replay_verified": true,
+      "vulnerability_class": "IDOR"
+    }
+  ],
+  "routes_crawled": 35,
+  "target_url": "http://127.0.0.1:3000",
+  "validation_counts": {
+    "blocked": 0,
+    "confirmed": 1,
+    "inconclusive": 1,
+    "refuted": 0
+  }
+}

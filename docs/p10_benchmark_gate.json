@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0",
+  "scope": "WAPTLab_local_authorized_only",
+  "checked_at": "2026-08-25",
+  "target_origin": "http://127.0.0.1:18080",
+  "target_contacted": true,
+  "health_only_probe": true,
+  "observed_http_status": {
+    "/health": 403,
+    "/": 403,
+    "/login": 403
+  },
+  "latest_health_only_rounds": {
+    "round_count": 3,
+    "paths_checked": ["/health", "/", "/login"],
+    "all_rounds_identical": true,
+    "status_by_path": {
+      "/health": [403, 403, 403],
+      "/": [403, 403, 403],
+      "/login": [403, 403, 403]
+    },
+    "response_bytes": 14,
+    "body_sha256": "72fe8d58e36589c8c7785cc64cba13ac8efbe6346b8ee2e762ff02d4dc62cbc3",
+    "login_attempted": false,
+    "bypass_used": false,
+    "scan_started": false
+  },
+  "waptlab_runtime": {
+    "app_container": "running",
+    "mysql_container": "running",
+    "natural_browser_verification": "passed",
+    "registration_email": "synthetic_example_test_address",
+    "registration_verification_code_sent": true,
+    "registration_otp_entered": false,
+    "natural_authenticated_identity_available": false
+  },
+  "p9_prerequisite_smoke": {
+    "api": "healthy",
+    "redis": "healthy",
+    "workers": 2,
+    "distributed_qualification_complete": false
+  },
+  "existing_benchmark_artifact": {
+    "run_count": 3,
+    "final_confirmed_counts": [0, 0, 0],
+    "precision_status": "not_measured",
+    "recall_status": "blocked_live",
+    "live_qualification": false,
+    "target_contacted": false
+  },
+  "gate": {
+    "passed": false,
+    "status": "blocked_live",
+    "reason": "Natural browser verification passed and a synthetic registration verification code was sent, but OTP entry was not completed; no natural authenticated lab identity is available, and completed P9 distributed qualification is still absent, so no valid three-run benchmark was run.",
+    "bypass_used": false,
+    "mock_promoted": false
+  },
+  "required_to_resume": [
+    "Complete the natural WAPTLab registration by entering the verification code through the user-controlled browser step, or obtain a lab-provisioned identity without bypassing CAPTCHA, MFA, OTP, sessions, or databases.",
+    "Completed P9 lease, killed-worker redelivery/resume, cross-process idempotency, TLS, log-redaction, and retention evidence.",
+    "Three isolated runs with independent artifacts, strict ProofBundles, replay verification, negative controls, and target-backed causal signals."
+  ]
+}

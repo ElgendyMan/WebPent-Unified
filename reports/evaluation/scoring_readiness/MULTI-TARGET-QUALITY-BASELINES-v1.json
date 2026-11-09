@@ -1,0 +1,69 @@
+{
+  "schema": "webpent-multi-target-quality-baselines-v1",
+  "baseline_register_id": "multi-target-quality-baselines-v1",
+  "official_isolated_p10_runs_authorized": false,
+  "targets": [
+    {
+      "target_id": "owasp_juice_shop",
+      "source_revision": "1618a611b173b4bf114028e6e02549950606e29d",
+      "baseline_run_id": "baseline-20260826-01",
+      "baseline_report": "reports/evaluation/juice_shop_baseline_quality_v1.md",
+      "baseline_artifact": "audit/juice_shop_baseline_quality_run_v1.json",
+      "evaluation_artifact": "audit/juice_shop_baseline_quality_evaluation_v1.json",
+      "mapped_cases_contacted": 11,
+      "admitted_cases": 3,
+      "admitted_classes": 3,
+      "proof_backed_confirmations": 3,
+      "observation_only": 4,
+      "blocked": 4,
+      "quality_metrics": {
+        "precision": null,
+        "recall": null,
+        "case_coverage": null,
+        "class_coverage": null,
+        "reason": "official metrics withheld until the approved set reaches the required threshold and three isolated official runs are authorized"
+      },
+      "proof_replay": {"sealed": true, "verify_seal": true, "replayed": true},
+      "baseline_interpretation": "partial causal evidence, not an official P10 quality run"
+    },
+    {
+      "target_id": "owasp_webgoat",
+      "source_revision": "7517acca95d9851da706452454c223dd13545ef4",
+      "baseline_run_id": "vip-webgoat-loopback-local-e2e-v1",
+      "baseline_report": "reports/evaluation/vip_vertical_slice/VIP-MULTI-TARGET-QUALITY-PORTABILITY-GAPS-v1.md",
+      "baseline_artifact": "reports/evaluation/vip_vertical_slice/VIP-AUTONOMOUS-MULTI-TARGET-LOCAL-E2E-v1.json",
+      "mapped_cases_contacted": null,
+      "admitted_cases": 0,
+      "admitted_classes": 0,
+      "proof_backed_confirmations": 0,
+      "observation_only": 1,
+      "blocked": 0,
+      "quality_metrics": null,
+      "proof_replay": {"sealed": false, "verify_seal": false, "replayed": false},
+      "baseline_interpretation": "lifecycle/transport observation only; not a quality baseline and not clean behavior"
+    },
+    {
+      "target_id": "crapi",
+      "source_revision": "73d309cc8f28bbdeed31dbb35f05dba8354de3c9",
+      "baseline_run_id": "vip-crapi-loopback-local-e2e-v1",
+      "baseline_report": "reports/evaluation/vip_vertical_slice/VIP-MULTI-TARGET-QUALITY-PORTABILITY-GAPS-v1.md",
+      "baseline_artifact": "reports/evaluation/vip_vertical_slice/VIP-AUTONOMOUS-MULTI-TARGET-LOCAL-E2E-v1.json",
+      "mapped_cases_contacted": null,
+      "admitted_cases": 0,
+      "admitted_classes": 0,
+      "proof_backed_confirmations": 0,
+      "observation_only": 1,
+      "blocked": 0,
+      "quality_metrics": null,
+      "proof_replay": {"sealed": false, "verify_seal": false, "replayed": false},
+      "baseline_interpretation": "lifecycle/transport observation only; mutable latest image provenance and absent causal GT block quality measurement"
+    }
+  ],
+  "counting_policy": {
+    "observation_only": null,
+    "inconclusive": null,
+    "blocked": null,
+    "out_of_scope": null,
+    "confirmed": "only an admitted causal contract with verifier-approved independent negative control and sealed/replayed proof"
+  }
+}

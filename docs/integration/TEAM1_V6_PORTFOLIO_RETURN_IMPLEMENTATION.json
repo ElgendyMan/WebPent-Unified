@@ -1,0 +1,12 @@
+{
+  "document_id": "TEAM1_V6_PORTFOLIO_RETURN-1.0",
+  "date": "2026-09-13",
+  "root_cause": "V5 had no recovery: saturated branch stayed saturated forever (no return-to-exploitation)",
+  "change": "HypothesisPortfolio.record_branch_outcome: when ANY branch produces HIGH evidence, exploration_pressure of OTHER branches decays x0.7 + exploitation_value +0.1 + saturation_state recomputed. Generic, target-agnostic, no hard-coded IDs, no forcing. Return emerges from updated state.",
+  "preserved": "saturation still causes exploration (V5); both mechanisms coexist",
+  "tests_added": 6,
+  "tests_passed": 6,
+  "files_deleted": 0,
+  "governance_changed": 0,
+  "statement": "TEAM-2 MUST PERFORM INDEPENDENT VALIDATION."
+}

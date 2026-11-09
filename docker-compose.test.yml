@@ -1,0 +1,146 @@
+# docker-compose.test.yml
+# =============================================================================
+# V5 Sprint 7 — Automated Evaluation Stack
+# =============================================================================
+# Brings up the full WebPent framework (Redis + API + Worker) alongside
+# the ground-truth vulnerable target on a shared Docker network, so the
+# framework's OOB callback endpoint can be reached from the target
+# during SSRF / RCE / deserialization validation.
+#
+# Usage:
+#   docker-compose -f docker-compose.test.yml up -d --build
+#   docker-compose -f docker-compose.test.yml logs -f worker
+#   python scripts/evaluate_ground_truth.py
+#   docker-compose -f docker-compose.test.yml down -v
+#
+# Service map:
+#   redis          — Celery broker (port 6379 internal only)
+#   api            — WebPent FastAPI on :8000 (host:8000)
+#                    OOB callback endpoint: http://api:8000/api/oob/{id}/{secret}
+#   worker         — Celery worker running the pentest graph
+#   ground-truth   — Vulnerable target on :8080 (host:8080, internal:8080)
+#
+# Network topology:
+#   All four services share the `webpent-test` bridge network. The
+#   framework addresses the target as http://ground-truth:8080. The
+#   target addresses the framework's OOB endpoint as http://api:8000.
+#   This bidirectional reachability is what makes OOB-based SSRF/RCE/
+#   deserialization confirmation work end-to-end inside Docker.
+# =============================================================================
+
+services:
+  # ---------------------------------------------------------------------------
+  # Redis — message broker for Celery
+  # ---------------------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: webpent-test-redis
+    restart: unless-stopped
+    networks:
+      - webpent-test
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # ---------------------------------------------------------------------------
+  # WebPent API — FastAPI server with OOB callback endpoint
+  # ---------------------------------------------------------------------------
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: webpent-test-api
+    command: python server.py
+    restart: unless-stopped
+    depends_on:
+      redis:
+        condition: service_healthy
+    environment:
+      - WEBPENT_REDIS_URL=redis://redis:6379/0
+      - PYTHONUNBUFFERED=1
+      # V5 Sprint 5 OOB configuration. The target reaches the API via
+      # the internal Docker DNS name "api" on port 8000.
+      - WEBPENT_OOB_CALLBACK_BASE_URL=http://api:8000
+      - WEBPENT_OOB_CALLBACK_SECRET=ground-truth-test-secret
+      # Short poll timeout keeps the evaluation harness snappy.
+      - WEBPENT_OOB_POLL_TIMEOUT_SECONDS=5.0
+      # TEAM-1 Phase 2 (workspace parity): identical storage posture to the
+      # worker — shared ./runtime directory, absolute DB URL, shared workspace
+      # root. The old single-file bind split WAL visibility per container.
+      - WEBPENT_DATABASE_URL=sqlite:////app/runtime/webpent.db
+      - WEBPENT_TARGET_WORKSPACE_ROOT=/app/runtime/workspaces
+      # R-01 (TEAM-2 Wave 1): the live-parity harness authenticates through
+      # the real OAuth2 password flow. Throwaway lab credential for this
+      # disposable test stack only — never reuse outside this compose file.
+      - ADMIN_PASSWORD=live-parity-lab-credential-not-for-production
+    ports:
+      - "8000:8000"
+    networks:
+      - webpent-test
+    volumes:
+      - ./output:/app/output
+      - ./memory:/app/memory
+      - ./runtime:/app/runtime
+
+  # ---------------------------------------------------------------------------
+  # WebPent Worker — Celery, single concurrency for deterministic test runs
+  # ---------------------------------------------------------------------------
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: webpent-test-worker
+    command: celery -A worker.celery_app worker --loglevel=info --concurrency=1
+    restart: unless-stopped
+    depends_on:
+      redis:
+        condition: service_healthy
+      ground-truth:
+        condition: service_healthy
+    environment:
+      - WEBPENT_REDIS_URL=redis://redis:6379/0
+      - PYTHONUNBUFFERED=1
+      # The worker needs the same OOB configuration so the validator
+      # can construct OOB URLs that the target can reach.
+      - WEBPENT_OOB_CALLBACK_BASE_URL=http://api:8000
+      - WEBPENT_OOB_CALLBACK_SECRET=ground-truth-test-secret
+      - WEBPENT_OOB_POLL_TIMEOUT_SECONDS=5.0
+      # TEAM-1 Phase 2 (workspace parity): identical to the api service.
+      - WEBPENT_DATABASE_URL=sqlite:////app/runtime/webpent.db
+      - WEBPENT_TARGET_WORKSPACE_ROOT=/app/runtime/workspaces
+    networks:
+      - webpent-test
+    volumes:
+      - ./output:/app/output
+      - ./memory:/app/memory
+      - ./runtime:/app/runtime
+
+  # ---------------------------------------------------------------------------
+  # Ground-Truth Vulnerable Target
+  # ---------------------------------------------------------------------------
+  ground-truth:
+    build:
+      context: ./tests/ground_truth
+      dockerfile: Dockerfile
+    container_name: webpent-test-ground-truth
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    networks:
+      - webpent-test
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8080/health', timeout=2)"]
+      interval: 10s
+      timeout: 3s
+      start_period: 3s
+      retries: 5
+
+# =============================================================================
+# Shared network — all four services can resolve each other by name.
+# =============================================================================
+networks:
+  webpent-test:
+    driver: bridge
+    name: webpent-test-net

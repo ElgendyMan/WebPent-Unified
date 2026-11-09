@@ -1,0 +1,14 @@
+# tests/ground_truth/requirements.txt
+# V5 Sprint 7 — Ground-Truth Vulnerable Target dependencies.
+#
+# Kept minimal: only what the FastAPI app needs to run. The framework's
+# own dependencies (langchain, playwright, torch, etc.) are NOT required
+# by the target — keeping the target image small and build times short.
+fastapi>=0.110.0
+uvicorn>=0.27.0
+httpx>=0.27.0
+# lxml is used by the /xxe endpoint to demonstrate a genuine XML
+# External Entity vulnerability (Python's stdlib xml.etree refuses to
+# resolve external entities for security). lxml resolves them by default,
+# which is what makes the endpoint exploitable.
+lxml>=5.0.0

@@ -1,0 +1,48 @@
+{
+  "no_llm_baseline": {
+    "desc": "Deterministic only",
+    "tokens_per_finding": 0,
+    "api_calls": 0,
+    "tool_calls": 0,
+    "time_sec": 0.05,
+    "redundant": 0,
+    "rejected": 0,
+    "successful": 0,
+    "proof_rate": 1.0,
+    "cost_per_finding": 0.0
+  },
+  "llm_fast_economy": {
+    "desc": "Fast low-cost",
+    "quality": 0.6,
+    "cost_per_1k": 0.0015,
+    "tokens_per_finding": 4000,
+    "api_calls": 3,
+    "tool_calls": 5,
+    "time_sec": 1.5,
+    "redundant": 2,
+    "rejected": 1,
+    "successful": 2,
+    "proof_rate": 0.95,
+    "cost_per_finding": 0.006,
+    "quality_improvement": -0.05,
+    "efficiency_ratio": 2.0,
+    "value": "SEARCH_VOLUME_ONLY"
+  },
+  "llm_strong_reasoning": {
+    "desc": "Strong reasoning",
+    "quality": 0.85,
+    "cost_per_1k": 0.015,
+    "tokens_per_finding": 8000,
+    "api_calls": 5,
+    "tool_calls": 3,
+    "time_sec": 3.0,
+    "redundant": 0.5,
+    "rejected": 0.3,
+    "successful": 4,
+    "proof_rate": 0.98,
+    "cost_per_finding": 0.12,
+    "quality_improvement": -0.02,
+    "efficiency_ratio": 4.0,
+    "value": "SEARCH_VOLUME_ONLY"
+  }
+}

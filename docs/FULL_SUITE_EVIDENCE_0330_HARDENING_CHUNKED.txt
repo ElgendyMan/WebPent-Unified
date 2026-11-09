@@ -1,0 +1,38 @@
+# Test Run Evidence — 0.33.0 production-hardening window (chunked full suite)
+# Runner: pytest 9.0.2, python 3.12.16, webpent 0.33.0 (editable, --no-deps)
+# Command pattern: PYTHONPATH=src python3 -m pytest <chunk> -q -p no:cacheprovider --tb=line
+# Note: chunked execution (sandbox 10-min shell ceiling). The chunk split is
+#       exhaustive: chunks 1a-5 cover the 0.32.0 suite exactly; chunk 6 is the
+#       three NEW hardening test files created after the chunk lists were
+#       generated (they sort inside the root-files range but postdate the
+#       listing — explicitly run as their own chunk so nothing is silent).
+# --- CHUNK SUMMARIES (pytest tails, verbatim) ---
+# chunk 1a  tests/*.py root files, first 170 (alphabetical):
+#           2378 passed, 3 skipped, 3 xfailed, 6 warnings in 131.69s
+# chunk 1b  tests/*.py root files, remaining 168:
+#           1689 passed, 7 warnings in 127.05s
+# chunk 2   tests/oracle tests/dojo tests/prism tests/jc:
+#           1046 passed, 2 warnings in 25.19s
+# chunk 3   tests/forge tests/apex tests/deep tests/campaign tests/egaie:
+#           698 passed, 2 warnings in 45.28s
+# chunk 4   tests/bridge tests/econ tests/lab tests/vip tests/ground_truth:
+#           168 passed, 2 warnings in 4.24s
+# chunk 5   tests/scenario_lab tests/team1_acceptance:
+#           755 passed, 6 warnings in 83.71s
+# chunk 6   tests/test_hardening_0330_b1.py b2 b3 (NEW 0.33.0 files):
+#           42 passed, 1 skipped, 2 warnings in 38.12s
+# TOTALS: collected 6783 = 6740 (0.32.0 line) + 43 (b1=10 / b2=12 / b3=21)
+#         passed 6776, skipped 4, xfailed 3, FAILED 0.
+# Collection gate: pytest --collect-only tests -q => 6783 tests collected,
+#         0 errors (also enforced as canary collection_clean).
+# Structural gates at window close:
+#         frozen_module_gate 664 passed (manifest 659, HARDENING_20261101_THAW_PATHS=8)
+#         direct_io_inventory 4 passed (815 -> 814, declared deltas only)
+#         orchestrator_construction_authority 3 passed (b3 allowlisted)
+#         ruff ratchet 6209 == baseline 6209 (F821/F402/E722/B025 all fixed: clean)
+# Mid-window regression caught & fixed (documented in CHANGELOG 0.33.0):
+#         15 team1 loopback-qualification tests failed after F-04 closed the
+#         raw fallback (execute_real_request had never registered the
+#         engagement target). Fixed via the designed engagement-allowlist
+#         mechanism + guard_redirects=False; the 15 tests are the
+#         fail-before/pass-after protocol evidence.

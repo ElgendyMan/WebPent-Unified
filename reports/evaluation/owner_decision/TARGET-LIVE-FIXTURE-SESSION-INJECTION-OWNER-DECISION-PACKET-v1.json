@@ -1,0 +1,155 @@
+{
+  "schema": "webpent-owner-decision-target-live-fixture-session-injection-v1",
+  "packet_id": "TARGET-LIVE-FIXTURE-SESSION-INJECTION-OWNER-DECISION-v1",
+  "generated_at": "2026-08-27T00:00:00Z",
+  "status": "PENDING_OWNER_APPROVAL",
+  "purpose": "Request a separate, explicit owner decision on whether a target-local disposable fixture/session injection mechanism may be designed and used to establish synthetic requester/owner state for the already approved Option B tracks. This packet is not an execution authorization, Official P10 authorization, scoring admission, or Bug Bounty authorization.",
+  "decision_requested": {
+    "primary": "Approve or reject the narrowly described target-local fixture/session injection options per target and case.",
+    "approval_is_explicit_per_target_and_case": true,
+    "silence_is_not_approval": true,
+    "no_execution_before_approval": true,
+    "not_requested": [
+      "Real credentials, real accounts, passwords, OTP, MFA, CAPTCHA bypass, or credential harvesting",
+      "HTTP login, signup, token generation, token persistence, cookie persistence, or auth bypass",
+      "Application POST, PUT, PATCH, DELETE, reset endpoints, report creation, or any state-changing request",
+      "External targets, public DNS, OAST, callbacks, Bug Bounty, or internet services",
+      "Official P10 run gate, P10/P9/VIP qualification, scoring promotion, frozen Ground Truth changes, threshold changes, or Generic Core relaxation"
+    ]
+  },
+  "current_governance_state": {
+    "official_isolated_p10_runs_authorized": false,
+    "human_independent_signoff_obtained": false,
+    "p10": "NOT_QUALIFIED",
+    "p9": "NOT_QUALIFIED",
+    "vip": "NOT_QUALIFIED",
+    "bug_bounty": "BLOCKED",
+    "scoring_promotion": false,
+    "option_b_status": "LAB_NOT_READY / PRECONDITION_BLOCKED",
+    "existing_option_b_approval_import": "LOCAL-CAUSAL-LAB-OPTION-B-OWNER-APPROVAL-IMPORT-v1.json"
+  },
+  "observed_provenance": {
+    "webgoat": {
+      "source_revision": "7517acca95d9851da706452454c223dd13545ef4",
+      "source_root": "/tmp/webgoat-source",
+      "build_artifact": "target/webgoat-2026.2-SNAPSHOT.jar",
+      "build_artifact_sha256": "7aafbbf408ae618ea0abe59474216950591325968ad995bfce3ed08e4f7ccf07",
+      "java_runtime_path": "/usr/lib/jvm/java-25-openjdk-amd64/bin/java",
+      "service_listener": "[::ffff:127.0.0.1]:8080",
+      "service_cwd": "/tmp/webgoat-source",
+      "service_alignment_status": "not_attested",
+      "alignment_reason": "The service cwd and source revision are known, but safe PID/fd/maps inspection did not expose a verifiable mapping to the built jar digest. No claim is made that the running service uses the candidate artifact.",
+      "relevant_source_files": [
+        {
+          "path": "src/main/java/org/owasp/webgoat/lessons/idor/IDORLogin.java",
+          "sha256": "6156ec8fc72d5bd001f28996bde420b7e4c04b5226c565d21f54a700038a452b"
+        },
+        {
+          "path": "src/main/java/org/owasp/webgoat/lessons/idor/IDORViewOtherProfile.java",
+          "sha256": "305cb5c0fc8d63a0b8bb4f48f4ebc6982ee332bc11c7f1dcc0ad248a3f6ac3e6"
+        },
+        {
+          "path": "src/main/java/org/owasp/webgoat/lessons/pathtraversal/ProfileUploadRetrieval.java",
+          "sha256": "71d8b73188716f253ffafff4de58ec4f9955b75048bf2bdb00ee07362b093ea2"
+        }
+      ]
+    },
+    "crapi": {
+      "source_revision": "73d309cc8f28bbdeed31dbb35f05dba8354de3c9",
+      "source_root": "/tmp/crapi-source",
+      "runtime_digest_status": "verified_from_local_docker_image_objects",
+      "runtime_images": [
+        {"image": "crapi/crapi-web:latest", "repo_digest": "sha256:b27d246c646bd33898e7d1d2095b6e7576c0993a7b81a73aa7386929493d7151"},
+        {"image": "crapi/crapi-chatbot:latest", "repo_digest": "sha256:36d274d54182a8baddba7ede17282035bb43ab9cb9cf87927e1fe7109901e0aa"},
+        {"image": "crapi/gateway-service:latest", "repo_digest": "sha256:97dade9daf0e758547b1686e2d3303c8c9b79838167f728a9211f0ee1f4622b0"},
+        {"image": "crapi/crapi-workshop:latest", "repo_digest": "sha256:d4d2d94d35a31e211b04d5a771881f5ae13e358e8fa0804463ae3bace05dd815"},
+        {"image": "crapi/crapi-community:latest", "repo_digest": "sha256:8ba0c7eda86ae065a673f1fa554d0109a24f25c5a8d65097ae024e5ee715c54e"},
+        {"image": "crapi/crapi-identity:latest", "repo_digest": "sha256:5d1db5b3ba8e02bc68711ec6fc4e35ed7cd8b87e63785ece9e7ff5b5e36c5260"}
+      ],
+      "service_alignment_status": "not_attested_for_active_containers",
+      "alignment_reason": "Image RepoDigests are present in local Docker image objects and match the profile pins; active container-to-image identity is not used to authorize fixture/session injection until the packet is approved and a fresh safe attestation is recorded.",
+      "relevant_source_files": [
+        "services/identity/src/main/java/com/crapi/config/JwtAuthTokenFilter.java",
+        "services/identity/src/main/java/com/crapi/config/InitialDataConfig.java",
+        "services/identity/src/main/java/com/crapi/controller/VehicleController.java",
+        "services/community/api/router/routes.go",
+        "services/workshop/crapi/mechanic/urls.py"
+      ]
+    }
+  },
+  "source_findings": {
+    "webgoat_idor": "IDOR GET profile retrieval requires an HTTP session attribute established by the POST-only lesson login. No source-backed GET-only fixture hook was found. Built-in lesson credentials and POST login are excluded.",
+    "webgoat_path_traversal": "The source route is GET-based but raw traversal markers and broad filesystem access are unsafe or rejected. No approved bounded canary route or target-local fixture hook was found; no path-traversal request is authorized by this packet.",
+    "crapi_object_access": "The selected GET routes require authenticated requester context. The source shows JWT/API-key processing and owner/requester context, but no safe anonymous GET-only injection hook. Community and mechanic tracks also require authenticated/stateful setup. No token or application mutation is authorized."
+  },
+  "proposed_mechanisms_for_owner_decision": {
+    "common_constraints": [
+      "Run only in a freshly started loopback-only disposable instance or isolated disposable database/fixture, never against a user's persistent data.",
+      "Use opaque identities only: synthetic_owner_a and synthetic_requester_b; no email, password, token, cookie, or personal data is stored.",
+      "Inject typed fixture state outside the normal HTTP request path through a test-only local adapter or startup fixture loader. The mechanism must not be reachable from a network request.",
+      "Create only non-sensitive canaries; persist hashes and typed booleans, never raw bodies, headers, cookies, tokens, or canary contents.",
+      "Capture pre-state hash, restore the disposable snapshot before each pair, capture post-state hash, and stop on mismatch.",
+      "No application login, signup, token generation, auth bypass, mutation endpoint, external callback, redirect following, or destructive action."
+    ],
+    "webgoat_idor": {
+      "requested_decision": "Permit or reject a test-only local injection of the required LessonSession attribute for opaque synthetic identities, without invoking IDORLogin or any HTTP POST.",
+      "minimum_scope": "Only IDORViewOtherProfile GET candidate/control routes in a disposable WebGoat instance; no other lesson or session attribute.",
+      "readiness_proof": "A typed session-fixture descriptor, pre/post state hashes, source/build alignment attestation, and a negative-control descriptor; no session cookie or raw profile data persisted.",
+      "fallback": "If test-only session injection cannot be implemented without modifying the target or using HTTP login, remain BLOCKED."
+    },
+    "webgoat_path_traversal": {
+      "requested_decision": "Permit or reject a test-only fixture route/canary adapter that exposes one opaque non-sensitive canary through an explicitly allowlisted semantic path, without raw traversal markers or host filesystem resolution.",
+      "minimum_scope": "Only the source-backed GET route if the bounded canary semantic predicate is independently verified; no .., slash traversal, encoded traversal, arbitrary path, or host file.",
+      "fallback": "If the source-backed route cannot provide this bounded canary without traversal markers or broad filesystem access, remain BLOCKED."
+    },
+    "crapi_object_access": {
+      "requested_decision": "Permit or reject a test-only local injection of typed requester/owner principals and object canaries into an isolated target fixture, without HTTP authentication, token generation, or application mutation.",
+      "minimum_scope": "Only the four already listed GET object-access cases; one synthetic owner, one synthetic requester, one opaque object canary, one nonexistent control, and one owner control.",
+      "readiness_proof": "Active container image digest attestation, fixture schema/version hash, pre/post state hashes, typed principal/object relation, and a test-only request-context binding that is not exposed as a user token.",
+      "fallback": "If the target requires a real Authorization header/token or stateful application setup, all crAPI cases remain BLOCKED and no packet approval is interpreted as permission to use them."
+    }
+  },
+  "required_readiness_flags": {
+    "preconditions_ready": true,
+    "fixture_ready": true,
+    "identity_model_ready": true,
+    "reset_verified": true,
+    "runtime_digest_verified": true,
+    "network_scope_verified": true,
+    "target_live_preconditions_ready": false,
+    "current_blockers": [
+      "webgoat_service_to_build_alignment_not_attested",
+      "no_owner_requester_fixture_injection_path_approved",
+      "no_safe_webgoat_idor_session_fixture_hook_found",
+      "no_safe_webgoat_path_traversal_canary_route_found",
+      "no_crapi_noncredential_request_context_injection_hook_found"
+    ]
+  },
+  "stop_conditions": [
+    "Any need for real or synthetic HTTP login, signup, password, token, cookie, Authorization header, OTP, MFA, CAPTCHA bypass, or credential persistence.",
+    "Any need for POST, PUT, PATCH, DELETE, application reset, report creation, or other state-changing target request.",
+    "Any non-loopback destination, redirect, DNS/public-IP resolution, callback, OAST, or external dependency.",
+    "Any raw traversal marker, arbitrary filesystem path, host file, raw response/body/header/cookie/token persistence, or unexpected sensitive data.",
+    "Missing or drifting source/runtime digest, failed active-container attestation, failed snapshot/restore, state-hash mismatch, missing independent control, or ambiguous oracle.",
+    "Any attempt to modify Generic Core, frozen Ground Truth, thresholds, governance state, or qualification state."
+  ],
+  "rollback_and_cleanup": {
+    "rollback": "Reject the proposed mechanism, delete only disposable local fixture state, stop any disposable service, and retain typed hashes and blocker record only.",
+    "cleanup_verification": "Pre/post state hashes must match the clean snapshot; no raw canary or auth material may remain on disk.",
+    "no_persistent_target_changes": true
+  },
+  "execution_gate": {
+    "status": "CLOSED",
+    "requires_owner_approval_for_this_packet": true,
+    "requires_fresh_runtime_attestation": true,
+    "requires_all_readiness_flags_true": true,
+    "candidate_control_requests_allowed_now": false,
+    "proof_bundle_allowed_now": false,
+    "metrics_allowed_now": false
+  },
+  "ai_review": {
+    "review_type": "non-human attributable technical review",
+    "human_independent_signoff_obtained": false,
+    "finding": "Separate owner decision is required before any target-local fixture/session injection or any relaxation of the current GET-only/no-credentials boundary."
+  }
+}

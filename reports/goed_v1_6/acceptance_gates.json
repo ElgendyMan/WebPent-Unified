@@ -1,0 +1,102 @@
+{
+  "date": "2026-09-04T09:37:38.324246+00:00",
+  "gates": {
+    "1_canonical_accounting": {
+      "status": "PASS",
+      "evidence": "sum=120=total, confusion matrix explainable"
+    },
+    "2_one_canonical_state": {
+      "status": "PASS",
+      "evidence": "Each case exactly one canonical state"
+    },
+    "3_fn_root_cause": {
+      "status": "PASS",
+      "evidence": "All FN classified with reason codes"
+    },
+    "4_no_runtime_leakage": {
+      "status": "PASS",
+      "evidence": "Runtime leakage = NONE_CONFIRMED"
+    },
+    "5_hidden_family_independent": {
+      "status": "PASS",
+      "evidence": "Structurally independent, FULLY EXECUTED, 120/120 cases"
+    },
+    "6_10_hidden_targets": {
+      "status": "PASS",
+      "evidence": "10 targets, fixed, verified, executed"
+    },
+    "7_100_hidden_cases": {
+      "status": "PASS",
+      "evidence": "120 eligible cases executed"
+    },
+    "8_8_security_classes": {
+      "status": "PASS",
+      "evidence": "9 classes detected across hidden targets"
+    },
+    "9_runtime_discovery": {
+      "status": "PASS",
+      "evidence": "Enhanced with HTML/Link/JSON entity/OPTIONS probing; OpenAPI primary + runtime supplementary"
+    },
+    "10_stateful_execution": {
+      "status": "PASS",
+      "evidence": "StatefulExecutor INTEGRATED into pipeline; detects business_logic, workflow, multi_step, mass_assignment, race_condition"
+    },
+    "11_business_logic_detection": {
+      "status": "PASS",
+      "evidence": "7 invariant strategies INTEGRATED; balance_conservation + approval_separation actively detect vulnerabilities"
+    },
+    "12_3_novel_discoveries": {
+      "status": "PASS",
+      "evidence": "16 valid proofs on structurally independent targets"
+    },
+    "13_novel_outside_v15_patterns": {
+      "status": "PASS",
+      "evidence": "Hidden targets: Precision=1.0, Recall=0.6957 across completely different naming"
+    },
+    "14_full_proof_replay": {
+      "status": "PASS",
+      "evidence": "Proof completeness = 1.0 on v1.5, 1.0 on v11 integrated runs"
+    },
+    "15_adversarial_executed": {
+      "status": "PASS",
+      "evidence": "Executed 24 cases across 12 patterns, FP=0 on 17 clean adversarial cases"
+    },
+    "16_learning_honest": {
+      "status": "PASS",
+      "evidence": "NOT_ESTABLISHED as capability multiplier; efficiency gains only"
+    },
+    "17_reproduction_succeeds": {
+      "status": "PASS",
+      "evidence": "Works across v1.5 (10 styles) + hidden (10 styles) + v11 = 20+ naming conventions"
+    },
+    "18_historical_artifacts": {
+      "status": "PASS",
+      "evidence": "v1.5 frozen at docs/archive/goed-v1.5/, immutable"
+    },
+    "19_governance_closed": {
+      "status": "PASS",
+      "evidence": "vip_qualified=false, P10=CLOSED, P9=CLOSED, CONDITIONAL state preserved"
+    },
+    "20_qualification_v11_built": {
+      "status": "PASS",
+      "evidence": "Synthetic Target v11: 15 cases \u00d7 10 classes (2 new: mass_assignment, race_condition)"
+    },
+    "21_official_runs_executed": {
+      "status": "PASS",
+      "evidence": "3 official isolated runs INTEGRATED: Precision=1.00, Recall=0.8333, Proof=1.00. ALL 3 PASSING thresholds."
+    },
+    "22_p10_authorization_request": {
+      "status": "DOCUMENTED",
+      "evidence": "docs/authorization/P10_AUTHORIZATION_REQUEST.md prepared; P10 remains CLOSED pending formal decision"
+    },
+    "23_integrated_evaluator": {
+      "status": "PASS",
+      "evidence": "IntegratedEvaluator wires single-request + stateful + business logic + semantic diff into unified pipeline"
+    }
+  },
+  "summary": {
+    "PASS": 22,
+    "DOCUMENTED": 1,
+    "total": 23
+  }
+}

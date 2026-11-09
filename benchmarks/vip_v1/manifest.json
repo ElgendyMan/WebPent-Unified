@@ -1,0 +1,38 @@
+{
+  "benchmark_id": "webpent-vip-smart-research-v1",
+  "schema_version": 1,
+  "project": "WebPent",
+  "target_family": "authorized-lab-only",
+  "source_of_truth": "../docs/waptlab_vulnerability_catalog.yml",
+  "expected_findings": "expected_findings.json",
+  "scenarios": "scenarios.json",
+  "metric_contract": {
+    "identity": "stable key",
+    "confirmed_only": true,
+    "required_confirmation_fields": [
+      "causal_signal",
+      "negative_control_complete",
+      "proof_bundle_sealed"
+    ],
+    "duplicate_policy": "set semantics",
+    "human_agreement": "separately supplied reviewer decisions only",
+    "cost_efficiency": {
+      "denominator": "unique strict_confirmed finding keys",
+      "zero_strict_confirmed": "unavailable"
+    }
+  },
+  "safety": {
+    "modifies_target": false,
+    "requires_explicit_authorization": true,
+    "allows_destructive_actions": false,
+    "default_enable_autonomous_controller": false,
+    "default_enable_idor_enumeration": false
+  },
+  "release_gates": [
+    "manifest_schema_valid",
+    "all_expected_entries_have_evidence_contract",
+    "confirmed_findings_require_all_controls",
+    "negative_controls_are_counted",
+    "precision_recall_are_reproducible"
+  ]
+}

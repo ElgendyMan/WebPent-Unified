@@ -1,0 +1,204 @@
+{
+  "benchmark_scope": {
+    "credentials": false,
+    "external_network": false,
+    "mode": "offline_replay_of_recorded_controlled_artifact",
+    "network_scope": "none",
+    "persistent_service": false,
+    "requests_sent_by_this_runner": 0,
+    "source_artifact": "reports/evaluation/asros/asros_advanced_controlled_benchmark_v1.json",
+    "state_mutation": false,
+    "synthetic_observations_created": false,
+    "synthetic_proof_bundles_created": false
+  },
+  "detection_metrics": {
+    "f1": null,
+    "precision": null,
+    "reason": "AVRIP v2 has no approved multi-case ground truth or official isolated runs; production detection metrics remain unavailable.",
+    "recall": null
+  },
+  "governance": {
+    "bug_bounty_status": "BLOCKED",
+    "human_signoff": false,
+    "official_isolated_p10_runs_authorized": false,
+    "p10_status": "NOT_QUALIFIED",
+    "p9_status": "NOT_QUALIFIED",
+    "qualification_effect": false,
+    "vip_status": "NOT_QUALIFIED"
+  },
+  "provenance": {
+    "historical_artifact_unchanged": true,
+    "source_artifact": "reports/evaluation/asros/asros_advanced_controlled_benchmark_v1.json",
+    "source_campaign_id": "arex-controlled-local-idor-campaign-v1",
+    "source_schema_version": "asros-advanced-controlled-benchmark-v1"
+  },
+  "recorded_scorable_case_ids": [
+    "controlled.idor.owner_resource.v1"
+  ],
+  "registered_vulnerability_classes": [
+    "idor",
+    "privilege_escalation",
+    "business_logic_authorization_failure",
+    "information_disclosure",
+    "authentication_boundary_issue"
+  ],
+  "research_intelligence_metrics": {
+    "complete_recorded_case_count": 1,
+    "cross_domain_join_quality": null,
+    "deep_reasoning_quality": null,
+    "intent_projection_coverage": null,
+    "metric_scope": "recorded_controlled_evidence_only",
+    "production_precision": null,
+    "production_recall": null,
+    "real_world_detection_rate_measured": false,
+    "reason_unavailable": "The source artifact predates AVRIP v2 telemetry and contains no recorded intent, assumption lineage, cross-domain join, or optimizer outcome fields.",
+    "recorded_case_count": 4,
+    "recorded_evidence_completeness": 1.0,
+    "recorded_hypothesis_relevance": 1.0,
+    "recorded_proof_completeness": 1.0,
+    "security_assumption_coverage": null,
+    "strategy_adaptation_quality": null
+  },
+  "scenario_inventory": [
+    {
+      "allowed_methods": [
+        "GET",
+        "HEAD"
+      ],
+      "blocked_reason": null,
+      "campaign_requirement": "recorded bounded research campaign with immutable scope and lineage",
+      "causal_oracle_requirement": "central causal oracle distinguishes the candidate from the independent control",
+      "execution_status": "not_executed",
+      "hypothesis_requirement": "generated hypothesis links the boundary, affected asset, and expected evidence",
+      "included_in_scoring": true,
+      "proof_bundle_requirement": "redacted central ProofBundle is sealed only from actual observations",
+      "recorded_case_ids": [
+        "controlled.idor.owner_resource.v1"
+      ],
+      "replay_requirement": "central verifier replays the redacted evidence and verifies the seal offline",
+      "scenario_id": "avrp-idor-v1",
+      "scorable_case_ids": [
+        "controlled.idor.owner_resource.v1"
+      ],
+      "source_artifact": "reports/evaluation/asros/asros_advanced_controlled_benchmark_v1.json",
+      "source_cases": [
+        {
+          "candidate_paths_considered": 1,
+          "case_id": "controlled.idor.owner_resource.v1",
+          "evidence_quality": 1.0,
+          "expected_rank": 1,
+          "ground_truth_outcome": "confirmed",
+          "ground_truth_source": "controlled_campaign_v1_recorded_artifact",
+          "hypothesis_generated": true,
+          "information_gain": 0.9,
+          "proof_complete": true,
+          "rank": 1,
+          "requests_used": 3,
+          "target_id": "controlled_local_idor_target_v1",
+          "unnecessary_paths_executed": 0,
+          "validation_outcome": "confirmed",
+          "vulnerability_class": "idor"
+        }
+      ],
+      "status": "scorable",
+      "target_model_requirement": "recorded local target model and protected security boundary; route reachability is insufficient",
+      "validation_requirement": "recorded baseline/candidate/control validation under the same safe conditions",
+      "vulnerability_class": "idor"
+    },
+    {
+      "allowed_methods": [
+        "GET",
+        "HEAD"
+      ],
+      "blocked_reason": "No complete recorded candidate/control causal evidence, ground truth, sealed ProofBundle, and replay record are available for this scenario.",
+      "campaign_requirement": "recorded bounded research campaign with immutable scope and lineage",
+      "causal_oracle_requirement": "central causal oracle distinguishes the candidate from the independent control",
+      "execution_status": "not_executed",
+      "hypothesis_requirement": "generated hypothesis links the boundary, affected asset, and expected evidence",
+      "included_in_scoring": false,
+      "proof_bundle_requirement": "redacted central ProofBundle is sealed only from actual observations",
+      "recorded_case_ids": [
+        "asros-blocked-privilege_escalation-v1"
+      ],
+      "replay_requirement": "central verifier replays the redacted evidence and verifies the seal offline",
+      "scenario_id": "avrp-privilege_escalation-v1",
+      "scorable_case_ids": [],
+      "source_artifact": "reports/evaluation/asros/asros_advanced_controlled_benchmark_v1.json",
+      "status": "blocked",
+      "target_model_requirement": "recorded local target model and protected security boundary; route reachability is insufficient",
+      "validation_requirement": "recorded baseline/candidate/control validation under the same safe conditions",
+      "vulnerability_class": "privilege_escalation"
+    },
+    {
+      "allowed_methods": [
+        "GET",
+        "HEAD"
+      ],
+      "blocked_reason": "No complete recorded candidate/control causal evidence, ground truth, sealed ProofBundle, and replay record are available for this scenario.",
+      "campaign_requirement": "recorded bounded research campaign with immutable scope and lineage",
+      "causal_oracle_requirement": "central causal oracle distinguishes the candidate from the independent control",
+      "execution_status": "not_executed",
+      "hypothesis_requirement": "generated hypothesis links the boundary, affected asset, and expected evidence",
+      "included_in_scoring": false,
+      "proof_bundle_requirement": "redacted central ProofBundle is sealed only from actual observations",
+      "recorded_case_ids": [
+        "asros-blocked-business_logic-v1"
+      ],
+      "replay_requirement": "central verifier replays the redacted evidence and verifies the seal offline",
+      "scenario_id": "avrp-business_logic_authorization_failure-v1",
+      "scorable_case_ids": [],
+      "source_artifact": "reports/evaluation/asros/asros_advanced_controlled_benchmark_v1.json",
+      "status": "blocked",
+      "target_model_requirement": "recorded local target model and protected security boundary; route reachability is insufficient",
+      "validation_requirement": "recorded baseline/candidate/control validation under the same safe conditions",
+      "vulnerability_class": "business_logic_authorization_failure"
+    },
+    {
+      "allowed_methods": [
+        "GET",
+        "HEAD"
+      ],
+      "blocked_reason": "No complete recorded candidate/control causal evidence, ground truth, sealed ProofBundle, and replay record are available for this scenario.",
+      "campaign_requirement": "recorded bounded research campaign with immutable scope and lineage",
+      "causal_oracle_requirement": "central causal oracle distinguishes the candidate from the independent control",
+      "execution_status": "not_executed",
+      "hypothesis_requirement": "generated hypothesis links the boundary, affected asset, and expected evidence",
+      "included_in_scoring": false,
+      "proof_bundle_requirement": "redacted central ProofBundle is sealed only from actual observations",
+      "recorded_case_ids": [
+        "asros-blocked-information_disclosure-v1"
+      ],
+      "replay_requirement": "central verifier replays the redacted evidence and verifies the seal offline",
+      "scenario_id": "avrp-information_disclosure-v1",
+      "scorable_case_ids": [],
+      "source_artifact": "reports/evaluation/asros/asros_advanced_controlled_benchmark_v1.json",
+      "status": "blocked",
+      "target_model_requirement": "recorded local target model and protected security boundary; route reachability is insufficient",
+      "validation_requirement": "recorded baseline/candidate/control validation under the same safe conditions",
+      "vulnerability_class": "information_disclosure"
+    },
+    {
+      "allowed_methods": [
+        "GET",
+        "HEAD"
+      ],
+      "blocked_reason": "No complete recorded candidate/control causal evidence, ground truth, sealed ProofBundle, and replay record are available for this scenario.",
+      "campaign_requirement": "recorded bounded research campaign with immutable scope and lineage",
+      "causal_oracle_requirement": "central causal oracle distinguishes the candidate from the independent control",
+      "execution_status": "not_executed",
+      "hypothesis_requirement": "generated hypothesis links the boundary, affected asset, and expected evidence",
+      "included_in_scoring": false,
+      "proof_bundle_requirement": "redacted central ProofBundle is sealed only from actual observations",
+      "recorded_case_ids": [],
+      "replay_requirement": "central verifier replays the redacted evidence and verifies the seal offline",
+      "scenario_id": "avrp-authentication_boundary_issue-v1",
+      "scorable_case_ids": [],
+      "source_artifact": null,
+      "status": "blocked",
+      "target_model_requirement": "recorded local target model and protected security boundary; route reachability is insufficient",
+      "validation_requirement": "recorded baseline/candidate/control validation under the same safe conditions",
+      "vulnerability_class": "authentication_boundary_issue"
+    }
+  ],
+  "schema_version": "avrip-deep-controlled-benchmark-v2"
+}

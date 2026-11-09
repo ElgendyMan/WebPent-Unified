@@ -1,0 +1,42 @@
+{
+  "baseline_id": "v62-c9938cd-20260823",
+  "full_regression": {
+    "command": "PYTHONPATH=src:/tmp/webpent-release-run/bbscout/src .venv/bin/pytest -q --disable-warnings",
+    "exit_code": 0,
+    "passed": 1471,
+    "warnings": 56,
+    "duration_seconds": 106,
+    "status": "passed"
+  },
+  "focused_security": {
+    "command": "pytest target package, authority, proof, scope, lifecycle, and scorecard contracts",
+    "exit_code": 0,
+    "passed": 55,
+    "duration_seconds": 24,
+    "status": "passed"
+  },
+  "ruff": {
+    "exit_code": 0,
+    "status": "passed"
+  },
+  "compileall": {
+    "exit_code": 0,
+    "status": "passed"
+  },
+  "git_diff_check": {
+    "exit_code": 0,
+    "status": "passed"
+  },
+  "coverage_run": {
+    "exit_code": 0,
+    "passed": 1471,
+    "warnings": 56,
+    "duration_seconds": 164,
+    "status": "passed",
+    "report_path": "coverage.json"
+  },
+  "notes": [
+    "Durations are wall-clock seconds rounded by the baseline harness.",
+    "No live WAPTLab or external target traffic was part of this offline baseline."
+  ]
+}

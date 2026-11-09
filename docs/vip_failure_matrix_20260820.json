@@ -1,0 +1,81 @@
+{
+  "autopentestx_executed": false,
+  "finding_created": false,
+  "invariants": {
+    "handler_failure_is_infrastructure_failure": true,
+    "missing_evidence_is_not_confirmed": true,
+    "no_finding_promotion": true,
+    "no_network": true,
+    "scope_denial_is_blocked": true
+  },
+  "live_target_executed": false,
+  "mode": "offline_failure_injection",
+  "network_used": false,
+  "qualification_status": "not_evaluated",
+  "research_cases": {
+    "handler_failure": {
+      "case": "handler_failure",
+      "network_used": false,
+      "reason": "RuntimeError",
+      "scope_safe": true,
+      "status": "infrastructure_failure"
+    },
+    "scope_denied": {
+      "case": "scope_denied",
+      "network_used": false,
+      "reason": "no_policy_approved_candidate",
+      "scope_safe": true,
+      "status": "blocked"
+    },
+    "success": {
+      "case": "success",
+      "network_used": false,
+      "reason": "offline matrix observation",
+      "scope_safe": true,
+      "status": "negative"
+    }
+  },
+  "validator_cases": {
+    "blocked": {
+      "campaign_key": "xslt_injection",
+      "cleanup_completed": false,
+      "disposition": "blocked",
+      "finding_created": false,
+      "network_used": false,
+      "oracle_family": null,
+      "reason": "offline-evidence-contract-only",
+      "typed_oracle": null
+    },
+    "inconclusive": {
+      "campaign_key": "xslt_injection",
+      "cleanup_completed": false,
+      "disposition": "inconclusive",
+      "finding_created": false,
+      "network_used": false,
+      "oracle_family": null,
+      "reason": "offline-evidence-contract-only",
+      "typed_oracle": null
+    },
+    "missing": {
+      "campaign_key": "xslt_injection",
+      "cleanup_completed": false,
+      "disposition": "inconclusive",
+      "finding_created": false,
+      "network_used": false,
+      "oracle_family": null,
+      "reason": "offline-evidence-contract-only",
+      "typed_oracle": null
+    },
+    "reviewable": {
+      "campaign_key": "xslt_injection",
+      "cleanup_completed": true,
+      "disposition": "reviewable",
+      "finding_created": false,
+      "network_used": false,
+      "oracle_family": null,
+      "reason": "offline-evidence-contract-only",
+      "typed_oracle": null
+    }
+  },
+  "waptlab_executed": false
+}

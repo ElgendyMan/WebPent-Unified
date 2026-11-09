@@ -1,0 +1,41 @@
+# ORACLE-L-6: the graph is built only from confirmed evidence. These
+# rules decide node criticality (defaults scaled by evidence confidence)
+# and which typed edges may exist. No rule performs a request.
+node_criticality_defaults:
+  credential: 0.9
+  data_leak: 0.8
+  outdated_component: 0.7
+  subdomain: 0.4
+  endpoint: 0.3
+  tech: 0.3
+
+edge_weights:
+  authenticates_with: 0.9   # a credential guards its host
+  reads_from: 0.7           # leaked data was read from its host
+  serves: 0.6               # an endpoint is served by its host
+  same_owner: 0.4           # a subdomain shares the host's owner
+  deploy_on: 0.5            # a component is deployed on the host
+
+entry_rules:
+  # entry points: anything reachable from outside with low criticality
+  entry_categories: [subdomain, endpoint]
+  max_criticality: 0.6
+
+target_rules:
+  # crown jewels: what an attacker ultimately wants
+  target_categories: [credential, data_leak, outdated_component]
+  min_criticality: 0.6
+
+# Path-prediction tuning (U-ORACLE-5). Risk is squared in the score so a
+# quiet route can outrank a heavier-but-louder one.
+detection_risk:
+  authenticates_with: 0.3
+  reads_from: 0.1
+  serves: 0.5
+  same_owner: 0.05
+  deploy_on: 0.2
+
+path_predictor:
+  length_penalty: 0.85   # each extra hop multiplies the score
+  max_depth: 5           # simple paths are enumerated only to this depth
+  top_k: 5

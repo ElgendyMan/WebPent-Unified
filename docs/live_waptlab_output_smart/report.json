@@ -1,0 +1,452 @@
+{
+  "target_url": "http://127.0.0.1:8000",
+  "generated_at": "2026-08-18T17:17:22.385927+00:00",
+  "total_findings": 0,
+  "confirmed_count": 0,
+  "severity_counts": {
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "info": 0
+  },
+  "risk_score": "Low",
+  "executive_summary": "Automated penetration testing of http://127.0.0.1:8000 identified 0 candidate finding(s). None have been tool-confirmed \u2014 the overall risk posture is UNCONFIRMED and requires verification before drawing exploit-risk conclusions. The candidate findings should be triaged manually to determine which warrant deeper validation.\n\nRemediation should not be prioritised on unconfirmed rows alone. A follow-up engagement with the target's authentication context (or with OOB callback enabled) is recommended to convert candidates into confirmed findings and establish a verified risk baseline.",
+  "findings": [],
+  "quality_gate": {
+    "status": "ready",
+    "finding_count": 0,
+    "ready_finding_count": 0,
+    "blocked_finding_count": 0,
+    "findings": []
+  },
+  "hypotheses": [
+    "Potential XSS at http://127.0.0.1:8000",
+    "Potential XSS at http://127.0.0.1:8000/",
+    "Potential XSS at http://127.0.0.1:8000/dashboard",
+    "Potential XSS at http://127.0.0.1:8000/login",
+    "Potential XSS at http://127.0.0.1:8000/register",
+    "Potential XSS at http://127.0.0.1:8000/send-otp"
+  ],
+  "decision_log": [],
+  "bac_observations": [],
+  "bac_coverage_gaps": [],
+  "relational_evidence": [],
+  "bac_report_gate": {
+    "status": "ready",
+    "requires_human_review": false,
+    "coverage_gap_count": 0,
+    "observation_count": 0,
+    "relational_edge_count": 0
+  },
+  "subdomain_takeover_observations": [],
+  "subdomain_takeover_coverage_gaps": [],
+  "cloud_storage_observations": [
+    {
+      "url": "http://127.0.0.1:8000",
+      "status": "not_cloud_storage_candidate"
+    },
+    {
+      "url": "http://127.0.0.1:8000/dashboard",
+      "status": "not_cloud_storage_candidate"
+    },
+    {
+      "url": "http://127.0.0.1:8000/login",
+      "status": "not_cloud_storage_candidate"
+    },
+    {
+      "url": "http://127.0.0.1:8000/register",
+      "status": "not_cloud_storage_candidate"
+    },
+    {
+      "url": "http://127.0.0.1:8000/send-otp",
+      "status": "not_cloud_storage_candidate"
+    }
+  ],
+  "cloud_storage_coverage_gaps": [],
+  "jwt_deep_observations": "[REDACTED]",
+  "jwt_deep_coverage_gaps": "[REDACTED]",
+  "jwt_report_gate": "[REDACTED]",
+  "disclosed_report_advisories": [],
+  "advisory_coverage_gaps": [
+    {
+      "type": "disclosed_report_corpus_missing",
+      "reason": "No operator-supplied local report corpus was provided; advisory intelligence was skipped."
+    }
+  ],
+  "advisory_report_gate": {
+    "status": "partial",
+    "requires_human_review": true,
+    "coverage_gap_count": 1,
+    "advisory_count": 0
+  },
+  "smart_coverage": {
+    "request_smuggling": {
+      "status": "tested",
+      "probes": [
+        {
+          "probe": "CL.TE",
+          "status": "inconclusive"
+        },
+        {
+          "probe": "TE.CL",
+          "status": "inconclusive"
+        }
+      ],
+      "finding_count": 0
+    },
+    "schema_version": 1,
+    "selection_policy": "coverage-based-no-fixed-top-n",
+    "candidate_count": 6,
+    "status_counts": {
+      "tested": 0,
+      "missing-validator": 0,
+      "blocked": 6
+    },
+    "entries": {
+      "c4e6975b-e38a-44cf-97fa-cb42bc798440": {
+        "hypothesis_id": "c4e6975b-e38a-44cf-97fa-cb42bc798440",
+        "vuln_class": "xss",
+        "status": "blocked",
+        "action": "defer",
+        "reason": "prioritization_gate_deferred",
+        "validator_route": "xss",
+        "score": 0.2675
+      },
+      "b6ed7c69-aa31-464a-9cfa-d3e9726625e9": {
+        "hypothesis_id": "b6ed7c69-aa31-464a-9cfa-d3e9726625e9",
+        "vuln_class": "xss",
+        "status": "blocked",
+        "action": "defer",
+        "reason": "prioritization_gate_deferred",
+        "validator_route": "xss",
+        "score": 0.2675
+      },
+      "d3a032db-8ca2-4e16-a3b6-ec6979b49c63": {
+        "hypothesis_id": "d3a032db-8ca2-4e16-a3b6-ec6979b49c63",
+        "vuln_class": "xss",
+        "status": "blocked",
+        "action": "defer",
+        "reason": "prioritization_gate_deferred",
+        "validator_route": "xss",
+        "score": 0.2675
+      },
+      "7e017230-1902-4dfd-9bc0-bd24e0575b30": {
+        "hypothesis_id": "7e017230-1902-4dfd-9bc0-bd24e0575b30",
+        "vuln_class": "xss",
+        "status": "blocked",
+        "action": "defer",
+        "reason": "prioritization_gate_deferred",
+        "validator_route": "xss",
+        "score": 0.2675
+      },
+      "255078f0-6219-4ea9-9a54-066f1c409f03": {
+        "hypothesis_id": "255078f0-6219-4ea9-9a54-066f1c409f03",
+        "vuln_class": "xss",
+        "status": "blocked",
+        "action": "defer",
+        "reason": "prioritization_gate_deferred",
+        "validator_route": "xss",
+        "score": 0.2675
+      },
+      "9e85fc1b-d146-4ae1-bd6f-27748bf67941": {
+        "hypothesis_id": "9e85fc1b-d146-4ae1-bd6f-27748bf67941",
+        "vuln_class": "xss",
+        "status": "blocked",
+        "action": "defer",
+        "reason": "prioritization_gate_deferred",
+        "validator_route": "xss",
+        "score": 0.2675
+      }
+    }
+  },
+  "campaign_ledger": {
+    "version": 1,
+    "source": "waptlab_audit_campaign_matrix",
+    "entries": [
+      {
+        "id": 1,
+        "key": "header_sqli",
+        "surfaces": [
+          "headers",
+          "query",
+          "logging"
+        ],
+        "validator": "sqli",
+        "validator_id": "sqli",
+        "status": "not_observed",
+        "evidence_complete": false
+      },
+      {
+        "id": 2,
+        "key": "csv_ingestion_sqli",
+        "surfaces": [
+          "multipart",
+          "csv",
+          "worker"
+        ],
+        "validator": "sqli",
+        "validator_id": "sqli",
+        "status": "not_observed",
+        "evidence_complete": false
+      },
+      {
+        "id": 3,
+        "key": "jwt_path_traversal",
+        "surfaces": [
+          "jwt",
+          "path",
+          "download"
+        ],
+        "validator": "path_traversal",
+        "validator_id": "path_traversal",
+        "status": "not_observed",
+        "evidence_complete": false
+      },
+      {
+        "id": 4,
+        "key": "double_slash_redirect",
+        "surfaces": [
+          "redirect",
+          "path"
+        ],
+        "validator": "open_redirect",
+        "validator_id": "open_redirect",
+        "status": "not_observed",
+        "evidence_complete": false
+      },
+      {
+        "id": 5,
+        "key": "oauth_redirect_uri",
+        "surfaces": [
+          "oauth",
+          "redirect",
+          "callback"
+        ],
+        "validator": "open_redirect",
+        "validator_id": "open_redirect",
+        "status": "not_observed",
+        "evidence_complete": false
+      },
+      {
+        "id": 6,
+        "key": "download_idor",
+        "surfaces": [
+          "download",
+          "object",
+          "identity"
+        ],
+        "validator": "idor",
+        "validator_id": "idor",
+        "status": "missing-validator",
+        "evidence_complete": false
+      },
+      {
+        "id": 7,
+        "key": "tenant_context_switching",
+        "surfaces": [
+          "tenant",
+          "identity",
+          "object"
+        ],
+        "validator": "idor",
+        "validator_id": "idor",
+        "status": "missing-validator",
+        "evidence_complete": false
+      },
+      {
+        "id": 8,
+        "key": "training_email_ssti",
+        "surfaces": [
+          "template",
+          "email",
+          "workflow"
+        ],
+        "validator": "ssti",
+        "validator_id": "ssti",
+        "status": "not_observed",
+        "evidence_complete": false
+      },
+      {
+        "id": 9,
+        "key": "export_blade_ssti",
+        "surfaces": [
+          "export",
+          "template",
+          "download"
+        ],
+        "validator": "ssti",
+        "validator_id": "ssti",
+        "status": "not_observed",
+        "evidence_complete": false
+      },
+      {
+        "id": 10,
+        "key": "swagger_url_ssrf",
+        "surfaces": [
+          "swagger",
+          "openapi",
+          "url"
+        ],
+        "validator": "ssrf",
+        "validator_id": "ssrf",
+        "status": "not_observed",
+        "evidence_complete": false
+      },
+      {
+        "id": 11,
+        "key": "image_fetch_ssrf",
+        "surfaces": [
+          "profile",
+          "image",
+          "url"
+        ],
+        "validator": "ssrf",
+        "validator_id": "ssrf",
+        "status": "not_observed",
+        "evidence_complete": false
+      },
+      {
+        "id": 12,
+        "key": "stored_profile_xss",
+        "surfaces": [
+          "profile",
+          "stored",
+          "browser"
+        ],
+        "validator": "xss",
+        "validator_id": "xss",
+        "status": "not_observed",
+        "evidence_complete": false
+      },
+      {
+        "id": 13,
+        "key": "quoted_field_xss",
+        "surfaces": [
+          "profile",
+          "form",
+          "attribute"
+        ],
+        "validator": "xss",
+        "validator_id": "xss",
+        "status": "not_observed",
+        "evidence_complete": false
+      },
+      {
+        "id": 14,
+        "key": "elasticsearch_snapshot_traversal",
+        "surfaces": [
+          "elasticsearch",
+          "snapshot",
+          "service"
+        ],
+        "validator": null,
+        "validator_id": null,
+        "status": "missing-validator",
+        "evidence_complete": false
+      },
+      {
+        "id": 15,
+        "key": "public_backup_disclosure",
+        "surfaces": [
+          "backup",
+          "artifact",
+          "download"
+        ],
+        "validator": "info_disclosure",
+        "validator_id": "info_disclosure",
+        "status": "missing-validator",
+        "evidence_complete": false
+      },
+      {
+        "id": 16,
+        "key": "laravel_app_debug",
+        "surfaces": [
+          "error",
+          "debug",
+          "laravel"
+        ],
+        "validator": "info_disclosure",
+        "validator_id": "info_disclosure",
+        "status": "missing-validator",
+        "evidence_complete": false
+      },
+      {
+        "id": 17,
+        "key": "frontend_dependency_exposure",
+        "surfaces": [
+          "javascript",
+          "sbom",
+          "bundle"
+        ],
+        "validator": "javascript",
+        "validator_id": "javascript",
+        "status": "not_observed",
+        "evidence_complete": false
+      },
+      {
+        "id": 18,
+        "key": "public_elasticsearch_exposure",
+        "surfaces": [
+          "elasticsearch",
+          "service",
+          "network"
+        ],
+        "validator": "info_disclosure",
+        "validator_id": "info_disclosure",
+        "status": "missing-validator",
+        "evidence_complete": false
+      },
+      {
+        "id": 19,
+        "key": "oob_xxe",
+        "surfaces": [
+          "xml",
+          "multipart",
+          "oob"
+        ],
+        "validator": "xxe",
+        "validator_id": "xxe",
+        "status": "not_observed",
+        "evidence_complete": false
+      },
+      {
+        "id": 20,
+        "key": "xslt_injection",
+        "surfaces": [
+          "xml",
+          "xslt",
+          "multipart"
+        ],
+        "validator": null,
+        "validator_id": null,
+        "status": "missing-validator",
+        "evidence_complete": false
+      }
+    ],
+    "summary": {
+      "not_observed": 13,
+      "missing-validator": 7
+    }
+  },
+  "proof_observability": {},
+  "smart_coverage_gate": {
+    "status": "ready",
+    "requires_human_review": false,
+    "campaign_count": 6,
+    "attempt_count": 0
+  },
+  "infrastructure_report_gate": {
+    "status": "ready",
+    "requires_human_review": false,
+    "coverage_gap_count": 0,
+    "takeover_observation_count": 0,
+    "cloud_observation_count": 5
+  },
+  "audit_trail": {
+    "per_finding_hashes": [],
+    "algorithm": "HMAC-SHA256",
+    "note": "These hashes are computed using HMAC-SHA256 with a secret key (audit_secret_key). Recompute with the same key to verify no post-exploitation tampering has occurred. An attacker cannot forge a valid hash without the key.",
+    "master_report_hash": "a8f5d77d134a5f4756188e85be339a4c17426c4187dfe260b395ef1b406abb79"
+  }
+}

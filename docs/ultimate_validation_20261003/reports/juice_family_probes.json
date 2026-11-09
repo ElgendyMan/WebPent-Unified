@@ -1,0 +1,77 @@
+{
+  "target": "http://127.0.0.1:3000",
+  "through_scope_guard": true,
+  "note": "supplemental deterministic probes; not promoted findings",
+  "results": [
+    {
+      "family": "XSS",
+      "method": "GET",
+      "path": "/rest/products/search?q=%3Cscript%3Ealert%281%29%3C/script%3E",
+      "status_code": 200,
+      "content_type": "application/json",
+      "body_sha256": "20bc1392a17b383b46fffc33c8e796755452883bfcfc2d33c90342ea70227639",
+      "body_bytes": 30,
+      "reflected": false
+    },
+    {
+      "family": "SQLi",
+      "method": "POST",
+      "path": "/rest/user/login",
+      "status_code": 200,
+      "content_type": "application/json",
+      "body_sha256": "b82137ce6584019e03823b9b27c6e8de0f9062b0930198a909d852c94beb8f16",
+      "body_bytes": 784,
+      "reflected": false
+    },
+    {
+      "family": "INFO_DISCLOSURE",
+      "method": "GET",
+      "path": "/.env",
+      "status_code": 200,
+      "content_type": "text/html",
+      "body_sha256": "a519dd117e005fa068cac700a772630c1973a77ae18defeb83d52dd30e104187",
+      "body_bytes": 9984,
+      "reflected": false
+    },
+    {
+      "family": "INFO_DISCLOSURE",
+      "method": "GET",
+      "path": "/admin",
+      "status_code": 200,
+      "content_type": "text/html",
+      "body_sha256": "a519dd117e005fa068cac700a772630c1973a77ae18defeb83d52dd30e104187",
+      "body_bytes": 9984,
+      "reflected": false
+    },
+    {
+      "family": "INFO_DISCLOSURE",
+      "method": "GET",
+      "path": "/debug",
+      "status_code": 200,
+      "content_type": "text/html",
+      "body_sha256": "a519dd117e005fa068cac700a772630c1973a77ae18defeb83d52dd30e104187",
+      "body_bytes": 9984,
+      "reflected": false
+    },
+    {
+      "family": "OPEN_REDIRECT",
+      "method": "GET",
+      "path": "/redirect?to=https://example.com",
+      "status_code": 406,
+      "content_type": "text/html",
+      "body_sha256": "b4ffa61516b4ce3bafcee5be32bf3a33e35e8c2d1571ad64dafb0b0ab214e4c9",
+      "body_bytes": 2824,
+      "reflected": false
+    },
+    {
+      "family": "SSRF",
+      "method": "GET",
+      "path": "/rest/products/search?q=http%3A//127.0.0.1%3A3000",
+      "status_code": 200,
+      "content_type": "application/json",
+      "body_sha256": "20bc1392a17b383b46fffc33c8e796755452883bfcfc2d33c90342ea70227639",
+      "body_bytes": 30,
+      "reflected": false
+    }
+  ]
+}

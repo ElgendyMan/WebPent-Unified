@@ -1,0 +1,17 @@
+{
+  "document_id": "TEAM1_LLM_SELECTION_V4_IMPLEMENTATION-1.0",
+  "date": "2026-09-13",
+  "root_cause": "outcomes never recorded into tracker -> redundancy factor always 1.0 (no outcome-aware adjustment)",
+  "changes": [
+    "record_outcome(candidate, observation) on LLMResearchSelector: records actual execution outcome (structural InformationValue) into session-scoped outcome_tracker; closes feedback loop",
+    "wired in active_research_node after execution (additive, try/except, never breaks loop)",
+    "predicted_selection_state vs observed_outcome_state: two separate fields (selection-time prediction vs post-execution outcome)",
+    "outcome history exposed in candidate context via repetition_state.last_information_value",
+    "authority hardening: extra LLM fields (verdict/confidence/proof/promotion/confirmed) ignored, only selected_candidate_id accepted"
+  ],
+  "tests_added": 10,
+  "tests_passed": 10,
+  "files_deleted": 0,
+  "governance_changed": 0,
+  "statement": "TEAM-2 MUST PERFORM INDEPENDENT VALIDATION."
+}

@@ -1,0 +1,57 @@
+{
+  "phase": "team1_research_entity_baseline",
+  "date": "2026-09-10",
+  "test_counts": {
+    "collected": 975,
+    "passed": 971,
+    "failed": 4,
+    "errors": 0,
+    "skipped": 0
+  },
+  "known_failures": [
+    "tests/test_local_causal_lab_option_b_approval.py::test_option_b_import_validates_and_original_packet_stays_pending",
+    "tests/test_local_causal_lab_option_b_approval.py::test_option_b_import_rejects_changed_approval_source",
+    "tests/test_option_b_local_causal_lab_runner.py::test_option_b_runner_emits_only_redacted_blocked_records",
+    "tests/test_option_b_local_causal_lab_runner.py::test_option_b_runner_records_runtime_digest_blockers_without_sensitive_material"
+  ],
+  "governance": {
+    "vip_qualified": false,
+    "qualification_state": "CONDITIONAL",
+    "P10": "CLOSED",
+    "P9": "CLOSED",
+    "enable_integration_agenda_default": false
+  },
+  "canonical_core_sha256_16": {
+    "src/webpent/cqa_v2/causal_guard.py": "e08dfae5b67a2067",
+    "src/webpent/models/proof_bundle.py": "bbd2e63b891dc540",
+    "src/webpent/cqa_v2/replay_verifier.py": "ba16d252e598e940",
+    "src/webpent/shared/proof_oracles.py": "a4af8a747ee4933d",
+    "src/webpent/shared/action_authority.py": "742cc71bdbeaf791",
+    "src/webpent/shared/safety_gate.py": "90b0c26f42b90479",
+    "src/webpent/shared/p9_qualification.py": "153df8ee60dc27ef",
+    "src/webpent/config/settings.py": "bb4f61b90f32e16a",
+    "src/webpent/config/policies.py": "ff51d98c1fda4422",
+    "src/webpent/graph/builder.py": "25056146abbd9abf",
+    "src/webpent/graph/checkpoints.py": "9695ca1328f1a1a5",
+    "src/webpent/state/state.py": "cb9d4cf2f0b4605b",
+    "src/webpent/state/reducers.py": "ce4bccb2d189e8b0",
+    "src/webpent/llm_researcher/interface.py": "b954b69fd6f244fc",
+    "src/webpent/llm_researcher/causal_feedback_bridge.py": "3ee61a20366376d0",
+    "src/webpent/llm_researcher/providers/factory.py": "c5fe42e2fa811ea7",
+    "src/webpent/llm_researcher/providers/pool.py": "53d4ce9829d49604",
+    "src/webpent/shared/llm.py": "13cb34e827589ae9",
+    "src/webpent/shared/prioritization.py": "be5874491f76f008"
+  },
+  "integration_layer_sha256_16": {
+    "src/webpent/integration/auth_session_contract.py": "3f217ef708f4b830",
+    "src/webpent/integration/exploitation_queue.py": "a58a4eb39ebad00b",
+    "src/webpent/integration/priority_policy.py": "841c2efd35a61339",
+    "src/webpent/integration/reconciliation.py": "2fa7eda8882b29bf",
+    "src/webpent/integration/research_agenda.py": "8b720e76d8cb24ad",
+    "src/webpent/integration/source_mapping.py": "655d5aa6bc7243a4",
+    "src/webpent/integration/surface_dossier.py": "5939be0be6da7409",
+    "src/webpent/integration/__init__.py": "958c662d44adeb11",
+    "src/webpent/research_engine/agenda_bridge.py": "6caa734e2d912c49",
+    "src/webpent/attack_graph/source_lane.py": "38c06ab344569ad8"
+  }
+}

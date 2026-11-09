@@ -1,0 +1,96 @@
+{
+  "agent_graph_events": 1,
+  "audit_verification": {
+    "event_count": 4,
+    "root_hash": "c58f75e61c7d507646a65d70f97dc2ff670489bf8a092d229dde1d37d1514061",
+    "verified": true
+  },
+  "browser_crawl": {
+    "hidden_routes": 200,
+    "js_bundles": 100,
+    "js_endpoints": 300,
+    "pages_visited": 3,
+    "state_graph_nodes": 3,
+    "state_graph_transitions": 2,
+    "stop_reason": "queue_exhausted",
+    "traffic_events": 0
+  },
+  "campaign_id": "browser-hunter-juice-20261001t212143z",
+  "candidates_executable": 10,
+  "candidates_generated": 20,
+  "confirmed_findings": [],
+  "crawl_events": 50,
+  "curiosity_flags": 26,
+  "duration_seconds": 53.789,
+  "llm_calls": 1,
+  "llm_cost_usd": 0.0049435,
+  "persona": {
+    "allowed_tools": [
+      "m4_principal_comparison",
+      "token_role_metadata",
+      "bounded_id_mutation"
+    ],
+    "display_name": "Stok / API Breaker",
+    "focus_areas": [
+      "idor",
+      "bola",
+      "bfla",
+      "token_role_comparison",
+      "id_parameter_fuzzing"
+    ],
+    "name": "stok",
+    "personality": "I break APIs by switching identities.",
+    "preferred_families": [
+      "IDOR",
+      "BOLA",
+      "AUTH_BYPASS"
+    ],
+    "prompt_template": "You are an API security specialist. For user-specific endpoints, compare owner, foreign, and invalid identities through the authorized M4 chain.",
+    "safety_constraints": [
+      "advisory_only",
+      "scope_law_and_tool_boundary_required",
+      "m4_credentials_only",
+      "no_external_targets_without_explicit_scope",
+      "validator_and_promotion_pipeline_authoritative"
+    ]
+  },
+  "production_trace": {
+    "complete": false,
+    "config_digest": "50d4255512168e46",
+    "entrypoint": "direct_invoke",
+    "missing_required_stages": [
+      "deep_recon",
+      "world_model_mutation",
+      "research_decision",
+      "bounded_tool_execution",
+      "observation",
+      "outcome_recording",
+      "replan",
+      "causal_guard_evaluation",
+      "proof_bundle_creation",
+      "promotion_decision"
+    ],
+    "spine_version": "production_spine_v1",
+    "stage_count": 8,
+    "stages_seen": [
+      "audit_event",
+      "audit_finalization",
+      "entrypoint_resolve",
+      "flag_resolution",
+      "spine_activation"
+    ],
+    "trace_digest": "f2716b21ec62600d4374d31d47c142f5ff1b93f1a17faecf21ddfe11a6d3c6e4"
+  },
+  "routes_crawled": 33,
+  "security_boundary": {
+    "credentials_attached_by": "M4 only",
+    "execution_authority": "ModernOrchestrator/ScopeLaw/AVI/PromotionPipeline",
+    "raw_target_content_returned": false
+  },
+  "target_url": "http://127.0.0.1:3000",
+  "validation_counts": {
+    "confirmed": 0,
+    "inconclusive": 0,
+    "refuted": 0
+  }
+}

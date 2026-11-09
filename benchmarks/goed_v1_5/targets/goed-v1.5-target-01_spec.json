@@ -1,0 +1,245 @@
+{
+  "target_id": "goed-v1.5-target-01",
+  "seed": 1,
+  "port": 8901,
+  "naming": {
+    "route_style_index": 1,
+    "role_set_index": 1,
+    "tenant_style_index": 1,
+    "object_style_index": 1
+  },
+  "route_prefix_example": "/v1/ENTITY",
+  "roles": [
+    "viewer",
+    "editor",
+    "manager",
+    "supervisor"
+  ],
+  "role_level": {
+    "viewer": 0,
+    "editor": 1,
+    "manager": 2,
+    "supervisor": 3
+  },
+  "tenants": [
+    "company_olpfv",
+    "company_vqeni"
+  ],
+  "objects": [
+    "item.0",
+    "item.1",
+    "item.2",
+    "item.3",
+    "item.4",
+    "item.5",
+    "item.6",
+    "item.7"
+  ],
+  "fields": {
+    "id_field": "identity",
+    "name_field": "label",
+    "secret_field": "private_id",
+    "email_field": "contact",
+    "balance_field": "funds"
+  },
+  "actors": {
+    "bob": {
+      "identity": "item.0",
+      "role": "viewer",
+      "tenant": "company_olpfv"
+    },
+    "carol": {
+      "identity": "item.1",
+      "role": "editor",
+      "tenant": "company_olpfv"
+    },
+    "dave": {
+      "identity": "item.2",
+      "role": "viewer",
+      "tenant": "company_vqeni"
+    },
+    "eve": {
+      "identity": "item.3",
+      "role": "editor",
+      "tenant": "company_vqeni"
+    }
+  },
+  "actor_list": [
+    "bob",
+    "carol",
+    "dave",
+    "eve"
+  ],
+  "sensitive_data": {
+    "item.0": {
+      "label": "Alice",
+      "private_id": "XXX-XX-1000",
+      "contact": "alice@company_olpfv.example",
+      "funds": 2301
+    },
+    "item.1": {
+      "label": "Bob",
+      "private_id": "XXX-XX-1001",
+      "contact": "bob@company_olpfv.example",
+      "funds": 9425
+    },
+    "item.2": {
+      "label": "Carol",
+      "private_id": "XXX-XX-1002",
+      "contact": "carol@company_olpfv.example",
+      "funds": 1133
+    },
+    "item.3": {
+      "label": "Dave",
+      "private_id": "XXX-XX-1003",
+      "contact": "dave@company_vqeni.example",
+      "funds": 4279
+    },
+    "item.4": {
+      "label": "Eve",
+      "private_id": "XXX-XX-1004",
+      "contact": "eve@company_vqeni.example",
+      "funds": 2031
+    },
+    "item.5": {
+      "label": "Frank",
+      "private_id": "XXX-XX-1005",
+      "contact": "frank@company_vqeni.example",
+      "funds": 8217
+    }
+  },
+  "admin_entity": "system_config",
+  "billing_entity": "revenue_reports",
+  "transfer_entity": "value_send",
+  "internal_entity": "private_ops",
+  "wf_entity": "workflows",
+  "wf_id": "wf-item.2",
+  "msg_entity": "personal_notifications",
+  "auth_entity": "auth_reset",
+  "audit_entity": "access_trail",
+  "cases": {
+    "goed-v1.5-target-01-case-00": {
+      "class": "idor",
+      "vulnerable_route": "/v1/objects/item.1",
+      "baseline_route": "/v1/objects/item.0",
+      "control_route": "/patched/v1/objects/item.1",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-01-case-01": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/v1/system_config",
+      "baseline_route": "/v1/health",
+      "control_route": "/patched/v1/system_config",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-01-case-02": {
+      "class": "privilege_escalation",
+      "vulnerable_route": "/v1/revenue_reports/company_olpfv",
+      "baseline_route": "/v1/health",
+      "control_route": "/patched/v1/revenue_reports/company_olpfv",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-01-case-03": {
+      "class": "business_logic_abuse",
+      "vulnerable_route": "/v1/value_send/item.0?to=item.1&amount=-100",
+      "baseline_route": "/v1/value_send/item.0?to=item.1&amount=10",
+      "control_route": "/patched/v1/value_send/item.0",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-v1.5-target-01-case-04": {
+      "class": "tenant_isolation_failure",
+      "vulnerable_route": "/v1/tenant/company_vqeni/private_ops",
+      "baseline_route": "/v1/tenant/company_olpfv/private_ops",
+      "control_route": "/patched/v1/tenant/company_vqeni/private_ops",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-01-case-05": {
+      "class": "workflow_authorization_failure",
+      "vulnerable_route": "/v1/workflows/wf-item.2/approve",
+      "baseline_route": "/v1/workflows/wf-item.2/view",
+      "control_route": "/patched/v1/workflows/wf-item.2/approve",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-01-case-06": {
+      "class": "sensitive_data_exposure",
+      "vulnerable_route": "/v1/personal_notifications/item.1/inbox",
+      "baseline_route": "/v1/personal_notifications/item.0/inbox",
+      "control_route": "/patched/v1/personal_notifications/item.1/inbox",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-01-case-07": {
+      "class": "multi_step_chain",
+      "vulnerable_route": "/v1/auth_reset/request?for=item.1",
+      "baseline_route": "/v1/auth_reset/request?for=item.0",
+      "control_route": "/patched/v1/auth_reset/request",
+      "actor": "carol",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "critical"
+    },
+    "goed-v1.5-target-01-case-08": {
+      "class": "idor",
+      "vulnerable_route": "/v1/objects/item.3",
+      "baseline_route": "/v1/objects/item.0",
+      "control_route": "/patched/v1/objects/item.3",
+      "actor": "bob",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-01-case-09": {
+      "class": "broken_access_control",
+      "vulnerable_route": "/v1/access_trail",
+      "baseline_route": "/v1/health",
+      "control_route": "/patched/v1/access_trail",
+      "actor": "dave",
+      "expected": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-v1.5-target-01-case-10": {
+      "class": "clean_public_resource",
+      "vulnerable_route": "/v1/health",
+      "baseline_route": "/v1/health",
+      "control_route": "/v1/health",
+      "actor": "bob",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    },
+    "goed-v1.5-target-01-case-11": {
+      "class": "clean_public_info",
+      "vulnerable_route": "/v1/openapi",
+      "baseline_route": "/v1/openapi",
+      "control_route": "/v1/openapi",
+      "actor": "bob",
+      "expected": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    }
+  },
+  "total_cases": 12,
+  "vulnerable_cases": 10,
+  "clean_cases": 2
+}

@@ -1,0 +1,124 @@
+{
+  "synth-v11": {
+    "case-01-idor-profile": {
+      "class": "idor",
+      "is_vulnerable": true,
+      "actor": "bob",
+      "vulnerable_route": "/api/v11/users/u001/profile",
+      "control_route": "/ctrl/api/v11/users/u001/profile",
+      "baseline_route": "/health"
+    },
+    "case-02-idor-tenant": {
+      "class": "idor",
+      "is_vulnerable": true,
+      "actor": "alice",
+      "vulnerable_route": "/api/v11/tenant/tenant_b/users/u004",
+      "control_route": "/ctrl/api/v11/tenant/tenant_b/users/u004",
+      "baseline_route": "/health"
+    },
+    "case-03-bac-dashboard": {
+      "class": "broken_access_control",
+      "is_vulnerable": true,
+      "actor": "bob",
+      "vulnerable_route": "/api/v11/admin/dashboard",
+      "control_route": "/ctrl/api/v11/admin/dashboard",
+      "baseline_route": "/health"
+    },
+    "case-04-bac-audit": {
+      "class": "broken_access_control",
+      "is_vulnerable": true,
+      "actor": "carol",
+      "vulnerable_route": "/api/v11/admin/audit-log",
+      "control_route": "/ctrl/api/v11/admin/audit-log",
+      "baseline_route": "/health"
+    },
+    "case-05-privesc-billing": {
+      "class": "privilege_escalation",
+      "is_vulnerable": true,
+      "actor": "bob",
+      "vulnerable_route": "/api/v11/billing/tenant_a/records",
+      "control_route": "/ctrl/api/v11/billing/tenant_a/records",
+      "baseline_route": "/health"
+    },
+    "case-06-bizlogic-transfer": {
+      "class": "business_logic_abuse",
+      "is_vulnerable": true,
+      "actor": "bob",
+      "vulnerable_route": "/api/v11/accounts/u002/transfer?to_user=u001&amount=-100",
+      "control_route": "/health",
+      "baseline_route": "/health"
+    },
+    "case-07-tenant-isolation": {
+      "class": "tenant_isolation_failure",
+      "is_vulnerable": true,
+      "actor": "alice",
+      "vulnerable_route": "/api/v11/tenant/tenant_b/internal-data",
+      "control_route": "/ctrl/api/v11/tenant/tenant_b/internal-data",
+      "baseline_route": "/health"
+    },
+    "case-08-workflow-auth": {
+      "class": "workflow_authorization_failure",
+      "is_vulnerable": true,
+      "actor": "frank",
+      "vulnerable_route": "/api/v11/workflows/wf-001/approve",
+      "control_route": "/health",
+      "baseline_route": "/health"
+    },
+    "case-09-sdata-messages": {
+      "class": "sensitive_data_exposure",
+      "is_vulnerable": true,
+      "actor": "bob",
+      "vulnerable_route": "/api/v11/messages/u001/inbox",
+      "control_route": "/ctrl/api/v11/messages/u001/inbox",
+      "baseline_route": "/health"
+    },
+    "case-10-multistep-reset": {
+      "class": "multi_step_chain",
+      "is_vulnerable": true,
+      "actor": "bob",
+      "vulnerable_route": "/api/v11/auth/reset/request?for_user=u001",
+      "control_route": "/health",
+      "baseline_route": "/health"
+    },
+    "case-11-mass-assignment": {
+      "class": "mass_assignment",
+      "is_vulnerable": true,
+      "actor": "bob",
+      "vulnerable_route": "/api/v11/users/u002/update",
+      "control_route": "/health",
+      "baseline_route": "/health"
+    },
+    "case-12-race-condition": {
+      "class": "race_condition",
+      "is_vulnerable": true,
+      "actor": "bob",
+      "vulnerable_route": "/api/v11/counter/claim",
+      "control_route": "/health",
+      "baseline_route": "/health"
+    },
+    "case-13-clean-self": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "alice",
+      "vulnerable_route": "/api/v11/me",
+      "control_route": "/api/v11/me",
+      "baseline_route": "/health"
+    },
+    "case-14-clean-public": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "bob",
+      "vulnerable_route": "/api/v11/public/about",
+      "control_route": "/api/v11/public/about",
+      "baseline_route": "/health"
+    },
+    "case-15-clean-status": {
+      "class": "clean",
+      "is_vulnerable": false,
+      "actor": "carol",
+      "vulnerable_route": "/api/v11/status",
+      "control_route": "/api/v11/status",
+      "baseline_route": "/health"
+    }
+  }
+}

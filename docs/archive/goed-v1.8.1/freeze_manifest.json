@@ -1,0 +1,105 @@
+{
+  "freeze_date": "2026-09-05T03:00:50.583159+00:00",
+  "version": "GOED-v1.8.1",
+  "status": "FROZEN_IMMUTABLE",
+  "aggregate_hashes": {
+    "deterministic_core_source_sha256": "2f8b87a0eb72175c47188ec8e3b08ef9d61e831cbfa7a16305d0a070c6c97bd9",
+    "llm_interface_sha256": "683009e0d3c3478f3ace52fcd4d2ecb98d00fa6ae394f3f4c6ea38cb1a5c51e0",
+    "llm_providers_sha256": "36d89557fbabc58804c14b1f961f6eadd428a223133b1ee615834c423d1e8243",
+    "config_schema_sha256": "54ece0e229044bb12632a1c3da6786327d273de61afaa0740ebb4f7c7f05f166",
+    "tool_policy_sha256": "e7c7eb51ab63fdcf0a901c3fd3dda2836b69b6da42434a2ff82bebc1c5d356d0"
+  },
+  "governance": {
+    "vip_qualified": false,
+    "qualification_state": "CONDITIONAL",
+    "P10": "CLOSED",
+    "P9": "CLOSED"
+  },
+  "note": "Baseline for v1.8.2 real LLM differential capability measurement. Deterministic core FROZEN.",
+  "artifacts": {
+    "src/webpent/cqa_v2/causal_guard.py": {
+      "sha256": "b1b9cc1cdcacaf4897a2628510d6c3d7be2f451caa2fc8d4399746a30c74339f",
+      "size_bytes": 25282
+    },
+    "src/webpent/cqa_v2/proof_bundle_builder.py": {
+      "sha256": "8a7a5f04100f4c2f0ae0a3f17ad81b0069ef80bb0527293d5c501b9dee4d15b7",
+      "size_bytes": 9537
+    },
+    "src/webpent/cqa_v2/replay_verifier.py": {
+      "sha256": "1c8535577604719c4ad486bb6747eb46fb76912ce10b34d83f966a9876106913",
+      "size_bytes": 3446
+    },
+    "src/webpent/models/proof_bundle.py": {
+      "sha256": "bbd2e63b891dc540a5abd02c7e54603f3a5d1af7b9ac4d0753ba1d0ec3ef7d2f",
+      "size_bytes": 22181
+    },
+    "src/webpent/goed_v1/real_stateful_executor.py": {
+      "sha256": "3393cf1a77c1cc56af6a51b36526d331879105261e7d25544f2d60e76ab394ad",
+      "size_bytes": 34525
+    },
+    "src/webpent/goed_v1/business_logic_evaluator.py": {
+      "sha256": "cfcb7f693dd1633bcccd21cda75e35d459933aed488815499d2ef4574f0853df",
+      "size_bytes": 27590
+    },
+    "src/webpent/llm_researcher/__init__.py": {
+      "sha256": "760c1c85c4d67bd037a2e4f7975d270c221726e6e631250da2cc1f5a678c9625",
+      "size_bytes": 799
+    },
+    "src/webpent/llm_researcher/interface.py": {
+      "sha256": "75319fa9e6d636835bd9e499ea544d6d2b05c7641952679cd3f385c4dc3efc1e",
+      "size_bytes": 16854
+    },
+    "src/webpent/llm_researcher/tool_boundary.py": {
+      "sha256": "f0280303e2d832d73e228a1966c0feaba437947d0628e6a25be495cdead32dcf",
+      "size_bytes": 7056
+    },
+    "src/webpent/llm_researcher/research_loop.py": {
+      "sha256": "23e93a258b1edf3cb9f7c5829d95b200dc662004fb059b1cd9170c71d81882d3",
+      "size_bytes": 8292
+    },
+    "src/webpent/llm_researcher/mock_llm.py": {
+      "sha256": "9409a60088bd4a62cd21bf26280c2633801c876f126ca3be5e9ea1ba95f5468b",
+      "size_bytes": 4297
+    },
+    "src/webpent/llm_researcher/providers/__init__.py": {
+      "sha256": "b4c37b1d172b0ba31e673db2764725d507909fcb205b72c083bb6265631d7fca",
+      "size_bytes": 452
+    },
+    "src/webpent/llm_researcher/providers/base.py": {
+      "sha256": "4b6503d91392c06a11c82eae116bbc70a803d596c982b4178050d091fa1da86c",
+      "size_bytes": 3106
+    },
+    "src/webpent/llm_researcher/providers/mock_provider.py": {
+      "sha256": "7a27211a55d91812279fe1bcfa937ac34d6b31eb29f0d882dc361988be37c5e5",
+      "size_bytes": 3217
+    },
+    "src/webpent/llm_researcher/providers/openai_compatible.py": {
+      "sha256": "8133d5c84f9465269c0ebb43c2d38c49589c81ef0c6227cbf99d1c318d498323",
+      "size_bytes": 2804
+    },
+    "src/webpent/llm_researcher/providers/factory.py": {
+      "sha256": "57733d207dc4d7953172e678be5722552e1d3068ef9b2f7bdc13414a5b0527d9",
+      "size_bytes": 1107
+    },
+    "release/config_schema.json": {
+      "sha256": "9560d2081f65981b371eeb3bba317438793c84b531bfca22df3014aaa04024a1",
+      "size_bytes": 1349
+    },
+    "release/health_check.py": {
+      "sha256": "2abebc5d365038599a64f0aa1b81aa66f22bd6eda8726f3d1865f2e3696ccea0",
+      "size_bytes": 2550
+    },
+    "release/start_webpent.sh": {
+      "sha256": "13af99beb51df376d656edd81e48b9b539a6fb3a869ed3a93be1604656cadc3e",
+      "size_bytes": 885
+    },
+    "release/benchmark_runner.py": {
+      "sha256": "1198de89d1677c772489e96063f531afca7623d121c7713f9d0a31f8d56b9dc4",
+      "size_bytes": 3634
+    },
+    "release/verify_proof_bundle.py": {
+      "sha256": "5b0fe683f49c995f37542c4797b8afe2759f5f1298cfe5b5590b99ab9b4c1b41",
+      "size_bytes": 1984
+    }
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "window": "UM-DR-31",
+  "generated_at": "2026-11-07",
+  "version": "0.37.0",
+  "baseline": "v0.36.0 / UM-DR-30 (HEAD 97c4931)",
+  "operator_priority": "evidence-driven adaptive research without sacrificing precision, authorization, safety, reproducibility, or evidence integrity",
+  "release_acceptance": {
+    "baseline_integrity": {
+      "status": "PASS",
+      "evidence": [
+        "UM-DR-30 baseline verified independently before the first edit (HEAD 97c4931 clean, suite 8661 collected = BUILD_INFO, all gates green)",
+        "baseline preservation is GIT-VERIFIABLE, not archive-claimed: no v0.36.0 release archive was ever delivered (the last archived release is v0.35.0_UMDR29, digest recorded in its delivery commit); the preserved UM-DR-30 baseline is the git tree at 97c4931/a2e05a3, untouched (audit F04 correction, UM-DR-31.1 R10)",
+        "all UM-DR-31 changes additive + flag-gated; flag-off = byte-comparable graph shape, byte-stable stateful behavior"
+      ]
+    },
+    "architecture_and_integration": {
+      "status": "PASS",
+      "evidence": [
+        "research_loop node wired ahead of the strategist on six conditional routes + the research_loop->strategist edge (flag-gated; verified in the real build_graph)",
+        "every node output key is a declared PentestState channel (the R2-graph-03 lesson applied; channel contract + reducer pinned)",
+        "the complete loop observable in the production graph: signals -> hypotheses -> strategist ranking -> authorized execution -> causal verification -> coverage update -> next decision",
+        "graph node inventory: 55 nodes flag-off / 56 flag-on (research_loop)"
+      ],
+      "notes": "the rabbit_hole->strategist route is deliberately not redirected (that pass filters to RABBIT_HOLE-origin only — documented decision)"
+    },
+    "detection_integrity": {
+      "status": "PASS",
+      "evidence": [
+        "cqa_v2/causal_guard.py untouched this window (zero behavioral change to confirmation — the precision guarantee)",
+        "no component gained confirmation authority; the research_loop node never emits findings; telemetry names the unchanged authority",
+        "promotion gates unchanged: research hypotheses DEFER below threshold (no bypass), ineligible classes blocked by EXPLOITABLE_CLASSES, eligible classes promote through the same function",
+        "ProofBundle contract asserted end-to-end on the confirmed finding (confirmation_authority, evidence trace, negative controls)"
+      ]
+    },
+    "bounded_autonomy": {
+      "status": "PASS",
+      "evidence": [
+        "max_research_iterations (default 3, clamp 16) x max_research_hypotheses_per_iteration (default 12, clamp 64); both mandatory — invalid values fail the node closed",
+        "capped invocations are honest pass-throughs (capped telemetry, no work); 6-pass termination pinned",
+        "signal scan caps (400 coverage / 200 invariant / 200 workflow); stateful hints bounded at 64 directories",
+        "stateful_discovery_max_requests operator-configurable (1..3600, default 360)"
+      ]
+    },
+    "safety_and_authorization": {
+      "status": "PASS",
+      "evidence": [
+        "scope-denied invariant results and scope-denied workflow observations never become hypotheses (pinned)",
+        "out-of-scope stateful cases refused before any request (E2E, all arms)",
+        "hints change ORDER only — same cases, same budget ceiling, same scope checks, no authority change",
+        "fail-closed flag default; fail-soft internal errors (honest telemetry, campaign continues)"
+      ]
+    },
+    "regression_safety": {
+      "status": "PASS",
+      "evidence": [
+        "full chunked suite: 8702 passed / 0 failed / 7 skipped / 3 xfailed (8711 collected, all 672 test files)",
+        "frozen gate green after the 6-file documented re-freeze; direct-I/O 1155 records regenerated deliberately; broad-exception register updated (+2 documented)",
+        "UM-DR-28/30 suites green (stateful e2e, coverage gap report, invariant wiring, family channel contract, run_campaign contract)"
+      ]
+    },
+    "quantitative_evaluation": {
+      "status": "PASS",
+      "evidence": [
+        "four-arm ablation under identical conditions (same target, same 36-request ceiling, same scope): baseline 0 / coverage-only 0 / invariant-only 1 / full 1 confirmed (the ground truth), 0 false positives in every arm",
+        "reports/qualification/umdr31_ablation.json written with the honest population labeling",
+        "no recall/precision claim beyond the fixture; the historical numbers unchanged and unaltered"
+      ],
+      "notes": "team-authored fixture population — development/regression evidence, NOT independent validation"
+    },
+    "independent_holdout_validation": {
+      "status": "BLOCKED",
+      "evidence": [
+        "no operator-supplied independent holdout corpus exists",
+        "Charter thresholds unchanged (M10: recall >= 0.5 AND precision >= 0.7 on an independent population — remains closed)",
+        "no holdout was fabricated and no external validation was simulated"
+      ]
+    },
+    "documentation_and_release": {
+      "status": "PASS",
+      "evidence": [
+        "WEBPENT_MASTER_GUIDE.md and WEBPENT_ENGINEERING_REFERENCE.md updated to the actual implementation (research loop sections)",
+        "UMDR31_EXECUTION_REPORT.md + qualification matrix + this readiness matrix",
+        "DRIFT_REGISTER UM-DR-31 entry; CHANGELOG 0.37.0; version SSOT verified by the packaging gate",
+        "release archive + sha256 + the three standalone documents delivered to the operator download path"
+      ]
+    }
+  },
+  "final_judgments": {
+    "judgment_a_engineering_completion": "YES — the adaptive research loop is implemented, production-connected, bounded, safe, tested (50 new tests; 8702/0 full suite) and ready to become the next immutable baseline",
+    "judgment_b_research_capability": "DEMONSTRATED ON CONTROLLED FIXTURE ONLY — the priority ordering reaches a ground truth the baseline cannot under the same budget with zero false positives; independent qualification remains BLOCKED_EXTERNAL_DEPENDENCY; no real-world recall/precision claim is made"
+  },
+  "deployment_classification": "LAB_QUALIFIED (single-tenant controlled); enable_adaptive_research_loop default False (fail-closed)"
+}

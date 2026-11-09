@@ -1,0 +1,32 @@
+# Generated from GitHub's official Bug Bounty rules.
+# Review the current target list before testing; third-party hosted subdomains are
+# not automatically in scope.
+in_scope:
+  - value: '*.github.com'
+    kind: wildcard
+    protocol: https
+    source: https://bounty.github.com/rules.html
+  - value: '*.githubusercontent.com'
+    kind: wildcard
+    protocol: https
+    source: https://bounty.github.com/rules.html
+  - value: api.github.com
+    kind: domain
+    protocol: https
+    source: https://bounty.github.com/rules.html
+out_of_scope:
+  - value: github.com
+    kind: domain
+    protocol: http
+    source: https://bounty.github.com/rules.html
+limits:
+  max_requests_per_second: 1
+  max_concurrent_requests: 1
+  max_violations: 3
+  no_destructive: true
+blacklisted_payloads:
+  - "DROP TABLE"
+  - "rm -rf"
+instructions:
+  - "Test only GitHub-operated in-scope sites and accounts/repositories you own."
+  - "Do not run DDoS, excessive automated traffic, PII access, or public disclosure."

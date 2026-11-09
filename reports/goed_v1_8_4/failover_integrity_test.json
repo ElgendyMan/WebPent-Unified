@@ -1,0 +1,49 @@
+{
+  "phase": "17_failover_integrity",
+  "scope_note": "Tests pool.py's own failover mechanism via direct state manipulation and a monkeypatched provider class. Does NOT validate real-API behavior (that requires LLM_API_KEY and belongs to Phases 6/11/15).",
+  "scenarios_passed": 8,
+  "scenarios_total": 8,
+  "results": [
+    {
+      "scenario": "1_healthy",
+      "pass": true,
+      "detail": "eligible_before=True state_after_success={'slot_id': 's0', 'status': 'healthy', 'request_count': 1, 'success_count': 1, 'failure_count': 0, 'failure_category': None, 'last_latency_ms': 120.0, 'total_tokens_used': 50, 'api_key_prefix': None, 'has_key': False}"
+    },
+    {
+      "scenario": "2_rate_limited_then_recovers",
+      "pass": true,
+      "detail": "blocked_immediately=True recovered_after_window=True"
+    },
+    {
+      "scenario": "3_quota_exhausted_no_auto_recovery",
+      "pass": true,
+      "detail": "quota exhaustion has no time-based recovery path by design (correct - requires external top-up)"
+    },
+    {
+      "scenario": "4_auth_invalid_permanent",
+      "pass": true,
+      "detail": "invalid key correctly never becomes eligible again"
+    },
+    {
+      "scenario": "5_timeout_escalates_to_circuit_breaker_at_3",
+      "pass": true,
+      "detail": "status_after_1_timeout=timeout still_eligible_after_1=True still_eligible_after_2=True (NOTE: no cooldown applied until 3rd failure - a timing-out slot is retried with zero backoff for the first 2 failures)"
+    },
+    {
+      "scenario": "6_provider_unavailable_zero_slots",
+      "pass": true,
+      "detail": "has_real_slots=False raised_REAL_API_UNAVAILABLE=True"
+    },
+    {
+      "scenario": "7_failover_a_fails_b_succeeds",
+      "pass": true,
+      "detail": "slots_discovered=True response_came_from_slot_b=True slot_a_failures=1 slot_b_successes=1"
+    },
+    {
+      "scenario": "8_all_slots_exhausted",
+      "pass": true,
+      "detail": "raised_REAL_API_UNAVAILABLE_with_exhausted_message=True"
+    }
+  ],
+  "phase_pass": true
+}

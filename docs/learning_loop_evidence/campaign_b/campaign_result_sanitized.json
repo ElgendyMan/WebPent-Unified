@@ -1,0 +1,3027 @@
+{
+  "adapter_used": false,
+  "campaign_id": "learning-demo-20261001t111635z-b",
+  "campaign_summary": {
+    "decisions_executed": 11,
+    "engagement_id": "learning-demo-20261001t111635z-b",
+    "promoted_count": 0,
+    "rejected_count": 11,
+    "target_url_digest": "7f0f5b4c620b8ed6"
+  },
+  "client_id": "learning-demo-client",
+  "crawl_summary": {
+    "event_count": 24,
+    "route_count": 21,
+    "stats": {
+      "budget_exhausted": false,
+      "duration_seconds": 21.052,
+      "endpoints": 21,
+      "forms": 0,
+      "halted": false,
+      "pages": 21,
+      "parameters": 1
+    }
+  },
+  "decisions": [
+    {
+      "actor_id": "unauthenticated",
+      "api_type": "rest",
+      "causal_difference": null,
+      "decision": 1,
+      "evidence_quality": 2,
+      "experiment_id": "exp_ssrf_v1",
+      "hypothesis_id": "h_recon_ssrf_624cb9f05132",
+      "identity_binding_result": {
+        "actor_id": "unauthenticated",
+        "authorization_context": "owner=unauthenticated",
+        "baseline_access_result": 200,
+        "baseline_actor_id": "unauthenticated",
+        "candidate_access_result": 200,
+        "causal_difference": null,
+        "expected_owner": "unauthenticated",
+        "identity_bound": false,
+        "identity_bound_reason": "ssrf_not_proven indicators=0 baseline=0 control=0 nc=200",
+        "negative_control_result": 200,
+        "resource_id": "/",
+        "resource_owner": "unauthenticated"
+      },
+      "identity_bound": false,
+      "identity_bound_reason": "ssrf_not_proven indicators=0 baseline=0 control=0 nc=200",
+      "outcome_tracker_update": {
+        "feeds_next_decision": true,
+        "history_index": 0,
+        "hypothesis_id": "h_recon_ssrf_624cb9f05132",
+        "information_value": 2.0,
+        "justification": "avi_decision_1_REJECTED",
+        "outcome_class": "refuted",
+        "signature": "exp_ssrf_v1",
+        "timestamp": "2026-10-01T11:17:48.036108+00:00"
+      },
+      "promotion": {
+        "decision": "REJECTED",
+        "finding_id": "finding_ssrf_e6c67abc",
+        "gates_failed": [
+          "causal_validator_confirmed",
+          "semantic_identity_bound"
+        ],
+        "gates_passed": [
+          "real_runtime_observations",
+          "baseline_present",
+          "negative_control_present",
+          "proof_bundle_signed",
+          "replay_verified",
+          "no_external_scanner_authority"
+        ],
+        "pipeline": "PromotionPipeline_v1",
+        "reason": "causal_validator_confirmed:rejected; semantic_identity_bound:rejected",
+        "vulnerability_class": "SSRF"
+      },
+      "proof_bundle": {
+        "authenticity_algorithm": "hmac_sha256_v1",
+        "authenticity_key_version": "env_override_v1",
+        "authenticity_tag": "hmac_sha256:3964f111dbeea8ff66b9c8fa31405d7626cb4a55552ef6a67339b896487176f4",
+        "baseline_digest": "sha256:0b46492eb0095180d278bafcd1abf770bbc35c24f87dbed785331d99972fa3ce",
+        "baseline_evidence_ref": null,
+        "bundle_id": "proof_bundle_054553e705a34546ac81c4e4eaab7c02",
+        "campaign_id": "learning-demo-20261001t111635z-b",
+        "candidate_evidence_ref": null,
+        "causal_oracle": {
+          "actor_id": "unauthenticated",
+          "baseline_access_result": 200,
+          "baseline_complete": true,
+          "candidate_access_result": 200,
+          "causal_difference": null,
+          "causal_signal": false,
+          "discriminating_signal": "no differential SSRF indicators or control was not clean",
+          "expected_owner": "unauthenticated",
+          "identity_bound": false,
+          "identity_bound_reason": "ssrf_not_proven indicators=0 baseline=0 control=0 nc=200",
+          "negative_control_complete": true,
+          "negative_control_result": 200,
+          "resource_id": "/",
+          "validator_outcome": "REFUTED"
+        },
+        "chain_of_custody": [
+          {
+            "action": "seal",
+            "actor": "autonomous_validation_intelligence_v1",
+            "at": "2026-10-01T11:17:48.034173Z",
+            "note": ""
+          }
+        ],
+        "cleanup_status": "not_applicable",
+        "engagement_id": "learning-demo-20261001t111635z-b",
+        "evidence_digests": [
+          "sha256:0b46492eb0095180d278bafcd1abf770bbc35c24f87dbed785331d99972fa3ce",
+          "sha256:d8532d987f3ac46be1762d5c6dcac9b6cf6383f08d4e4a2396de2cf7daab6987",
+          "sha256:938f763c56e68e89b51eaebeb1f119051d8198981c68307fec8d4b5afcdc504b"
+        ],
+        "evidence_origin": "target_runtime",
+        "evidence_refs": [
+          "obs_9ced0c5256447fd1",
+          "obs_941717eadf17f6a2",
+          "obs_2e2cd6ae29057535"
+        ],
+        "finding_id": "finding_ssrf_e6c67abc",
+        "hypothesis_id": "h_recon_ssrf_624cb9f05132",
+        "identity_context": {
+          "actor_id": "unauthenticated",
+          "baseline_actor_id": "unauthenticated",
+          "execution_identity": "exec_exp_ssrf_v1_7f0f5b4c",
+          "expected_owner": "unauthenticated",
+          "identity_bound": false,
+          "resource_id": "/",
+          "resource_owner": "unauthenticated"
+        },
+        "invariant_analysis": {},
+        "negative_control_digest": "sha256:938f763c56e68e89b51eaebeb1f119051d8198981c68307fec8d4b5afcdc504b",
+        "negative_control_evidence_ref": null,
+        "negative_control_independent": true,
+        "oracle_decision": "REFUTED",
+        "redaction_manifest": [],
+        "replay_metadata": {
+          "replay_component": "ReplayVerifier_v1",
+          "replay_required": true,
+          "replayable": true,
+          "requests_executed": 3
+        },
+        "request_digests": [
+          "sha256:e7c1b3b3c0080108515457b2aa489b90cbfd69f848998cbe793ff2a6a922a65b",
+          "sha256:b97c0d989879971e72d195f959acd262f641db17149b83e1c2efceba83542e4c",
+          "sha256:20ea5f2de08bb72601cad2232f5930d98dcb54583429b83a4d5b407fee16ee94"
+        ],
+        "response_digests": [
+          "sha256:0b46492eb0095180d278bafcd1abf770bbc35c24f87dbed785331d99972fa3ce",
+          "sha256:d8532d987f3ac46be1762d5c6dcac9b6cf6383f08d4e4a2396de2cf7daab6987",
+          "sha256:938f763c56e68e89b51eaebeb1f119051d8198981c68307fec8d4b5afcdc504b"
+        ],
+        "run_id": "exp_ssrf_v1",
+        "scope_context": {
+          "authorized_via": "ScopeLaw+ToolBoundary",
+          "tool": "httpx_bounded"
+        },
+        "seal_digest": "sha256:75272358fcad14c4d68e4af9845f97102513d6e6fee049ce68d0b48c8dbc83b8",
+        "sealed": true,
+        "target_backed": true,
+        "target_context_hash": null,
+        "target_fingerprint": "7f0f5b4c620b8ed6",
+        "target_identity": null,
+        "target_package_id": null,
+        "target_package_policy_digest": null,
+        "target_package_scope_digest": null,
+        "target_package_sha256": null,
+        "validator_config_digest": null,
+        "validator_id": "canonical_validator_ssrf",
+        "validator_result": {
+          "discriminating_signal": "no differential SSRF indicators or control was not clean",
+          "evidence_quality": 2,
+          "outcome": "REFUTED"
+        },
+        "validator_version": "validator_coverage_v1",
+        "vulnerability_class": "SSRF"
+      },
+      "proof_result": {
+        "bundle_created": true,
+        "bundle_id": "proof_bundle_054553e705a34546ac81c4e4eaab7c02",
+        "component": "ProofBundle (existing sealed evidence authority)",
+        "evidence_origin": "target_runtime",
+        "seal_digest": "sha256:75272358fcad14c4d68e4af9845f97102513d6e6fee049ce68d0b48c8dbc83b8",
+        "seal_verified_via_replay": true,
+        "sealed": true
+      },
+      "proof_seal_verified": true,
+      "proof_sealed": true,
+      "real_http_executed": true,
+      "replay_result": {
+        "digests_match": true,
+        "expected_outcome": "REFUTED",
+        "outcome_match": true,
+        "replay_component": "ReplayVerifier_v1_2_semantic",
+        "replay_verified": true,
+        "replayed_outcome": "REFUTED",
+        "seal_verified": true,
+        "semantic_match": true
+      },
+      "replay_verified": true,
+      "request_observations": [
+        {
+          "method": "GET",
+          "path": "/",
+          "request_digest": "sha256:e7c1b3b3c0080108515457b2aa489b90cbfd69f848998cbe793ff2a6a922a65b"
+        },
+        {
+          "method": "GET",
+          "path": "/",
+          "request_digest": "sha256:b97c0d989879971e72d195f959acd262f641db17149b83e1c2efceba83542e4c"
+        },
+        {
+          "method": "GET",
+          "path": "/",
+          "request_digest": "sha256:20ea5f2de08bb72601cad2232f5930d98dcb54583429b83a4d5b407fee16ee94"
+        }
+      ],
+      "resource_id": "/",
+      "response_observations": [
+        {
+          "response_digest": "sha256:0b46492eb0095180d278bafcd1abf770bbc35c24f87dbed785331d99972fa3ce",
+          "status_code": 200
+        },
+        {
+          "response_digest": "sha256:d8532d987f3ac46be1762d5c6dcac9b6cf6383f08d4e4a2396de2cf7daab6987",
+          "status_code": 200
+        },
+        {
+          "response_digest": "sha256:938f763c56e68e89b51eaebeb1f119051d8198981c68307fec8d4b5afcdc504b",
+          "status_code": 200
+        }
+      ],
+      "selection": {
+        "api_type": "rest",
+        "experiment_id": "exp_ssrf_v1",
+        "graphql_query": null,
+        "hypothesis_id": "h_recon_ssrf_624cb9f05132",
+        "rejected_candidates": [
+          {
+            "hypothesis_id": "h_recon_info_disclosure_f52ebe3ca730",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_ec403eb5a17b",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_e7b0bab207d8",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_d05c1ea7e856",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_b0c09fbad3ec",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_af8751134a34",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_a1cf803f630c",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_54f8d02da7c8",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          }
+        ],
+        "selected": true,
+        "selected_candidate_score": 1100,
+        "selection_reason": "deterministic_score:registry_coverage+information_value+novelty",
+        "selector_version": "autonomous_experiment_selector_v1",
+        "target_path": "/",
+        "vulnerability_class": "SSRF"
+      },
+      "stopped": false,
+      "validator_outcome": "REFUTED",
+      "vulnerability_class": "SSRF",
+      "world_model_delta": {
+        "api": "EvidenceGraph.register_hypothesis+record_observation_outcome+record_experiment (existing world model seam)",
+        "entities_delta": 0,
+        "entity_count_after": 18,
+        "experiments_delta": 1,
+        "hypotheses_delta": 1,
+        "hypothesis_count_after": 1,
+        "information_value": 0.4,
+        "observation_id": "obs_exp_ssrf_v1_d1",
+        "relation_count_after": 11,
+        "relations_delta": 2,
+        "supports_hypothesis": false,
+        "updated": true
+      }
+    },
+    {
+      "actor_id": "unauthenticated",
+      "api_type": "rest",
+      "causal_difference": null,
+      "decision": 2,
+      "evidence_quality": 2,
+      "experiment_id": "exp_infodisc_v1",
+      "hypothesis_id": "h_recon_info_disclosure_f52ebe3ca730",
+      "identity_binding_result": {
+        "actor_id": "unauthenticated",
+        "authorization_context": "owner=unauthenticated",
+        "baseline_access_result": 200,
+        "baseline_actor_id": "unauthenticated",
+        "candidate_access_result": 200,
+        "causal_difference": null,
+        "expected_owner": "unauthenticated",
+        "identity_bound": false,
+        "identity_bound_reason": "info_disclosure_not_proven sensitive=0 baseline=0 control=0",
+        "negative_control_result": 200,
+        "resource_id": "/api/Feedbacks",
+        "resource_owner": "unauthenticated"
+      },
+      "identity_bound": false,
+      "identity_bound_reason": "info_disclosure_not_proven sensitive=0 baseline=0 control=0",
+      "outcome_tracker_update": {
+        "feeds_next_decision": true,
+        "history_index": 1,
+        "hypothesis_id": "h_recon_info_disclosure_f52ebe3ca730",
+        "information_value": 2.0,
+        "justification": "avi_decision_2_REJECTED",
+        "outcome_class": "refuted",
+        "signature": "exp_infodisc_v1",
+        "timestamp": "2026-10-01T11:17:48.164904+00:00"
+      },
+      "promotion": {
+        "decision": "REJECTED",
+        "finding_id": "finding_info_disclosure_8641f9fc",
+        "gates_failed": [
+          "causal_validator_confirmed",
+          "semantic_identity_bound"
+        ],
+        "gates_passed": [
+          "real_runtime_observations",
+          "baseline_present",
+          "negative_control_present",
+          "proof_bundle_signed",
+          "replay_verified",
+          "no_external_scanner_authority"
+        ],
+        "pipeline": "PromotionPipeline_v1",
+        "reason": "causal_validator_confirmed:rejected; semantic_identity_bound:rejected",
+        "vulnerability_class": "INFO_DISCLOSURE"
+      },
+      "proof_bundle": {
+        "authenticity_algorithm": "hmac_sha256_v1",
+        "authenticity_key_version": "env_override_v1",
+        "authenticity_tag": "hmac_sha256:ef13985f36a4d192c122786458434b61726e7d42a4195d4e8fc600856ba01028",
+        "baseline_digest": "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+        "baseline_evidence_ref": null,
+        "bundle_id": "proof_bundle_21d05049a6e04ec9b50181216a43c4a4",
+        "campaign_id": "learning-demo-20261001t111635z-b",
+        "candidate_evidence_ref": null,
+        "causal_oracle": {
+          "actor_id": "unauthenticated",
+          "baseline_access_result": 200,
+          "baseline_complete": true,
+          "candidate_access_result": 200,
+          "causal_difference": null,
+          "causal_signal": false,
+          "discriminating_signal": "no differential sensitive data",
+          "expected_owner": "unauthenticated",
+          "identity_bound": false,
+          "identity_bound_reason": "info_disclosure_not_proven sensitive=0 baseline=0 control=0",
+          "negative_control_complete": true,
+          "negative_control_result": 200,
+          "resource_id": "/api/Feedbacks",
+          "validator_outcome": "REFUTED"
+        },
+        "chain_of_custody": [
+          {
+            "action": "seal",
+            "actor": "autonomous_validation_intelligence_v1",
+            "at": "2026-10-01T11:17:48.163530Z",
+            "note": ""
+          }
+        ],
+        "cleanup_status": "not_applicable",
+        "engagement_id": "learning-demo-20261001t111635z-b",
+        "evidence_digests": [
+          "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+          "sha256:1c8063fe59ee0002dd94c2cd6eef2e0ac7ee352b461a470160395fbaced07c9f",
+          "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75"
+        ],
+        "evidence_origin": "target_runtime",
+        "evidence_refs": [
+          "obs_ab4a0b31e7d161c3",
+          "obs_6aa2fa1c63cbe06d",
+          "obs_29afbb9fdcd19120"
+        ],
+        "finding_id": "finding_info_disclosure_8641f9fc",
+        "hypothesis_id": "h_recon_info_disclosure_f52ebe3ca730",
+        "identity_context": {
+          "actor_id": "unauthenticated",
+          "baseline_actor_id": "unauthenticated",
+          "execution_identity": "exec_exp_infodisc_v1_7f0f5b4c",
+          "expected_owner": "unauthenticated",
+          "identity_bound": false,
+          "resource_id": "/api/Feedbacks",
+          "resource_owner": "unauthenticated"
+        },
+        "invariant_analysis": {},
+        "negative_control_digest": "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75",
+        "negative_control_evidence_ref": null,
+        "negative_control_independent": true,
+        "oracle_decision": "REFUTED",
+        "redaction_manifest": [],
+        "replay_metadata": {
+          "replay_component": "ReplayVerifier_v1",
+          "replay_required": true,
+          "replayable": true,
+          "requests_executed": 3
+        },
+        "request_digests": [
+          "sha256:e7c1b3b3c0080108515457b2aa489b90cbfd69f848998cbe793ff2a6a922a65b",
+          "sha256:2883d68781f16448bceb94d4370315228bd7df24841834b0530d2ab4887852e5",
+          "sha256:20ea5f2de08bb72601cad2232f5930d98dcb54583429b83a4d5b407fee16ee94"
+        ],
+        "response_digests": [
+          "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+          "sha256:1c8063fe59ee0002dd94c2cd6eef2e0ac7ee352b461a470160395fbaced07c9f",
+          "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75"
+        ],
+        "run_id": "exp_infodisc_v1",
+        "scope_context": {
+          "authorized_via": "ScopeLaw+ToolBoundary",
+          "tool": "httpx_bounded"
+        },
+        "seal_digest": "sha256:291102aed8444b5804d3591bbf7df87ac12393ae444aadeb41633f2e9152792e",
+        "sealed": true,
+        "target_backed": true,
+        "target_context_hash": null,
+        "target_fingerprint": "7f0f5b4c620b8ed6",
+        "target_identity": null,
+        "target_package_id": null,
+        "target_package_policy_digest": null,
+        "target_package_scope_digest": null,
+        "target_package_sha256": null,
+        "validator_config_digest": null,
+        "validator_id": "canonical_validator_info_disclosure",
+        "validator_result": {
+          "discriminating_signal": "no differential sensitive data",
+          "evidence_quality": 2,
+          "outcome": "REFUTED"
+        },
+        "validator_version": "validator_coverage_v1",
+        "vulnerability_class": "INFO_DISCLOSURE"
+      },
+      "proof_result": {
+        "bundle_created": true,
+        "bundle_id": "proof_bundle_21d05049a6e04ec9b50181216a43c4a4",
+        "component": "ProofBundle (existing sealed evidence authority)",
+        "evidence_origin": "target_runtime",
+        "seal_digest": "sha256:291102aed8444b5804d3591bbf7df87ac12393ae444aadeb41633f2e9152792e",
+        "seal_verified_via_replay": true,
+        "sealed": true
+      },
+      "proof_seal_verified": true,
+      "proof_sealed": true,
+      "real_http_executed": true,
+      "replay_result": {
+        "digests_match": true,
+        "expected_outcome": "REFUTED",
+        "outcome_match": true,
+        "replay_component": "ReplayVerifier_v1_2_semantic",
+        "replay_verified": true,
+        "replayed_outcome": "REFUTED",
+        "seal_verified": true,
+        "semantic_match": true
+      },
+      "replay_verified": true,
+      "request_observations": [
+        {
+          "method": "GET",
+          "path": "/",
+          "request_digest": "sha256:e7c1b3b3c0080108515457b2aa489b90cbfd69f848998cbe793ff2a6a922a65b"
+        },
+        {
+          "method": "GET",
+          "path": "/api/Feedbacks",
+          "request_digest": "sha256:2883d68781f16448bceb94d4370315228bd7df24841834b0530d2ab4887852e5"
+        },
+        {
+          "method": "GET",
+          "path": "/",
+          "request_digest": "sha256:20ea5f2de08bb72601cad2232f5930d98dcb54583429b83a4d5b407fee16ee94"
+        }
+      ],
+      "resource_id": "/api/Feedbacks",
+      "response_observations": [
+        {
+          "response_digest": "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+          "status_code": 200
+        },
+        {
+          "response_digest": "sha256:1c8063fe59ee0002dd94c2cd6eef2e0ac7ee352b461a470160395fbaced07c9f",
+          "status_code": 200
+        },
+        {
+          "response_digest": "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75",
+          "status_code": 200
+        }
+      ],
+      "selection": {
+        "api_type": "rest",
+        "experiment_id": "exp_infodisc_v1",
+        "graphql_query": null,
+        "hypothesis_id": "h_recon_info_disclosure_f52ebe3ca730",
+        "rejected_candidates": [
+          {
+            "hypothesis_id": "h_recon_info_disclosure_ec403eb5a17b",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_e7b0bab207d8",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_d05c1ea7e856",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_b0c09fbad3ec",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_af8751134a34",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_a1cf803f630c",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_54f8d02da7c8",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_21029301197e",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          }
+        ],
+        "selected": true,
+        "selected_candidate_score": 1100,
+        "selection_reason": "deterministic_score:registry_coverage+information_value+novelty",
+        "selector_version": "autonomous_experiment_selector_v1",
+        "target_path": "/api/Feedbacks",
+        "vulnerability_class": "INFO_DISCLOSURE"
+      },
+      "stopped": false,
+      "validator_outcome": "REFUTED",
+      "vulnerability_class": "INFO_DISCLOSURE",
+      "world_model_delta": {
+        "api": "EvidenceGraph.register_hypothesis+record_observation_outcome+record_experiment (existing world model seam)",
+        "entities_delta": 0,
+        "entity_count_after": 18,
+        "experiments_delta": 1,
+        "hypotheses_delta": 1,
+        "hypothesis_count_after": 2,
+        "information_value": 0.4,
+        "observation_id": "obs_exp_infodisc_v1_d2",
+        "relation_count_after": 13,
+        "relations_delta": 2,
+        "supports_hypothesis": false,
+        "updated": true
+      }
+    },
+    {
+      "actor_id": "unauthenticated",
+      "api_type": "rest",
+      "causal_difference": null,
+      "decision": 3,
+      "evidence_quality": 1,
+      "experiment_id": "exp_infodisc_v1",
+      "hypothesis_id": "h_recon_info_disclosure_ec403eb5a17b",
+      "identity_binding_result": {
+        "actor_id": "unauthenticated",
+        "authorization_context": "owner=unauthenticated",
+        "baseline_access_result": 200,
+        "baseline_actor_id": "unauthenticated",
+        "candidate_access_result": 500,
+        "causal_difference": null,
+        "expected_owner": "unauthenticated",
+        "identity_bound": false,
+        "identity_bound_reason": "info_disclosure_not_proven sensitive=1 baseline=0 control=0",
+        "negative_control_result": 200,
+        "resource_id": "/rest/continue-code/apply/",
+        "resource_owner": "unauthenticated"
+      },
+      "identity_bound": false,
+      "identity_bound_reason": "info_disclosure_not_proven sensitive=1 baseline=0 control=0",
+      "outcome_tracker_update": {
+        "feeds_next_decision": true,
+        "history_index": 2,
+        "hypothesis_id": "h_recon_info_disclosure_ec403eb5a17b",
+        "information_value": 1.0,
+        "justification": "avi_decision_3_REJECTED",
+        "outcome_class": "low_information",
+        "signature": "exp_infodisc_v1",
+        "timestamp": "2026-10-01T11:17:48.288733+00:00"
+      },
+      "promotion": {
+        "decision": "REJECTED",
+        "finding_id": "finding_info_disclosure_aa7eac57",
+        "gates_failed": [
+          "causal_validator_confirmed",
+          "semantic_identity_bound"
+        ],
+        "gates_passed": [
+          "real_runtime_observations",
+          "baseline_present",
+          "negative_control_present",
+          "proof_bundle_signed",
+          "replay_verified",
+          "no_external_scanner_authority"
+        ],
+        "pipeline": "PromotionPipeline_v1",
+        "reason": "causal_validator_confirmed:rejected; semantic_identity_bound:rejected",
+        "vulnerability_class": "INFO_DISCLOSURE"
+      },
+      "proof_bundle": {
+        "authenticity_algorithm": "hmac_sha256_v1",
+        "authenticity_key_version": "env_override_v1",
+        "authenticity_tag": "hmac_sha256:f264348cc34f63472bfda9944f14d5e4cf3b7b8f411c63c877c5a05ff454f628",
+        "baseline_digest": "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+        "baseline_evidence_ref": null,
+        "bundle_id": "proof_bundle_fcb2dd832f19446da72f18c6161055d2",
+        "campaign_id": "learning-demo-20261001t111635z-b",
+        "candidate_evidence_ref": null,
+        "causal_oracle": {
+          "actor_id": "unauthenticated",
+          "baseline_access_result": 200,
+          "baseline_complete": true,
+          "candidate_access_result": 500,
+          "causal_difference": null,
+          "causal_signal": false,
+          "discriminating_signal": "weak signal (1 pattern classes)",
+          "expected_owner": "unauthenticated",
+          "identity_bound": false,
+          "identity_bound_reason": "info_disclosure_not_proven sensitive=1 baseline=0 control=0",
+          "negative_control_complete": true,
+          "negative_control_result": 200,
+          "resource_id": "/rest/continue-code/apply/",
+          "validator_outcome": "INCONCLUSIVE"
+        },
+        "chain_of_custody": [
+          {
+            "action": "seal",
+            "actor": "autonomous_validation_intelligence_v1",
+            "at": "2026-10-01T11:17:48.287364Z",
+            "note": ""
+          }
+        ],
+        "cleanup_status": "not_applicable",
+        "engagement_id": "learning-demo-20261001t111635z-b",
+        "evidence_digests": [
+          "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+          "sha256:849f7f10f76eb9fabbf3294a93be144d46d08ee797952702909eef6249c4490c",
+          "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75"
+        ],
+        "evidence_origin": "target_runtime",
+        "evidence_refs": [
+          "obs_ab4a0b31e7d161c3",
+          "obs_88733dee98893627",
+          "obs_29afbb9fdcd19120"
+        ],
+        "finding_id": "finding_info_disclosure_aa7eac57",
+        "hypothesis_id": "h_recon_info_disclosure_ec403eb5a17b",
+        "identity_context": {
+          "actor_id": "unauthenticated",
+          "baseline_actor_id": "unauthenticated",
+          "execution_identity": "exec_exp_infodisc_v1_7f0f5b4c",
+          "expected_owner": "unauthenticated",
+          "identity_bound": false,
+          "resource_id": "/rest/continue-code/apply/",
+          "resource_owner": "unauthenticated"
+        },
+        "invariant_analysis": {},
+        "negative_control_digest": "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75",
+        "negative_control_evidence_ref": null,
+        "negative_control_independent": true,
+        "oracle_decision": "INCONCLUSIVE",
+        "redaction_manifest": [],
+        "replay_metadata": {
+          "replay_component": "ReplayVerifier_v1",
+          "replay_required": true,
+          "replayable": true,
+          "requests_executed": 3
+        },
+        "request_digests": [
+          "sha256:e7c1b3b3c0080108515457b2aa489b90cbfd69f848998cbe793ff2a6a922a65b",
+          "sha256:8642f3fe206bbe3c80b53833b2a6fbe7790b646c2ac8952d21003fd99e0d30f7",
+          "sha256:20ea5f2de08bb72601cad2232f5930d98dcb54583429b83a4d5b407fee16ee94"
+        ],
+        "response_digests": [
+          "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+          "sha256:849f7f10f76eb9fabbf3294a93be144d46d08ee797952702909eef6249c4490c",
+          "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75"
+        ],
+        "run_id": "exp_infodisc_v1",
+        "scope_context": {
+          "authorized_via": "ScopeLaw+ToolBoundary",
+          "tool": "httpx_bounded"
+        },
+        "seal_digest": "sha256:de33f8b357da59a9cc04eadba7828578eb784b46c8c8d6df581cc9da87f28cfe",
+        "sealed": true,
+        "target_backed": true,
+        "target_context_hash": null,
+        "target_fingerprint": "7f0f5b4c620b8ed6",
+        "target_identity": null,
+        "target_package_id": null,
+        "target_package_policy_digest": null,
+        "target_package_scope_digest": null,
+        "target_package_sha256": null,
+        "validator_config_digest": null,
+        "validator_id": "canonical_validator_info_disclosure",
+        "validator_result": {
+          "discriminating_signal": "weak signal (1 pattern classes)",
+          "evidence_quality": 1,
+          "outcome": "INCONCLUSIVE"
+        },
+        "validator_version": "validator_coverage_v1",
+        "vulnerability_class": "INFO_DISCLOSURE"
+      },
+      "proof_result": {
+        "bundle_created": true,
+        "bundle_id": "proof_bundle_fcb2dd832f19446da72f18c6161055d2",
+        "component": "ProofBundle (existing sealed evidence authority)",
+        "evidence_origin": "target_runtime",
+        "seal_digest": "sha256:de33f8b357da59a9cc04eadba7828578eb784b46c8c8d6df581cc9da87f28cfe",
+        "seal_verified_via_replay": true,
+        "sealed": true
+      },
+      "proof_seal_verified": true,
+      "proof_sealed": true,
+      "real_http_executed": true,
+      "replay_result": {
+        "digests_match": true,
+        "expected_outcome": "INCONCLUSIVE",
+        "outcome_match": true,
+        "replay_component": "ReplayVerifier_v1_2_semantic",
+        "replay_verified": true,
+        "replayed_outcome": "INCONCLUSIVE",
+        "seal_verified": true,
+        "semantic_match": true
+      },
+      "replay_verified": true,
+      "request_observations": [
+        {
+          "method": "GET",
+          "path": "/",
+          "request_digest": "sha256:e7c1b3b3c0080108515457b2aa489b90cbfd69f848998cbe793ff2a6a922a65b"
+        },
+        {
+          "method": "GET",
+          "path": "/rest/continue-code/apply/",
+          "request_digest": "sha256:8642f3fe206bbe3c80b53833b2a6fbe7790b646c2ac8952d21003fd99e0d30f7"
+        },
+        {
+          "method": "GET",
+          "path": "/",
+          "request_digest": "sha256:20ea5f2de08bb72601cad2232f5930d98dcb54583429b83a4d5b407fee16ee94"
+        }
+      ],
+      "resource_id": "/rest/continue-code/apply/",
+      "response_observations": [
+        {
+          "response_digest": "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+          "status_code": 200
+        },
+        {
+          "response_digest": "sha256:849f7f10f76eb9fabbf3294a93be144d46d08ee797952702909eef6249c4490c",
+          "status_code": 500
+        },
+        {
+          "response_digest": "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75",
+          "status_code": 200
+        }
+      ],
+      "selection": {
+        "api_type": "rest",
+        "experiment_id": "exp_infodisc_v1",
+        "graphql_query": null,
+        "hypothesis_id": "h_recon_info_disclosure_ec403eb5a17b",
+        "rejected_candidates": [
+          {
+            "hypothesis_id": "h_recon_info_disclosure_e7b0bab207d8",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_d05c1ea7e856",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_b0c09fbad3ec",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_af8751134a34",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_a1cf803f630c",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_54f8d02da7c8",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_21029301197e",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_0f5d46a6f1c9",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          }
+        ],
+        "selected": true,
+        "selected_candidate_score": 1100,
+        "selection_reason": "deterministic_score:registry_coverage+information_value+novelty",
+        "selector_version": "autonomous_experiment_selector_v1",
+        "target_path": "/rest/continue-code/apply/",
+        "vulnerability_class": "INFO_DISCLOSURE"
+      },
+      "stopped": false,
+      "validator_outcome": "INCONCLUSIVE",
+      "vulnerability_class": "INFO_DISCLOSURE",
+      "world_model_delta": {
+        "api": "EvidenceGraph.register_hypothesis+record_observation_outcome+record_experiment (existing world model seam)",
+        "entities_delta": 0,
+        "entity_count_after": 18,
+        "experiments_delta": 1,
+        "hypotheses_delta": 1,
+        "hypothesis_count_after": 3,
+        "information_value": 0.2,
+        "observation_id": "obs_exp_infodisc_v1_d3",
+        "relation_count_after": 15,
+        "relations_delta": 2,
+        "supports_hypothesis": false,
+        "updated": true
+      }
+    },
+    {
+      "actor_id": "unauthenticated",
+      "api_type": "rest",
+      "causal_difference": null,
+      "decision": 4,
+      "evidence_quality": 1,
+      "experiment_id": "exp_infodisc_v1",
+      "hypothesis_id": "h_recon_info_disclosure_e7b0bab207d8",
+      "identity_binding_result": {
+        "actor_id": "unauthenticated",
+        "authorization_context": "owner=unauthenticated",
+        "baseline_access_result": 200,
+        "baseline_actor_id": "unauthenticated",
+        "candidate_access_result": 500,
+        "causal_difference": null,
+        "expected_owner": "unauthenticated",
+        "identity_bound": false,
+        "identity_bound_reason": "info_disclosure_not_proven sensitive=1 baseline=0 control=0",
+        "negative_control_result": 200,
+        "resource_id": "/rest/continue-code-findIt/apply/",
+        "resource_owner": "unauthenticated"
+      },
+      "identity_bound": false,
+      "identity_bound_reason": "info_disclosure_not_proven sensitive=1 baseline=0 control=0",
+      "outcome_tracker_update": {
+        "feeds_next_decision": true,
+        "history_index": 3,
+        "hypothesis_id": "h_recon_info_disclosure_e7b0bab207d8",
+        "information_value": 1.0,
+        "justification": "avi_decision_4_REJECTED",
+        "outcome_class": "low_information",
+        "signature": "exp_infodisc_v1",
+        "timestamp": "2026-10-01T11:17:48.409633+00:00"
+      },
+      "promotion": {
+        "decision": "REJECTED",
+        "finding_id": "finding_info_disclosure_5856169a",
+        "gates_failed": [
+          "causal_validator_confirmed",
+          "semantic_identity_bound"
+        ],
+        "gates_passed": [
+          "real_runtime_observations",
+          "baseline_present",
+          "negative_control_present",
+          "proof_bundle_signed",
+          "replay_verified",
+          "no_external_scanner_authority"
+        ],
+        "pipeline": "PromotionPipeline_v1",
+        "reason": "causal_validator_confirmed:rejected; semantic_identity_bound:rejected",
+        "vulnerability_class": "INFO_DISCLOSURE"
+      },
+      "proof_bundle": {
+        "authenticity_algorithm": "hmac_sha256_v1",
+        "authenticity_key_version": "env_override_v1",
+        "authenticity_tag": "hmac_sha256:09465f6f378178a51349aca99675f70767c272b3c25ca99f4e113a7e4dc87f1c",
+        "baseline_digest": "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+        "baseline_evidence_ref": null,
+        "bundle_id": "proof_bundle_c566c5abb9de430f90fc98d425b84bed",
+        "campaign_id": "learning-demo-20261001t111635z-b",
+        "candidate_evidence_ref": null,
+        "causal_oracle": {
+          "actor_id": "unauthenticated",
+          "baseline_access_result": 200,
+          "baseline_complete": true,
+          "candidate_access_result": 500,
+          "causal_difference": null,
+          "causal_signal": false,
+          "discriminating_signal": "weak signal (1 pattern classes)",
+          "expected_owner": "unauthenticated",
+          "identity_bound": false,
+          "identity_bound_reason": "info_disclosure_not_proven sensitive=1 baseline=0 control=0",
+          "negative_control_complete": true,
+          "negative_control_result": 200,
+          "resource_id": "/rest/continue-code-findIt/apply/",
+          "validator_outcome": "INCONCLUSIVE"
+        },
+        "chain_of_custody": [
+          {
+            "action": "seal",
+            "actor": "autonomous_validation_intelligence_v1",
+            "at": "2026-10-01T11:17:48.408269Z",
+            "note": ""
+          }
+        ],
+        "cleanup_status": "not_applicable",
+        "engagement_id": "learning-demo-20261001t111635z-b",
+        "evidence_digests": [
+          "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+          "sha256:07bff783b0d9e1ee4d231d4d156864b708690019a8dbdcfc70e93921ad0d386d",
+          "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75"
+        ],
+        "evidence_origin": "target_runtime",
+        "evidence_refs": [
+          "obs_ab4a0b31e7d161c3",
+          "obs_00f1a80890fe505b",
+          "obs_29afbb9fdcd19120"
+        ],
+        "finding_id": "finding_info_disclosure_5856169a",
+        "hypothesis_id": "h_recon_info_disclosure_e7b0bab207d8",
+        "identity_context": {
+          "actor_id": "unauthenticated",
+          "baseline_actor_id": "unauthenticated",
+          "execution_identity": "exec_exp_infodisc_v1_7f0f5b4c",
+          "expected_owner": "unauthenticated",
+          "identity_bound": false,
+          "resource_id": "/rest/continue-code-findIt/apply/",
+          "resource_owner": "unauthenticated"
+        },
+        "invariant_analysis": {},
+        "negative_control_digest": "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75",
+        "negative_control_evidence_ref": null,
+        "negative_control_independent": true,
+        "oracle_decision": "INCONCLUSIVE",
+        "redaction_manifest": [],
+        "replay_metadata": {
+          "replay_component": "ReplayVerifier_v1",
+          "replay_required": true,
+          "replayable": true,
+          "requests_executed": 3
+        },
+        "request_digests": [
+          "sha256:e7c1b3b3c0080108515457b2aa489b90cbfd69f848998cbe793ff2a6a922a65b",
+          "sha256:5b9582a1fa9e9645342206f4d729e8fd448db47247d9d46d0d2704e10d319d98",
+          "sha256:20ea5f2de08bb72601cad2232f5930d98dcb54583429b83a4d5b407fee16ee94"
+        ],
+        "response_digests": [
+          "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+          "sha256:07bff783b0d9e1ee4d231d4d156864b708690019a8dbdcfc70e93921ad0d386d",
+          "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75"
+        ],
+        "run_id": "exp_infodisc_v1",
+        "scope_context": {
+          "authorized_via": "ScopeLaw+ToolBoundary",
+          "tool": "httpx_bounded"
+        },
+        "seal_digest": "sha256:1fd8004e39d2c023c3e1747fe4e1b326b8534929b9fb5d4ff0d046b2a9053bd4",
+        "sealed": true,
+        "target_backed": true,
+        "target_context_hash": null,
+        "target_fingerprint": "7f0f5b4c620b8ed6",
+        "target_identity": null,
+        "target_package_id": null,
+        "target_package_policy_digest": null,
+        "target_package_scope_digest": null,
+        "target_package_sha256": null,
+        "validator_config_digest": null,
+        "validator_id": "canonical_validator_info_disclosure",
+        "validator_result": {
+          "discriminating_signal": "weak signal (1 pattern classes)",
+          "evidence_quality": 1,
+          "outcome": "INCONCLUSIVE"
+        },
+        "validator_version": "validator_coverage_v1",
+        "vulnerability_class": "INFO_DISCLOSURE"
+      },
+      "proof_result": {
+        "bundle_created": true,
+        "bundle_id": "proof_bundle_c566c5abb9de430f90fc98d425b84bed",
+        "component": "ProofBundle (existing sealed evidence authority)",
+        "evidence_origin": "target_runtime",
+        "seal_digest": "sha256:1fd8004e39d2c023c3e1747fe4e1b326b8534929b9fb5d4ff0d046b2a9053bd4",
+        "seal_verified_via_replay": true,
+        "sealed": true
+      },
+      "proof_seal_verified": true,
+      "proof_sealed": true,
+      "real_http_executed": true,
+      "replay_result": {
+        "digests_match": true,
+        "expected_outcome": "INCONCLUSIVE",
+        "outcome_match": true,
+        "replay_component": "ReplayVerifier_v1_2_semantic",
+        "replay_verified": true,
+        "replayed_outcome": "INCONCLUSIVE",
+        "seal_verified": true,
+        "semantic_match": true
+      },
+      "replay_verified": true,
+      "request_observations": [
+        {
+          "method": "GET",
+          "path": "/",
+          "request_digest": "sha256:e7c1b3b3c0080108515457b2aa489b90cbfd69f848998cbe793ff2a6a922a65b"
+        },
+        {
+          "method": "GET",
+          "path": "/rest/continue-code-findIt/apply/",
+          "request_digest": "sha256:5b9582a1fa9e9645342206f4d729e8fd448db47247d9d46d0d2704e10d319d98"
+        },
+        {
+          "method": "GET",
+          "path": "/",
+          "request_digest": "sha256:20ea5f2de08bb72601cad2232f5930d98dcb54583429b83a4d5b407fee16ee94"
+        }
+      ],
+      "resource_id": "/rest/continue-code-findIt/apply/",
+      "response_observations": [
+        {
+          "response_digest": "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+          "status_code": 200
+        },
+        {
+          "response_digest": "sha256:07bff783b0d9e1ee4d231d4d156864b708690019a8dbdcfc70e93921ad0d386d",
+          "status_code": 500
+        },
+        {
+          "response_digest": "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75",
+          "status_code": 200
+        }
+      ],
+      "selection": {
+        "api_type": "rest",
+        "experiment_id": "exp_infodisc_v1",
+        "graphql_query": null,
+        "hypothesis_id": "h_recon_info_disclosure_e7b0bab207d8",
+        "rejected_candidates": [
+          {
+            "hypothesis_id": "h_recon_info_disclosure_d05c1ea7e856",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_b0c09fbad3ec",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_af8751134a34",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_a1cf803f630c",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_54f8d02da7c8",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_21029301197e",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_0f5d46a6f1c9",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          }
+        ],
+        "selected": true,
+        "selected_candidate_score": 1100,
+        "selection_reason": "deterministic_score:registry_coverage+information_value+novelty",
+        "selector_version": "autonomous_experiment_selector_v1",
+        "target_path": "/rest/continue-code-findIt/apply/",
+        "vulnerability_class": "INFO_DISCLOSURE"
+      },
+      "stopped": false,
+      "validator_outcome": "INCONCLUSIVE",
+      "vulnerability_class": "INFO_DISCLOSURE",
+      "world_model_delta": {
+        "api": "EvidenceGraph.register_hypothesis+record_observation_outcome+record_experiment (existing world model seam)",
+        "entities_delta": 0,
+        "entity_count_after": 18,
+        "experiments_delta": 1,
+        "hypotheses_delta": 1,
+        "hypothesis_count_after": 4,
+        "information_value": 0.2,
+        "observation_id": "obs_exp_infodisc_v1_d4",
+        "relation_count_after": 17,
+        "relations_delta": 2,
+        "supports_hypothesis": false,
+        "updated": true
+      }
+    },
+    {
+      "actor_id": "unauthenticated",
+      "api_type": "rest",
+      "causal_difference": null,
+      "decision": 5,
+      "evidence_quality": 2,
+      "experiment_id": "exp_infodisc_v1",
+      "hypothesis_id": "h_recon_info_disclosure_d05c1ea7e856",
+      "identity_binding_result": {
+        "actor_id": "unauthenticated",
+        "authorization_context": "owner=unauthenticated",
+        "baseline_access_result": 200,
+        "baseline_actor_id": "unauthenticated",
+        "candidate_access_result": 200,
+        "causal_difference": null,
+        "expected_owner": "unauthenticated",
+        "identity_bound": false,
+        "identity_bound_reason": "info_disclosure_not_proven sensitive=0 baseline=0 control=0",
+        "negative_control_result": 200,
+        "resource_id": "/rest/continue-code",
+        "resource_owner": "unauthenticated"
+      },
+      "identity_bound": false,
+      "identity_bound_reason": "info_disclosure_not_proven sensitive=0 baseline=0 control=0",
+      "outcome_tracker_update": {
+        "feeds_next_decision": true,
+        "history_index": 4,
+        "hypothesis_id": "h_recon_info_disclosure_d05c1ea7e856",
+        "information_value": 2.0,
+        "justification": "avi_decision_5_REJECTED",
+        "outcome_class": "refuted",
+        "signature": "exp_infodisc_v1",
+        "timestamp": "2026-10-01T11:17:48.515171+00:00"
+      },
+      "promotion": {
+        "decision": "REJECTED",
+        "finding_id": "finding_info_disclosure_f21d226d",
+        "gates_failed": [
+          "causal_validator_confirmed",
+          "semantic_identity_bound"
+        ],
+        "gates_passed": [
+          "real_runtime_observations",
+          "baseline_present",
+          "negative_control_present",
+          "proof_bundle_signed",
+          "replay_verified",
+          "no_external_scanner_authority"
+        ],
+        "pipeline": "PromotionPipeline_v1",
+        "reason": "causal_validator_confirmed:rejected; semantic_identity_bound:rejected",
+        "vulnerability_class": "INFO_DISCLOSURE"
+      },
+      "proof_bundle": {
+        "authenticity_algorithm": "hmac_sha256_v1",
+        "authenticity_key_version": "env_override_v1",
+        "authenticity_tag": "hmac_sha256:05cd9074eecb7bfdbdf9f76246cc6eb146fe029f4287a49d6006ee72b089e778",
+        "baseline_digest": "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+        "baseline_evidence_ref": null,
+        "bundle_id": "proof_bundle_8f7645df198a42dcbeff3629e71e0517",
+        "campaign_id": "learning-demo-20261001t111635z-b",
+        "candidate_evidence_ref": null,
+        "causal_oracle": {
+          "actor_id": "unauthenticated",
+          "baseline_access_result": 200,
+          "baseline_complete": true,
+          "candidate_access_result": 200,
+          "causal_difference": null,
+          "causal_signal": false,
+          "discriminating_signal": "no differential sensitive data",
+          "expected_owner": "unauthenticated",
+          "identity_bound": false,
+          "identity_bound_reason": "info_disclosure_not_proven sensitive=0 baseline=0 control=0",
+          "negative_control_complete": true,
+          "negative_control_result": 200,
+          "resource_id": "/rest/continue-code",
+          "validator_outcome": "REFUTED"
+        },
+        "chain_of_custody": [
+          {
+            "action": "seal",
+            "actor": "autonomous_validation_intelligence_v1",
+            "at": "2026-10-01T11:17:48.513934Z",
+            "note": ""
+          }
+        ],
+        "cleanup_status": "not_applicable",
+        "engagement_id": "learning-demo-20261001t111635z-b",
+        "evidence_digests": [
+          "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+          "sha256:4787d2038402278f346a4be0746e85eca8db473fc2ef1bf9eaac8f8964ea9669",
+          "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75"
+        ],
+        "evidence_origin": "target_runtime",
+        "evidence_refs": [
+          "obs_ab4a0b31e7d161c3",
+          "obs_09ae2fb6073be458",
+          "obs_29afbb9fdcd19120"
+        ],
+        "finding_id": "finding_info_disclosure_f21d226d",
+        "hypothesis_id": "h_recon_info_disclosure_d05c1ea7e856",
+        "identity_context": {
+          "actor_id": "unauthenticated",
+          "baseline_actor_id": "unauthenticated",
+          "execution_identity": "exec_exp_infodisc_v1_7f0f5b4c",
+          "expected_owner": "unauthenticated",
+          "identity_bound": false,
+          "resource_id": "/rest/continue-code",
+          "resource_owner": "unauthenticated"
+        },
+        "invariant_analysis": {},
+        "negative_control_digest": "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75",
+        "negative_control_evidence_ref": null,
+        "negative_control_independent": true,
+        "oracle_decision": "REFUTED",
+        "redaction_manifest": [],
+        "replay_metadata": {
+          "replay_component": "ReplayVerifier_v1",
+          "replay_required": true,
+          "replayable": true,
+          "requests_executed": 3
+        },
+        "request_digests": [
+          "sha256:e7c1b3b3c0080108515457b2aa489b90cbfd69f848998cbe793ff2a6a922a65b",
+          "sha256:122610ff894220f71317a95f11a00b9587d5b548cffb924bf8cd4b373b9dc62e",
+          "sha256:20ea5f2de08bb72601cad2232f5930d98dcb54583429b83a4d5b407fee16ee94"
+        ],
+        "response_digests": [
+          "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+          "sha256:4787d2038402278f346a4be0746e85eca8db473fc2ef1bf9eaac8f8964ea9669",
+          "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75"
+        ],
+        "run_id": "exp_infodisc_v1",
+        "scope_context": {
+          "authorized_via": "ScopeLaw+ToolBoundary",
+          "tool": "httpx_bounded"
+        },
+        "seal_digest": "sha256:d9d6d8915f287069b735b80dbfacd6a38903f627a811177cc5255346f2da35ec",
+        "sealed": true,
+        "target_backed": true,
+        "target_context_hash": null,
+        "target_fingerprint": "7f0f5b4c620b8ed6",
+        "target_identity": null,
+        "target_package_id": null,
+        "target_package_policy_digest": null,
+        "target_package_scope_digest": null,
+        "target_package_sha256": null,
+        "validator_config_digest": null,
+        "validator_id": "canonical_validator_info_disclosure",
+        "validator_result": {
+          "discriminating_signal": "no differential sensitive data",
+          "evidence_quality": 2,
+          "outcome": "REFUTED"
+        },
+        "validator_version": "validator_coverage_v1",
+        "vulnerability_class": "INFO_DISCLOSURE"
+      },
+      "proof_result": {
+        "bundle_created": true,
+        "bundle_id": "proof_bundle_8f7645df198a42dcbeff3629e71e0517",
+        "component": "ProofBundle (existing sealed evidence authority)",
+        "evidence_origin": "target_runtime",
+        "seal_digest": "sha256:d9d6d8915f287069b735b80dbfacd6a38903f627a811177cc5255346f2da35ec",
+        "seal_verified_via_replay": true,
+        "sealed": true
+      },
+      "proof_seal_verified": true,
+      "proof_sealed": true,
+      "real_http_executed": true,
+      "replay_result": {
+        "digests_match": true,
+        "expected_outcome": "REFUTED",
+        "outcome_match": true,
+        "replay_component": "ReplayVerifier_v1_2_semantic",
+        "replay_verified": true,
+        "replayed_outcome": "REFUTED",
+        "seal_verified": true,
+        "semantic_match": true
+      },
+      "replay_verified": true,
+      "request_observations": [
+        {
+          "method": "GET",
+          "path": "/",
+          "request_digest": "sha256:e7c1b3b3c0080108515457b2aa489b90cbfd69f848998cbe793ff2a6a922a65b"
+        },
+        {
+          "method": "GET",
+          "path": "/rest/continue-code",
+          "request_digest": "sha256:122610ff894220f71317a95f11a00b9587d5b548cffb924bf8cd4b373b9dc62e"
+        },
+        {
+          "method": "GET",
+          "path": "/",
+          "request_digest": "sha256:20ea5f2de08bb72601cad2232f5930d98dcb54583429b83a4d5b407fee16ee94"
+        }
+      ],
+      "resource_id": "/rest/continue-code",
+      "response_observations": [
+        {
+          "response_digest": "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+          "status_code": 200
+        },
+        {
+          "response_digest": "sha256:4787d2038402278f346a4be0746e85eca8db473fc2ef1bf9eaac8f8964ea9669",
+          "status_code": 200
+        },
+        {
+          "response_digest": "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75",
+          "status_code": 200
+        }
+      ],
+      "selection": {
+        "api_type": "rest",
+        "experiment_id": "exp_infodisc_v1",
+        "graphql_query": null,
+        "hypothesis_id": "h_recon_info_disclosure_d05c1ea7e856",
+        "rejected_candidates": [
+          {
+            "hypothesis_id": "h_recon_info_disclosure_b0c09fbad3ec",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_af8751134a34",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_a1cf803f630c",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_54f8d02da7c8",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_21029301197e",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_0f5d46a6f1c9",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          }
+        ],
+        "selected": true,
+        "selected_candidate_score": 1100,
+        "selection_reason": "deterministic_score:registry_coverage+information_value+novelty",
+        "selector_version": "autonomous_experiment_selector_v1",
+        "target_path": "/rest/continue-code",
+        "vulnerability_class": "INFO_DISCLOSURE"
+      },
+      "stopped": false,
+      "validator_outcome": "REFUTED",
+      "vulnerability_class": "INFO_DISCLOSURE",
+      "world_model_delta": {
+        "api": "EvidenceGraph.register_hypothesis+record_observation_outcome+record_experiment (existing world model seam)",
+        "entities_delta": 0,
+        "entity_count_after": 18,
+        "experiments_delta": 1,
+        "hypotheses_delta": 1,
+        "hypothesis_count_after": 5,
+        "information_value": 0.4,
+        "observation_id": "obs_exp_infodisc_v1_d5",
+        "relation_count_after": 19,
+        "relations_delta": 2,
+        "supports_hypothesis": false,
+        "updated": true
+      }
+    },
+    {
+      "actor_id": "unauthenticated",
+      "api_type": "rest",
+      "causal_difference": null,
+      "decision": 6,
+      "evidence_quality": 2,
+      "experiment_id": "exp_infodisc_v1",
+      "hypothesis_id": "h_recon_info_disclosure_b0c09fbad3ec",
+      "identity_binding_result": {
+        "actor_id": "unauthenticated",
+        "authorization_context": "owner=unauthenticated",
+        "baseline_access_result": 200,
+        "baseline_actor_id": "unauthenticated",
+        "candidate_access_result": 200,
+        "causal_difference": null,
+        "expected_owner": "unauthenticated",
+        "identity_bound": false,
+        "identity_bound_reason": "info_disclosure_not_proven sensitive=0 baseline=0 control=0",
+        "negative_control_result": 200,
+        "resource_id": "/rest/continue-code-findIt",
+        "resource_owner": "unauthenticated"
+      },
+      "identity_bound": false,
+      "identity_bound_reason": "info_disclosure_not_proven sensitive=0 baseline=0 control=0",
+      "outcome_tracker_update": {
+        "feeds_next_decision": true,
+        "history_index": 5,
+        "hypothesis_id": "h_recon_info_disclosure_b0c09fbad3ec",
+        "information_value": 2.0,
+        "justification": "avi_decision_6_REJECTED",
+        "outcome_class": "refuted",
+        "signature": "exp_infodisc_v1",
+        "timestamp": "2026-10-01T11:17:48.631547+00:00"
+      },
+      "promotion": {
+        "decision": "REJECTED",
+        "finding_id": "finding_info_disclosure_922291f1",
+        "gates_failed": [
+          "causal_validator_confirmed",
+          "semantic_identity_bound"
+        ],
+        "gates_passed": [
+          "real_runtime_observations",
+          "baseline_present",
+          "negative_control_present",
+          "proof_bundle_signed",
+          "replay_verified",
+          "no_external_scanner_authority"
+        ],
+        "pipeline": "PromotionPipeline_v1",
+        "reason": "causal_validator_confirmed:rejected; semantic_identity_bound:rejected",
+        "vulnerability_class": "INFO_DISCLOSURE"
+      },
+      "proof_bundle": {
+        "authenticity_algorithm": "hmac_sha256_v1",
+        "authenticity_key_version": "env_override_v1",
+        "authenticity_tag": "hmac_sha256:ee6a572549ad34f9563163ff738e725ec025ec9e88727f5e8d91c78a94cfe037",
+        "baseline_digest": "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+        "baseline_evidence_ref": null,
+        "bundle_id": "proof_bundle_7127074810a04cf1a745c4df67beacb8",
+        "campaign_id": "learning-demo-20261001t111635z-b",
+        "candidate_evidence_ref": null,
+        "causal_oracle": {
+          "actor_id": "unauthenticated",
+          "baseline_access_result": 200,
+          "baseline_complete": true,
+          "candidate_access_result": 200,
+          "causal_difference": null,
+          "causal_signal": false,
+          "discriminating_signal": "no differential sensitive data",
+          "expected_owner": "unauthenticated",
+          "identity_bound": false,
+          "identity_bound_reason": "info_disclosure_not_proven sensitive=0 baseline=0 control=0",
+          "negative_control_complete": true,
+          "negative_control_result": 200,
+          "resource_id": "/rest/continue-code-findIt",
+          "validator_outcome": "REFUTED"
+        },
+        "chain_of_custody": [
+          {
+            "action": "seal",
+            "actor": "autonomous_validation_intelligence_v1",
+            "at": "2026-10-01T11:17:48.630311Z",
+            "note": ""
+          }
+        ],
+        "cleanup_status": "not_applicable",
+        "engagement_id": "learning-demo-20261001t111635z-b",
+        "evidence_digests": [
+          "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+          "sha256:ba4f45882be3de021a29f4a1f40de9b22e3f232bea1f9e3f6d723fbb7dbbe085",
+          "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75"
+        ],
+        "evidence_origin": "target_runtime",
+        "evidence_refs": [
+          "obs_ab4a0b31e7d161c3",
+          "obs_49ab407ef7341931",
+          "obs_29afbb9fdcd19120"
+        ],
+        "finding_id": "finding_info_disclosure_922291f1",
+        "hypothesis_id": "h_recon_info_disclosure_b0c09fbad3ec",
+        "identity_context": {
+          "actor_id": "unauthenticated",
+          "baseline_actor_id": "unauthenticated",
+          "execution_identity": "exec_exp_infodisc_v1_7f0f5b4c",
+          "expected_owner": "unauthenticated",
+          "identity_bound": false,
+          "resource_id": "/rest/continue-code-findIt",
+          "resource_owner": "unauthenticated"
+        },
+        "invariant_analysis": {},
+        "negative_control_digest": "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75",
+        "negative_control_evidence_ref": null,
+        "negative_control_independent": true,
+        "oracle_decision": "REFUTED",
+        "redaction_manifest": [],
+        "replay_metadata": {
+          "replay_component": "ReplayVerifier_v1",
+          "replay_required": true,
+          "replayable": true,
+          "requests_executed": 3
+        },
+        "request_digests": [
+          "sha256:e7c1b3b3c0080108515457b2aa489b90cbfd69f848998cbe793ff2a6a922a65b",
+          "sha256:bb6bcdd7fd61f13b34745e756c44428406d2c7aa25683fcd1d028db99dbed800",
+          "sha256:20ea5f2de08bb72601cad2232f5930d98dcb54583429b83a4d5b407fee16ee94"
+        ],
+        "response_digests": [
+          "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+          "sha256:ba4f45882be3de021a29f4a1f40de9b22e3f232bea1f9e3f6d723fbb7dbbe085",
+          "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75"
+        ],
+        "run_id": "exp_infodisc_v1",
+        "scope_context": {
+          "authorized_via": "ScopeLaw+ToolBoundary",
+          "tool": "httpx_bounded"
+        },
+        "seal_digest": "sha256:ad82df1c2398093b28fddd52c59839fa072922c88ab036f3e7d960e646589937",
+        "sealed": true,
+        "target_backed": true,
+        "target_context_hash": null,
+        "target_fingerprint": "7f0f5b4c620b8ed6",
+        "target_identity": null,
+        "target_package_id": null,
+        "target_package_policy_digest": null,
+        "target_package_scope_digest": null,
+        "target_package_sha256": null,
+        "validator_config_digest": null,
+        "validator_id": "canonical_validator_info_disclosure",
+        "validator_result": {
+          "discriminating_signal": "no differential sensitive data",
+          "evidence_quality": 2,
+          "outcome": "REFUTED"
+        },
+        "validator_version": "validator_coverage_v1",
+        "vulnerability_class": "INFO_DISCLOSURE"
+      },
+      "proof_result": {
+        "bundle_created": true,
+        "bundle_id": "proof_bundle_7127074810a04cf1a745c4df67beacb8",
+        "component": "ProofBundle (existing sealed evidence authority)",
+        "evidence_origin": "target_runtime",
+        "seal_digest": "sha256:ad82df1c2398093b28fddd52c59839fa072922c88ab036f3e7d960e646589937",
+        "seal_verified_via_replay": true,
+        "sealed": true
+      },
+      "proof_seal_verified": true,
+      "proof_sealed": true,
+      "real_http_executed": true,
+      "replay_result": {
+        "digests_match": true,
+        "expected_outcome": "REFUTED",
+        "outcome_match": true,
+        "replay_component": "ReplayVerifier_v1_2_semantic",
+        "replay_verified": true,
+        "replayed_outcome": "REFUTED",
+        "seal_verified": true,
+        "semantic_match": true
+      },
+      "replay_verified": true,
+      "request_observations": [
+        {
+          "method": "GET",
+          "path": "/",
+          "request_digest": "sha256:e7c1b3b3c0080108515457b2aa489b90cbfd69f848998cbe793ff2a6a922a65b"
+        },
+        {
+          "method": "GET",
+          "path": "/rest/continue-code-findIt",
+          "request_digest": "sha256:bb6bcdd7fd61f13b34745e756c44428406d2c7aa25683fcd1d028db99dbed800"
+        },
+        {
+          "method": "GET",
+          "path": "/",
+          "request_digest": "sha256:20ea5f2de08bb72601cad2232f5930d98dcb54583429b83a4d5b407fee16ee94"
+        }
+      ],
+      "resource_id": "/rest/continue-code-findIt",
+      "response_observations": [
+        {
+          "response_digest": "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+          "status_code": 200
+        },
+        {
+          "response_digest": "sha256:ba4f45882be3de021a29f4a1f40de9b22e3f232bea1f9e3f6d723fbb7dbbe085",
+          "status_code": 200
+        },
+        {
+          "response_digest": "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75",
+          "status_code": 200
+        }
+      ],
+      "selection": {
+        "api_type": "rest",
+        "experiment_id": "exp_infodisc_v1",
+        "graphql_query": null,
+        "hypothesis_id": "h_recon_info_disclosure_b0c09fbad3ec",
+        "rejected_candidates": [
+          {
+            "hypothesis_id": "h_recon_info_disclosure_af8751134a34",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_a1cf803f630c",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_54f8d02da7c8",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_21029301197e",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_0f5d46a6f1c9",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          }
+        ],
+        "selected": true,
+        "selected_candidate_score": 1100,
+        "selection_reason": "deterministic_score:registry_coverage+information_value+novelty",
+        "selector_version": "autonomous_experiment_selector_v1",
+        "target_path": "/rest/continue-code-findIt",
+        "vulnerability_class": "INFO_DISCLOSURE"
+      },
+      "stopped": false,
+      "validator_outcome": "REFUTED",
+      "vulnerability_class": "INFO_DISCLOSURE",
+      "world_model_delta": {
+        "api": "EvidenceGraph.register_hypothesis+record_observation_outcome+record_experiment (existing world model seam)",
+        "entities_delta": 0,
+        "entity_count_after": 18,
+        "experiments_delta": 1,
+        "hypotheses_delta": 1,
+        "hypothesis_count_after": 6,
+        "information_value": 0.4,
+        "observation_id": "obs_exp_infodisc_v1_d6",
+        "relation_count_after": 21,
+        "relations_delta": 2,
+        "supports_hypothesis": false,
+        "updated": true
+      }
+    },
+    {
+      "actor_id": "unauthenticated",
+      "api_type": "rest",
+      "causal_difference": null,
+      "decision": 7,
+      "evidence_quality": 2,
+      "experiment_id": "exp_infodisc_v1",
+      "hypothesis_id": "h_recon_info_disclosure_af8751134a34",
+      "identity_binding_result": {
+        "actor_id": "unauthenticated",
+        "authorization_context": "owner=unauthenticated",
+        "baseline_access_result": 200,
+        "baseline_actor_id": "unauthenticated",
+        "candidate_access_result": 200,
+        "causal_difference": null,
+        "expected_owner": "unauthenticated",
+        "identity_bound": false,
+        "identity_bound_reason": "info_disclosure_not_proven sensitive=0 baseline=0 control=0",
+        "negative_control_result": 200,
+        "resource_id": "/rest/continue-code-fixIt",
+        "resource_owner": "unauthenticated"
+      },
+      "identity_bound": false,
+      "identity_bound_reason": "info_disclosure_not_proven sensitive=0 baseline=0 control=0",
+      "outcome_tracker_update": {
+        "feeds_next_decision": true,
+        "history_index": 6,
+        "hypothesis_id": "h_recon_info_disclosure_af8751134a34",
+        "information_value": 2.0,
+        "justification": "avi_decision_7_REJECTED",
+        "outcome_class": "refuted",
+        "signature": "exp_infodisc_v1",
+        "timestamp": "2026-10-01T11:17:48.758223+00:00"
+      },
+      "promotion": {
+        "decision": "REJECTED",
+        "finding_id": "finding_info_disclosure_2d8a9bf4",
+        "gates_failed": [
+          "causal_validator_confirmed",
+          "semantic_identity_bound"
+        ],
+        "gates_passed": [
+          "real_runtime_observations",
+          "baseline_present",
+          "negative_control_present",
+          "proof_bundle_signed",
+          "replay_verified",
+          "no_external_scanner_authority"
+        ],
+        "pipeline": "PromotionPipeline_v1",
+        "reason": "causal_validator_confirmed:rejected; semantic_identity_bound:rejected",
+        "vulnerability_class": "INFO_DISCLOSURE"
+      },
+      "proof_bundle": {
+        "authenticity_algorithm": "hmac_sha256_v1",
+        "authenticity_key_version": "env_override_v1",
+        "authenticity_tag": "hmac_sha256:57ebf02e30decef154ab1d8b10f8b3ce89ef02d3b4db98a38a7db09a2cdf2f8a",
+        "baseline_digest": "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+        "baseline_evidence_ref": null,
+        "bundle_id": "proof_bundle_7b882e1a771645598b2aaac2a10e18b9",
+        "campaign_id": "learning-demo-20261001t111635z-b",
+        "candidate_evidence_ref": null,
+        "causal_oracle": {
+          "actor_id": "unauthenticated",
+          "baseline_access_result": 200,
+          "baseline_complete": true,
+          "candidate_access_result": 200,
+          "causal_difference": null,
+          "causal_signal": false,
+          "discriminating_signal": "no differential sensitive data",
+          "expected_owner": "unauthenticated",
+          "identity_bound": false,
+          "identity_bound_reason": "info_disclosure_not_proven sensitive=0 baseline=0 control=0",
+          "negative_control_complete": true,
+          "negative_control_result": 200,
+          "resource_id": "/rest/continue-code-fixIt",
+          "validator_outcome": "REFUTED"
+        },
+        "chain_of_custody": [
+          {
+            "action": "seal",
+            "actor": "autonomous_validation_intelligence_v1",
+            "at": "2026-10-01T11:17:48.756959Z",
+            "note": ""
+          }
+        ],
+        "cleanup_status": "not_applicable",
+        "engagement_id": "learning-demo-20261001t111635z-b",
+        "evidence_digests": [
+          "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+          "sha256:ba4f45882be3de021a29f4a1f40de9b22e3f232bea1f9e3f6d723fbb7dbbe085",
+          "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75"
+        ],
+        "evidence_origin": "target_runtime",
+        "evidence_refs": [
+          "obs_ab4a0b31e7d161c3",
+          "obs_49ab407ef7341931",
+          "obs_29afbb9fdcd19120"
+        ],
+        "finding_id": "finding_info_disclosure_2d8a9bf4",
+        "hypothesis_id": "h_recon_info_disclosure_af8751134a34",
+        "identity_context": {
+          "actor_id": "unauthenticated",
+          "baseline_actor_id": "unauthenticated",
+          "execution_identity": "exec_exp_infodisc_v1_7f0f5b4c",
+          "expected_owner": "unauthenticated",
+          "identity_bound": false,
+          "resource_id": "/rest/continue-code-fixIt",
+          "resource_owner": "unauthenticated"
+        },
+        "invariant_analysis": {},
+        "negative_control_digest": "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75",
+        "negative_control_evidence_ref": null,
+        "negative_control_independent": true,
+        "oracle_decision": "REFUTED",
+        "redaction_manifest": [],
+        "replay_metadata": {
+          "replay_component": "ReplayVerifier_v1",
+          "replay_required": true,
+          "replayable": true,
+          "requests_executed": 3
+        },
+        "request_digests": [
+          "sha256:e7c1b3b3c0080108515457b2aa489b90cbfd69f848998cbe793ff2a6a922a65b",
+          "sha256:59a1ce7e8850f58b6a56e4d84785109cae27e045a3514cee1fbee362e1c3bb96",
+          "sha256:20ea5f2de08bb72601cad2232f5930d98dcb54583429b83a4d5b407fee16ee94"
+        ],
+        "response_digests": [
+          "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+          "sha256:ba4f45882be3de021a29f4a1f40de9b22e3f232bea1f9e3f6d723fbb7dbbe085",
+          "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75"
+        ],
+        "run_id": "exp_infodisc_v1",
+        "scope_context": {
+          "authorized_via": "ScopeLaw+ToolBoundary",
+          "tool": "httpx_bounded"
+        },
+        "seal_digest": "sha256:e55081d990d39739da29c49102e986e673f3241bc753ddfc6b0b00bf5e2f849c",
+        "sealed": true,
+        "target_backed": true,
+        "target_context_hash": null,
+        "target_fingerprint": "7f0f5b4c620b8ed6",
+        "target_identity": null,
+        "target_package_id": null,
+        "target_package_policy_digest": null,
+        "target_package_scope_digest": null,
+        "target_package_sha256": null,
+        "validator_config_digest": null,
+        "validator_id": "canonical_validator_info_disclosure",
+        "validator_result": {
+          "discriminating_signal": "no differential sensitive data",
+          "evidence_quality": 2,
+          "outcome": "REFUTED"
+        },
+        "validator_version": "validator_coverage_v1",
+        "vulnerability_class": "INFO_DISCLOSURE"
+      },
+      "proof_result": {
+        "bundle_created": true,
+        "bundle_id": "proof_bundle_7b882e1a771645598b2aaac2a10e18b9",
+        "component": "ProofBundle (existing sealed evidence authority)",
+        "evidence_origin": "target_runtime",
+        "seal_digest": "sha256:e55081d990d39739da29c49102e986e673f3241bc753ddfc6b0b00bf5e2f849c",
+        "seal_verified_via_replay": true,
+        "sealed": true
+      },
+      "proof_seal_verified": true,
+      "proof_sealed": true,
+      "real_http_executed": true,
+      "replay_result": {
+        "digests_match": true,
+        "expected_outcome": "REFUTED",
+        "outcome_match": true,
+        "replay_component": "ReplayVerifier_v1_2_semantic",
+        "replay_verified": true,
+        "replayed_outcome": "REFUTED",
+        "seal_verified": true,
+        "semantic_match": true
+      },
+      "replay_verified": true,
+      "request_observations": [
+        {
+          "method": "GET",
+          "path": "/",
+          "request_digest": "sha256:e7c1b3b3c0080108515457b2aa489b90cbfd69f848998cbe793ff2a6a922a65b"
+        },
+        {
+          "method": "GET",
+          "path": "/rest/continue-code-fixIt",
+          "request_digest": "sha256:59a1ce7e8850f58b6a56e4d84785109cae27e045a3514cee1fbee362e1c3bb96"
+        },
+        {
+          "method": "GET",
+          "path": "/",
+          "request_digest": "sha256:20ea5f2de08bb72601cad2232f5930d98dcb54583429b83a4d5b407fee16ee94"
+        }
+      ],
+      "resource_id": "/rest/continue-code-fixIt",
+      "response_observations": [
+        {
+          "response_digest": "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+          "status_code": 200
+        },
+        {
+          "response_digest": "sha256:ba4f45882be3de021a29f4a1f40de9b22e3f232bea1f9e3f6d723fbb7dbbe085",
+          "status_code": 200
+        },
+        {
+          "response_digest": "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75",
+          "status_code": 200
+        }
+      ],
+      "selection": {
+        "api_type": "rest",
+        "experiment_id": "exp_infodisc_v1",
+        "graphql_query": null,
+        "hypothesis_id": "h_recon_info_disclosure_af8751134a34",
+        "rejected_candidates": [
+          {
+            "hypothesis_id": "h_recon_info_disclosure_a1cf803f630c",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_54f8d02da7c8",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_21029301197e",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_0f5d46a6f1c9",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          }
+        ],
+        "selected": true,
+        "selected_candidate_score": 1100,
+        "selection_reason": "deterministic_score:registry_coverage+information_value+novelty",
+        "selector_version": "autonomous_experiment_selector_v1",
+        "target_path": "/rest/continue-code-fixIt",
+        "vulnerability_class": "INFO_DISCLOSURE"
+      },
+      "stopped": false,
+      "validator_outcome": "REFUTED",
+      "vulnerability_class": "INFO_DISCLOSURE",
+      "world_model_delta": {
+        "api": "EvidenceGraph.register_hypothesis+record_observation_outcome+record_experiment (existing world model seam)",
+        "entities_delta": 0,
+        "entity_count_after": 18,
+        "experiments_delta": 1,
+        "hypotheses_delta": 1,
+        "hypothesis_count_after": 7,
+        "information_value": 0.4,
+        "observation_id": "obs_exp_infodisc_v1_d7",
+        "relation_count_after": 23,
+        "relations_delta": 2,
+        "supports_hypothesis": false,
+        "updated": true
+      }
+    },
+    {
+      "actor_id": "unauthenticated",
+      "api_type": "rest",
+      "causal_difference": null,
+      "decision": 8,
+      "evidence_quality": 1,
+      "experiment_id": "exp_infodisc_v1",
+      "hypothesis_id": "h_recon_info_disclosure_a1cf803f630c",
+      "identity_binding_result": {
+        "actor_id": "unauthenticated",
+        "authorization_context": "owner=unauthenticated",
+        "baseline_access_result": 200,
+        "baseline_actor_id": "unauthenticated",
+        "candidate_access_result": 200,
+        "causal_difference": null,
+        "expected_owner": "unauthenticated",
+        "identity_bound": false,
+        "identity_bound_reason": "info_disclosure_not_proven sensitive=1 baseline=0 control=0",
+        "negative_control_result": 200,
+        "resource_id": "/api/Challenges/?key=nftMintChallenge",
+        "resource_owner": "unauthenticated"
+      },
+      "identity_bound": false,
+      "identity_bound_reason": "info_disclosure_not_proven sensitive=1 baseline=0 control=0",
+      "outcome_tracker_update": {
+        "feeds_next_decision": true,
+        "history_index": 7,
+        "hypothesis_id": "h_recon_info_disclosure_a1cf803f630c",
+        "information_value": 1.0,
+        "justification": "avi_decision_8_REJECTED",
+        "outcome_class": "low_information",
+        "signature": "exp_infodisc_v1",
+        "timestamp": "2026-10-01T11:17:48.877621+00:00"
+      },
+      "promotion": {
+        "decision": "REJECTED",
+        "finding_id": "finding_info_disclosure_5586c60f",
+        "gates_failed": [
+          "causal_validator_confirmed",
+          "semantic_identity_bound"
+        ],
+        "gates_passed": [
+          "real_runtime_observations",
+          "baseline_present",
+          "negative_control_present",
+          "proof_bundle_signed",
+          "replay_verified",
+          "no_external_scanner_authority"
+        ],
+        "pipeline": "PromotionPipeline_v1",
+        "reason": "causal_validator_confirmed:rejected; semantic_identity_bound:rejected",
+        "vulnerability_class": "INFO_DISCLOSURE"
+      },
+      "proof_bundle": {
+        "authenticity_algorithm": "hmac_sha256_v1",
+        "authenticity_key_version": "env_override_v1",
+        "authenticity_tag": "hmac_sha256:d95d3af0df2eb0b1861b572e0b8ce952421cbff83fddf4c2028092460561d1e8",
+        "baseline_digest": "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+        "baseline_evidence_ref": null,
+        "bundle_id": "proof_bundle_949b7523975b4db1a6eb90b1e1afcee9",
+        "campaign_id": "learning-demo-20261001t111635z-b",
+        "candidate_evidence_ref": null,
+        "causal_oracle": {
+          "actor_id": "unauthenticated",
+          "baseline_access_result": 200,
+          "baseline_complete": true,
+          "candidate_access_result": 200,
+          "causal_difference": null,
+          "causal_signal": false,
+          "discriminating_signal": "weak signal (1 pattern classes)",
+          "expected_owner": "unauthenticated",
+          "identity_bound": false,
+          "identity_bound_reason": "info_disclosure_not_proven sensitive=1 baseline=0 control=0",
+          "negative_control_complete": true,
+          "negative_control_result": 200,
+          "resource_id": "/api/Challenges/?key=nftMintChallenge",
+          "validator_outcome": "INCONCLUSIVE"
+        },
+        "chain_of_custody": [
+          {
+            "action": "seal",
+            "actor": "autonomous_validation_intelligence_v1",
+            "at": "2026-10-01T11:17:48.876171Z",
+            "note": ""
+          }
+        ],
+        "cleanup_status": "not_applicable",
+        "engagement_id": "learning-demo-20261001t111635z-b",
+        "evidence_digests": [
+          "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+          "sha256:119dda408f5580afe53c90185e92f12acd2816eafcc942aabe86f3174af33677",
+          "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75"
+        ],
+        "evidence_origin": "target_runtime",
+        "evidence_refs": [
+          "obs_ab4a0b31e7d161c3",
+          "obs_6c7e4f8ab29ca368",
+          "obs_29afbb9fdcd19120"
+        ],
+        "finding_id": "finding_info_disclosure_5586c60f",
+        "hypothesis_id": "h_recon_info_disclosure_a1cf803f630c",
+        "identity_context": {
+          "actor_id": "unauthenticated",
+          "baseline_actor_id": "unauthenticated",
+          "execution_identity": "exec_exp_infodisc_v1_7f0f5b4c",
+          "expected_owner": "unauthenticated",
+          "identity_bound": false,
+          "resource_id": "/api/Challenges/?key=nftMintChallenge",
+          "resource_owner": "unauthenticated"
+        },
+        "invariant_analysis": {},
+        "negative_control_digest": "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75",
+        "negative_control_evidence_ref": null,
+        "negative_control_independent": true,
+        "oracle_decision": "INCONCLUSIVE",
+        "redaction_manifest": [],
+        "replay_metadata": {
+          "replay_component": "ReplayVerifier_v1",
+          "replay_required": true,
+          "replayable": true,
+          "requests_executed": 3
+        },
+        "request_digests": [
+          "sha256:e7c1b3b3c0080108515457b2aa489b90cbfd69f848998cbe793ff2a6a922a65b",
+          "sha256:118779471d11bf62fa865246d043eca1d57a68b4bea47f8de608a1d50f872a93",
+          "sha256:20ea5f2de08bb72601cad2232f5930d98dcb54583429b83a4d5b407fee16ee94"
+        ],
+        "response_digests": [
+          "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+          "sha256:119dda408f5580afe53c90185e92f12acd2816eafcc942aabe86f3174af33677",
+          "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75"
+        ],
+        "run_id": "exp_infodisc_v1",
+        "scope_context": {
+          "authorized_via": "ScopeLaw+ToolBoundary",
+          "tool": "httpx_bounded"
+        },
+        "seal_digest": "sha256:e3a389728058752f90e1019c47415c003ffbd7218282cc0c59c560c9e7e9cd24",
+        "sealed": true,
+        "target_backed": true,
+        "target_context_hash": null,
+        "target_fingerprint": "7f0f5b4c620b8ed6",
+        "target_identity": null,
+        "target_package_id": null,
+        "target_package_policy_digest": null,
+        "target_package_scope_digest": null,
+        "target_package_sha256": null,
+        "validator_config_digest": null,
+        "validator_id": "canonical_validator_info_disclosure",
+        "validator_result": {
+          "discriminating_signal": "weak signal (1 pattern classes)",
+          "evidence_quality": 1,
+          "outcome": "INCONCLUSIVE"
+        },
+        "validator_version": "validator_coverage_v1",
+        "vulnerability_class": "INFO_DISCLOSURE"
+      },
+      "proof_result": {
+        "bundle_created": true,
+        "bundle_id": "proof_bundle_949b7523975b4db1a6eb90b1e1afcee9",
+        "component": "ProofBundle (existing sealed evidence authority)",
+        "evidence_origin": "target_runtime",
+        "seal_digest": "sha256:e3a389728058752f90e1019c47415c003ffbd7218282cc0c59c560c9e7e9cd24",
+        "seal_verified_via_replay": true,
+        "sealed": true
+      },
+      "proof_seal_verified": true,
+      "proof_sealed": true,
+      "real_http_executed": true,
+      "replay_result": {
+        "digests_match": true,
+        "expected_outcome": "INCONCLUSIVE",
+        "outcome_match": true,
+        "replay_component": "ReplayVerifier_v1_2_semantic",
+        "replay_verified": true,
+        "replayed_outcome": "INCONCLUSIVE",
+        "seal_verified": true,
+        "semantic_match": true
+      },
+      "replay_verified": true,
+      "request_observations": [
+        {
+          "method": "GET",
+          "path": "/",
+          "request_digest": "sha256:e7c1b3b3c0080108515457b2aa489b90cbfd69f848998cbe793ff2a6a922a65b"
+        },
+        {
+          "method": "GET",
+          "path": "/api/Challenges/",
+          "request_digest": "sha256:118779471d11bf62fa865246d043eca1d57a68b4bea47f8de608a1d50f872a93"
+        },
+        {
+          "method": "GET",
+          "path": "/",
+          "request_digest": "sha256:20ea5f2de08bb72601cad2232f5930d98dcb54583429b83a4d5b407fee16ee94"
+        }
+      ],
+      "resource_id": "/api/Challenges/?key=nftMintChallenge",
+      "response_observations": [
+        {
+          "response_digest": "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+          "status_code": 200
+        },
+        {
+          "response_digest": "sha256:119dda408f5580afe53c90185e92f12acd2816eafcc942aabe86f3174af33677",
+          "status_code": 200
+        },
+        {
+          "response_digest": "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75",
+          "status_code": 200
+        }
+      ],
+      "selection": {
+        "api_type": "rest",
+        "experiment_id": "exp_infodisc_v1",
+        "graphql_query": null,
+        "hypothesis_id": "h_recon_info_disclosure_a1cf803f630c",
+        "rejected_candidates": [
+          {
+            "hypothesis_id": "h_recon_info_disclosure_54f8d02da7c8",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_21029301197e",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_0f5d46a6f1c9",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          }
+        ],
+        "selected": true,
+        "selected_candidate_score": 1100,
+        "selection_reason": "deterministic_score:registry_coverage+information_value+novelty",
+        "selector_version": "autonomous_experiment_selector_v1",
+        "target_path": "/api/Challenges/?key=nftMintChallenge",
+        "vulnerability_class": "INFO_DISCLOSURE"
+      },
+      "stopped": false,
+      "validator_outcome": "INCONCLUSIVE",
+      "vulnerability_class": "INFO_DISCLOSURE",
+      "world_model_delta": {
+        "api": "EvidenceGraph.register_hypothesis+record_observation_outcome+record_experiment (existing world model seam)",
+        "entities_delta": 0,
+        "entity_count_after": 18,
+        "experiments_delta": 1,
+        "hypotheses_delta": 1,
+        "hypothesis_count_after": 8,
+        "information_value": 0.2,
+        "observation_id": "obs_exp_infodisc_v1_d8",
+        "relation_count_after": 25,
+        "relations_delta": 2,
+        "supports_hypothesis": false,
+        "updated": true
+      }
+    },
+    {
+      "actor_id": "unauthenticated",
+      "api_type": "rest",
+      "causal_difference": null,
+      "decision": 9,
+      "evidence_quality": 1,
+      "experiment_id": "exp_infodisc_v1",
+      "hypothesis_id": "h_recon_info_disclosure_54f8d02da7c8",
+      "identity_binding_result": {
+        "actor_id": "unauthenticated",
+        "authorization_context": "owner=unauthenticated",
+        "baseline_access_result": 200,
+        "baseline_actor_id": "unauthenticated",
+        "candidate_access_result": 500,
+        "causal_difference": null,
+        "expected_owner": "unauthenticated",
+        "identity_bound": false,
+        "identity_bound_reason": "info_disclosure_not_proven sensitive=1 baseline=0 control=0",
+        "negative_control_result": 200,
+        "resource_id": "/rest/continue-code-fixIt/apply/",
+        "resource_owner": "unauthenticated"
+      },
+      "identity_bound": false,
+      "identity_bound_reason": "info_disclosure_not_proven sensitive=1 baseline=0 control=0",
+      "outcome_tracker_update": {
+        "feeds_next_decision": true,
+        "history_index": 8,
+        "hypothesis_id": "h_recon_info_disclosure_54f8d02da7c8",
+        "information_value": 1.0,
+        "justification": "avi_decision_9_REJECTED",
+        "outcome_class": "low_information",
+        "signature": "exp_infodisc_v1",
+        "timestamp": "2026-10-01T11:17:48.997950+00:00"
+      },
+      "promotion": {
+        "decision": "REJECTED",
+        "finding_id": "finding_info_disclosure_48d4dd94",
+        "gates_failed": [
+          "causal_validator_confirmed",
+          "semantic_identity_bound"
+        ],
+        "gates_passed": [
+          "real_runtime_observations",
+          "baseline_present",
+          "negative_control_present",
+          "proof_bundle_signed",
+          "replay_verified",
+          "no_external_scanner_authority"
+        ],
+        "pipeline": "PromotionPipeline_v1",
+        "reason": "causal_validator_confirmed:rejected; semantic_identity_bound:rejected",
+        "vulnerability_class": "INFO_DISCLOSURE"
+      },
+      "proof_bundle": {
+        "authenticity_algorithm": "hmac_sha256_v1",
+        "authenticity_key_version": "env_override_v1",
+        "authenticity_tag": "hmac_sha256:3c6be16601e357b16d55fcfb9ce7a24cd2715357fd426745ecc60422877f3779",
+        "baseline_digest": "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+        "baseline_evidence_ref": null,
+        "bundle_id": "proof_bundle_6993f863c2ec4b68b4b831811486308a",
+        "campaign_id": "learning-demo-20261001t111635z-b",
+        "candidate_evidence_ref": null,
+        "causal_oracle": {
+          "actor_id": "unauthenticated",
+          "baseline_access_result": 200,
+          "baseline_complete": true,
+          "candidate_access_result": 500,
+          "causal_difference": null,
+          "causal_signal": false,
+          "discriminating_signal": "weak signal (1 pattern classes)",
+          "expected_owner": "unauthenticated",
+          "identity_bound": false,
+          "identity_bound_reason": "info_disclosure_not_proven sensitive=1 baseline=0 control=0",
+          "negative_control_complete": true,
+          "negative_control_result": 200,
+          "resource_id": "/rest/continue-code-fixIt/apply/",
+          "validator_outcome": "INCONCLUSIVE"
+        },
+        "chain_of_custody": [
+          {
+            "action": "seal",
+            "actor": "autonomous_validation_intelligence_v1",
+            "at": "2026-10-01T11:17:48.996569Z",
+            "note": ""
+          }
+        ],
+        "cleanup_status": "not_applicable",
+        "engagement_id": "learning-demo-20261001t111635z-b",
+        "evidence_digests": [
+          "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+          "sha256:a354805b960daf8dfc3aba4afea90458a0ca2ef5f2e244deaa1cac2317c3543b",
+          "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75"
+        ],
+        "evidence_origin": "target_runtime",
+        "evidence_refs": [
+          "obs_ab4a0b31e7d161c3",
+          "obs_aa1e3d2074a2b549",
+          "obs_29afbb9fdcd19120"
+        ],
+        "finding_id": "finding_info_disclosure_48d4dd94",
+        "hypothesis_id": "h_recon_info_disclosure_54f8d02da7c8",
+        "identity_context": {
+          "actor_id": "unauthenticated",
+          "baseline_actor_id": "unauthenticated",
+          "execution_identity": "exec_exp_infodisc_v1_7f0f5b4c",
+          "expected_owner": "unauthenticated",
+          "identity_bound": false,
+          "resource_id": "/rest/continue-code-fixIt/apply/",
+          "resource_owner": "unauthenticated"
+        },
+        "invariant_analysis": {},
+        "negative_control_digest": "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75",
+        "negative_control_evidence_ref": null,
+        "negative_control_independent": true,
+        "oracle_decision": "INCONCLUSIVE",
+        "redaction_manifest": [],
+        "replay_metadata": {
+          "replay_component": "ReplayVerifier_v1",
+          "replay_required": true,
+          "replayable": true,
+          "requests_executed": 3
+        },
+        "request_digests": [
+          "sha256:e7c1b3b3c0080108515457b2aa489b90cbfd69f848998cbe793ff2a6a922a65b",
+          "sha256:9fe10cc78eceb762df1381fb32f28754577e475b5231ace3372aaf15bc5d097f",
+          "sha256:20ea5f2de08bb72601cad2232f5930d98dcb54583429b83a4d5b407fee16ee94"
+        ],
+        "response_digests": [
+          "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+          "sha256:a354805b960daf8dfc3aba4afea90458a0ca2ef5f2e244deaa1cac2317c3543b",
+          "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75"
+        ],
+        "run_id": "exp_infodisc_v1",
+        "scope_context": {
+          "authorized_via": "ScopeLaw+ToolBoundary",
+          "tool": "httpx_bounded"
+        },
+        "seal_digest": "sha256:b24d15d874b1c93d8adc0ee2759b98ae22e50c2913644ca9560539b40c13dc78",
+        "sealed": true,
+        "target_backed": true,
+        "target_context_hash": null,
+        "target_fingerprint": "7f0f5b4c620b8ed6",
+        "target_identity": null,
+        "target_package_id": null,
+        "target_package_policy_digest": null,
+        "target_package_scope_digest": null,
+        "target_package_sha256": null,
+        "validator_config_digest": null,
+        "validator_id": "canonical_validator_info_disclosure",
+        "validator_result": {
+          "discriminating_signal": "weak signal (1 pattern classes)",
+          "evidence_quality": 1,
+          "outcome": "INCONCLUSIVE"
+        },
+        "validator_version": "validator_coverage_v1",
+        "vulnerability_class": "INFO_DISCLOSURE"
+      },
+      "proof_result": {
+        "bundle_created": true,
+        "bundle_id": "proof_bundle_6993f863c2ec4b68b4b831811486308a",
+        "component": "ProofBundle (existing sealed evidence authority)",
+        "evidence_origin": "target_runtime",
+        "seal_digest": "sha256:b24d15d874b1c93d8adc0ee2759b98ae22e50c2913644ca9560539b40c13dc78",
+        "seal_verified_via_replay": true,
+        "sealed": true
+      },
+      "proof_seal_verified": true,
+      "proof_sealed": true,
+      "real_http_executed": true,
+      "replay_result": {
+        "digests_match": true,
+        "expected_outcome": "INCONCLUSIVE",
+        "outcome_match": true,
+        "replay_component": "ReplayVerifier_v1_2_semantic",
+        "replay_verified": true,
+        "replayed_outcome": "INCONCLUSIVE",
+        "seal_verified": true,
+        "semantic_match": true
+      },
+      "replay_verified": true,
+      "request_observations": [
+        {
+          "method": "GET",
+          "path": "/",
+          "request_digest": "sha256:e7c1b3b3c0080108515457b2aa489b90cbfd69f848998cbe793ff2a6a922a65b"
+        },
+        {
+          "method": "GET",
+          "path": "/rest/continue-code-fixIt/apply/",
+          "request_digest": "sha256:9fe10cc78eceb762df1381fb32f28754577e475b5231ace3372aaf15bc5d097f"
+        },
+        {
+          "method": "GET",
+          "path": "/",
+          "request_digest": "sha256:20ea5f2de08bb72601cad2232f5930d98dcb54583429b83a4d5b407fee16ee94"
+        }
+      ],
+      "resource_id": "/rest/continue-code-fixIt/apply/",
+      "response_observations": [
+        {
+          "response_digest": "sha256:00a971bd35fd782f0126a81706570014f69403e4956f253a0383d731ac74e6ef",
+          "status_code": 200
+        },
+        {
+          "response_digest": "sha256:a354805b960daf8dfc3aba4afea90458a0ca2ef5f2e244deaa1cac2317c3543b",
+          "status_code": 500
+        },
+        {
+          "response_digest": "sha256:2d43233ee79b2a1d11dc0441ddca62b5d2a22243762d147b6bee6da33a44dc75",
+          "status_code": 200
+        }
+      ],
+      "selection": {
+        "api_type": "rest",
+        "experiment_id": "exp_infodisc_v1",
+        "graphql_query": null,
+        "hypothesis_id": "h_recon_info_disclosure_54f8d02da7c8",
+        "rejected_candidates": [
+          {
+            "hypothesis_id": "h_recon_info_disclosure_21029301197e",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          },
+          {
+            "hypothesis_id": "h_recon_info_disclosure_0f5d46a6f1c9",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          }
+        ],
+        "selected": true,
+        "selected_candidate_score": 1100,
+        "selection_reason": "deterministic_score:registry_coverage+information_value+novelty",
+        "selector_version": "autonomous_experiment_selector_v1",
+        "target_path": "/rest/continue-code-fixIt/apply/",
+        "vulnerability_class": "INFO_DISCLOSURE"
+      },
+      "stopped": false,
+      "validator_outcome": "INCONCLUSIVE",
+      "vulnerability_class": "INFO_DISCLOSURE",
+      "world_model_delta": {
+        "api": "EvidenceGraph.register_hypothesis+record_observation_outcome+record_experiment (existing world model seam)",
+        "entities_delta": 0,
+        "entity_count_after": 18,
+        "experiments_delta": 1,
+        "hypotheses_delta": 1,
+        "hypothesis_count_after": 9,
+        "information_value": 0.2,
+        "observation_id": "obs_exp_infodisc_v1_d9",
+        "relation_count_after": 27,
+        "relations_delta": 2,
+        "supports_hypothesis": false,
+        "updated": true
+      }
+    },
+    {
+      "actor_id": "unauthenticated",
+      "api_type": "rest",
+      "causal_difference": null,
+      "decision": 10,
+      "evidence_quality": 1,
+      "experiment_id": "exp_infodisc_v1",
+      "hypothesis_id": "h_recon_info_disclosure_21029301197e",
+      "identity_binding_result": {
+        "actor_id": "unauthenticated",
+        "authorization_context": "owner=unauthenticated",
+        "baseline_access_result": 200,
+        "baseline_actor_id": "unauthenticated",
+        "candidate_access_result": 200,
+        "causal_difference": null,
+        "expected_owner": "unauthenticated",
+        "identity_bound": false,
+        "identity_bound_reason": "info_disclosure_not_proven sensitive=1 baseline=0 control=0",
+        "negative_control_result": 200,
+        "resource_id": "/api/Challenges",
+        "resource_owner": "unauthenticated"
+      },
+      "identity_bound": false,
+      "identity_bound_reason": "info_disclosure_not_proven sensitive=1 baseline=0 control=0",
+      "outcome_tracker_update": {
+        "feeds_next_decision": true,
+        "history_index": 9,
+        "hypothesis_id": "h_recon_info_disclosure_21029301197e",
+        "information_value": 1.0,
+        "justification": "avi_decision_10_REJECTED",
+        "outcome_class": "low_information",
+        "signature": "exp_infodisc_v1",
+        "timestamp": "2026-10-01T11:17:49.150513+00:00"
+      },
+      "promotion": {
+        "decision": "REJECTED",
+        "finding_id": "finding_info_disclosure_84f8e118",
+        "gates_failed": [
+          "causal_validator_confirmed",
+          "semantic_identity_bound"
+        ],
+        "gates_passed": [
+          "real_runtime_observations",
+          "baseline_present",
+          "negative_control_present",
+          "proof_bundle_signed",
+          "replay_verified",
+          "no_external_scanner_authority"
+        ],
+        "pipeline": "PromotionPipeline_v1",
+        "reason": "causal_validator_confirmed:rejected; semantic_identity_bound:rejected",
+        "vulnerability_class": "INFO_DISCLOSURE"
+      },
+      "proof_bundle": {
+        "authenticity_algorithm": "hmac_sha256_v1",
+        "authenticity_key_version": "env_override_v1",
+        "authenticity_tag": "hmac_sha256:18db6065b619f8e340c6efa69e35aaa683f182d369c86e219653ba005ea78d41",
+        "baseline_digest": "sha256:66a0776c02052c94a01615fb8395738adb0843840f33bb08180a3b7d8ced97e0",
+        "baseline_evidence_ref": null,
+        "bundle_id": "proof_bundle_c0d6cf056e0e4d3fa882d5cb6546714c",
+        "campaign_id": "learning-demo-20261001t111635z-b",
+        "candidate_evidence_ref": null,
+        "causal_oracle": {
+          "actor_id": "unauthenticated",
+          "baseline_access_result": 200,
+          "baseline_complete": true,
+          "candidate_access_result": 200,
+          "causal_difference": null,
+          "causal_signal": false,
+          "discriminating_signal": "weak signal (1 pattern classes)",
+          "expected_owner": "unauthenticated",
+          "identity_bound": false,
+          "identity_bound_reason": "info_disclosure_not_proven sensitive=1 baseline=0 control=0",
+          "negative_control_complete": true,
+          "negative_control_result": 200,
+          "resource_id": "/api/Challenges",
+          "validator_outcome": "INCONCLUSIVE"
+        },
+        "chain_of_custody": [
+          {
+            "action": "seal",
+            "actor": "autonomous_validation_intelligence_v1",
+            "at": "2026-10-01T11:17:49.149120Z",
+            "note": ""
+          }
+        ],
+        "cleanup_status": "not_applicable",
+        "engagement_id": "learning-demo-20261001t111635z-b",
+        "evidence_digests": [
+          "sha256:66a0776c02052c94a01615fb8395738adb0843840f33bb08180a3b7d8ced97e0",
+          "sha256:bb09acd313dd13aa0002550e07cf0f353d44934edb4c6563efc1a60cb07a41af",
+          "sha256:5222ca69164bd235deb2a40783ef8aabc9a6df21f78adceec52c4a41e7aa2dab"
+        ],
+        "evidence_origin": "target_runtime",
+        "evidence_refs": [
+          "obs_421a8a581043f2b9",
+          "obs_e5c830223e671c73",
+          "obs_14dec4d2d1c16754"
+        ],
+        "finding_id": "finding_info_disclosure_84f8e118",
+        "hypothesis_id": "h_recon_info_disclosure_21029301197e",
+        "identity_context": {
+          "actor_id": "unauthenticated",
+          "baseline_actor_id": "unauthenticated",
+          "execution_identity": "exec_exp_infodisc_v1_7f0f5b4c",
+          "expected_owner": "unauthenticated",
+          "identity_bound": false,
+          "resource_id": "/api/Challenges",
+          "resource_owner": "unauthenticated"
+        },
+        "invariant_analysis": {},
+        "negative_control_digest": "sha256:5222ca69164bd235deb2a40783ef8aabc9a6df21f78adceec52c4a41e7aa2dab",
+        "negative_control_evidence_ref": null,
+        "negative_control_independent": true,
+        "oracle_decision": "INCONCLUSIVE",
+        "redaction_manifest": [],
+        "replay_metadata": {
+          "replay_component": "ReplayVerifier_v1",
+          "replay_required": true,
+          "replayable": true,
+          "requests_executed": 3
+        },
+        "request_digests": [
+          "sha256:e7c1b3b3c0080108515457b2aa489b90cbfd69f848998cbe793ff2a6a922a65b",
+          "sha256:64aafaf3425d65da9f9af691a1c53ffd10becd447cbea4231a66165fdd41b71d",
+          "sha256:20ea5f2de08bb72601cad2232f5930d98dcb54583429b83a4d5b407fee16ee94"
+        ],
+        "response_digests": [
+          "sha256:66a0776c02052c94a01615fb8395738adb0843840f33bb08180a3b7d8ced97e0",
+          "sha256:bb09acd313dd13aa0002550e07cf0f353d44934edb4c6563efc1a60cb07a41af",
+          "sha256:5222ca69164bd235deb2a40783ef8aabc9a6df21f78adceec52c4a41e7aa2dab"
+        ],
+        "run_id": "exp_infodisc_v1",
+        "scope_context": {
+          "authorized_via": "ScopeLaw+ToolBoundary",
+          "tool": "httpx_bounded"
+        },
+        "seal_digest": "sha256:832118b1837176fe4004932bb6134e4c9518bb6522b70c3705c5185f803fc79c",
+        "sealed": true,
+        "target_backed": true,
+        "target_context_hash": null,
+        "target_fingerprint": "7f0f5b4c620b8ed6",
+        "target_identity": null,
+        "target_package_id": null,
+        "target_package_policy_digest": null,
+        "target_package_scope_digest": null,
+        "target_package_sha256": null,
+        "validator_config_digest": null,
+        "validator_id": "canonical_validator_info_disclosure",
+        "validator_result": {
+          "discriminating_signal": "weak signal (1 pattern classes)",
+          "evidence_quality": 1,
+          "outcome": "INCONCLUSIVE"
+        },
+        "validator_version": "validator_coverage_v1",
+        "vulnerability_class": "INFO_DISCLOSURE"
+      },
+      "proof_result": {
+        "bundle_created": true,
+        "bundle_id": "proof_bundle_c0d6cf056e0e4d3fa882d5cb6546714c",
+        "component": "ProofBundle (existing sealed evidence authority)",
+        "evidence_origin": "target_runtime",
+        "seal_digest": "sha256:832118b1837176fe4004932bb6134e4c9518bb6522b70c3705c5185f803fc79c",
+        "seal_verified_via_replay": true,
+        "sealed": true
+      },
+      "proof_seal_verified": true,
+      "proof_sealed": true,
+      "real_http_executed": true,
+      "replay_result": {
+        "digests_match": true,
+        "expected_outcome": "INCONCLUSIVE",
+        "outcome_match": true,
+        "replay_component": "ReplayVerifier_v1_2_semantic",
+        "replay_verified": true,
+        "replayed_outcome": "INCONCLUSIVE",
+        "seal_verified": true,
+        "semantic_match": true
+      },
+      "replay_verified": true,
+      "request_observations": [
+        {
+          "method": "GET",
+          "path": "/",
+          "request_digest": "sha256:e7c1b3b3c0080108515457b2aa489b90cbfd69f848998cbe793ff2a6a922a65b"
+        },
+        {
+          "method": "GET",
+          "path": "/api/Challenges",
+          "request_digest": "sha256:64aafaf3425d65da9f9af691a1c53ffd10becd447cbea4231a66165fdd41b71d"
+        },
+        {
+          "method": "GET",
+          "path": "/",
+          "request_digest": "sha256:20ea5f2de08bb72601cad2232f5930d98dcb54583429b83a4d5b407fee16ee94"
+        }
+      ],
+      "resource_id": "/api/Challenges",
+      "response_observations": [
+        {
+          "response_digest": "sha256:66a0776c02052c94a01615fb8395738adb0843840f33bb08180a3b7d8ced97e0",
+          "status_code": 200
+        },
+        {
+          "response_digest": "sha256:bb09acd313dd13aa0002550e07cf0f353d44934edb4c6563efc1a60cb07a41af",
+          "status_code": 200
+        },
+        {
+          "response_digest": "sha256:5222ca69164bd235deb2a40783ef8aabc9a6df21f78adceec52c4a41e7aa2dab",
+          "status_code": 200
+        }
+      ],
+      "selection": {
+        "api_type": "rest",
+        "experiment_id": "exp_infodisc_v1",
+        "graphql_query": null,
+        "hypothesis_id": "h_recon_info_disclosure_21029301197e",
+        "rejected_candidates": [
+          {
+            "hypothesis_id": "h_recon_info_disclosure_0f5d46a6f1c9",
+            "rejected_reason": "lower_deterministic_score_than_selected",
+            "score": 1100,
+            "vulnerability_class": "INFO_DISCLOSURE"
+          }
+        ],
+        "selected": true,
+        "selected_candidate_score": 1100,
+        "selection_reason": "deterministic_score:registry_coverage+information_value+novelty",
+        "selector_version": "autonomous_experiment_selector_v1",
+        "target_path": "/api/Challenges",
+        "vulnerability_class": "INFO_DISCLOSURE"
+      },
+      "stopped": false,
+      "validator_outcome": "INCONCLUSIVE",
+      "vulnerability_class": "INFO_DISCLOSURE",
+      "world_model_delta": {
+        "api": "EvidenceGraph.register_hypothesis+record_observation_outcome+record_experiment (existing world model seam)",
+        "entities_delta": 0,
+        "entity_count_after": 18,
+        "experiments_delta": 1,
+        "hypotheses_delta": 1,
+        "hypothesis_count_after": 10,
+        "information_value": 0.2,
+        "observation_id": "obs_exp_infodisc_v1_d10",
+        "relation_count_after": 29,
+        "relations_delta": 2,
+        "supports_hypothesis": false,
+        "updated": true
+      }
+    },
+    {
+      "actor_id": "unauthenticated",
+      "api_type": "rest",
+      "causal_difference": null,
+      "decision": 11,
+      "evidence_quality": 1,
+      "experiment_id": "exp_infodisc_v1",
+      "hypothesis_id": "h_recon_info_disclosure_0f5d46a6f1c9",
+      "identity_binding_result": {
+        "actor_id": "unauthenticated",
+        "authorization_context": "owner=unauthenticated",
+        "baseline_access_result": 200,
+        "baseline_actor_id": "unauthenticated",
+        "candidate_access_result": 500,
+        "causal_difference": null,
+        "expected_owner": "unauthenticated",
+        "identity_bound": false,
+        "identity_bound_reason": "info_disclosure_not_proven sensitive=1 baseline=0 control=0",
+        "negative_control_result": 200,
+        "resource_id": "/rest/web3",
+        "resource_owner": "unauthenticated"
+      },
+      "identity_bound": false,
+      "identity_bound_reason": "info_disclosure_not_proven sensitive=1 baseline=0 control=0",
+      "outcome_tracker_update": {
+        "feeds_next_decision": true,
+        "history_index": 10,
+        "hypothesis_id": "h_recon_info_disclosure_0f5d46a6f1c9",
+        "information_value": 1.0,
+        "justification": "avi_decision_11_REJECTED",
+        "outcome_class": "low_information",
+        "signature": "exp_infodisc_v1",
+        "timestamp": "2026-10-01T11:17:49.262473+00:00"
+      },
+      "promotion": {
+        "decision": "REJECTED",
+        "finding_id": "finding_info_disclosure_d00fee51",
+        "gates_failed": [
+          "causal_validator_confirmed",
+          "semantic_identity_bound"
+        ],
+        "gates_passed": [
+          "real_runtime_observations",
+          "baseline_present",
+          "negative_control_present",
+          "proof_bundle_signed",
+          "replay_verified",
+          "no_external_scanner_authority"
+        ],
+        "pipeline": "PromotionPipeline_v1",
+        "reason": "causal_validator_confirmed:rejected; semantic_identity_bound:rejected",
+        "vulnerability_class": "INFO_DISCLOSURE"
+      },
+      "proof_bundle": {
+        "authenticity_algorithm": "hmac_sha256_v1",
+        "authenticity_key_version": "env_override_v1",
+        "authenticity_tag": "hmac_sha256:53fd2f2ec903cbcfe98de316ccc826b8f162089dade6d1001857176201e903bb",
+        "baseline_digest": "sha256:66a0776c02052c94a01615fb8395738adb0843840f33bb08180a3b7d8ced97e0",
+        "baseline_evidence_ref": null,
+        "bundle_id": "proof_bundle_df72b090931b4c57b71d84fc6597834f",
+        "campaign_id": "learning-demo-20261001t111635z-b",
+        "candidate_evidence_ref": null,
+        "causal_oracle": {
+          "actor_id": "unauthenticated",
+          "baseline_access_result": 200,
+          "baseline_complete": true,
+          "candidate_access_result": 500,
+          "causal_difference": null,
+          "causal_signal": false,
+          "discriminating_signal": "weak signal (1 pattern classes)",
+          "expected_owner": "unauthenticated",
+          "identity_bound": false,
+          "identity_bound_reason": "info_disclosure_not_proven sensitive=1 baseline=0 control=0",
+          "negative_control_complete": true,
+          "negative_control_result": 200,
+          "resource_id": "/rest/web3",
+          "validator_outcome": "INCONCLUSIVE"
+        },
+        "chain_of_custody": [
+          {
+            "action": "seal",
+            "actor": "autonomous_validation_intelligence_v1",
+            "at": "2026-10-01T11:17:49.260960Z",
+            "note": ""
+          }
+        ],
+        "cleanup_status": "not_applicable",
+        "engagement_id": "learning-demo-20261001t111635z-b",
+        "evidence_digests": [
+          "sha256:66a0776c02052c94a01615fb8395738adb0843840f33bb08180a3b7d8ced97e0",
+          "sha256:0a76f782e1aab702e5b3a7244a6c01a1b08659264c64e540310f9b81b9ce7d7a",
+          "sha256:5222ca69164bd235deb2a40783ef8aabc9a6df21f78adceec52c4a41e7aa2dab"
+        ],
+        "evidence_origin": "target_runtime",
+        "evidence_refs": [
+          "obs_421a8a581043f2b9",
+          "obs_8e7dac9fec42278f",
+          "obs_14dec4d2d1c16754"
+        ],
+        "finding_id": "finding_info_disclosure_d00fee51",
+        "hypothesis_id": "h_recon_info_disclosure_0f5d46a6f1c9",
+        "identity_context": {
+          "actor_id": "unauthenticated",
+          "baseline_actor_id": "unauthenticated",
+          "execution_identity": "exec_exp_infodisc_v1_7f0f5b4c",
+          "expected_owner": "unauthenticated",
+          "identity_bound": false,
+          "resource_id": "/rest/web3",
+          "resource_owner": "unauthenticated"
+        },
+        "invariant_analysis": {},
+        "negative_control_digest": "sha256:5222ca69164bd235deb2a40783ef8aabc9a6df21f78adceec52c4a41e7aa2dab",
+        "negative_control_evidence_ref": null,
+        "negative_control_independent": true,
+        "oracle_decision": "INCONCLUSIVE",
+        "redaction_manifest": [],
+        "replay_metadata": {
+          "replay_component": "ReplayVerifier_v1",
+          "replay_required": true,
+          "replayable": true,
+          "requests_executed": 3
+        },
+        "request_digests": [
+          "sha256:e7c1b3b3c0080108515457b2aa489b90cbfd69f848998cbe793ff2a6a922a65b",
+          "sha256:625640c8df7df3fd6b259d31c5ffa47278defd9aece2e9eeb4253f58b2a35528",
+          "sha256:20ea5f2de08bb72601cad2232f5930d98dcb54583429b83a4d5b407fee16ee94"
+        ],
+        "response_digests": [
+          "sha256:66a0776c02052c94a01615fb8395738adb0843840f33bb08180a3b7d8ced97e0",
+          "sha256:0a76f782e1aab702e5b3a7244a6c01a1b08659264c64e540310f9b81b9ce7d7a",
+          "sha256:5222ca69164bd235deb2a40783ef8aabc9a6df21f78adceec52c4a41e7aa2dab"
+        ],
+        "run_id": "exp_infodisc_v1",
+        "scope_context": {
+          "authorized_via": "ScopeLaw+ToolBoundary",
+          "tool": "httpx_bounded"
+        },
+        "seal_digest": "sha256:8555ff4cf3c4a44027ca7cf2e6d28e587972a14428c48cd48a5b1d6743868d27",
+        "sealed": true,
+        "target_backed": true,
+        "target_context_hash": null,
+        "target_fingerprint": "7f0f5b4c620b8ed6",
+        "target_identity": null,
+        "target_package_id": null,
+        "target_package_policy_digest": null,
+        "target_package_scope_digest": null,
+        "target_package_sha256": null,
+        "validator_config_digest": null,
+        "validator_id": "canonical_validator_info_disclosure",
+        "validator_result": {
+          "discriminating_signal": "weak signal (1 pattern classes)",
+          "evidence_quality": 1,
+          "outcome": "INCONCLUSIVE"
+        },
+        "validator_version": "validator_coverage_v1",
+        "vulnerability_class": "INFO_DISCLOSURE"
+      },
+      "proof_result": {
+        "bundle_created": true,
+        "bundle_id": "proof_bundle_df72b090931b4c57b71d84fc6597834f",
+        "component": "ProofBundle (existing sealed evidence authority)",
+        "evidence_origin": "target_runtime",
+        "seal_digest": "sha256:8555ff4cf3c4a44027ca7cf2e6d28e587972a14428c48cd48a5b1d6743868d27",
+        "seal_verified_via_replay": true,
+        "sealed": true
+      },
+      "proof_seal_verified": true,
+      "proof_sealed": true,
+      "real_http_executed": true,
+      "replay_result": {
+        "digests_match": true,
+        "expected_outcome": "INCONCLUSIVE",
+        "outcome_match": true,
+        "replay_component": "ReplayVerifier_v1_2_semantic",
+        "replay_verified": true,
+        "replayed_outcome": "INCONCLUSIVE",
+        "seal_verified": true,
+        "semantic_match": true
+      },
+      "replay_verified": true,
+      "request_observations": [
+        {
+          "method": "GET",
+          "path": "/",
+          "request_digest": "sha256:e7c1b3b3c0080108515457b2aa489b90cbfd69f848998cbe793ff2a6a922a65b"
+        },
+        {
+          "method": "GET",
+          "path": "/rest/web3",
+          "request_digest": "sha256:625640c8df7df3fd6b259d31c5ffa47278defd9aece2e9eeb4253f58b2a35528"
+        },
+        {
+          "method": "GET",
+          "path": "/",
+          "request_digest": "sha256:20ea5f2de08bb72601cad2232f5930d98dcb54583429b83a4d5b407fee16ee94"
+        }
+      ],
+      "resource_id": "/rest/web3",
+      "response_observations": [
+        {
+          "response_digest": "sha256:66a0776c02052c94a01615fb8395738adb0843840f33bb08180a3b7d8ced97e0",
+          "status_code": 200
+        },
+        {
+          "response_digest": "sha256:0a76f782e1aab702e5b3a7244a6c01a1b08659264c64e540310f9b81b9ce7d7a",
+          "status_code": 500
+        },
+        {
+          "response_digest": "sha256:5222ca69164bd235deb2a40783ef8aabc9a6df21f78adceec52c4a41e7aa2dab",
+          "status_code": 200
+        }
+      ],
+      "selection": {
+        "api_type": "rest",
+        "experiment_id": "exp_infodisc_v1",
+        "graphql_query": null,
+        "hypothesis_id": "h_recon_info_disclosure_0f5d46a6f1c9",
+        "rejected_candidates": [],
+        "selected": true,
+        "selected_candidate_score": 1100,
+        "selection_reason": "deterministic_score:registry_coverage+information_value+novelty",
+        "selector_version": "autonomous_experiment_selector_v1",
+        "target_path": "/rest/web3",
+        "vulnerability_class": "INFO_DISCLOSURE"
+      },
+      "stopped": false,
+      "validator_outcome": "INCONCLUSIVE",
+      "vulnerability_class": "INFO_DISCLOSURE",
+      "world_model_delta": {
+        "api": "EvidenceGraph.register_hypothesis+record_observation_outcome+record_experiment (existing world model seam)",
+        "entities_delta": 0,
+        "entity_count_after": 18,
+        "experiments_delta": 1,
+        "hypotheses_delta": 1,
+        "hypothesis_count_after": 11,
+        "information_value": 0.2,
+        "observation_id": "obs_exp_infodisc_v1_d11",
+        "relation_count_after": 31,
+        "relations_delta": 2,
+        "supports_hypothesis": false,
+        "updated": true
+      }
+    }
+  ],
+  "hypotheses_executable": 11,
+  "hypotheses_generated": 11,
+  "raw_content_policy": "raw target bodies, content, headers, cookies, and credentials intentionally omitted",
+  "scope_source": "inferred_from_url",
+  "target_url": "http://127.0.0.1:3000"
+}

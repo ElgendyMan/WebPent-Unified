@@ -1,0 +1,65 @@
+{
+  "agent_graph_events": 87,
+  "audit_verification": {
+    "verified": true
+  },
+  "authentication": {
+    "auth_type": "api_jwt",
+    "signal_count": 8
+  },
+  "campaign_id": "hunter-e0cadae1d00c",
+  "candidates_executable": 12,
+  "candidates_generated": 12,
+  "confirmed_findings": [],
+  "duration_seconds": 340.357,
+  "llm_calls": 32,
+  "llm_cost_usd": 0.10514425,
+  "principals": [
+    {
+      "alias": "owner",
+      "credential_alias": "admin2",
+      "material": {
+        "digest": "6160227e4c715e0c",
+        "kind": "bearer",
+        "name": "token"
+      },
+      "reason": "jwt_login_response_validated",
+      "role": "owner",
+      "status_code": 200,
+      "success": true,
+      "vault_bound": true
+    },
+    {
+      "alias": "foreign",
+      "credential_alias": "user",
+      "material": {
+        "digest": "ede073ab025e93ce",
+        "kind": "bearer",
+        "name": "token"
+      },
+      "reason": "jwt_login_response_validated",
+      "role": "foreign-user",
+      "status_code": 200,
+      "success": true,
+      "vault_bound": true
+    }
+  ],
+  "production_trace": {
+    "complete": false,
+    "missing_required_stages": [
+      "replan"
+    ]
+  },
+  "routes_crawled": 25,
+  "security_boundary": {
+    "credentials_attached_by": "M4 only",
+    "execution_authority": "ModernOrchestrator/ScopeLaw/AVI/PromotionPipeline",
+    "raw_target_content_returned": false
+  },
+  "target_url": "http://127.0.0.1:8888",
+  "validation_counts": {
+    "confirmed": 0,
+    "inconclusive": 14,
+    "refuted": 0
+  }
+}

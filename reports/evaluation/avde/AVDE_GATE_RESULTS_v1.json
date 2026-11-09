@@ -1,0 +1,45 @@
+{
+  "schema_version": "avde-gate-results-v1",
+  "source_commit_before_gate_artifact": "f5e30d68fcc8752e1bdec5d656f5f8b803272f67",
+  "manifest_commit": "819e5d9c5c2e49c3b18f0dc775ff47624d63c19e",
+  "provenance_commit": "f5e4bcec7e4253b5082b0e11edb975dda0218ed3",
+  "focused_tests": {
+    "command": "PYTHONPATH=src:integrations/bbscout/src pytest -q tests/test_avde.py tests/test_avde_benchmark.py tests/test_avde_pipeline.py",
+    "passed": 7,
+    "failed": 0
+  },
+  "full_pytest": {
+    "command": "PYTHONPATH=src:integrations/bbscout/src pytest -q",
+    "passed": 2102,
+    "failed": 7,
+    "classification": "historical_failures_only",
+    "known_failure_groups": [
+      "4 approval_source_hash_mismatch failures",
+      "3 missing source fixture failures for WebGoat/crAPI/Juice Shop"
+    ],
+    "new_avde_regressions": 0
+  },
+  "gates": {
+    "ruff_check_avde_scope": true,
+    "ruff_format_avde_scope": true,
+    "compileall_avde_scope": true,
+    "generic_target_neutrality": true,
+    "tracked_secret_scan": true,
+    "direct_io_g02": true,
+    "git_diff_check": true,
+    "release_artifact_verification": true,
+    "release_manifest_provenance": true,
+    "full_repository_ruff_format_check": false,
+    "full_repository_ruff_format_note": "350 historical files would be reformatted; unrelated files were not mass-modified."
+  },
+  "governance": {
+    "official_isolated_p10_runs_authorized": false,
+    "p10_status": "NOT_QUALIFIED",
+    "p9_status": "NOT_QUALIFIED",
+    "vip_status": "NOT_QUALIFIED",
+    "bug_bounty_status": "BLOCKED",
+    "human_signoff": false,
+    "qualification_effect": false,
+    "real_world_detection_rate_measured": false
+  }
+}

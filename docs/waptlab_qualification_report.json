@@ -1,0 +1,89 @@
+{
+  "final_confirmed_counts": [
+    0,
+    0,
+    0
+  ],
+  "final_confirmed_minimum": 0,
+  "generated_at": "2026-08-25T21:22:10.048754+00:00",
+  "live_qualification": false,
+  "notes": [
+    "Candidate/review dispositions are not counted as confirmed findings.",
+    "This artifact proves only local mock reproducibility and field completeness gaps."
+  ],
+  "precision": {
+    "reason": "no known-negative catalog was executed",
+    "status": "not_measured"
+  },
+  "recall": {
+    "reason": "mock runs are not WAPTLab runtime qualification",
+    "status": "blocked_live"
+  },
+  "required_runtime_fields": [
+    "image_digest",
+    "seed_hash",
+    "execution_events"
+  ],
+  "run_count": 3,
+  "runs": [
+    {
+      "campaign_count": 20,
+      "final_confirmed_count": 0,
+      "missing_runtime_fields": [
+        "image_digest",
+        "seed_hash",
+        "execution_events"
+      ],
+      "run": "docs/waptlab_mock_matrix_run1.json",
+      "signature": "bf9490edd0df30c72a1e514cab9ddbd082f52bf8832cb889dc39bcd483543292",
+      "status_counts": {
+        "candidate-or-review": 15,
+        "tool-confirmed": 5
+      },
+      "tool_confirmed_count": 5
+    },
+    {
+      "campaign_count": 20,
+      "final_confirmed_count": 0,
+      "missing_runtime_fields": [
+        "image_digest",
+        "seed_hash",
+        "execution_events"
+      ],
+      "run": "docs/waptlab_mock_matrix_run2.json",
+      "signature": "bf9490edd0df30c72a1e514cab9ddbd082f52bf8832cb889dc39bcd483543292",
+      "status_counts": {
+        "candidate-or-review": 15,
+        "tool-confirmed": 5
+      },
+      "tool_confirmed_count": 5
+    },
+    {
+      "campaign_count": 20,
+      "final_confirmed_count": 0,
+      "missing_runtime_fields": [
+        "image_digest",
+        "seed_hash",
+        "execution_events"
+      ],
+      "run": "docs/waptlab_mock_matrix_run3.json",
+      "signature": "bf9490edd0df30c72a1e514cab9ddbd082f52bf8832cb889dc39bcd483543292",
+      "status_counts": {
+        "candidate-or-review": 15,
+        "tool-confirmed": 5
+      },
+      "tool_confirmed_count": 5
+    }
+  ],
+  "schema_version": "webpent-qualification-report-v1",
+  "stable_campaign_signatures": true,
+  "status": "mock_reproducible",
+  "target_contacted": false,
+  "tool_confirmed_counts": [
+    5,
+    5,
+    5
+  ],
+  "tool_confirmed_minimum": 5,
+  "waptlab_modified": false
+}

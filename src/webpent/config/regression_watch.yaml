@@ -1,0 +1,7 @@
+# Regression watch defaults (v83, U-CEM-6).
+# The watch is advisory: it schedules retests and notices regressions,
+# the audited verification path decides what a retest actually does.
+
+retest_interval_hours: 168.0     # weekly retest of fixed/active findings
+max_retests_per_finding: 8       # a finding is never retested forever
+defer_after_missed_retests: 2    # endpoint gone this many times -> defer

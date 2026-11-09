@@ -1,0 +1,332 @@
+[1m[91mE501[0m[1m Line too long (110 > 100)[0m
+  [1m[94m--> [0mscripts/build_phase0_trace.py:43:101
+   [1m[94m|[0m
+[1m[94m41[0m [1m[94m|[0m     text = read_text(builder)
+[1m[94m42[0m [1m[94m|[0m     nodes = sorted(set(re.findall(r"graph\.add_node\((NODE_[A-Z0-9_]+)", text)))
+[1m[94m43[0m [1m[94m|[0m     edges = re.findall(r"graph\.add_edge\((NODE_[A-Z0-9_]+|START|END),\s*(NODE_[A-Z0-9_]+|START|END)\)", text)
+   [1m[94m|[0m                                                                                                     [1m[91m^^^^^^^^^^[0m
+[1m[94m44[0m [1m[94m|[0m     conditionals = re.findall(r"graph\.add_conditional_edges\(\s*(NODE_[A-Z0-9_]+),\s*([a-zA-Z_][a-zA-Z0-9_]*)", text)
+[1m[94m45[0m [1m[94m|[0m     interrupt = "interrupt_before" in text
+   [1m[94m|[0m
+
+[1m[91mE501[0m[1m Line too long (118 > 100)[0m
+  [1m[94m--> [0mscripts/build_phase0_trace.py:44:101
+   [1m[94m|[0m
+[1m[94m42[0m [1m[94m|[0m     nodes = sorted(set(re.findall(r"graph\.add_node\((NODE_[A-Z0-9_]+)", text)))
+[1m[94m43[0m [1m[94m|[0m     edges = re.findall(r"graph\.add_edge\((NODE_[A-Z0-9_]+|START|END),\s*(NODE_[A-Z0-9_]+|START|END)\)", text)
+[1m[94m44[0m [1m[94m|[0m     conditionals = re.findall(r"graph\.add_conditional_edges\(\s*(NODE_[A-Z0-9_]+),\s*([a-zA-Z_][a-zA-Z0-9_]*)", text)
+   [1m[94m|[0m                                                                                                     [1m[91m^^^^^^^^^^^^^^^^^^[0m
+[1m[94m45[0m [1m[94m|[0m     interrupt = "interrupt_before" in text
+[1m[94m46[0m [1m[94m|[0m     return {
+   [1m[94m|[0m
+
+[1m[91mE501[0m[1m Line too long (101 > 100)[0m
+  [1m[94m--> [0mscripts/build_phase0_trace.py:72:101
+   [1m[94m|[0m
+[1m[94m70[0m [1m[94m|[0m     missing_files = [name for name in required_files if not (ROOT / name).exists()]
+[1m[94m71[0m [1m[94m|[0m     return {
+[1m[94m72[0m [1m[94m|[0m         "implemented_symbols": {name: idx.get(name, []) for name in required_symbols if name in idx},
+   [1m[94m|[0m                                                                                                     [1m[91m^[0m
+[1m[94m73[0m [1m[94m|[0m         "missing_symbols": missing_symbols,
+[1m[94m74[0m [1m[94m|[0m         "missing_files": missing_files,
+   [1m[94m|[0m
+
+[1m[91mE501[0m[1m Line too long (102 > 100)[0m
+  [1m[94m--> [0mscripts/build_phase0_trace.py:75:101
+   [1m[94m|[0m
+[1m[94m73[0m [1m[94m|[0m         "missing_symbols": missing_symbols,
+[1m[94m74[0m [1m[94m|[0m         "missing_files": missing_files,
+[1m[94m75[0m [1m[94m|[0m         "status": "implemented" if not missing_symbols and not missing_files else "partial_or_absent",
+   [1m[94m|[0m                                                                                                     [1m[91m^^[0m
+[1m[94m76[0m [1m[94m|[0m     }
+   [1m[94m|[0m
+
+[1m[91mE501[0m[1m Line too long (104 > 100)[0m
+  [1m[94m--> [0mscripts/build_phase0_trace.py:85:101
+   [1m[94m|[0m
+[1m[94m83[0m [1m[94m|[0m             "pytest": "700 passed, 110 warnings",
+[1m[94m84[0m [1m[94m|[0m             "ruff": "104 errors under configured E/F/I/N/W/UP/B/C4/SIM rules",
+[1m[94m85[0m [1m[94m|[0m             "compileall": "not reached in first baseline command because Ruff failed; rerun separately",
+   [1m[94m|[0m                                                                                                     [1m[91m^^^^[0m
+[1m[94m86[0m [1m[94m|[0m         },
+[1m[94m87[0m [1m[94m|[0m         "graph": graph_facts(),
+   [1m[94m|[0m
+
+[1m[91mE501[0m[1m Line too long (133 > 100)[0m
+   [1m[94m--> [0mscripts/build_phase0_trace.py:139:101
+    [1m[94m|[0m
+[1m[94m137[0m [1m[94m|[0m     lines.extend(["", "## Conditional routers", ""])
+[1m[94m138[0m [1m[94m|[0m     lines.extend(f"- `{node}` uses `{router}()`" for node, router in graph["conditional_edges"])
+[1m[94m139[0m [1m[94m|[0m     lines.extend(["", "## Approval boundary", "", f"- `interrupt_before` present in builder: `{graph['interrupt_before_present']}`"])
+    [1m[94m|[0m                                                                                                     [1m[91m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[1m[94m140[0m [1m[94m|[0m     OUT_GRAPH.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    [1m[94m|[0m
+
+[1m[91mE702[0m[1m Multiple statements on one line (semicolon)[0m
+  [1m[94m--> [0mscripts/ingest_payloads.py:73:45
+   [1m[94m|[0m
+[1m[94m71[0m [1m[94m|[0m         import yaml
+[1m[94m72[0m [1m[94m|[0m     except ImportError:
+[1m[94m73[0m [1m[94m|[0m         logger.error("PyYAML not installed"); sys.exit(1)
+   [1m[94m|[0m                                             [1m[91m^[0m
+[1m[94m74[0m [1m[94m|[0m     if not path.is_file():
+[1m[94m75[0m [1m[94m|[0m         logger.error("Manifest not found: %s", path); sys.exit(1)
+   [1m[94m|[0m
+
+[1m[91mE702[0m[1m Multiple statements on one line (semicolon)[0m
+  [1m[94m--> [0mscripts/ingest_payloads.py:75:53
+   [1m[94m|[0m
+[1m[94m73[0m [1m[94m|[0m         logger.error("PyYAML not installed"); sys.exit(1)
+[1m[94m74[0m [1m[94m|[0m     if not path.is_file():
+[1m[94m75[0m [1m[94m|[0m         logger.error("Manifest not found: %s", path); sys.exit(1)
+   [1m[94m|[0m                                                     [1m[91m^[0m
+[1m[94m76[0m [1m[94m|[0m     with open(path, encoding="utf-8") as f:
+[1m[94m77[0m [1m[94m|[0m         manifest = yaml.safe_load(f) or {}
+   [1m[94m|[0m
+
+[1m[91mI001[0m[1m Import block is un-sorted or un-formatted[0m
+  [1m[94m--> [0mscripts/ingest_payloads.py:89:9
+   [1m[94m|[0m
+[1m[94m87[0m [1m[94m|[0m         factory = make_safe_httpx_client
+[1m[94m88[0m [1m[94m|[0m     except ImportError:
+[1m[94m89[0m [1m[94m|[0m         import httpx; factory = httpx.Client
+   [1m[94m|[0m         [1m[91m^^^^^^^^^^^^[0m
+[1m[94m90[0m [1m[94m|[0m     try:
+[1m[94m91[0m [1m[94m|[0m         with factory(timeout=timeout, follow_redirects=True) as c:
+   [1m[94m|[0m
+[1m[96mhelp[0m[1m: Organize imports[0m
+
+[1m[91mE702[0m[1m Multiple statements on one line (semicolon)[0m
+  [1m[94m--> [0mscripts/ingest_payloads.py:89:21
+   [1m[94m|[0m
+[1m[94m87[0m [1m[94m|[0m         factory = make_safe_httpx_client
+[1m[94m88[0m [1m[94m|[0m     except ImportError:
+[1m[94m89[0m [1m[94m|[0m         import httpx; factory = httpx.Client
+   [1m[94m|[0m                     [1m[91m^[0m
+[1m[94m90[0m [1m[94m|[0m     try:
+[1m[94m91[0m [1m[94m|[0m         with factory(timeout=timeout, follow_redirects=True) as c:
+   [1m[94m|[0m
+
+[1m[91mE701[0m[1m Multiple statements on one line (colon)[0m
+  [1m[94m--> [0mscripts/ingest_payloads.py:93:32
+   [1m[94m|[0m
+[1m[94m91[0m [1m[94m|[0m         with factory(timeout=timeout, follow_redirects=True) as c:
+[1m[94m92[0m [1m[94m|[0m             r = c.get(url)
+[1m[94m93[0m [1m[94m|[0m         if r.status_code == 200: return r.text
+   [1m[94m|[0m                                [1m[91m^[0m
+[1m[94m94[0m [1m[94m|[0m         logger.warning("HTTP %d: %s", r.status_code, url)
+[1m[94m95[0m [1m[94m|[0m     except Exception as e:
+   [1m[94m|[0m
+
+[1m[91mE701[0m[1m Multiple statements on one line (colon)[0m
+   [1m[94m--> [0mscripts/ingest_payloads.py:100:16
+    [1m[94m|[0m
+[1m[94m 99[0m [1m[94m|[0m def _chunk(text: str, size: int, overlap: int) -> list[str]:
+[1m[94m100[0m [1m[94m|[0m     if not text: return []
+    [1m[94m|[0m                [1m[91m^[0m
+[1m[94m101[0m [1m[94m|[0m     if len(text) <= size: return [text]
+[1m[94m102[0m [1m[94m|[0m     chunks, start = [], 0
+    [1m[94m|[0m
+
+[1m[91mE701[0m[1m Multiple statements on one line (colon)[0m
+   [1m[94m--> [0mscripts/ingest_payloads.py:101:25
+    [1m[94m|[0m
+[1m[94m 99[0m [1m[94m|[0m def _chunk(text: str, size: int, overlap: int) -> list[str]:
+[1m[94m100[0m [1m[94m|[0m     if not text: return []
+[1m[94m101[0m [1m[94m|[0m     if len(text) <= size: return [text]
+    [1m[94m|[0m                         [1m[91m^[0m
+[1m[94m102[0m [1m[94m|[0m     chunks, start = [], 0
+[1m[94m103[0m [1m[94m|[0m     while start < len(text):
+    [1m[94m|[0m
+
+[1m[91mE701[0m[1m Multiple statements on one line (colon)[0m
+   [1m[94m--> [0mscripts/ingest_payloads.py:105:35
+    [1m[94m|[0m
+[1m[94m103[0m [1m[94m|[0m     while start < len(text):
+[1m[94m104[0m [1m[94m|[0m         chunks.append(text[start:start+size])
+[1m[94m105[0m [1m[94m|[0m         if start+size >= len(text): break
+    [1m[94m|[0m                                   [1m[91m^[0m
+[1m[94m106[0m [1m[94m|[0m         start = start + size - overlap
+[1m[94m107[0m [1m[94m|[0m     return chunks
+    [1m[94m|[0m
+
+[1m[91mE702[0m[1m Multiple statements on one line (semicolon)[0m
+   [1m[94m--> [0mscripts/ingest_payloads.py:121:48
+    [1m[94m|[0m
+[1m[94m119[0m [1m[94m|[0m             content = "\n".join(p.extract_text() or "" for p in reader.pages)
+[1m[94m120[0m [1m[94m|[0m         except ImportError:
+[1m[94m121[0m [1m[94m|[0m             logger.error("pypdf not installed"); return 0
+    [1m[94m|[0m                                                [1m[91m^[0m
+[1m[94m122[0m [1m[94m|[0m     elif ext in (".md", ".markdown", ".txt", ".text"):
+[1m[94m123[0m [1m[94m|[0m         content = file_path.read_text(encoding="utf-8", errors="replace")
+    [1m[94m|[0m
+
+[1m[91mE702[0m[1m Multiple statements on one line (semicolon)[0m
+   [1m[94m--> [0mscripts/ingest_payloads.py:125:47
+    [1m[94m|[0m
+[1m[94m123[0m [1m[94m|[0m         content = file_path.read_text(encoding="utf-8", errors="replace")
+[1m[94m124[0m [1m[94m|[0m     else:
+[1m[94m125[0m [1m[94m|[0m         logger.warning("Unsupported: %s", ext); return 0
+    [1m[94m|[0m                                               [1m[91m^[0m
+[1m[94m126[0m [1m[94m|[0m     sanitized = structural_sanitize(content) if doc_type == "payload" else _sanitize_lesson_content(content)
+[1m[94m127[0m [1m[94m|[0m     if not sanitized: return 0
+    [1m[94m|[0m
+
+[1m[91mE501[0m[1m Line too long (108 > 100)[0m
+   [1m[94m--> [0mscripts/ingest_payloads.py:126:101
+    [1m[94m|[0m
+[1m[94m124[0m [1m[94m|[0m     else:
+[1m[94m125[0m [1m[94m|[0m         logger.warning("Unsupported: %s", ext); return 0
+[1m[94m126[0m [1m[94m|[0m     sanitized = structural_sanitize(content) if doc_type == "payload" else _sanitize_lesson_content(content)
+    [1m[94m|[0m                                                                                                     [1m[91m^^^^^^^^[0m
+[1m[94m127[0m [1m[94m|[0m     if not sanitized: return 0
+[1m[94m128[0m [1m[94m|[0m     chunks = _chunk(sanitized, chunk_size, chunk_overlap)
+    [1m[94m|[0m
+
+[1m[91mE701[0m[1m Multiple statements on one line (colon)[0m
+   [1m[94m--> [0mscripts/ingest_payloads.py:127:21
+    [1m[94m|[0m
+[1m[94m125[0m [1m[94m|[0m         logger.warning("Unsupported: %s", ext); return 0
+[1m[94m126[0m [1m[94m|[0m     sanitized = structural_sanitize(content) if doc_type == "payload" else _sanitize_lesson_content(content)
+[1m[94m127[0m [1m[94m|[0m     if not sanitized: return 0
+    [1m[94m|[0m                     [1m[91m^[0m
+[1m[94m128[0m [1m[94m|[0m     chunks = _chunk(sanitized, chunk_size, chunk_overlap)
+[1m[94m129[0m [1m[94m|[0m     if not chunks: return 0
+    [1m[94m|[0m
+
+[1m[91mE701[0m[1m Multiple statements on one line (colon)[0m
+   [1m[94m--> [0mscripts/ingest_payloads.py:129:18
+    [1m[94m|[0m
+[1m[94m127[0m [1m[94m|[0m     if not sanitized: return 0
+[1m[94m128[0m [1m[94m|[0m     chunks = _chunk(sanitized, chunk_size, chunk_overlap)
+[1m[94m129[0m [1m[94m|[0m     if not chunks: return 0
+    [1m[94m|[0m                  [1m[91m^[0m
+[1m[94m130[0m [1m[94m|[0m     metas = [{"type": doc_type, "category": "file_upload", "stack": "generic",
+[1m[94m131[0m [1m[94m|[0m               "source_repo": "local", "source_path": str(file_path),
+    [1m[94m|[0m
+
+[1m[91mE501[0m[1m Line too long (103 > 100)[0m
+   [1m[94m--> [0mscripts/ingest_payloads.py:250:101
+    [1m[94m|[0m
+[1m[94m248[0m [1m[94m|[0m         for pe in source.get("paths", []):
+[1m[94m249[0m [1m[94m|[0m             path = pe.get("path", "") if isinstance(pe, dict) else pe
+[1m[94m250[0m [1m[94m|[0m             category = pe.get("category", "uncategorized") if isinstance(pe, dict) else "uncategorized"
+    [1m[94m|[0m                                                                                                     [1m[91m^^^[0m
+[1m[94m251[0m [1m[94m|[0m             stack = pe.get("stack", "generic") if isinstance(pe, dict) else "generic"
+[1m[94m252[0m [1m[94m|[0m             url = _raw_url(repo, commit, path)
+    [1m[94m|[0m
+
+[1m[91mE501[0m[1m Line too long (106 > 100)[0m
+   [1m[94m--> [0mscripts/ingest_payloads.py:335:101
+    [1m[94m|[0m
+[1m[94m333[0m [1m[94m|[0m                 else:
+[1m[94m334[0m [1m[94m|[0m                     fail += 1
+[1m[94m335[0m [1m[94m|[0m                     print(f"  FAIL  {repo}@{commit[:8]}  {path}  (HTTP {resp.status}, {len(body)} bytes)")
+    [1m[94m|[0m                                                                                                     [1m[91m^^^^^^[0m
+[1m[94m336[0m [1m[94m|[0m             except urllib.error.HTTPError as exc:
+[1m[94m337[0m [1m[94m|[0m                 fail += 1
+    [1m[94m|[0m
+
+[1m[91mE501[0m[1m Line too long (103 > 100)[0m
+   [1m[94m--> [0mscripts/ingest_payloads.py:364:101
+    [1m[94m|[0m
+[1m[94m362[0m [1m[94m|[0m     args = p.parse_args()
+[1m[94m363[0m [1m[94m|[0m     logging.basicConfig(level=getattr(logging, args.log_level.upper()),
+[1m[94m364[0m [1m[94m|[0m                         format="%(asctime)s [%(levelname)s] %(name)s: %(message)s", datefmt="%H:%M:%S")
+    [1m[94m|[0m                                                                                                     [1m[91m^^^[0m
+[1m[94m365[0m [1m[94m|[0m     mp = Path(args.manifest) if args.manifest else _MANIFEST_PATH
+[1m[94m366[0m [1m[94m|[0m     # --verify-pins works without ChromaDB and without the webpent package
+    [1m[94m|[0m
+
+[1m[91mE701[0m[1m Multiple statements on one line (colon)[0m
+   [1m[94m--> [0mscripts/ingest_payloads.py:373:28
+    [1m[94m|[0m
+[1m[94m371[0m [1m[94m|[0m     if args.ingest_file:
+[1m[94m372[0m [1m[94m|[0m         fp = Path(args.ingest_file)
+[1m[94m373[0m [1m[94m|[0m         if not fp.is_file(): logger.error("File not found"); return 1
+    [1m[94m|[0m                            [1m[91m^[0m
+[1m[94m374[0m [1m[94m|[0m         added = _ingest_file(fp, args.doc_type, args.chunk_size, args.chunk_overlap)
+[1m[94m375[0m [1m[94m|[0m         print(f"\nIngested {added} chunks from {fp}"); return 0
+    [1m[94m|[0m
+
+[1m[91mE702[0m[1m Multiple statements on one line (semicolon)[0m
+   [1m[94m--> [0mscripts/ingest_payloads.py:373:60
+    [1m[94m|[0m
+[1m[94m371[0m [1m[94m|[0m     if args.ingest_file:
+[1m[94m372[0m [1m[94m|[0m         fp = Path(args.ingest_file)
+[1m[94m373[0m [1m[94m|[0m         if not fp.is_file(): logger.error("File not found"); return 1
+    [1m[94m|[0m                                                            [1m[91m^[0m
+[1m[94m374[0m [1m[94m|[0m         added = _ingest_file(fp, args.doc_type, args.chunk_size, args.chunk_overlap)
+[1m[94m375[0m [1m[94m|[0m         print(f"\nIngested {added} chunks from {fp}"); return 0
+    [1m[94m|[0m
+
+[1m[91mE702[0m[1m Multiple statements on one line (semicolon)[0m
+   [1m[94m--> [0mscripts/ingest_payloads.py:375:54
+    [1m[94m|[0m
+[1m[94m373[0m [1m[94m|[0m         if not fp.is_file(): logger.error("File not found"); return 1
+[1m[94m374[0m [1m[94m|[0m         added = _ingest_file(fp, args.doc_type, args.chunk_size, args.chunk_overlap)
+[1m[94m375[0m [1m[94m|[0m         print(f"\nIngested {added} chunks from {fp}"); return 0
+    [1m[94m|[0m                                                      [1m[91m^[0m
+[1m[94m376[0m [1m[94m|[0m     manifest = _load_manifest(mp)
+[1m[94m377[0m [1m[94m|[0m     s = ingest_manifest(manifest, chunk_size=args.chunk_size, chunk_overlap=args.chunk_overlap, dry_run=args.dry_run)
+    [1m[94m|[0m
+
+[1m[91mE501[0m[1m Line too long (117 > 100)[0m
+   [1m[94m--> [0mscripts/ingest_payloads.py:377:101
+    [1m[94m|[0m
+[1m[94m375[0m [1m[94m|[0m         print(f"\nIngested {added} chunks from {fp}"); return 0
+[1m[94m376[0m [1m[94m|[0m     manifest = _load_manifest(mp)
+[1m[94m377[0m [1m[94m|[0m     s = ingest_manifest(manifest, chunk_size=args.chunk_size, chunk_overlap=args.chunk_overlap, dry_run=args.dry_run)
+    [1m[94m|[0m                                                                                                     [1m[91m^^^^^^^^^^^^^^^^^[0m
+[1m[94m378[0m [1m[94m|[0m     print(f"\n{'='*60}\nFetched: {s['fetched']}  Ingested: {s['ingested']}  Failed: {s['failed']}  Chunks: {s['total_chunks']}\n{'='*[1m[94m…[0m
+[1m[94m379[0m [1m[94m|[0m     return 0 if s["failed"] == 0 else 1
+    [1m[94m|[0m
+
+[1m[91mE501[0m[1m Line too long (138 > 100)[0m
+   [1m[94m--> [0mscripts/ingest_payloads.py:378:101
+    [1m[94m|[0m
+[1m[94m376[0m [1m[94m|[0m [1m[94m…[0m
+[1m[94m377[0m [1m[94m|[0m [1m[94m…[0mnk_size, chunk_overlap=args.chunk_overlap, dry_run=args.dry_run)
+[1m[94m378[0m [1m[94m|[0m [1m[94m…[0msted: {s['ingested']}  Failed: {s['failed']}  Chunks: {s['total_chunks']}\n{'='*60}")
+    [1m[94m|[0m                                                 [1m[91m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[1m[94m379[0m [1m[94m|[0m [1m[94m…[0m
+    [1m[94m|[0m
+
+[1m[91mE402[0m[1m Module level import not at top of file[0m
+   [1m[94m--> [0mscripts/mock_oob_server.py:116:1
+    [1m[94m|[0m
+[1m[94m116[0m [1m[94m|[0m from typing import Any  # moved here to keep the top of the file clean
+    [1m[94m|[0m [1m[91m^^^^^^^^^^^^^^^^^^^^^^[0m
+[1m[96mhelp[0m[1m: Move module level imports to top of file[0m
+
+[1m[91mE501[0m[1m Line too long (102 > 100)[0m
+   [1m[94m--> [0mscripts/mock_oob_server.py:233:101
+    [1m[94m|[0m
+[1m[94m231[0m [1m[94m|[0m     """Run the mock OOB server."""
+[1m[94m232[0m [1m[94m|[0m     parser = argparse.ArgumentParser(
+[1m[94m233[0m [1m[94m|[0m         description="V7 Sprint 0.3 Mock OOB Server — records canary-token pings for Dev Mode testing."
+    [1m[94m|[0m                                                                                                     [1m[91m^^[0m
+[1m[94m234[0m [1m[94m|[0m     )
+[1m[94m235[0m [1m[94m|[0m     parser.add_argument(
+    [1m[94m|[0m
+
+[1m[91mE501[0m[1m Line too long (126 > 100)[0m
+   [1m[94m--> [0mscripts/mock_oob_server.py:237:101
+    [1m[94m|[0m
+[1m[94m235[0m [1m[94m|[0m     parser.add_argument(
+[1m[94m236[0m [1m[94m|[0m         "--host", default="127.0.0.1",
+[1m[94m237[0m [1m[94m|[0m         help="Bind address (default: 127.0.0.1 — never 0.0.0.0, the mock server must be unreachable from external networks).",
+    [1m[94m|[0m                                                                                                     [1m[91m^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[1m[94m238[0m [1m[94m|[0m     )
+[1m[94m239[0m [1m[94m|[0m     parser.add_argument(
+    [1m[94m|[0m
+
+[1m[91mE501[0m[1m Line too long (111 > 100)[0m
+  [1m[94m--> [0mscripts/verify_rag_knowledge_pack.py:41:101
+   [1m[94m|[0m
+[1m[94m39[0m [1m[94m|[0m     output.write_text(json.dumps(records, indent=2), encoding="utf-8")
+[1m[94m40[0m [1m[94m|[0m     print(json.dumps(records, indent=2))
+[1m[94m41[0m [1m[94m|[0m     return 0 if all(item["direct_hits"] > 0 and item["helper_contains_type_marker"] for item in records) else 1
+   [1m[94m|[0m                                                                                                     [1m[91m^^^^^^^^^^^[0m
+
+Found 37 errors (6 fixed, 31 remaining).

@@ -1,0 +1,50 @@
+# THE PRISM — U-PRISM-3 scorer + U-PRISM-4 integrator config (v89).
+# Formula: score = base_weight × strength × reproducibility × corroboration
+#          + type_bonus − noise_penalty, clamped to [0, 1].
+# type_bonus lives in taxonomy.yaml (single source of truth for weights
+# that the taxonomy owns).
+
+version: 1
+
+source_weights:
+  crawler: 0.5
+  probe: 0.7
+  browser: 0.6
+  oracle: 0.6
+  validator: 0.9
+  brain: 0.4
+  operator: 0.8
+  ledger: 0.3
+
+tiers:
+  A: 0.90
+  B: 0.75
+  C: 0.55
+  D: 0.35
+
+recommendations:
+  A: "prioritize: strong evidence, proceed to validation"
+  B: "investigate soon"
+  C: "queue behind higher-tier work"
+  D: "note and revisit only with corroborating evidence"
+  F: "archive as noise unless new evidence arrives"
+
+noise_penalties:
+  negligible_strength: 0.10
+  unreproducible: 0.10
+  uncorroborated: 0.05
+
+integration:
+  coherence:
+    three_or_more: 1.0
+    two: 0.7
+    one: 0.4
+  corroboration_bonus:
+    independent_multiple: 0.15
+    corroborated: 0.08
+  conflict_severity_weight: 0.1
+  verdict_thresholds:
+    confirmed: 0.90
+    likely: 0.75
+    possible: 0.55
+    weak: 0.35

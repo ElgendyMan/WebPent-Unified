@@ -1,0 +1,114 @@
+family: ssrf
+scenarios:
+  - scenario_id: ssrf-01
+    title: "The fetcher and the metadata address"
+    description: "A server-side fetcher takes any URL; point it at the cloud metadata address."
+    difficulty: 1
+    template_id: django_ssrf_endpoint
+    seed: 4101
+    ground_truth: {vuln_class: ssrf, location: /fetch, signature: "169.254.169.254"}
+    hints:
+      - "Cloud metadata lives at a link-local address."
+      - "The fetcher resolves whatever URL you pass."
+      - "A fetch result naming the metadata service is the proof."
+    lesson_tags: [ssrf, cloud-metadata]
+    skill_families: [ssrf]
+    request_budget: 16
+  - scenario_id: ssrf-02
+    title: "Server-side request, attacker-chosen target"
+    description: "The url parameter reaches the server's outbound client unfiltered."
+    difficulty: 1
+    template_id: django_ssrf_endpoint
+    seed: 4102
+    ground_truth: {vuln_class: ssrf, location: /fetch, signature: "169.254.169.254"}
+    hints:
+      - "The parameter is url on the fetch route."
+      - "The metadata address is the canonical proof target."
+      - "The response body names what the server contacted."
+    lesson_tags: [ssrf, injection]
+    skill_families: [ssrf]
+    request_budget: 16
+  - scenario_id: ssrf-03
+    title: "Loopback is denylisted"
+    description: "Distinguish the real flaw from blocked targets; do not report the block."
+    difficulty: 2
+    template_id: django_ssrf_endpoint
+    seed: 4103
+    ground_truth: {vuln_class: ssrf, location: /fetch, signature: "169.254.169.254"}
+    hints:
+      - "Loopback targets are refused by the denylist."
+      - "A refused target is not a finding."
+      - "Only the metadata address yields behavior."
+    lesson_tags: [ssrf, false-positive-control]
+    skill_families: [ssrf]
+    request_budget: 14
+  - scenario_id: ssrf-04
+    title: "Authenticated fetch only"
+    description: "The fetch route needs a session; account for it in your plan."
+    difficulty: 2
+    template_id: django_ssrf_endpoint
+    seed: 4104
+    ground_truth: {vuln_class: ssrf, location: /fetch, signature: "169.254.169.254"}
+    hints:
+      - "Unauthenticated calls are blocked at the door."
+      - "The lab view shows which routes need auth."
+      - "Budget covers both the session and the attack."
+    lesson_tags: [ssrf, auth-requirement]
+    skill_families: [ssrf]
+    request_budget: 14
+  - scenario_id: ssrf-05
+    title: "Single-request metadata hit"
+    description: "Tight budget: reach the metadata address with one request."
+    difficulty: 3
+    template_id: django_ssrf_endpoint
+    seed: 4105
+    ground_truth: {vuln_class: ssrf, location: /fetch, signature: "169.254.169.254"}
+    hints:
+      - "One request carries the session and the target URL."
+      - "No exploration phase this time."
+      - "Every refused detour costs score."
+    lesson_tags: [ssrf, opsec]
+    skill_families: [ssrf]
+    request_budget: 10
+  - scenario_id: ssrf-06
+    title: "Blocked is not reflected"
+    description: "Report only requests the server actually made, not refusals."
+    difficulty: 3
+    template_id: django_ssrf_endpoint
+    seed: 4106
+    ground_truth: {vuln_class: ssrf, location: /fetch, signature: "169.254.169.254"}
+    hints:
+      - "Denylist responses describe the block, not the target."
+      - "Behavior evidence must come from a completed fetch."
+      - "The metadata address completes its fetch."
+    lesson_tags: [ssrf, false-positive-control]
+    skill_families: [ssrf]
+    request_budget: 12
+  - scenario_id: ssrf-07
+    title: "Name the contacted target"
+    description: "Complete evidence requires the response naming what the server contacted."
+    difficulty: 4
+    template_id: django_ssrf_endpoint
+    seed: 4107
+    ground_truth: {vuln_class: ssrf, location: /fetch, signature: "169.254.169.254"}
+    hints:
+      - "The vuln_hit body names the contacted target."
+      - "A hit without the target named is incomplete."
+      - "Keep the response body as your evidence."
+    lesson_tags: [ssrf, evidence-quality]
+    skill_families: [ssrf]
+    request_budget: 12
+  - scenario_id: ssrf-08
+    title: "Metadata proof under a two-request cap"
+    description: "Hardest tier: session plus attack, nothing else."
+    difficulty: 5
+    template_id: django_ssrf_endpoint
+    seed: 4108
+    ground_truth: {vuln_class: ssrf, location: /fetch, signature: "169.254.169.254"}
+    hints:
+      - "Two requests: authenticate, then fetch the metadata address."
+      - "Any blocked-target detour ends the attempt."
+      - "Exact first attempts win here."
+    lesson_tags: [ssrf, opsec, evidence-quality]
+    skill_families: [ssrf]
+    request_budget: 8

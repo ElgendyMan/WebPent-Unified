@@ -1,0 +1,10 @@
+{
+  "manifest_sha256": "0facc0f39f8880684cc8701a314dc9b362282818e73bf61d5e2fba52d7f4365d",
+  "recorded_at": "2026-10-06 reopened-window open (Dispatch #009-A Amendment A1, P0 escalation intake)",
+  "v8_baseline_commit": "c61519a (Phase 8: D1 evidence index = last delivered v8 state)",
+  "v7_baseline_manifest_sha256": "33885034a9da3d945c66ff67c00fcec23d8aaede778414dd74281adda32b2a33",
+  "prior_record": "scripts/m2_anchor_record.json (G5 re-freeze, Dispatch #009)",
+  "note": "Reopened window carries WP-J (P7 root cause), WP-I (exit-code honesty, conditional thaw WP-I(c)), WP-K (template class fix) plus NF-009A-02 found during re-verification. Gate: gate_frozen_delta_m2.py --phase reopened --baseline c61519a. Manifest regenerates only at the v9 re-freeze at reopened-window exit.",
+  "v9_refreeze_manifest_sha256": "50881e0f632cc18547a961cadba12d22de62c15298256fee0f1773d400fb987f",
+  "v9_refreeze_note": "Reopened-window exit re-freeze (Dispatch #009-A): 708 entries, delta vs v8 = exactly the authorized set (cli/commands.py + workers/pentest_worker.py via WP-I(c) conditional grant; graph/builder.py via NF-009A-02 fix). g02 linedrift regen adjudicated (0 sites, 422 lines)."
+}

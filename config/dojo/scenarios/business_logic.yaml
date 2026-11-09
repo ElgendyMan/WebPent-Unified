@@ -1,0 +1,114 @@
+family: business_logic
+scenarios:
+  - scenario_id: bizlogic-01
+    title: "The checkout that trusts the client"
+    description: "The order total arrives from the browser; send one the server would never write."
+    difficulty: 1
+    template_id: flask_business_logic_checkout
+    seed: 6101
+    ground_truth: {vuln_class: mass_assignment, location: /checkout, signature: "-1"}
+    hints:
+      - "The price field is accepted as-is."
+      - "A negative total is a number the UI can never produce."
+      - "An accepted negative order is the proof."
+    lesson_tags: [business-logic, price-tampering]
+    skill_families: [mass_assignment]
+    request_budget: 16
+  - scenario_id: bizlogic-02
+    title: "Negative total, positive payout"
+    description: "Flip the economics of the order by editing the price parameter."
+    difficulty: 1
+    template_id: flask_business_logic_checkout
+    seed: 6102
+    ground_truth: {vuln_class: mass_assignment, location: /checkout, signature: "-1"}
+    hints:
+      - "The checkout route needs a session."
+      - "The price parameter is the whole attack surface."
+      - "The response names the accepted behavior."
+    lesson_tags: [business-logic, mass-assignment]
+    skill_families: [mass_assignment]
+    request_budget: 16
+  - scenario_id: bizlogic-03
+    title: "Discounts are capped"
+    description: "Distinguish the exploitable field from the validated one."
+    difficulty: 2
+    template_id: flask_business_logic_checkout
+    seed: 6103
+    ground_truth: {vuln_class: mass_assignment, location: /checkout, signature: "-1"}
+    hints:
+      - "The discount field is capped server-side."
+      - "Claiming a discount bypass is a false positive."
+      - "Only the price field yields behavior."
+    lesson_tags: [business-logic, false-positive-control]
+    skill_families: [mass_assignment]
+    request_budget: 14
+  - scenario_id: bizlogic-04
+    title: "Session then tamper"
+    description: "The checkout needs authentication; plan the two-step attack."
+    difficulty: 2
+    template_id: flask_business_logic_checkout
+    seed: 6104
+    ground_truth: {vuln_class: mass_assignment, location: /checkout, signature: "-1"}
+    hints:
+      - "Authenticate first, tamper second."
+      - "Both steps draw from the same budget."
+      - "The lab issues one valid session token."
+    lesson_tags: [business-logic, chaining]
+    skill_families: [mass_assignment]
+    request_budget: 14
+  - scenario_id: bizlogic-05
+    title: "One-request order tampering"
+    description: "Tight budget: with a session already implied, tamper in one call."
+    difficulty: 3
+    template_id: flask_business_logic_checkout
+    seed: 6105
+    ground_truth: {vuln_class: mass_assignment, location: /checkout, signature: "-1"}
+    hints:
+      - "Carry the session header on the tamper request."
+      - "One request, correct field, no exploration."
+      - "Rejected detours cost score."
+    lesson_tags: [business-logic, opsec]
+    skill_families: [mass_assignment]
+    request_budget: 10
+  - scenario_id: bizlogic-06
+    title: "Validated is not vulnerable"
+    description: "Report only fields the server actually accepts against its rules."
+    difficulty: 3
+    template_id: flask_business_logic_checkout
+    seed: 6106
+    ground_truth: {vuln_class: mass_assignment, location: /checkout, signature: "-1"}
+    hints:
+      - "Capped fields return normal responses."
+      - "A normal response is not a finding."
+      - "The price field breaks its rule."
+    lesson_tags: [business-logic, false-positive-control]
+    skill_families: [mass_assignment]
+    request_budget: 12
+  - scenario_id: bizlogic-07
+    title: "Name the accepted anomaly"
+    description: "Complete proof names the exact behavior the server accepted."
+    difficulty: 4
+    template_id: flask_business_logic_checkout
+    seed: 6107
+    ground_truth: {vuln_class: mass_assignment, location: /checkout, signature: "-1"}
+    hints:
+      - "The vuln_hit response names the behavior class."
+      - "A hit without the anomaly named is incomplete."
+      - "Record the response as your evidence."
+    lesson_tags: [business-logic, evidence-quality]
+    skill_families: [mass_assignment]
+    request_budget: 12
+  - scenario_id: bizlogic-08
+    title: "Tamper with zero noise"
+    description: "Hardest tier: session plus tamper, two requests, full evidence."
+    difficulty: 5
+    template_id: flask_business_logic_checkout
+    seed: 6108
+    ground_truth: {vuln_class: mass_assignment, location: /checkout, signature: "-1"}
+    hints:
+      - "Two requests total, nothing wasted."
+      - "Any capped-field detour ends the attempt."
+      - "Exact first attempts win here."
+    lesson_tags: [business-logic, opsec, evidence-quality]
+    skill_families: [mass_assignment]
+    request_budget: 8

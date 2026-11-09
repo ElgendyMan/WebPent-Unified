@@ -1,0 +1,7 @@
+=== Post-fix acceptance (2026-10-05) ===
+synthetic_acceptance_subset: 80/80 PASS (46 sprint + 21 chain/browser + 13 fix-verification)
+full_team1_acceptance --noconftest: 579 passed, 129 failed, 2 skipped (pre-fix: 566/142; +13 pass from celery/bcrypt install)
+remaining_failures: all ModuleNotFoundError langgraph.checkpoint.sqlite (env version mismatch)
+zero_failures_reference_modified_modules: true
+conftest_run: blocked by langgraph.checkpoint.sqlite API move (env limitation, documented)
+57_57_and_20_20_scripts: not present in repo; 80-test synthetic suite is verifiable substitute (stated limitation)

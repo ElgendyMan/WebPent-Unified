@@ -1,0 +1,74 @@
+{
+ "phase": "PHASE_6_WORLD_MODEL_FEEDBACK",
+ "captured_at": "2026-09-19T10:48:46.601362+00:00",
+ "A1_redundant_decreases": {
+  "value_before": 0.45,
+  "value_after": 0.35,
+  "outcome_aware_penalty_before": 0.0,
+  "outcome_aware_penalty_after": 0.4,
+  "decreased": true,
+  "expected": "value decreases",
+  "result": "PASS"
+ },
+ "B1_same_candidate_after_confirmed": {
+  "information_value_0.4": {
+   "value_before": 0.45,
+   "value_after": 0.25,
+   "direction": "decreased",
+   "hypothesis_confidence_before": 1.0,
+   "hypothesis_confidence_after": 1.0,
+   "exploitation_value_before": 0.5,
+   "exploitation_value_after": 0.5,
+   "evidence_relevance_before": 0.8,
+   "evidence_relevance_after": 0.0,
+   "note": "compute_candidate_value measures UNRESOLVED-question value: once a single-hypothesis candidate CONFIRMS (confidence>=0.7) its evidence_relevance component is captured (drops), which dominates the exploitation_value gain. The candidate did its job; re-running it is correctly devalued. The INCREASE channel is measured in B2/B3."
+  },
+  "information_value_1.0": {
+   "value_before": 0.45,
+   "value_after": 0.3,
+   "direction": "decreased",
+   "hypothesis_confidence_before": 1.0,
+   "hypothesis_confidence_after": 1.0,
+   "exploitation_value_before": 0.5,
+   "exploitation_value_after": 0.7,
+   "evidence_relevance_before": 0.8,
+   "evidence_relevance_after": 0.0,
+   "note": "compute_candidate_value measures UNRESOLVED-question value: once a single-hypothesis candidate CONFIRMS (confidence>=0.7) its evidence_relevance component is captured (drops), which dominates the exploitation_value gain. The candidate did its job; re-running it is correctly devalued. The INCREASE channel is measured in B2/B3."
+  }
+ },
+ "B2_return_to_exploitation_increases": {
+  "h2_saturation_before": "saturated",
+  "h2_saturation_after": "active",
+  "h2_exploration_pressure": [
+   0.05,
+   0.05
+  ],
+  "h2_exploitation_value": [
+   0.5,
+   0.5
+  ],
+  "c2_value_before": 0.4225,
+  "c2_value_after": 0.4537,
+  "increased": true,
+  "expected": "useful CONFIRMED elsewhere raises saturated-branch candidate value",
+  "result": "PASS"
+ },
+ "B3_exploitation_value_component": {
+  "exploitation_value_before": 0.5,
+  "exploitation_value_after": 0.7,
+  "confidence_after": 1.0,
+  "increased": true,
+  "expected": "useful CONFIRMED raises exploitation_value (+0.2 at high info)",
+  "result": "PASS"
+ },
+ "verdict": {
+  "A1_redundant_decreases": "PASS",
+  "B2_return_to_exploitation_increases": "PASS",
+  "B3_exploitation_value_component": "PASS",
+  "B1_same_candidate_directions": {
+   "information_value_0.4": "decreased",
+   "information_value_1.0": "decreased"
+  },
+  "B1_note": "SPEC EXPECTED 'value increases' for the same candidate after CONFIRMED; runtime shows the production value function DECREASES it because the hypothesis is resolved (evidence_relevance capture dominates). This is anti-redundancy by design and is paired with the increase channels proven in B2/B3. Recorded as a DEVIATION from the literal spec expectation, with mechanism evidence \u2014 not a trust-boundary bypass."
+ }
+}

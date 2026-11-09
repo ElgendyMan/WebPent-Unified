@@ -1,0 +1,62 @@
+# Generated from the official Yahoo/Intigriti program page and Yahoo VDP policy.
+# Do not run automatically: review the live program scope before testing.
+in_scope:
+  - value: yahoo.com
+    kind: domain
+    protocol: https
+    source: https://app.intigriti.com/programs/yahoo/yahoobugbounty/detail
+  - value: '*.yahoo.com'
+    kind: wildcard
+    protocol: https
+    source: https://app.intigriti.com/programs/yahoo/yahoobugbounty/detail
+out_of_scope:
+  - value: '*.yahoo.net'
+    kind: wildcard
+    source: https://app.intigriti.com/programs/yahoo/yahoobugbounty/detail
+  - value: '*.vdms.com'
+    kind: wildcard
+    source: https://app.intigriti.com/programs/yahoo/yahoobugbounty/detail
+  - value: '*.yahooinc.com'
+    kind: wildcard
+    source: https://app.intigriti.com/programs/yahoo/yahoobugbounty/detail
+  - value: '*.yahoo.com.tw'
+    kind: wildcard
+    source: https://app.intigriti.com/programs/yahoo/yahoobugbounty/detail
+  - value: '*.verizondigitalmedia.com'
+    kind: wildcard
+    source: https://app.intigriti.com/programs/yahoo/yahoobugbounty/detail
+  - value: '*.yahoo.com.hk'
+    kind: wildcard
+    source: https://app.intigriti.com/programs/yahoo/yahoobugbounty/detail
+  - value: files.molo.ch
+    kind: domain
+    source: https://app.intigriti.com/programs/yahoo/yahoobugbounty/detail
+  - value: '*.oath.cloud'
+    kind: wildcard
+    source: https://app.intigriti.com/programs/yahoo/yahoobugbounty/detail
+  - value: '*.advertising.com'
+    kind: wildcard
+    source: https://app.intigriti.com/programs/yahoo/yahoobugbounty/detail
+  - value: '*.alephd.com'
+    kind: wildcard
+    source: https://app.intigriti.com/programs/yahoo/yahoobugbounty/detail
+  - value: '*.vidible.tv'
+    kind: wildcard
+    source: https://app.intigriti.com/programs/yahoo/yahoobugbounty/detail
+  - value: '*.vzbuilders.com'
+    kind: wildcard
+    source: https://app.intigriti.com/programs/yahoo/yahoobugbounty/detail
+  - value: sales.oath.com
+    kind: domain
+    source: https://app.intigriti.com/programs/yahoo/yahoobugbounty/detail
+limits:
+  max_requests_per_second: 50
+  max_concurrent_requests: 1
+  max_violations: 3
+  no_destructive: true
+blacklisted_payloads:
+  - "DROP TABLE"
+  - "rm -rf"
+instructions:
+  - "Use only researcher-owned accounts; do not pivot, exfiltrate, disrupt, or publicly disclose."
+  - "Confirm the current program scope and current eligible domains immediately before any real engagement."

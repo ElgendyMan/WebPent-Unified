@@ -1,0 +1,205 @@
+{
+  "artifact": "TEAM1_AVI_V1_2_TEAM3_REGRESSION_ATTACKS",
+  "attack_table_source": "TEAM1_AVI_V1_2_TRUST_HARDENING.md section 10",
+  "attacks_total": 12,
+  "passed": 12,
+  "failed": 0,
+  "results": [
+    {
+      "attack": "false IDOR on healthy target",
+      "expected": "REFUTED and NOT promoted",
+      "observed": "validator=REFUTED promotion=REJECTED",
+      "result": "PASS",
+      "evidence": {
+        "hypothesis_id": "att1_idor_patched",
+        "gates_failed": [
+          "causal_validator_confirmed",
+          "semantic_identity_bound"
+        ]
+      }
+    },
+    {
+      "attack": "real IDOR",
+      "expected": "identity_bound=True and PROMOTED",
+      "observed": "identity_bound=True promotion=PROMOTED",
+      "result": "PASS",
+      "evidence": {
+        "actor_id": "bob",
+        "resource_id": "/api/orders/1",
+        "causal_difference": "actor=bob (not owner alice) accessed resource /api/orders/1 (status 200); owner=alice also 200; nc=404",
+        "trace_fields": [
+          "actor_identity",
+          "authorization_context",
+          "baseline_result",
+          "candidate_result",
+          "causal_difference",
+          "negative_control",
+          "promotion_reference",
+          "proof_chain",
+          "proof_seal",
+          "replay_verification",
+          "resource_identity"
+        ]
+      }
+    },
+    {
+      "attack": "actor mismatch (candidate == owner)",
+      "expected": "identity binding fails -> no promotion",
+      "observed": "identity_bound=False reason=actor_mismatch_absent candidate=alice owner=alice promotion=REJECTED",
+      "result": "PASS",
+      "evidence": {
+        "identity_bound_reason": "actor_mismatch_absent candidate=alice owner=alice"
+      }
+    },
+    {
+      "attack": "resource mismatch (negative control not independent)",
+      "expected": "identity binding fails -> no promotion",
+      "observed": "identity_bound=False reason=negative_control_not_independent nc_status=200 promotion=REJECTED",
+      "result": "PASS",
+      "evidence": {
+        "identity_bound_reason": "negative_control_not_independent nc_status=200",
+        "nc_status": 200
+      }
+    },
+    {
+      "attack": "replay tampering (raw observation modified)",
+      "expected": "ReplayVerifier rejects (digests_match=False or semantic_match=False)",
+      "observed": "replay_verified=False digests_match=False semantic_match=False",
+      "result": "PASS",
+      "evidence": {
+        "replay_result": {
+          "replay_verified": false,
+          "digests_match": false,
+          "outcome_match": false,
+          "seal_verified": true,
+          "semantic_match": false,
+          "replayed_outcome": "REFUTED",
+          "expected_outcome": "CONFIRMED",
+          "replay_component": "ReplayVerifier_v1_2_semantic"
+        }
+      }
+    },
+    {
+      "attack": "proof semantic tampering (sealed field forged)",
+      "expected": "HMAC seal breaks -> verify_seal fails",
+      "observed": "verify_seal=False",
+      "result": "PASS",
+      "evidence": {
+        "bundle_id": "proof_bundle_379352e9334b4afeb8086bdac8468be7"
+      }
+    },
+    {
+      "attack": "legacy path 7a: confidence-only promotion",
+      "expected": "REJECTED by causal_validator_confirmed gate",
+      "observed": "decision=REJECTED failed=['baseline_present', 'negative_control_present', 'causal_validator_confirmed', 'proof_bundle_signed', 'replay_verified', 'semantic_identity_bound']",
+      "result": "PASS",
+      "evidence": {
+        "gates_failed": [
+          "baseline_present",
+          "negative_control_present",
+          "causal_validator_confirmed",
+          "proof_bundle_signed",
+          "replay_verified",
+          "semantic_identity_bound"
+        ]
+      }
+    },
+    {
+      "attack": "legacy path 7b: external scanner authority",
+      "expected": "REJECTED by no_external_scanner_authority gate",
+      "observed": "decision=REJECTED failed=['baseline_present', 'negative_control_present', 'proof_bundle_signed', 'replay_verified', 'no_external_scanner_authority', 'semantic_identity_bound']",
+      "result": "PASS",
+      "evidence": {
+        "gates_failed": [
+          "baseline_present",
+          "negative_control_present",
+          "proof_bundle_signed",
+          "replay_verified",
+          "no_external_scanner_authority",
+          "semantic_identity_bound"
+        ]
+      }
+    },
+    {
+      "attack": "legacy path 7c: raw decision dict into SecurityReport",
+      "expected": "fail-closed: routed to rejected (trace contract missing)",
+      "observed": "promoted=0 rejected=1",
+      "result": "PASS",
+      "evidence": {
+        "report_rejection_reason": "missing_security_report_requirements promoted=True replay=True semantic=True seal=True trace_contract_missing=['actor_identity', 'resource_identity', 'authorization_context', 'baseline_result', 'candidate_result', 'negative_control', 'causal_difference', 'proof_seal', 'replay_verification']"
+      }
+    },
+    {
+      "attack": "legacy path 7d: incomplete proof trace into SecurityReport",
+      "expected": "fail-closed: routed to rejected (causal_difference missing)",
+      "observed": "promoted=0 rejected=1 missing=['actor_identity', 'resource_identity', 'authorization_context', 'baseline_result', 'candidate_result', 'negative_control', 'causal_difference', 'proof_seal']",
+      "result": "PASS",
+      "evidence": {
+        "trace_contract_missing": [
+          "actor_identity",
+          "resource_identity",
+          "authorization_context",
+          "baseline_result",
+          "candidate_result",
+          "negative_control",
+          "causal_difference",
+          "proof_seal"
+        ]
+      }
+    },
+    {
+      "attack": "multi-target qualification (4 isolated targets, independent ground truth)",
+      "expected": "4 targets in recorded campaign",
+      "observed": "targets=['rest_0', 'rest_1', 'gql_0', 'gql_1']",
+      "result": "PASS",
+      "evidence": {
+        "targets": [
+          {
+            "target_id": "rest_0",
+            "api_type": "rest",
+            "vulnerable_families_ground_truth": [
+              "IDOR",
+              "SSRF"
+            ],
+            "target_url_digest": "5dff463c90705f61"
+          },
+          {
+            "target_id": "rest_1",
+            "api_type": "rest",
+            "vulnerable_families_ground_truth": [
+              "MASS_ASSIGNMENT",
+              "AUTH_BYPASS"
+            ],
+            "target_url_digest": "1d78566b023792e5"
+          },
+          {
+            "target_id": "gql_0",
+            "api_type": "graphql",
+            "vulnerable_families_ground_truth": [
+              "OPEN_REDIRECT",
+              "INFO_DISCLOSURE"
+            ],
+            "target_url_digest": "72f234fbfceb16bb"
+          },
+          {
+            "target_id": "gql_1",
+            "api_type": "graphql",
+            "vulnerable_families_ground_truth": [
+              "IDOR",
+              "MASS_ASSIGNMENT",
+              "INFO_DISCLOSURE"
+            ],
+            "target_url_digest": "401e65a446d18f1a"
+          }
+        ]
+      }
+    },
+    {
+      "attack": "REST + GraphQL qualification",
+      "expected": "both api types exercised",
+      "observed": "api_types=['graphql', 'rest'] decisions_by_api=['graphql', 'rest']",
+      "result": "PASS",
+      "evidence": {}
+    }
+  ]
+}

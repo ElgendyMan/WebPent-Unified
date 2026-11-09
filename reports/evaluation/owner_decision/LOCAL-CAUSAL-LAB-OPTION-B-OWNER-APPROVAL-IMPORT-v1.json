@@ -1,0 +1,134 @@
+{
+  "schema": "webpent-owner-approval-import-option-b-v1",
+  "record_type": "owner_approval_import_execution_only",
+  "status": "IMPORTED_BOUNDED_DIRECTIVE",
+  "source_artifact": {
+    "path": "/home/ubuntu/upload/pasted_content.txt",
+    "sha256": "2784b4746e96419a3dadea2e765d58a9dbc719b283bb683b38bbe95c5850230b",
+    "raw_content_persisted_in_repo": false
+  },
+  "authority": {
+    "basis": "Explicit owner directive supplied in the current task context and imported without claiming a human identity.",
+    "owner_identity_provided": false,
+    "owner_signature_provided": false,
+    "approval_time_provided": false,
+    "approval_expiry": null,
+    "execution_scope": "current_bounded_task_only",
+    "expiry_inferred": false,
+    "human_independent_signoff_obtained": false,
+    "review_type": "non_human_attributable_technical_boundary_import"
+  },
+  "approved_option": "B_STAGED_LOCAL_CAUSAL_LAB",
+  "allowed_targets": [
+    {
+      "target_id": "owasp_webgoat",
+      "source_revision": "7517acca95d9851da706452454c223dd13545ef4",
+      "tracks": ["idor", "path_traversal"]
+    },
+    {
+      "target_id": "crapi",
+      "source_revision": "73d309cc8f28bbdeed31dbb35f05dba8354de3c9",
+      "tracks": ["object_access"]
+    }
+  ],
+  "approved_case_ids": [
+    "webgoat.idor.view_other_profile.v1",
+    "webgoat.path_traversal.v1",
+    "crapi.profile_video_object_access.v1",
+    "crapi.vehicle_location_bola.v1",
+    "crapi.community_post_object_access.v1",
+    "crapi.mechanic_report_object_access.v1"
+  ],
+  "approved_methods": ["GET"],
+  "network_boundary": {
+    "host_allowlist": ["127.0.0.1"],
+    "same_origin_only": true,
+    "redirect_following": false,
+    "outbound_network": false,
+    "dns_or_public_ip_resolution": false,
+    "external_callbacks_or_oast": false,
+    "external_destinations": false
+  },
+  "fixture_and_identity_boundary": {
+    "synthetic_identities_only": true,
+    "opaque_identity_ids_only": true,
+    "disposable_fixtures_only": true,
+    "disposable_canaries_only": true,
+    "real_credentials_allowed": false,
+    "login_or_session_bootstrap_allowed": false,
+    "otp_mfa_captcha_bypass_allowed": false,
+    "credential_or_token_persistence_allowed": false,
+    "raw_body_header_cookie_persistence_allowed": false,
+    "personal_data_persistence_allowed": false,
+    "application_mutation_allowed": false,
+    "application_reset_endpoint_allowed": false,
+    "local_fixture_setup_or_snapshot_restore": "only_when target-local, disposable, explicitly bounded, and not performed through a credential/login or application-reset request; otherwise BLOCKED"
+  },
+  "required_case_cycle": [
+    "pin_provenance",
+    "validate_scope",
+    "prepare_disposable_fixture_or_fail_closed",
+    "verify_state_hash",
+    "baseline_get",
+    "bounded_candidate_get",
+    "independent_negative_control_get",
+    "central_causal_oracle",
+    "redacted_proof_metadata_only",
+    "seal_verify_seal",
+    "isolated_replay",
+    "compare_and_classify",
+    "cleanup_and_restore_verify"
+  ],
+  "mandatory_stop_conditions": [
+    "non_loopback_resolution",
+    "external_connection_or_callback",
+    "redirect_or_dns_resolution",
+    "unapproved_method_route_identity_or_payload",
+    "credential_or_login_requirement",
+    "destructive_or_state_changing_application_action",
+    "raw_sensitive_data_persistence",
+    "reset_or_state_hash_failure",
+    "missing_or_non_independent_negative_control",
+    "inconclusive_oracle",
+    "source_or_runtime_digest_drift",
+    "proof_seal_verify_or_replay_failure"
+  ],
+  "explicit_exclusions": [
+    "official_p10_runs",
+    "official_isolated_p10_runs_authorized_gate",
+    "bug_bounty_or_external_targets",
+    "webgoat.stored_xss.comments.v1",
+    "webgoat.sql_injection.advanced.v1",
+    "crapi mutation/auth/reset tracks",
+    "external_callbacks_or_oast",
+    "real_credentials_or_login",
+    "frozen_ground_truth_changes",
+    "p10_vip_threshold_changes",
+    "unproven_generic_core_changes",
+    "qualification_claims"
+  ],
+  "import_effect": {
+    "original_decision_packet_modified": false,
+    "original_decision_packet_owner_decision_filled": false,
+    "governance_packet_modified": false,
+    "human_signoff_changed": false,
+    "official_isolated_p10_runs_authorized_changed": false,
+    "qualification_changed": false,
+    "scoring_set_changed": false,
+    "target_runtime_changed": false
+  },
+  "global_invariants": {
+    "human_independent_signoff_obtained": false,
+    "official_isolated_p10_runs_authorized": false,
+    "p10": "NOT_QUALIFIED",
+    "p9": "NOT_QUALIFIED",
+    "vip": "NOT_QUALIFIED",
+    "bug_bounty": "BLOCKED",
+    "scoring_promotion_allowed": false
+  },
+  "provenance_links": {
+    "decision_packet": "reports/evaluation/owner_decision/LOCAL-CAUSAL-LAB-OWNER-DECISION-PACKET-v1.json",
+    "source_inventory": "reports/evaluation/source_inventory/SOURCE-BACKED-CANDIDATE-INVENTORY-v1.json"
+  },
+  "notes": "This record formalizes the imported Option B directive for the current bounded local task. It is not a human countersignature, does not fill the original pending decision packet, and does not authorize any unlisted setup or state-changing action."
+}

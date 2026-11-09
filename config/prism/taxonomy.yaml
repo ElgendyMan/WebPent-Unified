@@ -1,0 +1,56 @@
+# THE PRISM — U-PRISM-1 evidence taxonomy (v89).
+# Evidence is earned (PRISM-L-1): every profile carries all five dimensions.
+# Weights are in [0, 1]; the taxonomy validates this file at load time.
+
+version: 1
+
+sources:
+  - crawler
+  - probe
+  - browser
+  - oracle
+  - validator
+  - brain
+  - operator
+  - ledger
+
+types:
+  - direct
+  - inference
+  - side_effect
+  - anomaly
+
+strength:
+  decisive: 1.0
+  strong: 0.8
+  moderate: 0.55
+  weak: 0.3
+  negligible: 0.1
+
+reproducibility:
+  deterministic: 1.0
+  repeatable: 0.85
+  occasional: 0.6
+  unreproducible: 0.3
+  single_shot: 0.15
+
+corroboration:
+  independent_multiple: 1.0
+  corroborated: 0.8
+  single_source: 0.6
+  uncorroborated: 0.4
+
+type_bonus:
+  direct: 0.05
+  side_effect: 0.05
+  inference: 0.0
+  anomaly: 0.0
+
+signal_kinds:
+  direct_response: direct
+  error_message: direct
+  side_effect: side_effect
+  inference: inference
+  timing_delta: inference
+  header_anomaly: anomaly
+  behavior_diff: anomaly

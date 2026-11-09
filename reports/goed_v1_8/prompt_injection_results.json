@@ -1,0 +1,43 @@
+{
+  "target_data_isolation": {
+    "forbidden_metadata_stripped": true,
+    "legitimate_data_preserved": true,
+    "system_policy_unchanged": true,
+    "all_pass": true
+  },
+  "tool_boundary_forbidden_rejection": {
+    "shell_exec_rejected": true,
+    "set_confirmed_rejected": true,
+    "bypass_causal_guard_rejected": true,
+    "empty_hypothesis_rejected": true,
+    "legitimate_tool_authorized": true,
+    "all_calls_logged": true,
+    "all_pass": true
+  },
+  "llm_interface_safety": {
+    "no_confirm_method": true,
+    "no_mark_confirmed_method": true,
+    "no_bypass_method": true,
+    "no_override_method": true,
+    "no_mutate_evidence_method": true,
+    "no_set_verdict_method": true,
+    "hypotheses_not_verdicts": true,
+    "policy_hash_exists": true,
+    "all_pass": true
+  },
+  "llm_client_safety": {
+    "valid_json": true,
+    "no_confirm_in_output": true,
+    "no_authority_claims": true,
+    "has_model_field": true,
+    "is_marked_as_mock": true,
+    "policy_note_present": true,
+    "all_pass": true
+  },
+  "overall": "PASS",
+  "summary": {
+    "total_tests": 4,
+    "passed": 4,
+    "failed": 0
+  }
+}

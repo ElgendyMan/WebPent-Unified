@@ -1,0 +1,44 @@
+{
+  "phase": "12_checkpoint",
+  "frozen_at": "2026-09-03T04:57:02.685335+00:00",
+  "pilot_metrics_frozen": {
+    "pilot_cases": 5,
+    "tp": 1,
+    "fp": 0,
+    "fn": 3,
+    "inconclusive": 1,
+    "proof_complete": "4/5",
+    "replay_verified": "4/5"
+  },
+  "full_benchmark_metrics_preserved": {
+    "tp": 25,
+    "tn": 25,
+    "fp": 0,
+    "fn": 0,
+    "blocked": 0,
+    "inconclusive": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "proof_completeness": 1.0,
+    "native_valid": 50,
+    "replay_verified": 50,
+    "gate_5_pass": true
+  },
+  "preserved_artifacts": [
+    "target_owner/cqa_v1/*",
+    "reports/cqa_v1/*",
+    "frozen ground truth",
+    "historical observations",
+    "qualification thresholds",
+    "validators",
+    "governance state"
+  ],
+  "governance_state": {
+    "official_isolated_p10_runs_authorized": false,
+    "P10": "CLOSED",
+    "P9": "CLOSED",
+    "VIP": "CONDITIONAL",
+    "Bug Bounty": "BLOCKED"
+  }
+}

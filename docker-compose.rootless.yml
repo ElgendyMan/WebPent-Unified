@@ -1,0 +1,34 @@
+# docker-compose.rootless.yml — OPTIONAL rootless override (D-1, v0.28.0)
+# =============================================================================
+# Use this ONLY ON TOP of the production file — it overrides nothing but
+# the runtime user of the two application services:
+#
+#   export WEBPENT_UID="$(id -u)"
+#   export WEBPENT_GID="$(id -g)"
+#   docker compose -f docker-compose.yml -f docker-compose.rootless.yml up -d
+#
+# WHY THE EXPORTS ARE MANDATORY (fail-fast below, no silent fallback):
+# `${UID:-1000}` in a compose file almost never resolves to the real host
+# uid — $UID is a bash shell PARAMETER, not an exported environment
+# variable (full analysis at the top of entrypoint.sh). The `:?` syntax
+# makes compose REFUSE to start instead of silently running as uid 1000.
+#
+# TRADEOFFS (declared, not hidden):
+#   * NO automatic ownership reconciliation: the entrypoint's root path
+#     (chown of bind-mounted paths) cannot run without root. Every
+#     bind-mounted path (./runtime, ./memory, ./output) must ALREADY be
+#     owned by WEBPENT_UID:WEBPENT_GID before `up` — otherwise the app
+#     surfaces a clear write error instead of "fixing" it silently.
+#   * The entrypoint announces ROOTLESS MODE on the container log and
+#     execs the command directly as the starting uid (no gosu) — see
+#     entrypoint.sh's ROOTLESS MODE section (D-1, v0.28.0).
+#   * The container no longer holds root at ANY point in its lifecycle;
+#     the chown-reconciliation class of bind-mount bug is then the
+#     operator's responsibility by design (that is the point).
+# =============================================================================
+services:
+  api:
+    user: "${WEBPENT_UID:?export WEBPENT_UID from id -u before rootless compose}:${WEBPENT_GID:?export WEBPENT_GID from id -g before rootless compose}"
+
+  worker:
+    user: "${WEBPENT_UID:?export WEBPENT_UID from id -u before rootless compose}:${WEBPENT_GID:?export WEBPENT_GID from id -g before rootless compose}"

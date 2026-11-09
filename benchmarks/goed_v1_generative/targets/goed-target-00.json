@@ -1,0 +1,190 @@
+{
+  "target_id": "goed-target-00",
+  "port": 8800,
+  "naming_convention": {
+    "route_style": 0,
+    "object_style": 0,
+    "role_set": 0,
+    "tenant_style": 0
+  },
+  "route_prefix": "/api/ENTITY",
+  "roles": [
+    "guest",
+    "member",
+    "owner",
+    "admin"
+  ],
+  "tenants": [
+    "org-00",
+    "org-01"
+  ],
+  "objects": [
+    "obj-000",
+    "obj-001",
+    "obj-002",
+    "obj-003",
+    "obj-004",
+    "obj-005"
+  ],
+  "cases": {
+    "goed-target-00-case-00": {
+      "case_id": "goed-target-00-case-00",
+      "target_id": "goed-target-00",
+      "class": "idor",
+      "route": "/api/objects/obj-001",
+      "baseline_route": "/api/objects/obj-000",
+      "control_route": "/patched/api/objects/obj-001",
+      "actor_role": "member",
+      "actor_tenant": "org-00",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-00-case-01": {
+      "case_id": "goed-target-00-case-01",
+      "target_id": "goed-target-00",
+      "class": "broken_access_control",
+      "route": "/api/admin/dashboard",
+      "baseline_route": "/api/profile",
+      "control_route": "/patched/api/admin/dashboard",
+      "actor_role": "member",
+      "actor_tenant": "org-00",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "medium"
+    },
+    "goed-target-00-case-02": {
+      "case_id": "goed-target-00-case-02",
+      "target_id": "goed-target-00",
+      "class": "privilege_escalation",
+      "route": "/api/billing/org-00/records",
+      "baseline_route": "/api/profile",
+      "control_route": "/patched/api/billing/org-00/records",
+      "actor_role": "member",
+      "actor_tenant": "org-00",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "low"
+    },
+    "goed-target-00-case-03": {
+      "case_id": "goed-target-00-case-03",
+      "target_id": "goed-target-00",
+      "class": "business_logic_abuse",
+      "route": "/api/transfer/obj-000?to=obj-001&amount=-100",
+      "baseline_route": "/api/transfer/obj-000?to=obj-001&amount=10",
+      "control_route": "/patched/api/transfer/obj-000",
+      "actor_role": "member",
+      "actor_tenant": "org-00",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "low"
+    },
+    "goed-target-00-case-04": {
+      "case_id": "goed-target-00-case-04",
+      "target_id": "goed-target-00",
+      "class": "tenant_isolation_failure",
+      "route": "/api/tenant/org-01/internal",
+      "baseline_route": "/api/tenant/org-00/internal",
+      "control_route": "/patched/api/tenant/org-01/internal",
+      "actor_role": "member",
+      "actor_tenant": "org-00",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "low"
+    },
+    "goed-target-00-case-05": {
+      "case_id": "goed-target-00-case-05",
+      "target_id": "goed-target-00",
+      "class": "workflow_authorization_failure",
+      "route": "/api/workflows/obj-002/approve",
+      "baseline_route": "/api/workflows/obj-002/view",
+      "control_route": "/patched/api/workflows/obj-002/approve",
+      "actor_role": "guest",
+      "actor_tenant": "org-00",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-00-case-06": {
+      "case_id": "goed-target-00-case-06",
+      "target_id": "goed-target-00",
+      "class": "sensitive_data_exposure",
+      "route": "/api/messages/obj-001/inbox",
+      "baseline_route": "/api/messages/obj-000/inbox",
+      "control_route": "/patched/api/messages/obj-001/inbox",
+      "actor_role": "member",
+      "actor_tenant": "org-00",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "low"
+    },
+    "goed-target-00-case-07": {
+      "case_id": "goed-target-00-case-07",
+      "target_id": "goed-target-00",
+      "class": "multi_step_chain",
+      "route": "/api/auth/reset/request?for=obj-001",
+      "baseline_route": "/api/auth/reset/request?for=obj-000",
+      "control_route": "/patched/api/auth/reset/request",
+      "actor_role": "member",
+      "actor_tenant": "org-00",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-00-case-08": {
+      "case_id": "goed-target-00-case-08",
+      "target_id": "goed-target-00",
+      "class": "broken_access_control",
+      "route": "/api/admin/dashboard",
+      "baseline_route": "/api/profile",
+      "control_route": "/patched/api/admin/dashboard",
+      "actor_role": "member",
+      "actor_tenant": "org-00",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-00-case-09": {
+      "case_id": "goed-target-00-case-09",
+      "target_id": "goed-target-00",
+      "class": "idor",
+      "route": "/api/objects/obj-001",
+      "baseline_route": "/api/objects/obj-000",
+      "control_route": "/patched/api/objects/obj-001",
+      "actor_role": "member",
+      "actor_tenant": "org-00",
+      "expected_verdict": "CONFIRMED",
+      "is_vulnerable": true,
+      "difficulty": "high"
+    },
+    "goed-target-00-clean-00": {
+      "case_id": "goed-target-00-clean-00",
+      "target_id": "goed-target-00",
+      "class": "clean_public_resource",
+      "route": "/api/public/info-0",
+      "baseline_route": "/api/public/info-0",
+      "control_route": "/api/public/info-0",
+      "actor_role": "member",
+      "actor_tenant": "org-00",
+      "expected_verdict": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    },
+    "goed-target-00-clean-01": {
+      "case_id": "goed-target-00-clean-01",
+      "target_id": "goed-target-00",
+      "class": "clean_public_resource",
+      "route": "/api/public/info-1",
+      "baseline_route": "/api/public/info-1",
+      "control_route": "/api/public/info-1",
+      "actor_role": "member",
+      "actor_tenant": "org-00",
+      "expected_verdict": "CLEAN",
+      "is_vulnerable": false,
+      "difficulty": "low"
+    }
+  },
+  "total_cases": 12,
+  "vulnerable_cases": 10,
+  "clean_cases": 2
+}

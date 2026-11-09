@@ -1,0 +1,82 @@
+{
+  "artifact": "webgoat-capability-closure-v2",
+  "milestone": "Target Capability Enablement + First Real Causal Confirmation",
+  "target": "owasp_webgoat",
+  "case_id": "webgoat.idor.view_other_profile.causal-vnext",
+  "status": "BLOCKED",
+  "closure_status": "FORMALLY_CLOSED_PENDING_AUTHORIZED_TARGET_FIXTURE_CAPABILITY",
+  "decision": "No target-backed causal execution was authorized or performed because the required independently controllable LessonSession ownership fixture is unavailable.",
+  "scope": {
+    "network_scope": "loopback_only",
+    "approved_method": "GET",
+    "historical_flow_reused": false,
+    "external_target_used": false,
+    "credentials_or_login_used": false,
+    "bypass_used": false,
+    "uncontrolled_mutation_performed": false,
+    "network_requests_attempted": 0
+  },
+  "source_backed_requirements": {
+    "owner_identity": "A target-side LessonSession state that owns the protected profile/resource.",
+    "attacker_identity": "A distinct target-side LessonSession state for the unauthorized requester.",
+    "protected_resource": "A disposable owner-owned profile/resource with a stable opaque reference.",
+    "ownership_relation": "A source/runtime-observable mapping between the owner identity and the protected resource.",
+    "reset_mechanism": "An approved snapshot/restore or equivalent target-local reset that returns the same state hash.",
+    "observable_outcome": "A bounded semantic response proving authorized owner access versus unauthorized requester access; status, redirect, route, or source presence alone is insufficient.",
+    "negative_control": "An independently denied or unrelated protected resource request with a distinct request digest."
+  },
+  "missing_capabilities": [
+    "independent_owner_and_attacker_LessonSession_fixture_injection",
+    "disposable_owner_owned_profile_fixture_with_reset_and_state_hash",
+    "target_runtime_service_alignment_on_approved_loopback_origin",
+    "bounded_semantic_observation_contract_for_owner_vs_attacker",
+    "independent_negative_control_with_distinct_request_identity"
+  ],
+  "source_evidence": [
+    {
+      "path": "src/main/java/org/owasp/webgoat/lessons/idor/IDORViewOtherProfile.java",
+      "sha256": "305cb5c0fc8d63a0b8bb4f48f4ebc6982ee332bc11c7f1dcc0ad248a3f6ac3e6",
+      "finding": "The endpoint reads one LessonSession identity, requires the session marker tom, and compares the requested id to the authenticated id before returning the other profile. It does not expose an approved two-session fixture or reset mechanism."
+    },
+    {
+      "path": "src/main/java/org/owasp/webgoat/lessons/idor/IDORViewOwnProfile.java",
+      "sha256": "e6d82fadc90c6bc3485f988fb17d8e346bb39e997238ed096d2c471d5fd8267f",
+      "finding": "The own-profile endpoint derives the resource from the current LessonSession; it cannot establish a distinct requester identity against the same owner resource."
+    },
+    {
+      "path": "src/main/java/org/owasp/webgoat/lessons/idor/IDORLogin.java",
+      "sha256": "6156ec8fc72d5bd001f28996bde420b7e4c04b5226c565d21f54a700038a452b",
+      "finding": "The lesson login mutates LessonSession state. Using it would require an explicitly approved login/credential path, which is outside the current bounded capability."
+    }
+  ],
+  "runtime_provenance": {
+    "source_commit": "7517acca95d9851da706452454c223dd13545ef4",
+    "runtime_artifact": "/tmp/webgoat-source/target/webgoat-2026.2-SNAPSHOT.jar",
+    "runtime_sha256": "694626342150c1263288834fd722ec636639a36c92a68fc6a62154823dec8edb",
+    "runtime_version": "2026.2-SNAPSHOT",
+    "listener_127001_8080_at_check": false,
+    "source_tree_clean_at_check": true
+  },
+  "execution_result": {
+    "preconditions_ready": false,
+    "fixture_ready": false,
+    "identity_model_ready": false,
+    "reset_verified": false,
+    "runtime_digest_verified": true,
+    "network_scope_verified": true,
+    "target_backed_observations": 0,
+    "oracle_decision": "BLOCKED",
+    "proof_bundle_created": false,
+    "scoring_promotion": false,
+    "replay_successes": 0
+  },
+  "required_owner_decision_if_scope_changes": "Approve a narrowly scoped target-local fixture/session injection mechanism and reset contract. Do not approve credentials, bypasses, raw traversal, uncontrolled mutation, external callbacks, P10/P9/VIP qualification, or frozen ground-truth changes by implication.",
+  "governance": {
+    "official_isolated_p10_runs_authorized": false,
+    "p10": "NOT_QUALIFIED",
+    "p9": "NOT_QUALIFIED",
+    "vip": "NOT_QUALIFIED",
+    "bug_bounty": "BLOCKED",
+    "human_independent_signoff_obtained": false
+  }
+}

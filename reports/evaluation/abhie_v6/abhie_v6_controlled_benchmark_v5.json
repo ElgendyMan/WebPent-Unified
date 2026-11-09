@@ -1,0 +1,267 @@
+{
+  "benchmark_id": "ABHIE-v6-vip-research-benchmark-v5",
+  "benchmark_quality": {
+    "claim": "research_intelligence_contract_readiness_only",
+    "hardcoded_detection": false,
+    "missing_requirements_block": true,
+    "production_detection_measured": false
+  },
+  "classes": [
+    {
+      "blocked_candidates": [
+        {
+          "case_id": "controlled.idor.owner_resource.v1",
+          "missing_requirements": [
+            "realistic_target_model",
+            "hidden_security_assumptions",
+            "multiple_investigation_paths",
+            "replay_verification"
+          ]
+        }
+      ],
+      "candidate_count": 1,
+      "case_count": 0,
+      "cases": [],
+      "class": "multi_step_idor",
+      "readiness_contract": {
+        "missing_evidence_is_blocking": true,
+        "required_semantics": [
+          "realistic target model",
+          "hidden security assumptions",
+          "multiple investigation paths",
+          "autonomous reasoning",
+          "causal oracle",
+          "sealed ProofBundle",
+          "replay verification"
+        ],
+        "runner_must_not_execute": true,
+        "target_neutral": true
+      },
+      "reason": "one or more required v6 research-intelligence requirements are missing",
+      "scorable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "blocked_candidates": [
+        {
+          "case_id": "asros-blocked-privilege_escalation-v1",
+          "missing_requirements": [
+            "realistic_target_model",
+            "hidden_security_assumptions",
+            "multiple_investigation_paths",
+            "autonomous_reasoning",
+            "causal_oracle",
+            "sealed_proof_bundle",
+            "replay_verification"
+          ]
+        }
+      ],
+      "candidate_count": 1,
+      "case_count": 0,
+      "cases": [],
+      "class": "privilege_escalation_chain",
+      "readiness_contract": {
+        "missing_evidence_is_blocking": true,
+        "required_semantics": [
+          "realistic target model",
+          "hidden security assumptions",
+          "multiple investigation paths",
+          "autonomous reasoning",
+          "causal oracle",
+          "sealed ProofBundle",
+          "replay verification"
+        ],
+        "runner_must_not_execute": true,
+        "target_neutral": true
+      },
+      "reason": "one or more required v6 research-intelligence requirements are missing",
+      "scorable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "blocked_candidates": [
+        {
+          "case_id": "asros-blocked-business_logic-v1",
+          "missing_requirements": [
+            "realistic_target_model",
+            "hidden_security_assumptions",
+            "multiple_investigation_paths",
+            "autonomous_reasoning",
+            "causal_oracle",
+            "sealed_proof_bundle",
+            "replay_verification"
+          ]
+        }
+      ],
+      "candidate_count": 1,
+      "case_count": 0,
+      "cases": [],
+      "class": "business_workflow_abuse",
+      "readiness_contract": {
+        "missing_evidence_is_blocking": true,
+        "required_semantics": [
+          "realistic target model",
+          "hidden security assumptions",
+          "multiple investigation paths",
+          "autonomous reasoning",
+          "causal oracle",
+          "sealed ProofBundle",
+          "replay verification"
+        ],
+        "runner_must_not_execute": true,
+        "target_neutral": true
+      },
+      "reason": "one or more required v6 research-intelligence requirements are missing",
+      "scorable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "blocked_candidates": [],
+      "candidate_count": 0,
+      "case_count": 0,
+      "cases": [],
+      "class": "tenant_isolation_failure",
+      "readiness_contract": {
+        "missing_evidence_is_blocking": true,
+        "required_semantics": [
+          "realistic target model",
+          "hidden security assumptions",
+          "multiple investigation paths",
+          "autonomous reasoning",
+          "causal oracle",
+          "sealed ProofBundle",
+          "replay verification"
+        ],
+        "runner_must_not_execute": true,
+        "target_neutral": true
+      },
+      "reason": "one or more required v6 research-intelligence requirements are missing",
+      "scorable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "blocked_candidates": [],
+      "candidate_count": 0,
+      "case_count": 0,
+      "cases": [],
+      "class": "complex_authorization_issue",
+      "readiness_contract": {
+        "missing_evidence_is_blocking": true,
+        "required_semantics": [
+          "realistic target model",
+          "hidden security assumptions",
+          "multiple investigation paths",
+          "autonomous reasoning",
+          "causal oracle",
+          "sealed ProofBundle",
+          "replay verification"
+        ],
+        "runner_must_not_execute": true,
+        "target_neutral": true
+      },
+      "reason": "one or more required v6 research-intelligence requirements are missing",
+      "scorable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "blocked_candidates": [
+        {
+          "case_id": "asros-blocked-information_disclosure-v1",
+          "missing_requirements": [
+            "realistic_target_model",
+            "hidden_security_assumptions",
+            "multiple_investigation_paths",
+            "autonomous_reasoning",
+            "causal_oracle",
+            "sealed_proof_bundle",
+            "replay_verification"
+          ]
+        }
+      ],
+      "candidate_count": 1,
+      "case_count": 0,
+      "cases": [],
+      "class": "sensitive_data_exposure_chain",
+      "readiness_contract": {
+        "missing_evidence_is_blocking": true,
+        "required_semantics": [
+          "realistic target model",
+          "hidden security assumptions",
+          "multiple investigation paths",
+          "autonomous reasoning",
+          "causal oracle",
+          "sealed ProofBundle",
+          "replay verification"
+        ],
+        "runner_must_not_execute": true,
+        "target_neutral": true
+      },
+      "reason": "one or more required v6 research-intelligence requirements are missing",
+      "scorable": false,
+      "status": "BLOCKED"
+    }
+  ],
+  "execution": {
+    "credentials_used": false,
+    "external_targets_contacted": false,
+    "mutations_performed": false,
+    "offline": true,
+    "requests_sent": 0,
+    "runner_creates_observations": false
+  },
+  "generated_at": "2026-08-27T23:00:34.810306+00:00",
+  "governance": {
+    "bug_bounty_status": "BLOCKED",
+    "human_signoff": false,
+    "official_isolated_p10_runs_authorized": false,
+    "p10_status": "NOT_QUALIFIED",
+    "p9_status": "NOT_QUALIFIED",
+    "qualification_effect": false,
+    "vip_status": "NOT_QUALIFIED"
+  },
+  "metrics": {
+    "blocked_class_count": 6,
+    "f1": null,
+    "precision": null,
+    "real_world_detection_rate": null,
+    "reason_metrics_unavailable": "v6 requires complete target-model, assumption, path, oracle, proof, and replay evidence; blocked candidates are excluded",
+    "recall": null,
+    "recorded_scorable_case_count": 0,
+    "registered_class_count": 6,
+    "research_intelligence": {
+      "coverage_growth": null,
+      "discovery_depth": null,
+      "evidence_strength": null,
+      "reasoning_quality": null,
+      "research_efficiency": null,
+      "strategy_improvement": null
+    },
+    "scorable_class_count": 0,
+    "valid_ground_truth": false
+  },
+  "recorded_complete_case_ids": [],
+  "registered_classes": [
+    "multi_step_idor",
+    "privilege_escalation_chain",
+    "business_workflow_abuse",
+    "tenant_isolation_failure",
+    "complex_authorization_issue",
+    "sensitive_data_exposure_chain"
+  ],
+  "schema_version": "abhie-v6-controlled-benchmark-v5",
+  "self_review": {
+    "challenges": [
+      "assumption validity",
+      "evidence sufficiency",
+      "realistic impact",
+      "alternative explanations",
+      "reproducibility"
+    ],
+    "evidence_modified": false,
+    "oracle_overridden": false,
+    "qualification_approved": false,
+    "status": "ADVISORY_ONLY"
+  },
+  "source_artifact": "reports/evaluation/asros/asros_advanced_controlled_benchmark_v1.json",
+  "source_artifact_read_only": true
+}

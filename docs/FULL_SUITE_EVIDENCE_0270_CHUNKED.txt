@@ -1,0 +1,43 @@
+# Test Run Evidence — 0.27.0 window completion (chunked full suite)
+# Date: 2026-10-30
+# Runner: pytest 8.x, python 3.12.16, webpent 0.27.0 (editable, --no-deps in sandbox)
+# Command pattern: python3 -m pytest <chunk> -q -p no:cacheprovider --tb=line
+# Note: chunked execution (sandbox 10-min shell ceiling); the chunk split is
+#       purely operational — no test selection, no skips injected, every
+#       collected item ran exactly once across the four chunks.
+#
+# --- CHUNK SUMMARIES (pytest tails, verbatim) ---
+# chunk 1  tests/*.py root files (all subdirs ignored):
+#          "2 failed, 4070 passed, 2 skipped, 3 xfailed, 7 warnings in 218.36s"
+#          -> the 2 failures (test_python_dash_m_webpent_cli_is_executable,
+#             test_sdd8_rollback_flag_independence) spawn FRESH interpreters
+#             and require the package installed, not just pythonpath — after
+#             `pip install -e . --no-deps` both pass:
+#          "2 passed in 5.74s"
+# chunk 2  tests/oracle tests/dojo tests/prism tests/jc:
+#          "1046 passed in 33.77s"
+# chunk 3  tests/forge tests/apex tests/deep tests/campaign tests/egaie:
+#          "698 passed in 49.10s"
+# chunk 4  tests/econ tests/vip tests/bridge tests/lab tests/team1_acceptance
+#          tests/scenario_lab tests/ground_truth:
+#          "931 passed, 4 warnings in 58.24s"
+#
+# --- TOTAL ---
+# Collected (pytest --collect-only): 6752
+# Passed:  4070 + 2 + 1046 + 698 + 931 = 6747
+# Skipped: 2   (optional external-source skips)
+# Xfailed: 3   (ratified B-06/M3 strict xfails)
+# 6747 + 2 + 3 = 6752 = collected — EXACT reconciliation, 0 failed, 0 errors.
+#
+# --- 0.27.0 WINDOW GATES (docs/PRODUCTION_FIX_PLAN_0270.md protocol) ---
+# [GATE] new tests green ............ tests/test_ab_lab.py: 38 passed
+# [GATE] frozen gate green ......... tests/test_frozen_module_gate.py + test_cli_ops.py: 676 passed
+# [GATE] canary 7x STABLE .......... reports/canary/CANARY_7X_20261030_0.27.0.json
+#                                    stable_7x=true, 7/7 byte-identical (855 passed each),
+#                                    smoke signature 880fa516d11d72c5, ruff_clean=true, exit 0
+# [GATE] ruff ...................... ratchet: current=6248 <= baseline=6250 (PASS);
+#                                    new/changed files: 0 findings (ab_lab.py, test_ab_lab.py,
+#                                    ops.py learning-ab section, canary script, gate file)
+# [GATE] test-count floor .......... 6752 collected >= floor 1940 (OK)
+# [GATE] manifest .................. frozen_modules.sha256: 659 entries, hashes match tree
+#                                    (ops.py + memory/ab_lab.py re-pinned by the AB_LAB_20261029 window)

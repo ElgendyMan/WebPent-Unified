@@ -1,0 +1,76 @@
+{
+  "production-fast": {
+    "config": "production-fast",
+    "model": "mock-fast-profile",
+    "provider_type": "MOCK_SIMULATION",
+    "mock_provider": true,
+    "reasoning_quality": 0.55,
+    "metrics": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 30,
+      "tn": 0,
+      "precision": 0,
+      "recall": 0.0,
+      "f1": 0
+    },
+    "hypothesis_stats": {
+      "total": 60,
+      "useful": 0,
+      "redundant": 0,
+      "useful_rate": 0.0,
+      "redundant_rate": 0.0
+    },
+    "experiment_stats": {
+      "total": 60,
+      "confirmation_rate": 0.0
+    },
+    "cost": {
+      "cost_per_1k_tokens": 0.0015,
+      "estimated_total_tokens": 43062,
+      "estimated_cost": 0.0646
+    },
+    "latency": {
+      "avg_seconds": 0.005,
+      "total_seconds": 0.14
+    },
+    "note": "Fast/low-cost profile \u2014 Real API key required for actual two-model comparison"
+  },
+  "production-reasoning": {
+    "config": "production-reasoning",
+    "model": "mock-reasoning-profile",
+    "provider_type": "MOCK_SIMULATION",
+    "mock_provider": true,
+    "reasoning_quality": 0.85,
+    "metrics": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 30,
+      "tn": 0,
+      "precision": 0,
+      "recall": 0.0,
+      "f1": 0
+    },
+    "hypothesis_stats": {
+      "total": 60,
+      "useful": 0,
+      "redundant": 0,
+      "useful_rate": 0.0,
+      "redundant_rate": 0.0
+    },
+    "experiment_stats": {
+      "total": 60,
+      "confirmation_rate": 0.0
+    },
+    "cost": {
+      "cost_per_1k_tokens": 0.015,
+      "estimated_total_tokens": 42510,
+      "estimated_cost": 0.6376
+    },
+    "latency": {
+      "avg_seconds": 0.005,
+      "total_seconds": 0.14
+    },
+    "note": "Strong reasoning profile \u2014 Real API key required for actual two-model comparison"
+  }
+}

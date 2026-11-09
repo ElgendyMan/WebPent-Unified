@@ -1,0 +1,224 @@
+src/webpent/agents/access_control/agent.py:41:_ID_PATTERN = re.compile(
+src/webpent/agents/access_control/agent.py:51:_ID_KEY_PATTERN = re.compile(r"^(?:id|.*[_-]id|.*Id)$", re.IGNORECASE)
+src/webpent/agents/authentication/agent.py:32:    reducer, checkpointed by SqliteSaver, never written to ChromaDB
+src/webpent/agents/authentication/agent.py:992:    # persisted in the LangGraph checkpoint (SqliteSaver) at rest. The
+src/webpent/agents/business_impact/agent.py:80:        response = llm.invoke(
+src/webpent/agents/cloud_storage/agent.py:22:_BUCKET_HOST_RE = re.compile(
+src/webpent/agents/crawler/agent.py:65:    ("AWS Access Key", re.compile(r"AKIA[0-9A-Z]{16}")),
+src/webpent/agents/crawler/agent.py:68:        re.compile(
+src/webpent/agents/crawler/agent.py:72:    ("Google API Key", re.compile(r"AIza[0-9A-Za-z\-_]{35}")),
+src/webpent/agents/crawler/agent.py:73:    ("Stripe Secret Key", re.compile(r"sk_live_[0-9a-zA-Z]{24}")),
+src/webpent/agents/crawler/agent.py:74:    ("Stripe Publishable Key", re.compile(r"pk_live_[0-9a-zA-Z]{24}")),
+src/webpent/agents/crawler/agent.py:75:    ("Slack Token", re.compile(r"xox[baprs]-[0-9a-zA-Z-]{10,48}")),
+src/webpent/agents/crawler/agent.py:76:    ("GitHub Token", re.compile(r"gh[ps]_[0-9a-zA-Z]{36}")),
+src/webpent/agents/crawler/agent.py:79:        re.compile(
+src/webpent/agents/crawler/agent.py:85:        re.compile(
+src/webpent/agents/crawler/agent.py:90:    ("JWT Token", re.compile(r"eyJ[a-zA-Z0-9_-]{10,}\.eyJ[a-zA-Z0-9_-]{10,}\.[a-zA-Z0-9_-]{10,}")),
+src/webpent/agents/crawler/agent.py:91:    ("Private Key Block", re.compile(r"-----BEGIN (?:RSA |EC |DSA |OPENSSH )?PRIVATE KEY-----")),
+src/webpent/agents/crawler/agent.py:92:    ("Firebase Config", re.compile(r"apiKey\s*:\s*[\"']([a-zA-Z0-9\-_]{39})[\"']")),
+src/webpent/agents/crawler/agent.py:165:    form_re = _re.compile(
+src/webpent/agents/crawler/agent.py:169:    attr_re = _re.compile(r'(\w+)\s*=\s*"([^"]*)"', _re.IGNORECASE)
+src/webpent/agents/crawler/agent.py:170:    input_re = _re.compile(
+src/webpent/agents/crawler/agent.py:601:        response = llm.invoke(
+src/webpent/agents/cross_reasoning/agent.py:213:        response = llm.invoke(
+src/webpent/agents/cvss_engine/agent.py:174:        # Leave the finding unchanged rather than relying on None.invoke().
+src/webpent/agents/cvss_engine/agent.py:187:        response = llm.invoke(
+src/webpent/agents/devils_advocate/agent.py:189:        response = llm.invoke(
+src/webpent/agents/disclosed_report_intel/agent.py:13:_URL_RE = re.compile(r"https?://[^\s'\"<>]+")
+src/webpent/agents/executive_summary/agent.py:213:            response = llm.invoke(
+src/webpent/agents/exploit_chainer/agent.py:297:        response = llm.invoke(
+src/webpent/agents/hypothesis_analyzer/agent.py:277:    re.compile(r"(?i)(file|path|page|dir|folder|document|template|include|require)"),
+src/webpent/agents/hypothesis_analyzer/agent.py:282:    re.compile(
+src/webpent/agents/hypothesis_analyzer/agent.py:288:_URL_VALUE_PATTERN = re.compile(r"(?i)^https?://")
+src/webpent/agents/hypothesis_analyzer/agent.py:291:_FILE_PATH_VALUE_PATTERN = re.compile(r"(?i)\.(php|html?|txt|asp|jsp|xml|json|inc|bak)$")
+src/webpent/agents/payload_generator/agent.py:569:        response = llm.invoke(messages)
+src/webpent/agents/payload_optimizer/agent.py:246:        response = llm.invoke(
+src/webpent/agents/planner/agent.py:183:            response = llm.invoke(invocation_messages)
+src/webpent/agents/planner/agent.py:202:                decision_response = llm.invoke(
+src/webpent/agents/rabbit_hole/agent.py:466:        response = llm.invoke([
+src/webpent/agents/reflection/agent.py:346:            response = llm.invoke(
+src/webpent/agents/reporter/agent.py:537:            response = llm.invoke(
+src/webpent/agents/reporter/agent.py:815:            response = llm.invoke(
+src/webpent/agents/smart_campaigns/agent.py:63:_OBJECT_ROUTE_PATTERN = re.compile(
+src/webpent/agents/subdomain_takeover/agent.py:59:    host_re = re.compile(r"^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$", re.I)
+src/webpent/agents/validator/agent.py:442:        response = llm.invoke(
+src/webpent/agents/validator/structural_checks.py:421:    ("innerHTML", re.compile(r"\.innerHTML\s*=", re.IGNORECASE)),
+src/webpent/agents/validator/structural_checks.py:422:    ("document.write", re.compile(r"document\.write\s*\(", re.IGNORECASE)),
+src/webpent/agents/validator/structural_checks.py:423:    ("eval", re.compile(r"\beval\s*\(", re.IGNORECASE)),
+src/webpent/agents/validator/structural_checks.py:424:    ("setTimeout(string)", re.compile(r"setTimeout\s*\(\s*['\"]", re.IGNORECASE)),
+src/webpent/agents/validator/structural_checks.py:425:    ("setInterval(string)", re.compile(r"setInterval\s*\(\s*['\"]", re.IGNORECASE)),
+src/webpent/agents/validator/structural_checks.py:426:    ("jQuery .html()", re.compile(r"\.html\s*\(", re.IGNORECASE)),
+src/webpent/agents/validator/structural_checks.py:427:    ("Function constructor", re.compile(r"\bnew\s+Function\s*\(", re.IGNORECASE)),
+src/webpent/agents/validator/structural_checks.py:1181:_SENSITIVE_ARTIFACT_RE = re.compile(
+src/webpent/agents/waf_detector/agent.py:149:            response = llm.invoke(
+src/webpent/api/app.py:46:from webpent.graph.builder import NODE_EXECUTION_SANDBOX, build_graph
+src/webpent/api/app.py:47:from webpent.graph.checkpoints import get_checkpointer
+src/webpent/api/app.py:115:# and the .checkpointer reassignment from concurrent status-poll
+src/webpent/api/app.py:118:# pattern below — double build_graph, or thread A reading thread B's
+src/webpent/api/app.py:119:# checkpointer (which B closes on with-exit) before A calls get_state.
+src/webpent/api/app.py:123:def _get_cached_graph(checkpointer: Any) -> Any:
+src/webpent/api/app.py:127:    the graph object returned by ``build_graph(checkpointer=checkpointer)``
+src/webpent/api/app.py:129:    ``checkpointer`` argument on every subsequent call. Every caller
+src/webpent/api/app.py:130:    (``_get_graph_status``) opens its checkpointer via
+src/webpent/api/app.py:131:    ``with get_checkpointer() as checkpointer:`` — a fresh, per-request
+src/webpent/api/app.py:134:    (now-closed) checkpointer, every status poll after the first raised
+src/webpent/api/app.py:143:    but rebind the cheap ``.checkpointer`` attribute to the CURRENT,
+src/webpent/api/app.py:144:    live checkpointer on every call, cache hit or not. Verified against
+src/webpent/api/app.py:146:    ``CompiledStateGraph`` exposes ``.checkpointer`` as a plain, settable
+src/webpent/api/app.py:153:    V10 AUDIT FIX (H5): the cache dict and .checkpointer reassignment
+src/webpent/api/app.py:160:            _GRAPH_CACHE[key] = build_graph(checkpointer=checkpointer)
+src/webpent/api/app.py:162:            _GRAPH_CACHE[key].checkpointer = checkpointer
+src/webpent/api/app.py:581:        bad_cookie_name = _re.compile(r"[\r\n;=\s]")
+src/webpent/api/app.py:657:        with get_checkpointer() as checkpointer:
+src/webpent/api/app.py:660:            # changes at runtime; only the checkpointer connection is
+src/webpent/api/app.py:662:            graph = _get_cached_graph(checkpointer)
+src/webpent/api/app.py:699:        logger.error("Failed to initialise checkpointer for status check: %s", exc)
+src/webpent/cli/__init__.py:40:from webpent.graph.builder import build_graph
+src/webpent/cli/__init__.py:41:from webpent.graph.checkpoints import get_checkpointer
+src/webpent/cli/__init__.py:550:    # (SqliteSaver) as plaintext — the exact problem FIX-10 was designed
+src/webpent/cli/__init__.py:592:        with get_checkpointer() as checkpointer:
+src/webpent/cli/__init__.py:593:            graph = build_graph(checkpointer=checkpointer, auto_approve=auto_approve)
+src/webpent/cli/__init__.py:646:                final_state = graph.invoke(initial_state, config=config)
+src/webpent/cli/manifest.py:23:_SECRET_KEY_RE = re.compile(
+src/webpent/config/policies.py:41:_MEMORY_PATTERN = re.compile(
+src/webpent/graph/builder.py:43:from langgraph.graph import END, START, StateGraph
+src/webpent/graph/builder.py:881:    # findings loaded from a checkpoint (plain dicts after SqliteSaver
+src/webpent/graph/builder.py:947:def build_graph(checkpointer: Any = None, auto_approve: bool = False):
+src/webpent/graph/builder.py:951:        checkpointer: Optional LangGraph checkpointer for state persistence.
+src/webpent/graph/builder.py:957:        A compiled :class:`CompiledStateGraph`.
+src/webpent/graph/builder.py:959:    graph = StateGraph(PentestState)
+src/webpent/graph/builder.py:1284:        compiled = graph.compile(checkpointer=checkpointer)
+src/webpent/graph/builder.py:1287:        compiled = graph.compile(
+src/webpent/graph/builder.py:1288:            checkpointer=checkpointer,
+src/webpent/graph/checkpoints.py:15:from langgraph.checkpoint.sqlite import SqliteSaver
+src/webpent/graph/checkpoints.py:260:class RedactingSqliteSaver(SqliteSaver):
+src/webpent/graph/checkpoints.py:261:    """SqliteSaver that never serializes the designated secret channels."""
+src/webpent/graph/checkpoints.py:296:def _managed_factory_saver(factory: Any) -> Iterator[RedactingSqliteSaver]:
+src/webpent/graph/checkpoints.py:301:        yield RedactingSqliteSaver(conn=saver.conn, serde=saver.serde)
+src/webpent/graph/checkpoints.py:305:def _managed_fallback_saver(conn: sqlite3.Connection) -> Iterator[RedactingSqliteSaver]:
+src/webpent/graph/checkpoints.py:310:        yield RedactingSqliteSaver(conn=conn)
+src/webpent/graph/checkpoints.py:315:def get_checkpointer(db_path: str = _DEFAULT_SESSIONS_DB_PATH):
+src/webpent/graph/checkpoints.py:319:        saver_factory = SqliteSaver.from_conn_string(conn_string=db_path)
+src/webpent/graph/checkpoints.py:320:        logger.info("LangGraph SqliteSaver checkpointer factory created at %s", db_path)
+src/webpent/graph/checkpoints.py:323:        logger.warning("SqliteSaver.from_conn_string unavailable; using explicit connection")
+src/webpent/memory/db.py:714:        ONLY because LangGraph's checkpointer msgpack round-trip
+src/webpent/memory/lessons.py:73:_SHELL_METACHAR_RE = re.compile(
+src/webpent/memory/lessons.py:86:_SQL_INJECTION_RE = re.compile(
+src/webpent/memory/lessons.py:105:_XSS_PAYLOAD_RE = re.compile(
+src/webpent/memory/lessons.py:122:_PATH_TRAVERSAL_RE = re.compile(
+src/webpent/memory/lessons.py:156:_SSRF_CALLBACK_RE = re.compile(
+src/webpent/memory/lessons.py:166:_DESERIAL_PAYLOAD_RE = re.compile(
+src/webpent/memory/lessons.py:178:_SSTI_PAYLOAD_RE = re.compile(
+src/webpent/models/evidence.py:34:_SENSITIVE_KEYS = re.compile(
+src/webpent/models/evidence.py:40:    (re.compile(r"(?i)(authorization\s*:\s*(?:bearer|basic)\s+)[^\s,;]+"), r"\1[REDACTED]"),
+src/webpent/models/evidence.py:41:    (re.compile(r"(?i)(cookie\s*:\s*)[^\r\n]+"), r"\1[REDACTED]"),
+src/webpent/models/evidence.py:43:        re.compile(
+src/webpent/models/evidence.py:50:        re.compile(
+src/webpent/models/mental_model.py:10:checkpointed by the existing SqliteSaver) and is NOT written to
+src/webpent/models/mental_model.py:47:    SqliteSaver that already handles ``crawled_data`` etc. (Phase 2
+src/webpent/models/mental_model.py:388:_IP_LITERAL_RE = re.compile(
+src/webpent/models/mental_model.py:394:_HOSTNAME_RE = re.compile(
+src/webpent/models/mental_model.py:401:_URL_RE = re.compile(
+src/webpent/models/mental_model.py:416:    ("AWS Access Key", re.compile(r"AKIA[0-9A-Z]{16}")),
+src/webpent/models/mental_model.py:417:    ("Google API Key", re.compile(r"AIza[0-9A-Za-z\-_]{35}")),
+src/webpent/models/mental_model.py:418:    ("Stripe Secret Key", re.compile(r"sk_live_[0-9a-zA-Z]{24}")),
+src/webpent/models/mental_model.py:419:    ("Stripe Publishable Key", re.compile(r"pk_live_[0-9a-zA-Z]{24}")),
+src/webpent/models/mental_model.py:420:    ("Slack Token", re.compile(r"xox[baprs]-[0-9a-zA-Z-]{10,48}")),
+src/webpent/models/mental_model.py:421:    ("GitHub Token", re.compile(r"gh[ps]_[0-9a-zA-Z]{36}")),
+src/webpent/models/mental_model.py:422:    ("JWT Token", re.compile(
+src/webpent/models/mental_model.py:435:    ("archive", re.compile(r"\.(?:zip|tar(?:\.gz)?|tgz|rar|7z|gz|bz2)$", re.IGNORECASE)),
+src/webpent/models/mental_model.py:441:    ("config", re.compile(
+src/webpent/models/mental_model.py:458:    ("git_marker", re.compile(
+src/webpent/models/mental_model.py:463:    ("vcs_marker", re.compile(r"(?:^|/)\.(?:svn|hg|bzr)(?:/|/?$)", re.IGNORECASE)),
+src/webpent/models/mental_model.py:465:    ("sql_dump", re.compile(r"\.(?:sql|dump|db)$", re.IGNORECASE)),
+src/webpent/models/mental_model.py:467:    ("backup", re.compile(r"\.(?:bak|backup|old|orig|swp)$", re.IGNORECASE)),
+src/webpent/models/mental_model.py:471:    ("source_code", re.compile(
+src/webpent/models/mental_model.py:477:    ("os_metadata", re.compile(r"(?:^|/)\.DS_Store$", re.IGNORECASE)),
+src/webpent/models/targets.py:90:                re.compile(pattern)
+src/webpent/shared/application_intent.py:98:        response = llm.invoke([
+src/webpent/shared/application_intent_graph.py:23:_SECRET_KEY = re.compile(r"(?i)(token|secret|password|passwd|api[_-]?key|cookie|authorization|jwt)")
+src/webpent/shared/application_intent_graph.py:24:_OBJECT_KEY = re.compile(
+src/webpent/shared/bac_identity_tester.py:23:_SENSITIVE_HEADER_RE = re.compile(
+src/webpent/shared/disclosed_report_intel.py:41:_ENDPOINT_RE = re.compile(
+src/webpent/shared/disclosed_report_intel.py:44:_SECRET_RE = re.compile(
+src/webpent/shared/grounding.py:125:    quote_pattern = re.compile(r"<quote>(.*?)</quote>", re.DOTALL)
+src/webpent/shared/grounding.py:130:    legacy_pattern = re.compile(r'[`"\']([^`"\']{1,})[`"\']')
+src/webpent/shared/http.py:156:_CRLF_PATTERN = re.compile(r"[\r\n]")
+src/webpent/shared/http_discovery.py:220:_STATE_CHANGING_ROUTE_RE = re.compile(
+src/webpent/shared/javascript_intelligence.py:32:_SENSITIVE_QUERY_KEYS = re.compile(
+src/webpent/shared/javascript_intelligence.py:37:_FETCH_RE = re.compile(
+src/webpent/shared/javascript_intelligence.py:41:_AXIOS_RE = re.compile(
+src/webpent/shared/javascript_intelligence.py:45:_XHR_RE = re.compile(
+src/webpent/shared/javascript_intelligence.py:49:_HTTP_CLIENT_RE = re.compile(
+src/webpent/shared/javascript_intelligence.py:54:_ROUTE_LITERAL_RE = re.compile(
+src/webpent/shared/javascript_intelligence.py:58:_SOURCE_MAP_RE = re.compile(r"(?:#|@)\s*sourceMappingURL\s*=\s*([^\s]+)", re.IGNORECASE)
+src/webpent/shared/javascript_intelligence.py:61:    ("dom_xss", "innerHTML", re.compile(r"\b(?:innerHTML|outerHTML)\b")),
+src/webpent/shared/javascript_intelligence.py:62:    ("html_injection", "insertAdjacentHTML", re.compile(r"\binsertAdjacentHTML\s*\(")),
+src/webpent/shared/javascript_intelligence.py:63:    ("html_injection", "document.write", re.compile(r"\bdocument\.write(?:ln)?\s*\(")),
+src/webpent/shared/javascript_intelligence.py:64:    ("code_execution", "eval", re.compile(r"\beval\s*\(")),
+src/webpent/shared/javascript_intelligence.py:65:    ("code_execution", "Function", re.compile(r"\bnew\s+Function\s*\(")),
+src/webpent/shared/javascript_intelligence.py:66:    ("code_execution", "setTimeout(string)", re.compile(r"\bsetTimeout\s*\(\s*[\"']")),
+src/webpent/shared/javascript_intelligence.py:67:    ("navigation", "location.assign", re.compile(r"\blocation\s*\.\s*(?:assign|replace|href)\b")),
+src/webpent/shared/javascript_intelligence.py:68:    ("message_handling", "postMessage", re.compile(r"\bpostMessage\s*\(")),
+src/webpent/shared/javascript_intelligence.py:71:    ("aws_access_key", re.compile(r"\bAKIA[0-9A-Z]{16}\b")),
+src/webpent/shared/javascript_intelligence.py:72:    ("private_key", re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----")),
+src/webpent/shared/javascript_intelligence.py:75:        re.compile(
+src/webpent/shared/javascript_intelligence.py:85:        re.compile(r"\b(?:isAdmin|is_admin|adminOnly|role|roles|permissions?)\b", re.IGNORECASE),
+src/webpent/shared/javascript_intelligence.py:89:        re.compile(r"\b(?:authorization|bearer|accessToken|idToken|jwt)\b", re.IGNORECASE),
+src/webpent/shared/javascript_intelligence.py:91:    ("csrf_hint", re.compile(r"\b(?:csrf|xsrf|antiForgery|anti-forgery)\b", re.IGNORECASE)),
+src/webpent/shared/jwt_deep_testing.py:20:_JWT_RE = re.compile(
+src/webpent/shared/llm.py:792:    def invoke(self, input: object, config: object | None = None, **kwargs: object) -> object:
+src/webpent/shared/llm.py:794:            response = self.inner.invoke(input, config=config, **kwargs)
+src/webpent/shared/llm.py:814:    async def ainvoke(
+src/webpent/shared/llm.py:821:            response = await self.inner.ainvoke(input, config=config, **kwargs)
+src/webpent/shared/llm.py:1073:        ``RunnableWithFallbacks``) ready to ``.invoke()``.
+src/webpent/shared/llm.py:1663:    pattern = re.compile(r"(?i)<\s*/?\s*untrusted_data[^>]*>")
+src/webpent/shared/planner_decisions.py:32:_SENSITIVE_QUERY_KEY = re.compile(
+src/webpent/shared/redaction.py:12:        re.compile(r"(?i)(authorization\s*:\s*bearer\s+)[^\s,;]+"),
+src/webpent/shared/redaction.py:16:        re.compile(r"(?i)(\bbearer\s+)[^\s,;]+"),
+src/webpent/shared/redaction.py:20:        re.compile(r"(?i)(\b(?:cookie|set-cookie)\s*:\s*)[^\r\n]+"),
+src/webpent/shared/redaction.py:24:        re.compile(
+src/webpent/shared/self_critique.py:453:        response = llm.invoke([
+src/webpent/shared/surface_security.py:32:_SECRET_KEY_RE = re.compile(
+src/webpent/shared/surface_security.py:35:_PARAM_RE = re.compile(r"[?&]([^=&]+)")
+src/webpent/shared/surface_security.py:36:_PATH_SIGNAL_RE = re.compile(
+src/webpent/shared/workflow_understanding.py:22:_SECRET_PARAM = re.compile(
+src/webpent/shared/workflow_understanding.py:25:_OBJECT_PARAM = re.compile(
+src/webpent/shared/workflow_understanding.py:28:_STATE_WORDS = re.compile(
+src/webpent/shared/workflow_understanding.py:34:    "account": re.compile(r"(?i)(?:account|profile|user|member|signup|register|login|logout)"),
+src/webpent/shared/workflow_understanding.py:35:    "transaction": re.compile(r"(?i)(?:order|invoice|payment|checkout|refund|transfer)"),
+src/webpent/shared/workflow_understanding.py:36:    "content": re.compile(r"(?i)(?:draft|publish|comment|post|document|file|upload|export)"),
+src/webpent/shared/workflow_understanding.py:37:    "privileged": re.compile(r"(?i)(?:admin|moderator|staff|approve|delete|role|permission)"),
+src/webpent/shared/ensemble.py:34:    response = runnable.invoke(prompt)
+src/webpent/shared/kev.py:10:_CVE_RE = re.compile(r"\bCVE-\d{4}-\d{4,7}\b", re.IGNORECASE)
+src/webpent/shared/secondary_io_scanner.py:114:_CALL_RE = re.compile(rf"(?P<symbol>{_DOTTED})\s*\(")
+src/webpent/shared/secondary_io_scanner.py:115:_FROM_IMPORT_RE = re.compile(
+src/webpent/shared/secondary_io_scanner.py:118:_IMPORT_RE = re.compile(rf"\bimport\s+(?P<module>{_DOTTED})")
+src/webpent/shared/control_plane.py:41:_HOST_LABEL_RE = re.compile(r"^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$")
+src/webpent/shared/control_plane_runtime.py:55:    re.compile(r"ignore\s+(?:all\s+)?previous\s+instructions", re.I),
+src/webpent/shared/control_plane_runtime.py:56:    re.compile(r"system\s+prompt|developer\s+message|tool\s+permission", re.I),
+src/webpent/shared/control_plane_runtime.py:57:    re.compile(r"send\s+(?:me\s+)?(?:the\s+)?password|reveal\s+secret", re.I),
+src/webpent/shared/control_plane_runtime.py:59:_URL_RE = re.compile(r"https?://[^\s<>\"']+", re.I)
+src/webpent/shared/control_plane_runtime.py:60:_OTP_RE = re.compile(r"(?<!\d)(\d{6})(?!\d)")
+src/webpent/shared/wildcard_scope.py:20:_WILDCARD_RE = re.compile(
+src/webpent/state/reducers.py:23:    V10 AUDIT FIX (C6): LangGraph's SqliteSaver serializes state to JSON
+src/webpent/state/state.py:239:    # engagement). Checkpoint-survives via the existing SqliteSaver
+src/webpent/tools/exploitation/sqlmap.py:49:    re.compile(r"is vulnerable", re.IGNORECASE),
+src/webpent/tools/exploitation/sqlmap.py:50:    re.compile(r"appears to be", re.IGNORECASE),
+src/webpent/tools/exploitation/sqlmap.py:51:    re.compile(r"injectable", re.IGNORECASE),
+src/webpent/tools/exploitation/sqlmap.py:52:    re.compile(r"sqlmap identified the following injection point", re.IGNORECASE),
+src/webpent/tools/exploitation/sqlmap.py:53:    re.compile(
+src/webpent/utils/task_crypto.py:21:``reauth_vault`` keeps the password out of the LangGraph SqliteSaver
+src/webpent/workers/pentest_worker.py:46:from webpent.graph.builder import NODE_EXECUTION_SANDBOX, build_graph
+src/webpent/workers/pentest_worker.py:47:from webpent.graph.checkpoints import get_checkpointer
+src/webpent/workers/pentest_worker.py:519:    # ``build_graph`` returned, hiding the skip behind a 0-count log.
+src/webpent/workers/pentest_worker.py:586:        with get_checkpointer() as checkpointer:
+src/webpent/workers/pentest_worker.py:587:            graph = build_graph(checkpointer=checkpointer, auto_approve=auto_approve)
+src/webpent/workers/pentest_worker.py:633:            # graph.invoke() was called unconditionally with a *fresh*
+src/webpent/workers/pentest_worker.py:664:                    "Skipping graph.invoke() to avoid re-running active "
+src/webpent/workers/pentest_worker.py:705:                    graph.invoke(initial_state, config=config)
+src/webpent/workers/pentest_worker.py:1002:        with get_checkpointer() as checkpointer:
+src/webpent/workers/pentest_worker.py:1006:            graph = build_graph(checkpointer=checkpointer, auto_approve=False)
+src/webpent/workers/pentest_worker.py:1030:                graph = build_graph(
+src/webpent/workers/pentest_worker.py:1031:                    checkpointer=checkpointer,
+src/webpent/workers/pentest_worker.py:1079:                graph.invoke(None, config=config)

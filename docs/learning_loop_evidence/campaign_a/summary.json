@@ -1,0 +1,157 @@
+{
+  "audit": {
+    "audit_path": "/tmp/webpent_remediation_project/artifacts/learning-loop-demo-20261001t111635Z/learning-demo-20261001t111635z-a/audit/learning-demo-20261001t111635z-a.audit.jsonl",
+    "finalization": {
+      "details": {
+        "event_count": 7,
+        "final_seq": 7
+      },
+      "engagement_id": "learning-demo-20261001t111635z-a",
+      "error_class": null,
+      "event_id": "learning-demo-20261001t111635z-a:7",
+      "event_type": "audit.finalized",
+      "hash": "249412f60353312cc7ad3c736df4eb50a9de6c2c32e5c183a08ea149561946e8",
+      "prev_hash": "8d8049da86f649eb24dab8c7f4ca3e8d73e51d3ae392a7e5ee1fe1151692103e",
+      "principal_alias": null,
+      "seq": 7,
+      "target_fingerprint": null,
+      "timestamp": 1790853446.8313432
+    },
+    "verification": {
+      "event_count": 8,
+      "root_hash": "249412f60353312cc7ad3c736df4eb50a9de6c2c32e5c183a08ea149561946e8",
+      "verified": true
+    }
+  },
+  "campaign_id": "learning-demo-20261001t111635z-a",
+  "campaign_statuses": {
+    "decisions": 11,
+    "promoted": 0,
+    "rejected": 11
+  },
+  "client_id": "learning-demo-client",
+  "duration_seconds": 22.514,
+  "learning": {
+    "consultation_audit": {
+      "applied_lesson_ids": [],
+      "campaign_id": "learning-demo-20261001t111635z-a",
+      "family_hits": 0,
+      "knowledge_hits": 0,
+      "route_hits": 0,
+      "target_type": "rest_api"
+    },
+    "extraction": {
+      "by_type": {
+        "negative": 5
+      },
+      "campaign_id": "learning-demo-20261001t111635z-a",
+      "client_id": "learning-demo-client",
+      "executable_by_family": {
+        "INFO_DISCLOSURE": 10,
+        "SSRF": 1
+      },
+      "generated_by_family": {
+        "INFO_DISCLOSURE": 10,
+        "SSRF": 1
+      },
+      "lesson_count": 5,
+      "promoted_by_family": {},
+      "saved_count": 5,
+      "saved_lesson_ids": [
+        "lesson_f31d930847994f61",
+        "lesson_b342dc017ed14614",
+        "lesson_cebbe4fe93194660",
+        "lesson_482356e218df41dd",
+        "lesson_156f6235e16a486b"
+      ],
+      "target_type": "rest_api",
+      "tested_by_family": {
+        "INFO_DISCLOSURE": 10,
+        "SSRF": 1
+      }
+    },
+    "metrics": {
+      "adjusted_hypotheses": 11,
+      "boosted_promoted": 0,
+      "boosted_tested": 0,
+      "campaign_id": "learning-demo-20261001t111635z-a",
+      "client_id": "learning-demo-client",
+      "cost_per_finding": null,
+      "cost_total": 0.0,
+      "findings_promoted": 0,
+      "findings_refuted": 5,
+      "hypotheses_generated": 11,
+      "hypotheses_inconclusive": 6,
+      "hypotheses_tested": 11,
+      "lesson_effectiveness": null,
+      "lesson_hits": 0,
+      "recorded_at": "2026-10-01T11:16:57.615999+00:00",
+      "target_type": "rest_api",
+      "time_to_first_finding": null,
+      "time_total": null
+    }
+  },
+  "lesson_consultation": {
+    "applied_lesson_ids": [],
+    "client_id": "learning-demo-client",
+    "engagement_id": "learning-demo-20261001t111635z-a",
+    "family_hits": 0,
+    "knowledge_hits": 0,
+    "knowledge_refs": [],
+    "minimum_family_quota": {},
+    "route_hits": 0,
+    "target_type": "rest_api"
+  },
+  "lesson_count_after": 5,
+  "lesson_count_before": 0,
+  "llm_calls": [
+    {
+      "campaign_id": "learning-demo-20261001t111635z-a",
+      "completion_chars": 12371,
+      "completion_sha256": "16b62eef1754b841d949dc97",
+      "cost_usd": 0.00815175,
+      "latency_ms": 29210.094,
+      "model": "gpt-5-mini",
+      "phase": "learning_advisory",
+      "prompt_chars": 7611,
+      "prompt_policy": "structural route/status/digest/field-shape metadata only",
+      "prompt_sha256": "39b6ed2ef3bd396a7b680a91",
+      "started_at": "2026-10-01T11:16:57.618258+00:00",
+      "usage": {
+        "estimated_cost_usd": null,
+        "input_tokens": 2431,
+        "model": "gpt-5-mini",
+        "node": "unknown",
+        "output_tokens": 3772,
+        "pricing_status": "unpriced",
+        "provider": "openai",
+        "status": "usage_reported",
+        "task_type": "analysis",
+        "total_tokens": 6203
+      }
+    }
+  ],
+  "llm_cost_usd": 0.00815175,
+  "metrics": {
+    "adjusted_hypotheses": 11,
+    "boosted_promoted": 0,
+    "boosted_tested": 0,
+    "campaign_id": "learning-demo-20261001t111635z-a",
+    "client_id": "learning-demo-client",
+    "cost_per_finding": null,
+    "cost_total": 0.00815175,
+    "findings_promoted": 0,
+    "findings_refuted": 5,
+    "hypotheses_generated": 11,
+    "hypotheses_inconclusive": 6,
+    "hypotheses_tested": 11,
+    "lesson_effectiveness": null,
+    "lesson_hits": 0,
+    "recorded_at": "2026-10-01T11:17:26.828553+00:00",
+    "target_type": "rest_api",
+    "time_to_first_finding": null,
+    "time_total": 22.513859
+  },
+  "target_type": "rest_api",
+  "target_url": "http://127.0.0.1:3000"
+}

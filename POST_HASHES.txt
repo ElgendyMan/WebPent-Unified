@@ -1,0 +1,428 @@
+# POST_HASHES.txt — TEAM-REVIEW-REFREEZE 2026-10-22 (after manifest regeneration)
+# frozen_modules.sha256 sha256: ca330fd20399c968009a4d6124211941c44aafc3e4314f7af18bb68a53dc18bf
+# scope: same 719 paths, same order (verified) — no entries added or dropped
+# frozen_modules.sha256.baseline_pre_unfreeze: UNTOUCHED (sha256 9aeefdb224d6e4b8eb0df620deb9ea7a92966b4dbdfe36d6a2b2450d1031bbd0)
+# docs/integration/WEBPENT_AUTHORITY_MANIFEST.json: re-captured at unit boundary (1 entry: validator/active_checks.py); verifier OK (13 files)
+#
+# The 31 formerly-divergent paths — now pinned to merged-tree bytes:
+fc952812c8ff23e0cfe80afdf865f012ddf73bb3c5a52fc05b23b881551a943e  src/webpent/agents/api_testing/agent.py
+832893d8a4bb3989b6c6b26d6b38a7507fec78a7f83d39dab272c05908411eea  src/webpent/agents/business_logic_fuzzer/agent.py
+f6d11bd9e5eab31b0c3ee87f407362e9ec56573142fca72b0084bf54f0276c99  src/webpent/agents/cloud_storage/agent.py
+e4a81a5704b9a61a0b84fec9ccc05f70a715c99dfea119250c2105365caf3d96  src/webpent/agents/devils_advocate/agent.py
+cfa2841e721aa77932c4a3d0b20b290f3682cee7b91fc46d75551cca8e47304c  src/webpent/agents/hunter_runner.py
+2d4f92ac05682170be8263e83a21bf6caff440a1f2448ab01cc05743e581f341  src/webpent/agents/hypothesis_analyzer/agent.py
+f00fa4e64df24dd9ce0306ead63ed967177cc2ec9fc122e79225a5f787923765  src/webpent/agents/payload_generator/agent.py
+32a7f87c9defe10e9d3d064ab6b272086677d331909bd5c28c27e905d3c2ffed  src/webpent/agents/subdomain_takeover/agent.py
+1678099ed48ee8e7a8c88b81a26d57aac1d78886099e3c964588ae4031e040ad  src/webpent/agents/validator/active_checks.py
+dbf3f9313d74a4d294bfde590be266c5256d732ca9e9234c421e7007a00b89c7  src/webpent/agents/validator/postp0_checks.py
+4611887964f7f50d7e3b28ba8d33a22a6e24854f6e78bde0574334d846a38005  src/webpent/agents/validator/structural_checks.py
+2b454f14efe5d377eb485f11ef31d9bf1ac56a5a919103a0d93378e6668994b2  src/webpent/api/app.py
+ac50276d5329443f5ce03c2903aedf59f80fea8db50b50e874e18eed76edc8b9  src/webpent/cli/commands.py
+42d21a10b627e1d85b33602670a1bc22f6f0b34ab08d41d05c85856b008e31bd  src/webpent/cli/git_source.py
+d1c716a09eb39b3dbfb222c68804beefe8358af49209acb1b9841a359b5afc94  src/webpent/production/advisory_registration.py
+39212f6464a6a444b0d898c7285bfd2e6be1d05985cb6fd39cb3a988144387b7  src/webpent/production/modern_spine_integration.py
+6f375a520a469b3facbbbf536d7b147dab414f739f2b11c46776523fb0b0b65e  src/webpent/recon/autonomous_crawler.py
+edca63007f7c8b18dbe3eb7cb06cf51348fd13a0b23e926703b46456f0515738  src/webpent/recon/browser_crawler.py
+1dbe93996ffa8a4f01628ba6645beb9016476216b397fd69f76d87a6d90e1ea6  src/webpent/recon/login_executor.py
+39d40355df8f8666aee3ad8460148280af755915d4d8bfe7129b99e455126bf0  src/webpent/recon/principal_provisioning.py
+ba5093612bd3d9cfa7e126d62c4b19c257eab24f914c105ed48b23577c4f01dc  src/webpent/reporter/bounty_report.py
+c648ea35348f22172829ea4e58bab0d555600e1765b768f71101c61885324379  src/webpent/reporter/poc_export.py
+c70ec59ab90cc7834235a4bc3f3a603bd8d07599bac02e9bb21825150de3b35d  src/webpent/scope/enforcer.py
+b536c2b565e79e4b513aec00cdb4aac76390a7450f0265670589311446258ac6  src/webpent/scope/models.py
+274b6f246341caf9b091ef5309e2b6d4cc0c2e7bd7d1401b55fe6cec4fb83dc0  src/webpent/scope/parser.py
+aabe3e8805dc8de4c7819cd0d6a7adf2ab628da64bc8159e56170f1597dbcf7c  src/webpent/service/facade.py
+65504b78281d24387737453836f59f05cc1c5d66053118f2539d9cb5e8a141c7  src/webpent/service/manager.py
+b4f482dc4b3097477e15891e5db63904a75ba4b186596c1d91df397aabadf62f  src/webpent/service/models.py
+4d33a764808c1588f71e548fd476adbf56d4a1bce31e7992c2b26b28813fa0a7  src/webpent/shared/action_ledger.py
+c246a52ff35f9fa310edf7310a3606413ad518d91cc1f8007d8d8a822d5900d8  src/webpent/shared/jwt_deep_testing.py
+b7e3bea5c007ecb6b952aa196efc4ccccfd8e371ca02334386f6f1ded8473d50  src/webpent/workers/pentest_worker.py
+# ---------------------------------------------------------------------------
+# PROJECT-ZERO PRODUCTION WIRING 2026-10-22 (item 3 of user-approved follow-ups)
+# after manifest regeneration: anchor cfbc347a...60c88b (same 719-path scope and order)
+# 7 frozen paths — post-wiring tree bytes:
+95d7f9c1598102ba24ab969124d6bc2d7c57b6e25f4bddb99b6819f17676f09f  src/webpent/agents/crawler/agent.py
+84b053ef5412cc17141ce5acbca6f468a8beab55d2702e9db3c24a4485d3aecc  src/webpent/agents/devils_advocate/agent.py
+eecb0c1a00254e9013247d037adb18ee91e9e43317929074fbb473ffa613cadc  src/webpent/agents/validator/agent.py
+23c06487b624b1b589013852e711ae624b242ba7fc580ea5fe638dd5ea311c4e  src/webpent/config/settings.py
+c4a4f4c119b7a517669a72a3e6109fee7812ed6dc22c1079efd23baf180282dc  src/webpent/models/surface_security.py
+442cf2a40fe49e650404169523e540de942e224a4f6e6e584a2e0ca325b4bba5  src/webpent/shared/surface_security.py
+10ce3ea533c2be2318584151b2d69c71bfe14c05ef6e9a0d38cd2582923e3ba4  src/webpent/state/state.py
+# manifest sha256: cfbc347a54d7e7176e7594a9d2a51760d3437b19584faec49bd788e96d60c88b
+
+--- Item 4: 2026-10-24 catalog-fix re-freeze (red-team follow-up) ---
+Post-state manifest sha256: 5957a1b57b60e71baf7970b1d394976ad0f0f52659f7613fda972e36b5fcdb8e (same 719-path scope and order; exactly 4 entries changed)
+Post-state per-file hashes (tree bytes) of the 4 edited frozen paths:
+  src/webpent/config/settings.py: 867e94da26b3b3cddb9aec58c2c156fb805c592a8734544cf11d74b3d67e518a
+  src/webpent/state/state.py: bf49df69eda3fad94f4275023a04d48130d6734bea3cb0aeaebea7ef127c2285
+  src/webpent/agents/crawler/agent.py: 3f987fdf17ac3a74209160507bdc602af6f543030aed292ca0fdcb0b29a4cdee
+  src/webpent/agents/reporter/agent.py: 0fa41b18a11be6d492dd7861639b7f9fcf9d630589e3be499a3c988d58e7323a
+
+--- Item 5: 2026-10-24 VIP-wiring re-freeze (layer 2 of the VIP tier) ---
+Post-state manifest sha256: 50c6af8587d513af6515dcdc0b605028735f45f75bed382354ca118c0916c8e9 (same 719-path scope and order; exactly 3 entries changed)
+Post-state per-file hashes (tree bytes) of the 3 edited frozen paths:
+  src/webpent/config/settings.py: 5dbbc6073f14d6a889c04211aaa9993de77fb8a81128cb817ad6dce32fe50e7c
+  src/webpent/graph/builder.py: f99d38d668676643312b89dd2e4e634756546cc2d4ec84b1b5396000a4c8e414
+  src/webpent/state/state.py: eb2a599c842ed20ac708472e7d562a160db36c4fff0aab1407bd597b6eab6cc3
+
+--- Item 6: 2026-10-24 lessons-learning-loop re-freeze (Proposal 1) ---
+Post-state manifest sha256: a07e83a23d7ee529c445c2faf6de18aab2d517fdb6cc7cafc12f064138045b74 (same 719-path scope and order; exactly 3 entries changed)
+Post-state per-file hashes (tree bytes) of the 3 edited frozen paths:
+  src/webpent/brain/lessons.py: 0ddca27995a9b06f8c0963c5ccfe2f183394cf5af761a77fe24509d66dd541e8
+  src/webpent/shared/prioritization.py: 77f308c609e218cfc6eefb3eff599515770772a30b213fef411517205545662e
+  src/webpent/config/settings.py: cc4c53a20744cb45f80c65647e406ad8ddef431863952eca47572814b4a16062
+
+--- Item 7: 2026-10-24 causal-chain-widening re-freeze (Proposal 2) ---
+Post-state manifest sha256: 4bb5194a1f969b06395a0a0912581491fc4e811d6e90e0b1d2dd8749ced8b515 (same 719-path scope and order; exactly 4 entries changed)
+Post-state per-file hashes (tree bytes) of the 4 edited frozen paths:
+  src/webpent/agents/validator/agent.py: c2ee96a1f8f221cd4ecba14c241aceefd03d765339ca811dbcdbd607da4ab8bf
+  src/webpent/config/settings.py: 730f531e88273fc719b2b61333b00374a8226f35c87d642358c72847c186a93b
+  src/webpent/production/chain_composer.py: a3cec7e629c6446b10f6f14b34e40294bd090c169d4fc985fcc27e433c6ac962
+  src/webpent/state/state.py: b2ff58335a12fa04c1bfdc504f4fc83b0a21e955f74148029a2d7762bfecde1d
+
+--- Item 8: 2026-10-25 capability-batch re-freeze (Proposals 2/4/5/6) ---
+Post-state manifest sha256: 12a3e0d0c3529d5706f7dc4afa58cbd635bda244d9fa1be88d828f619e1832b3 (same 719-path scope and order; exactly 9 entries changed)
+Post-state per-file hashes (tree bytes) of the 9 edited frozen paths:
+  src/webpent/agents/rabbit_hole/agent.py: 44a1184e4c638f050f2a12c51191717f28e716e1987cd52ec2a1b508c9f49473
+  src/webpent/agents/validator/registry.py: 2da9aa687e0db2d45c920b61852ac426f4d00a3b604f2624e2e21e44638bcec1
+  src/webpent/api/app.py: 31edac2d674f0aa8e6a9f896ee49e94bd286f739f72d71500d96035618c804e6
+  src/webpent/config/settings.py: a6bf91258f66ce51ef48085aabd2d08e19d44576dca3a2c38b9ada8d6ae5a701
+  src/webpent/graph/builder.py: 7ebeaffee2e321168a950950470ffff93c7b4c35227b3c77ccc8a3ee15eaaf84
+  src/webpent/models/findings.py: 6a09f2959fbfc8977595a85d8c6cd5088828e4e5e567db98857f7ce2cc436802
+  src/webpent/production/validators.py: e74dc0ccee60c79206bdc7855c5f52d2409841c48c21bcf1a18407506acc065a
+  src/webpent/reporter/bounty_report.py: 44de20729207f54c19de3b3f4611f3e955611f230fa3df1e29307842935282ab
+  src/webpent/shared/llm.py: 446a89939e17712bbf4f727659624cb113560156879590661de06456cb92c34e
+
+--- Item 9: 2026-10-25 self-test-harness re-freeze (Proposal 6) ---
+Post-state manifest sha256: ab17f455894aa6687eca1660690bc1a0faae69c512df994f2d244cf8ec2b526e (same 719-path scope and order; exactly 1 entry changed)
+Post-state per-file hashes (tree bytes) of the 1 edited frozen path:
+  src/webpent/config/settings.py: d34eaff21994c52a5277773812dabf051dd6701c7f773d70107341dacfd81de9
+
+--- Item 10: 2026-10-25 Proposals 1+2 re-freeze (refutation learning + coverage scheduling) ---
+Post-state manifest sha256: 32b09b3490446f2792b0d669811ab0f3d3fc15adfd2bd02d5e0ed06f02b91591 (same 719-path scope and order; exactly 3 entries changed)
+Post-state per-file hashes (tree bytes) of the 3 edited frozen paths:
+  src/webpent/config/settings.py: a1ab77c7850739f10b9f15e502ce8727dcd6580375e89a5d1b6157dd2b131546
+  src/webpent/production/validators.py: a2b3b5f0630d155f030b17273086131d823186897392a6e5011b4ced80bb66c9
+  src/webpent/agents/planner/agent.py: 8e7924600c6293e9b3ddedc99ba4aa6bd067b4e10455f4e6b773386a375d7482
+
+--- Item 11: 2026-10-25 Proposal 3 re-freeze (OOB collaboration engine) ---
+Post-state manifest sha256: 6909ce8f57fe9f22cd4e20c19d669fe65fd4b586f605bb0ecc8ab146e2c902cb
+Post-state per-file hashes (working-tree bytes) of the 5 edited frozen paths:
+  src/webpent/agents/payload_generator/agent.py: d47b5a069ec3a1cded0e125fe4ba95173a1cfe9def919ab837fa1ccd9effbf6e
+  src/webpent/config/settings.py: f997922aab2656bc049072cfffa87d28123211d4c00408ae689b4fceca69c9ae
+  src/webpent/memory/db.py: 75f6c9615044564ac0dc40cb63ce824d3df7a278bd1fa9b8f61b2cd5368e0542
+  src/webpent/models/findings.py: b18f7a63c45ada6858f78a8b10748c36720c73efc476cc998ca6386c5bb3a6cc
+  src/webpent/production/validators.py: 24a280d96e65d8d8f6f92b9e4124abf53fa232b02eb678cb880e7bdd72d9052d
+
+Item 12 (2026-10-25 Proposals 4+5 re-freeze — JS discovery + session pool)
+Scope: 6 frozen files; post-state = worktree at the re-freeze; post-state
+manifest anchor 0a6e5393…61a7 (719 entries, sha256sum -c OK).
+  src/webpent/config/settings.py: c6e1ce5fbc3d1b31525aab2a4b2c76b242fe7f824364031eef82f851745a9931
+  src/webpent/models/findings.py: 52e81fad98512ce81f6e2bbfd6cc68b521d7eed81cfeb6faef17584b881bee2a
+  src/webpent/production/validators.py: 62d831a1ab7118627ffe39bd200fc4595634a09e3594114300dc2209858e8e0b
+  src/webpent/agents/access_control/agent.py: b8cbcbfba2b658a24de384d472e80975ed5ad44597ec425feeaa54220dce9e50
+  src/webpent/workers/pentest_worker.py: 12630c1a4e1f751374f4a9c05a932b34a77908e8e1f089b311849327eb7c7070
+  src/webpent/graph/builder.py: 2e319976fc7658c22e89f74e70e74008be21b60e260f058775a3558106c6134f
+
+Item 13 (2026-10-25 Proposals 8+10 re-freeze — campaign resume + safety governor v2)
+Scope: 7 frozen files; post-state = this commit; manifest regenerated over the
+SAME 719-entry scope in the SAME order; new anchor `138b6f2b…6f46`, pinned in
+`scripts/gate_frozen_delta.py` and `scripts/r3_anchor_check.py`.
+Frozen files edited (post-state hashes):
+  src/webpent/config/settings.py: 3fe5235dd0c25582ba5e1479faed98bccb25d8c229c90d95ae0c3c043de7ad06
+  src/webpent/workers/pentest_worker.py: 154e82d7c5080a00100c21ec0e99c16f4bab97e296be7b4d4467b810bccd3182
+  src/webpent/api/app.py: 86b64ce189fe493fc42325fe588e2a7d410992c60328523b2745bf68da1bf449
+  src/webpent/shared/http.py: 1b54480c8d5185073f11331f8a69dbeae7bc0ff9f9cf7a2895522d2f5e747ca6
+  src/webpent/shared/rate_governor.py: c3df51141ea2c6347eba63bd28d7e9acf00afd8fabe217efd7ae75d44ec2ff1c
+  src/webpent/llm_researcher/providers/base.py: 87f7708f071192db91f739ce8d07cc76a331193bb79ef00e224aa750d18fb58e
+  src/webpent/recon/autonomous_crawler.py: 6764af600f5023c31d5c958f69235d90cceae9a9f80a002e7953b2fa65826c09
+New (unfrozen, flag-gated) files:
+  src/webpent/resume/campaign_checkpoints.py: c4a1c5c0dc565418a2af3960dd698a892175054b0044d0dc02de038f39e0da24
+  src/webpent/safety/request_ledger.py: aceb59e5210432898e1a80db646f192e30f2a4866279f621b7921dbb17b5d8a9
+  src/webpent/safety/kill_switch.py: 75c2e9fc578c803627e7d77b42963321873419486d029dcb8649af0f81fc6ba4
+  src/webpent/safety/spend_governor.py: b28fa167a015b5f795e872e691432d5b23fe06fc20534cc3618508552b8f8a40
+  src/webpent/safety/agency.py: 2c8f6a97cfb609aeae1c85c1230dfa15524fa59db08b57c3758e50a0b4b8a778
+  src/webpent/safety/status_snapshot.py: 6f24055b3d2455ee76a0f0403720fd590406ee42f7b01a6bcc613f76073a7534
+  tests/test_campaign_resume.py: dab5a5eca59d2d6d507f591c3ae55dc47eb8392282cb97bce4ad1e0f41eb2380
+  tests/test_safety_governor.py: 34609edf1e6339eb1e08be98e5491cdf33e4947e6bf5ae1fc4eebffea94f2db7
+
+Item 14 (2026-10-25 Proposals 7+9 re-freeze — chain v3 + workflow fuzzing)
+Scope: 1 frozen file (config/settings.py: two additive default-off flags,
+enable_chain_v3 + enable_workflow_fuzzing); manifest regenerated over the
+SAME 719-entry scope in the SAME order; new anchor `2be9ce19…0cc0`, pinned
+in `scripts/gate_frozen_delta.py` and `scripts/r3_anchor_check.py`.
+Frozen file edited (post-state hash):
+  src/webpent/config/settings.py: 076eb98e5f1861aa5a7bfcfdc80267d43261319f559ee96f5922d7ebaa7e4009
+New (unfrozen, flag-gated) files:
+  src/webpent/chained_exploits/graph_v3.py: 146610d30f6dbe76a51b2fa3788be5293cc5b9c19e2bb60d877639ce748099f5
+  src/webpent/workflow_fuzzing/__init__.py: 27934bed29db6862879937855e6ac8a20b1b45ba644b3e2e61f97473027700d2
+  src/webpent/workflow_fuzzing/agent.py: b7a85562afd43dfd42ae9cea3a11e431d224e041fe5e9e94380d14f7fc99d6be
+  src/webpent/workflow_fuzzing/strategies.py: 4ac8d07112ccffa776d08a34e4a0d7658e3abfcea8fa369635e9445b9452b5ed
+  tests/test_chain_v3.py: d148cf1be263df383c62836a3e589010353b00c4a3266cc0a602ddc4aad2acae
+  tests/test_workflow_fuzzing.py: f66c789f035a3f097102a2df0af4ec089c7e12dba8f1183e401e9c529cc41f82
+
+Item 15 (2026-10-28 defect-fix re-freeze — 21-defect review fixes)
+Scope: 2 frozen files; post-state = this commit; manifest regenerated over the
+SAME 719-entry scope in the SAME order; new anchor `583fd0ec…d7a4`, pinned
+in `scripts/gate_frozen_delta.py` and `scripts/r3_anchor_check.py`.
+  src/webpent/shared/target_workspace_context.py: c963d2834e2c9a08075baa5e2391b5dfda9e710e94c4ec99afb2c5364664fe6a
+  src/webpent/workers/pentest_worker.py: 53c310bb3aad0e451333c9c19934f60be72380e8750554e143de50f36c367c8d
+
+Item 16 (2026-10-29 V2 §1 OAST re-freeze — self-hosted OAST collector)
+Scope: 1 frozen file; post-state = this commit; manifest updated in the SAME
+719-entry scope in the SAME order (settings.py entry only — the NEW oast/
+package, tests/test_oast.py and docs/oast-deployment.md are unfrozen by
+convention, like every capability package before them); new anchor
+`1196f845…c323`, pinned in `scripts/gate_frozen_delta.py` and
+`scripts/r3_anchor_check.py`. Seven additive default-off/empty fields
+(enable_oast, oast_domain, oast_poll_endpoint, oast_collector_bind_host,
+oast_collector_bind_port, oast_dns_listen_port, oast_dns_response_ip,
+oast_max_callbacks_per_token); settings.py already sits in the documented
+TEAM_MERGE_V152 drift union, so no gate-test extension was needed.
+  src/webpent/config/settings.py: ec90af93cef960151eb7f58ba786977971920b6da19ec19aebfdd2bc732d45f8
+
+Item 17 (2026-10-29 V2 §2 DOM XSS re-freeze — static DOM XSS taint analyzer)
+Post-state: two ADDITIVE default-off fields appended to config/settings.py
+after oast_max_callbacks_per_token, before the -- Stealth mode block:
+enable_dom_xss (bool, False) and dom_xss_max_ast_nodes (int, 50000,
+ge=1000, le=10_000_000), both with the standard 3-name validation_alias
+AliasChoices pattern. The agents/dom_xss/ package (parser, taint, payloads,
+agent), tests/test_dom_xss.py and the pyproject esprima/jsbeautifier deps
+are NEW unfrozen files, never added to the frozen manifest. Manifest
+regenerated over the SAME 719-entry scope/order; new anchor
+9cbfa12096cf9c32373eb7b66301b80f339dfc0f003a09982ba17ce72c21a1da
+(supersedes 1196f845…c323) pinned in scripts/gate_frozen_delta.py and
+scripts/r3_anchor_check.py; settings.py already sits in the documented
+TEAM_MERGE_V152 drift union, so no gate-test extension was needed.
+  src/webpent/config/settings.py: e5a8f7192267bd96534f3112480d8d778b33042938078e3287b3b47150a57141
+
+## Item 18 — V2-§3 source-maps re-freeze (2026-10-29)
+
+- Post-state: settings.py sha256 38eee54d1ca5afbb08461edf760fff529cbf97bb321f83313425bafd26d8dd87
+- Manifest sha256 (new anchor): 9a3fab4a47428924351c6c93676912927c80c0e311a56135e689ca082899702e
+- Both gate scripts re-pinned: scripts/gate_frozen_delta.py
+  ANCHOR_MANIFEST_SHA256, scripts/r3_anchor_check.py
+  CURRENT_MANIFEST_SHA256.
+- New unfrozen files (never in the manifest): src/webpent/agents/
+  sourcemap_analysis/{__init__,parser,secrets,agent}.py,
+  tests/test_sourcemap.py. New package import surface is stdlib-only:
+  json/re/hashlib/dataclasses/urllib.parse — no denylist change.
+- Verification: frozen-gate suite 721 passed; full suite green except
+  the 25 pre-existing failures byte-identical.
+
+## Item 19 — V2-§7 evidence-bundle re-freeze (2026-10-30)
+
+- settings.py sha256 (post-edit): recorded in the regenerated
+  frozen_modules.sha256 (entry src/webpent/config/settings.py).
+- Manifest sha256 (new anchor): 325c327d9fa4e444202d0371c84f89b2b98b460bfa91df7167182cee386d3d66
+- Both gate scripts re-pinned: scripts/gate_frozen_delta.py
+  ANCHOR_MANIFEST_SHA256, scripts/r3_anchor_check.py
+  CURRENT_MANIFEST_SHA256.
+- Verification: tests/test_evidence_bundle.py 22 passed; frozen-gate
+  suite and full suite re-run at commit.
+
+## Item 20 — V2-§4 role-matrix re-freeze (2026-10-30)
+
+- settings.py sha256 (post-edit): recorded in the regenerated
+  frozen_modules.sha256 (entry src/webpent/config/settings.py).
+- Manifest sha256 (new anchor): b97b4ff089bdce69043c783c38fe7318a01c73d957ced75ac03368f9c0b67184
+- Both gate scripts re-pinned: scripts/gate_frozen_delta.py
+  ANCHOR_MANIFEST_SHA256, scripts/r3_anchor_check.py
+  CURRENT_MANIFEST_SHA256.
+- Verification: tests/test_role_matrix.py 14 passed; frozen-gate suite
+  and full suite re-run at commit.
+
+## Item 21 — V2-§5 H2-race re-freeze (2026-10-30)
+
+- settings.py sha256 post-edit:
+  82e6b483258cc374d905a2a55eed2c7145daf34b8b80a11474faf578395a075d.
+  (Correction 2026-10-30, Item 22: this line originally read
+  82e6b483472b88e83c4bf5a3a639cd088bbfc65e0636b17c4555749127f4b8e5 —
+  a transcription error; the manifest line and git HEAD 4391fa1 record
+  82e6b483258c…, which is authoritative.)
+- frozen_modules.sha256 sha256 post-regen (NEW anchor, pinned in
+  scripts/gate_frozen_delta.py + scripts/r3_anchor_check.py):
+  55b5abe19a2fdb892203c3498163e833abd8d43eaeb42a8810f50c705e2faa5f.
+- Scope: 719 entries (unchanged); only the settings.py line re-hashed.
+- New anchor 55b5abe1… supersedes b97b4ff0… (V2-§4 role-matrix).
+- Correction note: Item 20's PRE entry pre-edit hash was mislabeled
+  (1140179b… is the post-§4 hash); fixed in PRE_HASHES.txt this item.
+
+## Item 22 — V2-§6 cache-key-discovery re-freeze (2026-10-30)
+
+- settings.py sha256 post-edit:
+  3820ee0d12e779d1268c57fedfeb17658bbac3cdf9116fc643d45a9af209310a
+  (two additive fields appended: enable_cache_key_discovery,
+  cache_key_max_endpoints; pre-edit hash in PRE_HASHES.txt Item 22).
+- Regenerated frozen_modules.sha256: only the config/settings.py line
+  re-hashed; scope unchanged at 719 entries.
+- New manifest anchor (supersedes 55b5abe1…, the V2-§5-h2-race
+  re-freeze):
+  7191afbc777bc7f9a04ad5f8cdee8ac37ac18fec4d7c7e1a6d164508c59ca35d
+  (pinned in scripts/gate_frozen_delta.py and scripts/r3_anchor_check.py).
+- New unfrozen files: src/webpent/shared/cache_key_discovery.py,
+  tests/test_cache_key_discovery.py.
+- Also this item: corrected POST_HASHES Item 21's settings.py post-edit
+  hash transcription (82e6b483472b… -> 82e6b483258c…, manifest/HEAD
+  authoritative); see PRE_HASHES.txt Item 22 note.
+
+## Item 23 — V2-§8 live-benchmarks re-freeze (2026-10-30)
+
+- settings.py sha256 post-edit:
+  d89ccf900443fdcbb0c5a95fad0c0e4f9cf63c168f36ae7525aada188f848cc6
+  (two additive fields appended: enable_live_benchmarks,
+  benchmark_target; pre-edit hash in PRE_HASHES.txt Item 23).
+- Regenerated frozen_modules.sha256: only the config/settings.py line
+  re-hashed; scope unchanged at 719 entries.
+- New manifest anchor (supersedes 7191afbc…, the V2-§6-cache-key
+  re-freeze):
+  ad8c09ec8c04acafa3380f7b804eb9a93d15b42e333c8de081432652454b8141
+  (pinned in scripts/gate_frozen_delta.py and scripts/r3_anchor_check.py).
+- New unfrozen files: src/webpent/benchmark/ground_truth.py,
+  src/webpent/benchmark/scoreboard.py, src/webpent/benchmark/live_runner.py,
+  tests/test_live_benchmarks.py, docs/benchmarks.md.
+
+## Item 24 — V2-§9 model-tiering re-freeze (2026-10-30)
+
+- Post-edit sha256 (frozen files touched this item):
+  config/settings.py                 eb72bbfd206244e39febe87c4b04cf6e1f3688975b408a4c27ce020197916202
+  safety/spend_governor.py           60256d947099132f5e11090566035cae7c1332401f9482ece01cbd217a2ec904
+  llm_researcher/providers/base.py   e5b9ca43860852a72983407890e790d6c9a4c385a2cdd186889fbdf5334f47c5
+  (pre-edit hashes in PRE_HASHES.txt Item 24).
+- Regenerated frozen_modules.sha256: the settings.py and
+  providers/base.py lines re-hashed (spend_governor.py is not a
+  manifest-listed file; its pre/post digests live in this log only);
+  scope unchanged at 719 entries.
+- New unfrozen files: src/webpent/llm_researcher/tiering.py,
+  tests/test_model_tiering.py.
+
+## Item 25 — V2-§10 target-selector re-freeze (2026-10-31)
+
+- Post-edit sha256 (frozen file touched this item):
+  config/settings.py                 8bfbb597e53df62ead1cec2cf50a5defabaed1a36241c839bdd89b5189bbb455
+  (pre-edit hash in PRE_HASHES.txt Item 25).
+- Regenerated frozen_modules.sha256: the settings.py line re-hashed;
+  scope unchanged at 719 entries.
+- New unfrozen files: src/webpent/targeting/{__init__,program_brief,selector}.py,
+  tests/test_target_selector.py.
+
+## Item 26 — 2026-10-31 V2-§11 cross-campaign learning (post-edit)
+  src/webpent/agents/payload_optimizer/agent.py
+    44fc3ca6bd96cdcccbfbafcf595e56c43ab1947fc4d863db9051aa85b9671f66
+  src/webpent/config/settings.py
+    5ed3edf42d84909d785423a4d670b62a1189853a191da117255fb80e53c73ea0
+Manifest regen: in-place re-hash of those 2 frozen lines only; scope
+stays 719. The three new §11 files are unfrozen adds outside the
+manifest (manifest covers src/ pre-existing scope; tests are out of
+scope per the frozen-manifest protocol).
+
+## Item 27 — 2026-10-31 V2-§12 live stream (post-edit)
+  src/webpent/config/settings.py
+    6c9f2137aac3261f9f0341d6c6cd73895c9246bb8907f5a29f17a52a56dba1db
+Manifest regen: in-place re-hash of that 1 frozen line only; scope
+stays 719. live_stream.py and test_live_stream.py are unfrozen adds.
+
+## Item 28 — 2026-10-31 V3-§1 feedback loop (post-edit)
+  src/webpent/config/settings.py
+    9f281d2d44240d1980db874c380d0688c06e7bfa9151a032426be076ddc26cb3
+Manifest regen: in-place re-hash of that 1 frozen line only; scope
+stays 719. feedback_loop.py and test_feedback_loop.py are unfrozen adds.
+New manifest sha256 (re-freeze anchor, Item 28):
+  d68d556d743c6de6f6d68c64febc545a473fe24a3d18af01d8b7c4393631f63f
+
+## Item 29 — 2026-10-31 V3-§2 logic value fuzzer (post-edit)
+  src/webpent/config/settings.py
+    aad219bd39fd9795b1cbc174ea121c0c605ddf75355138a9cf32d8e8aa80591a
+Manifest regen: in-place re-hash of that 1 frozen line only; scope
+stays 719. value_fuzzer.py and test_value_fuzzer.py are unfrozen adds.
+New manifest sha256 (re-freeze anchor, Item 29):
+  35185cffc07b5a3a10060bab7a647b933fc83849ed2b5fe4daef7e15ee91002f
+
+## Item 30 — 2026-11-01 V3-§3 waf adaptive (post-edit)
+  src/webpent/config/settings.py
+    5877e6e9ad297d3b059238b39917a8750fe4cc2903aa750dd9622b6834785948
+Manifest regen: in-place re-hash of that 1 frozen line only; scope
+stays 719. waf_evasion/adaptive.py (+package init) and
+test_waf_adaptive.py are unfrozen adds.
+New manifest sha256 (re-freeze anchor, Item 30):
+  9631251fe3fec9e12762c2a251152a5ac9d578b8d5c51c02ac832d0b1ab712fe
+
+# Item 31 — 2026-11-01 V3-§4-notifications re-freeze (post-state)
+# settings.py pre-hash : 5877e6e9ad297d3b059238b39917a8750fe4cc2903aa750dd9622b6834785948
+# settings.py post-hash: 424a39611de665843f505ce8e32f6de7838fded7b33a03362a2d37c3c43f2c3a
+# change: additive — enable_notifications / notify_min_severity /
+# notify_channels fields appended before the stealth-mode block (V3 §4).
+# New manifest anchor: 2de9d07f177025fc… (scope unchanged, 719).
+# Item 32 — 2026-11-01 V3-§5-scheduler re-freeze (post-state)
+# settings.py pre-hash : 424a39611de665843f505ce8e32f6de7838fded7b33a03362a2d37c3c43f2c3a
+# settings.py post-hash: 2d4e014ecfd26caa45ba93a8c9bb3713d7d766252df4a9162076a5e5cf6f24e6
+# change: additive — enable_scheduler / scheduler_state_path fields
+# appended before the stealth-mode block (V3 §5).
+# cli/commands.py pre-hash : ac50276d5329443f5ce03c2903aedf59f80fea8db50b50e874e18eed76edc8b9
+# cli/commands.py post-hash: cbdb46fcc703141b403964c6f89896cc07f234bd19519294d3808349d69590d9
+# change: additive — scheduler_app sub-app (add/list/run-due) and its
+# path helpers appended at end of file (V3 §5).
+# Manifest regen: in-place re-hash of those 2 frozen lines only; scope
+# stays 719. scheduler/campaign_scheduler.py (+package init) and
+# test_campaign_scheduler.py are unfrozen adds.
+# New manifest sha256 (re-freeze anchor, Item 31):
+#   2de9d07f177025fc2d903e81a71baf26ca8145dc0479d168a684a80132f844bf
+
+# Item 33 — 2026-11-01 V3-§6-platform-export re-freeze (post-state)
+# settings.py pre-hash : 2d4e014ecfd26caa45ba93a8c9bb3713d7d766252df4a9162076a5e5cf6f24e6
+# settings.py post-hash: f3d310314935e02e7f0f6d30125d95caab59c20786560a9d4656054ac22dc375
+# change: additive — enable_platform_export field appended after the
+# scheduler fields, before the stealth-mode block (V3 §6).
+# Manifest regen: in-place re-hash of that 1 frozen line only; scope
+# stays 719. reporter/platform_export.py and test_platform_export.py
+# are unfrozen adds.
+# New manifest sha256 (re-freeze anchor, Item 32):
+#   e5470586881004a2dd0628842cfeb081dc3fbd162dc208d0c646863798636bf6
+
+# Item 34 — 2026-11-01 V3-§7-secrets-scanner re-freeze (post-state)
+# settings.py pre-hash : f3d310314935e02e7f0f6d30125d95caab59c20786560a9d4656054ac22dc375
+# settings.py post-hash: 3df3a3efc1a4f4186c24e1ed868a16cf212c848b5aba5651bd2812fdb80d12b3
+# change: additive — enable_secrets_scanner / secrets_min_entropy
+# fields appended after the platform-export field, before the
+# stealth-mode block (V3 §7).
+# Manifest regen: in-place re-hash of that 1 frozen line only; scope
+# stays 719. secrets_scanner/ package and test_secrets_scanner.py are
+# unfrozen adds.
+# New manifest sha256 (re-freeze anchor, Item 33):
+#   b5e476aed4394fbdf96c1f8bee8268001db98a038f714a2e1e66aa20fac80816
+
+
+# Item 35 — 2026-11-01 V3-§8-takeover re-freeze (post-state)
+# settings.py pre-hash : 3df3a3efc1a4f4186c24e1ed868a16cf212c848b5aba5651bd2812fdb80d12b3
+# settings.py post-hash: 64deb9e2287ba5beeea8b999eeb2f0a65b298707ba54a98ce4b0a1f072fa9df9
+# change: additive — enable_takeover_scan / takeover_concurrency
+# fields appended after the secrets-scanner fields, before the
+# stealth-mode block (V3 §8).
+# Manifest regen: in-place re-hash of that 1 frozen line only; scope
+# stays 719. recon/takeover.py and test_takeover.py are unfrozen
+# adds.
+# New manifest sha256 (re-freeze anchor, Item 35):
+#   d7fb413443c5f95f0a13ff45cf9ce3553088fc3e09d4a11f71a142fad1acc0e6
+
+# Item 36 — 2026-11-01 V3-§9-graphql-deep re-freeze (post-state)
+# settings.py pre-hash : 64deb9e2287ba5beeea8b999eeb2f0a65b298707ba54a98ce4b0a1f072fa9df9
+# settings.py post-hash: abd08bf6441cd5d5930744a08a521b161a48bea73cf6df7ce7f27fd8531e12f6
+# change: additive — enable_graphql_deep / graphql_deep_max_batch
+# fields appended after the takeover fields, before the stealth-mode
+# block (V3 §9).
+# Manifest regen: in-place re-hash of that 1 frozen line only; scope
+# stays 719. graphql_testing/ package and test_graphql_deep.py are
+# unfrozen adds.
+# New manifest sha256 (re-freeze anchor, Item 36):
+#   9692fad1e69938e0b414ef1f9f3050ed8543c959e3345b31d9216ab6415bb79b
+
+# Item 37 — 2026-11-01 V3-§10-regression-monitor re-freeze (post-state)
+# settings.py pre-hash : abd08bf6441cd5d5930744a08a521b161a48bea73cf6df7ce7f27fd8531e12f6
+# settings.py post-hash: 5f0afe926d94698d48524b2e58a3069be057476d8f2c7e5f2f0272028e2b7213
+# change: additive — enable_regression_monitor /
+# regression_watch_path fields appended after the graphql-deep
+# fields, before the stealth-mode block (V3 §10).
+# Manifest regen: in-place re-hash of that 1 frozen line only; scope
+# stays 719. monitor/ package and test_regression_monitor.py are
+# unfrozen adds.
+# New manifest sha256 (re-freeze anchor, Item 37):
+#   5c608e6d40174c8538f69cee6f34790f41ac7d2a2a3fbde787f74313cf9a39e5

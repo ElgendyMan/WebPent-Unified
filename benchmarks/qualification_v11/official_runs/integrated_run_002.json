@@ -1,0 +1,239 @@
+{
+  "run_number": 2,
+  "date": "2026-09-04T09:36:18.373777+00:00",
+  "sealed_hash": "91c5271e8c95d2c759476ace7a9a384363eecf78b522853c4beac87d68bc8f5f",
+  "pipeline": "INTEGRATED_EVALUATOR",
+  "metrics": {
+    "tp": 10,
+    "fp": 0,
+    "fn": 2,
+    "tn": 3,
+    "precision": 1.0,
+    "recall": 0.8333,
+    "f1": 0.9091,
+    "proof_completeness": 1.0,
+    "proof_valid": 15,
+    "proof_eligible": 15
+  },
+  "thresholds": {
+    "precision_min": 0.95,
+    "recall_min": 0.7,
+    "proof_min": 0.95,
+    "precision_pass": true,
+    "recall_pass": true,
+    "proof_pass": true
+  },
+  "overall_pass": true,
+  "per_case": {
+    "case-01-idor-profile": {
+      "class": "idor",
+      "verdict": "CONFIRMED",
+      "outcome": "TP",
+      "is_vulnerable": true,
+      "confidence": 0.99,
+      "strategy_used": "single_request",
+      "strategies_attempted": [
+        "single_request"
+      ],
+      "invariants_violated": [],
+      "proof_valid": true
+    },
+    "case-02-idor-tenant": {
+      "class": "idor",
+      "verdict": "CLEAN",
+      "outcome": "FN",
+      "is_vulnerable": true,
+      "confidence": 0.8896,
+      "strategy_used": "single_request",
+      "strategies_attempted": [
+        "single_request"
+      ],
+      "invariants_violated": [],
+      "proof_valid": true
+    },
+    "case-03-bac-dashboard": {
+      "class": "broken_access_control",
+      "verdict": "CONFIRMED",
+      "outcome": "TP",
+      "is_vulnerable": true,
+      "confidence": 0.99,
+      "strategy_used": "single_request",
+      "strategies_attempted": [
+        "single_request"
+      ],
+      "invariants_violated": [],
+      "proof_valid": true
+    },
+    "case-04-bac-audit": {
+      "class": "broken_access_control",
+      "verdict": "CONFIRMED",
+      "outcome": "TP",
+      "is_vulnerable": true,
+      "confidence": 0.99,
+      "strategy_used": "single_request",
+      "strategies_attempted": [
+        "single_request"
+      ],
+      "invariants_violated": [],
+      "proof_valid": true
+    },
+    "case-05-privesc-billing": {
+      "class": "privilege_escalation",
+      "verdict": "CLEAN",
+      "outcome": "FN",
+      "is_vulnerable": true,
+      "confidence": 0.8898,
+      "strategy_used": "single_request",
+      "strategies_attempted": [
+        "single_request"
+      ],
+      "invariants_violated": [],
+      "proof_valid": true
+    },
+    "case-06-bizlogic-transfer": {
+      "class": "business_logic_abuse",
+      "verdict": "CONFIRMED",
+      "outcome": "TP",
+      "is_vulnerable": true,
+      "confidence": 0.9,
+      "strategy_used": "stateful_balance",
+      "strategies_attempted": [
+        "stateful_balance"
+      ],
+      "invariants_violated": [
+        "balance_conservation",
+        "balance_conservation",
+        "quantity_conservation"
+      ],
+      "proof_valid": true
+    },
+    "case-07-tenant-isolation": {
+      "class": "tenant_isolation_failure",
+      "verdict": "CONFIRMED",
+      "outcome": "TP",
+      "is_vulnerable": true,
+      "confidence": 0.99,
+      "strategy_used": "single_request",
+      "strategies_attempted": [
+        "single_request"
+      ],
+      "invariants_violated": [],
+      "proof_valid": true
+    },
+    "case-08-workflow-auth": {
+      "class": "workflow_authorization_failure",
+      "verdict": "CONFIRMED",
+      "outcome": "TP",
+      "is_vulnerable": true,
+      "confidence": 0.7,
+      "strategy_used": "stateful_workflow",
+      "strategies_attempted": [
+        "stateful_workflow"
+      ],
+      "invariants_violated": [
+        "approval_separation"
+      ],
+      "proof_valid": true
+    },
+    "case-09-sdata-messages": {
+      "class": "sensitive_data_exposure",
+      "verdict": "CONFIRMED",
+      "outcome": "TP",
+      "is_vulnerable": true,
+      "confidence": 0.95,
+      "strategy_used": "semantic_diff",
+      "strategies_attempted": [
+        "semantic_diff"
+      ],
+      "invariants_violated": [
+        "sensitive_data_exposure"
+      ],
+      "proof_valid": true
+    },
+    "case-10-multistep-reset": {
+      "class": "multi_step_chain",
+      "verdict": "CONFIRMED",
+      "outcome": "TP",
+      "is_vulnerable": true,
+      "confidence": 0.9,
+      "strategy_used": "stateful_multistep",
+      "strategies_attempted": [
+        "stateful_multistep"
+      ],
+      "invariants_violated": [
+        "state_transition_validity",
+        "ownership_consistency"
+      ],
+      "proof_valid": true
+    },
+    "case-11-mass-assignment": {
+      "class": "mass_assignment",
+      "verdict": "CONFIRMED",
+      "outcome": "TP",
+      "is_vulnerable": true,
+      "confidence": 0.9,
+      "strategy_used": "stateful_mass_assign",
+      "strategies_attempted": [
+        "stateful_mass_assign"
+      ],
+      "invariants_violated": [
+        "ownership_consistency"
+      ],
+      "proof_valid": true
+    },
+    "case-12-race-condition": {
+      "class": "race_condition",
+      "verdict": "CONFIRMED",
+      "outcome": "TP",
+      "is_vulnerable": true,
+      "confidence": 0.85,
+      "strategy_used": "race_condition",
+      "strategies_attempted": [
+        "race_condition"
+      ],
+      "invariants_violated": [
+        "state_transition_validity"
+      ],
+      "proof_valid": true
+    },
+    "case-13-clean-self": {
+      "class": "clean",
+      "verdict": "CLEAN",
+      "outcome": "TN",
+      "is_vulnerable": false,
+      "confidence": 0.8899,
+      "strategy_used": "single_request",
+      "strategies_attempted": [
+        "single_request"
+      ],
+      "invariants_violated": [],
+      "proof_valid": true
+    },
+    "case-14-clean-public": {
+      "class": "clean",
+      "verdict": "CLEAN",
+      "outcome": "TN",
+      "is_vulnerable": false,
+      "confidence": 0.8898,
+      "strategy_used": "single_request",
+      "strategies_attempted": [
+        "single_request"
+      ],
+      "invariants_violated": [],
+      "proof_valid": true
+    },
+    "case-15-clean-status": {
+      "class": "clean",
+      "verdict": "CLEAN",
+      "outcome": "TN",
+      "is_vulnerable": false,
+      "confidence": 0.8898,
+      "strategy_used": "single_request",
+      "strategies_attempted": [
+        "single_request"
+      ],
+      "invariants_violated": [],
+      "proof_valid": true
+    }
+  }
+}

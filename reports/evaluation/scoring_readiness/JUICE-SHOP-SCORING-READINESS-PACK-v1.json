@@ -1,0 +1,169 @@
+{
+  "schema": "webpent-target-scoring-readiness-pack-v1",
+  "pack_id": "juice-shop-scoring-readiness-v1",
+  "generated_at": "2026-08-27T00:00:00Z",
+  "readiness_status": "partial_scoring_ready_not_p10_ready",
+  "qualification_claim": null,
+  "scope": {
+    "mode": "bounded_local_loopback",
+    "origin": "http://127.0.0.1:3000",
+    "methods": ["GET"],
+    "credentials_used": false,
+    "state_mutation": false,
+    "external_contact": false,
+    "oast_or_callbacks": false,
+    "raw_bodies_headers_cookies_persistent": false,
+    "official_isolated_p10_runs_authorized": false
+  },
+  "target": {
+    "target_id": "owasp_juice_shop",
+    "product": "OWASP Juice Shop",
+    "package_version": "20.2.0",
+    "source_path": "/tmp/juice-shop-source",
+    "source_revision": "1618a611b173b4bf114028e6e02549950606e29d",
+    "source_manifest_ref": "reports/evaluation/vip_vertical_slice/VIP-MULTI-TARGET-LOCAL-MANIFEST-v1.json",
+    "target_spec": {
+      "scope": ["http://127.0.0.1:3000/"],
+      "method_policy": ["GET"],
+      "redirect_policy": "same_origin_only",
+      "authorization_ref": "owner-authorized-local-loopback-vip-multitarget-v1",
+      "adapter": "webpent.adapters.juice_shop.adapter.JUICE_SHOP_TARGET_ADAPTER",
+      "manifest": "local-loopback-read-only-juice-shop"
+    },
+    "campaign_id": "juice-shop-scoring-readiness-v1"
+  },
+  "ground_truth": {
+    "status": "available_frozen_partial_oracle_admission",
+    "mapping_ref": "docs/juice_shop_p10_ground_truth_v1.json",
+    "source_snapshot_ref": "audit/juice_shop_ground_truth_snapshot_v1.json",
+    "mapping_hash": "sha256:602b2411df9b259911b1ae0757e5e26fabdc86b928fb5b43b040750182762ad5",
+    "oracle_contract_hash": "sha256:637b1f7e10e4224d60e3bcf29abdcaadb2e87aa66ed03d776668b94f1454a97c",
+    "approved_case_ids": [
+      "juice.error_handling.v1",
+      "juice.exposed_metrics.v1",
+      "juice.local_xss.v1"
+    ],
+    "approved_case_count": 3,
+    "approved_class_count": 3,
+    "not_scored_case_count": 8,
+    "not_scored_is_not_fn": true,
+    "review_status": "oracle_approved_partial_pending_full_set_runs",
+    "reviewer_approval_for_final_metrics": false
+  },
+  "case_contracts": [
+    {
+      "case_id": "juice.error_handling.v1",
+      "class": "Security Misconfiguration",
+      "path": "/rest/qwertz",
+      "method": "GET",
+      "workflow_id": "webpent.read_only_navigation",
+      "semantic_profile": "juice.error_disclosure.v1",
+      "causal_predicate": "approved verbose server-error disclosure shape on the mapped challenge path, distinguished from a benign invalid-path control; HTTP status alone is insufficient",
+      "safe_precondition": "anonymous loopback target is ready; allowlisted same-origin GET is available; no login, payload mutation, or raw response retention",
+      "independent_negative_control": "known benign invalid path with redacted error-shape comparison",
+      "central_verifier_mapping": "JuiceShopTargetAdapter -> juice.error_disclosure.v1 -> central causal/negative verifier",
+      "proof_bundle_id": "proof_bundle_37c175b8441f4b50b9552944a2c4c743",
+      "baseline_evidence": "audit/juice_shop_baseline_quality_run_v1.json#juice.error_handling.v1",
+      "baseline_status": "completed",
+      "candidate_status": "confirmed_proof",
+      "seal": true,
+      "verify_seal": true,
+      "replay": true,
+      "quality_metric_eligibility": "eligible for future official metrics only after full approved set, three isolated runs, and final review",
+      "before_after": {
+        "diagnosis": "no FN/FP or weak confirmation in the admitted case",
+        "improvement_proposal": "no code improvement required; existing target-local semantic profile is sufficient",
+        "classification": "target-local semantic contract",
+        "implementation": "existing Juice Shop adapter/profile",
+        "regression": "existing generic, adapter, verifier, redaction, seal/replay tests",
+        "same_condition_retest": "represented by the completed baseline artifact; no new root/health rerun",
+        "comparison": "proof-backed confirmation remains unchanged; no promotion or threshold change"
+      }
+    },
+    {
+      "case_id": "juice.exposed_metrics.v1",
+      "class": "Observability Failures",
+      "path": "/metrics",
+      "method": "GET",
+      "workflow_id": "webpent.read_only_navigation",
+      "semantic_profile": "juice.exposed_metrics.v1",
+      "causal_predicate": "approved unauthenticated metrics publication shape on the mapped endpoint, not mere endpoint existence; only bounded shape counters are retained",
+      "safe_precondition": "anonymous loopback target is ready; allowlisted same-origin GET is available; metric names and values are not persisted",
+      "independent_negative_control": "unrelated allowlisted public endpoint with redacted status/content-type comparison",
+      "central_verifier_mapping": "JuiceShopTargetAdapter -> juice.exposed_metrics.v1 -> central causal/negative verifier",
+      "proof_bundle_id": "proof_bundle_66ae7b5408354a8c809c3a0f2a4f9955",
+      "baseline_evidence": "audit/juice_shop_baseline_quality_run_v1.json#juice.exposed_metrics.v1",
+      "baseline_status": "completed",
+      "candidate_status": "confirmed_proof",
+      "seal": true,
+      "verify_seal": true,
+      "replay": true,
+      "quality_metric_eligibility": "eligible for future official metrics only after full approved set, three isolated runs, and final review",
+      "before_after": {
+        "diagnosis": "no FN/FP or weak confirmation in the admitted case",
+        "improvement_proposal": "no code improvement required; existing target-local semantic profile is sufficient",
+        "classification": "target-local semantic contract",
+        "implementation": "existing Juice Shop adapter/profile",
+        "regression": "existing generic, adapter, verifier, redaction, seal/replay tests",
+        "same_condition_retest": "represented by the completed baseline artifact; no new root/health rerun",
+        "comparison": "proof-backed confirmation remains unchanged; no promotion or threshold change"
+      }
+    },
+    {
+      "case_id": "juice.local_xss.v1",
+      "class": "XSS",
+      "path": "/",
+      "method": "GET plus reviewed typed-search workflow",
+      "workflow_id": "webpent.typed_search",
+      "semantic_profile": "dom.safe_search_sink_observation",
+      "causal_predicate": "approved DOM/XSS semantic predicate from the reviewed bounded workflow; sink and alert evidence must satisfy the mapped semantic profile and independent benign control",
+      "safe_precondition": "anonymous loopback browser context; reviewed typed-search workflow only; probe value and page source are not persisted; no credentials or state-changing submission",
+      "independent_negative_control": "benign control search with redacted DOM/dialog state comparison",
+      "central_verifier_mapping": "JuiceShopTargetAdapter -> dom.safe_search_sink_observation -> central causal/negative verifier",
+      "proof_bundle_id": "proof_bundle_e1a5078be6074f97b2e604f5a61704cb",
+      "baseline_evidence": "audit/juice_shop_baseline_quality_run_v1.json#juice.local_xss.v1",
+      "baseline_status": "completed",
+      "candidate_status": "confirmed_proof",
+      "seal": true,
+      "verify_seal": true,
+      "replay": true,
+      "quality_metric_eligibility": "eligible for future official metrics only after full approved set, three isolated runs, and final review",
+      "before_after": {
+        "diagnosis": "no FN/FP or weak confirmation in the admitted case",
+        "improvement_proposal": "no code improvement required; existing target-local semantic profile is sufficient",
+        "classification": "target-local semantic contract",
+        "implementation": "existing Juice Shop adapter/profile",
+        "regression": "existing generic, adapter, verifier, redaction, seal/replay tests",
+        "same_condition_retest": "represented by the completed baseline artifact; no new root/health rerun",
+        "comparison": "proof-backed confirmation remains unchanged; no promotion or threshold change"
+      }
+    }
+  ],
+  "quality_baseline": {
+    "run_id": "baseline-20260826-01",
+    "report": "reports/evaluation/juice_shop_baseline_quality_v1.md",
+    "run_artifact": "audit/juice_shop_baseline_quality_run_v1.json",
+    "evaluator_artifact": "audit/juice_shop_baseline_quality_evaluation_v1.json",
+    "mapped_cases_contacted": "11/11",
+    "proof_backed_admitted_cases": 3,
+    "observation_only": 4,
+    "blocked_by_precondition": 4,
+    "official_precision": null,
+    "official_recall": null,
+    "official_case_coverage": null,
+    "official_class_coverage": null,
+    "reason_metrics_withheld": "only three oracle-approved cases/classes and acceptance requires a larger final set plus three isolated runs"
+  },
+  "proof_procedure": {
+    "sequence": ["baseline", "candidate", "independent_negative_control", "central_verifier", "seal", "verify_seal", "replay", "metrics_recompute"],
+    "retained_data": "redacted metadata/digests only",
+    "promotion_rule": "no promotion without target-backed causal predicate, independent control, verifier success, seal/replay, approved mapping, and governance gates"
+  },
+  "governance_blockers": [
+    "official_isolated_p10_runs_authorized=false",
+    "final reviewer approval for metrics is pending",
+    "approved set is 3 cases / 3 classes, below P10 minimum 10 cases / 6 classes",
+    "P10, P9, and VIP remain NOT_QUALIFIED",
+    "Bug Bounty remains BLOCKED"
+  ]
+}

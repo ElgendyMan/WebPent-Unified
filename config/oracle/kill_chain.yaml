@@ -1,0 +1,44 @@
+# U-ORACLE-7: the simulated kill chain. Every phase runs against
+# already-gathered evidence only — the simulation never touches the
+# target (ORACLE-L-1/L-2/L-10). min_confidence is the evidence floor a
+# proposal must clear to pass the phase; clearing it fails the phase and
+# the chain aborts there with the recorded reason.
+phases:
+  - phase_id: PH-1
+    name: reconnaissance
+    description: assemble the passive picture of the surface
+    min_confidence: 0.3
+    abort_reason: "insufficient passive evidence to reconstruct the surface"
+  - phase_id: PH-2
+    name: enumeration
+    description: order the known nodes into a candidate route
+    min_confidence: 0.4
+    abort_reason: "too few corroborated nodes to order a route"
+  - phase_id: PH-3
+    name: mapping
+    description: bind the route to relations the graph already holds
+    min_confidence: 0.5
+    abort_reason: "relations along the route are not evidenced in the graph"
+  - phase_id: PH-4
+    name: validation
+    description: cross-check the route against independent sources
+    min_confidence: 0.55
+    abort_reason: "no independent source corroborates the route"
+  - phase_id: PH-5
+    name: hypothesis
+    description: state the exploitation hypothesis in advisory terms
+    min_confidence: 0.6
+    abort_reason: "evidence too weak to state a responsible hypothesis"
+  - phase_id: PH-6
+    name: impact_assessment
+    description: score the plausible payout delta, never the exploit
+    min_confidence: 0.65
+    abort_reason: "impact cannot be bounded from passive evidence"
+  - phase_id: PH-7
+    name: reporting
+    description: hand the reviewed chain to the operator
+    min_confidence: 0.7
+    abort_reason: "chain does not meet the reporting bar; parked for review"
+
+abort_policy:
+  halt_on_first: true      # the first failed phase ends the simulation

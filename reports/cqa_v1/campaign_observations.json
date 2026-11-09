@@ -1,0 +1,2502 @@
+[
+  {
+    "baseline_observation": {
+      "body_length": 40,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/alpha/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "8a03b500a273c968d881c4907dcbb3f660af93509da1f54c9984a5caabe43097",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 80,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/alpha/api/objects/alpha-1"
+      },
+      "response_shape": "json",
+      "semantic_digest": "5b2035a2936d0024d7ab5f64167085735b83933ee19c6db8891e09d9fdb2ffae",
+      "status_code": 200
+    },
+    "case_id": "target-alpha-case-01",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/alpha/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-alpha"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 40,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/alpha/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "8a03b500a273c968d881c4907dcbb3f660af93509da1f54c9984a5caabe43097",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 50,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/alpha/api/profile"
+      },
+      "response_shape": "json",
+      "semantic_digest": "d5546c1276e433b0ce6c7dbde874c563edbaeda86c20a2e76127762d60db8380",
+      "status_code": 200
+    },
+    "case_id": "target-alpha-case-02",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/alpha/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-alpha"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 40,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/alpha/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "8a03b500a273c968d881c4907dcbb3f660af93509da1f54c9984a5caabe43097",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 80,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/alpha/api/objects/alpha-3"
+      },
+      "response_shape": "json",
+      "semantic_digest": "0ffd5a3646c26fa456a44abe42cc5f21337eefb7247342ed5394d134f5552933",
+      "status_code": 200
+    },
+    "case_id": "target-alpha-case-03",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/alpha/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-alpha"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 40,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/alpha/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "8a03b500a273c968d881c4907dcbb3f660af93509da1f54c9984a5caabe43097",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 50,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/alpha/api/profile"
+      },
+      "response_shape": "json",
+      "semantic_digest": "d5546c1276e433b0ce6c7dbde874c563edbaeda86c20a2e76127762d60db8380",
+      "status_code": 200
+    },
+    "case_id": "target-alpha-case-04",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/alpha/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-alpha"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 40,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/alpha/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "8a03b500a273c968d881c4907dcbb3f660af93509da1f54c9984a5caabe43097",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 80,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/alpha/api/objects/alpha-1"
+      },
+      "response_shape": "json",
+      "semantic_digest": "5b2035a2936d0024d7ab5f64167085735b83933ee19c6db8891e09d9fdb2ffae",
+      "status_code": 200
+    },
+    "case_id": "target-alpha-case-05",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/alpha/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-alpha"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 40,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/alpha/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "8a03b500a273c968d881c4907dcbb3f660af93509da1f54c9984a5caabe43097",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 50,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/alpha/api/profile"
+      },
+      "response_shape": "json",
+      "semantic_digest": "d5546c1276e433b0ce6c7dbde874c563edbaeda86c20a2e76127762d60db8380",
+      "status_code": 200
+    },
+    "case_id": "target-alpha-case-06",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/alpha/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-alpha"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 40,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/alpha/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "8a03b500a273c968d881c4907dcbb3f660af93509da1f54c9984a5caabe43097",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 80,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/alpha/api/objects/alpha-3"
+      },
+      "response_shape": "json",
+      "semantic_digest": "0ffd5a3646c26fa456a44abe42cc5f21337eefb7247342ed5394d134f5552933",
+      "status_code": 200
+    },
+    "case_id": "target-alpha-case-07",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/alpha/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-alpha"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 40,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/alpha/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "8a03b500a273c968d881c4907dcbb3f660af93509da1f54c9984a5caabe43097",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 50,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/alpha/api/profile"
+      },
+      "response_shape": "json",
+      "semantic_digest": "d5546c1276e433b0ce6c7dbde874c563edbaeda86c20a2e76127762d60db8380",
+      "status_code": 200
+    },
+    "case_id": "target-alpha-case-08",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/alpha/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-alpha"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 40,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/alpha/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "8a03b500a273c968d881c4907dcbb3f660af93509da1f54c9984a5caabe43097",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 80,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/alpha/api/objects/alpha-1"
+      },
+      "response_shape": "json",
+      "semantic_digest": "5b2035a2936d0024d7ab5f64167085735b83933ee19c6db8891e09d9fdb2ffae",
+      "status_code": 200
+    },
+    "case_id": "target-alpha-case-09",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/alpha/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-alpha"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 40,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/alpha/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "8a03b500a273c968d881c4907dcbb3f660af93509da1f54c9984a5caabe43097",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 50,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/alpha/api/profile"
+      },
+      "response_shape": "json",
+      "semantic_digest": "d5546c1276e433b0ce6c7dbde874c563edbaeda86c20a2e76127762d60db8380",
+      "status_code": 200
+    },
+    "case_id": "target-alpha-case-10",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/alpha/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-alpha"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 39,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/beta/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "db42a1fc9d28e63075df83b5b2ad5a772762ac3b0aa13ac1d83fcce8c615c95c",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/beta/api/objects/beta-1"
+      },
+      "response_shape": "json",
+      "semantic_digest": "7167c2897b3e7bcb0d330728e81ada2c908eb477de6764e4466fe13ec36afa00",
+      "status_code": 403
+    },
+    "case_id": "target-beta-case-01",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/beta/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-beta"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 39,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/beta/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "db42a1fc9d28e63075df83b5b2ad5a772762ac3b0aa13ac1d83fcce8c615c95c",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 50,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/beta/api/profile"
+      },
+      "response_shape": "json",
+      "semantic_digest": "69d54ddeb4f169dec514f4ce5ab8ed5dd812b0edb66bffd2d21b5e2fed67f191",
+      "status_code": 200
+    },
+    "case_id": "target-beta-case-02",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/beta/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-beta"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 39,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/beta/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "db42a1fc9d28e63075df83b5b2ad5a772762ac3b0aa13ac1d83fcce8c615c95c",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/beta/api/objects/beta-3"
+      },
+      "response_shape": "json",
+      "semantic_digest": "7167c2897b3e7bcb0d330728e81ada2c908eb477de6764e4466fe13ec36afa00",
+      "status_code": 403
+    },
+    "case_id": "target-beta-case-03",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/beta/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-beta"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 39,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/beta/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "db42a1fc9d28e63075df83b5b2ad5a772762ac3b0aa13ac1d83fcce8c615c95c",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 50,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/beta/api/profile"
+      },
+      "response_shape": "json",
+      "semantic_digest": "69d54ddeb4f169dec514f4ce5ab8ed5dd812b0edb66bffd2d21b5e2fed67f191",
+      "status_code": 200
+    },
+    "case_id": "target-beta-case-04",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/beta/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-beta"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 39,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/beta/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "db42a1fc9d28e63075df83b5b2ad5a772762ac3b0aa13ac1d83fcce8c615c95c",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/beta/api/objects/beta-1"
+      },
+      "response_shape": "json",
+      "semantic_digest": "7167c2897b3e7bcb0d330728e81ada2c908eb477de6764e4466fe13ec36afa00",
+      "status_code": 403
+    },
+    "case_id": "target-beta-case-05",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/beta/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-beta"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 39,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/beta/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "db42a1fc9d28e63075df83b5b2ad5a772762ac3b0aa13ac1d83fcce8c615c95c",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 50,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/beta/api/profile"
+      },
+      "response_shape": "json",
+      "semantic_digest": "69d54ddeb4f169dec514f4ce5ab8ed5dd812b0edb66bffd2d21b5e2fed67f191",
+      "status_code": 200
+    },
+    "case_id": "target-beta-case-06",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/beta/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-beta"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 39,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/beta/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "db42a1fc9d28e63075df83b5b2ad5a772762ac3b0aa13ac1d83fcce8c615c95c",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/beta/api/objects/beta-3"
+      },
+      "response_shape": "json",
+      "semantic_digest": "7167c2897b3e7bcb0d330728e81ada2c908eb477de6764e4466fe13ec36afa00",
+      "status_code": 403
+    },
+    "case_id": "target-beta-case-07",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/beta/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-beta"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 39,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/beta/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "db42a1fc9d28e63075df83b5b2ad5a772762ac3b0aa13ac1d83fcce8c615c95c",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 50,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/beta/api/profile"
+      },
+      "response_shape": "json",
+      "semantic_digest": "69d54ddeb4f169dec514f4ce5ab8ed5dd812b0edb66bffd2d21b5e2fed67f191",
+      "status_code": 200
+    },
+    "case_id": "target-beta-case-08",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/beta/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-beta"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 39,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/beta/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "db42a1fc9d28e63075df83b5b2ad5a772762ac3b0aa13ac1d83fcce8c615c95c",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/beta/api/objects/beta-1"
+      },
+      "response_shape": "json",
+      "semantic_digest": "7167c2897b3e7bcb0d330728e81ada2c908eb477de6764e4466fe13ec36afa00",
+      "status_code": 403
+    },
+    "case_id": "target-beta-case-09",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/beta/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-beta"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 39,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/beta/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "db42a1fc9d28e63075df83b5b2ad5a772762ac3b0aa13ac1d83fcce8c615c95c",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 50,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/beta/api/profile"
+      },
+      "response_shape": "json",
+      "semantic_digest": "69d54ddeb4f169dec514f4ce5ab8ed5dd812b0edb66bffd2d21b5e2fed67f191",
+      "status_code": 200
+    },
+    "case_id": "target-beta-case-10",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/beta/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-beta"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 40,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/gamma/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "c67b7bd4fb81a9cf40925268d18f0e5ef804587e7269a5dd0e5731056e7fb0ef",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/gamma/api/objects/gamma-1"
+      },
+      "response_shape": "json",
+      "semantic_digest": "7167c2897b3e7bcb0d330728e81ada2c908eb477de6764e4466fe13ec36afa00",
+      "status_code": 403
+    },
+    "case_id": "target-gamma-case-01",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/gamma/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-gamma"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 40,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/gamma/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "c67b7bd4fb81a9cf40925268d18f0e5ef804587e7269a5dd0e5731056e7fb0ef",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 50,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/gamma/api/profile"
+      },
+      "response_shape": "json",
+      "semantic_digest": "497298552f3a110c862432f4249510cfba968b1c584522e1fb66e1c53c751802",
+      "status_code": 200
+    },
+    "case_id": "target-gamma-case-02",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/gamma/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-gamma"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 40,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/gamma/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "c67b7bd4fb81a9cf40925268d18f0e5ef804587e7269a5dd0e5731056e7fb0ef",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/gamma/api/objects/gamma-3"
+      },
+      "response_shape": "json",
+      "semantic_digest": "7167c2897b3e7bcb0d330728e81ada2c908eb477de6764e4466fe13ec36afa00",
+      "status_code": 403
+    },
+    "case_id": "target-gamma-case-03",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/gamma/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-gamma"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 40,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/gamma/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "c67b7bd4fb81a9cf40925268d18f0e5ef804587e7269a5dd0e5731056e7fb0ef",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 50,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/gamma/api/profile"
+      },
+      "response_shape": "json",
+      "semantic_digest": "497298552f3a110c862432f4249510cfba968b1c584522e1fb66e1c53c751802",
+      "status_code": 200
+    },
+    "case_id": "target-gamma-case-04",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/gamma/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-gamma"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 40,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/gamma/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "c67b7bd4fb81a9cf40925268d18f0e5ef804587e7269a5dd0e5731056e7fb0ef",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/gamma/api/objects/gamma-1"
+      },
+      "response_shape": "json",
+      "semantic_digest": "7167c2897b3e7bcb0d330728e81ada2c908eb477de6764e4466fe13ec36afa00",
+      "status_code": 403
+    },
+    "case_id": "target-gamma-case-05",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/gamma/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-gamma"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 40,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/gamma/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "c67b7bd4fb81a9cf40925268d18f0e5ef804587e7269a5dd0e5731056e7fb0ef",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 50,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/gamma/api/profile"
+      },
+      "response_shape": "json",
+      "semantic_digest": "497298552f3a110c862432f4249510cfba968b1c584522e1fb66e1c53c751802",
+      "status_code": 200
+    },
+    "case_id": "target-gamma-case-06",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/gamma/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-gamma"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 40,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/gamma/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "c67b7bd4fb81a9cf40925268d18f0e5ef804587e7269a5dd0e5731056e7fb0ef",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/gamma/api/objects/gamma-3"
+      },
+      "response_shape": "json",
+      "semantic_digest": "7167c2897b3e7bcb0d330728e81ada2c908eb477de6764e4466fe13ec36afa00",
+      "status_code": 403
+    },
+    "case_id": "target-gamma-case-07",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/gamma/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-gamma"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 40,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/gamma/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "c67b7bd4fb81a9cf40925268d18f0e5ef804587e7269a5dd0e5731056e7fb0ef",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 50,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/gamma/api/profile"
+      },
+      "response_shape": "json",
+      "semantic_digest": "497298552f3a110c862432f4249510cfba968b1c584522e1fb66e1c53c751802",
+      "status_code": 200
+    },
+    "case_id": "target-gamma-case-08",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/gamma/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-gamma"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 40,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/gamma/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "c67b7bd4fb81a9cf40925268d18f0e5ef804587e7269a5dd0e5731056e7fb0ef",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/gamma/api/objects/gamma-1"
+      },
+      "response_shape": "json",
+      "semantic_digest": "7167c2897b3e7bcb0d330728e81ada2c908eb477de6764e4466fe13ec36afa00",
+      "status_code": 403
+    },
+    "case_id": "target-gamma-case-09",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/gamma/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-gamma"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 40,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/gamma/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "c67b7bd4fb81a9cf40925268d18f0e5ef804587e7269a5dd0e5731056e7fb0ef",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 50,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/gamma/api/profile"
+      },
+      "response_shape": "json",
+      "semantic_digest": "497298552f3a110c862432f4249510cfba968b1c584522e1fb66e1c53c751802",
+      "status_code": 200
+    },
+    "case_id": "target-gamma-case-10",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/gamma/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-gamma"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 40,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/delta/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "a73e4fb72bd48eea967f88274ad845c4a105ca93ad2dcee868d026d538e077a6",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/delta/api/objects/delta-1"
+      },
+      "response_shape": "json",
+      "semantic_digest": "7167c2897b3e7bcb0d330728e81ada2c908eb477de6764e4466fe13ec36afa00",
+      "status_code": 403
+    },
+    "case_id": "target-delta-case-01",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/delta/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-delta"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 40,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/delta/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "a73e4fb72bd48eea967f88274ad845c4a105ca93ad2dcee868d026d538e077a6",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 49,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/delta/api/profile"
+      },
+      "response_shape": "json",
+      "semantic_digest": "2eeb13296e637260543bb3cfc3e888af9982ccfb97482c7ab5b17ff4255184b4",
+      "status_code": 200
+    },
+    "case_id": "target-delta-case-02",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/delta/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-delta"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 40,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/delta/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "a73e4fb72bd48eea967f88274ad845c4a105ca93ad2dcee868d026d538e077a6",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/delta/api/objects/delta-3"
+      },
+      "response_shape": "json",
+      "semantic_digest": "7167c2897b3e7bcb0d330728e81ada2c908eb477de6764e4466fe13ec36afa00",
+      "status_code": 403
+    },
+    "case_id": "target-delta-case-03",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/delta/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-delta"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 40,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/delta/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "a73e4fb72bd48eea967f88274ad845c4a105ca93ad2dcee868d026d538e077a6",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 49,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/delta/api/profile"
+      },
+      "response_shape": "json",
+      "semantic_digest": "2eeb13296e637260543bb3cfc3e888af9982ccfb97482c7ab5b17ff4255184b4",
+      "status_code": 200
+    },
+    "case_id": "target-delta-case-04",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/delta/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-delta"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 40,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/delta/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "a73e4fb72bd48eea967f88274ad845c4a105ca93ad2dcee868d026d538e077a6",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/delta/api/objects/delta-1"
+      },
+      "response_shape": "json",
+      "semantic_digest": "7167c2897b3e7bcb0d330728e81ada2c908eb477de6764e4466fe13ec36afa00",
+      "status_code": 403
+    },
+    "case_id": "target-delta-case-05",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/delta/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-delta"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 40,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/delta/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "a73e4fb72bd48eea967f88274ad845c4a105ca93ad2dcee868d026d538e077a6",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 49,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/delta/api/profile"
+      },
+      "response_shape": "json",
+      "semantic_digest": "2eeb13296e637260543bb3cfc3e888af9982ccfb97482c7ab5b17ff4255184b4",
+      "status_code": 200
+    },
+    "case_id": "target-delta-case-06",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/delta/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-delta"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 40,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/delta/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "a73e4fb72bd48eea967f88274ad845c4a105ca93ad2dcee868d026d538e077a6",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/delta/api/objects/delta-3"
+      },
+      "response_shape": "json",
+      "semantic_digest": "7167c2897b3e7bcb0d330728e81ada2c908eb477de6764e4466fe13ec36afa00",
+      "status_code": 403
+    },
+    "case_id": "target-delta-case-07",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/delta/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-delta"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 40,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/delta/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "a73e4fb72bd48eea967f88274ad845c4a105ca93ad2dcee868d026d538e077a6",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 49,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/delta/api/profile"
+      },
+      "response_shape": "json",
+      "semantic_digest": "2eeb13296e637260543bb3cfc3e888af9982ccfb97482c7ab5b17ff4255184b4",
+      "status_code": 200
+    },
+    "case_id": "target-delta-case-08",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/delta/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-delta"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 40,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/delta/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "a73e4fb72bd48eea967f88274ad845c4a105ca93ad2dcee868d026d538e077a6",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/delta/api/objects/delta-1"
+      },
+      "response_shape": "json",
+      "semantic_digest": "7167c2897b3e7bcb0d330728e81ada2c908eb477de6764e4466fe13ec36afa00",
+      "status_code": 403
+    },
+    "case_id": "target-delta-case-09",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/delta/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-delta"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 40,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/delta/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "a73e4fb72bd48eea967f88274ad845c4a105ca93ad2dcee868d026d538e077a6",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 49,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/delta/api/profile"
+      },
+      "response_shape": "json",
+      "semantic_digest": "2eeb13296e637260543bb3cfc3e888af9982ccfb97482c7ab5b17ff4255184b4",
+      "status_code": 200
+    },
+    "case_id": "target-delta-case-10",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/delta/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-delta"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 42,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/epsilon/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "e0e52a8394f30a53a0912e0706acbc1780c4186a01051aa90cfcdba0399ee5d9",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/epsilon/api/objects/epsilon-1"
+      },
+      "response_shape": "json",
+      "semantic_digest": "7167c2897b3e7bcb0d330728e81ada2c908eb477de6764e4466fe13ec36afa00",
+      "status_code": 403
+    },
+    "case_id": "target-epsilon-case-01",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/epsilon/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-epsilon"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 42,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/epsilon/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "e0e52a8394f30a53a0912e0706acbc1780c4186a01051aa90cfcdba0399ee5d9",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 49,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/epsilon/api/profile"
+      },
+      "response_shape": "json",
+      "semantic_digest": "0490fb4c1702b8fcecf14dea97dbf8ab1119ecd89118cc1d2a34344df7bea4d0",
+      "status_code": 200
+    },
+    "case_id": "target-epsilon-case-02",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/epsilon/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-epsilon"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 42,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/epsilon/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "e0e52a8394f30a53a0912e0706acbc1780c4186a01051aa90cfcdba0399ee5d9",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/epsilon/api/objects/epsilon-3"
+      },
+      "response_shape": "json",
+      "semantic_digest": "7167c2897b3e7bcb0d330728e81ada2c908eb477de6764e4466fe13ec36afa00",
+      "status_code": 403
+    },
+    "case_id": "target-epsilon-case-03",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/epsilon/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-epsilon"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 42,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/epsilon/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "e0e52a8394f30a53a0912e0706acbc1780c4186a01051aa90cfcdba0399ee5d9",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 49,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/epsilon/api/profile"
+      },
+      "response_shape": "json",
+      "semantic_digest": "0490fb4c1702b8fcecf14dea97dbf8ab1119ecd89118cc1d2a34344df7bea4d0",
+      "status_code": 200
+    },
+    "case_id": "target-epsilon-case-04",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/epsilon/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-epsilon"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 42,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/epsilon/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "e0e52a8394f30a53a0912e0706acbc1780c4186a01051aa90cfcdba0399ee5d9",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/epsilon/api/objects/epsilon-1"
+      },
+      "response_shape": "json",
+      "semantic_digest": "7167c2897b3e7bcb0d330728e81ada2c908eb477de6764e4466fe13ec36afa00",
+      "status_code": 403
+    },
+    "case_id": "target-epsilon-case-05",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/epsilon/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-epsilon"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 42,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/epsilon/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "e0e52a8394f30a53a0912e0706acbc1780c4186a01051aa90cfcdba0399ee5d9",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 49,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/epsilon/api/profile"
+      },
+      "response_shape": "json",
+      "semantic_digest": "0490fb4c1702b8fcecf14dea97dbf8ab1119ecd89118cc1d2a34344df7bea4d0",
+      "status_code": 200
+    },
+    "case_id": "target-epsilon-case-06",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/epsilon/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-epsilon"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 42,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/epsilon/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "e0e52a8394f30a53a0912e0706acbc1780c4186a01051aa90cfcdba0399ee5d9",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/epsilon/api/objects/epsilon-3"
+      },
+      "response_shape": "json",
+      "semantic_digest": "7167c2897b3e7bcb0d330728e81ada2c908eb477de6764e4466fe13ec36afa00",
+      "status_code": 403
+    },
+    "case_id": "target-epsilon-case-07",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/epsilon/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-epsilon"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 42,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/epsilon/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "e0e52a8394f30a53a0912e0706acbc1780c4186a01051aa90cfcdba0399ee5d9",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 49,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/epsilon/api/profile"
+      },
+      "response_shape": "json",
+      "semantic_digest": "0490fb4c1702b8fcecf14dea97dbf8ab1119ecd89118cc1d2a34344df7bea4d0",
+      "status_code": 200
+    },
+    "case_id": "target-epsilon-case-08",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/epsilon/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-epsilon"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 42,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/epsilon/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "e0e52a8394f30a53a0912e0706acbc1780c4186a01051aa90cfcdba0399ee5d9",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/epsilon/api/objects/epsilon-1"
+      },
+      "response_shape": "json",
+      "semantic_digest": "7167c2897b3e7bcb0d330728e81ada2c908eb477de6764e4466fe13ec36afa00",
+      "status_code": 403
+    },
+    "case_id": "target-epsilon-case-09",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/epsilon/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-epsilon"
+  },
+  {
+    "baseline_observation": {
+      "body_length": 42,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/epsilon/health"
+      },
+      "response_shape": "json",
+      "semantic_digest": "e0e52a8394f30a53a0912e0706acbc1780c4186a01051aa90cfcdba0399ee5d9",
+      "status_code": 200
+    },
+    "candidate_observation": {
+      "body_length": 49,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/epsilon/api/profile"
+      },
+      "response_shape": "json",
+      "semantic_digest": "0490fb4c1702b8fcecf14dea97dbf8ab1119ecd89118cc1d2a34344df7bea4d0",
+      "status_code": 200
+    },
+    "case_id": "target-epsilon-case-10",
+    "causal_result": "UNASSESSED",
+    "negative_control_observation": {
+      "body_length": 22,
+      "request": {
+        "header_names": [
+          "X-Actor",
+          "X-Tenant"
+        ],
+        "method": "GET",
+        "path": "/epsilon/api/objects/missing"
+      },
+      "response_shape": "json",
+      "semantic_digest": "ea87bfba9186925e574368f68e60f0ac574a0d3dc5f52f14de0eadd5a40f8466",
+      "status_code": 404
+    },
+    "proof_bundle": null,
+    "replay_result": "NOT_RUN",
+    "seal": null,
+    "target_id": "target-epsilon"
+  }
+]

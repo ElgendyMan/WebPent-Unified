@@ -1,0 +1,16 @@
+# Judgment Council chamber configuration (U-JC-1).
+# Every value here has a hard-coded default in chamber.py; a missing or
+# corrupt file falls back to those defaults (fail-soft, JC-L-2).
+council:
+  max_debate_rounds: 3
+  time_limit_seconds: 30
+  min_advocates: 3
+  require_skeptic: true
+  require_judge: true
+  confidence_thresholds:
+    high: 0.85
+    medium: 0.60
+  escalation:
+    on_low_confidence: true
+    on_tie: true
+    on_missing_judge: true
