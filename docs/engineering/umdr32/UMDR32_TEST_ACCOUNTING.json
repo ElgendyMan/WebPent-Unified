@@ -1,0 +1,83 @@
+{
+  "window": "UM-DR-32",
+  "generated_utc": "2026-11-09",
+  "runner": "scripts/run_suite.py (portable chunked runner, 13/13 chunks)",
+  "environment": {
+    "python": "3.12.16",
+    "pytest": "9.0.2",
+    "declared_python_floor": ">=3.11"
+  },
+  "source": {
+    "note": "the exact source revision of the final full-suite run is recorded in the release integrity report; the suite ran on the final UM-DR-32 tree after all Phase 1-9 changes",
+    "branch": "umdr32-identity-business-logic-evolution"
+  },
+  "baseline": {
+    "window": "UM-DR-31.1 (import commit 5965917 = the published snapshot)",
+    "unique_test_ids": 8744,
+    "collected": 8744,
+    "passed": 8735,
+    "failed": 0,
+    "skipped": 6,
+    "xfailed": 3,
+    "collection_errors": 0,
+    "test_files_with_tests": 671
+  },
+  "final": {
+    "unique_test_ids": 8903,
+    "collected": 8903,
+    "passed": 8894,
+    "failed": 0,
+    "skipped": 6,
+    "xfailed": 3,
+    "collection_errors": 0,
+    "test_files_with_tests": 681,
+    "reconciliation": "8894 passed + 6 skipped + 3 xfailed = 8903 collected (exact); every planned chunk executed and passed (13/13)"
+  },
+  "delta": {
+    "unique_ids_added": 159,
+    "unique_ids_removed": 0,
+    "modified_or_replaced": 0,
+    "breakdown": {
+      "tests/test_umdr32_release_archive_builder.py": 7,
+      "tests/test_umdr32_scope_admission.py": 17,
+      "tests/test_umdr32_object_identity.py": 20,
+      "tests/test_umdr32_alias_resolution.py": 13,
+      "tests/test_umdr32_multi_identity.py": 18,
+      "tests/test_umdr32_composite_workflows.py": 18,
+      "tests/test_umdr32_identity_workflow_integration.py": 22,
+      "tests/test_umdr32_security_regressions.py": 32,
+      "tests/test_umdr32_evaluation_lab.py": 7,
+      "tests/test_frozen_module_gate.py": 5
+    },
+    "breakdown_note": "the frozen-gate +5 are the parametrized entries for the five newly frozen capability modules"
+  },
+  "per_chunk": [
+    {"chunk": 1, "collected": 587, "passed": 587, "skipped": 0, "xfailed": 0},
+    {"chunk": 2, "collected": 497, "passed": 496, "skipped": 1, "xfailed": 0},
+    {"chunk": 3, "collected": 801, "passed": 801, "skipped": 0, "xfailed": 0},
+    {"chunk": 4, "collected": 921, "passed": 921, "skipped": 0, "xfailed": 0},
+    {"chunk": 5, "collected": 727, "passed": 727, "skipped": 0, "xfailed": 0},
+    {"chunk": 6, "collected": 1444, "passed": 1441, "skipped": 3, "xfailed": 0},
+    {"chunk": 7, "collected": 471, "passed": 470, "skipped": 1, "xfailed": 0},
+    {"chunk": 8, "collected": 614, "passed": 614, "skipped": 0, "xfailed": 0},
+    {"chunk": 9, "collected": 682, "passed": 678, "skipped": 1, "xfailed": 3},
+    {"chunk": 10, "collected": 639, "passed": 639, "skipped": 0, "xfailed": 0},
+    {"chunk": 11, "collected": 798, "passed": 798, "skipped": 0, "xfailed": 0},
+    {"chunk": 12, "collected": 465, "passed": 465, "skipped": 0, "xfailed": 0},
+    {"chunk": 13, "collected": 257, "passed": 257, "skipped": 0, "xfailed": 0}
+  ],
+  "gates": {
+    "frozen_module_gate": "GREEN (644 entries: 6 re-pinned with documented rationale + 5 newly frozen capability modules; baseline-disagreement scope documented)",
+    "direct_io_inventory": "GREEN (1177 records; +7 declared dynamic_resolution identities; unapproved pin set preserved)",
+    "broad_exception_register": "GREEN (19 -> 25 handlers: composite_workflows +5, identity_workflow +1, full rationale in the register)",
+    "state_contract": "GREEN (294 declared keys; every identity_workflow-emitted key declared and LangGraph-survival tested)",
+    "lint": "GREEN by the repo's own ratchet gates; all new production files clean under --select E,F,I,RUF",
+    "version_consistency": "GREEN (changelog head == package version == Dockerfile ARG)",
+    "secrets": "GREEN (no live credentials in the tracked tree; webpent.db untracked runtime residue)"
+  },
+  "historical_records": {
+    "umdr31_1": "8744 collected -> 8735/0/6/3 (reproduced exactly on the import commit)",
+    "umdr31": "8711 collected -> 8702/0/7/3 (historical claim; source tree not available, not re-measured)",
+    "umdr30": "8661 collected -> 8652/0/6/3 (historical claim; source tree not available, not re-measured)"
+  }
+}

@@ -1694,3 +1694,34 @@ recon/observations → signal inventory → adaptive hypotheses → الـ pool 
 **الاختبار:** +30 اختبارًا جديدًا (R3: 9، R4: 8، R6: 7، R7: 7 — عدا إعادة كتابة R5 وحذفين)؛ الأجنحة المتأثرة خضراء (60 وحدة UM-DR-31، 16 تكامل، 8 e2e/ablation، coverage/gap-report 745، البوابة المجمدة 641). السويت الكاملة تُقاس chunked في تقرير التنفيذ.
 
 **UM-DR-31.1 completion status: COMPLETE (2026-11-08).** كل بنود R1–R11 مُنفذة بمصححات فعلية أو مُوثقة بدليل (لا بند أُغلق صامتًا)؛ تحسين ذكاء واحد مُقاس بأدلة مضبوطة؛ بوابات القبول A–E تُقابَل في تقرير التنفيذ.
+
+## UM-DR-32 — identity & business-logic evolution (2026-11-09)
+
+- **Object identity / alias resolution**: identities anchor on (tenant,
+  resource_type, stable_id) — never paths; id equality alone never
+  merges; abstention on weak evidence; conflicts preserved. Reversible
+  six-state alias overlay; tenant/type/query boundaries enforced
+  (F10/F11 non-regressed).
+- **Multi-identity**: pseudonymous principals, the principal x tenant x
+  object x operation x state matrix, differentials REQUIRE negative
+  controls; the privilege_differential missing-validator wall CLOSED
+  (capability registry + experiment fabric + typed triple +
+  SessionBindingError).
+- **Composite workflows**: observed transitions only; bounded sequences;
+  FixtureSafetyContract gates destructive/state-mutating execution;
+  evaluation inside the EXISTING validation architecture (CausalGuard
+  same-actor; registered privilege validator cross-actor). The engine
+  never promotes.
+- **Engineering**: archive builder portability (root+nested, documented
+  exclusions), portable suite runner (nonzero exit on failure),
+  experiment provenance contract (dirty-tree rejection), version
+  identity reconciliation, origin-scheme admission fix (complete
+  normalized origin comparison), exact accounting 8,744 -> 8,903
+  unique IDs (8,894/0/6/3), 6-file documented refreeze + 5 new frozen
+  modules, direct-I/O +7 declared identities, broad-exception +6
+  documented handlers.
+- **Measurement**: six-arm controlled lab (team-authored fixture,
+  equivalent budgets): baseline 0/4 -> unified 4/4 at precision 1.0,
+  recall 1.0, zero false positives in every arm. Resolution metrics
+  reported separately from detection metrics. M10 unchanged: CLOSED —
+  BLOCKED_EXTERNAL_DEPENDENCY.

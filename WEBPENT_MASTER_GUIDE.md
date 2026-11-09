@@ -370,8 +370,15 @@ controls + deception verifier); the discovery generalization mechanism
 (measured control vs treatment); the freeze/refreeze engineering
 discipline (declared, self-verifying); the honest measurement culture
 (genealogy tables, never-merged populations, labeled honesty
-boundaries); 8,711-test suite green with machine gates (frozen-module
-byte identity, broad-exception register, direct-I/O inventory).
+boundaries); 8,903-test suite green with machine gates (frozen-module
+byte identity, broad-exception register, direct-I/O inventory) — the
+UM-DR-32 window (see §12 and `docs/engineering/umdr32/`) added the
+object-identity/alias/multi-identity/composite-workflow capability
+line, the privilege_differential validator-route closure, and the
+six-arm controlled evaluation (baseline 0/4 → unified 4/4 at precision
+1.0 under equivalent budgets; historical context: the UM-DR-31 window
+measured 8,711 tests, the UM-DR-31.1 window 8,744 — both labeled
+historical records).
 
 **Verified weaknesses / engineering debt.** The family spine's
 non-findings output keys are channel-dropped — **CLOSED by UM-DR-30**
@@ -476,5 +483,65 @@ LLM layer is optional and refuses to run ungated.
 | Security | Defense-in-depth at every boundary, adversarially tested | M2/M9/M12 reports |
 | Benchmark honesty | High — never-merged populations, labeled boundaries | M11 contract |
 | Operational | Worker/lease/concurrency tested; notifications + full LLM run operator-side | M12, campaign suites |
+
+## 12. UM-DR-32 — Object Identity, Aliases, Multi-Identity & Business Logic
+
+**Window:** 2026-11-09, package 0.38.0. Full evidence package:
+`docs/engineering/umdr32/` (11 deliverables) +
+`reports/qualification/umdr32_benchmark.json`.
+
+What changed, in one paragraph each:
+
+1. **Object identity intelligence** (`production/object_identity.py`):
+   identities anchor on (tenant, resource_type, stable object id) —
+   never the URL path; merges need corroborating evidence (id equality
+   alone never merges); weak evidence abstains; conflicts are preserved.
+   Status: IMPLEMENTED_AND_WIRED, TESTED, campaign-demonstrated on the
+   controlled lab (resolution 4/4 alias pairs at zero false merges).
+2. **Alias resolution** (`production/alias_resolution.py`): a reversible
+   six-state overlay over the registry, evidence-only candidates,
+   security-aware guards (tenant/type/query-value boundaries; the
+   UM-DR-31.1 F10/F11 fingerprint contract non-regressed).
+3. **Multi-identity reasoning** (`production/multi_identity.py`):
+   pseudonymous principals (no raw credentials by construction), the
+   principal x tenant x object x operation x state matrix, differential
+   questions that REQUIRE a denied negative control, and the
+   **privilege_differential validator-route closure** — the
+   UM-DR-31.1 missing-validator wall is gone (registry + experiment
+   fabric + typed triple + session-isolation fail-safe).
+4. **Composite business-logic workflows**
+   (`production/composite_workflows.py`): workflows from OBSERVED
+   transitions only; bounded sequences with evidence-backed invariants;
+   the FixtureSafetyContract (destructive steps require
+   resettable+isolated+operator-authorized); two evaluation routes
+   INSIDE the existing validation architecture (CausalGuard for
+   same-actor state evidence; the registered privilege validator for
+   cross-actor evidence). The engine never promotes.
+5. **The unified node** (`production/identity_workflow.py`): one
+   flag-gated advisory node on the composed redirect chain
+   (identity_workflow -> research_loop -> strategist), six declared
+   state channels, deterministic pool-deduped hypotheses, and
+   ordering-only identity hints consumed by stateful discovery (same
+   budget). Flag-off = byte-comparable graph (test-enforced).
+6. **Engineering integrity**: portable deterministic archive builder
+   (root + nested layouts, documented exclusion policy), portable suite
+   runner (nonzero exit on any failed/unexecuted chunk), the experiment
+   provenance contract (dirty-tree rejection), version identity
+   reconciliation (0.34.0 historical / 0.38.0 current / v15.2 label),
+   the origin-scheme admission fix (https origin no longer admits http
+   endpoints), exact test accounting (8,744 -> 8,903 unique IDs,
+   8,894/0/6/3), and the documented 6-file refreeze + 5 new frozen
+   modules.
+
+**Measured (the controlled six-arm lab, team-authored fixture,
+equivalent budgets):** baseline 0/4 ground-truth scenarios -> unified
+4/4 at precision 1.0, recall 1.0, zero false positives in EVERY arm,
+deterministic on repeats. Resolution and detection metrics are reported
+separately (understanding alone detects nothing — the measured
+dependency chain). M10 remains CLOSED (holdout
+BLOCKED_EXTERNAL_DEPENDENCY); the lab is mechanism validation, not
+independent validation.
+
+— appended by the UM-DR-32 window —
 
 — End of WEBPENT_MASTER_GUIDE (Document 1) —

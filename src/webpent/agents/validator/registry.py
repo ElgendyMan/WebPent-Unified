@@ -93,6 +93,19 @@ _IMPLEMENTED_VALIDATORS: Final[dict[str, str]] = {
     "oauth_misconfiguration": "oauth_misconfiguration",
     "cache_poisoning": "cache_poisoning",
     "web_cache_deception": "web_cache_deception",
+    # UM-DR-32 §6.5: the privilege_differential route closure. The
+    # validator itself (production/privilege_validator.py::
+    # validate_privilege_differential) and its VALIDATORS dispatch entry
+    # existed since UM-DR-31.1, but this capability registry lacked the
+    # class — so the strategist recorded every privilege_differential
+    # hypothesis as missing-validator and downgraded PROMOTE to DEFER
+    # (UMDR31_1_EXECUTION_REPORT limitation). Registered here with the
+    # UM-DR-32 multi-identity producer (production/multi_identity.py
+    # builds the typed owner-on-R / foreign-on-R / foreign-on-C triple
+    # with negative controls), the class is end-to-end routable:
+    # hypothesis -> registry capability -> deterministic validator ->
+    # CausalGuard stays the sole confirmation authority.
+    "privilege_differential": "privilege_differential",
 }
 
 _OFFLINE_FIXTURE_VALIDATORS: Final[dict[str, str]] = {

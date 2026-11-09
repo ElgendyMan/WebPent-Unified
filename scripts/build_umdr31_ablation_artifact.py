@@ -28,7 +28,6 @@ import argparse
 import datetime as _dt
 import importlib.util
 import json
-import subprocess
 import sys
 import threading
 from http.server import ThreadingHTTPServer
@@ -37,6 +36,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "tests"))
+sys.path.insert(0, str(ROOT / "scripts"))
+
+from experiment_provenance import capture_artifact_provenance  # noqa: E402
 
 
 def _load_test_module():
@@ -49,16 +51,6 @@ def _load_test_module():
     return module
 
 
-def _git_head() -> str:
-    try:
-        return subprocess.run(
-            ["git", "rev-parse", "HEAD"], cwd=ROOT, timeout=10,
-            capture_output=True, text=True,
-        ).stdout.strip()
-    except Exception:
-        return "unknown"
-
-
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -66,7 +58,18 @@ def main() -> int:
         default=str(ROOT / "reports" / "qualification" / "umdr31_ablation.json"),
         help="artifact output path (default: the tracked qualification path)",
     )
+    parser.add_argument(
+        "--allow-dirty", action="store_true",
+        help="explicitly permit a dirty tree (engineering-grade run; the "
+             "artifact then records the source-diff hash and is labeled "
+             "dirty — it can never masquerade as a clean-release result)",
+    )
     args = parser.parse_args()
+
+    # Fail FAST: reject a dirty tree before spending the measurement
+    # budget, not after (UM-DR-32 §3.2 default is fail-closed).
+    import experiment_provenance as _ep
+    _ep.capture_source_provenance(ROOT, allow_dirty=args.allow_dirty)
 
     from webpent.shared.engagement_scope import (
         clear_engagement_target_hosts,
@@ -74,6 +77,7 @@ def main() -> int:
     )
 
     mod = _load_test_module()
+    started_utc = _dt.datetime.now(_dt.timezone.utc).isoformat()
     server = ThreadingHTTPServer(("127.0.0.1", 0), mod.target_module.VaultHandler)
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
@@ -107,6 +111,25 @@ def main() -> int:
         "population": "campaign_research_target (team-authored, "
                       "author-known two-directory fixture) — NOT an "
                       "independent holdout",
+        "provenance": capture_artifact_provenance(
+            ROOT,
+            generator_script=Path(__file__).resolve(),
+            fixture_files=[
+                ROOT / "benchmarks" / "campaign_research_target.py",
+                ROOT / "tests" / "test_umdr31_campaign_e2e_ablation.py",
+            ],
+            lock_file=ROOT / "uv.lock",
+            started_utc=started_utc,
+            request_budget=mod.ABLATION_BUDGET,
+            requests_issued=sum(
+                a.get("requests_issued", 0) for a in arms.values()
+            ),
+            ground_truth_manifest={
+                mod.GROUND_TRUTH_VULNERABLE: "vulnerable",
+                "others": "safe / out-of-scope",
+            },
+            allow_dirty=args.allow_dirty,
+        ),
         "conditions": {
             "request_budget": mod.ABLATION_BUDGET,
             "cases_mined": 8,
@@ -138,9 +161,8 @@ def main() -> int:
             "credentials; the LangGraph-level proof covers the "
             "runtime integration through the real wiring function",
         ],
-        "generated_by": "scripts/build_umdr31_ablation_artifact.py (explicit release-time command, UM-DR-31.1 R2)",
+        "generated_by": "scripts/build_umdr31_ablation_artifact.py (explicit release-time command, UM-DR-31.1 R2; provenance contract UM-DR-32 §3.2)",
         "generated_at_utc": _dt.datetime.now(_dt.timezone.utc).isoformat(),
-        "git_head": _git_head(),
     }
     out = Path(args.output)
     out.parent.mkdir(parents=True, exist_ok=True)

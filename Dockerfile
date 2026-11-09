@@ -20,7 +20,7 @@
 
 FROM webpent-base:latest
 
-ARG WEBPENT_VERSION=0.37.1
+ARG WEBPENT_VERSION=0.38.0
 LABEL org.opencontainers.image.title="WebPent v60" \
       org.opencontainers.image.version="${WEBPENT_VERSION}" \
       org.opencontainers.image.licenses="MIT"

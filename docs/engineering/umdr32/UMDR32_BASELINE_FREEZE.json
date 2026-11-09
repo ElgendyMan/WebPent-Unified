@@ -1,0 +1,64 @@
+{
+  "window": "UM-DR-32 Phase Zero baseline freeze",
+  "captured_utc": "2026-11-09T07:49:45.867153+00:00",
+  "source": {
+    "import_commit": "596591769e6c095a2e4e224179782e8d40d9d7fa",
+    "import_tree": "e9d9b09fc4a0971157081a83792f8e0397340811",
+    "imported_from_zip": "WebPent_UNIFIED_v0.37.1_UMDR31_1.zip",
+    "zip_sha256": "abb21bd70832e5d15aa2e9750952699cb31d00984daa81950dc97098e99a51d6",
+    "zip_entries": 4734,
+    "zip_bytes": 77840446,
+    "git_history_preserved": false,
+    "historical_refs_absent": [
+      "ca0b9ec",
+      "21f591a",
+      "2d7b928",
+      "914061c",
+      "00f79eed",
+      "97c4931",
+      "v0.37.1-umdr31.1"
+    ],
+    "provenance_note": "release ZIP carries no .git; new verifiable lineage starts at import commit; no historical objects manufactured"
+  },
+  "environment": {
+    "python": "3.12.16",
+    "pytest": "9.0.2",
+    "deps_installed_for_suite": [
+      "langchain-core==1.6.7",
+      "langgraph==1.2.10",
+      "langgraph-checkpoint-sqlite==3.1.1",
+      "bcrypt",
+      "esprima",
+      "celery",
+      "sqlalchemy",
+      "jsbeautifier",
+      "playwright",
+      "pip install -e . --no-deps"
+    ],
+    "declared_python_floor": ">=3.11"
+  },
+  "test_baseline": {
+    "unique_collected_ids": 8744,
+    "outcome": "8735 passed / 0 failed / 6 skipped / 3 xfailed (chunked 13/13 via scripts/run_suite.py)",
+    "matches_published_umdr31_1": true,
+    "test_files_with_tests": 671,
+    "test_files_glob": 672,
+    "not_run": [],
+    "collection_errors": 0
+  },
+  "counts_per_chunk": {
+    "1": 587,
+    "2": 497,
+    "3": 801,
+    "4": 921,
+    "5": 727,
+    "6": 1439,
+    "7": 471,
+    "8": 614,
+    "9": 682,
+    "10": 639,
+    "11": 713,
+    "12": 448,
+    "13": 212
+  }
+}

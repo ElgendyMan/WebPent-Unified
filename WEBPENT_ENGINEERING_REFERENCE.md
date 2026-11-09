@@ -1,7 +1,7 @@
 # WEBPENT ENGINEERING REFERENCE
 
 **The evidence-backed engineering reference and quantitative capability
-assessment.** Status date: 2026-11-08 (post UM-DR-31.1, v0.37.1).
+assessment.** Status date: 2026-11-09 (post UM-DR-32, v0.38.0).
 Companion: `WEBPENT_MASTER_GUIDE.md` (Document 1). This is the audit
 document: every important claim carries a repository-relative path, and
 capability statuses use the two defined ladders verbatim (integration:
@@ -18,14 +18,19 @@ BENCHMARKED on authored corpora yet not INDEPENDENTLY VALIDATED).
 
 ## 1. Repository and Module Directory (execution paths first)
 
-Root: `WebPent_UNIFIED/`. Package `src/webpent/` (~89 subpackages after
-the UM-DR-29 dead-code disposition). Tests `tests/` (672 files, 8,711
-collected; 8,702 passed / 7 skipped / 3 xfailed in the UM-DR-31 chunked
-run over ALL test files — 50 new tests this window). Gates:
-`frozen_modules.sha256` (639 pinned paths; DR-009 declared-refreeze
-protocol, 6-path UM-DR-31 refreeze),
-`docs/ACCEPTED_EXCEPTIONS_REGISTER.md` (+2 documented UM-DR-31
-handlers), `docs/direct_io_inventory.json` (1,155 records).
+Root: `WebPent_UNIFIED/`. Package `src/webpent/` (~90 subpackages after
+the UM-DR-29 dead-code disposition and the UM-DR-32 capability line).
+Tests `tests/` (681 files with tests, 8,903 unique IDs; 8,894 passed /
+0 failed / 6 skipped / 3 xfailed in the UM-DR-32 chunked run over ALL
+test files via the portable runner `scripts/run_suite.py` — +159
+unique test IDs this window, 0 removed; historical: UM-DR-31 measured
+8,711, UM-DR-31.1 measured 8,744 — labeled historical records).
+Gates: `frozen_modules.sha256` (644 pinned paths; DR-009 declared-
+refreeze protocol — the UM-DR-32 window re-pinned 6 files with full
+rationale and froze the 5 new capability modules from birth),
+`docs/ACCEPTED_EXCEPTIONS_REGISTER.md` (25 handlers; +6 documented
+UM-DR-32), `docs/direct_io_inventory.json` (1,177 records; +7 declared
+dynamic-resolution identities this window).
 
 | Module | Purpose | Key symbols | Callers → callees | Tests | Status |
 |---|---|---|---|---|---|
@@ -288,7 +293,7 @@ all enforced and reported.
 
 ## 7. Engineering records and change discipline
 
-- `DRIFT_REGISTER.md` — UM-DR-01…31 (UM-DR-31: the evidence-driven adaptive research loop — the advisory signals now CONSUMED by the real planner, six strategist entry routes redirected through the bounded research_loop node, priority hints ordering the stateful budget, four-arm ablation pinned, 6-path DR-009 refreeze, 50 new tests; M10 stays closed — holdout BLOCKED_EXTERNAL_DEPENDENCY; UM-DR-29: the dead-code disposition
+- `DRIFT_REGISTER.md` — UM-DR-01…32 (UM-DR-32: the identity & business-logic evolution — object identity/alias/multi-identity/composite-workflow capabilities wired through the identity_workflow advisory node, the privilege_differential validator-route closure, the portable archive builder/runner/provenance contract, the origin-scheme admission fix, +159 tests, six-arm controlled evaluation 0/4 -> 4/4 at P=1.0; M10 stays closed; UM-DR-31: the evidence-driven adaptive research loop — the advisory signals now CONSUMED by the real planner, six strategist entry routes redirected through the bounded research_loop node, priority hints ordering the stateful budget, four-arm ablation pinned, 6-path DR-009 refreeze, 50 new tests; M10 stays closed — holdout BLOCKED_EXTERNAL_DEPENDENCY; UM-DR-29: the dead-code disposition
   — the Ultimate-Plan-proposal-4 archive physically completed, 7
   frozen-but-dead packages archived, the false goed_v1 core-engine
   docstrings and the nonexistent BUILD_INFO.git_head corrected, the

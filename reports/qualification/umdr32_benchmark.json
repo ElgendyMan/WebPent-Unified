@@ -1,0 +1,329 @@
+{
+  "window": "UM-DR-32",
+  "level": "controlled six-arm capability evaluation (identity_workflow -> differentials/workflow engine -> validator routes -> stateful discovery, live controlled target, identical recon, equivalent budgets)",
+  "population": "campaign_identity_target (team-authored, author-known fixture) \u2014 NOT an independent holdout; a development and mechanism-validation population. No generalization claim.",
+  "conditions": {
+    "arm_budget": 120,
+    "arms": [
+      "alias_resolution",
+      "baseline",
+      "composite_workflow",
+      "multi_identity",
+      "object_identity",
+      "unified"
+    ],
+    "arms_differ_only_in": "which UM-DR-32 capability flags are enabled (cumulative, documented dependencies); recon identical"
+  },
+  "ground_truth": {
+    "manifest_sha256": "b78ad5c66f82108b759098cd7b31145a4b59b21cfc7223b9df9ce163956a583f",
+    "vulnerabilities": [
+      "V-ALIAS-701",
+      "V-APPROVAL",
+      "V-IDOR-601",
+      "V-XTENANT-501"
+    ],
+    "safe_controls": [
+      "/api/orders/123",
+      "/api/shared/announcements/1"
+    ],
+    "fixed_before_measurement": true
+  },
+  "arms": {
+    "baseline": {
+      "arm": "baseline",
+      "requests_issued": 28,
+      "budget": 120,
+      "budget_utilization": 0.233,
+      "object_identity": {
+        "identities_resolved": 0,
+        "namespace_respected": true
+      },
+      "alias_resolution": {
+        "ground_truth_pairs": 4,
+        "correctly_confirmed": 0,
+        "false_merges": 0,
+        "missed": 4,
+        "precision": null,
+        "recall": 0.0,
+        "abstention_respected": true
+      },
+      "multi_identity": {
+        "principals_available": 5,
+        "differentials_executed": 0,
+        "available_comparisons": []
+      },
+      "composite_workflows": {
+        "candidates_generated": 0,
+        "candidates_executed": 0
+      },
+      "campaign": {
+        "confirmed_scenarios": [],
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 4,
+        "precision": null,
+        "recall": 0.0,
+        "f1": null
+      }
+    },
+    "object_identity": {
+      "arm": "object_identity",
+      "requests_issued": 28,
+      "budget": 120,
+      "budget_utilization": 0.233,
+      "object_identity": {
+        "identities_resolved": 23,
+        "namespace_respected": true
+      },
+      "alias_resolution": {
+        "ground_truth_pairs": 4,
+        "correctly_confirmed": 0,
+        "false_merges": 0,
+        "missed": 4,
+        "precision": null,
+        "recall": 0.0,
+        "abstention_respected": true
+      },
+      "multi_identity": {
+        "principals_available": 5,
+        "differentials_executed": 0,
+        "available_comparisons": []
+      },
+      "composite_workflows": {
+        "candidates_generated": 0,
+        "candidates_executed": 0
+      },
+      "campaign": {
+        "confirmed_scenarios": [],
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 4,
+        "precision": null,
+        "recall": 0.0,
+        "f1": null
+      }
+    },
+    "alias_resolution": {
+      "arm": "alias_resolution",
+      "requests_issued": 28,
+      "budget": 120,
+      "budget_utilization": 0.233,
+      "object_identity": {
+        "identities_resolved": 23,
+        "namespace_respected": true
+      },
+      "alias_resolution": {
+        "ground_truth_pairs": 4,
+        "correctly_confirmed": 4,
+        "false_merges": 0,
+        "missed": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "abstention_respected": true
+      },
+      "multi_identity": {
+        "principals_available": 5,
+        "differentials_executed": 0,
+        "available_comparisons": []
+      },
+      "composite_workflows": {
+        "candidates_generated": 0,
+        "candidates_executed": 0
+      },
+      "campaign": {
+        "confirmed_scenarios": [],
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 4,
+        "precision": null,
+        "recall": 0.0,
+        "f1": null
+      }
+    },
+    "multi_identity": {
+      "arm": "multi_identity",
+      "requests_issued": 65,
+      "budget": 120,
+      "budget_utilization": 0.542,
+      "object_identity": {
+        "identities_resolved": 23,
+        "namespace_respected": true
+      },
+      "alias_resolution": {
+        "ground_truth_pairs": 4,
+        "correctly_confirmed": 4,
+        "false_merges": 0,
+        "missed": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "abstention_respected": true
+      },
+      "multi_identity": {
+        "principals_available": 5,
+        "differentials_executed": 9,
+        "available_comparisons": [
+          "lower_vs_higher_privilege",
+          "owner_vs_anonymous",
+          "owner_vs_foreign_same_tenant",
+          "owner_vs_lower_privilege"
+        ]
+      },
+      "composite_workflows": {
+        "candidates_generated": 0,
+        "candidates_executed": 0
+      },
+      "campaign": {
+        "confirmed_scenarios": [
+          "V-ALIAS-701",
+          "V-IDOR-601",
+          "V-XTENANT-501"
+        ],
+        "true_positives": 3,
+        "false_positives": 0,
+        "false_negatives": 1,
+        "precision": 1.0,
+        "recall": 0.75,
+        "f1": 0.857
+      }
+    },
+    "composite_workflow": {
+      "arm": "composite_workflow",
+      "requests_issued": 82,
+      "budget": 120,
+      "budget_utilization": 0.683,
+      "object_identity": {
+        "identities_resolved": 23,
+        "namespace_respected": true
+      },
+      "alias_resolution": {
+        "ground_truth_pairs": 4,
+        "correctly_confirmed": 4,
+        "false_merges": 0,
+        "missed": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "abstention_respected": true
+      },
+      "multi_identity": {
+        "principals_available": 5,
+        "differentials_executed": 9,
+        "available_comparisons": [
+          "lower_vs_higher_privilege",
+          "owner_vs_anonymous",
+          "owner_vs_foreign_same_tenant",
+          "owner_vs_lower_privilege"
+        ]
+      },
+      "composite_workflows": {
+        "candidates_generated": 3,
+        "candidates_executed": 3
+      },
+      "campaign": {
+        "confirmed_scenarios": [
+          "V-ALIAS-701",
+          "V-APPROVAL",
+          "V-IDOR-601",
+          "V-XTENANT-501"
+        ],
+        "true_positives": 4,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      }
+    },
+    "unified": {
+      "arm": "unified",
+      "requests_issued": 82,
+      "budget": 120,
+      "budget_utilization": 0.683,
+      "object_identity": {
+        "identities_resolved": 23,
+        "namespace_respected": true
+      },
+      "alias_resolution": {
+        "ground_truth_pairs": 4,
+        "correctly_confirmed": 4,
+        "false_merges": 0,
+        "missed": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "abstention_respected": true
+      },
+      "multi_identity": {
+        "principals_available": 5,
+        "differentials_executed": 9,
+        "available_comparisons": [
+          "lower_vs_higher_privilege",
+          "owner_vs_anonymous",
+          "owner_vs_foreign_same_tenant",
+          "owner_vs_lower_privilege"
+        ]
+      },
+      "composite_workflows": {
+        "candidates_generated": 3,
+        "candidates_executed": 3
+      },
+      "campaign": {
+        "confirmed_scenarios": [
+          "V-ALIAS-701",
+          "V-APPROVAL",
+          "V-IDOR-601",
+          "V-XTENANT-501"
+        ],
+        "true_positives": 4,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      }
+    }
+  },
+  "provenance": {
+    "provenance_contract": "UM-DR-32 \u00a73.2 (v1)",
+    "source": {
+      "source_commit": "ec5254f56464f1a8beac0ce4fa92f886a77074f6",
+      "source_tree_sha": "b937df14c334424483afaf9386db10eae3c4b176",
+      "branch": "umdr32-identity-business-logic-evolution",
+      "dirty_tree": false
+    },
+    "generator_script": "build_umdr32_benchmark_artifact.py",
+    "generator_revision_sha256": "cef91d4dc6960ec908e533d163d4f8d34c219772e0ce3aa17746b6fa2b357914",
+    "python_version": "3.12.16",
+    "python_executable": "/home/z/.venv/bin/python3",
+    "fixtures": [
+      {
+        "path": "benchmarks/campaign_identity_target.py",
+        "content_sha256": "1d7e6551169343bdb8f53967a16d00c97fb35542865cb1e2a156b7df3d3e7165"
+      },
+      {
+        "path": "tests/test_umdr32_evaluation_lab.py",
+        "content_sha256": "4ac3176949db4ee2aab583ede3016bd116f4e43134078aa51968e315cf9e2821"
+      }
+    ],
+    "dependency_lock": {
+      "path": "uv.lock",
+      "sha256": "ec5fd3d04d66c102a4767d7acc0bd22d9828450f986386f7b855b2a1f94afa6c"
+    },
+    "command": [
+      "scripts/build_umdr32_benchmark_artifact.py"
+    ],
+    "started_utc": "2026-11-09T09:24:37.767813+00:00",
+    "completed_utc": "2026-11-09T09:24:41.029332+00:00",
+    "request_budget": 720,
+    "requests_issued": 313,
+    "ground_truth_manifest": {
+      "identity": "58684262356fa0c39fe7bde74cecec97f56746c2c019288249af120d72f87374"
+    }
+  },
+  "limitations": [
+    "team-authored fixture (the honesty boundary)",
+    "single-fixture population \u2014 no generalization claim",
+    "not an independent holdout; no real-world recall/precision claim",
+    "no cross-tool comparison (explicitly out of scope)"
+  ],
+  "generated_by": "scripts/build_umdr32_benchmark_artifact.py (explicit release-time command, UM-DR-32 \u00a79)",
+  "generated_at_utc": "2026-11-09T09:24:41.029441+00:00"
+}

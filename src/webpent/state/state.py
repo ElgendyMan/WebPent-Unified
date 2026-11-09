@@ -517,6 +517,27 @@ class PentestState(TypedDict, total=False):
     # research hypothesis to execution. ---
     research_loop: Annotated[dict[str, Any], merge_dicts]
 
+    # --- UM-DR-32 (identity & business-logic evolution): the four
+    # capability channels written by the identity_workflow node
+    # (production/identity_workflow.py) and consumed by the strategist
+    # line, stateful discovery hint scheduling, and the validator
+    # routes. All advisory, typed, provenance-aware, and strictly
+    # non-promoting: no finding vocabulary, no confirmation authority —
+    # cqa_v2.guarded_causal_evaluate stays the sole confirmation
+    # authority (UM-DR-32 §1.1). Deep-merged dicts: the node is the only
+    # writer and re-reads its own prior channel state first. ---
+    object_identity_registry: Annotated[dict[str, Any], merge_dicts]
+    identity_alias_graph: Annotated[dict[str, Any], merge_dicts]
+    multi_identity_reasoning: Annotated[dict[str, Any], merge_dicts]
+    identity_research_hints: Annotated[dict[str, Any], merge_dicts]
+    # bounded composite-workflow sequence candidates (§7): advisory
+    # records carrying the invariant under test, the supporting
+    # observations and the safety classification; execution happens only
+    # through the authorized executor under the fixture safety contract.
+    composite_workflow_candidates: Annotated[list[dict[str, Any]], merge_lists]
+    # the node's own telemetry block (same contract as research_loop).
+    identity_workflow: Annotated[dict[str, Any], merge_dicts]
+
     # POST-P0 Phase 8: bounded stateful-flow replay hypothesis specs
     # (skip/reorder differentials over crawler-recorded form sequences).
     # Advisory candidates that still route through the normal validation

@@ -508,6 +508,23 @@ REDTEAM_UMDR26_SCOPE_COMPLETION_20261106_PATHS = frozenset({
     "src/webpent/safety/request_ledger.py",
 })
 
+UMDR32_NEW_CAPABILITY_20261109_PATHS = frozenset({
+    # UM-DR-32 (identity & business-logic evolution, 2026-11-09): the five
+    # NEW production capability modules, frozen from birth by
+    # scripts/refreeze_manifest_umdr32.py. The broad-exception count
+    # contract requires every registered src file (composite_workflows.py:
+    # 5 handlers, identity_workflow.py: 1) to be frozen-pinned so handler
+    # counts cannot drift silently; object_identity.py, alias_resolution.py
+    # and multi_identity.py are frozen alongside them for the same
+    # production-grade guarantee (any future edit follows the documented
+    # refreeze protocol with regression coverage first).
+    "src/webpent/production/object_identity.py",
+    "src/webpent/production/alias_resolution.py",
+    "src/webpent/production/multi_identity.py",
+    "src/webpent/production/composite_workflows.py",
+    "src/webpent/production/identity_workflow.py",
+})
+
 UMDR28_DISCOVERY_20261107_THAW_PATHS = frozenset({
     # UM-DR-28 (production discovery integration, 2026-11-07): the
     # representation-equivalence repair in the causal guard — the four
@@ -1127,6 +1144,7 @@ def test_baseline_disagrees_only_on_documented_unfreeze_paths() -> None:
         | AB_LAB_20261029_SCOPE_COMPLETION_PATHS
         | ALIAS_REMOVAL_20261101_SCOPE_COMPLETION_PATHS
         | REDTEAM_UMDR26_SCOPE_COMPLETION_20261106_PATHS
+        | UMDR32_NEW_CAPABILITY_20261109_PATHS
     )
     assert not undocumented_current, (
         f"undocumented paths only in current manifest: {sorted(undocumented_current)}"

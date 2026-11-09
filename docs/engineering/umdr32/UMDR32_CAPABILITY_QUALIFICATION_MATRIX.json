@@ -1,0 +1,135 @@
+{
+  "window": "UM-DR-32",
+  "generated_utc": "2026-11-09",
+  "status_vocabulary": [
+    "implemented", "unit_tested", "production_connected",
+    "integration_tested", "campaign_demonstrated",
+    "independently_validated", "production_qualified"
+  ],
+  "capabilities": [
+    {
+      "name": "Object Identity Intelligence",
+      "code_location": "src/webpent/production/object_identity.py",
+      "production_caller": "identity_workflow_node (production/identity_workflow.py) — wired into build_graph's composed advisory redirect chain",
+      "inputs": "campaign state channels: object_identity_observations, workflow_observations, crawled_data.openapi_routes (via endpoint_inventory_from_state)",
+      "outputs": "object_identity_registry channel (identities, relationships, abstentions, conflicts, stats)",
+      "state_channels": ["object_identity_registry"],
+      "tests": "tests/test_umdr32_object_identity.py (20)",
+      "e2e_evidence": "tests/test_umdr32_identity_workflow_integration.py::TestChannelContract + the evaluation lab alias metrics (4/4 resolved, 0 false merges)",
+      "measurement": "resolution precision 1.0 on the lab fixture (see UMDR32_BENCHMARK_RESULTS.json arm 'alias_resolution'); namespace separation held in every arm",
+      "safety_boundaries": "tenant boundary absolute; type boundary; path similarity never merges; id match alone never merges; abstention on weak evidence; conflicts preserved; bounded registry",
+      "status": {
+        "implemented": true, "unit_tested": true, "production_connected": true,
+        "integration_tested": true, "campaign_demonstrated": true,
+        "independently_validated": false, "production_qualified": false
+      },
+      "limitations": [
+        "path-derived resource types limit alias detection on schema-less targets (abstention is the honest outcome)",
+        "per-campaign-pass in-memory registry; no cross-campaign identity memory"
+      ]
+    },
+    {
+      "name": "Alias / Alternate Representation Resolution",
+      "code_location": "src/webpent/production/alias_resolution.py",
+      "production_caller": "identity_workflow_node; the confirmed pairs feed identity_research_hints (stateful discovery ordering) and the cross-representation differentials",
+      "inputs": "the observation set + the identity registry",
+      "outputs": "identity_alias_graph channel (relationships with states, evidence, rejected interpretations)",
+      "state_channels": ["identity_alias_graph", "identity_research_hints"],
+      "tests": "tests/test_umdr32_alias_resolution.py (13)",
+      "e2e_evidence": "integration tests (hints flow into stateful_research_hints; confirmed pairs drive differentials that found V-ALIAS-701 in the lab)",
+      "measurement": "4/4 ground-truth alias pairs confirmed, 0 false merges, query/namespace/type distinction held, abstain pair never confirmed (every arm)",
+      "safety_boundaries": "reversible states; cross-tenant/cross-type never merged; query-value distinctness preserved (F10/F11 non-regression); conflicts preserved not overwritten",
+      "status": {
+        "implemented": true, "unit_tested": true, "production_connected": true,
+        "integration_tested": true, "campaign_demonstrated": true,
+        "independently_validated": false, "production_qualified": false
+      },
+      "limitations": [
+        "same as object identity: schema-less targets reduce candidate corroboration",
+        "cross-representation differential execution is a harness-level path (the lab executor), not yet a graph node"
+      ]
+    },
+    {
+      "name": "Multi-Identity Authorization Reasoning",
+      "code_location": "src/webpent/production/multi_identity.py",
+      "production_caller": "identity_workflow_node (matrix + questions); the privilege_differential route: agents/validator/registry.py (registered) -> production/validators.py VALIDATORS dispatch -> production/experiment_fabric.py EXPERIMENT_REGISTRY",
+      "inputs": "identity_profiles / bac_identities channels, authorization_observations channel, identity-layer evidence",
+      "outputs": "multi_identity_reasoning channel (public principal projections, matrix coverage, differential questions); typed validator-input triples",
+      "state_channels": ["multi_identity_reasoning"],
+      "tests": "tests/test_umdr32_multi_identity.py (18) — including the route-closure tests",
+      "e2e_evidence": "the evaluation lab: differential questions executed through run_validator('PRIVILEGE_DIFFERENTIAL') found V-IDOR-601 and V-XTENANT-501 (precision 1.0)",
+      "measurement": "3/4 scenarios at the multi_identity arm (P=1.0); the missing-validator era is closed: validator_id_for('privilege_differential') != None and run_validator CONFIRMS the canonical triple",
+      "safety_boundaries": "pseudonymous principals (no raw credentials by construction — projection-checked); SessionBindingError on principal/session contamination BEFORE any request; questions require a negative control (no control -> abstain); matrix never fabricates unknown actors",
+      "status": {
+        "implemented": true, "unit_tested": true, "production_connected": true,
+        "integration_tested": true, "campaign_demonstrated": true,
+        "independently_validated": false, "production_qualified": false
+      },
+      "limitations": [
+        "differential question EXECUTION runs in the campaign harness path, not yet as an autonomous graph node (the hypotheses are in the pool; the strategist routes them)",
+        "role vocabulary maps the documented profile roles; exotic roles classify as UNKNOWN (honest)"
+      ]
+    },
+    {
+      "name": "Composite Stateful Business Logic Workflows",
+      "code_location": "src/webpent/production/composite_workflows.py",
+      "production_caller": "identity_workflow_node (candidate generation); CompositeWorkflowEngine executes through the injected authorized client (the StatefulCaseProber client contract)",
+      "inputs": "workflow_observations channel (OBSERVED transitions only)",
+      "outputs": "composite_workflow_candidates channel (workflows + bounded sequences with invariants and controls); SequenceOutcome records",
+      "state_channels": ["composite_workflow_candidates"],
+      "tests": "tests/test_umdr32_composite_workflows.py (18, incl. a live controlled HTTP fixture)",
+      "e2e_evidence": "the evaluation lab: the approval-invariant sequence found V-APPROVAL (policy_violation_candidate through the privilege-differential validator route with the negative-control probe)",
+      "measurement": "composite_workflow and unified arms: 4/4 scenarios, P=1.0, R=1.0; destructive steps never executed outside the safety contract (tested)",
+      "safety_boundaries": "FixtureSafetyContract (destructive requires resettable+isolated+operator-authorized+method-allowed); state-mutating sequences require resettable isolated fixtures; per-sequence request budget (<=24 hard) and time limits; two-route evaluation inside the EXISTING validation architecture (CausalGuard for same-actor state evidence; the registered privilege validator for cross-actor evidence); the engine never promotes",
+      "status": {
+        "implemented": true, "unit_tested": true, "production_connected": true,
+        "integration_tested": true, "campaign_demonstrated": true,
+        "independently_validated": false, "production_qualified": false
+      },
+      "limitations": [
+        "sequences derive only from OBSERVED transitions; unobserved preconditions are never invented (a missing transition stays missing)",
+        "the engine executes in the harness/campaign-worker path, not as a graph node (deliberate: execution stays under the authorized executor)"
+      ]
+    },
+    {
+      "name": "Unified Research Pipeline (identity_workflow node)",
+      "code_location": "src/webpent/production/identity_workflow.py + graph/builder.py wiring + state/state.py channels + config/settings.py flags",
+      "production_caller": "build_graph conditional-redirect chain (identity_workflow -> research_loop -> strategist); stateful_research_hints consumes identity_research_hints",
+      "inputs": "all four capability inputs (above)",
+      "outputs": "six declared channels + deterministic hypotheses in the real pool + ordering hints",
+      "state_channels": ["object_identity_registry", "identity_alias_graph", "multi_identity_reasoning", "identity_research_hints", "composite_workflow_candidates", "identity_workflow"],
+      "tests": "tests/test_umdr32_identity_workflow_integration.py (22): channel contract, LangGraph filtering survival, wiring on/off, byte-comparable flag-off, hypothesis dedup, hint flow, no finding vocabulary, fail-soft fault injection",
+      "e2e_evidence": "the unified arm: 4/4 scenarios, P=1.0, R=1.0, budgets equivalent, deterministic on repeats",
+      "measurement": "see UMDR32_BENCHMARK_RESULTS.json",
+      "safety_boundaries": "all four capability flags default False (fail-closed); runtime double-gate; bounded outputs; advisory only (no findings, no promotion, no confirmation authority — test-enforced vocabulary check)",
+      "status": {
+        "implemented": true, "unit_tested": true, "production_connected": true,
+        "integration_tested": true, "campaign_demonstrated": true,
+        "independently_validated": false, "production_qualified": false
+      },
+      "limitations": [
+        "the unified node's full LangGraph campaign traversal (45 nodes with LLM credentials) was not run — no operator credentials in this window; the LangGraph-level wiring is proven with real compiled graphs in tests"
+      ]
+    },
+    {
+      "name": "Engineering integrity (release, provenance, runner, docs)",
+      "code_location": "scripts/build_release_archive.py, scripts/run_suite.py, scripts/experiment_provenance.py, scripts/refreeze_manifest_umdr32.py, scripts/regen_direct_io_inventory_umdr32.py",
+      "production_caller": "the release pipeline (explicit commands)",
+      "outputs": "deterministic verified archives, portable suite runs, provenance-stamped artifacts",
+      "tests": "tests/test_umdr32_release_archive_builder.py (7) + the gates (frozen/direct-io/broad-exception) green",
+      "e2e_evidence": "the ENTIRE UM-DR-32 regression ran through the portable runner; the archive reproduces bit-identically (see the release integrity report)",
+      "measurement": "n/a (engineering)",
+      "safety_boundaries": "dirty-tree rejection (fail-closed); empty-payload refusal; production-source protection; secret-safe exclusion policy",
+      "status": {
+        "implemented": true, "unit_tested": true, "production_connected": true,
+        "integration_tested": true, "campaign_demonstrated": true,
+        "independently_validated": false, "production_qualified": true
+      },
+      "limitations": [
+        "GitHub release publishing unavailable in this environment (delivered locally with checksum + manifest)"
+      ]
+    }
+  ],
+  "authority_note": "cqa_v2.guarded_causal_evaluate / CausalGuard remains the sole confirmation authority for same-actor causal evidence; the privilege-differential route is the pre-existing registered validator for cross-principal evidence (existing validation architecture, no new confirmation path). ProofBundle generation and replay verification remain mandatory and unchanged. No capability in this matrix can promote a finding.",
+  "m10": "CLOSED — independent holdout BLOCKED_EXTERNAL_DEPENDENCY (unchanged). The UM-DR-32 evaluation is a controlled local engineering evaluation on a team-authored fixture, NOT independent validation."
+}

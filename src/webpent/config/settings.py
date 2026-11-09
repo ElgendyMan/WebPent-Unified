@@ -832,6 +832,96 @@ class Settings(BaseSettings):
             "contribution measurable. Bounded: 1..3600."
         ),
     )
+    # --- UM-DR-32 (identity & business-logic evolution) ------------------
+    enable_object_identity: bool = Field(
+        default=False,
+        description=(
+            "UM-DR-32 §4: build the typed object-identity registry from "
+            "observed evidence (endpoint inventory, workflow observations, "
+            "object observations). Identities anchor on "
+            "(tenant, resource_type, stable object id) — never on URL "
+            "paths; weak evidence abstains; conflicts are preserved. "
+            "Advisory, non-promoting; emitted on the "
+            "object_identity_registry channel. Fail-closed default False."
+        ),
+    )
+    enable_alias_resolution: bool = Field(
+        default=False,
+        description=(
+            "UM-DR-32 §5: resolve alternate representations (aliases) of "
+            "the same object from observed evidence only, with explicit "
+            "reversible states (confirmed/candidate/possible/related-"
+            "distinct/conflicting/unknown). Depends on "
+            "enable_object_identity (documented dependency — the alias "
+            "overlay is built on the identity registry). Security-aware: "
+            "cross-tenant and cross-type pairs never merge; query-value "
+            "distinctness is preserved. Fail-closed default False."
+        ),
+    )
+    enable_multi_identity_reasoning: bool = Field(
+        default=False,
+        description=(
+            "UM-DR-32 §6: build the pseudonymous principal model and the "
+            "principal x tenant x object x operation x state matrix from "
+            "observed authorization evidence, and generate typed "
+            "privilege_differential questions with negative controls that "
+            "route through the existing validator registry (the UM-DR-31.1 "
+            "missing-validator gap closure). No raw credentials ever enter "
+            "records. Depends on identity observations for object refs. "
+            "Fail-closed default False."
+        ),
+    )
+    enable_composite_workflows: bool = Field(
+        default=False,
+        description=(
+            "UM-DR-32 §7: derive composite business-logic workflows from "
+            "OBSERVED transitions only and build bounded sequence "
+            "candidates (depth <= max_workflow_sequence_depth, candidates "
+            "<= max_workflow_candidates) with evidence-backed invariants "
+            "and negative controls. Execution happens only through the "
+            "authorized executor under the fixture safety contract "
+            "(destructive steps require resettable+isolated+operator-"
+            "authorized fixtures). Fail-closed default False."
+        ),
+    )
+    max_object_identities: int = Field(
+        default=5000, ge=100, le=20000,
+        description=(
+            "UM-DR-32: hard cap on identity registry entries (bounded "
+            "memory; the cap is reported in stats, never silently "
+            "exceeded)."
+        ),
+    )
+    max_alias_pairs: int = Field(
+        default=500, ge=10, le=2000,
+        description=(
+            "UM-DR-32: hard cap on alias candidate pairs classified per "
+            "reasoning pass."
+        ),
+    )
+    max_identity_hypotheses: int = Field(
+        default=12, ge=1, le=64,
+        description=(
+            "UM-DR-32: hard cap on new identity/workflow hypotheses per "
+            "identity_workflow pass (deterministic priority; the cap is "
+            "reported, never silently truncated)."
+        ),
+    )
+    max_workflow_sequence_depth: int = Field(
+        default=4, ge=1, le=6,
+        description=(
+            "UM-DR-32 §7.6: maximum steps per composite sequence candidate "
+            "(hard ceiling 6; conservative default 4)."
+        ),
+    )
+    max_workflow_candidates: int = Field(
+        default=8, ge=1, le=32,
+        description=(
+            "UM-DR-32 §7.6: maximum sequence candidates per reasoning pass "
+            "(hard ceiling 32; conservative default 8 — prefer a small "
+            "number of high-information sequences)."
+        ),
+    )
     enable_identity_orchestrator: bool = Field(
         default=False,
         description=(

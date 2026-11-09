@@ -199,6 +199,7 @@ NODE_STRATEGIST = "strategist"
 # pass filters to RABBIT_HOLE-origin hypotheses only, so enrichment
 # there would be unreachable by construction.
 NODE_RESEARCH_LOOP = "research_loop"
+NODE_IDENTITY_WORKFLOW = "identity_workflow"
 NODE_PAYLOAD_OPTIMIZER = "payload_optimizer"
 NODE_CVSS_ENGINE = "cvss_engine"
 NODE_BUSINESS_IMPACT = "business_impact"
@@ -490,6 +491,46 @@ def _umdr31_routes(routes: dict[str, str]) -> dict[str, str]:
     if NODE_STRATEGIST in routes:
         return {**routes, NODE_STRATEGIST: NODE_RESEARCH_LOOP}
     return routes
+
+
+def _umdr32_identity_workflow_enabled() -> bool:
+    """UM-DR-32 (identity & business-logic evolution): master gate for
+    the identity_workflow node — at least one capability flag on,
+    fail-closed (the node itself re-checks at runtime, the
+    coverage_gap_report double-gate precedent)."""
+    try:
+        from webpent.production.identity_workflow import identity_workflow_enabled
+
+        return identity_workflow_enabled()
+    except (ImportError, AttributeError, OSError, RuntimeError, TypeError, ValueError):
+        return False
+
+
+def _umdr32_routes(routes: dict[str, str]) -> dict[str, str]:
+    """UM-DR-32: redirect strategist-bound conditional routes through
+    the identity_workflow node when any identity capability is enabled.
+
+    The chain composes with the UM-DR-31 redirect: with both enabled,
+    strategist-bound routes run identity_workflow FIRST, which forwards
+    to research_loop, which forwards to the strategist (both bounded
+    advisory enrichers feed the same unchanged planner). Flag-off
+    returns the mapping unchanged (byte-comparable graph shape)."""
+    if not _umdr32_identity_workflow_enabled():
+        return routes
+    if NODE_STRATEGIST in routes:
+        return {**routes, NODE_STRATEGIST: NODE_IDENTITY_WORKFLOW}
+    return routes
+
+
+def _research_route_redirects(routes: dict[str, str]) -> dict[str, str]:
+    """The composed advisory-chain redirect for strategist-bound routes.
+
+    UM-DR-31 research_loop wraps the strategist target; UM-DR-32
+    identity_workflow wraps that (it runs first, then forwards to
+    research_loop when both are on). Each layer is a no-op when its
+    flags are off — the composed function preserves the byte-comparable
+    flag-off shape of every layer beneath it."""
+    return _umdr32_routes(_umdr31_routes(routes))
 
 
 def _autonomous_controller_enabled(state: PentestState) -> bool:
@@ -2022,6 +2063,24 @@ def build_graph(checkpointer: Any = None, auto_approve: bool = False,
         logger.info(
             "Adaptive research loop wired (enable_adaptive_research_loop=True)"
         )
+    if _umdr32_identity_workflow_enabled():
+        from webpent.production.identity_workflow import identity_workflow_node
+
+        graph.add_node(
+            NODE_IDENTITY_WORKFLOW,
+            _trace_wrap(NODE_IDENTITY_WORKFLOW, identity_workflow_node),
+        )
+        # forward edge: research_loop when that is also on (the composed
+        # advisory chain), else straight to the strategist
+        _umdr32_target = (
+            NODE_RESEARCH_LOOP if _umdr31_research_loop_enabled()
+            else NODE_STRATEGIST
+        )
+        graph.add_edge(NODE_IDENTITY_WORKFLOW, _umdr32_target)
+        logger.info(
+            "Identity workflow reasoning wired (UM-DR-32 capabilities; "
+            "forward target: %s)", _umdr32_target,
+        )
     graph.add_node(NODE_PAYLOAD_OPTIMIZER, _trace_wrap(NODE_PAYLOAD_OPTIMIZER, payload_optimizer_node))
     graph.add_node(NODE_CVSS_ENGINE, _trace_wrap(NODE_CVSS_ENGINE, cvss_node))
     graph.add_node(NODE_BUSINESS_IMPACT, _trace_wrap(NODE_BUSINESS_IMPACT, business_impact_node))
@@ -2282,12 +2341,12 @@ def build_graph(checkpointer: Any = None, auto_approve: bool = False,
         graph.add_conditional_edges(
             NODE_DISCLOSED_REPORT_INTEL,
             route_after_disclosed_report_intel,
-            _umdr31_routes(_intel_routes),
+            _research_route_redirects(_intel_routes),
         )
         graph.add_conditional_edges(
             NODE_ATTACK_GRAPH,
             route_after_attack_graph,
-            _umdr31_routes(_post_attack_graph_routes),
+            _research_route_redirects(_post_attack_graph_routes),
         )
     else:
         _intel_routes = {
@@ -2299,13 +2358,13 @@ def build_graph(checkpointer: Any = None, auto_approve: bool = False,
         graph.add_conditional_edges(
             NODE_DISCLOSED_REPORT_INTEL,
             route_after_disclosed_report_intel,
-            _umdr31_routes(_intel_routes),
+            _research_route_redirects(_intel_routes),
         )
     if _vip_orchestrator_enabled():
         graph.add_conditional_edges(
             NODE_VIP_ORCHESTRATOR,
             route_after_vip_orchestrator,
-            _umdr31_routes(
+            _research_route_redirects(
                 {
                     NODE_SMART_CAMPAIGNS: NODE_SMART_CAMPAIGNS,
                     NODE_STRATEGIST: NODE_STRATEGIST,
@@ -2316,7 +2375,7 @@ def build_graph(checkpointer: Any = None, auto_approve: bool = False,
     graph.add_conditional_edges(
         NODE_SMART_CAMPAIGNS_EXECUTION,
         route_after_smart_campaigns_execution,
-        _umdr31_routes(
+        _research_route_redirects(
             {
                 NODE_SMART_CAMPAIGNS: NODE_SMART_CAMPAIGNS,
                 NODE_AUTONOMOUS_CONTROLLER: NODE_AUTONOMOUS_CONTROLLER,
@@ -2364,7 +2423,7 @@ def build_graph(checkpointer: Any = None, auto_approve: bool = False,
     graph.add_conditional_edges(
         NODE_CAUSAL_RESEARCH,
         route_after_causal_research,
-        _umdr31_routes(
+        _research_route_redirects(
             {
                 NODE_AUTONOMOUS_CONTROLLER: NODE_AUTONOMOUS_CONTROLLER,
                 NODE_STRATEGIST: NODE_STRATEGIST,
@@ -2389,7 +2448,7 @@ def build_graph(checkpointer: Any = None, auto_approve: bool = False,
     # post-validation replan target (max 2 entries, monotonic evidence).
     graph.add_conditional_edges(
         NODE_VALIDATOR, route_after_validator,
-        _umdr31_routes(
+        _research_route_redirects(
             {
                 NODE_PAYLOAD_OPTIMIZER: NODE_PAYLOAD_OPTIMIZER,
                 NODE_DEVILS_ADVOCATE: NODE_DEVILS_ADVOCATE,

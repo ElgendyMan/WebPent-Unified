@@ -35,6 +35,31 @@ EXPERIMENT_REGISTRY: dict[str, dict[str, Any]] = {
         "validator": "IDOR", "replay_required": True,
         "execution_bounds": {"max_requests": 3, "max_redirects": 0},
     },
+    # UM-DR-32 §6.5: the privilege-differential experiment. The typed
+    # input construction lives in production/multi_identity.py
+    # (build_privilege_differential_input) — baseline is the OWNER (or
+    # other authorized principal) on the restricted resource R,
+    # candidate is the LOWER-PRIVILEGE principal on the SAME resource,
+    # negative control is the lower-privilege principal on a
+    # blanket-restricted control resource C. The deterministic validator
+    # is validate_privilege_differential (production/
+    # privilege_validator.py); confirmation authority stays with
+    # CausalGuard. Session isolation: each principal probes under its
+    # OWN session reference — a shared session reference raises
+    # SessionBindingError before any request is spent.
+    "PRIVILEGE_DIFFERENTIAL": {
+        "experiment_id": "exp_privdiff_v1", "vulnerability_class": "PRIVILEGE_DIFFERENTIAL",
+        "action_type": "privilege_differential",
+        "baseline": {"principal": "authorized", "description": "authorized principal performs the restricted operation on resource R"},
+        "candidate": {"principal": "lower_privilege", "description": "lower-privilege principal performs the SAME operation on R"},
+        "negative_control": {"principal": "lower_privilege", "description": "lower-privilege principal on blanket-restricted control resource C (must be denied)"},
+        "expected_observation": {"candidate_authorized": True, "control_denied": True, "body_diff_vs_control": True},
+        "validator": "PRIVILEGE_DIFFERENTIAL", "replay_required": True,
+        "contract_version": "v1",
+        "hypothesis_template": "an operation allowed for the owner/privileged principal may also be allowed for a lower-privilege principal on the same object",
+        "test_matrix": {"baseline": "authorized principal on R (positive)", "candidate": "lower-privilege principal on R", "negative_control": "lower-privilege principal on C"},
+        "execution_bounds": {"max_requests": 3, "max_redirects": 0},
+    },
     "OPEN_REDIRECT": {
         "experiment_id": "exp_redirect_v1", "vulnerability_class": "OPEN_REDIRECT",
         "action_type": "redirect_param",

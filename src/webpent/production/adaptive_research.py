@@ -477,7 +477,7 @@ def _admit_endpoint(
         return "", "empty_endpoint"
     if origin is None:
         return "", "no_campaign_origin"
-    _origin_scheme, origin_host, origin_port = origin
+    origin_scheme, origin_host, origin_port = origin
     candidate = text
     if "//" not in candidate:
         # relative reference — join against the campaign base_url
@@ -497,6 +497,13 @@ def _admit_endpoint(
         return "", f"scheme_not_http_s:{scheme or 'none'}"
     if not hostname:
         return "", "malformed_url_no_host"
+    # UM-DR-32 §10.1: the COMPLETE normalized origin must match — scheme
+    # too. An https origin must never admit an http endpoint (and vice
+    # versa) merely because host and effective port coincide: a matching
+    # numeric port under a different scheme is a DIFFERENT origin
+    # (https://lab:443 and http://lab:443 are distinct origins).
+    if scheme != origin_scheme:
+        return "", f"scheme_mismatch:{scheme}_vs_{origin_scheme}"
     if hostname.lower() != origin_host:
         return "", "foreign_host"
     candidate_port = _effective_port(scheme, str(port) if port else None)
@@ -1167,6 +1174,25 @@ def stateful_research_hints(state: Mapping[str, Any]) -> dict[str, float]:
             # too short to be a meaningful surface identity — skip
             continue
         hints[token] = max(hints.get(token, 0.0), prior)
+
+    # UM-DR-32 identity hints — the identity/alias layer's ordering
+    # signals (confirmed cross-representation differentials, object
+    # surfaces with open differential questions). Same contract as the
+    # families above: ordering ONLY within the same budget, never
+    # confidence/severity/confirmation inputs. The channel is produced
+    # by the identity_workflow node (production/identity_workflow.py).
+    for directory, priority in (
+        (state.get("identity_research_hints") or {}).items()
+        if isinstance(state.get("identity_research_hints"), Mapping)
+        else []
+    ):
+        try:
+            value = float(priority)
+        except (TypeError, ValueError):
+            continue
+        key = str(directory)
+        if key and value > 0.0:
+            hints[key] = max(hints.get(key, 0.0), value)
     return dict(sorted(hints.items())[:64])
 
 
