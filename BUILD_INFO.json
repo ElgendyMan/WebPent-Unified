@@ -1,11 +1,14 @@
 {
  "build_name": "WebPent v15.2 (unified)",
- "build_date": "2026-11-09T00:00:00Z",
+ "build_date": "2026-11-10T00:00:00Z",
  "version_identity_contract": {
   "note": "UM-DR-32 §3.4 — every identity field below is UNAMBIGUOUS. The single-source-of-truth for the package version is pyproject.toml + CHANGELOG.md. build_name is the legacy v-lineage delivery label, kept for lineage only.",
   "historical_merge_baseline": "0.34.0 (the UNIFIED merge line, 2026-11-02 — historical record, NOT the current version)",
   "package_version": "0.38.0",
-  "package_version_ssot": ["pyproject.toml", "CHANGELOG.md"],
+  "package_version_ssot": [
+   "pyproject.toml",
+   "CHANGELOG.md"
+  ],
   "legacy_delivery_label": "WebPent v15.2 (unified) — lineage label only, never a version claim",
   "previous_release": {
    "label": "v0.37.1-UMDR31.1",
@@ -25,16 +28,46 @@
  },
  "git_head": "RECORD_LIMITATION: a single git_head field cannot represent source-revision, test-revision, artifact-revision and publication-revision at once. Each UM-DR-32 artifact records its own provenance block via scripts/experiment_provenance.py (UM-DR-32 §3.2). See docs/engineering/umdr32/.",
  "units_closed": [
-  "C1a", "C1b", "C1c", "C1d", "C1e", "C2a", "C2b",
-  "DR-005", "DR-006", "DR-007", "DR-008", "DR-009", "DR-010", "DR-011",
-  "LCS2-C1", "TC3-CYCLES-2-3", "TC3-DR-012", "TC3-V1-CHAIN",
-  "TC3-V2-BUSINESS-LOGIC", "TC3-V3-RACE", "TC4-C1", "TC4-C2", "TC4-C3",
-  "TC4-C4", "TC4-DR-013", "TC5-TRACE-R1", "TC5-DR-014", "U-0R",
-  "UM-DR-30", "UM-DR-31", "UM-DR-31.1", "UM-DR-32"
+  "C1a",
+  "C1b",
+  "C1c",
+  "C1d",
+  "C1e",
+  "C2a",
+  "C2b",
+  "DR-005",
+  "DR-006",
+  "DR-007",
+  "DR-008",
+  "DR-009",
+  "DR-010",
+  "DR-011",
+  "LCS2-C1",
+  "TC3-CYCLES-2-3",
+  "TC3-DR-012",
+  "TC3-V1-CHAIN",
+  "TC3-V2-BUSINESS-LOGIC",
+  "TC3-V3-RACE",
+  "TC4-C1",
+  "TC4-C2",
+  "TC4-C3",
+  "TC4-C4",
+  "TC4-DR-013",
+  "TC5-TRACE-R1",
+  "TC5-DR-014",
+  "U-0R",
+  "UM-DR-30",
+  "UM-DR-31",
+  "UM-DR-31.1",
+  "UM-DR-32"
  ],
  "brain_modules": [
-  "ev_scheduler", "blocked_path", "curiosity", "adaptation",
-  "payload_selector", "scorecard"
+  "ev_scheduler",
+  "blocked_path",
+  "curiosity",
+  "adaptation",
+  "payload_selector",
+  "scorecard"
  ],
  "umdr32": {
   "window": "UM-DR-32 autonomous intelligence, object identity & business logic evolution",
@@ -53,5 +86,15 @@
  },
  "suite_evidence": "current-window accounting: see docs/engineering/umdr32/UMDR32_TEST_ACCOUNTING.json (exact reconciliation); historical UM-DR-31.1: 8744 collected -> 8735/0/6/3",
  "package_version": "0.38.0",
- "suite_count": 8744
+ "suite_count": 8990,
+ "current_release": {
+  "package_version": "0.39.0",
+  "window": "UM-DR-33 researcher brain & autonomous campaign evolution",
+  "previous_release": {
+   "package_version": "0.38.0",
+   "window": "UM-DR-32 identity & business-logic evolution",
+   "provenance": "local lineage da1f828 (verified, 12-commit chain); release zip source_commit d3937b2"
+  }
+ },
+ "suite_count_note": "UM-DR-33 final: fresh pytest --collect-only on the 0.39.0 tree (node-ID-exact: 8903 baseline -> 8990 final, +87 added / 0 removed)"
 }

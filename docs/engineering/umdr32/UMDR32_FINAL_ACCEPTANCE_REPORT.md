@@ -116,7 +116,10 @@ no real-world, no cross-tool claims.
   `BUILD_INFO.json` (the version contract)
 - **Security fix:** `production/adaptive_research.py` (origin scheme
   admission + identity hints consumption)
-- **Tests:** 9 new modules (152 tests) + frozen-gate scope + register
+- **Tests:** 9 new modules (154 tests — UM-DR-33 §3.7 erratum: originally
+  miscounted as 152; recomputed from actual node IDs as 154, plus 5
+  frozen-gate entries = 159 for the window, matching
+  `UMDR32_TEST_ACCOUNTING.json`) + frozen-gate scope + register
 - **Release scripts:** `build_release_archive.py`, `run_suite.py`,
   `experiment_provenance.py`, `refreeze_manifest_umdr32.py`,
   `regen_direct_io_inventory_umdr32.py`,

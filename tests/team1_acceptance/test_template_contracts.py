@@ -96,18 +96,25 @@ def test_boundary_documentation_templates_have_no_runtime_consumer() -> None:
 # --credentials-file`; THIS was the LCS-1 blocker NF-L0-02.)
 # ---------------------------------------------------------------------------
 def test_credentials_template_round_trips_real_runtime_loader() -> None:
+    """UM-DR-33 §5.5 contract evolution: the template's SHAPE is consumable
+    by the real loader, and its placeholder VALUES are now rejected
+    fail-closed (an operator who copies the template and forgets to fill a
+    field gets a precise error instead of a silently-ignored profile). The
+    loader processing the template far enough to name the exact offending
+    profile+field IS the stronger round-trip proof."""
+    import json
+
+    import pytest
+
     from webpent.cli.loaders import load_creds_file
 
-    profiles = load_creds_file(TREE_ROOT / "credentials_template.json")
-    assert isinstance(profiles, dict)
-    assert set(profiles) == {"owner", "foreign"}, (
+    raw = json.loads((TREE_ROOT / "credentials_template.json").read_text())
+    assert set(raw) == {"owner", "foreign"}, (
         "template must define exactly the owner/foreign principal slots — "
-        f"got {sorted(profiles)}"
+        f"got {sorted(raw)}"
     )
-    for alias, profile in profiles.items():
-        # loader contract: name defaults from the profile key
-        assert profile.get("name") == alias
-        # consumed-by-provisioning fields survive the real loader
+    for alias, profile in raw.items():
+        # consumed-by-provisioning fields keep the documented shape
         assert profile.get("role") in {"owner", "regular_user"}
         assert profile.get("auth_type") == "form_session"
         assert profile.get("username"), alias
@@ -115,6 +122,14 @@ def test_credentials_template_round_trips_real_runtime_loader() -> None:
         # the alien fields that broke v4 must not return
         assert "alias" not in profile
         assert not str(alias).startswith("_")
+
+    # the fail-closed placeholder rejection (UM-DR-33 §5.5): the loader
+    # must refuse the untouched template and name the exact slot
+    with pytest.raises(ValueError) as excinfo:
+        load_creds_file(TREE_ROOT / "credentials_template.json")
+    message = str(excinfo.value)
+    assert "placeholder" in message
+    assert "REPLACE_ME" in message or "password" in message, message
 
 
 def test_documentation_slot_in_credentials_file_is_rejected_by_loader() -> None:
@@ -190,13 +205,13 @@ def test_api_key_profiles_use_loader_supported_shape() -> None:
             "api_owner": {
                 "role": "owner",
                 "auth_type": "api_key",
-                "headers": {"X-API-Key": "REPLACE_ME_KEY"},
+                "headers": {"X-API-Key": "ak_live_template_shape_probe_0123456789"},
                 "validation_url": "https://your-authorized-target.example/v1/me",
             }
         }
     )
     profile = profiles["api_owner"]
-    assert profile["headers"] == {"X-API-Key": "REPLACE_ME_KEY"}
+    assert profile["headers"] == {"X-API-Key": "ak_live_template_shape_probe_0123456789"}
     assert profile["validation_url"].startswith("https://")
 
 

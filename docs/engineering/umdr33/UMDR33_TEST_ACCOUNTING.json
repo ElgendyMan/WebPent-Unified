@@ -1,0 +1,57 @@
+{
+ "window": "UM-DR-33",
+ "generated_utc": "2026-11-10T00:23:43.481085+00:00",
+ "runner": "scripts/run_suite.py (portable chunked runner, 13/13 chunks)",
+ "environment": {
+  "python": "3.12.16",
+  "pytest": "9.0.2",
+  "declared_python_floor": ">=3.11",
+  "environment_normalized_to_project_pins": true
+ },
+ "source": {
+  "branch": "umdr33-researcher-brain-autonomous-campaigns",
+  "baseline_commit": "da1f828496f02fc647aeaac5c1c1cc3d59cf5cfb",
+  "final_commit": "ec2a5a7d90108d46cc893ab40280b914379f1923"
+ },
+ "baseline": {
+  "unique_test_ids": 8903,
+  "collected": 8903,
+  "passed": 8894,
+  "failed": 0,
+  "skipped": 6,
+  "xfailed": 3,
+  "collection_errors": 0,
+  "test_files_with_tests": 680
+ },
+ "final": {
+  "unique_test_ids": 8990,
+  "collected": 8990,
+  "passed": 8981,
+  "failed": 0,
+  "skipped": 6,
+  "xfailed": 3,
+  "collection_errors": 0,
+  "test_files_with_tests": 686,
+  "reconciliation": "8981 passed + 6 skipped + 3 xfailed = 8990 collected (exact); 13/13 chunks executed; every planned chunk ran to completion"
+ },
+ "delta": {
+  "unique_ids_added": 87,
+  "unique_ids_removed": 0,
+  "modified_or_replaced": 0,
+  "breakdown": {
+   "tests/test_umdr33_canonical_gt_hashing.py": 18,
+   "tests/test_umdr33_discovery_funnel.py": 20,
+   "tests/test_umdr33_evidence_chain_fixes.py": 7,
+   "tests/test_umdr33_hard_budget_and_creds.py": 20,
+   "tests/test_umdr33_info_gain_operational.py": 19,
+   "tests/test_umdr33_tree_hygiene.py": 2,
+   "tests/test_frozen_module_gate.py": 1
+  },
+  "breakdown_note": "the frozen-gate +1 is the parametrized manifest-entry growth from the discovery_funnel frozen-from-birth pin; hard_budget's 20 includes the 8-way placeholder-family parametrization"
+ },
+ "umdr32_erratum_closed": {
+  "historical_claim": "152 new tests across nine modules",
+  "recomputed_truth": "154 across nine files + 5 frozen-gate = 159",
+  "action": "erratum recorded in the UM-DR-32 reports (Phase 1), not hidden"
+ }
+}

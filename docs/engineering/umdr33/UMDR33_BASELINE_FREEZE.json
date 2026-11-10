@@ -1,0 +1,75 @@
+{
+ "window": "UM-DR-33 Phase 0 baseline freeze",
+ "captured_utc": "2026-11-09T23:05:23.619120+00:00",
+ "source": {
+  "branch": "umdr33-researcher-brain-autonomous-campaigns",
+  "head_commit": "da1f828496f02fc647aeaac5c1c1cc3d59cf5cfb",
+  "head_tree": "727e660e16b987f2ec7bbbacfaf80c4ae0170a5c",
+  "parent_branch": "umdr32-identity-business-logic-evolution",
+  "umdr32_lineage_verified": [
+   "5965917",
+   "b1c380f",
+   "1cf8d92",
+   "b88df0a",
+   "9593909",
+   "d3209e3",
+   "ec5254f",
+   "8552503",
+   "d3937b2",
+   "6b4d290",
+   "52da06f",
+   "da1f828"
+  ],
+  "remote": null,
+  "porcelain_clean": false,
+  "core_filemode": false,
+  "porcelain_note": "arrival state showed 4767 mode-bit-only modifications (0755 vs index 0644, zero content diff); resolved via core.fileMode=false; content-clean confirmed"
+ },
+ "environment": {
+  "python": "3.12.16",
+  "pytest": "9.0.2",
+  "declared_python_floor": ">=3.11",
+  "normalization": [
+   "langchain-core==1.6.7",
+   "langgraph==1.2.10",
+   "langgraph-checkpoint-sqlite==3.1.1",
+   "celery==5.6.3",
+   "bcrypt==5.0.0",
+   "esprima",
+   "jsbeautifier",
+   "pydantic 2.12.5 -> 2.13.5 (to project pin)",
+   "removed orphan 'filetype' (A-01 closure pollution)",
+   "webpent importable via site-packages webpent_src.pth (pip install -e . not completable: torch/nvidia chain exceeds sandbox disk)"
+  ]
+ },
+ "baseline_testing": {
+  "runner": "scripts/run_suite.py (portable chunked runner, 13/13 chunks)",
+  "unique_test_ids": 8903,
+  "collected": 8903,
+  "passed": 8894,
+  "failed": 0,
+  "skipped": 6,
+  "xfailed": 3,
+  "collection_errors": 0,
+  "test_files_with_tests": 680,
+  "reconciliation": "8894 passed + 6 skipped + 3 xfailed = 8903 collected (exact); reproduces the published UM-DR-32 final accounting digit-for-digit after environment normalization; pre-normalization run had 10 environment-artifact failures (all pass post-normalization)",
+  "umdr32_delta_recomputed": {
+   "unique_ids_added": 159,
+   "nine_umdr32_files": 154,
+   "frozen_gate_parametrized": 5,
+   "prose_error": "UMDR32_EXECUTION_REPORT.md/FINAL_ACCEPTANCE_REPORT.md say \"152\"; corrected in Phase 1"
+  }
+ },
+ "feature_flags_baseline": {
+  "enable_object_identity": false,
+  "enable_alias_resolution": false,
+  "enable_multi_identity_reasoning": false,
+  "enable_composite_workflows": false,
+  "defaults_fail_closed": true
+ },
+ "known_limitations": [
+  "no git remote configured -> publication BLOCKED_EXTERNAL_DEPENDENCY",
+  "pip install -e . infeasible in sandbox (disk); .pth equivalent used",
+  "MCP / external holdout / XBOW out of scope per mission §1.5"
+ ]
+}

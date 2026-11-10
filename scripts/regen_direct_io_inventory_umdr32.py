@@ -96,7 +96,8 @@ def main() -> int:
         for item in sorted(removed)[:10]:
             print("  -", item)
         return 1
-    if added != DECLARED_ADDITIONS:
+    already_applied = not added and DECLARED_ADDITIONS <= recorded_ids
+    if added != DECLARED_ADDITIONS and not already_applied:
         print(f"ABORT: added identities do not match the declared set "
               f"({len(added)} vs {len(DECLARED_ADDITIONS)}):")
         for item in sorted(added ^ DECLARED_ADDITIONS)[:10]:

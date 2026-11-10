@@ -168,21 +168,37 @@ _DEFAULT_CRITICALITY_BY_VULN_CLASS: dict[str, str] = {
 # All weights are non-negative except W_COST (which subtracts). The
 # formula's output is clamped to [0, 1] before sorting — a hypothesis
 # with a negative raw score still gets 0, not a negative priority.
-W_SEVERITY: float = 0.25
-W_CONFIDENCE: float = 0.20
-W_EVIDENCE: float = 0.10
-W_COST: float = 0.15
+# UM-DR-33 Â§8.2 (info-gain operationalization): W_INFO_GAIN enters the
+# weighted sum. Weights rebalanced so the sum stays exactly 1.0 and the
+# relative ordering of the pre-existing dominant terms is preserved
+# (severity still largest, then confidence/criticality, then cost, then
+# novelty/info-gain, then evidence). info_gain is a PRIORITIZATION input
+# only: it can reorder eligible hypotheses, never admit, authorize,
+# confirm, or raise a budget (admission/scope/budget gates are
+# score-independent by construction and pinned by tests).
+W_SEVERITY: float = 0.22
+W_CONFIDENCE: float = 0.18
+W_EVIDENCE: float = 0.09
+W_COST: float = 0.13
 W_NOVELTY: float = 0.10
-W_CRITICALITY: float = 0.20
+W_CRITICALITY: float = 0.18
+W_INFO_GAIN: float = 0.10
 
 # Sum of weights — used to normalise the raw score back to [0, 1].
 # If the weights are changed, this MUST be updated to match.
 _W_SUM: float = (
-    W_SEVERITY + W_CONFIDENCE + W_EVIDENCE + W_COST + W_NOVELTY + W_CRITICALITY
+    W_SEVERITY + W_CONFIDENCE + W_EVIDENCE + W_COST + W_NOVELTY
+    + W_CRITICALITY + W_INFO_GAIN
 )
 
 # Novelty bonus cap (Phase 3 step 1: "novelty/curiosity bonus (capped)").
 _NOVELTY_CAP: float = 0.25
+
+#: Neutral information-gain for hypotheses whose producer has not scored
+#: them yet (``Hypothesis.info_gain is None``). The midpoint keeps unscored
+#: hypotheses unpenalised relative to scored ones: an explicit LOW
+#: info_gain ranks below unscored, an explicit HIGH ranks above.
+_INFO_GAIN_NEUTRAL: float = 0.5
 
 
 def compute_novelty_bonus(hypothesis: Hypothesis, state: Any | None = None) -> float:
@@ -459,6 +475,19 @@ def score_hypothesis(
     crit_rank = _CRITICALITY_RANK.get(crit_str, 0)
     crit_norm = crit_rank / 3.0
 
+    # UM-DR-33 Â§8.2: information gain is now operational in the score.
+    # None (not yet scored) maps to the neutral midpoint; explicit values
+    # are clamped to [0, 1] defensively even though the model field is
+    # already bounded.
+    info_gain_raw = getattr(hypothesis, "info_gain", None)
+    if info_gain_raw is None:
+        info_gain = _INFO_GAIN_NEUTRAL
+    else:
+        try:
+            info_gain = max(0.0, min(1.0, float(info_gain_raw)))
+        except (TypeError, ValueError):
+            info_gain = _INFO_GAIN_NEUTRAL
+
     raw = (
         W_SEVERITY * sev_norm
         + W_CONFIDENCE * conf
@@ -466,6 +495,7 @@ def score_hypothesis(
         - W_COST * cost_norm
         + W_NOVELTY * novelty
         + W_CRITICALITY * crit_norm
+        + W_INFO_GAIN * info_gain
     )
     score = max(0.0, min(1.0, raw / _W_SUM))
     return score

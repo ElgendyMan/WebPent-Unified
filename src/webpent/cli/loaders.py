@@ -62,7 +62,46 @@ def _read_bounded(path: Path | str, *, label: str) -> str:
         raise ValueError(f"cannot read {label} file: {exc}") from exc
 
 
-def _validate_secret_mapping(value: Any, *, label: str) -> dict[str, str]:
+#: UM-DR-33 §5.5 (Workstream C): template placeholders must never survive
+#: into a runtime that looks production-ready. Mirrors the Settings-level
+#: ``_looks_like_placeholder`` family (CHANGE-ME / CHANGEME, any case) and
+#: adds the credential-template markers (REPLACE_ME_*, replace-at-runtime)
+#: used by credentials_template.json and operator_credentials.example.json.
+_PLACEHOLDER_PREFIXES = (
+    "change-me",
+    "changeme",
+    "replace_me",
+    "replace-me",
+    "replace-at-runtime",
+)
+_PLACEHOLDER_EXACT = {
+    "", "changeme", "change-me", "replace_me", "replace-me",
+    "todo", "xxx", "password", "placeholder",
+}
+
+
+def _reject_placeholder_secret(value: str, *, label: str, key: str) -> str:
+    lowered = value.strip().lower()
+    if lowered in _PLACEHOLDER_EXACT or any(
+        lowered.startswith(prefix) for prefix in _PLACEHOLDER_PREFIXES
+    ):
+        raise ValueError(
+            f"{label}.{key} is a template placeholder ({value[:24]!r}); "
+            "fill in the real credential or remove the profile — a "
+            "placeholder secret must never look production-ready "
+            "(UM-DR-33 §5.5, fail-closed)"
+        )
+    return value
+
+
+def _validate_secret_mapping(
+    value: Any, *, label: str, secrets: bool = True
+) -> dict[str, str]:
+    """``secrets=True`` (credentials/cookies/auth headers): placeholder
+    values are rejected fail-closed (UM-DR-33 Â§5.5). ``secrets=False``
+    (login_fields / registration_fields): values are HTML form-field
+    NAMES ("password_field": "password" is a legitimate name) â shape
+    validation only."""
     if not isinstance(value, dict):
         raise ValueError(f"{label} must be a JSON object")
     result: dict[str, str] = {}
@@ -72,7 +111,10 @@ def _validate_secret_mapping(value: Any, *, label: str) -> dict[str, str]:
             raise ValueError(f"{label} contains an invalid key or non-string value")
         if len(raw_value) > MAX_VALUE_CHARS:
             raise ValueError(f"{label} contains a value exceeding {MAX_VALUE_CHARS} characters")
-        result[key] = raw_value
+        if secrets:
+            result[key] = _reject_placeholder_secret(raw_value, label=label, key=key)
+        else:
+            result[key] = raw_value
     return result
 
 
@@ -144,7 +186,7 @@ def _validate_profile(raw_profile: Any, *, label: str) -> dict[str, Any]:
                 raise ValueError(f"{label}.{key} must be a bounded non-empty string")
             profile[key] = value.strip()
     if "login_fields" in raw_profile:
-        profile["login_fields"] = _validate_secret_mapping(raw_profile["login_fields"], label=f"{label}.login_fields")
+        profile["login_fields"] = _validate_secret_mapping(raw_profile["login_fields"], label=f"{label}.login_fields", secrets=False)
     if "register_if_unauthorized" in raw_profile:
         value = raw_profile["register_if_unauthorized"]
         if not isinstance(value, bool):
@@ -152,7 +194,8 @@ def _validate_profile(raw_profile: Any, *, label: str) -> dict[str, Any]:
         profile["register_if_unauthorized"] = value
     if "registration_fields" in raw_profile:
         profile["registration_fields"] = _validate_secret_mapping(
-            raw_profile["registration_fields"], label=f"{label}.registration_fields"
+            raw_profile["registration_fields"], label=f"{label}.registration_fields",
+            secrets=False,
         )
     if "registration_extra" in raw_profile:
         raw_extra = raw_profile["registration_extra"]
