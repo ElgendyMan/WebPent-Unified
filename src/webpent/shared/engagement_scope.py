@@ -67,7 +67,7 @@ import ipaddress
 import logging
 import re
 from dataclasses import dataclass, field
-from urllib.parse import urlsplit
+from urllib.parse import unquote, urlsplit
 
 logger = logging.getLogger(__name__)
 
@@ -78,6 +78,27 @@ _COMPATIBLE_PROTOCOLS = {
     "ws": frozenset({"ws", "http"}),
     "wss": frozenset({"wss", "https"}),
 }
+
+_AMBIGUOUS_PATH_TOKENS = ("%2f", "%2e", "%5c")
+
+
+def _path_is_ambiguous(path: str) -> bool:
+    """Reject paths whose interpretation can change after URL decoding."""
+    candidate = path or "/"
+    # Bound repeated decoding so excessively nested encodings fail closed.
+    for _ in range(8):
+        lowered = candidate.lower()
+        if "\\" in candidate or any(
+            token in lowered for token in _AMBIGUOUS_PATH_TOKENS
+        ):
+            return True
+        if any(segment in {".", ".."} for segment in candidate.split("/")):
+            return True
+        decoded = unquote(candidate)
+        if decoded == candidate:
+            return False
+        candidate = decoded
+    return True
 
 
 # ===========================================================================
@@ -214,11 +235,15 @@ class OriginPolicy:
         if not hostname:
             raise ValueError("OriginPolicy hostname is invalid")
 
-        port = parsed.port or _DEFAULT_PORTS[scheme]
+        port = parsed.port
+        if port is None:
+            port = _DEFAULT_PORTS[scheme]
 
         if not 1 <= port <= 65535:
             raise ValueError("OriginPolicy port must be between 1 and 65535")
         path = parsed.path or "/"
+        if _path_is_ambiguous(path):
+            raise ValueError("OriginPolicy path is ambiguous")
         if not path.startswith("/"):
             path = f"/{path}"
         path = path.rstrip("/") or "/"
@@ -243,7 +268,9 @@ class OriginPolicy:
             if parsed.username is not None or parsed.password is not None:
                 return False
             hostname = _normalize_hostname(parsed.hostname or "")
-            port = parsed.port or _DEFAULT_PORTS.get(scheme)
+            port = parsed.port
+            if port is None:
+                port = _DEFAULT_PORTS.get(scheme)
             if not hostname or port is None:
                 return False
             if scheme not in self.protocols:
@@ -251,6 +278,8 @@ class OriginPolicy:
             if hostname != self.hostname or port != self.effective_port:
                 return False
             path = parsed.path or "/"
+            if _path_is_ambiguous(path):
+                return False
             if self.path_prefix != "/" and not (
                 path == self.path_prefix or path.startswith(f"{self.path_prefix}/")
             ):
