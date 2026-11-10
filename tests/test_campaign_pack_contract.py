@@ -132,14 +132,15 @@ def test_credentials_template_is_valid_json_with_principals() -> None:
         assert profile.get("auth_type") and profile.get("username"), (
             f"credentials template principal {key!r} is incomplete"
         )
-    profiles = load_creds_file(REPO_ROOT / "credentials_template.json")
-    assert set(profiles) == {"owner", "foreign"}, (
-        "the credentials template must define exactly the owner/foreign "
-        "principal slots for the real loader"
-    )
-    for key, profile in profiles.items():
-        assert profile.get("name") == key
-        assert profile.get("username") and profile.get("password"), key
+    # UM-DR-33 §5.5 contract evolution: the loader now rejects the
+    # template's placeholder VALUES fail-closed (an operator who copies
+    # the template and forgets to fill a field gets a precise error).
+    # The shape contract is verified on the parsed JSON above; the
+    # rejection itself is the stronger loader check.
+    import pytest as _pytest
+
+    with _pytest.raises(ValueError, match="placeholder"):
+        load_creds_file(REPO_ROOT / "credentials_template.json")
 
 
 def test_no_yaml_credentials_template_remains() -> None:

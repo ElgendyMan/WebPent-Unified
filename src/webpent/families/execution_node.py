@@ -66,9 +66,12 @@ def get_default_http_executor() -> Callable[[Any], Any] | None:
     dependency: callers may inject their own http_executor into state.
     """
     try:
-        import httpx  # type: ignore
-        from webpent.shared.http import SSRFPinningTransport  # type: ignore
-        client = httpx.Client(transport=SSRFPinningTransport(), timeout=10.0, follow_redirects=False)
+        from webpent.shared.http import make_safe_httpx_client  # type: ignore
+        # UM-DR-34 §4.8: the full safe factory (not a bare pinning
+        # transport) — the response-hook layer (redirect guard +
+        # untrusted-content mask) now applies to this executor exactly
+        # as to every other safe client.
+        client = make_safe_httpx_client(timeout=10.0, follow_redirects=False)
 
         def _executor(request_plan: Any) -> Any:
             method = str(getattr(request_plan, "method", "GET") or "GET").upper()

@@ -272,7 +272,11 @@ class TestEvidenceBundle:
 
         assert bundle["request"]["method"] == "GET"
         assert bundle["request"]["url"] == "https://example.com/test"
-        assert bundle["request"]["headers"]["Cookie"] == "session=[REDACTED]"
+        # UM-DR-34 §6.4: key-aware redaction — the ENTIRE value under a
+        # sensitive header key (Cookie) is redacted, not just the
+        # embedded ``name=value`` form (strictly stronger: an opaque
+        # cookie value under a sensitive key never survives).
+        assert bundle["request"]["headers"]["Cookie"] == "[REDACTED]"
         assert bundle["request"]["body"] == "param=value"
         assert bundle["response"]["status_code"] == 200
         assert bundle["response"]["headers"]["Content-Type"] == "text/html"

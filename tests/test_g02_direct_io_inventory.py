@@ -102,7 +102,14 @@ SRC_ROOT = REPO_ROOT / "src"
 # never executed; UM-DR-29 completed it — see
 # archive/umdr29_dead_code/README.md). No new site; adjudicated file
 # removal only.
-PINNED_UNAPPROVED_RECORD_COUNT = 34
+# UM-DR-34 (2026-11-10): the pin shrinks 34 -> 29 records — the §4.8
+# no-silent-raw-client fix REMOVED families/execution_node.py's raw
+# httpx.Client construction (call + import + companion getattr, all
+# classified unapproved raw-transport).  Its replacement is an APPROVED
+# safe_boundary_call through make_safe_httpx_client.  Adjudicated
+# security-engineering removal, not a coverage regression — the raw
+# client no longer exists in the tree.
+PINNED_UNAPPROVED_RECORD_COUNT = 29
 # MERGE 2026-10-26: 18 -> 27 (unapproved unique identity set of the merged
 # tree after scripts/regenerate_direct_io_inventory.py; every identity in the
 # set is still fail-closed-pinned exactly as before).
@@ -114,7 +121,10 @@ PINNED_UNAPPROVED_RECORD_COUNT = 34
 # UNIFIED-MERGE window (2026-11-02): 27 -> 41 (same union rationale).
 # UM-DR-29 (2026-11-07): 30 -> 28 — the two cqa/execution.py identities
 # physically left with the completed proposal-4 archive move.
-PINNED_UNAPPROVED_IDENTITY_COUNT = 28
+# UM-DR-34 (2026-11-10): 28 -> 25 — execution_node.py's raw httpx
+# client identities (import + call + companion getattr) removed by the
+# §4.8 safe-factory fix; replacement is an APPROVED safe_boundary_call.
+PINNED_UNAPPROVED_IDENTITY_COUNT = 25
 PINNED_UNAPPROVED_SITES = frozenset({
 # MERGE 2026-10-26: regenerated identity set of the merged tree
 # (scripts/regenerate_direct_io_inventory.py). Every identity here is
@@ -126,9 +136,6 @@ PINNED_UNAPPROVED_SITES = frozenset({
     # ULTIMATE PLAN 2026-10-27, proposal 4 (completed physically by
     # UM-DR-29, 2026-11-07): the two cqa/execution.py identities left
     # the tree with the dead-code archive — removed from this set.
-    ('src/webpent/families/execution_node.py', 'call', 'httpx.Client'),
-    ('src/webpent/families/execution_node.py', 'dynamic_resolution', 'getattr(httpx.Client.request, ... )'),
-    ('src/webpent/families/execution_node.py', 'import', 'httpx'),
     ('src/webpent/irta/v3/campaign.py', 'call', 'httpx.AsyncClient'),
     ('src/webpent/irta/v3/campaign.py', 'import', 'httpx'),
     ('src/webpent/llm_researcher/providers/openai_compatible.py', 'call', 'httpx.Client'),

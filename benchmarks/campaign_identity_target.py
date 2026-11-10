@@ -151,8 +151,18 @@ PRINCIPALS = {
 
 
 def _gt_manifest_hash() -> str:
-    blob = json.dumps(GROUND_TRUTH_MANIFEST, sort_keys=True).encode()
-    return hashlib.sha256(blob).hexdigest()
+    """Canonical ground-truth manifest identity (UM-DR-33 §3.6).
+
+    Single-source contract: ``webpent.shared.canonical_json`` — compact
+    separators, sorted keys, ensure_ascii, UTF-8. The pre-UM-DR-33 spaced
+    serialization (``json.dumps(..., sort_keys=True)``) produced
+    ``b78ad5c66f82108b…`` and is recorded as the historical form; the
+    canonical form is ``58684262356fa0c3…`` and is the ONLY identity used
+    from UM-DR-33 onward.
+    """
+    from webpent.shared.canonical_json import canonical_json_sha256
+
+    return canonical_json_sha256(GROUND_TRUTH_MANIFEST)
 
 
 def openapi_document() -> dict[str, object]:

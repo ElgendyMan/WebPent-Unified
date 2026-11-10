@@ -67,7 +67,9 @@ on:
 
 jobs:
   tests:
-    runs-on: ubuntu-latest
+    # Playwright Chromium is not yet supported on the Ubuntu 26 runner image.
+    # Pin the CI host image so browser integration tests remain reproducible.
+    runs-on: ubuntu-24.04
     env:
       LLM_ENABLED: "false"
       EMBEDDINGS_OFFLINE: "true"

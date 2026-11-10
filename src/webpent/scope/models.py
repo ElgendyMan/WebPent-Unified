@@ -86,6 +86,16 @@ class ScopeRule:
 
 @dataclass(frozen=True)
 class ScopeDecision:
+    """One scope decision record.
+
+    UM-DR-34 §2.2: the canonical decision contract.  The first seven
+    fields are the historical shape (every existing constructor and test
+    keeps working); the optional fields below are populated by
+    :class:`webpent.scope.authority.EngagementScopeAuthority.evaluate_request`
+    so every network boundary can log an explainable, auditable,
+    secret-free decision.
+    """
+
     status: ScopeStatus
     url: str
     method: str = "GET"
@@ -93,6 +103,22 @@ class ScopeDecision:
     rule_source: str | None = None
     violation_code: str | None = None
     request_admitted: bool = False
+    # --- UM-DR-34 canonical fields (all optional for compatibility) ---
+    normalized_origin: str | None = None
+    hostname: str | None = None
+    scheme: str | None = None
+    effective_port: int | None = None
+    normalized_path: str | None = None
+    matched_allow_rule: str | None = None
+    matched_deny_rule: str | None = None
+    exclusion_reason: str = ""
+    scope_fingerprint: str = ""
+    authorization_context_id: str = ""
+    decision_seq: int | None = None
+    decision_timestamp: float | None = None
+    may_proceed_to_network: bool = False
+    redirect_context: str | None = None
+    request_kind: str | None = None
 
     @property
     def allowed(self) -> bool:
@@ -107,6 +133,20 @@ class ScopeDecision:
             "rule_source": self.rule_source,
             "violation_code": self.violation_code,
             "request_admitted": self.request_admitted,
+            "normalized_origin": self.normalized_origin,
+            "hostname": self.hostname,
+            "scheme": self.scheme,
+            "effective_port": self.effective_port,
+            "normalized_path": self.normalized_path,
+            "matched_allow_rule": self.matched_allow_rule,
+            "matched_deny_rule": self.matched_deny_rule,
+            "exclusion_reason": self.exclusion_reason,
+            "scope_fingerprint": self.scope_fingerprint,
+            "authorization_context_id": self.authorization_context_id,
+            "decision_seq": self.decision_seq,
+            "redirect_context": self.redirect_context,
+            "request_kind": self.request_kind,
+            "may_proceed_to_network": self.may_proceed_to_network,
         }
 
 

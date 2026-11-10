@@ -61,6 +61,53 @@ def _reset_concurrency_governor_singleton():
 
 
 @pytest.fixture(autouse=True)
+def _reset_global_rate_governor_between_tests():
+    """UM-DR-34 §5 test hygiene: the transport request ceiling must not
+    leak its 60-second WINDOW BUDGET across tests.
+
+    Since UM-DR-34, every request through a safe client inside an ACTIVE
+    ENGAGEMENT context is admitted through the process-wide
+    GlobalRateGovernor (default 8 concurrent / 120 per 60s window).  A
+    suite that fires a burst of mock requests in one test consumes the
+    window budget; without a reset, EVERY later engagement test in the
+    same process fails with RateLimitExceeded for up to 60 seconds — a
+    failure far from its cause (exactly the cross-test pollution class
+    the concurrency-governor fixture above was created for).
+
+    This does NOT weaken the ceiling: within a single test the governor
+    still enforces both caps exactly as designed (pinned by
+    tests/test_umdr34_boundary_enforcement.py, which manipulates the
+    singleton explicitly and restores it).
+    """
+    from webpent.shared.global_rate_governor import reset_global_rate_governor
+
+    reset_global_rate_governor()
+    yield
+    reset_global_rate_governor()
+
+
+@pytest.fixture(autouse=True)
+def _reset_engagement_context_between_tests():
+    """UM-DR-34 §3 test hygiene: the atomic engagement context must not
+    leak ACROSS tests.
+
+    Before UM-DR-34, a test that declared an engagement context and
+    failed to clean it up was masked by the historic fail-OPEN posture
+    (an empty/stale policy allowed everything).  With the fail-closed
+    contract, one leaked context DENIES every later test's out-of-scope
+    requests (and silently changes their egress mode) — a failure far
+    from its cause.  Tests that need an engagement context declare their
+    own (and the UM-DR-34 lifecycle tests verify cleanup explicitly);
+    relying on a context leaked by a previous test was never a contract.
+    """
+    from webpent.shared.engagement_scope import clear_engagement_target_hosts
+
+    clear_engagement_target_hosts(None)
+    yield
+    clear_engagement_target_hosts(None)
+
+
+@pytest.fixture(autouse=True)
 def _reset_production_spine_registry():
     """Sprint R1 FIX 1 hygiene: resolve_production_spine()'s module-level
     configuration-drift registry (_SPINE_REGISTRY) is now exercised by many

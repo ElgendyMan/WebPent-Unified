@@ -129,10 +129,24 @@ def capture_artifact_provenance(
     if requests_issued is not None:
         record["requests_issued"] = requests_issued
     if ground_truth_manifest is not None:
-        blob = json.dumps(
-            ground_truth_manifest, sort_keys=True, separators=(",", ":"),
-        ).encode("utf-8")
+        # UM-DR-33 §3.6: single canonical JSON identity contract
+        # (webpent.shared.canonical_json). Import is deferred so the
+        # module docstring stays accurate for callers that only need
+        # source provenance; the repository's generator scripts always
+        # put src/ on sys.path before importing this module.
+        try:
+            from webpent.shared.canonical_json import (  # noqa: PLC0415
+                CANONICAL_JSON_CONTRACT_ID,
+                canonical_json_sha256,
+            )
+        except ImportError as exc:  # pragma: no cover - explicit contract
+            raise RuntimeError(
+                "capture_artifact_provenance(ground_truth_manifest=...) "
+                "requires src/ on sys.path: the canonical JSON contract "
+                "lives in webpent.shared.canonical_json (UM-DR-33 §3.6)"
+            ) from exc
         record["ground_truth_manifest"] = {
-            "identity": hashlib.sha256(blob).hexdigest(),
+            "identity": canonical_json_sha256(ground_truth_manifest),
+            "contract": CANONICAL_JSON_CONTRACT_ID,
         }
     return record

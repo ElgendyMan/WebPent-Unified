@@ -22,6 +22,14 @@ Reviews confirmed there are no dynamic (importlib/getattr/partial)
 construction paths for ModernOrchestrator, so this literal-substring static
 check is sufficient — no AST/bytecode analysis needed.
 
+UM-DR-34 §9 (alias hardening): the checker additionally detects INDIRECT
+construction shapes — alias bindings (``MO = ModernOrchestrator``),
+dynamic attribute resolution (``getattr(..., "ModernOrchestrator")``),
+and importlib string references — outside the factory/allowlist.  This
+remains a STATIC defense-in-depth signal only: the RUNTIME authority is
+the production factory token in production_spine.py; this text matcher
+is not the runtime protection and must never be described as one.
+
 Usage:
   python scripts/check_orchestrator_construction_authority.py            # human-readable report
   python scripts/check_orchestrator_construction_authority.py --quiet    # CI: exit 1 on violation
@@ -29,11 +37,26 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PATTERN = "ModernOrchestrator("
+
+# UM-DR-34 §9: indirect-construction shapes.  Each is (name, compiled
+# regex) — a hit outside the factory/allowlist is a violation even when
+# the literal ``ModernOrchestrator(`` call text never appears.  The
+# patterns are deliberately PRECISE: bare string references (trace
+# component labels like component="ModernOrchestrator", __all__ exports)
+# are NOT construction paths and must not be flagged — a broad pattern
+# here would produce false assurance noise and get disabled.
+INDIRECT_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
+    ("alias_binding", re.compile(r"=\s*ModernOrchestrator(?!\()")),
+    ("dynamic_getattr", re.compile(r"getattr\([^)]*ModernOrchestrator")),
+    ("importlib_string", re.compile(r"importlib[^\n]*[\"']ModernOrchestrator[\"']")),
+    ("eval_exec_string", re.compile(r"\beval\(|\bexec\([^\n]*ModernOrchestrator")),
+)
 
 # The factory module: the ONE approved production construction site.
 FACTORY_FILE = ROOT / "src" / "webpent" / "production" / "production_spine.py"
@@ -145,11 +168,17 @@ def find_violations() -> list[tuple[Path, int, str]]:
             text = path.read_text(encoding="utf-8")
         except (UnicodeDecodeError, OSError):
             continue
-        if PATTERN not in text:
+        if PATTERN not in text and "ModernOrchestrator" not in text:
             continue
         for lineno, line in enumerate(text.splitlines(), start=1):
             if PATTERN in line:
                 violations.append((path, lineno, line.strip()))
+                continue
+            # UM-DR-34 §9: indirect construction shapes.
+            for name, pattern in INDIRECT_PATTERNS:
+                if pattern.search(line):
+                    violations.append((path, lineno, f"[{name}] {line.strip()}"))
+                    break
     return violations
 
 

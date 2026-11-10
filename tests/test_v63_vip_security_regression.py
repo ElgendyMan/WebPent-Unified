@@ -310,6 +310,28 @@ def test_origin_policy_is_exact_across_scheme_port_and_path() -> None:
     assert not policy.allows("https://sub.example.test:8443/app")
 
 
+def test_origin_policy_rejects_ambiguous_or_traversal_paths() -> None:
+    policy = OriginPolicy.from_url("https://example.test/app")
+
+    for path in (
+        "/app/%2e%2e/admin",
+        "/app/%2fadmin",
+        "/app/%5cadmin",
+        "/app/%252e%252e/admin",
+        "/app/%25252e%25252e/admin",
+        "/app/../admin",
+    ):
+        assert not policy.allows(f"https://example.test{path}"), path
+
+
+def test_origin_policy_rejects_explicit_port_zero() -> None:
+    policy = OriginPolicy.from_url("https://example.test/app")
+
+    assert not policy.allows("https://example.test:0/app")
+    with pytest.raises(ValueError, match="port must be between 1 and 65535"):
+        OriginPolicy.from_url("https://example.test:0/app")
+
+
 def test_origin_policy_context_is_shared_by_transports() -> None:
     token = set_engagement_target_hosts("https://engagement.example.test/app")
     try:

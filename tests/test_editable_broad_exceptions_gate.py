@@ -199,6 +199,7 @@ REGISTERED_FILES = {
     "src/webpent/production/identity_workflow.py": 1,  # UM-DR-32: the identity_workflow node's master gate — identity_workflow_enabled() treats any settings failure as not-enabled (fail-closed no-op, the coverage_gap_report double-gate precedent). The node is advisory only: no findings, no promotion, no confirmation authority
 }
 REGISTERED_TOTAL = sum(REGISTERED_FILES.values())  # 19 (UM-DR-31: +2 adaptive_research; UM-DR-31.1: +1 hints re-scan; UM-DR-32: +5 composite_workflows, +1 identity_workflow)
+REGISTERED_FILES["src/webpent/production/discovery_funnel.py"] = 1  # UM-DR-33: the discovery funnel's bounded state read — observability degrades to the honest not_materialized_in_state marker, never a crash (coverage_gap_report/identity_workflow fail-soft precedent; pure telemetry, no authority)
 
 _BROAD = re.compile(r"^\s*except\s+Exception\b")
 

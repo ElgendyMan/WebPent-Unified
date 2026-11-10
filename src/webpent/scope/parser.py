@@ -116,7 +116,17 @@ def _walk_structured(document: Any, *, source: str) -> tuple[list[ScopeRule], li
         elif isinstance(value, list):
             for item in value:
                 if isinstance(item, dict) and any(k in item for k in ("out_of_scope", "excluded", "exclude")):
-                    for denied in item.get("out_of_scope") or item.get("excluded") or item.get("exclude") or ():
+                    marker = item.get("out_of_scope")
+                    if marker is True or str(marker).strip().lower() in {"true", "yes", "1"}:
+                        # UM-DR-34 §2.4: a boolean out-of-scope marker on
+                        # the item itself means THIS asset is denied
+                        # (HackerOne/Bugcrowd export shapes) — it is not a
+                        # list of excluded targets, and it must never
+                        # crash the parser (a crash is not fail-closed).
+                        denies.append(_rule_from_item(item, allow_default=False, source=source))
+                        continue
+                    excluded = marker if isinstance(marker, (list, tuple)) else item.get("excluded") or item.get("exclude") or ()
+                    for denied in excluded:
                         denies.append(_rule_from_item(denied, allow_default=False, source=source))
                     continue
                 rule = _rule_from_item(item, allow_default=True, source=source)
