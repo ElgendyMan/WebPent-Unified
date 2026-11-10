@@ -1,5 +1,92 @@
 # Changelog
 
+## 0.40.0 — 2026-11-10 (UM-DR-34: unified scope authority, safe egress & execution governance)
+
+> UM-DR-34 window: **one canonical engagement scope authority, fail-closed
+> at every network boundary, default-on request governance** — with full
+> constitutional preservation (CausalGuard remains the sole confirmation
+> authority; ProofBundle + replay + negative controls unchanged).
+> (1) **Canonical scope authority** (`webpent.scope.authority`): one
+> authoritative `evaluate_request()` contract returning the extended
+> `ScopeDecision` (normalized origin/host/scheme/port/path, matched
+> allow/deny rules, exclusion reason, scope fingerprint, authorization
+> context id, monotonic decision sequence, may-proceed flag). ONE strict
+> wildcard compiler (anchored complete-label regexes; misplaced `*`,
+> `?`, `[seq]` glob syntax rejected at compile time; apex never
+> included); the fnmatch-based matcher in `ScopeEnforcer._host_match`
+> is REMOVED. Explicit `is None` port handling (port 0 rejected);
+> host-only rules bind scheme-default ports only; IDNA/punycode and
+> IPv4/IPv6 canonicalization; conservative denial of ambiguous encoded
+> paths (`%2e/%2f/%5c`, double encoding, backslash). Parser unification:
+> scope files, structured YAML/JSON, HackerOne/Bugcrowd-style exports
+> and plain text all reduce to the same typed rules (boolean
+> `out_of_scope` markers no longer crash the parser — fail-closed
+> instead); target-only compatibility mode is explicit, bounded to the
+> exact declared origin, and reported as `target_only`.
+> (2) **Atomic engagement context** (`shared/engagement_scope.py`): one
+> immutable `EngagementContext` in one ContextVar with structured
+> restore tokens — nested engagements restore the OUTER policy
+> correctly (the historic cleanup force-emptied it). ENGAGEMENT vs
+> CONTROL_PLANE egress separation: an active campaign with a
+> missing/corrupt policy now DENIES every request (the historic
+> `not policies or any(...)` fail-OPEN is gone); control-plane
+> destinations are explicit, narrow (scheme, host, port) triples that
+> can never inherit campaign permissions. A bare-host declaration binds
+> default HTTP(S) ports only — never every port on a private host.
+> (3) **Boundary enforcement**: every redirect hop undergoes a fresh,
+> method-aware full decision (307/308 re-issue vs 301/302/303 GET
+> downgrade both checked); the async transport gains the SAME rate
+> ceiling, loopback-trusted exemption and origin policy as the sync one
+> — including the fix of a latent defect where the async factory
+> registered the SYNC redirect guard as a response hook (httpx awaits
+> hooks, so every successful async response crashed); the families
+> execution node now uses the full safe factory (redirect hook +
+> untrusted-content mask); the raw-socket h2 race path refuses
+> out-of-scope origins before connecting. `HunterRunner` enforces
+> acquire()/release() permits around real execution and can no longer
+> run an unbounded campaign when `scope_policy` is omitted.
+> (4) **Default-on request governance**: inside an ACTIVE ENGAGEMENT the
+> transport ceiling is ALWAYS on (independent of `stealth_mode` and the
+> legacy `rate_limit_enabled` switch, which remains for non-engagement
+> library use); a governor internal failure DENIES the request
+> (fail-closed) instead of failing open; optional Redis cross-process
+> coordination with an honest `coordination_scope` field
+> ("process-local" is reported as process-local — never described as a
+> global limit) and a `require_coordination` production posture that
+> denies rather than degrades to uncoordinated limits.
+> (5) **Credential protection at the provider boundary**:
+> `secure_llm_input`'s Mapping branch now credential-checks EVERY key
+> with its value (the historic gap let `{"sessionid": ...}` reach
+> providers untouched); recognized session-cookie name families
+> (PHPSESSID, JSESSIONID, ASP.NET_SessionId, sessionid, sid,
+> connect.sid, csrftoken, ...) rejected case-insensitively without
+> over-redacting benign fields; LangChain message clones sanitize
+> `additional_kwargs`/`tool_calls`; `redact_value` is key-aware.
+> (6) **Checkpoint safe failure**: a runtime-context redaction failure
+> persists an explicit DEGRADED marker (structured, secret-free,
+> error class only) instead of a silent `{}` — and resume refuses to
+> rebuild a blank runtime from it (no false-success resume, no silent
+> budget/kill-switch reset). Secret channels stay emptied; restore
+> stays fail-closed.
+> (7) **Gate hardening**: the orchestrator construction checker detects
+> alias bindings, getattr/importlib/eval indirect construction; the
+> state-contract checker adds AST coverage for in-place `state.update()`
+> / subscript mutations. Runtime authority statements kept honest — the
+> static matchers are defense-in-depth, not the runtime protection.
+> (8) **Release identity reconciliation (§10)**: the 0.39.0 branch
+> shipped pyproject/init at 0.39.0 while BUILD_INFO retained 0.38.0
+> values and an unreproducible suite_count of 8990 (actual baseline
+> unique node IDs: 8958; the UM-DR-24 release gate failed on the
+> baseline for exactly this reason). From 0.40.0 every version field
+> has ONE consistent meaning; version monotonicity preserved (0.39.0
+> was taken by the public UM-DR-33 branch; UM-DR-34 is 0.40.0); the
+> local UM-DR-32 lineage is preserved untouched.
+> Baseline: `features/v0.39.0-umdr33` @ `4795f02`. 98 new regression
+> tests (canonical authority matrix, lifecycle, boundary enforcement
+> with zero-network-attempt assertions, rate parity/fail-closed, LLM
+> redaction incl. batch/stream through the guarded runnable, checkpoint
+> degraded-resume). Evidence: `docs/engineering/umdr34/`.
+
 ## 0.39.0 — 2026-11-10 (UM-DR-33: researcher brain & autonomous campaign evolution)
 
 > نافذة UM-DR-33: **إغلاق عيوب هندسة الإصدار المكتشفة + ترقية بحثية

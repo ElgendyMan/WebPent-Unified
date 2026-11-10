@@ -161,6 +161,19 @@ def run_race(
         if (other_host, other_port) != (host, port):
             raise H2RaceError("h2_race_requires_single_authority")
 
+    # UM-DR-34 §4.8: no silent raw-socket bypass — the engagement origin
+    # decision runs BEFORE the raw TCP/TLS connection is opened, exactly
+    # as it does for the httpx transports.  This raw socket path also
+    # disables certificate verification (documented pentest posture for
+    # self-signed lab targets), so the scope check is the boundary that
+    # keeps it off out-of-scope hosts.
+    from webpent.shared.engagement_scope import is_engagement_origin_allowed
+
+    scheme = "https" if use_tls else "http"
+    probe_url = f"{scheme}://{authority}:{port}{path0}"
+    if not is_engagement_origin_allowed(probe_url):
+        raise H2RaceError("h2_race_out_of_scope")
+
     sock = _connect(host, port, use_tls, timeout_s)
     started = time.monotonic()
     responses: list[dict[str, Any]] = []

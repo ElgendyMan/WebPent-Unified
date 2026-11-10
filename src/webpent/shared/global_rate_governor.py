@@ -177,6 +177,11 @@ class GlobalRateGovernor:
         # failed, snapshots report backend_degraded=True until a new
         # governor is built. Never silently claim healthy again.
         self._degraded = False
+        # UM-DR-34 §5.3: production fail-closed coordination posture.
+        # When ``coordination_required`` is True and the Redis backend is
+        # unavailable/degraded, ``try_acquire`` DENIES every request.
+        self.coordination_required: bool = False
+        self.coordination_degraded: bool = False
 
     # ------------------------------------------------------------------
     # Public API
@@ -222,12 +227,27 @@ class GlobalRateGovernor:
             bounded_tokens = min(MAX_TOKENS_PER_ACQUIRE, max(1, int(tokens)))
         except (TypeError, ValueError):
             return False
+        # UM-DR-34 §5.3 fail-closed production posture: when global
+        # coordination is REQUIRED and the backend is unavailable, no
+        # request is admitted — an institution-wide limit must never
+        # silently degrade into N uncoordinated process-local limits.
+        if self.coordination_required and (self._redis_client is None or self.coordination_degraded):
+            return False
         now = time.time()
         if self._redis_client is not None:
             try:
                 granted = self._redis_try_acquire(campaign_id, bounded_tokens, now)
             except _REDIS_FAILURE_EXCEPTIONS:
                 self._degraded = True
+                if self.coordination_required:
+                    self.coordination_degraded = True
+                    logger.error(
+                        "GlobalRateGovernor: Redis backend failed during "
+                        "try_acquire while coordination is REQUIRED — "
+                        "DENYING (fail-closed) instead of degrading to "
+                        "uncoordinated process-local limits.",
+                    )
+                    return False
                 logger.warning(
                     "GlobalRateGovernor: Redis backend failed during "
                     "try_acquire; degrading to in-memory path for this "
@@ -338,6 +358,10 @@ class GlobalRateGovernor:
                 "requests_last_minute": window_tokens,
                 "backend": "memory",
                 "backend_degraded": self._degraded,
+                # UM-DR-34 §5.3: honest coordination scope — a memory
+                # backend coordinates THIS PROCESS ONLY; callers must
+                # never describe it as a global multi-process limit.
+                "coordination_scope": "process-local",
             }
 
     def _mirror_memory_acquire(self, campaign_id: str, tokens: int) -> None:
@@ -454,6 +478,7 @@ class GlobalRateGovernor:
             "requests_last_minute": window_tokens,
             "backend": "redis",
             "backend_degraded": self._degraded,
+            "coordination_scope": "cross-process",
         }
 
 
@@ -465,24 +490,35 @@ _GLOBAL_GOVERNOR_LOCK = threading.Lock()
 def get_global_rate_governor() -> GlobalRateGovernor:
     """Return the process-wide :class:`GlobalRateGovernor` singleton.
 
-    Caps default to 8 concurrent / 120 requests-per-minute; operators
-    can override via settings when the corresponding fields exist
-    (``global_rate_governor_max_concurrent`` /
-    ``global_rate_governor_requests_per_minute`` — accessed as static
-    attributes inside a try/except AttributeError block, deliberately
-    NOT via ``getattr`` so this module adds no dynamic-resolution
-    records to the G-02 direct-I/O inventory). A missing field or a
-    settings load failure falls back to the hardcoded defaults rather
-    than blocking callers (narrow catch: pydantic ValidationError
-    subclasses ValueError; a missing field raises AttributeError).
+    UM-DR-34 §5.3 (multi-process coordination):
+
+    * When ``global_rate_governor_redis_url`` is configured, the
+      singleton is built with a Redis client so the ceiling coordinates
+      across worker PROCESSES (the institution-wide limit is one limit,
+      not N per-process copies).
+    * When the URL is empty, the limit is PROCESS-LOCAL (single-process
+      dev posture) and ``snapshot()["backend"]`` reports ``"memory"``
+      honestly — it is never described as a globally coordinated limit.
+    * When ``global_rate_governor_require_coordination`` is True and
+      the Redis backend cannot be constructed, the singleton is marked
+      coordination-degraded and :meth:`GlobalRateGovernor.try_acquire`
+      DENIES every request (fail-closed): a Redis outage must not
+      silently turn one institution-wide limit into uncoordinated
+      process-local limits.
+
+    Caps default to 16 concurrent / 900 requests-per-minute; operators
+    can override via the ``global_rate_governor_max_concurrent`` /
+    ``global_rate_governor_requests_per_minute`` settings fields.
     """
     global _GLOBAL_GOVERNOR
     if _GLOBAL_GOVERNOR is not None:
         return _GLOBAL_GOVERNOR
     with _GLOBAL_GOVERNOR_LOCK:
         if _GLOBAL_GOVERNOR is None:
-            max_concurrent = 8
-            requests_per_minute = 120
+            max_concurrent = 16
+            requests_per_minute = 900
+            redis_url = ""
+            require_coordination = False
             try:
                 from webpent.config.settings import get_settings
 
@@ -491,17 +527,65 @@ def get_global_rate_governor() -> GlobalRateGovernor:
                 requests_per_minute = int(
                     settings.global_rate_governor_requests_per_minute
                 )
+                # Static attribute access inside try/except AttributeError
+                # (deliberately NOT getattr — this module must not add
+                # dynamic-resolution records to the G-02 direct-I/O
+                # inventory; same contract as the original factory).
+                redis_url = str(
+                    settings.global_rate_governor_redis_url
+                    if hasattr(settings, "global_rate_governor_redis_url")
+                    else ""
+                )
+                require_coordination = bool(
+                    settings.global_rate_governor_require_coordination
+                    if hasattr(settings, "global_rate_governor_require_coordination")
+                    else False
+                )
             except (AttributeError, ValueError, TypeError, OSError, ImportError):
                 # Field absent from this settings version, or settings
                 # failed to load — honest fallback to the documented
                 # defaults; the governor must still exist and enforce
                 # its caps.
-                max_concurrent = 8
-                requests_per_minute = 120
+                max_concurrent = 16
+                requests_per_minute = 900
+            redis_client = None
+            if redis_url:
+                try:
+                    import redis as _redis
+
+                    redis_client = _redis.Redis.from_url(
+                        redis_url, socket_connect_timeout=2.0, socket_timeout=2.0
+                    )
+                except (ImportError, ValueError, TypeError, OSError) as exc:
+                    if require_coordination:
+                        logger.error(
+                            "GlobalRateGovernor: Redis coordination is "
+                            "REQUIRED but the client could not be built "
+                            "(%s) — every try_acquire will DENY (fail-"
+                            "closed). Fix the Redis configuration or "
+                            "unset require_coordination for single-"
+                            "process development.",
+                            type(exc).__name__,
+                        )
+                        redis_client = None
+                    else:
+                        logger.warning(
+                            "GlobalRateGovernor: Redis URL configured but "
+                            "the client could not be built — falling back "
+                            "to PROCESS-LOCAL coordination (limits apply "
+                            "per process, not institution-wide).",
+                            exc_info=True,
+                        )
             _GLOBAL_GOVERNOR = GlobalRateGovernor(
                 max_concurrent=max_concurrent,
                 requests_per_minute=requests_per_minute,
+                redis_client=redis_client,
             )
+            if require_coordination and redis_client is None:
+                # Fail-closed posture for production: without the
+                # required coordination backend no request is admitted.
+                _GLOBAL_GOVERNOR.coordination_required = True
+                _GLOBAL_GOVERNOR.coordination_degraded = True
     return _GLOBAL_GOVERNOR
 
 

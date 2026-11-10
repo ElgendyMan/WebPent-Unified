@@ -1,0 +1,61 @@
+{
+  "window": "UM-DR-34 scope authority, safe egress & execution governance",
+  "date": "2026-11-10",
+  "python": "3.12.16",
+  "pytest": "9.0.2",
+  "runner": "scripts/run_suite.py (portable chunked, 13 chunks x 55 files)",
+  "baseline_accounting": {
+    "collected": 8958,
+    "claim_verified": false,
+    "claim": 8990,
+    "note": "UM-DR-33 suite_count claim not reproducible on the baseline; the UM-DR-24 release gate failed on the baseline for exactly this reason (BUILD_INFO 8990 > collected 8958). Reconciled in this window."
+  },
+  "final_accounting": {
+    "collected": 9056,
+    "passed": 9047,
+    "failed": 0,
+    "skipped": 6,
+    "xfailed": 3,
+    "xpassed": 0,
+    "errors": 0,
+    "chunks": "13/13",
+    "reconciliation": "9056 = 9047 + 6 + 3 exact",
+    "new_tests_this_window": 170,
+    "silently_removed_tests": 0,
+    "unexplained_failures": 0
+  },
+  "skipped_explanation": {
+    "count": 6,
+    "detail": "1 legacy v4 lessons subsystem skip at collection (documented UNIFIED MERGE note, pre-existing); 5 runtime skips across engagement/m1a suites pinned by their own skip reasons (pre-existing, unchanged counts vs baseline modulo chunk composition)"
+  },
+  "xfailed_explanation": {
+    "count": 3,
+    "detail": "pre-existing expected-failure pins in the m1a/m3 families (unchanged from baseline)"
+  },
+  "per_chunk": [
+    {"chunk": 1, "collected": 587, "passed": 587, "failed": 0, "skipped": 0, "xfailed": 0},
+    {"chunk": 2, "collected": 497, "passed": 496, "failed": 0, "skipped": 1, "xfailed": 0},
+    {"chunk": 3, "collected": 801, "passed": 801, "failed": 0, "skipped": 0, "xfailed": 0},
+    {"chunk": 4, "collected": 921, "passed": 921, "failed": 0, "skipped": 0, "xfailed": 0},
+    {"chunk": 5, "collected": 727, "passed": 727, "failed": 0, "skipped": 0, "xfailed": 0},
+    {"chunk": 6, "collected": 1445, "passed": 1442, "failed": 0, "skipped": 3, "xfailed": 0},
+    {"chunk": 7, "collected": 471, "passed": 470, "failed": 0, "skipped": 1, "xfailed": 0},
+    {"chunk": 8, "collected": 614, "passed": 614, "failed": 0, "skipped": 0, "xfailed": 0},
+    {"chunk": 9, "collected": 682, "passed": 678, "failed": 0, "skipped": 1, "xfailed": 3},
+    {"chunk": 10, "collected": 621, "passed": 621, "failed": 0, "skipped": 0, "xfailed": 0},
+    {"chunk": 11, "collected": 921, "passed": 921, "failed": 0, "skipped": 0, "xfailed": 0},
+    {"chunk": 12, "collected": 428, "passed": 428, "failed": 0, "skipped": 0, "xfailed": 0},
+    {"chunk": 13, "collected": 341, "passed": 341, "failed": 0, "skipped": 0, "xfailed": 0}
+  ],
+  "gates": {
+    "frozen_module_gate": "647 passed (14 files re-pinned per DR-009, documented thaw set registered)",
+    "secrets_scan": "0 detections",
+    "state_contract_gate": "OK (now with AST .update()/subscript mutation coverage)",
+    "orchestrator_construction_gate": "OK (alias/indirect-construction detection added)",
+    "vault_import_gate": "OK (allowlist not widened)",
+    "direct_io_inventory": "regenerated deliberately (-3 raw-client identities, +5 documented; unapproved pin 34->29 records / 28->25 identities)",
+    "release_gate_compliance": "BUILD_INFO suite_count reconciled with collected reality (9056)"
+  },
+  "test_count_is_not_vulnerability_count": true,
+  "recall_precision_claims": "NONE — no Recall/Precision/generalization/XBOW claims from this engineering window"
+}

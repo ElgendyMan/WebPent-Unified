@@ -599,6 +599,35 @@ UMDR33_EVIDENCE_CHAIN_20261110_THAW_PATHS = frozenset({
     "src/webpent/cqa_v2/proof_bundle_builder.py",
 })
 
+UMDR34_SCOPE_AUTHORITY_20261110_THAW_PATHS = frozenset({
+    # UM-DR-34 (scope authority, safe egress & execution governance,
+    # 2026-11-10): the canonical scope authority window thawed 14 frozen
+    # files (all documented in scripts/refreeze_manifest_umdr34.py with
+    # old pins recorded there for the audit trail). Seven of them
+    # (engagement_scope.py, http.py, global_rate_governor.py,
+    # settings.py, checkpoints.py, hunter_runner.py, execution_node.py)
+    # already appear in earlier-era drift sets; the six below are
+    # FIRST-TIME thaws relative to the pre-unfreeze baseline, so they
+    # need their own documented entry:
+    #   * scope/__init__.py, scope/models.py, scope/enforcer.py,
+    #     scope/parser.py — the ONE canonical authority contract
+    #     (ScopeDecision extension, strict single wildcard compiler
+    #     replacing fnmatch, explicit None port handling, fail-closed
+    #     boolean out_of_scope parser markers).
+    #   * shared/untrusted_content.py, shared/redaction.py — the LLM
+    #     provider boundary (secure_llm_input key-aware recursion fix,
+    #     session-cookie name families, key-aware redact_value).
+    # Regression coverage verified BEFORE the re-pin:
+    # tests/test_umdr34_*.py (170 tests) + all pre-existing suites
+    # touching these modules re-run green.
+    "src/webpent/scope/__init__.py",
+    "src/webpent/scope/models.py",
+    "src/webpent/scope/enforcer.py",
+    "src/webpent/scope/parser.py",
+    "src/webpent/shared/untrusted_content.py",
+    "src/webpent/shared/redaction.py",
+})
+
 UMDR28_DISCOVERY_20261107_THAW_PATHS = frozenset({
     # UM-DR-28 (production discovery integration, 2026-11-07): the
     # representation-equivalence repair in the causal guard — the four
@@ -1151,6 +1180,7 @@ def test_baseline_disagrees_only_on_documented_unfreeze_paths() -> None:
         | UMDR33_PHASE2_SECURITY_20261110_THAW_PATHS
         | UMDR33_INFO_GAIN_20261110_THAW_PATHS
         | UMDR33_VERSION_BUMP_20261110_THAW_PATHS
+        | UMDR34_SCOPE_AUTHORITY_20261110_THAW_PATHS
     )
     # ULTIMATE PLAN 2026-10-27, proposal 4: the pre-archive drift sets
     # (e.g. TEAM_MERGE_V152_LINEAGE_DRIFT_PATHS' goed_v1 entry) can no

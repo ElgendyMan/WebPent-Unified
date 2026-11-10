@@ -1,0 +1,133 @@
+{
+  "window": "UM-DR-34 scope authority, safe egress & execution governance",
+  "generated": "2026-11-10",
+  "baseline": {
+    "branch": "features/v0.39.0-umdr33",
+    "commit": "4795f02377373a1a2dc4d3376987f7702cd24bf6",
+    "tree": "30d0917275384c16a42351ae844a4508dd80c3c9"
+  },
+  "final_revision": {
+    "branch": "umdr34-scope-authority-egress-hardening",
+    "commit": "ed51ca10a17fdd6793d617d1abf5951973448976",
+    "tree": "8d43bf7ef40b2c733415791714c5943408327612"
+  },
+  "canonical_policy_call_by_path": {
+    "celery_worker_campaign": {
+      "entry": "workers/pentest_worker.py::run_pentest_task",
+      "authoritative_policy_call": "shared.engagement_scope.is_engagement_origin_allowed (atomic EngagementContext) + in-graph scope_enforcer_node (state) + transport origin check",
+      "boundary": "SSRFPinningTransport.handle_request / AsyncSSRFPinningTransport.handle_async_request",
+      "redirect_revalidation": "_redirect_guard_decision (method-aware, fresh per hop)",
+      "rate_control": "GlobalRateGovernor via _transport_rate_gate (engagement default-on)",
+      "status": "ENFORCED"
+    },
+    "cli_campaign": {
+      "entry": "cli/unified_hunt.py::run_unified_hunt",
+      "authoritative_policy_call": "same as celery worker (shared entry contract)",
+      "boundary": "safe client factories",
+      "redirect_revalidation": "same",
+      "rate_control": "same",
+      "status": "ENFORCED"
+    },
+    "direct_hunter_runner": {
+      "entry": "agents/hunter_runner.py::run_hunter_campaign",
+      "authoritative_policy_call": "ScopeEnforcer over effective policy (program OR explicit target-only authority) with acquire()/release(); transport origin check still applies per request",
+      "boundary": "safe client (via AVI/ModernOrchestrator)",
+      "redirect_revalidation": "follow_redirects=False + guard on any follow",
+      "rate_control": "ScopeLimits permits + transport ceiling",
+      "status": "ENFORCED (target_only mode explicit and reported)"
+    },
+    "langgraph_campaign": {
+      "entry": "graph/builder.py research/scope nodes",
+      "authoritative_policy_call": "wildcard_scope_node compile (deny-all on malformed) + scope_enforcer_node state filter + transport origin check",
+      "boundary": "safe client factories",
+      "redirect_revalidation": "redirect guard",
+      "rate_control": "transport ceiling (engagement default-on)",
+      "status": "ENFORCED"
+    },
+    "avi_execution": {
+      "entry": "production/autonomous_validation_v1.py::run_campaign",
+      "authoritative_policy_call": "ContextAuthority.authorize_execution (ScopeLaw+ToolBoundary) + transport origin check",
+      "boundary": "make_safe_httpx_client (follow_redirects=False)",
+      "redirect_revalidation": "30x observed, never auto-followed",
+      "rate_control": "transport ceiling",
+      "status": "ENFORCED (ScopeLaw self-derivation residual documented)"
+    },
+    "httpx_sync": {
+      "authoritative_policy_call": "is_engagement_origin_allowed (fail-closed in ENGAGEMENT mode)",
+      "boundary": "SSRFPinningTransport._handle_request_pinned",
+      "redirect_revalidation": "redirect guard (method-aware)",
+      "rate_control": "_engagement_rate_ceiling_active + _transport_rate_gate (fail-closed in engagement)",
+      "status": "ENFORCED"
+    },
+    "httpx_async": {
+      "authoritative_policy_call": "identical to sync (no reduced async policy)",
+      "boundary": "AsyncSSRFPinningTransport._handle_request_pinned",
+      "redirect_revalidation": "_redirect_guard_async (latent sync-hook crash fixed)",
+      "rate_control": "SAME gate as sync (new)",
+      "status": "ENFORCED"
+    },
+    "redirects": {
+      "authoritative_policy_call": "_redirect_guard_decision: fresh full decision per hop, original method AND GET-downgrade both evaluated",
+      "status": "ENFORCED"
+    },
+    "playwright": {
+      "authoritative_policy_call": "install_playwright_ssrf_guard route handler (per-request origin policy + blocklist + engagement-target exemption); route_web_socket guard",
+      "boundary": "Chromium route interception",
+      "redirect_revalidation": "route handler fires per request incl. redirects",
+      "rate_control": "crawl-config per-host interval (documented)",
+      "status": "ENFORCED (3/6 callers without launch-time DNS pinning rely on the documented backstop)"
+    },
+    "external_tools": {
+      "authoritative_policy_call": "per-tool preflight is_engagement_target_host (fail-closed on empty allowlist) + sqlmap --scope regex + dalfox conditional redirects + katana field pinning",
+      "boundary": "tools/utils/subprocess.py (frozen manifest, list-only argv, shell=False)",
+      "redirect_revalidation": "tool flags pin scope",
+      "rate_control": "per-tool pacing configs",
+      "status": "ENFORCED (tools/); APEX PARTIAL (documented, non-campaign-path)"
+    },
+    "business_logic_fuzzer": {
+      "authoritative_policy_call": "per-thread contextvars.copy_context() (preserved) + transport origin check (fail-closed)",
+      "boundary": "make_safe_httpx_client (follow_redirects=False)",
+      "redirect_revalidation": "no auto-follow",
+      "rate_control": "per-host rate governor + transport ceiling",
+      "status": "ENFORCED at boundary (forms-channel state filter residual documented)"
+    },
+    "raw_h2_race": {
+      "authoritative_policy_call": "is_engagement_origin_allowed BEFORE raw socket connect (new)",
+      "boundary": "shared/h2_race.py::_connect (CERT_NONE documented lab posture)",
+      "status": "ENFORCED (new)"
+    },
+    "families_execution_node": {
+      "authoritative_policy_call": "full safe factory (was bare pinning transport without hook layer)",
+      "boundary": "make_safe_httpx_client (redirect guard + untrusted-content mask)",
+      "status": "ENFORCED (raw httpx identities removed from the direct-I/O inventory)"
+    },
+    "control_plane_egress": {
+      "authoritative_policy_call": "set_control_plane_egress destinations (exact scheme/host/port triples); never inherits campaign permissions",
+      "boundary": "transport origin check in CONTROL_PLANE mode",
+      "status": "SEPARATED (new §3.1)"
+    }
+  },
+  "qualification_levels": {
+    "implemented": [
+      "canonical authority", "atomic context", "control-plane separation",
+      "redirect guard", "async parity", "rate ceiling", "coordination posture",
+      "LLM key checks", "cookie families", "checkpoint degraded marker",
+      "h2 scope gate", "execution node safe factory", "HunterRunner permits",
+      "gate hardening"
+    ],
+    "unit_tested": "all of the above (170 new tests)",
+    "integration_tested": [
+      "transport boundary denials with zero network attempts",
+      "redirect chains through the real hook pipeline",
+      "guarded runnable batch/stream transit",
+      "checkpoint put/restore round-trip with degraded markers"
+    ],
+    "connected_to_production": [
+      "all safe-factory consumers (179 references / 51 files) inherit the hardened boundary",
+      "worker + CLI entries declare engagement contexts through the same atomic API"
+    ],
+    "executed_through_compiled_graph": "PARTIAL — the graph's transport boundary is exercised via its exact production chokepoints; no full compiled-graph campaign run was executed in this sandbox (no live LLM credentials / browser binaries)",
+    "demonstrated_in_campaign": "PARTIAL — direct HunterRunner path carries the acquire/release permits and target-only mode; no live-target campaign in this window",
+    "independently_validated": "NOT CLAIMED (no external validation in this window; M10 holdout remains BLOCKED_EXTERNAL_DEPENDENCY)"
+  }
+}

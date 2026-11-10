@@ -139,6 +139,51 @@ def _return_keys_from_function(fn: ast.FunctionDef | ast.AsyncFunctionDef) -> tu
     return keys, dynamic
 
 
+def _mutation_keys_from_function(fn: ast.FunctionDef | ast.AsyncFunctionDef) -> set[str]:
+    """UM-DR-34 §9 — literal keys written by IN-PLACE state mutation.
+
+    LangGraph nodes are contractually supposed to RETURN update dicts;
+    mutating the state parameter in place (``state.update({...})`` or
+    ``state["key"] = value``) is a writer pattern the return-only scan
+    never saw.  This AST pass detects, inside ``*_node`` functions, any
+    ``<something>.update({...})`` call or ``<something>["literal"] =``
+    subscript assignment whose target name is ``state`` (the conventional
+    node parameter), and extracts the literal keys so they face the SAME
+    declaration check as returned keys.
+
+    Deliberately conservative (no flow analysis): a non-literal key or a
+    non-``state`` target is ignored rather than guessed — this checker
+    must not become a broad, brittle parser that produces false
+    assurance.
+    """
+    keys: set[str] = set()
+    for stmt in _scoped_statements(fn):
+        for child in ast.walk(stmt):
+            # state.update({"k": v, ...})
+            if (
+                isinstance(child, ast.Call)
+                and isinstance(child.func, ast.Attribute)
+                and child.func.attr == "update"
+                and isinstance(child.func.value, ast.Name)
+                and child.func.value.id == "state"
+                and child.args
+                and isinstance(child.args[0], ast.Dict)
+            ):
+                keys |= _dict_literal_keys(child.args[0])
+            # state["k"] = value
+            if (
+                isinstance(child, ast.Assign)
+                and len(child.targets) == 1
+                and isinstance(child.targets[0], ast.Subscript)
+                and isinstance(child.targets[0].value, ast.Name)
+                and child.targets[0].value.id == "state"
+            ):
+                index = child.targets[0].slice
+                if isinstance(index, ast.Constant) and isinstance(index.value, str):
+                    keys.add(index.value)
+    return keys
+
+
 def collect_node_writers() -> dict[str, tuple[str, set[str], bool]]:
     """Return node_name -> (location, literal keys, has_dynamic)."""
     writers: dict[str, tuple[str, set[str], bool]] = {}
@@ -155,6 +200,10 @@ def collect_node_writers() -> dict[str, tuple[str, set[str], bool]]:
             for node in ast.walk(tree):
                 if isinstance(node, ast.FunctionDef) and node.name.endswith("_node"):
                     keys, dynamic = _return_keys_from_function(node)
+                    # UM-DR-34 §9: in-place mutation keys face the same
+                    # declaration check as returned keys.
+                    mutation_keys = _mutation_keys_from_function(node)
+                    keys = keys | mutation_keys
                     if node.name in writers:
                         prev = writers[node.name]
                         writers[node.name] = (

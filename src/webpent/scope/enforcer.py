@@ -1,15 +1,20 @@
 from __future__ import annotations
 
-import ipaddress
 import threading
 import time
-from fnmatch import fnmatch
 from urllib.parse import urlsplit
 
+from .authority import CanonicalScopeError, compile_host_matcher
 from .models import ScopeDecision, ScopePolicy, ScopeRule, ScopeStatus, severity_allowed
 
 _DEFAULT_PORTS = {"http": 80, "https": 443}
 _DESTRUCTIVE = frozenset({"DELETE", "PUT", "PATCH"})
+
+# UM-DR-34 §2.3: ONE wildcard compiler.  Host matching (exact, IP,
+# CIDR, strict leftmost-label wildcard) is compiled by the canonical
+# authority compiler — the historic fnmatch-based matching is removed
+# because ``fnmatch`` treats ``?`` and ``[seq]`` as metacharacters and
+# lets a scope wildcard act as a general glob expression.
 
 
 class ScopeEnforcer:
@@ -46,19 +51,22 @@ class ScopeEnforcer:
 
     @staticmethod
     def _host_match(host: str, rule: ScopeRule) -> bool:
-        value = rule.value.strip()
-        parsed = urlsplit(value if "://" in value else f"//{value}")
-        rule_host = (parsed.hostname or value).lower().rstrip(".")
-        host = host.lower().rstrip(".")
-        if rule.kind == "cidr":
-            try:
-                return ipaddress.ip_address(host) in ipaddress.ip_network(value, strict=False)
-            except ValueError:
-                return False
-        if rule.kind == "wildcard" or "*" in rule_host:
-            pattern = rule_host.replace("*", "*")
-            return host != rule_host.lstrip("*.") and fnmatch(host, pattern)
-        return host == rule_host
+        """Delegate host matching to the ONE canonical strict compiler.
+
+        Compilation failures (misplaced ``*``, glob ``?``/``[seq]``
+        syntax, malformed labels/CIDR) are DENIALS, never exceptions —
+        and never a silent fallback to a broader matcher.
+        """
+        from .authority import normalize_hostname
+
+        normalized = normalize_hostname(host)
+        if not normalized:
+            return False
+        try:
+            matcher = compile_host_matcher(rule)
+        except CanonicalScopeError:
+            return False
+        return matcher.matches(normalized)
 
     @staticmethod
     def _rule_matches(rule: ScopeRule, url: str, method: str, severity: str | None) -> bool:
@@ -66,7 +74,21 @@ class ScopeEnforcer:
             parsed = urlsplit(url)
             host = parsed.hostname or ""
             scheme = parsed.scheme.lower()
-            port = parsed.port or _DEFAULT_PORTS.get(scheme)
+            # UM-DR-34 §2.3: EXPLICIT None handling — port 0 must never
+            # be silently treated as an omitted (default) port.
+            explicit_port: int | None = None
+            try:
+                explicit_port = parsed.port
+            except ValueError:
+                return False
+            if explicit_port is None:
+                port = _DEFAULT_PORTS.get(scheme)
+                if port is None:
+                    return False
+            elif explicit_port == 0 or not 1 <= explicit_port <= 65535:
+                return False
+            else:
+                port = explicit_port
             rule_parsed = urlsplit(rule.value if "://" in rule.value else f"//{rule.value}")
         except ValueError:
             return False
@@ -127,7 +149,33 @@ class ScopeEnforcer:
         allow_rules = [r for r in rules if r.allow]
         if not allow_rules:
             return self._violation(url, method, "unknown_scope", "no in-scope rule matched")
-        decision = ScopeDecision(ScopeStatus.IN_SCOPE, url, method, "in-scope rule matched", allow_rules[0].source, request_admitted=True)
+        # UM-DR-34 §2.2: carry the canonical audit fields on every
+        # decision so boundary logs are explainable without secrets.
+        from .authority import parse_request_url
+
+        try:
+            request = parse_request_url(url)
+            canonical = {
+                "normalized_origin": request.normalized_origin,
+                "hostname": request.hostname,
+                "scheme": request.scheme,
+                "effective_port": request.effective_port,
+                "normalized_path": request.path,
+                "scope_fingerprint": self.policy.fingerprint,
+            }
+        except CanonicalScopeError:
+            canonical = {"scope_fingerprint": self.policy.fingerprint}
+        decision = ScopeDecision(
+            ScopeStatus.IN_SCOPE,
+            url,
+            method,
+            "in-scope rule matched",
+            allow_rules[0].source,
+            request_admitted=True,
+            matched_allow_rule=f"{allow_rules[0].kind}:{allow_rules[0].value}",
+            may_proceed_to_network=True,
+            **canonical,
+        )
         self._event("scope.check.in_scope", method=method, rule_source=allow_rules[0].source)
         return decision
 
