@@ -392,6 +392,34 @@ def identity_workflow_node(state: dict[str, Any]) -> dict[str, Any]:
         update["identity_research_hints"] = dict(sorted(hints.items())[:64])
 
     update["identity_workflow"] = telemetry
+
+    # UM-DR-36.6: Expected Behavior Model — evidence-backed rules with
+    # explicit uncertainty, derived from the SAME channels this node already
+    # consumed (workflow observations, identity registry). The model feeds
+    # hypothesis generation through unresolved questions (ordering-only
+    # hints); it NEVER confirms, admits, or schedules by itself.
+    try:
+        from webpent.production.expected_behavior import build_expected_behavior
+
+        behavior_model = build_expected_behavior(state)
+        update["expected_behavior_model"] = behavior_model.to_dict()
+        behavior_hints = {
+            question[:120]: 0.45
+            for question in behavior_model.unresolved_questions[:16]
+        }
+        if behavior_hints:
+            merged_hints = dict(update.get("identity_research_hints") or {})
+            for key, value in behavior_hints.items():
+                merged_hints[key] = max(merged_hints.get(key, 0.0), value)
+            update["identity_research_hints"] = dict(
+                sorted(merged_hints.items())[:64])
+        telemetry["expected_behavior"] = {
+            "rule_count": behavior_model.to_dict()["rule_count"],
+            "unresolved_question_count": behavior_model.to_dict()["unresolved_question_count"],
+        }
+    except (AttributeError, ImportError, KeyError, RuntimeError, TypeError, ValueError):
+        # measurement/context only: never blocks the identity workflow
+        pass
     return update
 
 

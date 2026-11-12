@@ -506,6 +506,18 @@ def _umdr32_identity_workflow_enabled() -> bool:
         return False
 
 
+def _umdr36_appmodel_enabled() -> bool:
+    """UM-DR-36.2: master gate for the appmodel node — the semantic model
+    is production-wired (default ON) and fail-closed; the node re-checks
+    the flag at runtime (coverage_gap_report double-gate precedent)."""
+    try:
+        from webpent.graph.appmodel_nodes import application_semantic_model_enabled
+
+        return application_semantic_model_enabled()
+    except (ImportError, AttributeError, OSError, RuntimeError, TypeError, ValueError):
+        return False
+
+
 def _umdr32_routes(routes: dict[str, str]) -> dict[str, str]:
     """UM-DR-32: redirect strategist-bound conditional routes through
     the identity_workflow node when any identity capability is enabled.
@@ -1921,6 +1933,53 @@ def build_graph(checkpointer: Any = None, auto_approve: bool = False,
                 out["avi_version"] = campaign_result.get("avi_version")
                 out["avi_trace_summary"] = campaign_result.get("trace", {})
                 out["avi_security_report"] = campaign_result.get("security_report", {})
+                # UM-DR-36.4: record the measured information-gain outcomes
+                # of this campaign's experiments on the declared channel so
+                # the next research decision is influenced by ACTUAL prior
+                # outcomes (evidence-derived priors override the static
+                # table in adaptive_research at >=3 samples per class).
+                try:
+                    from webpent.production.information_gain import (
+                        MeasuredOutcome,
+                        classify_outcome,
+                    )
+
+                    _sec = campaign_result.get("security_report") or {}
+                    _promoted = (_sec.get("promoted_findings")
+                                 if isinstance(_sec, dict) else []) or []
+                    _rejected = (_sec.get("rejected_findings")
+                                 if isinstance(_sec, dict) else []) or []
+                    _gain_outcomes = []
+                    for _pf in _promoted:
+                        _gain_outcomes.append({
+                            "experiment_signature": str(_pf.get("experiment_id") or ""),
+                            "signal_class": f"avi.{str(_pf.get('vulnerability_class') or 'unknown').lower()}",
+                            "gain_class": classify_outcome(
+                                hypothesis_outcome=str(_pf.get("outcome") or "CONFIRMED"),
+                                new_facts=1,
+                                semantic_model_changed=True),
+                            "new_facts": 1,
+                            "evidence_classes": 1,
+                            "semantic_model_changed": True,
+                        })
+                    for _rf in _rejected:
+                        _gain_outcomes.append({
+                            "experiment_signature": str(_rf.get("experiment_id")
+                                                       or _rf.get("hypothesis_id") or ""),
+                            "signal_class": f"avi.{str(_rf.get('vulnerability_class') or 'unknown').lower()}",
+                            "gain_class": classify_outcome(
+                                hypothesis_outcome=str(_rf.get("reason") or "REJECTED").split(":")[0]),
+                            "new_facts": 0,
+                            "evidence_classes": 0,
+                        })
+                    if _gain_outcomes:
+                        out["information_gain"] = {
+                            "outcomes": _gain_outcomes,
+                            "recorded_by": "research_campaign_node",
+                        }
+                except (AttributeError, ImportError, KeyError, RuntimeError,
+                        TypeError, ValueError):
+                    pass  # measurement is advisory; never blocks the campaign
                 out["avi_decisions_executed"] = campaign_result.get("decisions_executed")
                 out["avi_promoted_count"] = campaign_result.get("promoted_count")
             # REMEDIATION (hostile-audit D2 / P1): AVI-promoted findings previously
@@ -2288,7 +2347,17 @@ def build_graph(checkpointer: Any = None, auto_approve: bool = False,
     # node is a pass-through when the flag is off — the edge chain is
     # then waf_detector -> surface_sizing -> hypothesis with the sizing
     # node adding two zero-cost supersteps, byte-identical routing.
-    graph.add_edge(NODE_SURFACE_SIZING, NODE_HYPOTHESIS)
+    # UM-DR-36.2: the Application Semantic Model node is registered
+    # UNCONDITIONALLY with internal flag gating (the surface_sizing /
+    # lesson_nodes pattern) and inserted into the linear segment so it
+    # runs BEFORE hypothesis generation — semantic context (entities,
+    # relations, coverage gaps) is exposed to hypothesis generation, and
+    # the model holds no confirmation/admission authority.
+    from webpent.graph.appmodel_nodes import APPMODEL_NODE_NAME, appmodel_node
+
+    graph.add_node(APPMODEL_NODE_NAME, _trace_wrap(APPMODEL_NODE_NAME, appmodel_node))
+    graph.add_edge(NODE_SURFACE_SIZING, APPMODEL_NODE_NAME)
+    graph.add_edge(APPMODEL_NODE_NAME, NODE_HYPOTHESIS)
 
     graph.add_conditional_edges(
         # V10 P1-3: renamed route_after_recon -> route_after_hypothesis
@@ -2584,6 +2653,25 @@ def build_graph(checkpointer: Any = None, auto_approve: bool = False,
         # layer import, settings access, pydantic ValidationError is a
         # ValueError). Anything else SHOULD fail loudly here.
         logger.warning("Coverage gap report wiring skipped safely: %s", _umdr30_exc)
+
+    # UM-DR-36.3 (Discovery Funnel production wiring): the funnel node runs
+    # between the reporter and reflection (the coverage_gap_report
+    # precedent). It computes the 28-stage funnel from REAL runtime state,
+    # refreshes the final Application Semantic Model, and persists both on
+    # declared channels (campaign artifact + summary consumers). Fail-closed
+    # behind enable_discovery_funnel.
+    try:
+        from webpent.config.settings import get_settings as _umdr36_settings
+
+        if _umdr36_settings().enable_discovery_funnel:
+            from webpent.graph.funnel_nodes import wire_discovery_funnel
+
+            wire_discovery_funnel(graph)
+            logger.info(
+                "Discovery funnel node wired (enable_discovery_funnel=True)"
+            )
+    except (ImportError, AttributeError, TypeError, ValueError) as _umdr36_exc:
+        logger.warning("Discovery funnel wiring skipped safely: %s", _umdr36_exc)
 
     # M3 UM-DR-17 (OAST production wiring): the out-of-band correlation
     # node — per-hypothesis nonce-bound sessions over the configured

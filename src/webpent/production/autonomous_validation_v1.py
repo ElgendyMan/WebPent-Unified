@@ -39,6 +39,7 @@ ANTI-FKE GUARANTEES (PromotionPipeline rejects):
 """
 from __future__ import annotations
 
+import copy
 import hashlib
 import hmac as _hmac
 import json
@@ -50,6 +51,16 @@ from typing import Any, Final, Literal
 from urllib.parse import parse_qs, quote_plus, urlencode, urlsplit
 
 from webpent.models.evidence import sha256_text
+from webpent.cqa_v2.causal_guard import (
+    CAUSALGUARD_AUTHORITY_ID as _CAUSALGUARD_AUTHORITY_ID,
+    GuardedCausalResult as _GuardedCausalResult,
+    Verdict as _CausalGuardVerdict,
+)
+from webpent.production.confirmation_adapter import (
+    build_experiment_causal_evidence as _build_causal_evidence,
+    causalguard_adjudicate as _causalguard_adjudicate,
+    causalguard_verdict_matches as _causalguard_verdict_matches,
+)
 from webpent.production.experiment_fabric import (
     EXPERIMENT_REGISTRY,
     GenericExperimentRunner,
@@ -302,7 +313,15 @@ class ReplayVerifier:
                vulnerability_class: str, expected_outcome: str,
                expected_baseline_digest: str, expected_candidate_digest: str,
                expected_negative_control_digest: str,
-               proof_bundle: Any | None = None) -> dict[str, Any]:
+               proof_bundle: Any | None = None,
+               hypothesis: dict[str, Any] | None = None,
+               identity_binding: dict[str, Any] | None = None,
+               causalguard_result: Any | None = None) -> dict[str, Any]:
+        """UM-DR-35.1/§1.2: a replay is successful ONLY when the re-derived
+        validator outcome matches, digests match, the seal verifies, semantic
+        evidence matches, AND the re-adjudicated CausalGuard verdict matches
+        the original typed result. A replay failure (or a missing original
+        CausalGuard result) can never be a clean/confirmed outcome."""
         # Re-normalize (deterministic).
         b = normalize_observation(experiment_id, "baseline", baseline_raw)
         c = normalize_observation(experiment_id, "candidate", candidate_raw)
@@ -360,16 +379,44 @@ class ReplayVerifier:
                     and bool(co.get("actor_id"))
                     and bool(co.get("resource_id"))
                 )
-        replay_verified = bool(digests_match and outcome_match and seal_ok and semantic_match)
+        # Re-adjudicate through the SOLE confirmation authority
+        # (UM-DR-35 §1.1): replay must re-derive the CausalGuard verdict from
+        # the reloaded raw observations, and it must match the ORIGINAL typed
+        # result. Missing original result => replay fails closed.
+        causalguard_match = False
+        replayed_causalguard_verdict: str | None = None
+        try:
+            replay_evidence = _build_causal_evidence(
+                vulnerability_class=vulnerability_class,
+                experiment_id=experiment_id,
+                baseline_raw=baseline_raw,
+                candidate_raw=candidate_raw,
+                negative_control_raw=negative_control_raw,
+                hypothesis=hypothesis,
+                identity_binding=identity_binding,
+            )
+            replayed_result = _causalguard_adjudicate(replay_evidence)
+            replayed_causalguard_verdict = replayed_result.verdict.value
+            causalguard_match = _causalguard_verdict_matches(
+                causalguard_result if isinstance(causalguard_result, _GuardedCausalResult) else None,
+                replayed_result)
+        except (AttributeError, ImportError, KeyError, RuntimeError, TypeError, ValueError):
+            causalguard_match = False
+        replay_verified = bool(
+            digests_match and outcome_match and seal_ok and semantic_match
+            and causalguard_match)
         return {
             "replay_verified": replay_verified,
             "digests_match": digests_match,
             "outcome_match": outcome_match,
             "seal_verified": seal_ok,
             "semantic_match": semantic_match,
+            "causalguard_match": causalguard_match,
+            "replayed_causalguard_verdict": replayed_causalguard_verdict,
             "replayed_outcome": vr.outcome.value if vr else None,
             "expected_outcome": expected_outcome,
-            "replay_component": "ReplayVerifier_v1_2_semantic",
+            "replay_executed": True,
+            "replay_component": "ReplayVerifier_v1_2_semantic_causalguard",
         }
 
 
@@ -412,6 +459,7 @@ class PromotionPipeline:
         "baseline_present",
         "negative_control_present",
         "causal_validator_confirmed",     # anti confidence-only
+        "causalguard_adjudicated",        # UM-DR-35.1: SOLE confirmation authority (typed result required)
         "proof_bundle_signed",            # anti unsigned
         "replay_verified",                # anti missing replay
         "no_external_scanner_authority",  # anti external authority
@@ -427,6 +475,13 @@ class PromotionPipeline:
         # validator
         validator_outcome: str | None,
         evidence_quality: int,
+        # UM-DR-35.1 — CausalGuard SOLE confirmation authority.
+        # Must be a genuine typed GuardedCausalResult produced by
+        # cqa_v2.causal_guard.guarded_causal_evaluate_experiment. A string
+        # label (e.g. a forged "CausalGuard_deterministic_engine" value)
+        # can NEVER satisfy this gate: only the isinstance-checked typed
+        # result with verdict CONFIRMED can.
+        causalguard_result: Any | None = None,
         # proof
         proof_bundle: Any | None,
         # replay
@@ -492,6 +547,25 @@ class PromotionPipeline:
             causal_ok = False
             if "causal_validator_confirmed" not in failed:
                 failed.append("causal_validator_confirmed")
+
+        # Gate 3b (UM-DR-35.1): CausalGuard — SOLE confirmation authority.
+        # The promotion decision is IMPOSSIBLE without a genuine, typed
+        # GuardedCausalResult (isinstance-checked, produced only by
+        # cqa_v2.causal_guard.guarded_causal_evaluate_experiment) whose
+        # verdict is CONFIRMED. A string label, component name, trace
+        # annotation, validator outcome, LLM score, or external scanner
+        # claim can never satisfy this gate — a forged authority string
+        # fails here structurally.
+        cg_ok = False
+        if causalguard_result is not None:
+            cg_ok = (isinstance(causalguard_result, _GuardedCausalResult)
+                     and causalguard_result.verdict == _CausalGuardVerdict.CONFIRMED
+                     and causalguard_result.causal_signal is True)
+        gate(
+            "causalguard_adjudicated", cg_ok,
+            "missing or non-CONFIRMED CausalGuard result "
+            f"(got {type(causalguard_result).__name__ if causalguard_result is not None else 'None'})",
+        )
 
         # Gate 4: ProofBundle signed (sealed + HMAC authentic).
         bundle_signed = False
@@ -1527,7 +1601,8 @@ class AutonomousValidationIntelligence:
                               target_fingerprint: str,
                               request_digests: tuple[str, ...] = (),
                               response_digests: tuple[str, ...] = (),
-                              identity_binding: dict[str, Any] | None = None) -> Any:
+                              identity_binding: dict[str, Any] | None = None,
+                              causalguard_result: Any | None = None) -> Any:
         from webpent.models.proof_bundle import ProofBundle
         engagement_id = getattr(self.orch, "engagement_id", "avi_engagement")
         finding_id = _canonical_finding_id(
@@ -1538,12 +1613,29 @@ class AutonomousValidationIntelligence:
             vulnerability_class=vuln_class,
         )
         ib = identity_binding or {}
+        cg_verdict_value = None
+        cg_confidence = None
+        cg_block_reason = None
+        if causalguard_result is not None and isinstance(causalguard_result, _GuardedCausalResult):
+            cg_verdict_value = causalguard_result.verdict.value
+            cg_confidence = float(causalguard_result.confidence)
+            cg_block_reason = causalguard_result.block_reason
         causal_oracle = {
-            "causal_signal": validator_result.outcome == ValidationOutcome.CONFIRMED,
+            "causal_signal": (
+                cg_verdict_value == "CONFIRMED"
+                if cg_verdict_value is not None
+                else validator_result.outcome == ValidationOutcome.CONFIRMED
+            ),
             "negative_control_complete": True,
             "baseline_complete": True,
             "discriminating_signal": validator_result.discriminating_signal[:200],
             "validator_outcome": validator_result.outcome.value,
+            # UM-DR-35.1: the sole confirmation authority's verdict, sealed
+            # with the bundle. Authority identity is the cqa_v2 module id.
+            "causalguard_authority": _CAUSALGUARD_AUTHORITY_ID,
+            "causalguard_verdict": cg_verdict_value,
+            "causalguard_confidence": cg_confidence,
+            "causalguard_block_reason": cg_block_reason,
             # V1.2 semantic authority — evidence MEANING, not just integrity.
             "actor_id": ib.get("actor_id"),
             "resource_id": ib.get("resource_id"),
@@ -1643,9 +1735,12 @@ class AutonomousValidationIntelligence:
                             "registry_hit": reg_hit, "registry_size": len(EXPERIMENT_REGISTRY)})
         if not reg_hit:
             # Fail closed — unknown class is not executed, recorded as rejected.
+            # UM-DR-35.1: no CausalGuard result exists for an unexecuted
+            # experiment; the causalguard_adjudicated gate fails structurally.
             pr = self.promotion_pipeline.evaluate(
                 baseline_obs=None, candidate_obs=None, negative_control_obs=None,
                 evidence_origin="target_runtime", validator_outcome=None,
+                causalguard_result=None,
                 evidence_quality=0, proof_bundle=None, replay_verified=False,
                 finding_id=None, vulnerability_class=vuln,
             )
@@ -1762,11 +1857,76 @@ class AutonomousValidationIntelligence:
                             "identity_bound_reason": identity_binding["identity_bound_reason"],
                             "causal_difference": identity_binding["causal_difference"]})
 
+        # Stage 6c (UM-DR-35.1): CausalGuard — SOLE CONFIRMATION AUTHORITY.
+        # The specialized validator's outcome is TECHNICAL EVIDENCE only;
+        # causality is adjudicated by the real cqa_v2.causal_guard
+        # implementation via the confirmation adapter. A validator CONFIRMED
+        # without a matching CausalGuard CONFIRMED is downgraded below —
+        # promotion without a genuine typed result is structurally
+        # impossible (PromotionPipeline gate "causalguard_adjudicated").
+        causalguard_result = None
+        try:
+            causal_evidence = _build_causal_evidence(
+                vulnerability_class=vuln,
+                experiment_id=exp_id,
+                baseline_raw=raw_triple["baseline"],
+                candidate_raw=raw_triple["candidate"],
+                negative_control_raw=raw_triple["negative_control"],
+                hypothesis=chosen_hyp,
+                identity_binding=identity_binding,
+                validator_outcome=vr.outcome.value if vr else None,
+                refutation_info=(vr.refutation_path if vr else None),
+            )
+            causalguard_result = _causalguard_adjudicate(causal_evidence)
+        except (AttributeError, KeyError, RuntimeError, TypeError, ValueError):
+            causalguard_result = None
+        cg_verdict = None
+        if causalguard_result is not None:
+            _cg_v = getattr(causalguard_result, "verdict", None)
+            cg_verdict = getattr(_cg_v, "value", None) or (
+                str(_cg_v) if _cg_v is not None else None)
+        trace.record(stage="causalguard_adjudication", component="CausalGuard(cqa_v2)",
+                     proof={"authority": _CAUSALGUARD_AUTHORITY_ID,
+                            "experiment_id": exp_id, "vulnerability_class": vuln,
+                            "verdict": cg_verdict,
+                            "causal_signal": (
+                                causalguard_result.causal_signal
+                                if causalguard_result is not None else None),
+                            "block_reason": (
+                                causalguard_result.block_reason
+                                if causalguard_result is not None
+                                else "adapter_unavailable_fail_closed"),
+                            "advisory_validator_outcome": vr.outcome.value if vr else None,
+                            "validator_label_used_for_decision": False})
+        # A validator CONFIRMED without a CausalGuard CONFIRMED is
+        # INCONCLUSIVE: technical evidence exists, causality unproven.
+        if (vr is not None and vr.outcome == ValidationOutcome.CONFIRMED
+                and (causalguard_result is None
+                     or not isinstance(causalguard_result, _GuardedCausalResult)
+                     or causalguard_result.verdict is not _CausalGuardVerdict.CONFIRMED)):
+            from webpent.production.validators import ValidationResult as _VR
+            _cg_reason = (
+                f"causalguard_verdict={cg_verdict}"
+                if (causalguard_result is not None
+                        and isinstance(causalguard_result, _GuardedCausalResult))
+                else "causalguard_result_missing_or_wrong_type"
+            )
+            cg_typed = (causalguard_result is not None
+                        and isinstance(causalguard_result, _GuardedCausalResult))
+            if cg_typed and causalguard_result.block_reason:
+                _cg_reason += f"/{causalguard_result.block_reason}"
+            vr = _VR(vuln, ValidationOutcome.INCONCLUSIVE,
+                     EvidenceQuality.OBSERVED_DIFFERENTIAL,
+                     f"causalguard_not_confirmed: {_cg_reason}",
+                     validator_input["baseline"], validator_input["candidate"],
+                     validator_input["negative_control"])
+
         # Stage 7: EvidenceQuality calculated.
         eq = int(vr.evidence_quality) if vr else int(EvidenceQuality.STRUCTURAL_HINT)
         trace.record(stage="evidence_quality_calculated", component="EvidenceQuality",
                      proof={"experiment_id": exp_id, "evidence_quality": eq,
-                            "evidence_quality_label": EvidenceQuality(eq).name if eq <= 5 else "UNKNOWN",
+                            "evidence_quality_label": (
+                                EvidenceQuality(eq).name if eq <= 5 else "UNKNOWN"),
                             "promotion_grade_minimum": int(EvidenceQuality.OBSERVED_DIFFERENTIAL)})
 
         # Stage 8: ProofBundle created + sealed (HMAC).
@@ -1777,20 +1937,41 @@ class AutonomousValidationIntelligence:
                     hypothesis_id=hid, vuln_class=vuln, experiment_id=exp_id,
                     validator_result=vr, baseline_digest=b_norm.digest(),
                     candidate_digest=c_norm.digest(), negative_control_digest=nc_norm.digest(),
-                    request_digests=tuple(raw_triple[role].get("request_digest", "") for role in ("baseline", "candidate", "negative_control")),
-                    response_digests=tuple(f"sha256:{hashlib.sha256(d.encode()).hexdigest()}" for d in (b_norm.digest(), c_norm.digest(), nc_norm.digest())),
+                    request_digests=tuple(
+                        raw_triple[role].get("request_digest", "")
+                        for role in ("baseline", "candidate", "negative_control")),
+                    response_digests=tuple(
+                        f"sha256:{hashlib.sha256(d.encode()).hexdigest()}"
+                        for d in (b_norm.digest(), c_norm.digest(),
+                                  nc_norm.digest())),
                     target_fingerprint=target_fingerprint,
                     identity_binding=identity_binding,
+                    causalguard_result=causalguard_result,
                 )
             except (AttributeError, KeyError, RuntimeError, TypeError, ValueError):
                 proof_bundle = None
         proof_created = proof_bundle is not None and getattr(proof_bundle, "sealed", False)
         trace.record(stage="proof_created", component="ProofBundle",
-                     proof={"hypothesis_id": hid, "bundle_id": getattr(proof_bundle, "bundle_id", None),
+                     proof={"hypothesis_id": hid,
+                            "bundle_id": getattr(proof_bundle, "bundle_id", None),
                             "sealed": proof_created,
                             "seal_digest": getattr(proof_bundle, "seal_digest", None),
-                            "authenticity_tag_present": bool(getattr(proof_bundle, "authenticity_tag", None)),
+                            "authenticity_tag_present": bool(
+                                getattr(proof_bundle, "authenticity_tag", None)),
                             "evidence_origin": "target_runtime"})
+
+        # UM-DR-35.2: anchor the decision's evidence on the instance so
+        # external verification (tests, audit tooling) can re-run the replay
+        # contract against the exact inputs the decision consumed — including
+        # mutations of baseline / candidate / negative control / causal result.
+        self._last_raw_triple = copy.deepcopy(raw_triple)
+        self._last_causalguard_result = causalguard_result
+        self._last_validator_outcome = vr.outcome.value if vr else "NONE"
+        self._last_digests = {"baseline": b_norm.digest(), "candidate": c_norm.digest(),
+                              "negative_control": nc_norm.digest()}
+        self._last_proof_bundle = proof_bundle
+        self._last_hypothesis = copy.deepcopy(chosen_hyp)
+        self._last_identity_binding = copy.deepcopy(identity_binding)
 
         # Stage 9: Replay verification (deterministic re-derivation).
         replay_result = self.replay_verifier.verify(
@@ -1802,12 +1983,19 @@ class AutonomousValidationIntelligence:
             expected_baseline_digest=b_norm.digest(), expected_candidate_digest=c_norm.digest(),
             expected_negative_control_digest=nc_norm.digest(),
             proof_bundle=proof_bundle,
+            hypothesis=chosen_hyp,
+            identity_binding=identity_binding,
+            causalguard_result=causalguard_result,
         )
         trace.record(stage="replay_verified", component="ReplayVerifier",
-                     proof={"experiment_id": exp_id, "replay_verified": replay_result["replay_verified"],
+                     proof={"experiment_id": exp_id,
+                            "replay_verified": replay_result["replay_verified"],
                             "digests_match": replay_result["digests_match"],
                             "outcome_match": replay_result["outcome_match"],
-                            "seal_verified": replay_result["seal_verified"]})
+                            "seal_verified": replay_result["seal_verified"],
+                            "causalguard_match": replay_result["causalguard_match"],
+                            "replayed_causalguard_verdict":
+                                replay_result["replayed_causalguard_verdict"]})
 
         # DR-005 (TC-2): the resurrection inserted the confidence computation
         # INSIDE this call's argument list, shipping the module syntactically
@@ -1817,7 +2005,8 @@ class AutonomousValidationIntelligence:
         # number on failure (None = no confidence claim).
         _confidence_score = None
         try:
-            from webpent.shared.confidence import compute_confidence_score, EvidenceType
+            from webpent.shared.confidence import (
+                compute_confidence_score, EvidenceType)
             _ev_type = (EvidenceType.TOOL_CONFIRMED
                         if (vr and vr.outcome == ValidationOutcome.CONFIRMED)
                         else EvidenceType.HEURISTIC)
@@ -1835,9 +2024,13 @@ class AutonomousValidationIntelligence:
             baseline_obs=b_norm, candidate_obs=c_norm, negative_control_obs=nc_norm,
             evidence_origin="target_runtime",
             validator_outcome=vr.outcome.value if vr else None,
-            evidence_quality=eq, proof_bundle=proof_bundle,
+            evidence_quality=eq,
+            causalguard_result=causalguard_result,
+            proof_bundle=proof_bundle,
             replay_verified=replay_result["replay_verified"],
-            verdict_authority="CausalGuard_deterministic_engine",
+            verdict_authority=(_CAUSALGUARD_AUTHORITY_ID
+                               if causalguard_result is not None
+                               else "causalguard_result_absent"),
             confidence_score=_confidence_score,
             finding_id=getattr(proof_bundle, "finding_id", None) if proof_bundle else None,
             vulnerability_class=vuln,
@@ -1867,6 +2060,8 @@ class AutonomousValidationIntelligence:
                 "outcome": vr.outcome.value if vr else None,
                 "evidence_quality": eq,
                 "discriminating_signal": vr.discriminating_signal[:200] if vr else None,
+                "causalguard_verdict": cg_verdict,
+                "causalguard_authority": _CAUSALGUARD_AUTHORITY_ID,
                 "bundle_id": getattr(proof_bundle, "bundle_id", None),
                 "seal_digest": getattr(proof_bundle, "seal_digest", None),
                 "api_type": selection["api_type"],

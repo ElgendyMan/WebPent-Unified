@@ -99,7 +99,13 @@ _LLM_BUDGET_LOCK = threading.Lock()
 
 
 class LLMBudgetExhaustedError(RuntimeError):
-    """Raised before provider I/O when one managed run reaches its call cap."""
+    """Raised before provider I/O when one managed run reaches its call cap
+    or its campaign-wide total-token ceiling (UM-DR-35.5)."""
+
+
+class LLMBudgetTokenExhaustedError(LLMBudgetExhaustedError):
+    """Raised before provider I/O when the campaign total-token budget is
+    exhausted (UM-DR-35.5). Routing to deterministic fallback is mandatory."""
 
 
 def _budget_state_value(state: dict[str, object], key: str, default: int = 0) -> int:
@@ -108,15 +114,30 @@ def _budget_state_value(state: dict[str, object], key: str, default: int = 0) ->
 
 
 @contextmanager
-def llm_usage_scope(settings: Settings | None = None) -> Iterator[list[dict[str, object]]]:
+def llm_usage_scope(
+    settings: Settings | None = None,
+    *,
+    max_total_tokens: int | None = None,
+) -> Iterator[list[dict[str, object]]]:
     """Collect usage and enforce bounded LLM attempts for one graph context.
 
     The call cap is deliberately independent of provider pricing: fallback
     attempts count as calls, and once exhausted no wrapped provider receives
-    an invocation. Token warnings are advisory only and are emitted only when
-    a provider reports token usage; unknown pricing is never estimated.
+    an invocation.
+
+    UM-DR-35.5: the scope also enforces a HARD campaign-wide total-token
+    ceiling (``max_total_tokens`` override, else
+    ``settings.llm_max_total_tokens_per_run``). Before every provider call a
+    CONSERVATIVE reservation (per-request output ceiling + input overhead) is
+    charged; after the call the reservation settles against the provider's
+    reported usage. When a provider does not report usage the reservation
+    REMAINS the accounted amount — unknown usage is never treated as zero.
+    Exhaustion raises :class:`LLMBudgetTokenExhaustedError` BEFORE provider
+    I/O, routing the caller to deterministic fallback.
     """
     settings = settings or get_settings()
+    ceiling = int(max_total_tokens) if max_total_tokens is not None else int(
+        getattr(settings, "llm_max_total_tokens_per_run", 0) or 0)
     bucket: list[dict[str, object]] = []
     budget: dict[str, object] = {
         "calls": 0,
@@ -125,6 +146,15 @@ def llm_usage_scope(settings: Settings | None = None) -> Iterator[list[dict[str,
         "warning_tokens": int(settings.llm_warning_tokens_per_run),
         "warning_emitted": False,
         "blocked": False,
+        # UM-DR-35.5 hard token budget state.
+        "max_total_tokens": ceiling,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0,
+        "reserved_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_exhausted": False,
+        "per_call_reservation": int(settings.llm_max_tokens) + 512,
     }
     usage_token = _LLM_USAGE_CONTEXT.set(bucket)
     budget_token = _LLM_BUDGET_CONTEXT.set(budget)
@@ -136,7 +166,13 @@ def llm_usage_scope(settings: Settings | None = None) -> Iterator[list[dict[str,
 
 
 def _consume_llm_call_budget() -> None:
-    """Reserve one provider attempt or fail closed before provider I/O."""
+    """Reserve one provider attempt or fail closed before provider I/O.
+
+    UM-DR-35.5: the reservation includes the conservative per-call token
+    allowance (per-request output ceiling + input overhead). If reported +
+    reserved tokens already reach the campaign ceiling, the call is blocked
+    with :class:`LLMBudgetTokenExhaustedError` BEFORE any network I/O.
+    """
     state = _LLM_BUDGET_CONTEXT.get()
     if state is None:
         # Direct library use outside a managed graph remains backwards
@@ -158,20 +194,78 @@ def _consume_llm_call_budget() -> None:
                 f"LLM call budget exhausted ({calls}/{maximum}); "
                 "caller must use deterministic fallback."
             )
+        # UM-DR-35.5: hard total-token ceiling check with conservative
+        # reservation for the upcoming provider call.
+        ceiling = _budget_state_value(state, "max_total_tokens", default=0)
+        if ceiling > 0:
+            reservation = _budget_state_value(
+                state, "per_call_reservation", default=4096)
+            accounted = (_budget_state_value(state, "reported_tokens")
+                         + _budget_state_value(state, "reserved_tokens"))
+            if accounted + reservation > ceiling:
+                state["blocked"] = True
+                state["tokens_exhausted"] = True
+                if not state.get("token_exhaustion_logged"):
+                    state["token_exhaustion_logged"] = True
+                    logger.warning(
+                        "LLM campaign total-token budget exhausted before "
+                        "provider I/O: accounted=%d reservation=%d ceiling=%d "
+                        "(unresolved hypotheses must NOT be marked negative)",
+                        accounted, reservation, ceiling,
+                    )
+                raise LLMBudgetTokenExhaustedError(
+                    f"LLM campaign total-token budget exhausted "
+                    f"(accounted={accounted} + reservation={reservation} > "
+                    f"ceiling={ceiling}); caller must use deterministic fallback "
+                    "or a clear stopped state."
+                )
+            state["reserved_tokens"] = (
+                _budget_state_value(state, "reserved_tokens") + reservation)
         state["calls"] = calls + 1
 
 
-def _record_llm_budget_tokens(total_tokens: int | None) -> None:
-    """Account reported tokens and emit one redaction-safe advisory warning."""
-    if total_tokens is None:
-        return
+def _settle_llm_budget_call(
+    *,
+    input_tokens: int | None,
+    output_tokens: int | None,
+    total_tokens: int | None,
+) -> None:
+    """Settle one provider call's token reservation against actual usage.
+
+    Known usage: release the reservation and account the reported split.
+    Unknown usage: the reservation REMAINS the accounted total (honest
+    conservative accounting — unknown is never zero) and the call is
+    counted as usage-unknown.
+    """
     state = _LLM_BUDGET_CONTEXT.get()
     if state is None:
         return
     with _LLM_BUDGET_LOCK:
-        reported = _budget_state_value(state, "reported_tokens") + total_tokens
-        state["reported_tokens"] = reported
-        threshold = _budget_state_value(state, "warning_tokens")
+        reservation = _budget_state_value(
+            state, "per_call_reservation", default=0)
+        reserved = _budget_state_value(state, "reserved_tokens")
+        reserved = max(0, reserved - reservation)
+        state["reserved_tokens"] = reserved
+        if total_tokens is not None:
+            state["input_tokens"] = _budget_state_value(
+                state, "input_tokens") + (input_tokens or 0)
+            state["output_tokens"] = _budget_state_value(
+                state, "output_tokens") + (output_tokens or 0)
+            state["total_tokens"] = _budget_state_value(
+                state, "total_tokens") + int(total_tokens)
+            reported = _budget_state_value(state, "reported_tokens") + int(total_tokens)
+            state["reported_tokens"] = reported
+        else:
+            # Unknown usage: keep the conservative reservation as accounted
+            # spend (never silently zero).
+            state["total_tokens"] = _budget_state_value(
+                state, "total_tokens") + reservation
+            state["reported_tokens"] = _budget_state_value(
+                state, "reported_tokens") + reservation
+            state["unknown_usage_calls"] = _budget_state_value(
+                state, "unknown_usage_calls") + 1
+        threshold = _budget_state_value(state, "warning_tokens", default=0)
+        reported = _budget_state_value(state, "reported_tokens")
         if threshold and reported >= threshold and not state.get("warning_emitted"):
             state["warning_emitted"] = True
             logger.warning(
@@ -193,6 +287,13 @@ def get_llm_budget_summary() -> dict[str, object]:
             "warning_tokens": None,
             "warning_emitted": False,
             "blocked": False,
+            "max_total_tokens": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "total_tokens": 0,
+            "reserved_tokens": 0,
+            "unknown_usage_calls": 0,
+            "tokens_exhausted": False,
         }
     with _LLM_BUDGET_LOCK:
         return {
@@ -203,6 +304,14 @@ def get_llm_budget_summary() -> dict[str, object]:
             "warning_tokens": _budget_state_value(state, "warning_tokens"),
             "warning_emitted": bool(state.get("warning_emitted")),
             "blocked": bool(state.get("blocked")),
+            # UM-DR-35.5: hard total-token budget accounting.
+            "max_total_tokens": _budget_state_value(state, "max_total_tokens", default=0),
+            "input_tokens": _budget_state_value(state, "input_tokens"),
+            "output_tokens": _budget_state_value(state, "output_tokens"),
+            "total_tokens": _budget_state_value(state, "total_tokens"),
+            "reserved_tokens": _budget_state_value(state, "reserved_tokens"),
+            "unknown_usage_calls": _budget_state_value(state, "unknown_usage_calls"),
+            "tokens_exhausted": bool(state.get("tokens_exhausted")),
         }
 
 
@@ -300,7 +409,11 @@ def _record_llm_usage(
     """Append one redaction-safe usage record; telemetry failures are fail-open."""
     try:
         input_tokens, output_tokens, total_tokens = _extract_usage(response)
-        _record_llm_budget_tokens(total_tokens)
+        _settle_llm_budget_call(
+            input_tokens=input_tokens,
+            output_tokens=output_tokens,
+            total_tokens=total_tokens,
+        )
         entry: dict[str, object] = {
             "provider": str(provider)[:80],
             "model": str(model)[:160],

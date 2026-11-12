@@ -530,6 +530,27 @@ class PentestState(TypedDict, total=False):
     identity_alias_graph: Annotated[dict[str, Any], merge_dicts]
     multi_identity_reasoning: Annotated[dict[str, Any], merge_dicts]
     identity_research_hints: Annotated[dict[str, Any], merge_dicts]
+    # UM-DR-36.2: the Application Semantic Model projection + ordering-only
+    # hints derived from its coverage gaps. The model is semantic CONTEXT
+    # for hypothesis generation — it holds no confirmation authority
+    # (CausalGuard stays sole) and no admission authority (scope/budget
+    # gates stay sole). Single-writer node (appmodel) with deep merges.
+    application_model: Annotated[dict[str, Any], merge_dicts]
+    appmodel_research_hints: Annotated[list[dict[str, Any]], merge_lists]
+    appmodel: Annotated[dict[str, Any], merge_dicts]
+    # UM-DR-36.3: the Discovery Funnel produced from REAL runtime state
+    # (pure function over final campaign state; persisted in the campaign
+    # artifact and included in the campaign summary).
+    discovery_funnel: Annotated[dict[str, Any], merge_dicts]
+    # UM-DR-36.4: measured information-gain outcomes recorded per
+    # experiment (evidence-derived priors for the NEXT research decision;
+    # prioritization input only — never admission/scope/budget/confirmation
+    # authority).
+    information_gain: Annotated[dict[str, Any], merge_dicts]
+    # UM-DR-36.6: the Expected Behavior Model (evidence-backed rules with
+    # explicit uncertainty + unresolved questions). Context/hypothesis
+    # input only — never a confirmation or admission authority.
+    expected_behavior_model: Annotated[dict[str, Any], merge_dicts]
     # bounded composite-workflow sequence candidates (§7): advisory
     # records carrying the invariant under test, the supporting
     # observations and the safety classification; execution happens only

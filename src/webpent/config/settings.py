@@ -305,6 +305,30 @@ class Settings(BaseSettings):
             "It is not a price estimate and never guesses provider pricing."
         ),
     )
+    llm_max_total_tokens_per_run: int = Field(
+        # UM-DR-35.5: HARD campaign-wide total-token ceiling. Unlike the
+        # advisory warning threshold above, reaching this ceiling blocks
+        # further provider I/O (LLMBudgetTokenExhaustedError raised BEFORE
+        # the request) and routes callers to deterministic fallback. A
+        # conservative per-call reservation is charged before each provider
+        # request and settled against reported usage afterwards; providers
+        # that do not report usage keep the reservation as accounted spend
+        # (unknown is never silently zero). The CLI exposes this as
+        # ``--max-tokens`` on both principal campaign interfaces and the
+        # selected ceiling is recorded in campaign metadata and final
+        # reports. 0 disables the token ceiling (call cap still applies).
+        default=4_000_000,
+        ge=0,
+        le=10_000_000_000,
+        validation_alias=AliasChoices(
+            "LLM_MAX_TOTAL_TOKENS_PER_RUN", "WEBPENT_LLM_MAX_TOTAL_TOKENS_PER_RUN"
+        ),
+        description=(
+            "Hard total-token budget per managed campaign run "
+            "(UM-DR-35.5). Enforced before provider I/O with a conservative "
+            "reservation; 0 disables the token ceiling."
+        ),
+    )
     llm_enabled: bool = Field(
         default=True,
         validation_alias=AliasChoices("LLM_ENABLED", "WEBPENT_LLM_ENABLED"),
@@ -882,6 +906,37 @@ class Settings(BaseSettings):
             "authorized executor under the fixture safety contract "
             "(destructive steps require resettable+isolated+operator-"
             "authorized fixtures). Fail-closed default False."
+        ),
+    )
+    enable_application_semantic_model: bool = Field(
+        # UM-DR-36.2: the appmodel node is WIRED production integration
+        # (default ON, unlike the UM-DR-32 capability flags): it builds the
+        # Application Semantic Model from real campaign channels and feeds
+        # hypothesis generation with semantic context + ordering-only
+        # coverage-gap hints. It holds NO confirmation authority (CausalGuard
+        # stays sole) and NO admission authority (scope/budget gates stay
+        # sole). Fail-closed on construction errors (recorded as coverage
+        # gaps, never fabricated entities).
+        default=True,
+        description=(
+            "UM-DR-36.2: build the Application Semantic Model during the "
+            "campaign from real state channels (endpoints, identities, "
+            "workflow observations, object-identity registry, principals) "
+            "and merge its projection into the intelligence graph. "
+            "Advisory/semantic only — never a confirmation or admission "
+            "authority."
+        ),
+    )
+    enable_discovery_funnel: bool = Field(
+        # UM-DR-36.3: the Discovery Funnel is produced from REAL runtime
+        # state (pure function over final campaign state), persisted in the
+        # campaign artifact, and included in the campaign summary. Missing
+        # telemetry is labeled NOT_MATERIALIZED, never silently zero.
+        default=True,
+        description=(
+            "UM-DR-36.3: produce the Discovery Funnel (24-stage campaign "
+            "measurement) from real runtime state and persist it in the "
+            "campaign artifact + summary."
         ),
     )
     max_object_identities: int = Field(

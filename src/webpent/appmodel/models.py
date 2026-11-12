@@ -57,6 +57,16 @@ class AppModelEntityKind(str, Enum):
     WORKFLOW = "workflow"
     IDENTITY = "identity"
     OBSERVATION = "observation"
+    # UM-DR-36.1 — completed semantic vocabulary. Each kind has one clear
+    # meaning and is constructed ONLY from evidence-backed channels (see
+    # builder.py); an enum value alone is not "coverage".
+    PRINCIPAL = "principal"                # acting identity in a role (from validated identity_workflow principals)
+    ROLE = "role"                          # observed/granted role of a principal (M4 principal_role)
+    RESOURCE = "resource"                  # protected object (registry identity anchor: tenant+type+object_id)
+    STATE = "state"                        # observed application state (workflow observation state)
+    STATE_TRANSITION = "state_transition"  # observed from→to transition on an endpoint
+    BUSINESS_INVARIANT = "business_invariant"  # evidenced invariant (e.g. one-time-use, replay-restricted)
+    TRUST_BOUNDARY = "trust_boundary"      # tenant/identity boundary observed in evidence
 
 
 class DiscoveryProvenance(str, Enum):
@@ -92,6 +102,16 @@ class AppModelRelationKind(str, Enum):
     AUTHENTICATES_AS = "authenticates_as"    # identity→tenant/application
     OBSERVED_ON = "observed_on"              # observation→endpoint/workflow
     REACHABLE_FROM = "reachable_from"        # endpoint→endpoint
+    # UM-DR-36.1 — completed relationship vocabulary (evidence-backed only).
+    HOLDS_ROLE = "holds_role"                # principal→role
+    OWNS = "owns"                            # principal→resource (ownership evidence required)
+    OPERATES_ON = "operates_on"              # workflow→resource (object_refs evidence)
+    PART_OF_TENANT = "part_of_tenant"        # resource/principal→tenant
+    FROM_STATE = "from_state"                # state_transition→state
+    TO_STATE = "to_state"                    # state_transition→state
+    ON_ENDPOINT = "on_endpoint"              # state_transition→endpoint
+    INVARIANT_ON = "invariant_on"            # business_invariant→workflow/resource
+    BOUNDARY_OF = "boundary_of"              # trust_boundary→tenant/application
 
 
 class AppModelRelation(BaseModel):
@@ -199,6 +219,15 @@ class ApplicationModel(BaseModel):
             "workflow": "workflow",
             "identity": "identity",
             "observation": "state",
+            # UM-DR-36.1 projections: the new vocabulary maps onto the
+            # frozen AttackGraph kinds without inventing node types.
+            "principal": "identity",
+            "role": "asset",
+            "resource": "asset",
+            "state": "state",
+            "state_transition": "workflow",
+            "business_invariant": "state",
+            "trust_boundary": "asset",
         }
         nodes: dict[str, Any] = {}
         for entity_id, entity in self.entities.items():

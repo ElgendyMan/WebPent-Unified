@@ -115,6 +115,12 @@ class LoginResult:
     material: LoginMaterial | None = field(default=None, repr=False, compare=False)
     validation_status_code: int | None = None
     validation_url: str | None = None
+    # UM-DR-35.4: the PROVEN auth-success lifecycle stage and the explicit
+    # inconclusive marker. ``success`` is True ONLY when authenticated
+    # identity was actually established (JSON identity scalars, HTML
+    # identity markers, or an anonymous-vs-authenticated differential).
+    auth_success_stage: str = ""
+    inconclusive: bool = False
     # Bounded in-memory copy of the response body received at login, used ONLY
     # for identity artifact mining.  Never serialized (excluded from as_dict)
     # and never compared: it is runtime evidence, not reportable material.
@@ -140,6 +146,8 @@ class LoginResult:
             "vault_bound": False,
             "validation_status_code": self.validation_status_code,
             "validation_url": self.validation_url,
+            "auth_success_stage": self.auth_success_stage[:64],
+            "inconclusive": self.inconclusive,
             "reason_chain": [str(item)[:240] for item in self.reason_chain[:8]],
             "validation_probes": [
                 {str(key)[:64]: value for key, value in list(probe.items())[:8]}
@@ -416,7 +424,9 @@ class LoginExecutor:
                 material = _cookie_from_client(client, signal.session_cookie_names) or _cookie_from_mapping({str(cookie.name): str(cookie.value) for cookie in response.cookies.jar}, signal.session_cookie_names)
                 if not material:
                     return LoginResult(alias, False, signal.auth_type, login_url, response.status_code, "no_session_cookie_captured")
-                return self._validate_material(alias, signal, material, credentials, client=client, login_response=response)
+                return self._validate_material(
+                    alias, signal, material, credentials,
+                    client=client, login_response=response)
         except Exception as exc:
             return LoginResult(alias, False, signal.auth_type, login_url, None, type(exc).__name__)
         finally:
@@ -443,11 +453,73 @@ class LoginExecutor:
                     key, value = token
                     material = LoginMaterial("bearer", key, value, "api_response")
                 if not material:
-                    return LoginResult(alias, False, signal.auth_type, login_url, response.status_code, "no_token_or_session_cookie_captured")
-                if token and 200 <= int(response.status_code) < 300 and not (credentials.get("protected_url") or credentials.get("validation_url")):
-                    captured_payload = _response_json_payload(response)
-                    return LoginResult(alias, True, signal.auth_type, login_url, response.status_code, "jwt_login_response_validated", material=material, validation_status_code=response.status_code, validation_url=login_url, login_response_payload=captured_payload, response_payload=captured_payload, identity_claims=decode_login_jwt_claims(value) if material.kind == "bearer" else None)
-                return self._validate_material(alias, signal, material, credentials, client=client, login_response=response)
+                    return LoginResult(
+                        alias, False, signal.auth_type, login_url,
+                        response.status_code,
+                        "no_token_or_session_cookie_captured",
+                        auth_success_stage="login_response_returned")
+                # UM-DR-35.4: a 2xx login response with a captured token
+                # proves AT MOST that the SERVER ACCEPTED the credentials
+                # (it minted session material). Authenticated identity must
+                # still be PROVEN separately (JSON identity scalars in the
+                # login response, identity claims inside the minted token,
+                # or the validation-surface walk). A bare token without
+                # identity claims and without a validation surface stays
+                # explicitly inconclusive — never a silent success.
+                captured_payload = _response_json_payload(response)
+                _token_claims = (decode_login_jwt_claims(value)
+                                 if material.kind == "bearer" else None)
+                _identity_keys = ("sub", "user_id", "userId", "email", "id",
+                                  "username", "preferred_username")
+                _claims_establish_identity = bool(
+                    _token_claims and any(key in _token_claims
+                                          for key in _identity_keys))
+                _has_validation_surface = bool(
+                    credentials.get("protected_url")
+                    or credentials.get("validation_url"))
+                if (token and 200 <= int(response.status_code) < 300
+                        and _has_validation_surface):
+                    # A validation surface is configured: run the walk — its
+                    # evidence (identity scalars / HTML markers) is strictly
+                    # stronger than the minted token alone.
+                    return self._validate_material(
+                        alias, signal, material, credentials,
+                        client=client, login_response=response)
+                _login_ok = (token and 200 <= int(response.status_code) < 300)
+                if (_login_ok and (_has_identity_scalars(captured_payload)
+                                   or _claims_establish_identity)):
+                    # Server-accepted credentials + identity-bearing evidence
+                    # in the minted material: material accepted by the server.
+                    return LoginResult(
+                        alias, True, signal.auth_type, login_url,
+                        response.status_code, "jwt_login_response_validated",
+                        material=material,
+                        validation_status_code=response.status_code,
+                        validation_url=login_url,
+                        login_response_payload=captured_payload,
+                        response_payload=captured_payload,
+                        identity_claims=_token_claims,
+                        auth_success_stage="session_material_accepted")
+                if _login_ok and not _has_validation_surface:
+                    # Token captured but NO identity evidence and no
+                    # configured validation surface: the attempt stops at
+                    # material captured — inconclusive, never a silent
+                    # success.
+                    return LoginResult(
+                        alias, False, signal.auth_type, login_url,
+                        response.status_code,
+                        "jwt_login_response_inconclusive_no_identity_evidence",
+                        material=material,
+                        validation_status_code=response.status_code,
+                        validation_url=login_url,
+                        login_response_payload=captured_payload,
+                        response_payload=captured_payload,
+                        identity_claims=_token_claims,
+                        auth_success_stage="session_material_captured",
+                        inconclusive=True)
+                return self._validate_material(
+                    alias, signal, material, credentials,
+                    client=client, login_response=response)
         except Exception as exc:
             return LoginResult(alias, False, signal.auth_type, login_url, None, type(exc).__name__)
         finally:
@@ -584,9 +656,22 @@ class LoginExecutor:
                     except Exception:
                         body_text = ""
                     result_name = "spa_catch_all_html" if ("html" in content_type or body_text.startswith("<")) else "non_json_response"
+                    # UM-DR-35.4: a 2xx non-JSON body does NOT prove the
+                    # session. It validates ONLY when it carries reliable
+                    # identity evidence (identity-bearing HTML markers); a
+                    # generic SPA shell / landing page stays EXPLICITLY
+                    # inconclusive — never a silent success.
+                    from webpent.recon.auth_success_model import html_identity_evidence
+                    html_markers = html_identity_evidence(body_text)
+                    if html_markers:
+                        probes.append({"path": path, "kind": kind, "status_code": status,
+                                       "result": "html_identity_markers",
+                                       "markers": html_markers[:4]})
+                        verdict = ("validated", surface_url, status)
+                        break
                     probes.append({"path": path, "kind": kind, "status_code": status, "result": result_name})
-                    # A 2xx non-JSON page proves the material is alive but the
-                    # surface proved nothing about the session: inconclusive.
+                    # A 2xx non-JSON page without identity evidence proves
+                    # nothing about the session: explicit inconclusive.
                     verdict = ("inconclusive", surface_url, status)
                     break
                 if not _has_identity_scalars(payload):
@@ -604,20 +689,50 @@ class LoginExecutor:
                         alias, False, signal.auth_type, signal.login_url, getattr(login_response, "status_code", None),
                         "validation_surface_unavailable", material=material, validation_url=last_url,
                         validation_probes=tuple(probes[:_MAX_VALIDATION_PROBES]),
+                        auth_success_stage="session_material_captured", inconclusive=True,
+                    )
+                # UM-DR-35.4: distinguish REJECTED (the boundary bounced the
+                # session: login redirect or anonymous shape observed) from
+                # INCONCLUSIVE (every surface was missing/denied — nothing
+                # proves the session either way). An unprovable session is
+                # never silently success and never misreported as rejected.
+                _rejected = any(p.get("result") in ("login_redirect", "anonymous_shape")
+                                for p in probes)
+                if _rejected:
+                    return LoginResult(
+                        alias, False, signal.auth_type, signal.login_url, getattr(login_response, "status_code", None),
+                        "session_validation_rejected", material=material, validation_status_code=last_status,
+                        validation_url=last_url, validation_probes=tuple(probes[:_MAX_VALIDATION_PROBES]),
+                        auth_success_stage="session_material_captured",
                     )
                 return LoginResult(
                     alias, False, signal.auth_type, signal.login_url, getattr(login_response, "status_code", None),
-                    "session_validation_rejected", material=material, validation_status_code=last_status,
+                    "session_validation_inconclusive_surfaces_unproven", material=material, validation_status_code=last_status,
                     validation_url=last_url, validation_probes=tuple(probes[:_MAX_VALIDATION_PROBES]),
+                    auth_success_stage="session_material_captured", inconclusive=True,
                 )
             verdict_name, final_url, final_status = verdict
             identity_claims = decode_login_jwt_claims(material.value) if material.kind == "bearer" else None
-            reason = "session_validated" if verdict_name == "validated" else "validation_inconclusive"
+            if verdict_name == "validated":
+                # Authenticated identity PROVEN on a validation surface
+                # (JSON identity scalars or HTML identity markers).
+                return LoginResult(
+                    alias, True, signal.auth_type, signal.login_url, getattr(login_response, "status_code", None),
+                    "session_validated", material=material, validation_status_code=final_status, validation_url=final_url,
+                    login_response_payload=login_payload, response_payload=login_payload,
+                    identity_claims=identity_claims, validation_probes=tuple(probes[:_MAX_VALIDATION_PROBES]),
+                    auth_success_stage="authenticated_identity_established",
+                )
+            # verdict_name == "inconclusive": evidence cannot distinguish
+            # authenticated from anonymous access. EXPLICIT inconclusive —
+            # success is False and the inconclusive marker is preserved so
+            # identity-sensitive experiments never rely on this session.
             return LoginResult(
-                alias, True, signal.auth_type, signal.login_url, getattr(login_response, "status_code", None),
-                reason, material=material, validation_status_code=final_status, validation_url=final_url,
-                login_response_payload=login_payload, response_payload=login_payload,
+                alias, False, signal.auth_type, signal.login_url, getattr(login_response, "status_code", None),
+                "validation_inconclusive_no_identity_evidence", material=material, validation_status_code=final_status,
+                validation_url=final_url, login_response_payload=login_payload, response_payload=login_payload,
                 identity_claims=identity_claims, validation_probes=tuple(probes[:_MAX_VALIDATION_PROBES]),
+                auth_success_stage="session_material_captured", inconclusive=True,
             )
         finally:
             if owns_client:

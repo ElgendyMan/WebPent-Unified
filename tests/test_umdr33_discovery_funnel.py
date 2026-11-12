@@ -77,7 +77,17 @@ class TestPurityAndContract:
     def test_all_stages_present_and_versioned(self) -> None:
         funnel = build_discovery_funnel(_state())
         assert set(funnel["stages"]) == set(FUNNEL_STAGES)
+        assert set(funnel["stage_counts"]) == set(FUNNEL_STAGES)
         assert funnel["version"] == STAGE_VERSION
+        # UM-DR-36.3 (24-stage minimum contract): every stage record carries
+        # its evidence source and an honest complete/unavailable flag.
+        assert len(FUNNEL_STAGES) >= 24
+        for name in FUNNEL_STAGES:
+            record = funnel["stages"][name]
+            assert record["source"], name
+            assert isinstance(record["complete"], bool)
+            assert isinstance(record["unavailable"], bool)
+            assert record["complete"] != record["unavailable"]
 
     def test_pure_no_state_mutation(self) -> None:
         state = _state()
@@ -92,7 +102,9 @@ class TestPurityAndContract:
 
     def test_empty_state_is_fail_soft_not_crash(self) -> None:
         funnel = build_discovery_funnel({})
-        assert funnel["stages"]["endpoints_discovered"] == "not_materialized_in_state"
+        rec = funnel["stages"]["endpoints_discovered"]
+        assert rec["count"] == "not_materialized_in_state"
+        assert rec["unavailable"] is True
         assert funnel["totals"]["measurable_stages"] >= 0
 
     def test_json_safe_output(self) -> None:
@@ -103,39 +115,41 @@ class TestPurityAndContract:
 
 class TestStageMeasurements:
     def test_endpoints_from_surface_metrics(self) -> None:
-        assert build_discovery_funnel(_state())["stages"]["endpoints_discovered"] == 24
+        f = build_discovery_funnel(_state())
+        assert f["stage_counts"]["endpoints_discovered"] == 24
+        assert f["stages"]["endpoints_discovered"]["count"] == 24
 
     def test_object_observations_sum_of_channels(self) -> None:
         # workflow (2) + authorization (2) = 4
-        assert build_discovery_funnel(_state())["stages"]["object_observations"] == 4
+        assert build_discovery_funnel(_state())["stage_counts"]["object_observations"] == 4
 
     def test_identity_counts_from_registry_stats(self) -> None:
-        stages = build_discovery_funnel(_state())["stages"]
+        stages = build_discovery_funnel(_state())["stage_counts"]
         assert stages["canonical_identities"] == 9
         assert stages["abstained_or_conflicting"] == 3  # 2 abstain + 1 conflict
 
     def test_alias_state_split(self) -> None:
-        stages = build_discovery_funnel(_state())["stages"]
+        stages = build_discovery_funnel(_state())["stage_counts"]
         assert stages["confirmed_aliases"] == 2
         assert stages["candidate_aliases"] == 1
 
     def test_principals_and_questions(self) -> None:
-        stages = build_discovery_funnel(_state())["stages"]
+        stages = build_discovery_funnel(_state())["stage_counts"]
         assert stages["principals_observed"] == 2
         assert stages["differential_questions"] == 3
 
     def test_workflow_candidates(self) -> None:
-        assert build_discovery_funnel(_state())["stages"]["workflow_sequence_candidates"] == 2
+        assert build_discovery_funnel(_state())["stage_counts"]["workflow_sequence_candidates"] == 2
 
     def test_hypothesis_status_split(self) -> None:
-        stages = build_discovery_funnel(_state())["stages"]
+        stages = build_discovery_funnel(_state())["stage_counts"]
         assert stages["hypotheses_generated"] == 7
         assert stages["hypotheses_in_pool"] == 4
         assert stages["hypotheses_open"] == 2
         assert stages["hypotheses_resolved"] == 2
 
     def test_confirmed_findings(self) -> None:
-        assert build_discovery_funnel(_state())["stages"]["confirmed_findings"] == 2
+        assert build_discovery_funnel(_state())["stage_counts"]["confirmed_findings"] == 2
 
     def test_capabilities_surfaced(self) -> None:
         funnel = build_discovery_funnel(_state())
@@ -145,9 +159,11 @@ class TestStageMeasurements:
 class TestHonestUnmaterialised:
     def test_absent_channel_is_marked_not_faked_zero(self) -> None:
         state = _state(surface_metrics=None)
-        stages = build_discovery_funnel(state)["stages"]
-        assert stages["endpoints_discovered"] == "not_materialized_in_state"
-        assert "endpoints_discovered" in build_discovery_funnel(state)["totals"]["not_materialized"]
+        funnel = build_discovery_funnel(state)
+        rec = funnel["stages"]["endpoints_discovered"]
+        assert rec["count"] == "not_materialized_in_state"
+        assert rec["unavailable"] is True
+        assert "endpoints_discovered" in funnel["totals"]["not_materialized"]
 
     def test_not_materialized_never_counts_as_measurement(self) -> None:
         funnel = build_discovery_funnel(_state(surface_metrics=None))

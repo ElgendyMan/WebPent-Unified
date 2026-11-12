@@ -113,8 +113,11 @@ def test_html_200_validation_is_inconclusive_not_session_validated(monkeypatch):
     signal = AuthSignal(auth_type="form_session", login_url="/login", login_method="POST")
     material = login_executor_module.LoginMaterial("cookie", "sessionid", "session-value", "operator_session")
     result = executor._validate_material("owner", signal, material, {"protected_url": "/private"})
-    assert result.success is True
-    assert result.reason == "validation_inconclusive"
+    # UM-DR-35.4: a generic 2xx HTML page is NOT successful authentication.
+    assert result.success is False
+    assert result.reason == "validation_inconclusive_no_identity_evidence"
+    assert result.inconclusive is True
+    assert result.auth_success_stage == "session_material_captured"
     assert result.reason != "session_validated"
 
 
@@ -246,7 +249,11 @@ def test_form_flow_captures_json_payload_only_and_stays_absent_for_html(monkeypa
         signal=signal,
         credentials={"username": "alice", "password": "correct", "protected_url": "/private"},
     )
-    assert json_result.success is True
+    # UM-DR-35.4: cookie captured + a plain-text /private page carries NO
+    # identity evidence — the login is explicitly inconclusive (success is
+    # False), while the captured JSON payload behavior is unchanged.
+    assert json_result.success is False
+    assert json_result.inconclusive is True
     assert json_result.response_payload == {"status": "ok"}
 
     captured["json_response"] = False
@@ -255,7 +262,8 @@ def test_form_flow_captures_json_payload_only_and_stays_absent_for_html(monkeypa
         signal=signal,
         credentials={"username": "alice", "password": "correct", "protected_url": "/private"},
     )
-    assert html_result.success is True
+    assert html_result.success is False  # UM-DR-35.4: no identity evidence -> inconclusive
+    assert html_result.inconclusive is True
     assert html_result.response_payload is None  # non-JSON form response: fail-soft absent
     assert "response_payload" not in html_result.as_dict()
 
@@ -321,7 +329,10 @@ def test_t2_rejected_operator_token_falls_through_to_credential_login(monkeypatc
     # The credential login actually happened (POST per the signal's strategy).
     assert ("POST", "/rest/user/login") in hits
     # The rejected token path stays visible in the honest reason chain.
-    assert result.reason_chain[0] == "operator_token:session_validation_rejected"
+    # UM-DR-35.4: the operator token was UNPROVEN (all surfaces 404), not
+    # rejected by the boundary — the honest chain records that state.
+    assert result.reason_chain[0] == (
+        "operator_token:session_validation_inconclusive_surfaces_unproven")
     assert result.reason_chain[1].startswith("credential_login:")
 
 
@@ -400,7 +411,10 @@ def test_t4_status_code_stays_none_without_login_response(monkeypatch):
     material = login_executor_module.LoginMaterial("cookie", "sessionid", "session-value", "operator_session")
     rejected = executor._validate_material("owner", signal, material, {"protected_url": "/private"})
     assert rejected.success is False
-    assert rejected.reason == "session_validation_rejected"
+    # UM-DR-35.4: missing/denied surfaces are UNPROVEN (explicit inconclusive),
+    # not a session rejection — the boundary never bounced the session.
+    assert rejected.reason == "session_validation_inconclusive_surfaces_unproven"
+    assert rejected.inconclusive is True
     assert rejected.status_code is None
     assert rejected.validation_status_code == 404
 
@@ -409,8 +423,11 @@ def test_t4_status_code_stays_none_without_login_response(monkeypatch):
 
     executor_html = _api_executor(monkeypatch, html_handler)
     inconclusive = executor_html._validate_material("owner", signal, material, {"protected_url": "/private"})
-    assert inconclusive.success is True
-    assert inconclusive.reason == "validation_inconclusive"
+    # UM-DR-35.4: generic HTML 200 everywhere is explicitly inconclusive —
+    # never a silent success.
+    assert inconclusive.success is False
+    assert inconclusive.reason == "validation_inconclusive_no_identity_evidence"
+    assert inconclusive.inconclusive is True
     assert inconclusive.status_code is None
     assert inconclusive.validation_status_code == 200
 
@@ -451,8 +468,11 @@ def test_discovered_anonymous_shape_200_never_validates(monkeypatch):
     executor = _api_executor(monkeypatch, handler)
     material = login_executor_module.LoginMaterial("bearer", "Authorization", "invalid-token", "operator_token")
     result = executor._validate_material("owner", API_SIGNAL, material, {})
-    assert result.success is True
-    assert result.reason == "validation_inconclusive"  # root HTML keep-alive, NOT session_validated
+    # UM-DR-35.4: anonymous shape + root HTML keep-alive proves nothing about
+    # the session — explicitly inconclusive, never a silent success.
+    assert result.success is False
+    assert result.reason == "validation_inconclusive_no_identity_evidence"  # root HTML, NOT session_validated
+    assert result.inconclusive is True
     assert result.validation_url == "http://example.test"  # rstrip'd root
     whoami_probe = result.validation_probes[0]
     assert whoami_probe["path"] == "/whoami"

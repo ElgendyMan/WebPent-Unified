@@ -676,13 +676,21 @@ def run_hunter_campaign(
     scope_policy: ScopePolicy | None = None,
     recovery_enabled: bool = False,
     enrichment_enabled: bool = False,
+    max_tokens: int | None = None,
 ) -> dict[str, Any]:
     """Run the real bounded hunter loop; all target actions delegate to AVI."""
     settings = get_settings()
     if not is_llm_enabled(settings):
         raise RuntimeError("live_llm_required_but_disabled")
     requested_families = _normalize_requested_families(families)
-    effective_settings = settings.model_copy(update={"llm_max_calls_per_run": min(int(settings.llm_max_calls_per_run), int(max_llm_calls))})
+    # UM-DR-35.5: the hunter campaign enforces the SAME hard total-token
+    # ceiling semantics (explicit override, else the settings default).
+    effective_settings = settings.model_copy(update={
+        "llm_max_calls_per_run": min(int(settings.llm_max_calls_per_run), int(max_llm_calls)),
+        "llm_max_total_tokens_per_run": (
+            int(max_tokens) if max_tokens is not None
+            else int(getattr(settings, "llm_max_total_tokens_per_run", 0) or 0)),
+    })
     selected = select_personas(persona)
     if len(selected) == 1:
         selected_persona = selected[0]
@@ -995,6 +1003,12 @@ def run_hunter_campaign(
                     audit.append_event(event_type="campaign.halted", target_fingerprint=surface.target_fingerprint, details={"reason": str(getattr(_halt_exc, "reason", _halt_exc))})
                 raise
             usage = get_llm_usage_trace()
+            # UM-DR-35.5: capture the budget summary INSIDE the scope.
+            try:
+                from webpent.shared.llm import get_llm_budget_summary
+                _budget_capture = get_llm_budget_summary()
+            except (AttributeError, ImportError, RuntimeError, TypeError, ValueError):
+                _budget_capture = {"active": True, "capture_error": True}
         final_state.budget = final_state.budget.consume(calls=len(usage), cost_usd=_usage_cost(usage))
         if scope_policy is not None:
             audit.append_event(event_type="scope.rules_compiled", target_fingerprint=surface.target_fingerprint, details={"fingerprint": scope_policy.fingerprint, "event_count": len(scope_events), "violation_count": program_scope.violation_count, "halted": program_scope.halted})
@@ -1159,6 +1173,18 @@ def run_hunter_campaign(
             "chains": chain_projection,
             "llm_calls": len(usage),
             "llm_cost_usd": _usage_cost(usage),
+            # UM-DR-35.5: hard total-token budget record (ceiling + split
+            # accounting captured inside the campaign scope).
+            "llm_budget": {
+                "max_total_tokens": int(_budget_capture.get("max_total_tokens") or 0),
+                "input_tokens": int(_budget_capture.get("input_tokens") or 0),
+                "output_tokens": int(_budget_capture.get("output_tokens") or 0),
+                "total_tokens": int(_budget_capture.get("total_tokens") or 0),
+                "reserved_tokens": int(_budget_capture.get("reserved_tokens") or 0),
+                "unknown_usage_calls": int(_budget_capture.get("unknown_usage_calls") or 0),
+                "tokens_exhausted": bool(_budget_capture.get("tokens_exhausted")),
+                "blocked": bool(_budget_capture.get("blocked")),
+            },
             "duration_seconds": round(time.monotonic() - started, 3),
             "security_boundary": {"raw_target_content_returned": False, "execution_authority": "ModernOrchestrator/ScopeLaw/AVI/PromotionPipeline", "credentials_attached_by": "M4 only"},
             "production_trace": production_trace.summary(),

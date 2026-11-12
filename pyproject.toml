@@ -31,16 +31,20 @@ classifiers = [
 dependencies = [
     "torch==2.14.1",
     # Product P1: LangGraph and its matching SQLite checkpoint package.
-    # EXACT-PINNED (unfreeze-fix sprint, 2026-10-05): the tested pair is
-    # langgraph 1.2.10 / langgraph-checkpoint-sqlite 3.1.1 (documented in
-    # src/webpent/api/app.py). The previous open floor `>=1.2.0,<2.0` let pip
-    # resolve a newer langgraph whose langgraph.checkpoint.sqlite namespace
-    # import moved, which broke all conftest collection (710 collection
-    # errors) and 129 team1_acceptance tests. With the exact pair installed
-    # the full suite is 710/710. Do not widen these pins without re-running
-    # the full suite.
-    "langgraph==1.2.10",
-    "langgraph-checkpoint-sqlite==3.1.1",
+    # EXACT-PINNED (unfreeze-fix sprint, 2026-10-05; UM-DR-35.6 supply-chain
+    # update 2026-11-12): the tested pair is now
+    # langgraph 1.2.14 / langgraph-checkpoint-sqlite 3.1.2 — the
+    # UM-DR-35.6 OSV-verified dependency audit (GHSA-3fx2-cqw9-xr3c /
+    # CVE-2026-118667 fixed in 1.2.14; GHSA-6hmw-9432-67qq /
+    # CVE-2026-115883 fixed in 3.1.2) required the bump; the full
+    # collection + team1_acceptance + graph suites were re-run on the new
+    # pair before this pin was accepted. The previous open floor
+    # `>=1.2.0,<2.0` let pip resolve a newer langgraph whose
+    # langgraph.checkpoint.sqlite namespace import moved, which broke all
+    # conftest collection (710 collection errors) and 129 team1_acceptance
+    # tests. Do not widen these pins without re-running the full suite.
+    "langgraph==1.2.14",
+    "langgraph-checkpoint-sqlite==3.1.2",
     "langchain-core==1.6.7",
     # V7 Phase 6 FIX: langchain-community pinned to a verified-working
     # 0.3.x range instead of the previous unbounded `>=0.3.0`. The

@@ -228,7 +228,29 @@ def _validate_generic_evidence_contract(finding: Finding) -> Finding | None:
     evidence["evidence_contract_evaluation"] = evaluation
     evidence["validation_attempted"] = True
     evidence["validation_requeue"] = False
-    if evaluation.get("satisfied") and proof_bundle_promotion_valid:
+    # UM-DR-35 Gate 35-A: CausalGuard is the SOLE confirmation authority —
+    # a satisfied evidence contract plus a structurally valid ProofBundle is
+    # NOT sufficient. The differential evidence must be adjudicated by the
+    # actual cqa_v2 authority before "Tool-Confirmed" may be assigned.
+    from webpent.production.confirmation_adapter import (
+        causalguard_tool_confirmation_gate,
+    )
+    _cg_allowed, _cg_result, _cg_reason = causalguard_tool_confirmation_gate(
+        vulnerability_class=str(getattr(finding.vuln_class, "value", finding.vuln_class) or ""),
+        differential_observation=(
+            contract_evidence if isinstance(contract_evidence, dict) else None
+        ),
+        candidate_signal=bool(evaluation.get("satisfied")),
+        finding_id=str(finding.id),
+    )
+    evidence["causalguard_gate"] = {
+        "authority": "cqa_v2.guarded_causal_evaluate",
+        "allowed": _cg_allowed,
+        "reason": _cg_reason,
+        "verdict": (getattr(getattr(_cg_result, "verdict", None), "value", None)
+                    if _cg_result is not None else None),
+    }
+    if evaluation.get("satisfied") and proof_bundle_promotion_valid and _cg_allowed:
         return finding.model_copy(
             update={
                 "confidence": Confidence.CONFIRMED.value,
@@ -247,8 +269,11 @@ def _validate_generic_evidence_contract(finding: Finding) -> Finding | None:
             "validation_failure_reason": (
                 "evidence_contract_unsatisfied"
                 if not evaluation.get("satisfied")
-                else                 "proof_bundle_promotion_contract_failed"
-
+                else (
+                    f"causalguard_not_confirmed:{_cg_reason}"
+                    if not _cg_allowed
+                    else "proof_bundle_promotion_contract_failed"
+                )
             ),
         }
     )
@@ -3581,42 +3606,52 @@ def _validate_with_tool(
         # dead code — unreachable-False by control flow — but its presence
         # declared an LLM co-gate the Charter forbids.)
         if bool((finding.evidence or {}).get("session_reauth")) and det_confirmed:
+            # UM-DR-35 Gate 35-A: the former "accepted exception" —
+            # tool-native confirmation on reauth WITHOUT differential
+            # replay evidence — was exactly the weaker alternate
+            # confirmation path UM-DR-35 §1.1 abolishes. CausalGuard (the
+            # sole confirmation authority) requires a real differential
+            # (baseline / candidate / negative control); the reauth path
+            # has none, so it can no longer confirm. The finding keeps its
+            # evidence and fails closed to human review.
+            from webpent.production.confirmation_adapter import (
+                causalguard_tool_confirmation_gate,
+            )
+            _cg_allowed, _cg_result, _cg_reason = causalguard_tool_confirmation_gate(
+                vulnerability_class=str(getattr(finding.vuln_class, "value", finding.vuln_class) or ""),
+                differential_observation=None,
+                candidate_signal=bool(det_confirmed),
+                finding_id=str(finding.id),
+            )
             evidence["promotion_guard"] = {
-                "status": "tool_native_reauth_confirmed",
-                "reason": "fresh_authenticated_session_and_sqlmap_confirmation",
+                "status": "blocked",
+                "reason": "reauth_tool_native_promotion_removed_umdr35_causalguard_sole_authority",
                 "gate": "deterministic_only_no_llm",
+                "causalguard_gate": {
+                    "authority": "cqa_v2.guarded_causal_evaluate",
+                    "allowed": _cg_allowed,
+                    "reason": _cg_reason,
+                },
             }
-            # M1-B (E-1): explicit writer provenance for the model-level
-            # Tool-Confirmed proof requirement (models/findings.py).
-            evidence["tool_confirmed_by"] = "validator.sqlmap_reauth_gate"
-            # Accepted exception to the SQLi fail-closed gate above — documented
-            # in docs/archive/2026-11-01-plan-exec-root-reports/
-            # REMEDIATION_REPORT.md's SQLi behavior table. logger.warning
-            # (not debug/info) so this path's real-world frequency is
-            # visible in
-            # standard log-level monitoring, since it is a narrow, deliberate
-            # bypass of verify_replay_evidence and its usage rate should be
-            # watched for drift. Full Charter ratification (constructing a
-            # differential observation from sqlmap's internal
-            # baseline/candidate pairs and routing through
-            # verify_replay_evidence) is scheduled for M6.
+            evidence["tool_confirmed_by"] = "validator.sqlmap_reauth_gate:blocked_umdr35"
             logger.warning(
-                "V9 P0-B promotion_guard: SQLi finding %s promoted via "
-                "tool_native_reauth_confirmed (session_reauth bypass of "
-                "verify_replay_evidence) — reauth_source=%s",
+                "UM-DR-35: SQLi finding %s reauth path CANNOT auto-confirm "
+                "(no differential observation for CausalGuard) — routed to "
+                "human review; reauth_source=%s",
                 finding.id,
                 (finding.evidence or {}).get("reauth_source"),
             )
             return finding.model_copy(
                 update={
-                    "confidence": Confidence.CONFIRMED.value,
-                    "confidence_level": "Tool-Confirmed",
+                    "confidence_level": "Needs Human Review",
                     "payload": marker,
                     "evidence": evidence,
                     "reasoning": (
-                        "SQLMap confirmed the injection after one successful, fresh-session "
-                        "reauthentication; tool-native confirmation is accepted for this "
-                        "explicit recovery path."
+                        "SQLMap reported a deterministic confirmation after a fresh-session "
+                        "reauthentication, but no baseline/candidate/negative-control "
+                        "differential exists for CausalGuard adjudication. Under UM-DR-35 "
+                        "the reauth tool-native path is no longer a confirmation authority; "
+                        "human review is required."
                     ),
                 }
             )
@@ -3739,6 +3774,44 @@ def _validate_with_tool(
     # so downstream evidence-quality assessment classified a
     # Tool-Confirmed row as "unconfirmed" and the DB row showed an empty
     # validator_tool with the label still Tool-Confirmed. Attach it.
+    # UM-DR-35 Gate 35-A: CausalGuard (cqa_v2) is the SOLE confirmation
+    # authority — the strict verifier's passing bundle is necessary but
+    # NOT sufficient. The recorded differential must be adjudicated by the
+    # actual authority before Tool-Confirmed is assigned.
+    from webpent.production.confirmation_adapter import (
+        causalguard_tool_confirmation_gate,
+    )
+    _cg_allowed, _cg_result, _cg_reason = causalguard_tool_confirmation_gate(
+        vulnerability_class=str(getattr(finding.vuln_class, "value", finding.vuln_class) or ""),
+        differential_observation=differential_observation,
+        candidate_signal=bool(det_confirmed),
+        finding_id=str(finding.id),
+    )
+    evidence["causalguard_gate"] = {
+        "authority": "cqa_v2.guarded_causal_evaluate",
+        "allowed": _cg_allowed,
+        "reason": _cg_reason,
+        "verdict": (getattr(getattr(_cg_result, "verdict", None), "value", None)
+                    if _cg_result is not None else None),
+    }
+    if not _cg_allowed:
+        logger.warning(
+            "CausalGuard blocked %s promotion for finding %s: %s",
+            getattr(finding.vuln_class, "value", finding.vuln_class),
+            finding.id,
+            _cg_reason,
+        )
+        return finding.model_copy(
+            update={
+                "confidence_level": "Needs Human Review",
+                "evidence": evidence,
+                "reasoning": (
+                    f"The strict replay verifier passed, but CausalGuard did not "
+                    f"confirm causality ({_cg_reason}). No automated confirmation "
+                    f"is claimed; human review is required."
+                ),
+            }
+        )
     updated_finding = finding.model_copy(
         update={
             "confidence": Confidence.CONFIRMED.value,
@@ -4837,24 +4910,65 @@ def _validate_open_redirect(
         )
         evidence.update(verification.evidence)
         if verification.passed and verification.proof_bundle is not None:
+            # UM-DR-35 Gate 35-A: CausalGuard (cqa_v2) — sole confirmation
+            # authority — must adjudicate the redirect differential before
+            # "Tool-Confirmed" is assigned on this path.
+            from webpent.production.confirmation_adapter import (
+                causalguard_tool_confirmation_gate,
+            )
+            _cg_allowed, _cg_result, _cg_reason = causalguard_tool_confirmation_gate(
+                vulnerability_class="open_redirect",
+                differential_observation={
+                    "baseline": evidence.get("baseline"),
+                    "candidate": evidence.get("candidate"),
+                    "negative_control": evidence.get("negative_control"),
+                },
+                candidate_signal=bool(confirmed),
+                finding_id=str(finding.id),
+            )
+            evidence["causalguard_gate"] = {
+                "authority": "cqa_v2.guarded_causal_evaluate",
+                "allowed": _cg_allowed,
+                "reason": _cg_reason,
+                "verdict": (getattr(getattr(_cg_result, "verdict", None), "value", None)
+                            if _cg_result is not None else None),
+            }
+            if _cg_allowed:
+                return finding.model_copy(
+                    update={
+                        "confidence": Confidence.CONFIRMED.value,
+                        "confidence_level": "Tool-Confirmed",
+                        "payload": "external_redirect_canary",
+                        "evidence": {**(finding.evidence or {}), **evidence},
+                        "evidence_bundle": {
+                            "request": {
+                                "method": "GET",
+                                "url": "[REDACTED-QUERY]",
+                                "headers": {},
+                            },
+                            "response": evidence["candidate"],
+                        },
+                        "reasoning": (
+                            "The candidate parameter produced a 3xx redirect to a "
+                            "controlled external canary host, while the baseline did not. "
+                            "Redirects were not followed, the strict replay proof passed, "
+                            "and CausalGuard confirmed the causal differential."
+                        ),
+                    }
+                )
+            logger.warning(
+                "CausalGuard blocked open_redirect promotion for finding %s: %s",
+                finding.id, _cg_reason,
+            )
             return finding.model_copy(
                 update={
-                    "confidence": Confidence.CONFIRMED.value,
-                    "confidence_level": "Tool-Confirmed",
-                    "payload": "external_redirect_canary",
+                    "confidence_level": "Needs Human Review",
                     "evidence": {**(finding.evidence or {}), **evidence},
-                    "evidence_bundle": {
-                        "request": {
-                            "method": "GET",
-                            "url": "[REDACTED-QUERY]",
-                            "headers": {},
-                        },
-                        "response": evidence["candidate"],
-                    },
                     "reasoning": (
-                        "The candidate parameter produced a 3xx redirect to a "
-                        "controlled external canary host, while the baseline did not. "
-                        "Redirects were not followed and the strict replay proof passed."
+                        "The redirect canary differential passed the strict replay "
+                        f"verifier, but CausalGuard did not confirm causality "
+                        f"({_cg_reason}). No automated confirmation is claimed; "
+                        "human review is required."
                     ),
                 }
             )

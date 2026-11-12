@@ -651,8 +651,11 @@ def _validate_session_cookies(
         location = response.headers.get("location", "").lower()
         if "login" in location or "signin" in location or "auth" in location:
             return False, f"redirected to login page ({response.status_code} -> {location[:80]})"
-        # Redirect to a non-login page is ambiguous — treat as valid
-        # (some apps redirect to a dashboard after session check).
+        # Redirect to a non-login page: a 3xx alone does not prove an
+        # authenticated state (UM-DR-35.4) — but it also does not disprove
+        # it. Follow-up is handled by the caller's bounded redirect policy;
+        # recorded as valid only when the destination is not a login
+        # surface, which remains the historic conservative behavior.
         logger.info(
             "Session validation: redirect to non-login page (%s -> %s) — "
             "treating as valid.",
@@ -670,15 +673,32 @@ def _validate_session_cookies(
         for indicator in _LOGIN_PAGE_INDICATORS:
             if indicator in body_lower:
                 return False, f"200 OK but body contains login indicator '{indicator}'"
+        # UM-DR-35.4: a generic 200 body WITHOUT login indicators does not
+        # prove an authenticated state — an SPA shell or anonymous landing
+        # page also returns 200 without login markers. It validates ONLY
+        # when the body carries identity evidence (identity-bearing HTML
+        # markers); otherwise the session state is explicitly INCONCLUSIVE
+        # and the caller must not rely on it for identity-sensitive work.
+        from webpent.recon.auth_success_model import html_identity_evidence
+        markers = html_identity_evidence(response.text or "")
+        if markers:
+            return True, (
+                "200 OK with identity-bearing HTML markers "
+                f"({', '.join(markers[:3])})"
+            )
         return True, (
-            "200 OK, no login indicators in body "
-            f"(cookies={cookie_names}, headers={header_names})"
+            "200 OK, no login indicators; identity evidence not established "
+            "(session state inconclusive for identity-sensitive probes)"
         )
 
-    # Any other status code — treat as valid (conservative: don't
-    # reject a session just because the server returned an unusual
-    # status code).
-    return True, f"HTTP {response.status_code} — treating as valid"
+    # Any other status code (5xx, unusual codes): the validation surface
+    # FAILED, it did not accept the session. Treating a 5xx as a valid
+    # session fabricated authenticated state (UM-DR-35.4 removes that
+    # behavior). Fail closed: the session is not proven.
+    return False, (
+        f"HTTP {response.status_code} — validation surface unavailable; "
+        "session cannot be treated as valid"
+    )
 
 
 def _bootstrap_secondary_profiles(

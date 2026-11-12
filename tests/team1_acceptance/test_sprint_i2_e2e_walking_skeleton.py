@@ -193,8 +193,14 @@ class Test61Positive:
         gates_passed = _as_list(promo.get("gates_passed"))
         gates_failed = _as_list(promo.get("gates_failed"))
         assert len(gates_failed) == 0, f"6.1: failed promotion gates: {gates_failed}"
-        assert len(gates_passed) == 9, (
-            f"6.1: expected 9 passed promotion gates (8 original + self_critique_passed U-10a), got {len(gates_passed)}: {gates_passed}"
+        # UM-DR-35.1: the gate set now includes causalguard_adjudicated (the
+        # typed CausalGuard result gate) — 9 original + causalguard = 10.
+        assert len(gates_passed) == 10, (
+            f"6.1: expected 10 passed promotion gates (9 original + causalguard_adjudicated UM-DR-35.1), got {len(gates_passed)}: {gates_passed}"
+        )
+        assert "causalguard_adjudicated" in gates_passed, (
+            "6.1: UM-DR-35.1 — promotion must be gated on a genuine typed "
+            "CausalGuard result, not a validator label or authority string"
         )
 
         # SecurityReport.add_promoted

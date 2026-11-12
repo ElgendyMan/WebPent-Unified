@@ -36,27 +36,75 @@ __all__ = ["build_discovery_funnel", "FUNNEL_STAGES", "STAGE_VERSION"]
 
 #: Version of the funnel stage list — bump when the stage set changes so
 #: consumers can reconcile historical artifacts.
-STAGE_VERSION = "funnel/v1"
+STAGE_VERSION = "funnel/v2"  # UM-DR-36.3: 16 -> 26 stages (24-stage
+# minimum directive contract + the two alias-resolution detail stages).
+
+#: Evidence source per stage (the state channel the count derives from).
+#: Every stage carries its source in the funnel record — a count is never
+#: presented without its evidence origin.
+_STAGE_SOURCES: dict[str, str] = {
+    "recon_surfaces_discovered": "surface_metrics.surfaces",
+    "endpoints_discovered": "surface_metrics.endpoints",
+    "parameters_observed": "surface_metrics.parameters",
+    "application_entities_discovered": "application_model.entity_count",
+    "object_observations": "workflow_observations+authorization_observations",
+    "canonical_identities": "object_identity_registry.stats",
+    "candidate_aliases": "identity_alias_graph",
+    "confirmed_aliases": "identity_alias_graph",
+    "abstained_or_conflicting": "object_identity_registry.stats",
+    "principals_observed": "multi_identity_reasoning.principals",
+    "identity_relationships": "application_model.relation_kinds",
+    "object_ownership_relations": "application_model.relation_kinds(owns)",
+    "authorization_observations": "authorization_observations",
+    "differential_questions": "multi_identity_reasoning.differential_questions",
+    "workflows_inferred": "workflow_observations",
+    "workflow_sequence_candidates": "composite_workflow_candidates",
+    "app_states_and_transitions": "application_model(entity_kinds)",
+    "hypotheses_generated": "identity_workflow.hypotheses_generated",
+    "hypotheses_in_pool": "hypotheses",
+    "hypotheses_admitted_by_policy": "hypotheses(status!=rejected)",
+    "hypotheses_open": "hypotheses(status in unexplored/investigating)",
+    "hypotheses_resolved": "hypotheses(resolved_*)",
+    "hypotheses_deferred_or_untested": "hypotheses(status in deferred/blocked)",
+    "causalguard_confirmations": "findings(causalguard_verdict==CONFIRMED)",
+    "proofbundles_created": "findings(bundle_id present)",
+    "replay_verified_findings": "findings(replay_verified)",
+    "promotion_decisions": "findings(promotion.decision==PROMOTED)",
+    "confirmed_findings": "findings",
+}
 
 
-#: The ordered stage list (mission §12, mapped to the channels that
-#: actually materialise in PentestState).
+#: The ordered stage list (mission §12 + UM-DR-36.3's 24-stage minimum
+#: directive contract, mapped to the channels that actually materialise
+#: in PentestState).
 FUNNEL_STAGES: tuple[str, ...] = (
+    "recon_surfaces_discovered",
     "endpoints_discovered",
+    "parameters_observed",
+    "application_entities_discovered",
     "object_observations",
     "canonical_identities",
     "candidate_aliases",
     "confirmed_aliases",
     "abstained_or_conflicting",
     "principals_observed",
+    "identity_relationships",
+    "object_ownership_relations",
     "authorization_observations",
     "differential_questions",
     "workflows_inferred",
     "workflow_sequence_candidates",
+    "app_states_and_transitions",
     "hypotheses_generated",
     "hypotheses_in_pool",
+    "hypotheses_admitted_by_policy",
     "hypotheses_open",
     "hypotheses_resolved",
+    "hypotheses_deferred_or_untested",
+    "causalguard_confirmations",
+    "proofbundles_created",
+    "replay_verified_findings",
+    "promotion_decisions",
     "confirmed_findings",
 )
 
@@ -236,8 +284,76 @@ def build_discovery_funnel(state: Mapping[str, Any]) -> dict[str, Any]:
 
     findings = _get(state, "findings")
 
+    # ---- UM-DR-36.3 extension channels -----------------------------------
+    surface_metrics_map = (
+        surface_metrics if isinstance(surface_metrics, Mapping) else {}
+    )
+    surfaces = surface_metrics_map.get("surfaces")
+    parameters = (
+        surface_metrics_map.get("parameters")
+        or surface_metrics_map.get("parameters_observed")
+    )
+
+    appmodel_channel = _get(state, "application_model")
+    app_entities: Any = "not_materialized_in_state"
+    app_relations: Any = "not_materialized_in_state"
+    app_ownership: Any = "not_materialized_in_state"
+    app_states_transitions: Any = "not_materialized_in_state"
+    if isinstance(appmodel_channel, Mapping):
+        app_entities = int(appmodel_channel.get("entity_count") or 0)
+        app_relations = int(appmodel_channel.get("relation_count") or 0)
+        relation_kinds = appmodel_channel.get("relation_kinds")
+        if isinstance(relation_kinds, (list, tuple, set, frozenset)):
+            app_ownership = sum(
+                1 for k in relation_kinds if "owns" in str(k))
+        entity_kinds = appmodel_channel.get("entity_kinds")
+        if isinstance(entity_kinds, (list, tuple, set, frozenset)):
+            app_states_transitions = sum(
+                1 for k in entity_kinds
+                if str(k) in ("state", "state_transition"))
+
+    # Hypothesis-policy split (admitted vs deferred/untested).
+    hypotheses_admitted = hypotheses_deferred = 0
+    if isinstance(hypotheses, (list, tuple)):
+        for h in hypotheses:
+            status = str(
+                getattr(h, "status", (h or {}).get("status", "") if isinstance(h, Mapping) else "")
+            ).lower()
+            if status in ("deferred", "blocked", "revisit_required"):
+                hypotheses_deferred += 1
+            if status not in ("rejected", "blocked"):
+                hypotheses_admitted += 1
+
+    # Authority-chain counts from the findings channel (CausalGuard /
+    # ProofBundle / replay / promotion — the UM-DR-35 chain).
+    causalguard_confirmed = proofbundles = replay_verified = promoted = 0
+    if isinstance(findings, (list, tuple)):
+        for f in findings:
+            if isinstance(f, Mapping):
+                attrs = dict(f)
+            else:
+                attrs = {}
+                for attr in ("causalguard_verdict", "bundle_id", "replay_verified"):
+                    attrs[attr] = getattr(f, attr, None)
+            promotion = attrs.get("promotion")
+            if isinstance(promotion, Mapping):
+                attrs["promotion"] = promotion.get("decision")
+            elif promotion is None and not isinstance(f, Mapping):
+                attrs["promotion"] = getattr(getattr(f, "promotion", None), "decision", None)
+            if str(attrs.get("causalguard_verdict") or "").upper() == "CONFIRMED":
+                causalguard_confirmed += 1
+            if attrs.get("bundle_id"):
+                proofbundles += 1
+            if attrs.get("replay_verified") is True:
+                replay_verified += 1
+            if str(attrs.get("promotion") or "").upper() == "PROMOTED":
+                promoted += 1
+
     stages: dict[str, Any] = {
+        "recon_surfaces_discovered": _count(surfaces),
         "endpoints_discovered": _count(endpoints),
+        "parameters_observed": _count(parameters),
+        "application_entities_discovered": app_entities,
         "object_observations": (
             (len(workflow_obs) if isinstance(workflow_obs, (list, tuple)) else 0)
             + (len(auth_obs) if isinstance(auth_obs, (list, tuple)) else 0)
@@ -247,6 +363,8 @@ def build_discovery_funnel(state: Mapping[str, Any]) -> dict[str, Any]:
         "confirmed_aliases": confirmed_aliases,
         "abstained_or_conflicting": abstained + conflicts,
         "principals_observed": principals if isinstance(principals, int) else 0,
+        "identity_relationships": app_relations,
+        "object_ownership_relations": app_ownership,
         "authorization_observations": (
             len(auth_obs) if isinstance(auth_obs, (list, tuple)) else 0
         ),
@@ -258,17 +376,37 @@ def build_discovery_funnel(state: Mapping[str, Any]) -> dict[str, Any]:
             _count(workflow_candidates)
         ),
         "workflow_sequence_candidates": _count(workflow_candidates),
+        "app_states_and_transitions": app_states_transitions,
         "hypotheses_generated": _count(hypotheses_generated),
         "hypotheses_in_pool": _count(hypotheses),
+        "hypotheses_admitted_by_policy": hypotheses_admitted,
         "hypotheses_open": hypotheses_open,
         "hypotheses_resolved": hypotheses_resolved,
+        "hypotheses_deferred_or_untested": hypotheses_deferred,
+        "causalguard_confirmations": causalguard_confirmed,
+        "proofbundles_created": proofbundles,
+        "replay_verified_findings": replay_verified,
+        "promotion_decisions": promoted,
         "confirmed_findings": _count(findings),
     }
+
+    # UM-DR-36.3: every stage carries its evidence source and a complete
+    # flag; unavailable telemetry stays NOT_MATERIALIZED (never zero).
+    stage_records: dict[str, Any] = {}
+    for stage_name in FUNNEL_STAGES:
+        value = stages.get(stage_name, "not_materialized_in_state")
+        stage_records[stage_name] = {
+            "count": value,
+            "source": _STAGE_SOURCES.get(stage_name, "unknown"),
+            "complete": isinstance(value, int),
+            "unavailable": not isinstance(value, int),
+        }
 
     numeric = [v for v in stages.values() if isinstance(v, int)]
     return {
         "version": STAGE_VERSION,
-        "stages": stages,
+        "stages": stage_records,
+        "stage_counts": stages,
         "capabilities": caps,
         "drops_explained": _drop_explanations(stages, caps),
         "totals": {

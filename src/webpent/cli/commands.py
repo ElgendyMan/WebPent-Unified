@@ -1066,6 +1066,16 @@ def hunt(
     cookies: str | None = typer.Option(None, "--cookies", help="Operator-supplied session cookies for authenticated scanning."),
     report_format: str | None = typer.Option(None, "--report-format", help="Report format override."),
     no_progress: bool = typer.Option(False, "--no-progress", help="Disable the live progress view (CI-friendly)."),
+    max_tokens: int | None = typer.Option(
+        None, "--max-tokens",
+        min=0,
+        help=(
+            "UM-DR-35.5: HARD campaign-wide total-token ceiling for this run "
+            "(enforced before every provider request; exhaustion routes to "
+            "deterministic fallback and records BUDGET_EXHAUSTED). Default: "
+            "the llm_max_total_tokens_per_run setting."
+        ),
+    ),
 ) -> None:
     """Unified hunt: one command, three modes (Ultimate plan 2026-10-27, proposal 1).
 
@@ -1102,6 +1112,7 @@ def hunt(
             progress=not no_progress,
             authorization_manifest=authorization_manifest,
             scope_file=scope_file,
+            max_tokens=max_tokens,
         )
     except ValueError as exc:
         err_console.print(f"[red]Error:[/red] {exc}")
@@ -1383,6 +1394,13 @@ def hunt_command(
     credentials_file: Path | None = typer.Option(None, "--credentials-file", help="Gitignored JSON file containing operator principal profiles."),
     client_id: str | None = typer.Option(None, "--client-id", help="Optional client scope for advisory lesson consultation/persistence."),
     scope_policy_file: Path | None = typer.Option(None, "--scope", "--scope-file", help="Required typed program-scope file for target hunting."),
+    max_tokens: int | None = typer.Option(
+        None, "--max-tokens", min=0,
+        help=(
+            "UM-DR-35.5: HARD campaign-wide total-token ceiling (enforced "
+            "before provider I/O; exhaustion routes to deterministic fallback)."
+        ),
+    ),
 ) -> None:
     """Run the bounded three-agent hunter loop against an authorized target."""
     from webpent.agents.hunter_runner import run_hunter_campaign
@@ -1413,6 +1431,7 @@ def hunt_command(
             principal_credentials=principal_credentials,
             client_id=client_id,
             scope_policy=scope_policy,
+            max_tokens=max_tokens,
         )
     except Exception as exc:
         err_console.print(f"[red]Hunter campaign blocked:[/red] {type(exc).__name__}: {exc}")

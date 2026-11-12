@@ -1011,6 +1011,14 @@ def generate_research_hypotheses(
     already queued (suppressed_open); a CLOSED entry was already decided
     — conclusively rejected or promoted hypotheses are NEVER repeated
     (suppressed_closed, the UM-DR-31 §5.3 rule).
+
+    UM-DR-36.4: when the campaign has recorded measured outcomes
+    (``information_gain`` channel), the measured evidence-derived priors
+    OVERRIDE the static priors for signal classes with enough samples —
+    the next research decision is genuinely influenced by prior outcomes.
+    UM-DR-36.5: candidate selection is FAIR — deterministic round-robin
+    interleave across the signal pools (coverage / invariant / workflow),
+    so one attractive branch cannot starve the others within the budget.
     """
     from webpent.models.hypothesis import Hypothesis  # noqa: F401 — re-export guard
 
@@ -1037,28 +1045,74 @@ def generate_research_hypotheses(
         detail["reason"] = "no_target_context"
         return [], detail
 
+    # UM-DR-36.4: measured (evidence-derived) priors override the static
+    # table when the campaign has recorded enough outcomes per class.
+    try:
+        from webpent.production.information_gain import (
+            ledger_from_state,
+            merge_measured_priors,
+        )
+
+        measured_ledger = ledger_from_state(state)
+        effective_priors = merge_measured_priors(_INFO_GAIN_PRIORS, measured_ledger)
+        if measured_ledger.outcomes:
+            detail["measured_priors_applied"] = measured_ledger.measured_priors()
+            detail["measured_outcomes"] = len(measured_ledger.outcomes)
+    except (AttributeError, ImportError, RuntimeError, TypeError, ValueError):
+        effective_priors = dict(_INFO_GAIN_PRIORS)
+
     pool = _pool_index(state.get("hypotheses"))
 
-    candidates: list[tuple[float, int, Any]] = []
+    # UM-DR-36.5: FAIR scheduling — per-pool candidate lists, each sorted
+    # by (measured-aware) info gain desc, then interleaved round-robin so
+    # every pool's best candidate gets an investigation opportunity before
+    # any pool's second candidate. Deterministic and bounded.
+    pools: dict[str, list[tuple[float, int, Any]]] = {
+        "coverage": [], "invariant": [], "workflow": [],
+    }
     order = 0
     for signal in inventory["coverage"]:
         hypothesis = _hypothesis_from_coverage_signal(signal, target_url=target_url)
         if hypothesis is not None:
-            candidates.append((float(hypothesis.info_gain or 0.5), order, hypothesis))
+            gain = _effective_signal_gain(
+                hypothesis, signal, effective_priors, "coverage")
+            pools["coverage"].append((gain, order, hypothesis))
             order += 1
     for signal in inventory["invariants"]:
         hypothesis = _hypothesis_from_invariant_signal(signal, target_url=target_url)
         if hypothesis is not None:
-            candidates.append((float(hypothesis.info_gain or 0.5), order, hypothesis))
+            gain = _effective_signal_gain(
+                hypothesis, signal, effective_priors, "invariant")
+            pools["invariant"].append((gain, order, hypothesis))
             order += 1
     for signal in inventory["workflow_boundaries"]:
         hypothesis = _hypothesis_from_workflow_signal(signal, target_url=target_url)
         if hypothesis is not None:
-            candidates.append((float(hypothesis.info_gain or 0.5), order, hypothesis))
+            gain = _effective_signal_gain(
+                hypothesis, signal, effective_priors, "workflow")
+            pools["workflow"].append((gain, order, hypothesis))
             order += 1
 
-    # deterministic priority: info gain desc, then stable signal order
-    candidates.sort(key=lambda item: (-item[0], item[1]))
+    for pool_name in pools:
+        pools[pool_name].sort(key=lambda item: (-item[0], item[1]))
+
+    # Round-robin interleave (fair): take the best remaining candidate
+    # from each pool in turn; a pool is skipped once exhausted.
+    candidates: list[tuple[float, int, Any]] = []
+    pool_order = [name for name in ("coverage", "invariant", "workflow")
+                  if pools[name]]
+    cursors = {name: 0 for name in pool_order}
+    while len(candidates) < sum(len(p) for p in pools.values()):
+        progressed = False
+        for name in pool_order:
+            idx = cursors[name]
+            if idx < len(pools[name]):
+                candidates.append(pools[name][idx])
+                cursors[name] = idx + 1
+                progressed = True
+        if not progressed:
+            break
+    detail["fair_interleave_pools"] = {n: len(p) for n, p in pools.items() if p}
 
     new_hypotheses: list[Any] = []
     for _prior, _order, hypothesis in candidates:
@@ -1076,6 +1130,37 @@ def generate_research_hypotheses(
             detail["suppressed_open"] += 1
     detail["generated"] = len(new_hypotheses)
     return new_hypotheses, detail
+
+
+def _effective_signal_gain(
+    hypothesis: Any,
+    signal: Mapping[str, Any],
+    effective_priors: Mapping[str, float],
+    pool_name: str,
+) -> float:
+    """Measured-aware gain for one candidate hypothesis.
+
+    Combines the hypothesis's own gain with the (possibly measured)
+    prior for its signal class. Prioritization input ONLY — this value
+    never gates admission, scope, budget, or confirmation.
+    """
+    base = float(hypothesis.info_gain or 0.5)
+    signal_class = None
+    if isinstance(signal, Mapping):
+        for key in ("signal_class", "ledger_class", "class", "kind"):
+            value = signal.get(key)
+            if value:
+                signal_class = str(value)
+                break
+    if signal_class:
+        for candidate_key in (
+            f"{pool_name}.{signal_class}",
+            signal_class,
+        ):
+            if candidate_key in effective_priors:
+                base = max(base, float(effective_priors[candidate_key]))
+                break
+    return base
 
 
 # ---------------------------------------------------------------------------

@@ -170,15 +170,20 @@ class TestDRED8_EightGatesUnguarded:
 
     TC-2: the pinned literal moved 8 -> 9 per GAP-3's chartered gate-count
     fix (the ninth gate; see RUNNING_LOG v14.1 entry + DRIFT_REGISTER).
-    The invariant enforced here is unchanged: the assertion must exist and
-    must be UNGUARDED.
+    UM-DR-35.1: the literal moved 9 -> 10 with the causalguard_adjudicated
+    gate (typed CausalGuard result required for promotion). The invariant
+    enforced here is unchanged: the assertion must exist and must be
+    UNGUARDED.
     """
     def test_e2e_61_has_unguarded_gate_assertion(self):
         src = open("tests/team1_acceptance/test_sprint_i2_e2e_walking_skeleton.py").read()
         assert "if gates:" not in src, (
             "D-RED-8 REGRESSED: gate assertion still guarded by `if gates:`"
         )
-        assert "len(gates_passed) == 9" in src
+        assert "len(gates_passed) == 10" in src
+        assert "causalguard_adjudicated" in src, (
+            "UM-DR-35.1 REGRESSED: 6.1 no longer asserts the CausalGuard gate"
+        )
 
 
 class TestDRED9_ASTBypass2Pin:

@@ -90,6 +90,15 @@ class HypothesisStatus(str, Enum):
     RESOLVED_TRUE = "resolved_true"
     RESOLVED_FALSE = "resolved_false"
     LEARNED = "learned"
+    # UM-DR-36.5 (fair discovery scheduling): the governed lifecycle gains
+    # the deferred/blocked/revisit states. An UNTESTED hypothesis is never
+    # reported as refuted — DEFERRED records honest postponement (with a
+    # reason on the hypothesis), BLOCKED records scope/authorization/
+    # budget/missing-evidence blocks, and REVISIT_REQUIRED requeues a
+    # hypothesis when new observations materially change its context.
+    DEFERRED = "deferred"
+    BLOCKED = "blocked"
+    REVISIT_REQUIRED = "revisit_required"
 
 
 class HypothesisOrigin(str, Enum):

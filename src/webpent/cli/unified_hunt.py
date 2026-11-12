@@ -205,6 +205,7 @@ def run_unified_hunt(
     run_graph: bool = True,
     authorization_manifest: str | None = None,
     scope_file: str | None = None,
+    max_tokens: int | None = None,
 ) -> dict[str, Any]:
     """Execute one unified hunt campaign. Returns a summary dict.
 
@@ -300,29 +301,53 @@ def run_unified_hunt(
     )
 
     final_state: dict[str, Any] = {}
+    # UM-DR-35.5: the CLI campaign enforces the HARD total-token ceiling
+    # for the whole managed run (explicit ``max_tokens`` override, else the
+    # settings default). The selected ceiling is recorded in the summary —
+    # a CLI option that is displayed but not enforced is prohibited.
+    from webpent.shared.llm import get_llm_budget_summary, llm_usage_scope
+
+    effective_max_tokens = int(max_tokens) if max_tokens is not None else int(
+        getattr(settings, "llm_max_total_tokens_per_run", 0) or 0)
+    graph_error: BaseException | None = None
+    budget_summary: dict[str, object] = {"active": False}
     checkpointer_ctx = _resolve_checkpointer_for_run(auto_approve, get_checkpointer)
     try:
-        if checkpointer_ctx is not None:
-            with checkpointer_ctx as checkpointer:
-                graph = build_graph(checkpointer=checkpointer, auto_approve=auto_approve)
+        with llm_usage_scope(settings, max_total_tokens=effective_max_tokens):
+            if checkpointer_ctx is not None:
+                with checkpointer_ctx as checkpointer:
+                    graph = build_graph(checkpointer=checkpointer, auto_approve=auto_approve)
+                    final_state = _invoke_with_progress(
+                        graph, target, preset, resolved_thread_id,
+                        resolved_engagement_id, credentials,
+                        session_cookies, settings, no_llm, report_format,
+                        renderer, announcer,
+                        manifest_origins=(
+                            (manifest_projection or {}).get("authorized_origins")
+                            or []),
+                        scope_declaration=scope_declaration,
+                    )
+            else:
+                graph = build_graph(auto_approve=auto_approve)
                 final_state = _invoke_with_progress(
                     graph, target, preset, resolved_thread_id,
                     resolved_engagement_id, credentials,
                     session_cookies, settings, no_llm, report_format,
                     renderer, announcer,
-                    manifest_origins=(manifest_projection or {}).get("authorized_origins") or [],
+                    manifest_origins=(
+                        (manifest_projection or {}).get("authorized_origins")
+                        or []),
                     scope_declaration=scope_declaration,
                 )
-        else:
-            graph = build_graph(auto_approve=auto_approve)
-            final_state = _invoke_with_progress(
-                graph, target, preset, resolved_thread_id,
-                resolved_engagement_id, credentials,
-                session_cookies, settings, no_llm, report_format,
-                renderer, announcer,
-                manifest_origins=(manifest_projection or {}).get("authorized_origins") or [],
-                scope_declaration=scope_declaration,
-            )
+            # Capture INSIDE the scope — the budget ContextVar resets on
+            # exit and the summary must reflect THIS campaign's accounting.
+            try:
+                budget_summary = get_llm_budget_summary()
+            except (AttributeError, ImportError, RuntimeError, TypeError, ValueError):
+                budget_summary = {"active": True, "capture_error": True}
+    except BaseException as exc:  # noqa: BLE001 - recorded for status honesty
+        graph_error = exc
+        raise
     finally:
         if renderer is not None:
             renderer.finish()
@@ -353,6 +378,39 @@ def run_unified_hunt(
     except (AttributeError, ImportError, OSError, RuntimeError, TypeError, ValueError):
         summary["llm_calls"] = 0
         summary["llm_tokens_used"] = 0
+    # UM-DR-35.5: campaign budget record — the selected ceiling, the split
+    # accounting (input/output/total, reservations, unknown-usage calls),
+    # and the honest terminal budget status. ``budget_summary`` was
+    # captured INSIDE the campaign scope. Unresolved hypotheses are never
+    # silently marked negative on a budget stop.
+    summary["llm_budget"] = {
+        "max_total_tokens": effective_max_tokens,
+        "input_tokens": int(budget_summary.get("input_tokens") or 0),
+        "output_tokens": int(budget_summary.get("output_tokens") or 0),
+        "total_tokens": int(budget_summary.get("total_tokens") or 0),
+        "reserved_tokens": int(budget_summary.get("reserved_tokens") or 0),
+        "unknown_usage_calls": int(budget_summary.get("unknown_usage_calls") or 0),
+        "tokens_exhausted": bool(budget_summary.get("tokens_exhausted")),
+        "calls": int(budget_summary.get("calls") or 0),
+        "max_calls": (int(budget_summary["max_calls"])
+                      if budget_summary.get("max_calls") is not None else None),
+        "blocked": bool(budget_summary.get("blocked")),
+    }
+    if graph_error is not None:
+        budget_status = "INTERRUPTED"
+    elif budget_summary.get("tokens_exhausted"):
+        budget_status = "BUDGET_EXHAUSTED"
+    elif budget_summary.get("blocked"):
+        budget_status = "BUDGET_EXHAUSTED"
+    elif bool(final_state.get("budget_pressure_active")):
+        budget_status = "PARTIAL"
+    else:
+        budget_status = "COMPLETED"
+    summary["budget_status"] = budget_status
+    summary["unresolved_hypotheses_note"] = (
+        "Budget exhaustion never marks unresolved hypotheses as negative; "
+        "they remain untested."
+        if budget_status == "BUDGET_EXHAUSTED" else "")
     summary.update(
         {
             "graph_invoked": True,
@@ -365,6 +423,15 @@ def run_unified_hunt(
             "consulted_lessons": bool(final_state.get("consulted_lessons")),
             "extracted_lessons": final_state.get("extracted_lessons") or [],
             "detector_results": len(final_state.get("detector_results") or []),
+            # UM-DR-36.2/36.3: the Application Semantic Model summary and
+            # the Discovery Funnel produced by the campaign itself (real
+            # runtime state — persisted channels, included in the final
+            # report payload).
+            "application_model": {
+                k: v for k, v in (final_state.get("application_model") or {}).items()
+                if k != "projection"
+            } or {"materialized": False},
+            "discovery_funnel": final_state.get("discovery_funnel") or {},
         }
     )
     return summary

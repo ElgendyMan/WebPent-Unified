@@ -141,6 +141,15 @@ TEST_ALLOWLIST: frozenset[Path] = frozenset(
     # frozen by the team1 behavioral test. Reviewed as part of the 0.33.0
     # window; no production-side state is set.
     ROOT / "tests" / "test_hardening_0330_b3.py",
+    # UM-DR-35.1 (Gate 35-A regression): tests/test_umdr35_confirmation_authority.py
+    # constructs ModernOrchestrator directly (test-only escape, loopback lab
+    # target via AuthorizedLabProfile + ScopeLaw, exactly like the allowlisted
+    # walking-skeleton suite) to drive AVI's real decision path and prove the
+    # causalguard_adjudicated promotion gate cannot be satisfied by a forged
+    # authority string/lookalike object, and that replay mutations fail
+    # closed. Reviewed with the UM-DR-35.1 implementation; loopback-only,
+    # no production-side state.
+    ROOT / "tests" / "test_umdr35_confirmation_authority.py",
 }
 
 # This checker script itself necessarily contains the literal pattern text

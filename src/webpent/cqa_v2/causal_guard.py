@@ -6,11 +6,21 @@ DIFFERENTIAL for vulnerability confirmation, not merely an HTTP response
 difference. Uses the extended observation model which captures actor,
 role, tenant, resource, ownership, and authorization context.
 
+UM-DR-35 §1.1/§3 (UM-DR-35.1): this module is the SOLE vulnerability-
+confirmation authority. Specialized validators, LLMs, planners, exploiters
+and external scanners produce STRUCTURED EVIDENCE ONLY; their claims are
+adjudicated here (``guarded_causal_evaluate`` for authorization-class
+families, ``guarded_causal_evaluate_experiment`` for the full experiment
+fabric) before any promotion decision. A validator label, trace string,
+component name, or confidence score is NEVER a confirmation.
+
 Governance:
 - BLOCKED never transitions to CONFIRMED or CLEAN (hard invariant)
 - Ground truth is NEVER imported or read by this module
 - No route-specific hardcoding — only structural + context features
 - Fail-closed: insufficient context → BLOCKED, not guessed
+- A contaminated negative control (signal in control) → BLOCKED, never
+  confirmed (UM-DR-35 §1.3: controls must be independent and clean)
 """
 from __future__ import annotations
 
@@ -625,3 +635,377 @@ def guarded_causal_evaluate(
         authorization_differential=(auth_mismatch is True and auth_enforced is True),
     )
     return result
+
+
+# ============================================================
+# UM-DR-35.1 — Experiment-level adjudication (same module, same
+# authority). Specialized validators supply structured technical
+# evidence; THIS module decides the causal relationship and is the
+# only source of a confirmation verdict.
+# ============================================================
+
+#: Families whose causal relationship is an AUTHORIZATION differential
+#: (actor/owner/tenant/privilege). These route through the original
+#: ``guarded_causal_evaluate`` (authorization-context) logic.
+_AUTHORIZATION_CAUSAL_FAMILIES: frozenset[str] = frozenset({
+    "IDOR", "BOLA", "PRIVILEGE_DIFFERENTIAL", "AUTH_BYPASS", "JWT_MANIPULATION",
+    "BAC", "MISSING_ACCESS_CONTROL",
+})
+
+#: Technical families whose causal relationship is a SIGNAL differential:
+#: the candidate observation must exhibit the family-specific technical
+#: signal while baseline AND negative control do not.
+_TECHNICAL_CAUSAL_FAMILIES: frozenset[str] = frozenset({
+    "SSRF", "XSS", "SQLI", "OPEN_REDIRECT", "MASS_ASSIGNMENT",
+    "INFO_DISCLOSURE", "BUSINESS_LOGIC", "RACE_CONDITION", "FILE_UPLOAD",
+    "SSTI", "LFI", "PATH_TRAVERSAL", "COMMAND_INJECTION", "XXE", "RFI",
+    "BLIND_SSRF", "XXE_OOB", "BLIND_SQLI", "CACHE_POISONING",
+    "PROTOTYPE_POLLUTION",
+})
+
+CAUSALGUARD_AUTHORITY_ID: str = "cqa_v2.guarded_causal_evaluate"
+
+#: Statuses that represent a GRANTED access outcome in the guard model.
+_GRANTED_STATUSES: frozenset[int] = frozenset({200, 201, 202, 204, 206, 207, 301, 302})
+
+
+@dataclass
+class ExperimentCausalEvidence:
+    """Structured evidence submitted to CausalGuard for adjudication.
+
+    Built by the confirmation adapter (production/confirmation_adapter.py)
+    from the REAL experiment triple + the specialized validator's
+    structured result. CausalGuard never trusts the validator's outcome
+    label — only the underlying evidence.
+    """
+    vulnerability_family: str
+    experiment_id: str
+    baseline: dict[str, Any]
+    candidate: dict[str, Any]
+    negative_control: dict[str, Any]
+    #: Per-role technical signal flags extracted by the specialized
+    #: validator (e.g. marker reflected, sql error present, metadata
+    #: body indicators, external Location header). Required for the
+    #: technical families; keys: baseline/candidate/negative_control
+    #: each mapped to a truthy signal description or False.
+    technical_signal: dict[str, Any]
+    #: Semantic facts normalized from observation structure (request
+    #: path per role, identity binding, semantic digest per role).
+    semantic_facts: dict[str, Any] = field(default_factory=dict)
+    evidence_origin: str = "target_runtime"
+    evidence_provenance: str = "experiment_fabric_real_http"
+    #: Validator's own outcome label — ADVISORY ONLY. Never used as the
+    # confirmation decision; recorded for audit in confidence factors.
+    validator_outcome: str | None = None
+    refutation_info: str | None = None
+
+
+def _blocked(reason: str, *, factors: dict[str, float] | None = None) -> GuardedCausalResult:
+    return GuardedCausalResult(
+        verdict=Verdict.BLOCKED, causal_signal=None, confidence=0.0,
+        confidence_factors=factors or {}, block_reason=reason,
+        raw_decision="BLOCKED", authorization_differential=None,
+    )
+
+
+def _experiment_observation_valid(obs: dict[str, Any]) -> tuple[bool, str]:
+    """An observation must be a real, executed HTTP observation."""
+    if not obs or not isinstance(obs, dict):
+        return False, "observation_missing_or_not_dict"
+    if obs.get("real_http") is False or obs.get("synthetic") is True:
+        return False, "observation_synthetic"
+    if obs.get("status_code") is None:
+        return False, "observation_not_executed"
+    if obs.get("_placeholder"):
+        return False, "observation_placeholder"
+    if obs.get("blocked") is True:
+        return False, "observation_blocked"
+    return True, ""
+
+
+def _sig(evidence: ExperimentCausalEvidence, role: str) -> bool:
+    """Extract the per-role technical signal flag (strict bool)."""
+    v = (evidence.technical_signal or {}).get(role)
+    return v is True or str(v).lower() in ("1", "true", "yes", "confirmed")
+
+
+def guarded_causal_evaluate_experiment(
+    evidence: ExperimentCausalEvidence,
+) -> GuardedCausalResult:
+    """SOLE authority for experiment-level vulnerability confirmation.
+
+    Contract (UM-DR-35 §1.1/§1.2/§1.3):
+
+    * Fail-closed on synthetic / missing / blocked observations.
+    * Fail-closed on wrong evidence origin (target_runtime only).
+    * Fail-closed when the negative control exhibits the same technical
+      signal as the candidate (contaminated control ⇒ BLOCKED — the
+      difference cannot be attributed to the manipulated input).
+    * Authorization families: full authorization-differential logic via
+      the original ``guarded_causal_evaluate`` (actor/owner/tenant/
+      privilege context across the triple) — a response difference
+      without an authorization differential stays unconfirmed.
+    * Technical families: causal CONFIRMATION requires the candidate
+      signal present AND baseline signal absent AND control signal
+      absent AND a semantic difference between candidate and both
+      baseline and control. Anything weaker is REFUTED (signal absent)
+      or INCONCLUSIVE (insufficient discrimination), never CONFIRMED.
+    """
+    family = str(evidence.vulnerability_family or "").upper()
+
+    if not family:
+        return _blocked("vulnerability_family_missing")
+    if evidence.evidence_origin != "target_runtime":
+        return _blocked(f"evidence_origin_rejected:{evidence.evidence_origin}")
+
+    for role, obs in (("baseline", evidence.baseline),
+                      ("candidate", evidence.candidate),
+                      ("negative_control", evidence.negative_control)):
+        ok, why = _experiment_observation_valid(obs)
+        if not ok:
+            return _blocked(f"{role}_{why}")
+
+    # -- Control independence (UM-DR-35 §1.3) --------------------------
+    control = evidence.negative_control
+    candidate = evidence.candidate
+    baseline = evidence.baseline
+    if candidate is control:
+        return _blocked("control_identical_to_candidate")
+    try:
+        if (candidate.get("request_digest") and control.get("request_digest")
+                and candidate["request_digest"] == control["request_digest"]):
+            return _blocked("control_request_identical_to_candidate")
+    except (TypeError, KeyError):
+        pass
+
+    # -- Authorization-class families -----------------------------------
+    # Two designs exist in the experiment fabric, and the CAUSAL
+    # relationship differs accordingly. CausalGuard adjudicates the
+    # relationship of the design actually executed — it never accepts a
+    # validator's label as a shortcut.
+    if family in _AUTHORIZATION_CAUSAL_FAMILIES:
+        b_g = _to_guard_observation(baseline)
+        c_g = _to_guard_observation(candidate)
+        k_g = _to_guard_observation(control)
+        c_ctx = _extract_context(c_g)
+
+        # Ablation signals (validator's own family test, role-swapped).
+        cand_sig = _sig(evidence, "candidate")
+        base_sig = _sig(evidence, "baseline")
+        ctrl_sig = _sig(evidence, "negative_control")
+
+        if family in ("IDOR", "BOLA", "PRIVILEGE_DIFFERENTIAL"):
+            # TWO-PRINCIPAL differential-access design:
+            #   baseline = owner on the protected resource (legitimate 2xx)
+            #   candidate = foreign/lower-privilege principal on the SAME
+            #               resource
+            #   negative control = same principal kind on an invalid/denied
+            #               resource (enforced)
+            # Causal CONFIRMATION requires: owner succeeded, foreign
+            # principal succeeded, actor != resource owner, control clean,
+            # and the candidate observation differs from BOTH baseline and
+            # control. Anything weaker is CLEAN (enforced), BLOCKED
+            # (contaminated control / unusable evidence) or INCONCLUSIVE.
+            owner_ok = int(b_g.get("status_code") or 0) in _GRANTED_STATUSES
+            foreign_granted = int(c_g.get("status_code") or 0) in _GRANTED_STATUSES
+            actor = c_ctx.get("actor_id")
+            owner = c_ctx.get("resource_owner") or evidence.semantic_facts.get(
+                "identity_binding", {}).get("resource_owner")
+            actor_mismatch = bool(actor and owner and actor != owner)
+            ctrl_status = int(k_g.get("status_code") or 0)
+            ctrl_denied = ctrl_status in (401, 403, 404)
+            cand_diff_base = _semantic_diff_significant(b_g, c_g)
+            cand_diff_ctrl = _semantic_diff_significant(c_g, k_g)
+
+            if ctrl_sig and cand_sig:
+                return _blocked("negative_control_contaminated_signal")
+            if not owner_ok or not actor_mismatch:
+                verdict, branch = Verdict.CLEAN, "clean_owner_access_or_same_principal"
+                raw_decision = "CLEAN"
+                causal_signal = False
+            elif not foreign_granted:
+                # Access control enforced for the foreign principal.
+                verdict, branch = Verdict.CLEAN, "clean_access_control_enforced"
+                raw_decision = "CLEAN"
+                causal_signal = False
+            elif not (ctrl_denied or cand_diff_ctrl) or ctrl_sig:
+                return _blocked("negative_control_not_independent")
+            elif cand_sig and cand_diff_base and cand_diff_ctrl:
+                verdict, branch = Verdict.CONFIRMED, "confirmed_differential_access"
+                raw_decision = "CONFIRMED"
+                causal_signal = True
+            else:
+                verdict, branch = Verdict.INCONCLUSIVE, "inconclusive_differential"
+                raw_decision = "INCONCLUSIVE_INSUFFICIENT_DIFFERENTIAL"
+                causal_signal = None
+        else:
+            # BYPASS designs (AUTH_BYPASS / JWT_MANIPULATION):
+            #   baseline = no credential -> denied
+            #   candidate = bypass/tampered credential -> granted
+            #   negative control = invalid credential -> denied
+            b_status = int(b_g.get("status_code") or 0)
+            c_status = int(c_g.get("status_code") or 0)
+            k_status = int(k_g.get("status_code") or 0)
+            baseline_denied = b_status in (401, 403)
+            candidate_granted = c_status in _GRANTED_STATUSES
+            control_denied = k_status in (401, 403)
+            cand_diff_base = _semantic_diff_significant(b_g, c_g)
+            cand_diff_ctrl = _semantic_diff_significant(c_g, k_g)
+            if ctrl_sig and cand_sig:
+                return _blocked("negative_control_contaminated_signal")
+            if not candidate_granted:
+                verdict, branch = Verdict.CLEAN, "clean_bypass_rejected"
+                raw_decision = "CLEAN"
+                causal_signal = False
+            elif not baseline_denied or not control_denied:
+                return _blocked("bypass_control_not_denied_state")
+            elif cand_sig and cand_diff_base and cand_diff_ctrl:
+                verdict, branch = Verdict.CONFIRMED, "confirmed_bypass"
+                raw_decision = "CONFIRMED"
+                causal_signal = True
+            else:
+                verdict, branch = Verdict.INCONCLUSIVE, "inconclusive_bypass"
+                raw_decision = "INCONCLUSIVE_INSUFFICIENT_BYPASS_CONTEXT"
+                causal_signal = None
+
+        confidence, factors = _compute_dynamic_confidence(
+            b_g, c_g, k_g, branch, None, None)
+        factors["candidate_signal"] = 1.0 if cand_sig else 0.0
+        factors["baseline_signal"] = 1.0 if base_sig else 0.0
+        factors["control_signal"] = 1.0 if ctrl_sig else 0.0
+        if evidence.validator_outcome:
+            factors["validator_label_advisory"] = 1.0
+        if evidence.refutation_info:
+            factors["refutation_info_present"] = 1.0
+        return GuardedCausalResult(
+            verdict=verdict, causal_signal=causal_signal,
+            confidence=confidence, confidence_factors=factors,
+            raw_decision=raw_decision,
+            authorization_differential=(verdict is Verdict.CONFIRMED))
+
+    # -- Technical families: signal differential ------------------------
+    if family in _TECHNICAL_CAUSAL_FAMILIES:
+        cand_sig = _sig(evidence, "candidate")
+        base_sig = _sig(evidence, "baseline")
+        ctrl_sig = _sig(evidence, "negative_control")
+
+        if not isinstance(evidence.technical_signal, dict) or not evidence.technical_signal:
+            return _blocked("technical_signal_missing_for_technical_family")
+
+        # Contaminated control: signal visible in control ⇒ cannot
+        # attribute causation to the manipulated input.
+        if ctrl_sig and cand_sig:
+            return _blocked("negative_control_contaminated_signal")
+
+        cand_diff_base = _semantic_diff_significant(
+            _to_guard_observation(baseline), _to_guard_observation(candidate))
+        cand_diff_ctrl = _semantic_diff_significant(
+            _to_guard_observation(candidate), _to_guard_observation(control))
+
+        if cand_sig and not base_sig and not ctrl_sig:
+            if cand_diff_base and cand_diff_ctrl:
+                verdict = Verdict.CONFIRMED
+                causal_signal = True
+                branch = "confirmed_signal_differential"
+                raw_decision = "CONFIRMED"
+            else:
+                # Signal present but observations not discriminating:
+                # insufficient differential evidence.
+                verdict = Verdict.INCONCLUSIVE
+                causal_signal = None
+                branch = "inconclusive_signal_without_semantic_diff"
+                raw_decision = "INCONCLUSIVE_SIGNAL_WEAK_DIFFERENTIAL"
+        elif not cand_sig:
+            verdict = Verdict.CLEAN
+            causal_signal = False
+            branch = "clean_no_candidate_signal"
+            raw_decision = "CLEAN"
+        elif cand_sig and base_sig:
+            # Both baseline and candidate show the signal — the signal
+            # is not caused by the manipulated input.
+            verdict = Verdict.CLEAN
+            causal_signal = False
+            branch = "clean_signal_in_baseline_too"
+            raw_decision = "CLEAN_SIGNAL_NOT_INPUT_CAUSED"
+        else:
+            verdict = Verdict.INCONCLUSIVE
+            causal_signal = None
+            branch = "inconclusive"
+            raw_decision = "INCONCLUSIVE"
+
+        confidence, factors = _compute_dynamic_confidence(
+            _to_guard_observation(baseline), _to_guard_observation(candidate),
+            _to_guard_observation(control), branch, None, None)
+        factors["candidate_signal"] = 1.0 if cand_sig else 0.0
+        factors["baseline_signal"] = 1.0 if base_sig else 0.0
+        factors["control_signal"] = 1.0 if ctrl_sig else 0.0
+        if evidence.validator_outcome:
+            factors["validator_label_advisory"] = 1.0
+        if evidence.refutation_info:
+            factors["refutation_info_present"] = 1.0
+        return GuardedCausalResult(
+            verdict=verdict, causal_signal=causal_signal,
+            confidence=confidence, confidence_factors=factors,
+            raw_decision=raw_decision,
+            authorization_differential=None)
+
+    # Unknown family: fail-closed, never guessed.
+    return _blocked(f"unknown_vulnerability_family:{family}")
+
+
+def _to_guard_observation(obs: dict[str, Any]) -> dict[str, Any]:
+    """Normalize an experiment observation into the extended observation
+    model consumed by ``guarded_causal_evaluate`` (status, digests,
+    request path, authorization context headers)."""
+    headers = obs.get("headers") or {}
+    if not isinstance(headers, dict):
+        headers = {}
+    request_url = str(obs.get("request_url") or obs.get("url_shape") or "")
+    path = "/"
+    try:
+        from urllib.parse import urlsplit
+        path = urlsplit(request_url).path or "/"
+    except (ValueError, TypeError):
+        path = "/"
+    body = str(obs.get("response_body") or "")
+    body_length = obs.get("body_length")
+    if body_length is None:
+        body_length = len(body)
+    # Semantic digest covers status, body, AND the Location channel (the
+    # differentiator for redirect families, where bodies are often equal).
+    location = ""
+    for hk, hv in headers.items():
+        if hk.lower() == "location":
+            location = str(hv)
+            break
+    if not location and obs.get("location_host"):
+        location = str(obs["location_host"])
+    semantic_digest = None
+    try:
+        import hashlib
+        semantic_digest = "sha256:" + hashlib.sha256(
+            (str(obs.get("status_code")) + "|" + location + "|" + body[:4096]).encode(
+                "utf-8", "replace")).hexdigest()
+    except (TypeError, ValueError):
+        semantic_digest = None
+    return {
+        "status_code": obs.get("status_code"),
+        "body_length": body_length,
+        "semantic_digest": semantic_digest,
+        "headers": headers,
+        "request": {"path": path, "url": request_url},
+        # Authorization context is passed through so _extract_context can
+        # read X-Actor-*/X-Resource-* channels from real target responses.
+        "actor_id": obs.get("actor_id"),
+        "actor_role": obs.get("actor_role"),
+        "actor_tenant": obs.get("actor_tenant"),
+        "auth_state": obs.get("auth_state"),
+        "resource_owner": obs.get("resource_owner"),
+        "resource_tenant": obs.get("resource_tenant"),
+        "resource_id": obs.get("resource_id"),
+        "resource_type": obs.get("resource_type"),
+        "authorization_outcome": obs.get("authorization_outcome"),
+        "effective_privilege_granted": obs.get("effective_privilege_granted"),
+        "privilege_required": obs.get("privilege_required"),
+        "location_host": obs.get("location_host"),
+    }

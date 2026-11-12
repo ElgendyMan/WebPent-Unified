@@ -107,7 +107,16 @@ def verify_replay(bundle: CompleteProofBundle) -> ReplayResult:
     seal_match = (original_seal == replay_seal)
     digest_match = (original_digest == replay_digest)
 
-    replay_verified = bool(verdict_match and seal_valid and digest_match)
+    # UM-DR-35.2: the strict contract requires EVERY condition tracked by
+    # ReplayResult.replay_valid — verdict match, evidence digest match,
+    # seal VALIDITY, seal EQUALITY (original vs replay), and actual replay
+    # execution. The previous computation omitted seal_match and
+    # replay_executed, letting a bundle whose seal changed across the
+    # reload boundary (or a replay that never executed) count as verified.
+    replay_executed = True  # the re-derivation above ran to completion
+    replay_verified = bool(
+        verdict_match and digest_match and seal_valid and seal_match and replay_executed
+    )
 
     return ReplayResult(
         original_verdict=original_verdict,

@@ -1,0 +1,314 @@
+{
+  "checks": {
+    "appmodel_coverage_gaps": [
+      "appmodel_no_identities_derived",
+      "appmodel_no_observations_derived",
+      "appmodel_no_workflows_derived",
+      "appmodel_no_resources_derived",
+      "appmodel_no_principals_derived",
+      "appmodel_no_state_transitions_derived"
+    ],
+    "appmodel_entity_count": 7,
+    "appmodel_materialized": true,
+    "appmodel_relation_count": 6,
+    "budget_max_total_tokens": 1000000,
+    "budget_status": "COMPLETED",
+    "budget_status_in_vocabulary": true,
+    "findings_confirmed": 0,
+    "findings_total": 3,
+    "funnel_computed": true,
+    "funnel_endpoints": 3,
+    "funnel_entities": 7,
+    "funnel_hypotheses_in_pool": 12,
+    "funnel_not_materialized": [
+      "recon_surfaces_discovered",
+      "parameters_observed",
+      "hypotheses_generated"
+    ],
+    "funnel_stage_count": 28,
+    "funnel_version": "funnel/v2",
+    "graph_invoked": true
+  },
+  "summary": {
+    "application_model": {
+      "coverage_gaps": [
+        "appmodel_no_identities_derived",
+        "appmodel_no_observations_derived",
+        "appmodel_no_workflows_derived",
+        "appmodel_no_resources_derived",
+        "appmodel_no_principals_derived",
+        "appmodel_no_state_transitions_derived"
+      ],
+      "engagement_id": "umdr36-e2e",
+      "entity_count": 7,
+      "entity_kinds": [
+        "application",
+        "endpoint",
+        "organization",
+        "tenant"
+      ],
+      "refreshed_at_stage": "discovery_funnel",
+      "relation_count": 6,
+      "relation_kinds": [
+        "contains",
+        "hosts"
+      ]
+    },
+    "authorization": "umdr36-e2e-lab-authorization",
+    "budget_status": "COMPLETED",
+    "consulted_lessons": true,
+    "detector_results": 0,
+    "discovery_funnel": {
+      "capabilities": {},
+      "computed": true,
+      "drops_explained": [
+        "pool has hypotheses but none open: all resolved or abandoned \u2014 the research loop has no remaining work"
+      ],
+      "enabled": true,
+      "stage_counts": {
+        "abstained_or_conflicting": 0,
+        "app_states_and_transitions": 0,
+        "application_entities_discovered": 7,
+        "authorization_observations": "",
+        "candidate_aliases": 0,
+        "canonical_identities": 0,
+        "causalguard_confirmations": 0,
+        "confirmed_aliases": 0,
+        "confirmed_findings": 3,
+        "differential_questions": 0,
+        "endpoints_discovered": 3,
+        "hypotheses_admitted_by_policy": 12,
+        "hypotheses_deferred_or_untested": 0,
+        "hypotheses_generated": "not_materialized_in_state",
+        "hypotheses_in_pool": 12,
+        "hypotheses_open": 0,
+        "hypotheses_resolved": 3,
+        "identity_relationships": 6,
+        "object_observations": 0,
+        "object_ownership_relations": 0,
+        "parameters_observed": "not_materialized_in_state",
+        "principals_observed": 0,
+        "promotion_decisions": 0,
+        "proofbundles_created": 0,
+        "recon_surfaces_discovered": "not_materialized_in_state",
+        "replay_verified_findings": 0,
+        "workflow_sequence_candidates": 0,
+        "workflows_inferred": 0
+      },
+      "stages": {
+        "abstained_or_conflicting": {
+          "complete": true,
+          "count": 0,
+          "source": "object_identity_registry.stats",
+          "unavailable": false
+        },
+        "app_states_and_transitions": {
+          "complete": true,
+          "count": 0,
+          "source": "application_model(entity_kinds)",
+          "unavailable": false
+        },
+        "application_entities_discovered": {
+          "complete": true,
+          "count": 7,
+          "source": "application_model.entity_count",
+          "unavailable": false
+        },
+        "authorization_observations": {},
+        "candidate_aliases": {
+          "complete": true,
+          "count": 0,
+          "source": "identity_alias_graph",
+          "unavailable": false
+        },
+        "canonical_identities": {
+          "complete": true,
+          "count": 0,
+          "source": "object_identity_registry.stats",
+          "unavailable": false
+        },
+        "causalguard_confirmations": {
+          "complete": true,
+          "count": 0,
+          "source": "findings(causalguard_verdict==CONFIRMED)",
+          "unavailable": false
+        },
+        "confirmed_aliases": {
+          "complete": true,
+          "count": 0,
+          "source": "identity_alias_graph",
+          "unavailable": false
+        },
+        "confirmed_findings": {
+          "complete": true,
+          "count": 3,
+          "source": "findings",
+          "unavailable": false
+        },
+        "differential_questions": {
+          "complete": true,
+          "count": 0,
+          "source": "multi_identity_reasoning.differential_questions",
+          "unavailable": false
+        },
+        "endpoints_discovered": {
+          "complete": true,
+          "count": 3,
+          "source": "surface_metrics.endpoints",
+          "unavailable": false
+        },
+        "hypotheses_admitted_by_policy": {
+          "complete": true,
+          "count": 12,
+          "source": "hypotheses(status!=rejected)",
+          "unavailable": false
+        },
+        "hypotheses_deferred_or_untested": {
+          "complete": true,
+          "count": 0,
+          "source": "hypotheses(status in deferred/blocked)",
+          "unavailable": false
+        },
+        "hypotheses_generated": {
+          "complete": false,
+          "count": "not_materialized_in_state",
+          "source": "identity_workflow.hypotheses_generated",
+          "unavailable": true
+        },
+        "hypotheses_in_pool": {
+          "complete": true,
+          "count": 12,
+          "source": "hypotheses",
+          "unavailable": false
+        },
+        "hypotheses_open": {
+          "complete": true,
+          "count": 0,
+          "source": "hypotheses(status in unexplored/investigating)",
+          "unavailable": false
+        },
+        "hypotheses_resolved": {
+          "complete": true,
+          "count": 3,
+          "source": "hypotheses(resolved_*)",
+          "unavailable": false
+        },
+        "identity_relationships": {
+          "complete": true,
+          "count": 6,
+          "source": "application_model.relation_kinds",
+          "unavailable": false
+        },
+        "object_observations": {
+          "complete": true,
+          "count": 0,
+          "source": "workflow_observations+authorization_observations",
+          "unavailable": false
+        },
+        "object_ownership_relations": {
+          "complete": true,
+          "count": 0,
+          "source": "application_model.relation_kinds(owns)",
+          "unavailable": false
+        },
+        "parameters_observed": {
+          "complete": false,
+          "count": "not_materialized_in_state",
+          "source": "surface_metrics.parameters",
+          "unavailable": true
+        },
+        "principals_observed": {
+          "complete": true,
+          "count": 0,
+          "source": "multi_identity_reasoning.principals",
+          "unavailable": false
+        },
+        "promotion_decisions": {
+          "complete": true,
+          "count": 0,
+          "source": "findings(promotion.decision==PROMOTED)",
+          "unavailable": false
+        },
+        "proofbundles_created": {
+          "complete": true,
+          "count": 0,
+          "source": "findings(bundle_id present)",
+          "unavailable": false
+        },
+        "recon_surfaces_discovered": {
+          "complete": false,
+          "count": "not_materialized_in_state",
+          "source": "surface_metrics.surfaces",
+          "unavailable": true
+        },
+        "replay_verified_findings": {
+          "complete": true,
+          "count": 0,
+          "source": "findings(replay_verified)",
+          "unavailable": false
+        },
+        "workflow_sequence_candidates": {
+          "complete": true,
+          "count": 0,
+          "source": "composite_workflow_candidates",
+          "unavailable": false
+        },
+        "workflows_inferred": {
+          "complete": true,
+          "count": 0,
+          "source": "workflow_observations",
+          "unavailable": false
+        }
+      },
+      "totals": {
+        "measurable_stages": 25,
+        "not_materialized": [
+          "recon_surfaces_discovered",
+          "parameters_observed",
+          "hypotheses_generated"
+        ],
+        "total_stages": 28
+      },
+      "version": "funnel/v2"
+    },
+    "dynamic_step_budget": 50,
+    "elapsed_s": 22.7,
+    "engagement_id": "umdr36-e2e",
+    "engine": "unified_hunt",
+    "extracted_lessons": [],
+    "findings_confirmed": 0,
+    "findings_total": 3,
+    "graph_invoked": true,
+    "llm_budget": {
+      "blocked": false,
+      "calls": 0,
+      "input_tokens": 0,
+      "max_calls": 32,
+      "max_total_tokens": 1000000,
+      "output_tokens": 0,
+      "reserved_tokens": 0,
+      "tokens_exhausted": false,
+      "total_tokens": 0,
+      "unknown_usage_calls": 0
+    },
+    "llm_budget_usd": 1.0,
+    "llm_calls": 0,
+    "llm_tokens_used": 0,
+    "max_hypotheses": 6,
+    "mode": "quick",
+    "recursion_limit": 110,
+    "request_budget": 500,
+    "surface_metrics": {
+      "budget_source": "dynamic",
+      "endpoints": 3,
+      "forms": 0,
+      "graphql_operations": 0,
+      "parameters": 0,
+      "surface_size": 3
+    },
+    "thread_id": "a4937294-52e3-4fa7-8b53-f25f10435d7d",
+    "time_budget_s": 900,
+    "unresolved_hypotheses_note": "",
+    "url": "http://127.0.0.1:34197"
+  }
+}

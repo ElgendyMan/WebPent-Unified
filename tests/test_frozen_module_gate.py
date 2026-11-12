@@ -628,6 +628,44 @@ UMDR34_SCOPE_AUTHORITY_20261110_THAW_PATHS = frozenset({
     "src/webpent/shared/redaction.py",
 })
 
+UMDR35_36_INTEGRITY_20261112_THAW_PATHS = frozenset({
+    # UM-DR-35 + UM-DR-36 (architectural integrity + production
+    # intelligence, 2026-11-12): the directive windows thawed these
+    # frozen files, all documented in
+    # scripts/refreeze_manifest_umdr36_discovery_funnel.py with per-file
+    # directive task mapping. First-time thaws relative to the
+    # pre-unfreeze baseline beyond earlier-era sets:
+    #   * cqa_v2/causal_guard.py + cqa_v2/replay_verifier.py +
+    #     production/autonomous_validation_v1.py — 35.1/35.2 CausalGuard
+    #     sole confirmation authority + strict replay.
+    #   * scope/enforcer.py (already in UMDR34 set) — 35.3 delegation.
+    #   * recon/login_executor.py + agents/authentication/agent.py —
+    #     35.4 auth success lifecycle.
+    #   * shared/llm.py + cli/* + agents/hunter_runner.py +
+    #     config/settings.py — 35.5 hard token budget + 35.6 upgrades.
+    #   * agents/validator/agent.py — Gate 35-A graph confirmation gates.
+    #   * graph/builder.py + state/state.py — 36.2/36.3 wiring.
+    #   * production/discovery_funnel.py — 36.3 funnel/v2 (28 stages).
+    # Regression coverage re-run BEFORE the re-pin: UM-DR-35 suites
+    # (86 tests), team1_acceptance (755), funnel (20), frozen gate.
+    "src/webpent/agents/authentication/agent.py",
+    "src/webpent/agents/hunter_runner.py",
+    "src/webpent/agents/validator/agent.py",
+    # (cli/unified_hunt.py, production/discovery_funnel.py already
+    # appear in earlier-era drift sets and are intentionally NOT repeated
+    # here — the union stays exact.)
+    "src/webpent/cli/commands.py",
+    "src/webpent/config/settings.py",
+    "src/webpent/cqa_v2/causal_guard.py",
+    "src/webpent/cqa_v2/replay_verifier.py",
+    "src/webpent/graph/builder.py",
+    "src/webpent/production/autonomous_validation_v1.py",
+    "src/webpent/recon/login_executor.py",
+    "src/webpent/scope/enforcer.py",
+    "src/webpent/shared/llm.py",
+    "src/webpent/state/state.py",
+})
+
 UMDR28_DISCOVERY_20261107_THAW_PATHS = frozenset({
     # UM-DR-28 (production discovery integration, 2026-11-07): the
     # representation-equivalence repair in the causal guard — the four
@@ -1181,6 +1219,7 @@ def test_baseline_disagrees_only_on_documented_unfreeze_paths() -> None:
         | UMDR33_INFO_GAIN_20261110_THAW_PATHS
         | UMDR33_VERSION_BUMP_20261110_THAW_PATHS
         | UMDR34_SCOPE_AUTHORITY_20261110_THAW_PATHS
+        | UMDR35_36_INTEGRITY_20261112_THAW_PATHS
     )
     # ULTIMATE PLAN 2026-10-27, proposal 4: the pre-archive drift sets
     # (e.g. TEAM_MERGE_V152_LINEAGE_DRIFT_PATHS' goed_v1 entry) can no

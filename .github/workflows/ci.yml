@@ -135,6 +135,16 @@ jobs:
       - name: Dependency CVE gate (audited allowlist)
         run: uv run python scripts/check_deps_gate.py
 
+      # UM-DR-35.6: reproducible OSV.dev audit of the LOCKED graph. Every
+      # finding must be either fixed in the lock or carry an allowlist
+      # exception (owner + expiry + upstream plan). Reproducible locally:
+      #   uv run python scripts/umdr35_dependency_audit.py
+      #   uv run python scripts/umdr35_dependency_audit_gate.py
+      - name: Dependency OSV audit (UM-DR-35.6, locked graph)
+        run: |
+          uv run python scripts/umdr35_dependency_audit.py
+          uv run python scripts/umdr35_dependency_audit_gate.py
+
       # Secret scanning (Track 1: كشف الأسرار): values are never printed.
       - name: Secret scan
         run: uv run python scripts/check_secrets.py

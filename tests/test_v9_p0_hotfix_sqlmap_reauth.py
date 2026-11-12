@@ -158,9 +158,18 @@ class TestP0BReauthRetry:
             assert tool_entry.func.call_args.kwargs["session_cookies"] == {
                 "PHPSESSID": "freshcookie", "security": "low",
             }
-            assert result.confidence == Confidence.CONFIRMED.value
-            assert result.confidence_level == "Tool-Confirmed"
+            # UM-DR-35 Gate 35-A: the reauth tool-native path is NO LONGER a
+            # confirmation authority. sqlmap's marker + a fresh session,
+            # without a baseline/candidate/negative-control differential for
+            # CausalGuard adjudication, fails closed to human review. The
+            # tool evidence and reauth fact are preserved.
+            assert result.confidence_level == "Needs Human Review"
             assert result.evidence.get("session_reauth") is True
+            assert result.evidence.get("tool_confirmed_by") == (
+                "validator.sqlmap_reauth_gate:blocked_umdr35")
+            gate = result.evidence.get("promotion_guard", {})
+            assert gate.get("status") == "blocked"
+            assert "causalguard" in gate.get("reason", "")
             # The caller's dict object was mutated in place so it
             # propagates to validator_node's state update.
             assert session_cookies == {"PHPSESSID": "freshcookie", "security": "low"}
