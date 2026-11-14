@@ -530,6 +530,20 @@ class PentestState(TypedDict, total=False):
     identity_alias_graph: Annotated[dict[str, Any], merge_dicts]
     multi_identity_reasoning: Annotated[dict[str, Any], merge_dicts]
     identity_research_hints: Annotated[dict[str, Any], merge_dicts]
+
+    # --- UM-DR-36 corrective closure: the application semantic model
+    # channels. The appmodel node (graph/appmodel_nodes.py) builds the
+    # typed, evidence-carrying ApplicationModel from REAL state channels
+    # (crawled_data, identity_profiles, mental_model, engagement context)
+    # and emits advisory research hints that the hypothesis generator and
+    # the AVI experiment selector actually consume. Strictly advisory and
+    # non-promoting by construction: the model can never grant
+    # authorization, expand scope, confirm a vulnerability, or bypass
+    # CausalGuard / ProofBundle / Replay (UM-DR-36 §2.3). ---
+    appmodel: Annotated[dict[str, Any], merge_dicts]
+    appmodel_research_hints: Annotated[dict[str, Any], merge_dicts]
+    appmodel_summary: Annotated[dict[str, Any], merge_dicts]
+
     # bounded composite-workflow sequence candidates (§7): advisory
     # records carrying the invariant under test, the supporting
     # observations and the safety classification; execution happens only

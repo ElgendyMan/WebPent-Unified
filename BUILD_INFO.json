@@ -1,19 +1,21 @@
 {
  "build_name": "WebPent v15.2 (unified)",
- "build_date": "2026-11-09T00:00:00Z",
+ "build_date": "2026-11-10T00:00:00Z",
  "version_identity_contract": {
   "note": "UM-DR-32 §3.4 — every identity field below is UNAMBIGUOUS. The single-source-of-truth for the package version is pyproject.toml + CHANGELOG.md. build_name is the legacy v-lineage delivery label, kept for lineage only.",
   "historical_merge_baseline": "0.34.0 (the UNIFIED merge line, 2026-11-02 — historical record, NOT the current version)",
-  "package_version": "0.38.0",
-  "package_version_ssot": ["pyproject.toml", "CHANGELOG.md"],
+  "package_version": "0.40.0",
+  "package_version_ssot": [
+   "pyproject.toml",
+   "CHANGELOG.md"
+  ],
   "legacy_delivery_label": "WebPent v15.2 (unified) — lineage label only, never a version claim",
   "previous_release": {
-   "label": "v0.37.1-UMDR31.1",
-   "package_version": "0.37.1",
-   "provenance": "imported snapshot; the published release ZIP carried no .git directory, so its historical commit identities (ca0b9ec, 2d7b928, 914061c, 00f79eed …) are NOT verifiable from the artifact and are recorded as historical claims only",
-   "zip_sha256": "abb21bd70832e5d15aa2e9750952699cb31d00984daa81950dc97098e99a51d6",
-   "zip_entries": 4734,
-   "test_accounting": "8744 collected -> 8735 passed / 0 failed / 6 skipped / 3 xfailed (chunked 13/13) — reproduced exactly on the UM-DR-32 import commit"
+   "label": "v0.39.0-UMDR33",
+   "package_version": "0.39.0",
+   "branch": "features/v0.39.0-umdr33",
+   "source_revision": "4795f02377373a1a2dc4d3376987f7702cd24bf6",
+   "provenance": "UM-DR-33 public feature branch. The branch shipped pyproject/__init__ at 0.39.0 while BUILD_INFO.json's version_identity_contract retained 0.38.0 and suite_count 8990 — the exact inconsistency UM-DR-34 §10 was chartered to fix. The 8990 claim could not be reproduced on the baseline (actual unique node IDs: 8958; the UM-DR-24 release gate test failed on the baseline for precisely this reason). Recorded as a historical claim, corrected from 0.40.0 onward."
   },
   "current_release": {
    "package_version": "0.38.0",
@@ -25,16 +27,46 @@
  },
  "git_head": "RECORD_LIMITATION: a single git_head field cannot represent source-revision, test-revision, artifact-revision and publication-revision at once. Each UM-DR-32 artifact records its own provenance block via scripts/experiment_provenance.py (UM-DR-32 §3.2). See docs/engineering/umdr32/.",
  "units_closed": [
-  "C1a", "C1b", "C1c", "C1d", "C1e", "C2a", "C2b",
-  "DR-005", "DR-006", "DR-007", "DR-008", "DR-009", "DR-010", "DR-011",
-  "LCS2-C1", "TC3-CYCLES-2-3", "TC3-DR-012", "TC3-V1-CHAIN",
-  "TC3-V2-BUSINESS-LOGIC", "TC3-V3-RACE", "TC4-C1", "TC4-C2", "TC4-C3",
-  "TC4-C4", "TC4-DR-013", "TC5-TRACE-R1", "TC5-DR-014", "U-0R",
-  "UM-DR-30", "UM-DR-31", "UM-DR-31.1", "UM-DR-32"
+  "C1a",
+  "C1b",
+  "C1c",
+  "C1d",
+  "C1e",
+  "C2a",
+  "C2b",
+  "DR-005",
+  "DR-006",
+  "DR-007",
+  "DR-008",
+  "DR-009",
+  "DR-010",
+  "DR-011",
+  "LCS2-C1",
+  "TC3-CYCLES-2-3",
+  "TC3-DR-012",
+  "TC3-V1-CHAIN",
+  "TC3-V2-BUSINESS-LOGIC",
+  "TC3-V3-RACE",
+  "TC4-C1",
+  "TC4-C2",
+  "TC4-C3",
+  "TC4-C4",
+  "TC4-DR-013",
+  "TC5-TRACE-R1",
+  "TC5-DR-014",
+  "U-0R",
+  "UM-DR-30",
+  "UM-DR-31",
+  "UM-DR-31.1",
+  "UM-DR-32"
  ],
  "brain_modules": [
-  "ev_scheduler", "blocked_path", "curiosity", "adaptation",
-  "payload_selector", "scorecard"
+  "ev_scheduler",
+  "blocked_path",
+  "curiosity",
+  "adaptation",
+  "payload_selector",
+  "scorecard"
  ],
  "umdr32": {
   "window": "UM-DR-32 autonomous intelligence, object identity & business logic evolution",
@@ -52,6 +84,38 @@
   "m10": "CLOSED — independent holdout BLOCKED_EXTERNAL_DEPENDENCY (unchanged; UM-DR-32 evaluation is a controlled local engineering evaluation, NOT independent validation)"
  },
  "suite_evidence": "current-window accounting: see docs/engineering/umdr32/UMDR32_TEST_ACCOUNTING.json (exact reconciliation); historical UM-DR-31.1: 8744 collected -> 8735/0/6/3",
- "package_version": "0.38.0",
- "suite_count": 8744
+ "package_version": "0.40.0",
+ "suite_count": 9056,
+ "current_release": {
+  "package_version": "0.39.0",
+  "window": "UM-DR-33 researcher brain & autonomous campaign evolution",
+  "previous_release": {
+   "package_version": "0.38.0",
+   "window": "UM-DR-32 identity & business-logic evolution",
+   "provenance": "local lineage da1f828 (verified, 12-commit chain); release zip source_commit d3937b2"
+  }
+ },
+ "suite_count_note": "UM-DR-35/36 final (Phase 3+6 closure): verification state recorded in docs/UMDR35_36_READINESS_SUMMARY.json (full-suite rerun outcome at delivery is the honest authority for the numbers).",
+ "umdr34": {
+  "window": "UM-DR-34 scope authority, safe egress & execution governance",
+  "version": "0.40.0",
+  "baseline": "origin/features/v0.39.0-umdr33 @ 4795f02377373a1a2dc4d3376987f7702cd24bf6 (tree 30d0917275384c16a42351ae844a4508dd80c3c9)",
+  "local_lineage_preserved": "umdr32-identity-business-logic-evolution @ da1f828 (unrelated history, preserved, never discarded)",
+  "workstreams": {
+   "canonical_scope": "scope/authority.py — one EngagementScopeAuthority + ScopeDecision contract; strict single wildcard compiler (fnmatch removed); parser unification",
+   "context_lifecycle": "atomic EngagementContext (one ContextVar, structured tokens, nested restore); ENGAGEMENT vs CONTROL_PLANE egress separation; fail-closed admission",
+   "boundary_enforcement": "canonical redirect guard (method-aware, fresh decision per hop); async transport rate+loopback parity (latent async hook-crash defect fixed); execution_node full safe factory; h2_race scope gate",
+   "request_governance": "default-on engagement ceiling (sync+async, stealth-independent, fail-closed on governor failure); Redis cross-process coordination with honest coordination_scope reporting; HunterRunner acquire/release permits",
+   "llm_boundary": "secure_llm_input key-aware recursion fix; cookie-name families (PHPSESSID/JSESSIONID/...); additional_kwargs/tool_calls sanitization; key-aware redact_value",
+   "checkpoints": "runtime_context degraded-marker contract — no silent {} persistence, no blank-runtime false-success resume"
+  },
+  "authority": "cqa_v2.guarded_causal_evaluate / CausalGuard remains the SOLE confirmation authority; ProofBundle generation and replay verification remain mandatory; negative controls unchanged"
+ },
+ "umdr35_36": {
+  "window": "UM-DR-35/36 corrective closure (0.40.1)",
+  "frozen_manifest": "re-pinned for every drifted entry (DR-009, deterministic refreeze_umdr35_36_repinned.py)",
+  "direct_io_inventory": "regenerated (declared identities absorbed, 0 removals, 0 new raw-transport)",
+  "integrated_campaign": "artifacts/umdr35_36_integrated_campaign_result.json (run_unified_hunt entrypoint, complete chain, same-finding invariant)",
+  "readiness_decision": "NOT_READY_FOR_UM_DR_37 (honest: remote CI unverified)"
+ }
 }

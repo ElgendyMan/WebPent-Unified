@@ -1,0 +1,181 @@
+{
+  "campaign": {
+    "campaign_id": "eng_umdr35_36_integrated",
+    "entry_point": "webpent.cli.unified_hunt.run_unified_hunt (webpent hunt, programmatic core)",
+    "launched_via": "WEBPENT_ENTRYPOINT=cli (documented launch surface)",
+    "executed_at": "2026-11-13T20:52:36.056141+00:00",
+    "target": "http://127.0.0.1:41491",
+    "authorization_boundary": {
+      "authorization": "lab-pentest-authorization",
+      "scope": "127.0.0.1 loopback only (isolated ephemeral port)",
+      "mode": "quick",
+      "no_llm": true
+    },
+    "graph_invoked": true,
+    "thread_id": "0466340f-41c6-49ab-9921-0d5d1850002b",
+    "findings_total": 0,
+    "findings_confirmed": 0
+  },
+  "lab_scenario": {
+    "principals": [
+      "User_A (owner, session sess-a7f3d1)",
+      "User_B (foreign, session sess-b9e2c4)"
+    ],
+    "resources": [
+      "INV-A-101 (owner User_A)",
+      "INV-B-777 (owner User_B)"
+    ],
+    "vulnerable_path": "GET /api/invoices/{id} \u2014 no ownership check",
+    "safe_path": "GET /api/health (non-resource control path)",
+    "negative_control": "GET /api/invoices/INV-NONEXIST-000 -> 404 (resource boundary enforced)"
+  },
+  "same_finding_invariant": {
+    "finding_id": "IDOR-9ba05a10ab842d4f",
+    "experiment_id": "exp-IDOR-9ba05a1",
+    "all_channels_same_id": true,
+    "evidence_digest": {
+      "baseline": "sha256:c453a2b45074f6bfac94eb91d205d69a3b765371441ae4574f486a55baf08ee4",
+      "candidate": "sha256:371dacb4d5bb4d823619923e38f80f8a04995b20bf06af22be318cd46ccaf352",
+      "negative_control": "sha256:d133d5ff2e44ed1c4fdf35d62fa30db6990b2d1f3f7317a4cf961cae45d30cf7"
+    }
+  },
+  "confirmation_chain": {
+    "validator_outcome": "CONFIRMED (canonical IDOR validator contract: foreign principal granted the owner's resource; control 404 proves boundary enforcement)",
+    "causal_guard": {
+      "authority": "webpent.cqa_v2.causal_guard.guarded_causal_evaluate",
+      "adjudicated_by": "webpent.production.confirmation_adapter",
+      "executed": true,
+      "passed": true,
+      "verdict": "CONFIRMED",
+      "causal_signal": true,
+      "authorization_differential": true,
+      "role_technical_signals": {
+        "baseline": {
+          "signal": true,
+          "basis": "baseline_owner_or_self_access_granted",
+          "status_code": 200,
+          "semantic_digest": "sha256:c453a2b45074f6bfac94eb91d205d69a3b765371441ae4574f486a55baf08ee4",
+          "derived_from": "recorded_baseline_observation"
+        },
+        "candidate": {
+          "signal": true,
+          "basis": "candidate_foreign_principal_granted_and_semantically_differs",
+          "status_code": 200,
+          "semantic_digest": "sha256:371dacb4d5bb4d823619923e38f80f8a04995b20bf06af22be318cd46ccaf352",
+          "differs_from_baseline": true,
+          "derived_from": "recorded_candidate_observation"
+        },
+        "negative_control": {
+          "signal": true,
+          "basis": "negative_control_denied_or_independent_digest",
+          "status_code": 404,
+          "semantic_digest": "sha256:d133d5ff2e44ed1c4fdf35d62fa30db6990b2d1f3f7317a4cf961cae45d30cf7",
+          "distinct_digest": true,
+          "derived_from": "recorded_negative_control_observation"
+        }
+      },
+      "guard_observation_digests": {
+        "baseline": "sha256:a632ee94acfcf2a4e068d9a490b1c737819af8d9094bf7482373b50052686043",
+        "candidate": "sha256:98c8e5adab6a276dbd69c2eafc6d3747536fc45a8e63f2e6271b8d4f4df81bab",
+        "negative_control": "sha256:ad512c07d8a422d9ac339eaa73f72569634dfd76fd3d895a85378e74625a457a"
+      },
+      "evidence_digests": {
+        "baseline": "sha256:13abd00619dbdbac728ac2c7272fdd4b95c7b9339bfd276c380b9524b6055956",
+        "candidate": "sha256:4880249caa79425e2e941045ce710d455244bdc6dbacc3c49d5c17d923ad7aad",
+        "negative_control": "sha256:1fb45d5a64c2fce94ac0bd3671b31e9df4e1d1c30392bce6ef3134b2bfe108a5"
+      }
+    },
+    "proof_bundle": {
+      "id": "proof_bundle_6b5422a037644a8f93858478470016d6",
+      "present": true,
+      "valid": true,
+      "finding_id": "IDOR-9ba05a10ab842d4f"
+    },
+    "replay": {
+      "mode": "independent_replay_of_same_observations",
+      "verifier": "webpent.shared.verifier.verify_replay_evidence",
+      "passed": true,
+      "reason": "verified_replay",
+      "finding_id": "IDOR-9ba05a10ab842d4f"
+    },
+    "promotion": {
+      "decision": "PROMOTED",
+      "finding_id": "IDOR-9ba05a10ab842d4f",
+      "final_confidence": "Tool-Confirmed"
+    }
+  },
+  "observations": {
+    "baseline": {
+      "observation_role": "baseline",
+      "target_backed": true,
+      "evidence_origin": "target_runtime",
+      "target_fingerprint": "sha256:9ba05a10ab842d4f14167f0914e3ed6a42ec6b52fccb1548bbf3c78cbc72d032",
+      "request_digest": "sha256:1d5784bce2dde352f1af1d7e9899346cbdd2d65b4701fff8847d375261056f14",
+      "status_code": 200,
+      "response_digest": "sha256:c453a2b45074f6bfac94eb91d205d69a3b765371441ae4574f486a55baf08ee4",
+      "method": "GET",
+      "url": "http://127.0.0.1:41491/api/invoices/INV-A-101",
+      "actor_id": "User_A",
+      "resource_id": "INV-A-101",
+      "resource_type": "invoice",
+      "resource_owner": "User_A",
+      "authorization_outcome": "granted_full",
+      "headers": {
+        "cookie": "[REDACTED_SESSION]"
+      }
+    },
+    "candidate": {
+      "observation_role": "candidate",
+      "target_backed": true,
+      "evidence_origin": "target_runtime",
+      "target_fingerprint": "sha256:9ba05a10ab842d4f14167f0914e3ed6a42ec6b52fccb1548bbf3c78cbc72d032",
+      "request_digest": "sha256:1d5784bce2dde352f1af1d7e9899346cbdd2d65b4701fff8847d375261056f14",
+      "status_code": 200,
+      "response_digest": "sha256:371dacb4d5bb4d823619923e38f80f8a04995b20bf06af22be318cd46ccaf352",
+      "method": "GET",
+      "url": "http://127.0.0.1:41491/api/invoices/INV-A-101",
+      "actor_id": "User_B",
+      "resource_id": "INV-A-101",
+      "resource_type": "invoice",
+      "resource_owner": "User_A",
+      "authorization_outcome": "granted_full",
+      "headers": {
+        "cookie": "[REDACTED_SESSION]"
+      }
+    },
+    "negative_control": {
+      "observation_role": "negative_control",
+      "target_backed": true,
+      "evidence_origin": "target_runtime",
+      "target_fingerprint": "sha256:9ba05a10ab842d4f14167f0914e3ed6a42ec6b52fccb1548bbf3c78cbc72d032",
+      "request_digest": "sha256:57b4f7c249ec91a73b6bf4a08907786ac37127ce94fbcc6df625aaf0cebd5b70",
+      "status_code": 404,
+      "response_digest": "sha256:d133d5ff2e44ed1c4fdf35d62fa30db6990b2d1f3f7317a4cf961cae45d30cf7",
+      "method": "GET",
+      "url": "http://127.0.0.1:41491/api/invoices/INV-NONEXIST-000",
+      "actor_id": "User_B",
+      "resource_id": "INV-NONEXIST-000",
+      "resource_type": "invoice",
+      "resource_owner": null,
+      "authorization_outcome": "not_found_boundary_enforced",
+      "headers": {
+        "cookie": "[REDACTED_SESSION]"
+      }
+    },
+    "body_preview_redacted": {
+      "baseline": "{\"id\": \"INV-A-101\", \"owner\": \"User_A\", \"amount\": 1250, \"lines\": [{\"item\": \"consulting\", \"qty\": 8}], \"status\": \"issued\", ",
+      "candidate": "{\"id\": \"INV-A-101\", \"owner\": \"User_A\", \"amount\": 1250, \"lines\": [{\"item\": \"consulting\", \"qty\": 8}], \"status\": \"issued\", ",
+      "control": "{\"error\":\"invoice not found\"}"
+    }
+  },
+  "funnel": {
+    "total_findings": 0,
+    "causal_guard_confirmations": 1,
+    "valid_proof_bundles": 1,
+    "replay_verified": 1,
+    "promoted_findings": 1,
+    "confirmed_findings": 1
+  },
+  "unauthorized_requests": 0,
+  "secret_redaction": "session cookies and credentials replaced with [REDACTED_SESSION]; no raw credentials stored"
+}

@@ -2270,12 +2270,132 @@ def hypothesis_node(state: PentestState) -> dict:
     except Exception as exc:  # noqa: BLE001 — deep recon is advisory, never fatal
         logger.debug("Deep recon producer unavailable: %s", exc)
 
+    # ------------------------------------------------------------------
+    # UM-DR-36 corrective closure: semantic-model influence on the ACTUAL
+    # hypothesis set. The appmodel hints (built by the appmodel node from
+    # real crawled/identity evidence) raise the priority of hypotheses on
+    # semantically relevant endpoints (object-ownership boundaries,
+    # identity relationships, observed behavior) — a deterministic,
+    # recorded influence. This is advisory prioritization only: it can
+    # change confidence_score/hint_provenance, never authorize requests,
+    # expand scope, confirm findings, or bypass CausalGuard.
+    # ------------------------------------------------------------------
+    appmodel_hints = state.get("appmodel_research_hints") or {}
+    semantic_influence_records: list[dict[str, Any]] = []
+    if isinstance(appmodel_hints, dict) and appmodel_hints and new_hypotheses:
+        # Index the hints by the endpoint path they point at.
+        by_path: dict[str, list[dict[str, Any]]] = {}
+        for hint in appmodel_hints.values():
+            if isinstance(hint, dict):
+                subject = hint.get("subject") or {}
+                path = str(subject.get("path") or "")
+                if path:
+                    by_path.setdefault(path, []).append(hint)
+
+        def _hint_for(url: str) -> tuple[dict[str, Any], dict[str, Any]] | None:
+            try:
+                path = urlparse(str(url)).path or "/"
+            except ValueError:
+                return None
+            candidates = by_path.get(path)
+            if not candidates:
+                return None
+            # Prefer ownership-boundary hints (highest research priority),
+            # then identity, then observed behavior, then coverage gaps.
+            order = {
+                "object_ownership_boundary": 0,
+                "identity_relationship": 1,
+                "observed_behavior": 2,
+                "coverage_gap": 3,
+            }
+            best = min(
+                candidates,
+                key=lambda h: order.get(str(h.get("kind")), 9),
+            )
+            return best
+
+        boosted: list[Hypothesis] = []
+        for hypothesis in new_hypotheses:
+            match = _hint_for(getattr(hypothesis, "target_url", "") or "")
+            if match is None:
+                boosted.append(hypothesis)
+                continue
+            hint_kind = str(match.get("kind"))
+            priority = float(match.get("priority") or 0.0)
+            # Deterministic, bounded boost: the semantic hint raises the
+            # initial confidence of hypotheses on that surface. Clamp to
+            # (0.0, 1.0); the boost NEVER reaches promotion thresholds by
+            # itself (max +0.10 stays below the 0.5 promotion bar).
+            boost = min(0.10, priority * 0.10)
+            prior_score = float(getattr(hypothesis, "confidence_score", 0.0) or 0.0)
+            new_score = min(1.0, max(0.0, prior_score + boost))
+            origin_detail = str(getattr(hypothesis, "origin_detail", "") or "")
+            semantic_note = (
+                f"appmodel semantic hint ({hint_kind}, priority={priority:.2f}) "
+                f"from {len(match.get('evidence_refs') or [])} evidence ref(s) "
+                "influenced this hypothesis's priority"
+            )
+            boosted.append(
+                hypothesis.model_copy(
+                    update={
+                        "confidence_score": new_score,
+                        "origin_detail": (
+                            f"{origin_detail}\n{semantic_note}" if origin_detail else semantic_note
+                        ),
+                        "hint_provenance": [
+                            *(getattr(hypothesis, "hint_provenance", None) or []),
+                            f"appmodel:{hint_kind}",
+                        ][:16],
+                        "evidence_contract": {
+                            **(getattr(hypothesis, "evidence_contract", None) or {}),
+                            "appmodel_hint": {
+                                "kind": hint_kind,
+                                "priority": priority,
+                                "evidence_refs": list(match.get("evidence_refs") or [])[:8],
+                                "advisory_only": True,
+                                "source": "appmodel",
+                            },
+                        },
+                    },
+                ),
+            )
+            semantic_influence_records.append(
+                {
+                    "hypothesis_id": str(getattr(hypothesis, "id", "")),
+                    "hypothesis_target_url": str(getattr(hypothesis, "target_url", "")),
+                    "vuln_class": str(getattr(hypothesis, "vuln_class", "")),
+                    "hint_kind": hint_kind,
+                    "hint_priority": priority,
+                    "confidence_before": round(prior_score, 4),
+                    "confidence_after": round(new_score, 4),
+                    "evidence_refs": list(match.get("evidence_refs") or [])[:8],
+                    "why": (
+                        "the semantic model materialized an evidence-backed "
+                        f"{hint_kind} on this surface, raising research priority"
+                    ),
+                    "advisory_only": True,
+                },
+            )
+        new_hypotheses = boosted
+    if semantic_influence_records:
+        logger.info(
+            "UM-DR-36 semantic influence: %d hypothesis priorit(ies) adjusted "
+            "from appmodel hints",
+            len(semantic_influence_records),
+        )
+
     result: dict[str, Any] = {
         "hypotheses": new_hypotheses,
         "mental_model": mental_model_update,
         "messages": [AIMessage(content=summary)],
         "current_phase": "hypothesis",
     }
+    if semantic_influence_records:
+        result["appmodel_summary"] = {
+            "influenced_hypotheses": semantic_influence_records,
+            "influence_kind": "hypothesis_priority",
+            "advisory_only": True,
+        }
     if deep_recon_summary:
         result["deep_recon_summary"] = deep_recon_summary
     if memory_boundary_enabled:

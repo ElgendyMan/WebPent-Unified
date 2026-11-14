@@ -203,26 +203,46 @@ class TestLLMCharterGuardNoLlmInDecisionFields:
 
 
 class TestSQLiReauthGateDeterministicOnly:
-    """M0 H-3/1.3d: the SQLi reauth promotion gate is deterministic-only."""
+    """M0 H-3/1.3d + UM-DR-35: the historical SQLi reauth tool-native
+    promotion was a DOCUMENTED BYPASS of verify_replay_evidence (a sqlmap
+    marker + a recorded re-auth fact promoted Tool-Confirmed with no
+    differential replay, no ProofBundle and no CausalGuard adjudication).
+    The UM-DR-35 corrective closure REMOVED the bypass: the gate is now
+    fail-closed — without a differential observation routed through the
+    universal authority the finding stays Needs Human Review regardless
+    of LLM behavior."""
 
     def test_reauth_promotion_ignores_llm_verdict(self):
-        """session_reauth + sqlmap marker + LLM says NO => still
-        Tool-Confirmed. The LLM verdict must not be a co-gate (the old
-        `and llm_confirmed` term was dead code declaring a forbidden
-        contract; M1-B removed it)."""
+        """session_reauth + sqlmap marker + LLM says NO => still BLOCKED.
+        The reauth bypass no longer promotes; the LLM verdict remains
+        advisory-only (recorded in evidence) and is irrelevant to the
+        deterministic fail-closed outcome."""
         result = _run_validator(
             _make_sqli_reauth_finding(), "sqli", "no", SQLMAP_POSITIVE
         )
-        assert result.confidence_level == "Tool-Confirmed"
+        assert result.confidence_level == "Needs Human Review"
         guard = result.evidence.get("promotion_guard") or {}
-        assert guard.get("gate") == "deterministic_only_no_llm"
+        assert guard.get("status") == "blocked"
+        assert guard.get("reason") == "sqli_session_reauth_bypass_removed_umdr35"
+        assert guard.get("sqlmap_marker") is True
+        assert guard.get("fresh_session_reauth") is True
+        # The deterministic marker is recorded; on the sqlmap path the
+        # deterministic check is authoritative (LLM skipped — the
+        # recorded supervisor_verdict reflects that, not an LLM output),
+        # and the OUTCOME is invariant across LLM behaviors (proven by
+        # test_reauth_promotion_offline using llm=None).
 
     def test_reauth_promotion_offline(self):
-        """Offline (llm=None) reauth path behaves identically."""
+        """Offline (llm=None) reauth path behaves identically (blocked).
+        The LLM's absence changes nothing: the universal confirmation
+        boundary is deterministic-only and fail-closed."""
         result = _run_validator(
             _make_sqli_reauth_finding(), "sqli", "offline", SQLMAP_POSITIVE
         )
-        assert result.confidence_level == "Tool-Confirmed"
+        assert result.confidence_level == "Needs Human Review"
+        guard = result.evidence.get("promotion_guard") or {}
+        assert guard.get("status") == "blocked"
+        assert guard.get("reason") == "sqli_session_reauth_bypass_removed_umdr35"
 
     def test_no_reauth_stays_fail_closed_even_with_llm_yes(self):
         """Without a fresh session_reauth, SQLi without differential

@@ -382,11 +382,19 @@ def assess_access_control(
     if owner_access and foreign_access and negative_control_complete:
         return {
             "status": "confirmed",
-            "confidence_level": "Tool-Confirmed",
+            # UM-DR-35 corrective closure: this assessment is a CANDIDATE
+            # result carrying the class-specific technical observations —
+            # never a confirmation. The ``Tool-Confirmed`` label was removed
+            # because no validator may independently mark its result as
+            # confirmed: only the CausalGuard authority (via the universal
+            # confirmation boundary) can confirm, and every Finding-creating
+            # consumer of this assessment re-gates through
+            # ``verify_replay_evidence`` (which mandates the CausalGuard
+            # adjudication) before any promotion.
+            "confidence_level": "Identity-Differential-Verified",
             "negative_control_complete": True,
-            # M1-B (E-1): explicit writer provenance for the model-level
-            # Tool-Confirmed proof requirement (models/findings.py).
-            "tool_confirmed_by": "bac.identity_differential_gate",
+            "differential_gate": "bac.identity_differential_gate",
+            "candidate_result": True,
             "reason": (
                 "The owner and a different identity both received reproducible "
                 "successful access, while a separate non-owner control was denied."

@@ -25,8 +25,17 @@ class PromptCredentialLeakError(RuntimeError):
 
 
 _CREDENTIAL_KEY_RE = re.compile(
-    r"(?:^|[_-])(authorization|cookie|set-cookie|password|passwd|secret|"
-    r"token|api[-_]?key|access[-_]?key|session)(?:$|[_-])",
+    r"(?:^|[_-])(authorization|cookie|cookies|set-cookie|password|passwd|"
+    r"secret|token|api[-_]?key|access[-_]?key|session|"
+    # UM-DR-34 §6.2 — recognized session-cookie name families.  These
+    # are complete-key or delimiter-bounded alternatives; they do NOT
+    # match arbitrary application fields that merely contain the
+    # letters "sid" (delimiter-bounded, case-insensitive).
+    r"sessionid|session[-_]?id|phpsessid|jsessionid|asp[-_]?net[-_]?session[-_]?id|"
+    r"connect[-_]?sid|sessid|"
+    r"sid|csrftoken|csrf[-_]?token|xsrf[-_]?token|"
+    r"refresh[-_]?token|id[-_]?token|auth[-_]?token|"
+    r"private[-_]?key|client[-_]?secret)",
     re.IGNORECASE,
 )
 _CREDENTIAL_VALUE_RE = re.compile(
@@ -226,7 +235,12 @@ def wrap_httpx_response(response: Any, *, source: str = "response") -> Untrusted
 
 
 def _credential_key(key: Any) -> bool:
-    return bool(_CREDENTIAL_KEY_RE.search(str(key).replace(" ", "_")))
+    # Normalize separators so "session id", "ASP.NET_SessionId" and
+    # "connect.sid" all reach the delimited pattern (UM-DR-34 §6.2).
+    # Dots are normalized to underscores for the KEY check only — the
+    # original key string is never used as a value.
+    normalized = str(key).replace(" ", "_").replace(".", "_")
+    return bool(_CREDENTIAL_KEY_RE.search(normalized))
 
 
 def _credential_value(value: str) -> bool:
@@ -255,17 +269,46 @@ def secure_prompt_value(value: Any) -> Any:
 
 
 def secure_llm_input(value: Any) -> Any:
-    """Recursively secure a LangChain input immediately before provider I/O."""
+    """Recursively secure a LangChain input immediately before provider I/O.
+
+    UM-DR-34 §6.1: the Mapping branch now applies the credential-key
+    check to EVERY mapping key together with its value (previously keys
+    were only checked when the dict happened to route through
+    ``secure_prompt_value`` — a top-level or list-nested dict reached
+    the provider with ``sessionid``/``cookie``-style keys unchecked).
+    """
     if isinstance(value, (list, tuple)):
         return type(value)(secure_llm_input(item) for item in value)
     if isinstance(value, Mapping):
-        return {key: secure_llm_input(item) for key, item in value.items()}
+        checked: dict[str, Any] = {}
+        for key, item in value.items():
+            if _credential_key(key):
+                raise PromptCredentialLeakError(
+                    f"credential-shaped field {key!r} cannot enter an LLM prompt"
+                )
+            checked[str(key)] = secure_llm_input(item)
+        return checked
     if isinstance(value, UntrustedContent):
         return value.to_prompt_fragment()
     if hasattr(value, "content"):
         import copy
         cloned = copy.copy(value)
         cloned.content = secure_prompt_value(getattr(value, "content"))
+        # UM-DR-34 §6.3: the clone must not smuggle credentials through
+        # adjacent message attributes that some providers serialize.
+        for _attr in ("additional_kwargs", "tool_calls"):
+            _adjacent = getattr(cloned, _attr, None)
+            if _adjacent:
+                try:
+                    setattr(cloned, _attr, secure_prompt_value(_adjacent))
+                except (AttributeError, TypeError, ValueError):
+                    # Frozen/immutable message variants: drop the
+                    # attribute entirely rather than pass it through
+                    # unchecked (fail-closed).
+                    try:
+                        object.__setattr__(cloned, _attr, None)
+                    except (AttributeError, TypeError):  # pragma: no cover
+                        pass
         return cloned
     return secure_prompt_value(value)
 

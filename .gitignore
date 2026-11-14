@@ -50,7 +50,13 @@ GOVERNANCE.txt
 .webpent_credentials*.json
 operator_credentials*.json
 
-artifacts/
+# UM-DR-35/36 (2026-11-12): the mission's machine-readable campaign
+# evidence lives at artifacts/umdr35_36_integrated_campaign_result.json —
+# deliberately tracked (an exception to the R-02/R-09 runtime-artifacts
+# rule: this is the deliverable evidence, not a runtime byproduct).
+artifacts/*
+!artifacts/umdr35_36_integrated_campaign_result.json
+!artifacts/umdr36_learning_between_decisions.json
 # P2-404 (2026-11-01) — root cause of the recurring 27-file transfer loss
 # (incidents #2/#3/#4): the delivery SHIPS the manifest/evidence files below,
 # but the generated-artifact patterns above swallowed them, so every

@@ -92,6 +92,14 @@ class AppModelRelationKind(str, Enum):
     AUTHENTICATES_AS = "authenticates_as"    # identity→tenant/application
     OBSERVED_ON = "observed_on"              # observation→endpoint/workflow
     REACHABLE_FROM = "reachable_from"        # endpoint→endpoint
+    OWNS = "owns"                            # identity→endpoint/resource
+
+
+# UM-DR-36 (2026-11-12): ``OWNS`` was added by the corrective closure to
+# materialize real object-ownership evidence (crawled endpoint records
+# carrying ``owner_identity``). It is created ONLY from recorded evidence —
+# never from hypothesis text — and feeds the ownership-relation research
+# hints and the Discovery Funnel's ``object_ownership_relations`` metric.
 
 
 class AppModelRelation(BaseModel):

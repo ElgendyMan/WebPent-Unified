@@ -268,9 +268,17 @@ class TestP02ValidatorVaultReauth:
                 assert tool_entry.func.call_args.kwargs["session_cookies"] == {
                     "PHPSESSID": "freshcookie", "security": "low",
                 }
-                # Finding is Tool-Confirmed, with reauth_source=vault.
-                assert result.confidence == Confidence.CONFIRMED.value
-                assert result.confidence_level == "Tool-Confirmed"
+                # UM-DR-35 corrective closure: the relogin used the VAULT
+                # password (mechanics unchanged, asserted above) but the
+                # historical tool-native reauth promotion was REMOVED
+                # (a documented bypass of verify_replay_evidence). The
+                # finding stays fail-closed with the bypass-removal
+                # guard; reauth_source=vault is preserved for review.
+                assert result.confidence == Confidence.TENTATIVE.value
+                assert result.confidence_level == "Needs Human Review"
+                guard = result.evidence.get("promotion_guard") or {}
+                assert guard.get("status") == "blocked"
+                assert guard.get("reason") == "sqli_session_reauth_bypass_removed_umdr35"
                 assert result.evidence.get("session_reauth") is True
                 assert result.evidence.get("reauth_source") == "vault"
         finally:

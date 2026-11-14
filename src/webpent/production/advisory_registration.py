@@ -304,6 +304,19 @@ def canonicalize_campaign_hypothesis(
         if not isinstance(kwargs, dict):
             return None, "nonmapping_advisory_kwargs"
         out["advisory_kwargs"] = dict(kwargs)
+    # UM-DR-36 corrective closure: preserve the advisory semantic-model hint
+    # (in the evidence_contract) so the AVI experiment selector's
+    # deterministic semantic priority can actually fire on the canonical
+    # dispatch form. Bounded, advisory-only, never an authority input.
+    evidence_contract = raw.get("evidence_contract")
+    if evidence_contract is not None:
+        if not isinstance(evidence_contract, dict):
+            return None, "nonmapping_evidence_contract"
+        appmodel_hint = evidence_contract.get("appmodel_hint")
+        if appmodel_hint is not None:
+            if not isinstance(appmodel_hint, dict):
+                return None, "nonmapping_appmodel_hint"
+            out["evidence_contract"] = {"appmodel_hint": dict(appmodel_hint)}
     return out, None
 
 

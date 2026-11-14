@@ -2810,8 +2810,45 @@ class Settings(BaseSettings):
             "rate_limit_enabled", "RATE_LIMIT_ENABLED", "WEBPENT_RATE_LIMIT_ENABLED"
         ),
         description=(
-            "V6: Defaults to False for frictionless development/testing. "
-            "Set RATE_LIMIT_ENABLED=true in production to enforce limits."
+            "Legacy global switch for NON-engagement traffic. UM-DR-34 "
+            "§5: inside an ACTIVE ENGAGEMENT the transport ceiling is "
+            "ALWAYS on regardless of this flag (independent of "
+            "stealth_mode); this switch now only governs plain library/"
+            "tool use outside engagements."
+        ),
+    )
+    # UM-DR-34 §5.3 (multi-process coordination): when a Redis URL is
+    # configured, the GlobalRateGovernor singleton is built with a
+    # Redis client so the ceiling coordinates across worker processes;
+    # when it is empty the limit is process-local and MUST be reported
+    # as such (never described as a globally coordinated limit).
+    global_rate_governor_redis_url: str = Field(
+        default="",
+        validation_alias=AliasChoices(
+            "global_rate_governor_redis_url",
+            "GLOBAL_RATE_GOVERNOR_REDIS_URL",
+            "WEBPENT_GLOBAL_RATE_GOVERNOR_REDIS_URL",
+        ),
+        description=(
+            "Redis URL for cross-process rate coordination (e.g. "
+            "redis://localhost:6379/0). Empty = process-local "
+            "coordination only (single-process dev posture, honestly "
+            "reported by GlobalRateGovernor.snapshot())."
+        ),
+    )
+    global_rate_governor_require_coordination: bool = Field(
+        default=False,
+        validation_alias=AliasChoices(
+            "global_rate_governor_require_coordination",
+            "GLOBAL_RATE_GOVERNOR_REQUIRE_COORDINATION",
+            "WEBPENT_GLOBAL_RATE_GOVERNOR_REQUIRE_COORDINATION",
+        ),
+        description=(
+            "Production fail-closed switch: when True, an engagement "
+            "request is DENIED if the Redis-backed coordination backend "
+            "is unavailable (a Redis outage must not silently turn one "
+            "institution-wide limit into N uncoordinated process-local "
+            "limits). Requires global_rate_governor_redis_url."
         ),
     )
     # M1-A (M-3): the transport-level ceiling enforced by
@@ -2820,7 +2857,7 @@ class Settings(BaseSettings):
     # shared/global_rate_governor.py reads these exact field names and
     # falls back to 8/120 when they are absent.
     global_rate_governor_max_concurrent: int = Field(
-        default=8,
+        default=16,
         validation_alias=AliasChoices(
             "global_rate_governor_max_concurrent",
             "GLOBAL_RATE_GOVERNOR_MAX_CONCURRENT",
@@ -2832,7 +2869,7 @@ class Settings(BaseSettings):
         ),
     )
     global_rate_governor_requests_per_minute: int = Field(
-        default=120,
+        default=900,
         validation_alias=AliasChoices(
             "global_rate_governor_requests_per_minute",
             "GLOBAL_RATE_GOVERNOR_REQUESTS_PER_MINUTE",

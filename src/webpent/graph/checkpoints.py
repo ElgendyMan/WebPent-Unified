@@ -139,14 +139,40 @@ def _set_busy_timeout(conn: sqlite3.Connection) -> None:
 def _redact_channel(channel: str, value: Any) -> Any:
     """Return a checkpoint-safe copy of one state channel."""
     if channel == "runtime_context":
+        # UM-DR-34 §7 — safe-failure contract.  The historic branch
+        # caught every exception and persisted ``{}`` SILENTLY: on
+        # resume, ``RuntimeFactory.from_descriptor({})`` rebuilt a
+        # BLANK runtime (budget/kill-switch accounting reset) or dropped
+        # the channel — an undebuggable false-success resume.
+        #
+        # The contract now:
+        #   1. never persist raw runtime secrets as a fallback;
+        #   2. record a structured, secret-free failure event (channel,
+        #      exception CLASS ONLY — never values, never secrets);
+        #   3. persist an explicit DEGRADED marker so the artifact can
+        #      never be mistaken for a valid empty context;
+        #   4. the restore path refuses to rebuild a runtime from the
+        #      degraded marker (no silent resume-as-if-complete).
         try:
             from webpent.shared.runtime import RuntimeContext, RuntimeFactory
 
             if isinstance(value, RuntimeContext):
                 return RuntimeFactory.descriptor(value)
+            if isinstance(value, dict) and value.get("runtime_context_status") == "degraded":
+                return dict(value)
             return dict(value) if isinstance(value, dict) else {}
-        except Exception:
-            return {}
+        except Exception as exc:  # noqa: BLE001 — see contract above
+            logger.error(
+                "Checkpoint runtime_context redaction FAILED — persisting "
+                "explicit degraded marker (resume will NOT silently "
+                "rebuild a blank runtime): channel=runtime_context, "
+                "error_type=%s",
+                type(exc).__name__,
+            )
+            return {
+                "runtime_context_status": "degraded",
+                "degraded_reason": type(exc).__name__,
+            }
     if channel in _SECRET_CHANNELS:
         return {}
     if channel == "jwt_weak_secret_candidates":
@@ -271,11 +297,25 @@ def _restore_runtime_secrets(checkpoint_tuple: Any) -> Any:
         from webpent.shared.runtime import RuntimeFactory
 
         descriptor = channels.get("runtime_context")
-        rebuilt_runtime = RuntimeFactory.from_descriptor(descriptor)
-        if rebuilt_runtime is not None:
-            channels["runtime_context"] = rebuilt_runtime
-        else:
+        if isinstance(descriptor, dict) and descriptor.get("runtime_context_status") == "degraded":
+            # UM-DR-34 §7: a degraded runtime context must NOT resume as
+            # though it were complete — no silent blank-runtime rebuild,
+            # no false-success.  Drop the channel (nodes fall back to
+            # the legacy path) and surface the degradation loudly.
+            logger.error(
+                "Checkpoint runtime context is DEGRADED for thread_id=%s "
+                "(reason=%s) — refusing to rebuild; resume continues on "
+                "the legacy path without runtime accounting.",
+                checkpoint_tuple.config.get("configurable", {}).get("thread_id", ""),
+                descriptor.get("degraded_reason", "unknown"),
+            )
             channels.pop("runtime_context", None)
+        else:
+            rebuilt_runtime = RuntimeFactory.from_descriptor(descriptor)
+            if rebuilt_runtime is not None:
+                channels["runtime_context"] = rebuilt_runtime
+            else:
+                channels.pop("runtime_context", None)
     except Exception as exc:
         logger.error(
             "Checkpoint runtime context restoration failed closed for thread_id=%s: %s",

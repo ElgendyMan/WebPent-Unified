@@ -35,6 +35,12 @@ SRC = REPO / "src" / "webpent"
 
 # The approved writer registry (M0 CAPABILITY_WIRING §2 + M1-B edits).
 # service/cost_alerts.py was REMOVED from this set by M1-B.
+# UM-DR-35 corrective closure: service/lifecycle_findings.py and
+# shared/bac_identity_tester.py were REMOVED — both stopped writing the
+# Tool-Confirmed literal (lifecycle notifications now mirror promotions at
+# Needs Human Review; the BAC differential now returns a candidate-level
+# label). Only modules whose confirmed path runs through the strict
+# verifier / CausalGuard authority chain remain registered.
 APPROVED_TOOL_CONFIRMED_WRITERS = {
     "agents/validator/agent.py",
     "agents/validator/structural_checks.py",
@@ -44,16 +50,6 @@ APPROVED_TOOL_CONFIRMED_WRITERS = {
     "graph/builder.py",
     "egaie/finding_bridge.py",
     "memory/db.py",  # mark_oob_confirmed (SQL flip + provenance stamp)
-    # Discovered by this registry test during M1-B (missed by the M0
-    # inventory): deterministic owner/foreign/negative-control identity
-    # differential — legitimate writer, now carries tool_confirmed_by.
-    "shared/bac_identity_tester.py",
-    # UM-DR-26 (r6c): the lifecycle-notification writer — a PROMOTED alert
-    # carries the promotion gate's Tool-Confirmed stamp with
-    # tool_confirmed_by="webpent.lifecycle" provenance. Registered
-    # consciously here; service/cost_alerts.py itself keeps the M1b
-    # source-level ban (no literal) and delegates to this builder.
-    "service/lifecycle_findings.py",
 }
 
 
@@ -194,6 +190,18 @@ class TestWriterRegistry:
         source = (SRC / "service" / "cost_alerts.py").read_text(encoding="utf-8")
         assert 'confidence_level="Tool-Confirmed"' not in source
         assert '"Tool-Confirmed" if' not in source
+
+    def test_umdr35_removed_writers_stay_removed(self):
+        """UM-DR-35: lifecycle notifications and the BAC differential must
+        never mint Tool-Confirmed from a status string or an intermediate
+        assessment dict."""
+        lifecycle = (SRC / "service" / "lifecycle_findings.py").read_text(encoding="utf-8")
+        assert '"Tool-Confirmed"' not in lifecycle
+        assert 'tool_confirmed_by' not in lifecycle
+        bac = (SRC / "shared" / "bac_identity_tester.py").read_text(encoding="utf-8")
+        assert '"Tool-Confirmed"' not in bac
+        kev = (SRC / "shared" / "kev.py").read_text(encoding="utf-8")
+        assert 'Confidence.CONFIRMED.value' not in kev
 
     def test_registered_writers_attach_provenance_or_bundle(self):
         """Every registered writer file must reference the canonical

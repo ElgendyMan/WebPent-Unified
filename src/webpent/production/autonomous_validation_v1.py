@@ -234,8 +234,27 @@ class AutonomousExperimentSelector:
         in_registry = 1000 if vuln in registry else 0
         info = int(float(hypothesis.get("information_value", hypothesis.get("priority", 0.5)) or 0.5) * 100)
         api_bonus = 50 if str(hypothesis.get("api_type", "rest")).lower() in ("rest", "graphql") else 0
+        # UM-DR-36 corrective closure: the application semantic model
+        # influences experiment selection. A hypothesis carrying an
+        # evidence-backed appmodel hint (object-ownership boundary /
+        # identity relationship, recorded by the hypothesis node's
+        # semantic-influence pass) scores higher — a deterministic,
+        # recorded influence on the research decision. Advisory only:
+        # the hint can reorder selection, never authorize or confirm.
+        semantic_bonus = 0
+        evidence_contract = hypothesis.get("evidence_contract")
+        if isinstance(evidence_contract, dict) and isinstance(
+            evidence_contract.get("appmodel_hint"), dict,
+        ):
+            appmodel_hint = evidence_contract["appmodel_hint"]
+            semantic_bonus = {
+                "object_ownership_boundary": 200,
+                "identity_relationship": 120,
+                "observed_behavior": 60,
+                "coverage_gap": 20,
+            }.get(str(appmodel_hint.get("kind")), 0)
         # tie-break by hypothesis id for full determinism
-        return (in_registry + info + api_bonus, str(hypothesis.get("id", "")))
+        return (in_registry + info + api_bonus + semantic_bonus, str(hypothesis.get("id", "")))
 
     def select(self, hypotheses: list[dict[str, Any]],
                registry: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -411,6 +430,7 @@ class PromotionPipeline:
         "real_runtime_observations",      # anti-synthetic
         "baseline_present",
         "negative_control_present",
+        "causal_guard_adjudicated",       # UM-DR-35: sole technical confirmation authority
         "causal_validator_confirmed",     # anti confidence-only
         "proof_bundle_signed",            # anti unsigned
         "replay_verified",                # anti missing replay
@@ -436,6 +456,10 @@ class PromotionPipeline:
         confidence_score: float | None = None,
         finding_id: str | None = None,
         vulnerability_class: str | None = None,
+        # UM-DR-35 corrective closure: the typed CausalGuard adjudication for
+        # THIS experiment's evidence. Promotion without a CONFIRMED
+        # adjudication bound to the same evidence is impossible (fail-closed).
+        guard_adjudication: Any | None = None,
     ) -> PromotionResult:
         passed: list[str] = []
         failed: list[str] = []
@@ -475,6 +499,22 @@ class PromotionPipeline:
             "negative_control_present",
             negative_control_obs is not None and bool(getattr(negative_control_obs, "digest", lambda: None)() or (isinstance(negative_control_obs, dict) and negative_control_obs.get("body_fingerprint"))),
             "missing negative control",
+        )
+
+        # Gate 3 (UM-DR-35): CausalGuard adjudicated CONFIRMED.
+        # The authority is webpent.cqa_v2.causal_guard.guarded_causal_evaluate,
+        # invoked through the universal confirmation adapter on the exact
+        # baseline/candidate/negative-control evidence of THIS decision.
+        # A missing, blocked, clean, or inconclusive adjudication rejects
+        # promotion — a validator CONFIRM alone can never substitute for it.
+        guard_ok = gate(
+            "causal_guard_adjudicated",
+            bool(
+                guard_adjudication is not None
+                and getattr(guard_adjudication, "confirmed", False)
+                and getattr(guard_adjudication, "evidence_digests", None)
+            ),
+            "causal_guard_adjudication_missing_or_not_confirmed",
         )
 
         # Gate 3: causal validator CONFIRMED (anti confidence-only).
@@ -1527,7 +1567,8 @@ class AutonomousValidationIntelligence:
                               target_fingerprint: str,
                               request_digests: tuple[str, ...] = (),
                               response_digests: tuple[str, ...] = (),
-                              identity_binding: dict[str, Any] | None = None) -> Any:
+                              identity_binding: dict[str, Any] | None = None,
+                              guard_adjudication: Any | None = None) -> Any:
         from webpent.models.proof_bundle import ProofBundle
         engagement_id = getattr(self.orch, "engagement_id", "avi_engagement")
         finding_id = _canonical_finding_id(
@@ -1555,6 +1596,13 @@ class AutonomousValidationIntelligence:
             "causal_difference": ib.get("causal_difference"),
             "identity_bound": bool(ib.get("identity_bound", False)),
             "identity_bound_reason": ib.get("identity_bound_reason"),
+            # UM-DR-35: the typed CausalGuard adjudication sealed into the
+            # bundle — authority module, verdict, role-ablation signals and
+            # the evidence digests it adjudicated (same-finding binding).
+            "causal_guard": (
+                guard_adjudication.to_dict()
+                if guard_adjudication is not None else None
+            ),
         }
         # Full sha256:<64hex> digests required by ProofBundle schema.
         def _full_digest(short: str) -> str:
@@ -1738,6 +1786,30 @@ class AutonomousValidationIntelligence:
                             "outcome": vr.outcome.value if vr else None,
                             "discriminating_signal": (vr.discriminating_signal[:120] if vr else None)})
 
+        # UM-DR-35 §1.3 condition 8 (AVI path): the class validator's
+        # RECORDED deterministic detection is stamped on the CANDIDATE
+        # observation (its role ONLY) so the CausalGuard authority
+        # adjudicates the full experiment evidence. The stamp is grounded
+        # in the validator's own recorded outcome — never asserted for a
+        # non-CONFIRMED validator result or without a recorded
+        # discriminating signal. The guard still demands the semantic
+        # differential, the independent negative control, actor/resource
+        # context, and the promotion gates; the stamp only makes the
+        # recorded class signal VISIBLE to the authority (mirror of the
+        # graph validator path's stamping in agents/validator/*).
+        if (
+            vr is not None
+            and vr.outcome == ValidationOutcome.CONFIRMED
+            and str(vr.discriminating_signal or "").strip()
+            and isinstance(raw_triple.get("candidate"), dict)
+            and "validator_technical_signal" not in raw_triple["candidate"]
+        ):
+            raw_triple["candidate"] = {
+                **raw_triple["candidate"],
+                "validator_technical_signal": True,
+                "class_validator_id": f"canonical_validator_{str(vuln).lower()}",
+            }
+
         # Stage 6b: Causal Identity Binding (V1.2 trust hardening).
         # CONFIRMED must prove a two-principal property for IDOR/BOLA. Other
         # validator families establish causality through their own differential
@@ -1762,6 +1834,79 @@ class AutonomousValidationIntelligence:
                             "identity_bound_reason": identity_binding["identity_bound_reason"],
                             "causal_difference": identity_binding["causal_difference"]})
 
+        # Stage 6c (UM-DR-35 corrective closure): MANDATORY CausalGuard
+        # adjudication through the universal confirmation adapter — the
+        # sole technical confirmation authority. The adapter adjudicates the
+        # REAL raw triple (status codes, response bodies, per-role actor and
+        # resource context derived from actual evidence) and returns a typed
+        # GuardedAdjudication bound to this decision's exact evidence. No
+        # promotion may occur unless this adjudication is CONFIRMED.
+        guard_decision = None
+        guard_adjudication = None
+        try:
+            from webpent.production.confirmation_adapter import (  # noqa: PLC0415
+                confirmation_gate,
+            )
+            guard_decision = confirmation_gate(
+                raw_triple["baseline"],
+                raw_triple["candidate"],
+                raw_triple["negative_control"],
+                vulnerability_class=vuln,
+                validator_outcome=(vr.outcome.value if vr else None),
+                validator_id=f"canonical_validator_{str(vuln).lower()}",
+                identity_context={
+                    "actor_id": identity_binding.get("actor_id"),
+                    "resource_owner": identity_binding.get("resource_owner"),
+                    "baseline_identity": {
+                        "identity_id": identity_binding.get("baseline_actor_id"),
+                        "role": "owner",
+                        "auth_state": "authenticated",
+                    },
+                    "candidate_identity": {
+                        "identity_id": identity_binding.get("actor_id"),
+                        "role": "foreign-user",
+                        "auth_state": "authenticated",
+                    },
+                    "negative_control_identity": {
+                        "identity_id": identity_binding.get("actor_id"),
+                        "role": "foreign-user",
+                        "auth_state": "authenticated",
+                    },
+                },
+                scope_context={
+                    "authorized_via": "ScopeLaw+ToolBoundary",
+                    "target_origin": str(target_url),
+                    "tool": "httpx_bounded",
+                },
+            )
+            guard_adjudication = guard_decision.adjudication
+        except (AttributeError, ImportError, KeyError, RuntimeError, TypeError, ValueError) as guard_exc:
+            guard_decision = None
+            guard_adjudication = None
+            trace.record(stage="causal_guard_adjudication", component="CausalGuard+ConfirmationAdapter",
+                         proof={"executed": False, "error": str(guard_exc)[:160],
+                                "authority": "webpent.cqa_v2.causal_guard.guarded_causal_evaluate"})
+        trace.record(stage="causal_guard_adjudication", component="CausalGuard+ConfirmationAdapter",
+                     proof={
+                         "executed": guard_decision is not None,
+                         "outcome": str(guard_decision.outcome.value) if guard_decision else None,
+                         "reason": guard_decision.reason if guard_decision else None,
+                         "authority": "webpent.cqa_v2.causal_guard.guarded_causal_evaluate",
+                         "adapter": "webpent.production.confirmation_adapter",
+                         "verdict": str(guard_adjudication.guard_result.verdict.value) if guard_adjudication else None,
+                         "causal_signal": guard_adjudication.guard_result.causal_signal if guard_adjudication else None,
+                         "authorization_differential": guard_adjudication.guard_result.authorization_differential if guard_adjudication else None,
+                         "role_technical_signals": (
+                             {role: payload.get("signal")
+                              for role, payload in guard_adjudication.role_signals.items()}
+                             if guard_adjudication else None
+                         ),
+                         "evidence_digests": (
+                             dict(guard_adjudication.evidence_digests)
+                             if guard_adjudication else None
+                         ),
+                     })
+
         # Stage 7: EvidenceQuality calculated.
         eq = int(vr.evidence_quality) if vr else int(EvidenceQuality.STRUCTURAL_HINT)
         trace.record(stage="evidence_quality_calculated", component="EvidenceQuality",
@@ -1781,6 +1926,7 @@ class AutonomousValidationIntelligence:
                     response_digests=tuple(f"sha256:{hashlib.sha256(d.encode()).hexdigest()}" for d in (b_norm.digest(), c_norm.digest(), nc_norm.digest())),
                     target_fingerprint=target_fingerprint,
                     identity_binding=identity_binding,
+                    guard_adjudication=guard_adjudication,
                 )
             except (AttributeError, KeyError, RuntimeError, TypeError, ValueError):
                 proof_bundle = None
@@ -1841,6 +1987,7 @@ class AutonomousValidationIntelligence:
             confidence_score=_confidence_score,
             finding_id=getattr(proof_bundle, "finding_id", None) if proof_bundle else None,
             vulnerability_class=vuln,
+            guard_adjudication=guard_adjudication,
         )
         if pr.decision != PromotionDecision.PROMOTED:
             # Rejected, refuted, inconclusive, and blocked attempts are not
@@ -1867,6 +2014,9 @@ class AutonomousValidationIntelligence:
                 "outcome": vr.outcome.value if vr else None,
                 "evidence_quality": eq,
                 "discriminating_signal": vr.discriminating_signal[:200] if vr else None,
+                "causal_guard": (
+                    guard_adjudication.to_dict() if guard_adjudication else None
+                ),
                 "bundle_id": getattr(proof_bundle, "bundle_id", None),
                 "seal_digest": getattr(proof_bundle, "seal_digest", None),
                 "api_type": selection["api_type"],

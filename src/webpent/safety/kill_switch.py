@@ -119,6 +119,13 @@ def _publish(payload: dict[str, Any]) -> None:
             import redis  # type: ignore[import-not-found]
 
             url = os.environ.get("REDIS_URL") or os.environ.get("CELERY_BROKER_URL")
+            # UM-DR-33 §4.3 hardening: only attempt from_url with a real
+            # URL. Previously, subscriber-started-but-no-URL produced a
+            # TypeError from redis.Redis.from_url(None) on every publish —
+            # swallowed by the opportunistic fanout except, but noisy and
+            # wrong. Absent URL = local switch still holds (documented).
+            if not url:
+                return
             client = redis.Redis.from_url(url, socket_connect_timeout=1.0, socket_timeout=1.0)
             client.publish(_CHANNEL, json.dumps(payload))
     except Exception:  # noqa: BLE001 — fanout is opportunistic

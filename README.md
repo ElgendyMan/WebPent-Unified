@@ -198,7 +198,9 @@ evidence مؤكدة بأداة حتمية أو artifact راجعه إنسان، 
 
 ## المتطلبات
 
-- Python **3.12**.
+- Python: الحد الأدنى المعلن **3.11** (`requires-python = ">=3.11"`)،
+  والنسخة **المُختبرة فعليًا** هي **3.12.16** (نافذتا UM-DR-32 وUM-DR-33)،
+  والموصى بها للإنتاج 3.12.
 - Docker Compose عند استخدام الـstack الكامل (`./install.sh` يسألك).
 - Redis للخدمات التي تعتمد على Celery أو rate limiting.
 - Playwright/Chromium فقط لمسارات browser-based.

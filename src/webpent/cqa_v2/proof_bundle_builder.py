@@ -199,6 +199,16 @@ def build_complete_proof_bundle(
         "block_reason": causal_result.block_reason,
     }
 
+    # UM-DR-33 §4.3 fix (frozen-window thaw, documented): passing
+    # ``bundle_id=None`` unconditionally OVERRODE the dataclass
+    # ``default_factory`` (``cqa2_pb_<uuid4hex>``), so every bundle built
+    # by this production function carried ``bundle_id=None`` — a confirmed
+    # evidence-chain identity defect (verified empirically before the fix).
+    # The factory now fires exactly when the caller did not supply an id.
+    bundle_kwargs: dict[str, str] = {}
+    if bundle_id is not None:
+        bundle_kwargs["bundle_id"] = bundle_id
+
     bundle = CompleteProofBundle(
         target_identity=target_identity,
         case_identity=case_identity,
@@ -209,10 +219,10 @@ def build_complete_proof_bundle(
         semantic_evidence=semantic_evidence,
         source_provenance=source_provenance,
         runtime_provenance=runtime_provenance,
-        bundle_id=bundle_id,
         redaction_metadata=redaction_metadata or {
             "redacted_fields": ["credentials", "cookies", "authorization", "raw_body"]
         },
+        **bundle_kwargs,
     )
 
     # Validate against native model (REUSE existing validator)

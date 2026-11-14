@@ -245,7 +245,12 @@ def portfolio_plan(
     """One day's hour split across the portfolio (U-ECON-6/10)."""
     _audit(command="econ portfolio plan", hours=hours)
     pfolio = load_portfolio_failsoft(_portfolio_path(portfolio))
-    plan = PortfolioManager().daily_plan(pfolio, hours)
+    # UM-DR-33 §3.2: runtime state honors WEBPENT_ECON_DIR (never the
+    # tracked repository default) so operator/CI invocations cannot dirty
+    # the working tree.
+    plan = PortfolioManager(
+        log_path=_state_dir() / "portfolio_transitions.jsonl",
+    ).daily_plan(pfolio, hours)
     _emit(plan.as_dict())
 
 
@@ -267,7 +272,13 @@ def portfolio_transition(
         _emit({"found": False, "target_id": target_id, "advisory": True})
         raise typer.Exit(1)
     try:
-        manager = PortfolioManager()
+        # UM-DR-33 §3.2: the transition journal is runtime state — it goes
+        # to the operator-configured state dir (WEBPENT_ECON_DIR), never
+        # to the tracked repository default. Regression: the full suite
+        # must leave `git status` clean.
+        manager = PortfolioManager(
+            log_path=_state_dir() / "portfolio_transitions.jsonl",
+        )
         manager.transition(pfolio, target_id, new_state, reason)
         manager.save(pfolio, _portfolio_path(portfolio))  # RT-02: persist the move
     except ValueError as exc:
@@ -309,7 +320,12 @@ def digest(
         if pt.state not in (ACTIVE, WATCHING) or not program or program in seen_programs:
             continue
         seen_programs.add(program)
-        for opp in radar.find_opportunities(program, window_days=float(days))[:4]:
+        # RT-07 (2026-11-13 fix): the slice must cover the full watched
+        # class set (7 classes; a stale-window XSS still occupies a slot
+        # and previously pushed RCE out of the surfaced four). The
+        # renderer still caps the section at TOP_OPPORTUNITIES; the
+        # slice only bounds per-program rows.
+        for opp in radar.find_opportunities(program, window_days=float(days))[:8]:
             spots.append({
                 "kind": "radar_gap",
                 "identifier": f"{opp.vuln_class} on {opp.program_id}",

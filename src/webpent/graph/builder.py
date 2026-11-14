@@ -260,6 +260,10 @@ NODE_LESSON_EXTRACTION = "lesson_extraction"
 #: (proposal 2) Measure the surface and derive the dynamic step budget
 #: between the WAF detector and the hypothesis generator.
 NODE_SURFACE_SIZING = "surface_sizing"
+#: (UM-DR-36 corrective closure) Build the application semantic model from
+#: real state channels and emit advisory research hints BEFORE hypothesis
+#: generation, so the model can actually influence research decisions.
+NODE_APPMODEL = "appmodel"
 #: (proposal 7) The four deterministic detector nodes, chained after
 #: request_smuggling inside the deep-probe phase. Pass-throughs unless
 #: the surface/flag applies.
@@ -1854,6 +1858,22 @@ def build_graph(checkpointer: Any = None, auto_approve: bool = False,
         annotated_hyps = []
         _hyps_rejected = 0
         for h in list(hyps)[:10]:
+            # UM-DR-36/§6.2 corrective closure: the hypothesis generator
+            # emits Hypothesis MODEL objects, while the canonicalizer accepts
+            # only mappings — the production lane silently rejected every
+            # model-shaped hypothesis ("not_a_mapping") and never dispatched
+            # AVI on them. Convert models to their JSON dict form here (the
+            # provenance, hint_provenance and request specs all survive the
+            # model_dump) so the real production path dispatches correctly.
+            if hasattr(h, "model_dump"):
+                try:
+                    h = h.model_dump(mode="json")
+                except (TypeError, ValueError):
+                    _hyps_rejected += 1
+                    logger.warning(
+                        "research campaign hypothesis serialization failed "
+                        "(fail-closed, not dispatched): %.80s", repr(h))
+                    continue
             hh, reject_reason = canonicalize_campaign_hypothesis(h, default_vuln)
             if hh is None:
                 _hyps_rejected += 1
@@ -2158,6 +2178,12 @@ def build_graph(checkpointer: Any = None, auto_approve: bool = False,
     graph.add_node(NODE_LESSON_CONSULTATION, _trace_wrap(NODE_LESSON_CONSULTATION, lesson_consultation_node))
     graph.add_node(NODE_LESSON_EXTRACTION, _trace_wrap(NODE_LESSON_EXTRACTION, lesson_extraction_node))
     graph.add_node(NODE_SURFACE_SIZING, _trace_wrap(NODE_SURFACE_SIZING, surface_sizing_node))
+    # UM-DR-36 corrective closure: the AppModel node — builds the semantic
+    # model from real state and emits advisory research hints consumed by
+    # hypothesis generation and the AVI experiment selector.
+    from webpent.graph.appmodel_nodes import appmodel_node
+
+    graph.add_node(NODE_APPMODEL, _trace_wrap(NODE_APPMODEL, appmodel_node))
     graph.add_node(NODE_GRAPHQL_TESTING, _trace_wrap(NODE_GRAPHQL_TESTING, graphql_testing_node))
     graph.add_node(NODE_CACHE_POISONING, _trace_wrap(NODE_CACHE_POISONING, cache_poisoning_node))
     graph.add_node(NODE_PROTOTYPE_POLLUTION, _trace_wrap(NODE_PROTOTYPE_POLLUTION, prototype_pollution_node))
@@ -2288,7 +2314,11 @@ def build_graph(checkpointer: Any = None, auto_approve: bool = False,
     # node is a pass-through when the flag is off — the edge chain is
     # then waf_detector -> surface_sizing -> hypothesis with the sizing
     # node adding two zero-cost supersteps, byte-identical routing.
-    graph.add_edge(NODE_SURFACE_SIZING, NODE_HYPOTHESIS)
+    # UM-DR-36: the semantic model is built after surface sizing (crawl
+    # data complete) and BEFORE hypothesis generation, so its hints can
+    # influence the actual research decisions that follow.
+    graph.add_edge(NODE_SURFACE_SIZING, NODE_APPMODEL)
+    graph.add_edge(NODE_APPMODEL, NODE_HYPOTHESIS)
 
     graph.add_conditional_edges(
         # V10 P1-3: renamed route_after_recon -> route_after_hypothesis

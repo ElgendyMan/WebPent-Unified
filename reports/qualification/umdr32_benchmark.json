@@ -15,7 +15,7 @@
     "arms_differ_only_in": "which UM-DR-32 capability flags are enabled (cumulative, documented dependencies); recon identical"
   },
   "ground_truth": {
-    "manifest_sha256": "b78ad5c66f82108b759098cd7b31145a4b59b21cfc7223b9df9ce163956a583f",
+    "manifest_sha256": "58684262356fa0c39fe7bde74cecec97f56746c2c019288249af120d72f87374",
     "vulnerabilities": [
       "V-ALIAS-701",
       "V-APPROVAL",
@@ -284,9 +284,9 @@
   "provenance": {
     "provenance_contract": "UM-DR-32 \u00a73.2 (v1)",
     "source": {
-      "source_commit": "ec5254f56464f1a8beac0ce4fa92f886a77074f6",
-      "source_tree_sha": "b937df14c334424483afaf9386db10eae3c4b176",
-      "branch": "umdr32-identity-business-logic-evolution",
+      "source_commit": "616a6f0b87be5418727fe86372f04dec15c190ab",
+      "source_tree_sha": "04a8ca7c0911fd1ab45c671cf09586f0ac272774",
+      "branch": "umdr33-researcher-brain-autonomous-campaigns",
       "dirty_tree": false
     },
     "generator_script": "build_umdr32_benchmark_artifact.py",
@@ -296,7 +296,7 @@
     "fixtures": [
       {
         "path": "benchmarks/campaign_identity_target.py",
-        "content_sha256": "1d7e6551169343bdb8f53967a16d00c97fb35542865cb1e2a156b7df3d3e7165"
+        "content_sha256": "05c06e13ba648b41ee790d191175a136d282a3ee37258f456c6afd12597aed67"
       },
       {
         "path": "tests/test_umdr32_evaluation_lab.py",
@@ -310,12 +310,13 @@
     "command": [
       "scripts/build_umdr32_benchmark_artifact.py"
     ],
-    "started_utc": "2026-11-09T09:24:37.767813+00:00",
-    "completed_utc": "2026-11-09T09:24:41.029332+00:00",
+    "started_utc": "2026-11-09T23:14:12.412972+00:00",
+    "completed_utc": "2026-11-09T23:14:15.584004+00:00",
     "request_budget": 720,
     "requests_issued": 313,
     "ground_truth_manifest": {
-      "identity": "58684262356fa0c39fe7bde74cecec97f56746c2c019288249af120d72f87374"
+      "identity": "58684262356fa0c39fe7bde74cecec97f56746c2c019288249af120d72f87374",
+      "contract": "canonical-json/v1 (sort_keys, compact, ensure_ascii, utf-8)"
     }
   },
   "limitations": [
@@ -325,5 +326,5 @@
     "no cross-tool comparison (explicitly out of scope)"
   ],
   "generated_by": "scripts/build_umdr32_benchmark_artifact.py (explicit release-time command, UM-DR-32 \u00a79)",
-  "generated_at_utc": "2026-11-09T09:24:41.029441+00:00"
+  "generated_at_utc": "2026-11-09T23:14:15.584121+00:00"
 }

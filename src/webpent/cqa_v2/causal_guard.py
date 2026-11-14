@@ -112,6 +112,23 @@ def _observation_complete(obs: dict[str, Any]) -> bool:
         return False
     if not isinstance(obs, dict):
         return False
+    if obs.get("experiment_domain") == "offline_crypto":
+        # UM-DR-35: a RECORDED offline cryptographic verification
+        # experiment (e.g. the bounded JWT HMAC weak-secret replay).
+        # The recorded verification-outcome channel replaces the HTTP
+        # status channel; the semantic digest is the recorded outcome
+        # digest of the analyzed artifact; the analyzed artifact's
+        # fingerprint (e.g. the captured token's fingerprint) is the
+        # resource identity. Both channels must be RECORDED — absent
+        # values stay incomplete (fail-closed).
+        if obs.get("crypto_verified") is None:
+            return False
+        if not obs.get("semantic_digest"):
+            return False
+        ctx_crypto = _extract_context(obs)
+        return bool(
+            ctx_crypto.get("resource_id") or ctx_crypto.get("resource_type")
+        )
     if obs.get("status_code") is None:
         return False
     if not obs.get("semantic_digest"):
@@ -128,6 +145,13 @@ def _observation_complete(obs: dict[str, Any]) -> bool:
 # ============================================================
 # Semantic + structural helpers
 # ============================================================
+def _semantic_digest_value(obs: dict[str, Any]) -> str:
+    """The recorded semantic digest of an observation ('' when absent)."""
+    if not obs or not isinstance(obs, dict):
+        return ""
+    return str(obs.get("semantic_digest", ""))
+
+
 def _semantic_diff_significant(a: dict[str, Any], b: dict[str, Any]) -> bool:
     if not a or not b:
         return False
@@ -191,7 +215,11 @@ def _path_analogous(a: dict[str, Any], b: dict[str, Any]) -> bool:
 
     n = min(len(parts_a), len(parts_b))
     if n == 0:
-        return False
+        # Both paths are the ORIGIN ROOT ("/") — the SAME kind of access
+        # attempt to the resource's root (e.g. the direct-origin fetches of
+        # a CNAME-takeover or raw-origin desync experiment). A root versus
+        # a non-root path remains NOT analogous.
+        return len(parts_a) == 0 and len(parts_b) == 0
     suffix_a = parts_a[-n:]
     suffix_b = parts_b[-n:]
 
@@ -375,6 +403,58 @@ def _authorization_mismatch(obs: dict[str, Any]) -> bool | None:
     return None
 
 
+def _owner_granted_baseline(baseline: dict[str, Any]) -> bool:
+    """Does the BASELINE record the resource OWNER's granted access?
+
+    Cross-actor ownership-boundary experiments (UM-DR-35, the AVI lab
+    pattern): the baseline proves the resource exists and is retrievable
+    BY ITS OWNER, so a foreign principal's granted access to the same
+    resource class is a genuine authorization failure, not a routing or
+    existence artifact. The causal variable of that experiment is the
+    REQUESTING IDENTITY, not the response body.
+    """
+    if not isinstance(baseline, dict):
+        return False
+    ctx = _extract_context(baseline)
+    actor_id = ctx.get("actor_id")
+    resource_owner = ctx.get("resource_owner")
+    status = baseline.get("status_code")
+    if not actor_id or not resource_owner or actor_id != resource_owner:
+        return False
+    if status is None:
+        return False
+    try:
+        status = int(status)
+    except (TypeError, ValueError):
+        return False
+    granted = 200 <= status < 300 and bool(
+        baseline.get("semantic_digest") or ctx.get("authorization_outcome") == "granted_full"
+    )
+    return bool(granted)
+
+
+def _technical_signal(obs: dict[str, Any]) -> bool | None:
+    """Class-specific validator technical signal on a guard observation.
+
+    UM-DR-35 §1.3 condition 8: the class-specific validator's RECORDED
+    technical signal — its deterministic detection of the candidate
+    response (e.g. a dalfox/sqlmap deterministic marker grounded in the
+    actual candidate request this experiment executed). The value is
+    pass-through-only: ``True``/``False`` when the channel was recorded,
+    ``None`` when absent. It is never defaulted — ``None`` keeps the
+    content-differential confirmation branch fail-closed, so a bare
+    response divergence with no class-specific signal stays INCONCLUSIVE.
+    """
+    if not isinstance(obs, dict):
+        return None
+    value = obs.get("validator_technical_signal")
+    if value is None:
+        value = obs.get("technical_signal")
+    if value is None:
+        return None
+    return bool(value)
+
+
 def _authorization_enforced(obs: dict[str, Any]) -> bool | None:
     """
     Check if authorization is being ENFORCED in this observation.
@@ -386,6 +466,18 @@ def _authorization_enforced(obs: dict[str, Any]) -> bool | None:
 
     # Explicit denial via status code
     if status in (401, 403):
+        return True
+
+    # Resource-boundary enforcement (UM-DR-35 lab control pattern): a
+    # recorded 404 on an independent negative control demonstrates that
+    # the server resolves and gates the requested resource class — an
+    # absent resource is NOT served to the requesting principal. This is
+    # deliberately NOT conflated with 401/403 identity denial: it proves
+    # resource-level mediation (lookup enforcement), which is the standard
+    # independent-control design for resource-oriented authorization
+    # differentials (a nonexistent-ID control next to a granted
+    # foreign-owned-ID candidate).
+    if status == 404:
         return True
 
     # Explicit authorization outcome header (strongest signal)
@@ -433,6 +525,7 @@ def _compute_dynamic_confidence(
         "clean_same_semantics": 0.88,
         "clean_same_resource": 0.82,
         "confirmed_bypass": 0.85,
+        "confirmed_content_differential": 0.85,
         "clean_different_kind": 0.80,
         "clean_same_as_control": 0.86,
         "inconclusive": 0.40,
@@ -556,13 +649,108 @@ def guarded_causal_evaluate(
     same_resource = _same_resource_type(candidate, control)
     auth_mismatch = _authorization_mismatch(candidate)
     auth_enforced = _authorization_enforced(control)
+    candidate_technical_signal = _technical_signal(candidate)
+    baseline_technical_signal = _technical_signal(baseline)
+    control_technical_signal = _technical_signal(control)
 
     verdict = Verdict.INCONCLUSIVE
     causal_signal: bool | None = False
     raw_decision = "INCONCLUSIVE"
     branch = "inconclusive"
 
-    if not candidate_differs_from_baseline:
+    # ------------------------------------------------------------------
+    # Cross-actor ownership-boundary confirmation (UM-DR-35, the AVI lab
+    # pattern): the causal variable is the REQUESTING IDENTITY, not the
+    # response body. Required evidence, all recorded:
+    #   - the baseline grants the resource OWNER access (the resource
+    #     exists and is legitimately retrievable — actor == owner, 2xx);
+    #   - the candidate grants a FOREIGN principal the same kind of
+    #     access (authorization mismatch observed — the vulnerability);
+    #   - the independent negative control shows enforcement (401/403
+    #     denial, or 404 resource-boundary) for the foreign principal —
+    #     the server DOES mediate access in this resource class;
+    #   - the candidate is path-analogous to the control (the same kind
+    #     of access attempt) and both address the same resource type as
+    #     the baseline.
+    # The response bodies of baseline and candidate may legitimately be
+    # IDENTICAL (retrieving the same object is the point) — content
+    # divergence is NOT required for an identity-differential experiment.
+    # ------------------------------------------------------------------
+    if (
+        auth_mismatch is True
+        and auth_enforced is True
+        and candidate_analogous_to_control
+        and same_resource
+        and candidate_same_resource_type_as_baseline
+        and _owner_granted_baseline(baseline)
+        # UM-DR-35 §1.5 contaminated-control matrix: a control whose
+        # recorded semantics are literally a GRANTED baseline's (the
+        # owner's own access re-used as the "control") is NOT an
+        # independent boundary proof — independence is required only
+        # when the baseline records owner access. An ENFORCED (denied)
+        # baseline legitimately re-appears as the control in bypass
+        # designs (the enforced route IS the boundary proof).
+        and (
+            not _owner_granted_baseline(baseline)
+            or _semantic_digest_value(control) != _semantic_digest_value(baseline)
+        )
+    ):
+        verdict = Verdict.CONFIRMED
+        causal_signal = True
+        branch = "confirmed_cross_actor_ownership_boundary"
+        raw_decision = "CONFIRMED_CROSS_ACTOR_OWNERSHIP_BOUNDARY"
+
+    elif (candidate_differs_from_control
+          and _same_actor_context(candidate, control)
+          and candidate_technical_signal is True
+          and baseline_technical_signal is not True
+          and control_technical_signal is not True
+          and (
+              candidate_differs_from_baseline
+              # UM-DR-35 §2 (persistence re-probe classes): cloud/ES
+              # listing re-probes record the SAME fresh GET as baseline
+              # and candidate (proving the exposure persists — no state
+              # change), so the causal contrast is carried by the
+              # marker-free independent control: the candidate diverges
+              # from the CONTROL while the baseline equals the candidate.
+              # The class signal (listing markers) is present on the
+              # candidate and absent from both the baseline-as-recorded
+              # and the control — the experiment is complete. Identical
+              # baseline/candidate semantics WITHOUT a recorded class
+              # signal never reach this branch (fail-closed).
+              or _semantic_digest_value(baseline) == _semantic_digest_value(candidate)
+          )):
+        # UM-DR-35 §1.3 conditions 4-9, content-differential branch
+        # (XSS reflection, SSRF, open-redirect, info-disclosure, race
+        # conditions, SQLi content/error differentials, and other
+        # non-authorization classes). The causal VARIABLE is the candidate
+        # input, so the causal PAIR is candidate vs control: the same
+        # recorded actor context on both, the candidate's response really
+        # diverged from the recorded baseline AND from the control, the
+        # independent negative control did NOT reproduce the candidate's
+        # divergence, and the class-specific validator's RECORDED technical
+        # signal is present on the candidate and ABSENT from baseline and
+        # control (a control reproducing the signal, or a baseline already
+        # containing it, blocks promotion — mission §1.5 negative matrix).
+        # Evaluated BEFORE the remaining CLEAN early-exits and AFTER the
+        # authorization-differential bypass branch (the more specific
+        # shape): several content classes (info-disclosure, race
+        # conditions, header injection) probe a sensitive path against
+        # unrelated benign controls, so path analogy / shared resource
+        # type do not hold and the early CLEAN exits would otherwise
+        # swallow a fully-evidenced recorded differential (the D3 audit
+        # defect). Their class semantics are carried by the validator's
+        # recorded CONFIRMED outcome; the guard still verifies the
+        # recorded differential, control independence, causal-pair actor
+        # consistency, and signal isolation. Without the recorded class
+        # signal this branch stays unreachable (fail-closed: bare
+        # divergence remains INCONCLUSIVE or CLEAN exactly as before).
+        verdict = Verdict.CONFIRMED
+        causal_signal = True
+        branch = "confirmed_content_differential"
+        raw_decision = "CONFIRMED_CONTENT_DIFFERENTIAL"
+
+    elif not candidate_differs_from_baseline:
         verdict = Verdict.CLEAN
         causal_signal = False
         branch = "clean_same_semantics"
@@ -579,7 +767,18 @@ def guarded_causal_evaluate(
           and same_actor
           and same_resource
           and auth_mismatch is True
-          and auth_enforced is True):
+          and auth_enforced is True
+          # UM-DR-35 §1.5 contaminated-control matrix: a control whose
+          # recorded semantics equal a GRANTED baseline's (the owner's
+          # own access re-used as the "control") is not an independent
+          # boundary proof — independence is required only when the
+          # baseline records owner access. An ENFORCED (denied) baseline
+          # legitimately re-appears as the control in bypass designs
+          # (the enforced route IS the boundary proof).
+          and (
+              not _owner_granted_baseline(baseline)
+              or _semantic_digest_value(control) != _semantic_digest_value(baseline)
+          )):
         verdict = Verdict.CONFIRMED
         causal_signal = True
         branch = "confirmed_bypass"

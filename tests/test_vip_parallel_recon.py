@@ -120,7 +120,12 @@ def test_build_graph_flag_off_matches_legacy_topology(monkeypatch):
     # reporter) landed after these pins were written; the flag-off
     # topology includes it because its gating is internal, same policy
     # as the plan's own additive nodes.
-    assert len(nodes) == 56
+    # UM-DR-36 (2026-11-12): 56 -> 57 — the appmodel semantic-model node
+    # (graph/appmodel_nodes.py) wired into the production graph by the
+    # corrective closure: an ADVISORY research-influence node (never a
+    # confirmation/authorization authority — pinned by
+    # test_semantic_model_has_no_confirmation_or_authorization_authority).
+    assert len(nodes) == 57
     assert NODE_RECON_FANOUT not in nodes
     assert NODE_RECON_JOIN not in nodes
     assert NODE_SUBDOMAIN_TAKEOVER in nodes
@@ -141,7 +146,9 @@ def test_build_graph_flag_on_adds_fanout_join_pair(monkeypatch):
     # ULTIMATE PLAN 2026-10-27: 50 -> 57 (55 flag-off base + fanout/join).
     # RESIDUAL CLOSURE 2026-10-29: 57 -> 58 (same dedup_gate +1 as the
     # flag-off case above).
-    assert len(nodes) == 58
+    # UM-DR-36 (2026-11-12): 58 -> 59 (same appmodel +1 as the flag-off
+    # case above).
+    assert len(nodes) == 59
     assert NODE_RECON_FANOUT in nodes
     assert NODE_RECON_JOIN in nodes
     assert NODE_SUBDOMAIN_TAKEOVER in nodes

@@ -199,6 +199,8 @@ REGISTERED_FILES = {
     "src/webpent/production/identity_workflow.py": 1,  # UM-DR-32: the identity_workflow node's master gate — identity_workflow_enabled() treats any settings failure as not-enabled (fail-closed no-op, the coverage_gap_report double-gate precedent). The node is advisory only: no findings, no promotion, no confirmation authority
 }
 REGISTERED_TOTAL = sum(REGISTERED_FILES.values())  # 19 (UM-DR-31: +2 adaptive_research; UM-DR-31.1: +1 hints re-scan; UM-DR-32: +5 composite_workflows, +1 identity_workflow)
+REGISTERED_FILES["src/webpent/production/discovery_funnel.py"] = 1  # UM-DR-33: the discovery funnel's bounded state read — observability degrades to the honest not_materialized_in_state marker, never a crash (coverage_gap_report/identity_workflow fail-soft precedent; pure telemetry, no authority)
+REGISTERED_FILES["src/webpent/graph/appmodel_nodes.py"] = 1  # UM-DR-36: the appmodel graph node's construction boundary — the semantic model is an ADVISORY research input (never a confirmation/authorization authority, proven by test_semantic_model_has_no_confirmation_or_authorization_authority): a construction failure degrades to the honest built=False summary with the error recorded, hints empty, campaign continues. The exact coverage_gap_report/adaptive_research fail-soft precedent.
 
 _BROAD = re.compile(r"^\s*except\s+Exception\b")
 
@@ -324,6 +326,7 @@ def test_broad_exception_count_matches_register() -> None:
         # the completed Ultimate-Plan-proposal-4 archive (src/webpent/goed_v1/
         # deleted — archived code has no live handler surface).
         "src/webpent/graph/oast_nodes.py",
+        "src/webpent/graph/appmodel_nodes.py",
         "src/webpent/integrations/notifications/dispatch.py",
         "src/webpent/jsintel/api_surface_shadow.py",
         "src/webpent/jsintel/js_reversing.py",

@@ -293,6 +293,33 @@ def _confirmed(
     baseline = merged_evidence.get("baseline")
     candidate = merged_evidence.get("candidate")
     negative_control = merged_evidence.get("negative_control")
+    # UM-DR-35 §1.3 condition 8 — the class-specific validator's technical
+    # signal is a RECORDED FACT of this experiment: this boundary is
+    # reached only by a class validator that matched its class marker in
+    # the actual candidate replay body (evidence["causal_signal"] is that
+    # recorded match — never a bare caller assertion), with its
+    # independent negative control already verified to not reproduce the
+    # marker (negative_control_complete gate above). The signal is
+    # stamped on the candidate observation (its role ONLY) so the
+    # CausalGuard authority adjudicates the full experiment evidence:
+    # the guard still demands the recorded semantic differential vs the
+    # baseline, an independent control, and complete observations; a
+    # non-CONFIRMED verdict blocks (fail-closed). A marker without a real
+    # differential cannot confirm; a differential without the class signal
+    # stays INCONCLUSIVE.
+    if (
+        bool(merged_evidence.get("causal_signal"))
+        and isinstance(candidate, dict)
+        and "validator_technical_signal" not in candidate
+    ):
+        candidate = {
+            **candidate,
+            "validator_technical_signal": True,
+            "class_validator_id": str(
+                merged_evidence.get("validator") or "active_validator"
+            ),
+        }
+        merged_evidence["candidate"] = candidate
     context = verification_context or {}
     verification = verify_replay_evidence(
         finding,

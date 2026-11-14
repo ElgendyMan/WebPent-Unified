@@ -1,0 +1,154 @@
+{
+ "window": "UM-DR-33",
+ "generated_utc": "2026-11-10T00:27:33.974753+00:00",
+ "note": "honest qualification statuses — the columns are NEVER collapsed into one green status",
+ "columns": [
+  "implemented",
+  "unit_tested",
+  "integration_tested",
+  "connected_to_production",
+  "executed_via_compiled_graph",
+  "campaign_demonstrated",
+  "independently_validated"
+ ],
+ "capabilities": [
+  {
+   "name": "object_identity (UM-DR-32)",
+   "implemented": true,
+   "unit_tested": true,
+   "integration_tested": true,
+   "connected_to_production": true,
+   "executed_via_compiled_graph": true,
+   "campaign_demonstrated": true,
+   "independently_validated": false
+  },
+  {
+   "name": "alias_resolution (UM-DR-32)",
+   "implemented": true,
+   "unit_tested": true,
+   "integration_tested": true,
+   "connected_to_production": true,
+   "executed_via_compiled_graph": true,
+   "campaign_demonstrated": true,
+   "independently_validated": false
+  },
+  {
+   "name": "multi_identity_reasoning (UM-DR-32)",
+   "implemented": true,
+   "unit_tested": true,
+   "integration_tested": true,
+   "connected_to_production": true,
+   "executed_via_compiled_graph": true,
+   "campaign_demonstrated": true,
+   "independently_validated": false
+  },
+  {
+   "name": "composite_workflows (UM-DR-32)",
+   "implemented": true,
+   "unit_tested": true,
+   "integration_tested": true,
+   "connected_to_production": true,
+   "executed_via_compiled_graph": "partial (engine yes; lab differentials harness-level)",
+   "campaign_demonstrated": true,
+   "independently_validated": false
+  },
+  {
+   "name": "canonical_json_identity (UM-DR-33)",
+   "implemented": true,
+   "unit_tested": true,
+   "integration_tested": true,
+   "connected_to_production": true,
+   "executed_via_compiled_graph": "n/a (library)",
+   "campaign_demonstrated": "n/a",
+   "independently_validated": false
+  },
+  {
+   "name": "proof_bundle_identity_fix (UM-DR-33)",
+   "implemented": true,
+   "unit_tested": true,
+   "integration_tested": true,
+   "connected_to_production": true,
+   "executed_via_compiled_graph": true,
+   "campaign_demonstrated": "n/a",
+   "independently_validated": false
+  },
+  {
+   "name": "info_gain_prioritization (UM-DR-33)",
+   "implemented": true,
+   "unit_tested": true,
+   "integration_tested": true,
+   "connected_to_production": true,
+   "executed_via_compiled_graph": true,
+   "campaign_demonstrated": "not re-measured this window (recorded follow-up)",
+   "independently_validated": false
+  },
+  {
+   "name": "hard_budget_fail_closed (UM-DR-33)",
+   "implemented": true,
+   "unit_tested": true,
+   "integration_tested": true,
+   "connected_to_production": true,
+   "executed_via_compiled_graph": true,
+   "campaign_demonstrated": "n/a",
+   "independently_validated": false
+  },
+  {
+   "name": "placeholder_credential_rejection (UM-DR-33)",
+   "implemented": true,
+   "unit_tested": true,
+   "integration_tested": true,
+   "connected_to_production": true,
+   "executed_via_compiled_graph": "n/a (CLI layer)",
+   "campaign_demonstrated": "n/a",
+   "independently_validated": false
+  },
+  {
+   "name": "discovery_funnel (UM-DR-33)",
+   "implemented": true,
+   "unit_tested": true,
+   "integration_tested": "partial (module-level; lab wiring follow-up)",
+   "connected_to_production": "partial",
+   "executed_via_compiled_graph": false,
+   "campaign_demonstrated": false,
+   "independently_validated": false
+  },
+  {
+   "name": "unified_23_type_entity_model (§6.1)",
+   "implemented": false,
+   "unit_tested": false,
+   "integration_tested": false,
+   "connected_to_production": false,
+   "executed_via_compiled_graph": false,
+   "campaign_demonstrated": false,
+   "independently_validated": false
+  },
+  {
+   "name": "compiled_graph_identity_campaign_e2e (§9.5)",
+   "implemented": false,
+   "unit_tested": false,
+   "integration_tested": false,
+   "connected_to_production": false,
+   "executed_via_compiled_graph": false,
+   "campaign_demonstrated": false,
+   "independently_validated": false
+  }
+ ],
+ "acceptance_gates": {
+  "A": "PASS",
+  "B": "PASS",
+  "C": "PASS",
+  "D": "PASS",
+  "E": "PASS (documented follow-ups)",
+  "F": "PASS (constrained)",
+  "G": "PARTIAL",
+  "H": "PASS",
+  "I": "PARTIAL",
+  "J": "PASS",
+  "K": "PARTIAL",
+  "L": "PASS",
+  "M": "PASS",
+  "N": "PASS",
+  "O": "PASS (core)",
+  "P": "PASS local / BLOCKED_EXTERNAL_DEPENDENCY remote"
+ }
+}

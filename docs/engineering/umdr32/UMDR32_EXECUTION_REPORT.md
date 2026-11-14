@@ -9,8 +9,17 @@
 
 Five new production modules (all frozen from birth — see §6), one
 production graph node, six state channels, four capability flags, one
-validator-route closure, one controlled evaluation lab, and 152 new
+validator-route closure, one controlled evaluation lab, and 154 new
 tests across nine modules.
+
+> **UM-DR-33 §3.7 correction (2026-11-10):** this report originally said
+> "152 new tests". Recomputation from actual pytest node IDs shows the
+> nine `test_umdr32_*.py` modules carry **154** unique test IDs
+> (7+17+20+13+18+18+22+32+7), and the full UM-DR-32 window added
+> **159** (154 + 5 frozen-gate parametrized entries) — exactly what
+> `UMDR32_TEST_ACCOUNTING.json` records. The "152" was an arithmetic
+> undercount in prose only; the machine-readable accounting was always
+> correct. Recorded as an erratum, not silently rewritten.
 
 | Module | Lines | Role |
 |---|---|---|
@@ -98,7 +107,7 @@ EXPERIMENT_REGISTRY entry makes the experiment fabric path executable.
 Route tests: `TestPrivilegeDifferentialValidatorRoute` (4 tests,
 including the real dispatch on a real triple).
 
-## 5. New test coverage (152 tests, nine modules)
+## 5. New test coverage (154 tests, nine modules — see §3.7 erratum above)
 
 - object identity (20): all §9.1 identity scenarios + determinism +
   provenance + bounds + volatile/secret attribute stripping

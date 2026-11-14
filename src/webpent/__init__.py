@@ -8,4 +8,4 @@ divergence. The version SSOT is pyproject.toml; this attribute must
 move with it at every release.
 """
 
-__version__ = "0.38.0"
+__version__ = "0.40.1"

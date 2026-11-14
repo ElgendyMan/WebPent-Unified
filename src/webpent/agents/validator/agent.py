@@ -3568,58 +3568,44 @@ def _validate_with_tool(
     # through the verifier, or (b) formally ratify sqli as a verifier-exempt
     # class with an equivalent, separately-tested gate.
     if vuln_class == "sqli" and differential_observation is None:
-        # SQLMap owns payload discovery and its positive marker is already
-        # deterministic.  Permit the narrowly scoped re-auth path to promote
-        # only when the session was freshly re-established in this call; all
-        # other SQLi results remain fail-closed pending replay evidence.
-        # M1-B (2026-11-05) / LLM Charter §3: the promotion gate is
-        # DETERMINISTIC-ONLY — ``session_reauth`` (a recorded fact of this
-        # call) AND the sqlmap deterministic marker. The LLM supervisor
-        # verdict is recorded advisory-only in
-        # evidence["supervisor_verdict"]; it is deliberately absent from
-        # this condition. (The previous ``and llm_confirmed`` term was
-        # dead code — unreachable-False by control flow — but its presence
-        # declared an LLM co-gate the Charter forbids.)
+        # UM-DR-35 corrective closure (2026-11-12): the historical
+        # ``session_reauth`` tool-native promotion was a documented bypass of
+        # verify_replay_evidence — it promoted Tool-Confirmed from a sqlmap
+        # marker + a recorded re-auth fact with NO replay, NO ProofBundle and
+        # NO CausalGuard adjudication. That path is REMOVED. SQLi confirmation
+        # now requires the same universal chain as every other class: a real
+        # differential observation routed through the strict verifier (which
+        # itself mandates CausalGuard adjudication). Without a differential
+        # observation the finding stays fail-closed at Needs Human Review.
         if bool((finding.evidence or {}).get("session_reauth")) and det_confirmed:
             evidence["promotion_guard"] = {
-                "status": "tool_native_reauth_confirmed",
-                "reason": "fresh_authenticated_session_and_sqlmap_confirmation",
+                "status": "blocked",
+                "reason": "sqli_session_reauth_bypass_removed_umdr35",
+                "historical_note": (
+                    "tool-native reauth promotion removed by the UM-DR-35 "
+                    "corrective closure: no validator may confirm without "
+                    "CausalGuard adjudication, a valid ProofBundle and "
+                    "verified replay through the universal boundary"
+                ),
+                "sqlmap_marker": True,
+                "fresh_session_reauth": True,
                 "gate": "deterministic_only_no_llm",
             }
-            # M1-B (E-1): explicit writer provenance for the model-level
-            # Tool-Confirmed proof requirement (models/findings.py).
-            evidence["tool_confirmed_by"] = "validator.sqlmap_reauth_gate"
-            # Accepted exception to the SQLi fail-closed gate above — documented
-            # in docs/archive/2026-11-01-plan-exec-root-reports/
-            # REMEDIATION_REPORT.md's SQLi behavior table. logger.warning
-            # (not debug/info) so this path's real-world frequency is
-            # visible in
-            # standard log-level monitoring, since it is a narrow, deliberate
-            # bypass of verify_replay_evidence and its usage rate should be
-            # watched for drift. Full Charter ratification (constructing a
-            # differential observation from sqlmap's internal
-            # baseline/candidate pairs and routing through
-            # verify_replay_evidence) is scheduled for M6.
-            logger.warning(
-                "V9 P0-B promotion_guard: SQLi finding %s promoted via "
-                "tool_native_reauth_confirmed (session_reauth bypass of "
-                "verify_replay_evidence) — reauth_source=%s",
-                finding.id,
-                (finding.evidence or {}).get("reauth_source"),
-            )
-            return finding.model_copy(
+            updated_finding = finding.model_copy(
                 update={
-                    "confidence": Confidence.CONFIRMED.value,
-                    "confidence_level": "Tool-Confirmed",
                     "payload": marker,
+                    "confidence_level": "Needs Human Review",
                     "evidence": evidence,
                     "reasoning": (
-                        "SQLMap confirmed the injection after one successful, fresh-session "
-                        "reauthentication; tool-native confirmation is accepted for this "
-                        "explicit recovery path."
+                        "sqlmap confirmed the injection after one successful fresh-session "
+                        "reauthentication, but no differential replay observation was available, "
+                        "so automated promotion is blocked by the universal CausalGuard "
+                        "confirmation boundary (UM-DR-35). Tool-native evidence is preserved "
+                        "for human review."
                     ),
                 }
             )
+            return updated_finding
         evidence["promotion_guard"] = {
             "status": "blocked",
             "reason": "sqli_tool_native_evidence_preserved_but_auto_promotion_removed_fail_closed",
@@ -3657,6 +3643,30 @@ def _validate_with_tool(
         if differential_observation
         else None
     )
+    # UM-DR-35 §1.3 condition 8 — the class-specific validator's technical
+    # signal is a RECORDED FACT of this experiment: the deterministic tool
+    # marker produced when the validating tool analysed the ACTUAL candidate
+    # request this experiment executed. It is stamped on the candidate
+    # observation (the role it belongs to) as recorded evidence for the
+    # CausalGuard authority — never on baseline or control. It is one
+    # required input among many: the guard still demands the recorded
+    # semantic differential vs the baseline, an independent negative
+    # control that does not reproduce the signal, consistent actor and
+    # resource context, and a valid ProofBundle + replay. Without this
+    # recorded signal a bare response divergence stays INCONCLUSIVE
+    # (fail-closed); with the signal but no real differential the guard
+    # returns CLEAN — a scanner claim alone can never confirm.
+    if (
+        differential_observation
+        and det_confirmed
+        and isinstance(replay_candidate, dict)
+        and "validator_technical_signal" not in replay_candidate
+    ):
+        replay_candidate = {
+            **replay_candidate,
+            "validator_technical_signal": True,
+            "class_validator_id": f"validator.{tool_name}",
+        }
     verification = verify_replay_evidence(
         finding,
         baseline=replay_baseline,
@@ -4800,14 +4810,63 @@ def _validate_open_redirect(
         and candidate_host.lower() == canary_host
         and baseline_host.lower() != canary_host
     )
+    # UM-DR-35 §1.3 — build strict-verifier-contract observations from the
+    # RECORDED redirect facts (status, Location header, URL): the semantic
+    # content of a redirect response IS its Location, so the response
+    # digest is derived from the recorded location. The candidate carries
+    # the class-specific validator's technical signal (the controlled
+    # canary-host redirect — the recorded class fact), which CausalGuard
+    # adjudicates alongside the real differential and the independent
+    # negative control (never sufficient alone, §1.5 negative matrix).
+    import hashlib as _hashlib
+
+    def _redirect_observation(
+        role: str,
+        status: int | None,
+        location: str,
+        url_shape: str,
+        *,
+        class_signal: bool = False,
+    ) -> dict[str, Any]:
+        digest = f"sha256:{_hashlib.sha256((str(status) + '|' + location).encode('utf-8', 'ignore')).hexdigest()}"
+        observation: dict[str, Any] = {
+            "url_shape": url_shape,
+            "status_code": status,
+            "body_length": 0,
+            "observation_role": role,
+            "target_backed": True,
+            "evidence_origin": "target_runtime",
+            "target_fingerprint": (
+                f"sha256:{_hashlib.sha256(finding.url.encode('utf-8', 'ignore')).hexdigest()}"
+            ),
+            "request_digest": (
+                f"sha256:{_hashlib.sha256(('GET|' + url_shape).encode('utf-8', 'ignore')).hexdigest()}"
+            ),
+            "response_digest": digest,
+        }
+        if location:
+            observation["headers"] = {"location": location}
+        if class_signal:
+            observation["validator_technical_signal"] = True
+            observation["class_validator_id"] = "validator.open_redirect"
+        return observation
+
+    _redacted_shape = f"{urlparse(finding.url).scheme}://{urlparse(finding.url).netloc}{urlparse(finding.url).path}"
     evidence = {
         "validator": "open_redirect",
         "parameter": parameter,
         "payload_label": "external_redirect_canary",
-        "baseline": {"status_code": baseline_status, "location_host": baseline_host or None},
-        "candidate": {"status_code": candidate_status, "location_host": candidate_host or None},
-        "negative_control": {"status_code": negative_control_status,
-                             "location_host": negative_control_host or None},
+        "baseline": _redirect_observation(
+            "baseline", baseline_status, baseline_location, _redacted_shape,
+        ),
+        "candidate": _redirect_observation(
+            "candidate", candidate_status, candidate_location, _redacted_shape,
+            class_signal=bool(confirmed),
+        ),
+        "negative_control": _redirect_observation(
+            "negative_control", negative_control_status,
+            negative_control_location, _redacted_shape,
+        ),
         "follow_redirects": False,
         "causal_signal": bool(confirmed),
         "negative_control_complete": bool(negative_control_host.lower() != canary_host),

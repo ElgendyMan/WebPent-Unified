@@ -291,10 +291,101 @@ class RateLimitExceeded(httpx.RequestError):
     the process-wide :class:`GlobalRateGovernor` ceiling whenever
     ``settings.rate_limit_enabled`` is on.  Like the SSRF block it
     subclasses :class:`httpx.RequestError` so existing transport-error
-    handling catches it without changes.  Governor *internal* failures
-    never raise this — they fail OPEN with a CRITICAL log (a governor
-    bug must not take down hunting traffic, but it must be loud).
+    handling catches it without changes.
+
+    UM-DR-34 §5 (default-on request governance): inside an ACTIVE
+    ENGAGEMENT context the ceiling is ALWAYS on (independent of
+    ``stealth_mode`` and of the legacy ``rate_limit_enabled`` switch),
+    it applies to the ASYNC transport exactly as to the sync one, and
+    a governor internal failure DENIES the request (fail-closed) — a
+    governor bug must never silently un-limit a campaign.  Outside an
+    engagement (plain library use / control plane) the legacy
+    settings-gated, fail-open-on-governor-bug behavior is preserved.
     """
+
+
+# ===========================================================================
+# UM-DR-34 Phase 5 — one coherent transport rate gate (sync + async)
+# ===========================================================================
+
+def _engagement_rate_ceiling_active() -> bool:
+    """Return True when the ACTIVE ENGAGEMENT ceiling is mandatory.
+
+    Fail-closed on settings-load errors INSIDE an engagement (the
+    ceiling must not silently disappear because settings failed to
+    load, UM-DR-34 §5.4).
+    """
+    from webpent.shared.engagement_scope import get_engagement_context
+
+    if get_engagement_context().egress_mode == "ENGAGEMENT":
+        return True
+    try:
+        from webpent.config.settings import get_settings
+
+        return bool(get_settings().rate_limit_enabled)
+    except (ImportError, ValueError):  # legacy non-engagement posture
+        logger.warning(
+            "SSRF transport: settings unavailable while checking "
+            "rate_limit_enabled — proceeding WITHOUT the rate ceiling "
+            "(non-engagement context only).",
+        )
+        return False
+
+
+def _transport_rate_gate(request: httpx.Request) -> tuple[bool, Any]:
+    """Rate-ceiling admission for one transport-level request.
+
+    Returns ``(granted, governor)``.  ``granted`` is False when the
+    request exceeds the ceiling — the caller MUST raise
+    :class:`RateLimitExceeded` and must NOT call ``release``.
+    On success the caller MUST call ``governor.release(campaign_id)``
+    in a ``finally`` block.
+
+    Failure posture (UM-DR-34 §5.4):
+
+    * ACTIVE ENGAGEMENT — a governor internal failure DENIES the
+      request (fail-closed): ``granted=False``.
+    * non-engagement — legacy posture preserved (fail-open + CRITICAL
+      log) so a governor bug cannot take down unrelated tooling.
+    """
+    from webpent.shared.engagement_scope import get_engagement_context
+
+    engagement = get_engagement_context().egress_mode == "ENGAGEMENT"
+    from webpent.shared.global_rate_governor import get_global_rate_governor
+
+    # One unique campaign id per in-flight request: the governor's
+    # release() is all-or-nothing per campaign, so a shared id would
+    # let the first finishing request release every concurrent
+    # request's slot.  A per-request id makes each request hold
+    # exactly its own unit for exactly its own lifetime.
+    campaign = f"http-transport:{id(request):x}"
+    governor = get_global_rate_governor()
+    try:
+        granted = governor.try_acquire(campaign)
+    except (RuntimeError, ValueError, TypeError, KeyError, ArithmeticError):
+        if engagement:
+            # UM-DR-34 §5.4: an active campaign must not lose its
+            # request ceiling to a governor bug — deny the request.
+            logger.critical(
+                "GlobalRateGovernor raised during try_acquire in an "
+                "ACTIVE ENGAGEMENT — failing CLOSED: request to %s "
+                "denied (rate ceiling could not be enforced).",
+                request.url,
+                exc_info=True,
+            )
+            return False, None
+        logger.critical(
+            "GlobalRateGovernor raised during try_acquire — failing "
+            "OPEN (non-engagement context): request to %s proceeds, "
+            "rate ceiling NOT enforced for this request. This is a "
+            "governor bug and must be investigated.",
+            request.url,
+            exc_info=True,
+        )
+        return True, None
+    if not granted:
+        return False, None
+    return True, (governor, campaign)
 
 
 # ---------------------------------------------------------------------------
@@ -469,7 +560,7 @@ def _resolve_first_ip(
 
 
 def _redirect_guard(response: httpx.Response) -> None:
-    """``response`` event-hook that blocks SSRF via redirects.
+    """``response`` event-hook that blocks SSRF via redirects (sync).
 
     Fires on every HTTP response received by the client. When the
     response is a 3xx redirect carrying a ``Location`` header, the
@@ -484,6 +575,22 @@ def _redirect_guard(response: httpx.Response) -> None:
     attacker races the hook's DNS lookup, the transport's own
     lookup at connect-time will catch the rebinding.
     """
+    _redirect_guard_decision(response)
+
+
+async def _redirect_guard_async(response: httpx.Response) -> None:
+    """Async twin of :func:`_redirect_guard` (UM-DR-34 §4.2).
+
+    httpx awaits every response hook on the async client, so the async
+    factory MUST register a coroutine function; delegating to the same
+    synchronous decision keeps the two transports' redirect semantics
+    byte-identical.
+    """
+    _redirect_guard_decision(response)
+
+
+def _redirect_guard_decision(response: httpx.Response) -> None:
+    """Shared redirect decision used by the sync and async guards."""
     # Only 3xx responses carry redirect semantics.
     if not (300 <= response.status_code < 400):
         return
@@ -505,11 +612,22 @@ def _redirect_guard(response: httpx.Response) -> None:
     if not host:
         return
 
-    if not is_engagement_origin_allowed(redirect_url):
+    # UM-DR-34 §4.3 — every redirect target undergoes a FRESH, FULL
+    # scope decision (not an origin-only comparison).  The decision is
+    # method-aware: 307/308 re-issue the original method, 301/302/303
+    # downgrade to GET — a redirect is allowed only if the target
+    # passes under the semantics it will actually be issued with.
+    original_method = getattr(getattr(response, "request", None), "method", None) or "GET"
+    if not is_engagement_origin_allowed(redirect_url, method=original_method) and not (
+        original_method.upper() not in {"GET", "HEAD"}
+        and is_engagement_origin_allowed(redirect_url, method="GET")
+    ):
         logger.warning(
-            "OriginPolicy blocked redirect from %s to out-of-scope origin %s.",
+            "OriginPolicy blocked redirect from %s to out-of-scope origin %s "
+            "(method=%s).",
             response.url,
             redirect_url,
+            original_method,
         )
         raise SSRFRedirectBlockedError(
             f"Refusing to follow redirect outside the engagement OriginPolicy: {redirect_url}",
@@ -583,67 +701,27 @@ class SSRFPinningTransport(httpx.BaseTransport):
         self._wrapped: httpx.BaseTransport = wrapped or httpx.HTTPTransport()
 
     def handle_request(self, request: httpx.Request) -> httpx.Response:
-        """Rate-ceiling gate (M1-A/M-3), then the pinned-IP pipeline.
+        """Rate-ceiling gate (M1-A/M-3 + UM-DR-34 §5), then the pinned-IP pipeline.
 
-        When ``settings.rate_limit_enabled`` is on, every request
-        through this transport must first acquire a unit from the
-        process-wide :class:`GlobalRateGovernor` (the same ceiling for
-        every safe client — a runaway loop or a hostile target cannot
-        exceed it).  Denied ⇒ :class:`RateLimitExceeded` (fail-closed);
-        a governor *internal* error ⇒ fail-open + CRITICAL log.
-
-        ``rate_limit_enabled`` defaults to False, so tests and dev
-        workflows are unaffected; operators enabling the existing
-        switch gain a real, enforced ceiling.
+        Inside an ACTIVE ENGAGEMENT the ceiling is ALWAYS on and a
+        governor failure DENIES the request.  Outside an engagement the
+        legacy ``rate_limit_enabled`` switch governs (default off for
+        plain library use).
         """
-        rate_ceiling_on = False
-        try:
-            from webpent.config.settings import get_settings
-
-            rate_ceiling_on = bool(get_settings().rate_limit_enabled)
-        except (ImportError, ValueError):  # pragma: no cover — settings load must not break requests
-            # (UM-DR-25: narrowed from broad Exception per the P-1 hygiene
-            # contract — settings-load failures are ImportError or the
-            # pydantic ValidationError, which subclasses ValueError.)
-            logger.warning(
-                "SSRF transport: settings unavailable while checking "
-                "rate_limit_enabled — proceeding WITHOUT the rate ceiling.",
-            )
-        if not rate_ceiling_on:
+        if not _engagement_rate_ceiling_active():
             return self._handle_request_pinned(request)
 
-        from webpent.shared.global_rate_governor import get_global_rate_governor
-
-        # One unique campaign id per in-flight request: the governor's
-        # release() is all-or-nothing per campaign, so a shared id would
-        # let the first finishing request release every concurrent
-        # request's slot.  A per-request id makes each request hold
-        # exactly its own unit for exactly its own lifetime.
-        campaign = f"http-transport:{id(request):x}"
-        governor = get_global_rate_governor()
-        try:
-            granted = governor.try_acquire(campaign)
-        except (RuntimeError, ValueError, TypeError, KeyError, ArithmeticError):
-            # (UM-DR-25: narrowed from broad Exception per the P-1 hygiene
-            # contract. The fail-OPEN posture is unchanged: a governor bug
-            # must never block the request path — but it is now a TYPED
-            # decision, and anything outside these failure shapes is a
-            # programming error that should surface, not be swallowed.)
-            logger.critical(
-                "GlobalRateGovernor raised during try_acquire — failing "
-                "OPEN: request to %s proceeds, rate ceiling NOT enforced "
-                "for this request. This is a governor bug and must be "
-                "investigated.",
-                request.url,
-                exc_info=True,
-            )
-            granted = True
+        granted, lease = _transport_rate_gate(request)
         if not granted:
             raise RateLimitExceeded(
-                "Transport-level rate ceiling reached (rate_limit_enabled="
-                f"true): request to {request.url} denied.",
+                "Transport-level rate ceiling reached: request to "
+                f"{request.url} denied.",
                 request=request,
             )
+        if lease is None:
+            # Non-engagement fail-open path (governor bug, logged above).
+            return self._handle_request_pinned(request)
+        governor, campaign = lease
         try:
             return self._handle_request_pinned(request)
         finally:
@@ -885,24 +963,54 @@ class AsyncSSRFPinningTransport(httpx.AsyncBaseTransport):
         self._wrapped: httpx.AsyncBaseTransport = wrapped or httpx.AsyncHTTPTransport()
 
     async def handle_async_request(self, request: httpx.Request) -> httpx.Response:
+        """Rate-ceiling gate (UM-DR-34 §5 — async parity), then the pinned pipeline.
+
+        The async transport applies the SAME rate ceiling, the SAME
+        origin policy, the SAME private-target rules and the SAME
+        loopback-trusted exemption as the sync transport — no reduced
+        async policy (UM-DR-34 §4.2).
+        """
+        if _engagement_rate_ceiling_active():
+            granted, lease = _transport_rate_gate(request)
+            if not granted:
+                raise RateLimitExceeded(
+                    "Transport-level rate ceiling reached: async request "
+                    f"to {request.url} denied.",
+                    request=request,
+                )
+            if lease is not None:
+                governor, campaign = lease
+                try:
+                    return await self._handle_request_pinned(request)
+                finally:
+                    governor.release(campaign)
+            return await self._handle_request_pinned(request)
+        return await self._handle_request_pinned(request)
+
+    async def _handle_request_pinned(self, request: httpx.Request) -> httpx.Response:
         """Validate the request host, pin the IP, then delegate.
 
         V6 Titanium P1 FIX (httpx 0.27.x Read-Only URL & SNI Drop):
-            Async twin of the sync transport's fix. See
-            :meth:`SSRFPinningTransport.handle_request` for the full
-            rationale. The key change: instead of mutating
-            ``request.url`` (which is read-only in httpx 0.27.x and
-            drops the SNI hostname on 0.28+), we construct a NEW
-            ``httpx.Request`` with the pinned-IP URL, copy the
-            original headers + stream, and set
-            ``new_request.extensions["sni_hostname"] = host`` so the
-            TLS layer sends the original DNS name as SNI.
+            Async twin of the sync transport's fix. Instead of mutating
+            ``request.url``, a NEW ``httpx.Request`` is constructed with
+            the pinned-IP URL, the original headers + stream are copied,
+            and ``new_request.extensions["sni_hostname"] = host`` keeps
+            the TLS SNI correct for CDN/vhost targets.
         """
         host = urlsplit(str(request.url)).hostname
         if not host:
             return await self._wrapped.handle_async_request(request)
 
-        if not is_engagement_origin_allowed(str(request.url), method=request.method):
+        # M1-C (UM-DR-12) async twin: a loopback-trusted context may
+        # reach a loopback listener (first-party OOB collector / local
+        # webhook receiver) — loopback-ONLY, default-off, enforced here.
+        loopback_trusted = bool(
+            _LOOPBACK_TRUSTED_ENDPOINT.get() and _is_loopback_host(host)
+        )
+
+        if not loopback_trusted and not is_engagement_origin_allowed(
+            str(request.url), method=request.method
+        ):
             raise SSRFRedirectBlockedError(
                 f"Refusing to connect outside the engagement OriginPolicy: {request.url}",
                 request=request,
@@ -912,7 +1020,7 @@ class AsyncSSRFPinningTransport(httpx.AsyncBaseTransport):
         # engagement's own declared target is allowed through the
         # private/reserved-network blocklist below. Any OTHER host is
         # still blocked exactly as before.
-        target_allowed = is_engagement_target_host(host)
+        target_allowed = is_engagement_target_host(host) or loopback_trusted
 
         if _is_blocked_host(host) and not target_allowed:
             logger.warning(
@@ -1182,9 +1290,17 @@ def make_safe_httpx_async_client(**kwargs: Any) -> httpx.AsyncClient:
     # Same hook-merging logic as the sync factory.
     user_hooks: dict[str, list[Any]] = dict(kwargs.pop("event_hooks", None) or {})
 
+    # UM-DR-34 §4.2 (latent async defect fix): httpx AWAITS every
+    # response hook on the async client — the sync ``_redirect_guard``
+    # returns None and ``await None`` raises TypeError, so the async
+    # factory used to crash on every successful (non-redirect!) response
+    # the moment a hook chain ran.  Existing coverage only exercised
+    # transport-level denials, which bypass the hook chain entirely —
+    # the defect surfaced with the first successful async response.
+    # The redirect decision itself is identical to the sync guard.
     response_hooks: list[Any] = [_attach_untrusted_content_async]
     response_hooks.extend(user_hooks.get("response", []))
-    response_hooks.append(_redirect_guard)
+    response_hooks.append(_redirect_guard_async)
     user_hooks["response"] = response_hooks
 
     # Wrap any caller-supplied transport in the async SSRF-pinning

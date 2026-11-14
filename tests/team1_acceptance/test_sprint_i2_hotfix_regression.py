@@ -178,7 +178,10 @@ class TestDRED8_EightGatesUnguarded:
         assert "if gates:" not in src, (
             "D-RED-8 REGRESSED: gate assertion still guarded by `if gates:`"
         )
-        assert "len(gates_passed) == 9" in src
+        # UM-DR-35 (2026-11-12): the skeleton's gate pin moved 9 -> 10
+        # (causal_guard_adjudicated, the universal confirmation boundary);
+        # this D-RED-8 meta-assertion tracks the pin text verbatim.
+        assert "len(gates_passed) == 10" in src
 
 
 class TestDRED9_ASTBypass2Pin:

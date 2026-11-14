@@ -6,6 +6,15 @@ observations produced by an authorized validator. It checks that a baseline
 and a candidate exist, that the validator supplied independent causal and
 negative-control signals, and that the resulting sealed ProofBundle can be
 replayed from the redaction-safe observations.
+
+UM-DR-35 corrective closure: CausalGuard
+(``webpent.cqa_v2.causal_guard.guarded_causal_evaluate``) is the SOLE
+technical confirmation authority. This verifier therefore MANDATORILY
+adjudicates the exact baseline/candidate/negative-control evidence through
+``webpent.production.confirmation_adapter.adjudicate_with_causal_guard``
+before any bundle is built. Caller-supplied boolean signals are recorded as
+advisory only — they can never produce a passing verification on their own,
+and a non-CONFIRMED guard verdict blocks promotion (fail-closed).
 """
 
 from __future__ import annotations
@@ -16,6 +25,7 @@ from dataclasses import dataclass
 from typing import Any
 from urllib.parse import urlparse, urlunparse
 
+from webpent.cqa_v2.causal_guard import Verdict as CausalGuardVerdict
 from webpent.models.evidence import redact_sensitive
 from webpent.models.findings import Finding
 from webpent.models.proof_bundle import (
@@ -280,6 +290,61 @@ def verify_replay_evidence(
         }
         return VerificationResult(False, "scope_and_identity_context_required", evidence)
 
+    # ------------------------------------------------------------------
+    # UM-DR-35 §1.1/§1.3 — MANDATORY CausalGuard adjudication.
+    # The authority (webpent.cqa_v2.causal_guard.guarded_causal_evaluate)
+    # adjudicates the exact three observations this verifier holds. The
+    # caller-supplied booleans above are advisory only; the decisive
+    # causal_signal / negative_control_complete are DERIVED from the typed
+    # guard result. Any non-CONFIRMED verdict blocks (fail-closed), and the
+    # guard provenance is embedded in both the evidence and the bundle.
+    # ------------------------------------------------------------------
+    from webpent.production.confirmation_adapter import (  # noqa: PLC0415
+        adjudicate_with_causal_guard,
+    )
+    guard_class = str(vulnerability_class or finding.vuln_class or "").upper()
+    adjudication = adjudicate_with_causal_guard(
+        baseline,
+        candidate,
+        negative_control,
+        vulnerability_class=guard_class or "UNKNOWN",
+        identity_context=clean_identity,
+        extra_context={
+            "resource_owner": (
+                clean_identity.get("resource_owner")
+                or clean_identity.get("expected_owner")
+            ),
+        },
+    )
+    guard_result = adjudication.guard_result
+    guard_verdict = str(guard_result.verdict.value)
+    evidence["causal_guard"] = adjudication.to_dict()
+    evidence["causal_signal"] = adjudication.confirmed
+    evidence["negative_control_complete"] = bool(
+        adjudication.confirmed
+        and adjudication.role_signals.get("negative_control", {}).get("signal") is True
+    )
+    if not adjudication.confirmed:
+        reason = f"causal_guard_verdict_{guard_verdict.lower()}"
+        if guard_result.block_reason:
+            reason = f"causal_guard_blocked:{guard_result.block_reason}"
+        evidence["promotion_guard"] = {
+            "status": "blocked",
+            "reason": reason,
+            "authority": "webpent.cqa_v2.causal_guard.guarded_causal_evaluate",
+            "guard_verdict": guard_verdict,
+        }
+        return VerificationResult(False, reason, evidence)
+    if causal_result and causal_result.decision != CausalDecision.CONFIRMED:
+        # A secondary oracle disagreeing with the authority still blocks.
+        evidence["promotion_guard"] = {
+            "status": "blocked",
+            "reason": "causal_oracle_disagrees_with_causal_guard",
+        }
+        return VerificationResult(
+            False, "causal_oracle_disagrees_with_causal_guard", evidence,
+        )
+
     clean_baseline = redact_sensitive(baseline)[0]
     clean_candidate = redact_sensitive(candidate)[0]
     clean_negative_control = redact_sensitive(negative_control)[0]
@@ -327,11 +392,22 @@ def verify_replay_evidence(
             "negative_control_complete": True,
             "requires_target_backed": bool(require_target_backed),
             "basis": str(causal_basis)[:240],
+            # UM-DR-35: the typed CausalGuard adjudication that this bundle's
+            # confirmation is grounded in — same evidence, same verdict, full
+            # provenance (authority module, role signals, observation digests).
+            "causal_guard": adjudication.to_dict(),
         },
         "target_backed": bool(require_target_backed),
         "negative_control_independent": bool(require_target_backed),
         "evidence_origin": (
             "target_runtime" if require_target_backed else "offline_fixture"
+        ),
+        # UM-DR-35: for target-runtime evidence the decisive oracle decision is
+        # the CausalGuard verdict (CONFIRMED — adjudicated above). Offline
+        # fixture bundles deliberately keep no oracle decision: they are
+        # engine-validation artifacts and can never enter scoring promotion.
+        **(
+            {"oracle_decision": "CONFIRMED"} if require_target_backed else {}
         ),
         "validator_id": validator_id,
         "validator_version": validator_version,

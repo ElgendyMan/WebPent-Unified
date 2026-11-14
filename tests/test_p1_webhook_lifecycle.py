@@ -35,7 +35,18 @@ def test_promoted_lifecycle_uses_signed_webhook_path(monkeypatch, tmp_path):
     assert url.startswith("https://")
     assert finding.campaign_id == "camp"
     assert finding.route == "/search"
-    assert finding.confidence_level == "Tool-Confirmed"
+    # UM-DR-35 corrective closure: the lifecycle NOTIFICATION no longer
+    # mints a Tool-Confirmed literal from a lifecycle status string (no
+    # module outside the central confirmation authority may assign a
+    # confirmed state). The notification mirrors the promotion honestly:
+    # Needs-Human-Review level (still actionable for the webhook's
+    # filter) + explicit promotion-mirroring evidence.
+    assert finding.confidence_level == "Needs Human Review"
+    evidence = finding.evidence or {}
+    assert evidence.get("lifecycle_promotion_mirrored") is True
+    assert "causal_guard_authority_chain" in str(
+        evidence.get("promotion_decided_by")
+    )
 
 
 def test_refuted_is_disabled_by_default_and_completion_is_idempotent(monkeypatch, tmp_path):

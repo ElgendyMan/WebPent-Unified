@@ -70,7 +70,12 @@ def test_assessment_confirms_owner_and_foreign_success():
     ]
     result = assess_access_control(rows, owner_identity="alice")
     assert result["status"] == "confirmed"
-    assert result["confidence_level"] == "Tool-Confirmed"
+    # UM-DR-35: the differential gate returns a CANDIDATE result — the
+    # intermediate assessment never carries a confirmation label anymore;
+    # confirmation belongs to the CausalGuard authority chain alone.
+    assert result["confidence_level"] == "Identity-Differential-Verified"
+    assert result["candidate_result"] is True
+    assert result["differential_gate"] == "bac.identity_differential_gate"
     edges = build_relational_evidence(rows, owner_identity="alice", object_id="1001")
     assert edges and edges[0]["differential"] is False
     assert "session" not in str(edges)
@@ -119,7 +124,17 @@ def test_access_control_node_emits_confirmed_finding_only_with_owner_metadata(mo
     result = access_agent.access_control_node(state)
     assert len(result["findings"]) == 1
     finding = result["findings"][0]
-    assert finding.confidence_level == "Tool-Confirmed"
+    # UM-DR-35 corrective closure regression lock: the owner-vs-foreign
+    # differential (owner as baseline, foreign as candidate — different
+    # actors) is NOT guard-admissible evidence for the same-actor causal
+    # contract, and the recorded observations carry no resource-owner
+    # evidence. Even though the strict replay verifier ran, the mandatory
+    # CausalGuard adjudication cannot confirm, so the finding MUST stay at
+    # Needs Human Review — never auto-confirmed without the authority.
+    assert finding.confidence_level == "Needs Human Review"
+    guard_block = (finding.evidence or {}).get("promotion_guard") or {}
+    assert guard_block.get("status") == "blocked"
+    assert str(guard_block.get("reason", "")).startswith("causal_guard_")
     assert finding.vuln_class == "idor"
     assert finding.evidence["owner_identity"] == "alice"
     assert "alice-secret" not in str(finding.evidence)

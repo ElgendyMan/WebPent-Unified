@@ -158,8 +158,19 @@ class TestP0BReauthRetry:
             assert tool_entry.func.call_args.kwargs["session_cookies"] == {
                 "PHPSESSID": "freshcookie", "security": "low",
             }
-            assert result.confidence == Confidence.CONFIRMED.value
-            assert result.confidence_level == "Tool-Confirmed"
+            # UM-DR-35 corrective closure: the historical tool-native
+            # reauth promotion was REMOVED (a documented bypass of
+            # verify_replay_evidence — no differential replay, no
+            # ProofBundle, no CausalGuard adjudication). The relogin
+            # MECHANICS are unchanged (fresh cookies, exactly one tool
+            # invocation) but the finding stays fail-closed: the sqlmap
+            # marker + fresh session are preserved for human review with
+            # the bypass-removal guard stamped.
+            assert result.confidence == Confidence.TENTATIVE.value
+            assert result.confidence_level == "Needs Human Review"
+            guard = result.evidence.get("promotion_guard") or {}
+            assert guard.get("status") == "blocked"
+            assert guard.get("reason") == "sqli_session_reauth_bypass_removed_umdr35"
             assert result.evidence.get("session_reauth") is True
             # The caller's dict object was mutated in place so it
             # propagates to validator_node's state update.

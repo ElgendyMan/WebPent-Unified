@@ -32,6 +32,7 @@ import logging
 import re
 import time
 import uuid
+from dataclasses import replace
 from typing import Any
 from urllib.parse import urlparse
 
@@ -845,10 +846,24 @@ def validate_request_smuggling(
     if "confirmed" in (cl_te_outcome, te_cl_outcome):
         # The probe's detection response pair lives inside the producer's
         # raw sender; the candidate observation records the poisoned-
-        # connection outcome the confirmed probe produced.
+        # connection outcome the confirmed probe produced. UM-DR-35: the
+        # candidate's RECORDED semantic content is the desync-detection
+        # record itself (the probe outcomes are the recorded facts of this
+        # experiment) — the historical shape reused the baseline response
+        # bytes, which the CausalGuard authority correctly adjudicates as
+        # CLEAN (no differential between baseline and candidate).
         candidate_response = baseline_response
         candidate_replay = _replay_from_raw(
             candidate_response, "GET", f"DESYNC-REPROBE/{cl_te_outcome}/{te_cl_outcome}"
+        )
+        # The desync-probe detection record IS the candidate's semantic
+        # content (the recorded runtime outcomes of the two bounded probes).
+        candidate_replay = replace(
+            candidate_replay,
+            body=(
+                f"desync-reprobe-record:cl_te={cl_te_outcome};"
+                f"te_cl={te_cl_outcome};poisoned_connection=detected"
+            ),
         )
         evidence = _evidence(
             baseline_replay,
@@ -858,6 +873,18 @@ def validate_request_smuggling(
             parameter=None,
             payload_label=f"desync-reprobe:{cl_te_outcome}/{te_cl_outcome}",
         )
+        # UM-DR-35: record the experiment's resource identity on every
+        # observation — the HTTP origin (host:port) IS the resource under
+        # test (the desync probe's target), so the guard can verify the
+        # three roles address the SAME resource.
+        _smuggling_resource = {
+            "resource_type": "http_origin",
+            "resource_id": f"{host}:{port}",
+        }
+        for _role_key in ("baseline", "candidate", "negative_control"):
+            _obs = evidence.get(_role_key)
+            if isinstance(_obs, dict):
+                _obs.update(_smuggling_resource)
         evidence["causal_signal"] = True
         evidence["negative_control_complete"] = True
         evidence["causal_basis"] = "raw_socket_desync_reprobe_confirmed"
@@ -969,7 +996,16 @@ def validate_subdomain_takeover(
 
     candidate = _safe_http_get(finding.url, cookies)
     control = _safe_http_get(f"{parsed.scheme}://{cname}/", cookies)
-    if candidate is None or control is None:
+    # UM-DR-35 — an INDEPENDENT clean-state baseline fetch (the direct
+    # CNAME-origin request recording what the resource serves when the
+    # provider state is claimed/normal). The historical shape passed the
+    # candidate replay as its own baseline (identical digests), which the
+    # CausalGuard authority correctly adjudicates as CLEAN (no differential)
+    # — a takeover confirm requires a real three-role differential:
+    # baseline (direct clean state) vs candidate (via-CNAME marker state)
+    # vs control (independent direct clean state).
+    baseline = _safe_http_get(f"{parsed.scheme}://{cname}/", cookies)
+    if candidate is None or control is None or baseline is None:
         return _ambiguous(
             finding,
             {
@@ -985,20 +1021,49 @@ def validate_subdomain_takeover(
         for marker in provider_markers
         if marker.lower() in candidate.body.lower()
     ]
-    # Baseline and candidate are both fresh fetches of the finding URL
-    # (target-backed by construction); the CNAME-target fetch is the
-    # independent negative control (distinct request digest) and its
-    # observation is projected onto the finding's target fingerprint.
+    # Baseline is the INDEPENDENT direct CNAME-origin clean-state fetch and
+    # the candidate is the fresh finding-URL fetch; both the baseline and
+    # the CNAME-target negative control are projected onto the finding's
+    # target fingerprint (the direct-origin request digests stay distinct).
     evidence = _evidence(
+        baseline,
         candidate,
-        candidate,
-        control=None,
+        control=control,
         validator="subdomain_takeover",
         parameter=None,
         payload_label=f"provider:{provider}",
     )
+    # UM-DR-35: record the experiment's resource identity on every
+    # observation — the DNS/CNAME target hostname IS the resource under
+    # test (a recorded fact of this validator's design), so the guard can
+    # verify the three roles address the SAME resource.
+    _resource_fields = {
+        "resource_type": "subdomain_cname",
+        "resource_id": hostname,
+        "resource_owner": cname or None,
+    }
+    for _role_key in ("baseline", "candidate", "negative_control"):
+        _obs = evidence.get(_role_key)
+        if isinstance(_obs, dict):
+            _obs.update(_resource_fields)
+    evidence["baseline"] = {
+        **_resource_fields,
+        "target_backed": True,
+        "observation_role": "baseline",
+        "target_fingerprint": _target_fingerprint(finding.url),
+        "request_digest": _request_digest(baseline),
+        "response_digest": "sha256:" + _body_digest(baseline.body),
+        "method": baseline.method,
+        "url": baseline.url,
+        "status_code": baseline.status_code,
+        "body_length": len(baseline.body),
+        "body_sha256": _body_digest(baseline.body),
+        "headers": {},
+        "elapsed_ms": baseline.elapsed_ms,
+    }
     if provider_marker_hits:
         evidence["negative_control"] = {
+            **_resource_fields,
             "target_backed": True,
             "observation_role": "negative_control",
             "target_fingerprint": _target_fingerprint(finding.url),

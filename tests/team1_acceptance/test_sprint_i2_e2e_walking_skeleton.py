@@ -193,8 +193,20 @@ class Test61Positive:
         gates_passed = _as_list(promo.get("gates_passed"))
         gates_failed = _as_list(promo.get("gates_failed"))
         assert len(gates_failed) == 0, f"6.1: failed promotion gates: {gates_failed}"
-        assert len(gates_passed) == 9, (
-            f"6.1: expected 9 passed promotion gates (8 original + self_critique_passed U-10a), got {len(gates_passed)}: {gates_passed}"
+        # UM-DR-35 (2026-11-12): the anti-fake gate set gained its tenth
+        # member — `causal_guard_adjudicated` — the universal confirmation
+        # boundary: promotion without a CONFIRMED CausalGuard adjudication
+        # bound to the SAME evidence is now structurally impossible. The
+        # 10-gate pin replaces the 9-gate pin (8 original +
+        # self_critique_passed U-10a + causal_guard_adjudicated).
+        assert len(gates_passed) == 10, (
+            f"6.1: expected 10 passed promotion gates (8 original + "
+            f"self_critique_passed U-10a + causal_guard_adjudicated "
+            f"UM-DR-35), got {len(gates_passed)}: {gates_passed}"
+        )
+        assert "causal_guard_adjudicated" in gates_passed, (
+            f"6.1: the UM-DR-35 universal confirmation gate must be among "
+            f"the passed gates: {gates_passed}"
         )
 
         # SecurityReport.add_promoted

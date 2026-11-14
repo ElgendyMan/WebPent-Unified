@@ -263,6 +263,28 @@ def budget_pressure(state: Mapping[str, Any]) -> dict[str, Any]:
     research_reserve = research_reserve_for(max_steps)
     trace = state.get("node_step_trace")
     if not isinstance(trace, (list, tuple)):
+        # UM-DR-33 §5.3 (Workstream C, external hard budgets): the trace
+        # channel is declared append-only (state.py) and no legit write
+        # path ever persists a non-list (builder.py materialises
+        # ``update["node_step_trace"] = [entry]`` whenever the previous
+        # value is not a list). A key that is PRESENT but not a list is
+        # therefore agent-side corruption, and corruption must never
+        # RESET consumed budget: fail closed with the budget fully
+        # consumed (both cutoffs engaged, nothing left to spend). Only a
+        # genuinely ABSENT key keeps the documented legacy-checkpoint
+        # behaviour (pre-governor fail-safe deactivation).
+        if "node_step_trace" in state:
+            return {
+                "active": True,
+                "research_active": False,
+                "consumed": max_steps,
+                "max_steps": max_steps,
+                "remaining": 0,
+                "reserve": completion_reserve,
+                "research_reserve": research_reserve,
+                "version": GOVERNOR_VERSION,
+                "reason": "fail_closed_corrupted_trace",
+            }
         # Legacy checkpoint without the trace channel: deactivate (the
         # pre-governor behavior is the fail-safe default).
         return {

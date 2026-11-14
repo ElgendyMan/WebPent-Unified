@@ -124,6 +124,9 @@ def test_memory_snapshot_shape() -> None:
     governor = GlobalRateGovernor(max_concurrent=7, requests_per_minute=42)
     governor.try_acquire("camp-a")
     snapshot = governor.snapshot()
+    # UM-DR-34 §5.3: ``coordination_scope`` is a REQUIRED field — a
+    # memory backend must be reported as "process-local" so callers can
+    # never describe it as a globally coordinated multi-process limit.
     assert set(snapshot.keys()) == {
         "active_campaigns",
         "requests_last_minute",
@@ -131,8 +134,10 @@ def test_memory_snapshot_shape() -> None:
         "requests_per_minute",
         "backend",
         "backend_degraded",
+        "coordination_scope",
     }
     assert snapshot["active_campaigns"] == ["camp-a"]
+    assert snapshot["coordination_scope"] == "process-local"
     assert snapshot["requests_last_minute"] == 1
     assert snapshot["max_concurrent"] == 7
     assert snapshot["requests_per_minute"] == 42

@@ -674,7 +674,10 @@ def validate_auth_bypass(
                 proof_bundle_data = verification.proof_bundle.model_dump(mode="json")
                 return finding.model_copy(
                     update={
-                        "confidence": Confidence.FIRM.value,
+                        # UM-DR-35 label/enum consistency fix: a verified
+                        # promotion is CONFIRMED — pairing Confidence.FIRM
+                        # with "Tool-Confirmed" was an inconsistent state.
+                        "confidence": Confidence.CONFIRMED.value,
                         "confidence_level": "Tool-Confirmed",
                         "evidence": {
                             "jwt_differential": list(evidence),

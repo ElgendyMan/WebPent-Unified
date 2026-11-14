@@ -1,16 +1,19 @@
-"""Lifecycle-notification Finding builder (r6c, UM-DR-26).
+"""Lifecycle-notification Finding builder (r6c, UM-DR-26; corrected UM-DR-35).
 
-The promoted-alert webhook needs an actionable notification object, and the
-M1-B/E-1 provenance contract requires every ``Tool-Confirmed`` writer to be a
-consciously-registered module that stamps its confirming gate.  This builder
-is that registered writer (see
-``tests/test_m1b_tool_confirmed_writers.py::APPROVED_TOOL_CONFIRMED_WRITERS``):
+The promoted-alert webhook needs an actionable notification object. The
+UM-DR-35 corrective closure removed the historical ``Tool-Confirmed``
+literal from this builder: a lifecycle ``status`` string is NOT confirmation
+authority evidence, and minting a notification Finding as Tool-Confirmed
+from it was exactly the bypass class the universal CausalGuard boundary
+forbids. The notification is now honest about what it is — a promotion
+NOTIFICATION mirroring a decision already made by the real authority chain
+elsewhere, kept actionable for the webhook through the ``Needs Human
+Review`` level (accepted by the webhook actionable set) plus explicit
+promotion-mirroring evidence.
 
-- a PROMOTED lifecycle event carries ``confidence_level="Tool-Confirmed"``
-  with evidence naming ``tool_confirmed_by="webpent.lifecycle"`` (the
-  promotion-guard stamp) — so ``push_to_webhook``'s actionable-confidence
-  filter lets the alert through (the old always-``Pending`` shape silently
-  dead-ended every promoted webhook);
+- a PROMOTED lifecycle event carries ``confidence_level="Needs Human
+  Review"`` with evidence naming ``lifecycle_promotion_mirrored=True`` and
+  ``promotion_decided_by`` pointing at the real authority chain;
 - a REFUTED event stays ``Pending`` (not actionable, notification only).
 
 ``service/cost_alerts.py`` deliberately keeps NO ``Tool-Confirmed`` literal
@@ -44,10 +47,17 @@ def build_lifecycle_finding(
         "notification_only": True,
     }
     if promoted:
-        # The promotion gate's own stamp (M1-B/E-1): this notification IS the
-        # promotion guard's decision record, so the Tool-Confirmed literal is
-        # honest — the gate is named, not claimed.
-        evidence["tool_confirmed_by"] = "webpent.lifecycle"
+        # UM-DR-35 corrective closure: mirror, never re-mint. The promotion
+        # decision was made by the real authority chain (CausalGuard →
+        # ProofBundle → Replay → central promotion); this notification only
+        # records that it happened and explicitly disclaims confirmation
+        # authority. The historical Tool-Confirmed literal minted from a
+        # lifecycle status string was removed (universal boundary rule).
+        evidence["lifecycle_promotion_mirrored"] = True
+        evidence["promotion_decided_by"] = (
+            "causal_guard_authority_chain (mirrored; notification has no "
+            "confirmation authority)"
+        )
     return Finding(
         id=uuid.uuid5(uuid.NAMESPACE_URL, f"webpent:{campaign_id}:{finding_id}"),
         title=title or f"WebPent {vuln_class} finding",
@@ -55,7 +65,7 @@ def build_lifecycle_finding(
         description=f"Lifecycle notification for {vuln_class} finding {finding_id}.",
         tool_name="webpent.lifecycle",
         url=finding_url,
-        confidence_level="Tool-Confirmed" if promoted else "Pending",
+        confidence_level="Needs Human Review" if promoted else "Pending",
         cvss_score=cvss_score,
         vuln_class=vuln_class,
         campaign_id=campaign_id,

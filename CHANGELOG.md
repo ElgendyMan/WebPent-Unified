@@ -1,5 +1,198 @@
 # Changelog
 
+## 0.40.1 — 2026-11-12 (UM-DR-35/36: confirmation-authority unification, semantic-model production wiring & honest funnel)
+
+> UM-DR-35/36 window: **eliminate every remaining security-authority and
+> semantic-integration defect, then prove one real vulnerability through
+> the complete chain via the actual production entrypoint.** One
+> universal confirmation boundary converging every finding-producing
+> route; the AppModel materialized from real observations and provably
+> influencing research decisions; a Discovery Funnel that can no longer
+> dress unconfirmed findings as confirmed.
+> (1) **Universal confirmation boundary** (`production/confirmation_adapter.py`):
+> every promotion path — graph validators, AVI production pipeline,
+> verifier sealing — adjudicates through the single CausalGuard authority
+> (`webpent.cqa_v2.causal_guard.guarded_causal_evaluate`). The SQLi
+> session-reauth promotion bypass is REMOVED (fail-closed `Needs Human
+> Review`); promotion requires the `causal_guard_adjudicated` gate
+> (gate count 10). Role-technical signals are derived per-role from the
+> actual observations — never fixed values; guard verdicts are bound to
+> the exact evidence digests (`guard_observation_digests`,
+> `evidence_digests`). Contaminated controls are BLOCKED: a control that
+> equals the baseline, or reproduces the signal, never confirms.
+> (2) **Class-aware confirmation branches**: content-differential
+> families (XSS/SSRF/info-disclosure/listing/race) confirm on the
+> semantic-differential contract — the causal PAIR is candidate vs
+> control (same recorded actor on both, real divergence from baseline
+> AND control, signal isolation: class validator signal present on the
+> candidate and ABSENT from baseline and control); the AVI validator
+> stamp is evidence-grounded (CONFIRMED outcome + recorded
+> discriminating signal, candidate role only); offline-crypto
+> verification (JWT weak secret) records the
+> `experiment_domain`/`crypto_verified`/semantic completeness channels;
+> listing re-probes use the marker-free sibling GET as the recorded
+> independent baseline (no empty differentials).
+> (3) **Semantic-model production wiring** (`graph/appmodel_nodes.py`,
+> wired `SURFACE_SIZING → APPMODEL → HYPOTHESIS` in the compiled graph):
+> the AppModel is built ONLY from real state channels, every entity and
+> relation carries `DiscoveryProvenance`, and the node performs no I/O,
+> grants no authorization, and can never confirm (advisory-only
+> influence contract). Real downstream consumers: the hypothesis
+> analyzer re-prioritizes with `hint_provenance` recorded; the AVI
+> experiment selector consumes the hints; `advisory_registration`
+> records the influence. Deterministic influence proof: selection
+> CHANGES when relevant semantic facts are withheld
+> (`tests/test_umdr36_appmodel_influence.py`, 12 tests).
+> (4) **Honest Discovery Funnel** (Phase 3 closure):
+> `production/discovery_funnel.py` — `confirmed_findings` no longer
+> counts every item in `findings`: the funnel decomposes the
+> confirmation chain per finding (candidate / awaiting_validation /
+> causal_guard_confirmed / proof_bundle_valid / replay_verified /
+> promoted / confirmed), counting a CONFIRMED finding only when the SAME
+> finding id carries the complete promotion contract (no cross-finding
+> aggregation). New semantic stages count REAL appmodel instances —
+> identity_relationships (authenticates_as/performs/observed_on),
+> object_ownership_relations (owns), app_states_and_transitions — never
+> totals or distinct kind labels; a missing appmodel channel reports
+> not_materialized_in_state (via the appmodel_summary telemetry
+> fallback), never a fake zero. Phase 3.4 invariants asserted on every
+> computed funnel (confirmed <= promoted <= guard/bundle/replay), and
+> the rewritten funnel suite pins the Phase 3.5 acceptance (three
+> unconfirmed findings -> confirmed 0).
+> (5) **Integrated production campaign** (Phase 6): the authorized
+> local IDOR laboratory (two principals, separate invoice ownership,
+> safe path + nonexistent-ID 404 control) driven through the ACTUAL
+> production entrypoint — `webpent.cli.unified_hunt.run_unified_hunt`
+> (compiled LangGraph invoked, M2 gates, checkpoints) — with the
+> same-finding invariant chain (CausalGuard CONFIRMED with
+> authorization_differential + per-role evidence-grounded signals ->
+> valid ProofBundle -> verified Replay -> PROMOTED) recorded in
+> artifacts/umdr35_36_integrated_campaign_result.json;
+> learning-between-decisions traced to the recorded outcome in
+> artifacts/umdr36_learning_between_decisions.json; docs/
+> UMDR35_36_CORRECTIVE_BASELINE.md + UMDR35_36_CORRECTIVE_CLOSURE_REPORT.md
+> + UMDR35_36_READINESS_SUMMARY.json (honest decision: NOT_READY_FOR_
+> UM_DR_37 — remote CI unverified in this environment).
+> (6) **Artifacts tracking exception**: `artifacts/` stays runtime-
+> ignored (R-02/R-09) with explicit tracked exceptions for the two
+> mission-evidence files — they are deliverables, not byproducts.
+
+## 0.40.0 — 2026-11-10 (UM-DR-34: unified scope authority, safe egress & execution governance)
+## 0.40.0 — 2026-11-10 (UM-DR-34: unified scope authority, safe egress & execution governance)
+
+> UM-DR-34 window: **one canonical engagement scope authority, fail-closed
+> at every network boundary, default-on request governance** — with full
+> constitutional preservation (CausalGuard remains the sole confirmation
+> authority; ProofBundle + replay + negative controls unchanged).
+> (1) **Canonical scope authority** (`webpent.scope.authority`): one
+> authoritative `evaluate_request()` contract returning the extended
+> `ScopeDecision` (normalized origin/host/scheme/port/path, matched
+> allow/deny rules, exclusion reason, scope fingerprint, authorization
+> context id, monotonic decision sequence, may-proceed flag). ONE strict
+> wildcard compiler (anchored complete-label regexes; misplaced `*`,
+> `?`, `[seq]` glob syntax rejected at compile time; apex never
+> included); the fnmatch-based matcher in `ScopeEnforcer._host_match`
+> is REMOVED. Explicit `is None` port handling (port 0 rejected);
+> host-only rules bind scheme-default ports only; IDNA/punycode and
+> IPv4/IPv6 canonicalization; conservative denial of ambiguous encoded
+> paths (`%2e/%2f/%5c`, double encoding, backslash). Parser unification:
+> scope files, structured YAML/JSON, HackerOne/Bugcrowd-style exports
+> and plain text all reduce to the same typed rules (boolean
+> `out_of_scope` markers no longer crash the parser — fail-closed
+> instead); target-only compatibility mode is explicit, bounded to the
+> exact declared origin, and reported as `target_only`.
+> (2) **Atomic engagement context** (`shared/engagement_scope.py`): one
+> immutable `EngagementContext` in one ContextVar with structured
+> restore tokens — nested engagements restore the OUTER policy
+> correctly (the historic cleanup force-emptied it). ENGAGEMENT vs
+> CONTROL_PLANE egress separation: an active campaign with a
+> missing/corrupt policy now DENIES every request (the historic
+> `not policies or any(...)` fail-OPEN is gone); control-plane
+> destinations are explicit, narrow (scheme, host, port) triples that
+> can never inherit campaign permissions. A bare-host declaration binds
+> default HTTP(S) ports only — never every port on a private host.
+> (3) **Boundary enforcement**: every redirect hop undergoes a fresh,
+> method-aware full decision (307/308 re-issue vs 301/302/303 GET
+> downgrade both checked); the async transport gains the SAME rate
+> ceiling, loopback-trusted exemption and origin policy as the sync one
+> — including the fix of a latent defect where the async factory
+> registered the SYNC redirect guard as a response hook (httpx awaits
+> hooks, so every successful async response crashed); the families
+> execution node now uses the full safe factory (redirect hook +
+> untrusted-content mask); the raw-socket h2 race path refuses
+> out-of-scope origins before connecting. `HunterRunner` enforces
+> acquire()/release() permits around real execution and can no longer
+> run an unbounded campaign when `scope_policy` is omitted.
+> (4) **Default-on request governance**: inside an ACTIVE ENGAGEMENT the
+> transport ceiling is ALWAYS on (independent of `stealth_mode` and the
+> legacy `rate_limit_enabled` switch, which remains for non-engagement
+> library use); a governor internal failure DENIES the request
+> (fail-closed) instead of failing open; optional Redis cross-process
+> coordination with an honest `coordination_scope` field
+> ("process-local" is reported as process-local — never described as a
+> global limit) and a `require_coordination` production posture that
+> denies rather than degrades to uncoordinated limits.
+> (5) **Credential protection at the provider boundary**:
+> `secure_llm_input`'s Mapping branch now credential-checks EVERY key
+> with its value (the historic gap let `{"sessionid": ...}` reach
+> providers untouched); recognized session-cookie name families
+> (PHPSESSID, JSESSIONID, ASP.NET_SessionId, sessionid, sid,
+> connect.sid, csrftoken, ...) rejected case-insensitively without
+> over-redacting benign fields; LangChain message clones sanitize
+> `additional_kwargs`/`tool_calls`; `redact_value` is key-aware.
+> (6) **Checkpoint safe failure**: a runtime-context redaction failure
+> persists an explicit DEGRADED marker (structured, secret-free,
+> error class only) instead of a silent `{}` — and resume refuses to
+> rebuild a blank runtime from it (no false-success resume, no silent
+> budget/kill-switch reset). Secret channels stay emptied; restore
+> stays fail-closed.
+> (7) **Gate hardening**: the orchestrator construction checker detects
+> alias bindings, getattr/importlib/eval indirect construction; the
+> state-contract checker adds AST coverage for in-place `state.update()`
+> / subscript mutations. Runtime authority statements kept honest — the
+> static matchers are defense-in-depth, not the runtime protection.
+> (8) **Release identity reconciliation (§10)**: the 0.39.0 branch
+> shipped pyproject/init at 0.39.0 while BUILD_INFO retained 0.38.0
+> values and an unreproducible suite_count of 8990 (actual baseline
+> unique node IDs: 8958; the UM-DR-24 release gate failed on the
+> baseline for exactly this reason). From 0.40.0 every version field
+> has ONE consistent meaning; version monotonicity preserved (0.39.0
+> was taken by the public UM-DR-33 branch; UM-DR-34 is 0.40.0); the
+> local UM-DR-32 lineage is preserved untouched.
+> Baseline: `features/v0.39.0-umdr33` @ `4795f02`. 98 new regression
+> tests (canonical authority matrix, lifecycle, boundary enforcement
+> with zero-network-attempt assertions, rate parity/fail-closed, LLM
+> redaction incl. batch/stream through the guarded runnable, checkpoint
+> degraded-resume). Evidence: `docs/engineering/umdr34/`.
+
+## 0.39.0 — 2026-11-10 (UM-DR-33: researcher brain & autonomous campaign evolution)
+
+> نافذة UM-DR-33: **إغلاق عيوب هندسة الإصدار المكتشفة + ترقية بحثية
+> حقيقية**، مع الحفاظ الدستري الكامل على سلسلة التأكيد (CausalGuard
+> هو سلطة التأكيد الوحيدة، ProofBundle + replay إلزاميان). (1)
+> **عقد الهوية الموحد للـ JSON** (`webpent.shared.canonical_json`):
+> تسلسل واحد معياري لكل هاشات الهوية — أُغلق تضارب الهاشين
+> التاريخيين (b78ad5c6… المتقاعد / 58684262… المعتمد) مع اختبارات
+> طفرة تثبت أن أي تغيير في الثغرات/الضوابط يغيّر البصمة. (2)
+> **إصلاح سلسلة الأدلة**: عيب مؤكد تجريبيًا — كل ProofBundles كانت
+> تحمل `bundle_id=None` (تجاوز صريح للـ default_factory)؛ أُصلح
+> بنافذة ذوبان مجمّدة موثقة (DR-009) مع 7 اختبارات انحدار. (3)
+> **تشغيل info_gain في ترتيب الـ strategist** (إغلاق عيب مراجعة
+> UM-DR-31): W_INFO_GAIN=0.10 في المجموع المرجّح (متوازن لمجموع 1.0)،
+> افتراضي محايد 0.5 لغير المقيَّم، مع اختبارات طفرة/انعكاس ترتيب/
+> استقلالية الأمان (النطاق/الميزانية/الإذن لا يتأثروا بالنتيجة أبدًا).
+> (4) **أمان الترشيح الوكيل**: ميزانية الخطوات تفشل مغلقًا عند فساد
+> الأثر (لا إعادة تعيين أبدًا)، رفض placeholder credentials في المُحمِّل
+> (fail-closed مع إعفاء أسماء الحقول)، تحصين kill_switch fanout.
+> (5) **قمع الاكتشاف** (§12): 16 مرحلة قياس حتمية نقية من قنوات
+> الحالة الحقيقية مع شرح أنماط الهدر — المسرود بصدق عبر
+> `not_materialized_in_state`. (6) **تسوية المحاسبة**: خطأ 152→154/159
+> صُحح بالـ node IDs الفعلية (erratum موثق). (7) **README**: الأرضية
+> 3.11 مقابل المُختبر 3.12.16 معلنة صراحة. (8) **نظافة الشجرة**:
+> econ CLI runtime state يحترم WEBPENT_ECON_DIR — السلسلة لا توسّخ
+> الشجرة بعد الآن.
+
+
 ## 0.38.0 — 2026-11-09 (UM-DR-32: identity & business-logic evolution)
 
 > نافذة UM-DR-32: **تحويل فهم WebPent للتطبيقات من اختبار النقاط النهائية

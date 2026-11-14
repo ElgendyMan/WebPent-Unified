@@ -525,6 +525,122 @@ UMDR32_NEW_CAPABILITY_20261109_PATHS = frozenset({
     "src/webpent/production/identity_workflow.py",
 })
 
+UMDR33_PHASE2_SECURITY_20261110_THAW_PATHS = frozenset({
+    # UM-DR-33 Phase 2 (Workstream C, 2026-11-10): two fail-closed
+    # security fixes. (1) budget_governor.py — a PRESENT-but-corrupted
+    # node_step_trace (no legit write path persists a non-list) now
+    # fails CLOSED with the budget fully consumed instead of
+    # deactivating the governor (agent corruption must never reset
+    # consumed budget); a genuinely absent key keeps the documented
+    # legacy deactivation. (2) cli/loaders.py — secret-bearing mappings
+    # reject template placeholders fail-closed (CHANGE-ME family,
+    # REPLACE_ME_*, replace-at-runtime); form-field-NAME mappings are
+    # shape-validated only. Regression coverage verified BEFORE the
+    # re-pin: tests/test_umdr33_hard_budget_and_creds.py (11 tests) +
+    # all pre-existing budget/template pins unchanged; the template
+    # contract test evolved WITH the loader (documented in its
+    # docstring). Refreeze script:
+    # scripts/refreeze_manifest_umdr33_phase2_security.py (old pins
+    # recorded there for the audit trail).
+    "src/webpent/graph/budget_governor.py",
+    "src/webpent/cli/loaders.py",
+})
+
+UMDR33_NEW_CAPABILITY_20261110_PATHS = frozenset({
+    # UM-DR-33: the discovery funnel, frozen from birth (the UM-DR-32
+    # five-capability precedent): the broad-exception count contract
+    # requires every registered src file to be frozen-pinned, and the
+    # funnel registers 1 fail-soft handler (the bounded state read —
+    # observability degrades to not_materialized_in_state, never a
+    # crash). Pure telemetry: no findings, no promotion, no authority.
+    "src/webpent/production/discovery_funnel.py",
+})
+
+UMDR33_VERSION_BUMP_20261110_THAW_PATHS = frozenset({
+    # UM-DR-33 release window (2026-11-10): the 0.38.0 -> 0.39.0 version
+    # bump in src/webpent/__init__.py (byte change = the __version__ line
+    # only, the UM-DR-29/30/31.1/32 precedent; pyproject.toml +
+    # CHANGELOG.md remain the SSOT and are not frozen).
+    "src/webpent/__init__.py",
+})
+
+UMDR33_INFO_GAIN_20261110_THAW_PATHS = frozenset({
+    # UM-DR-33 §8.2 (Workstream F, 2026-11-10): information gain is now
+    # operational in the strategist score — W_INFO_GAIN=0.10 joins the
+    # weighted sum (other weights rebalanced, sum stays exactly 1.0,
+    # dominant-term ordering preserved); Hypothesis.info_gain is read
+    # with a neutral 0.5 default for unscored hypotheses and defensive
+    # clamping. Closes the UM-DR-31 review finding that info_gain never
+    # changed the ranking score. Gate semantics untouched: score-
+    # independent admission/scope/budget gates pinned by
+    # tests/test_umdr33_info_gain_operational.py (19 tests incl. the
+    # exact-delta mutation test, controlled ranking flips, and the
+    # safety-independence trio). Refreeze script:
+    # scripts/refreeze_manifest_umdr33_info_gain.py (old pin
+    # 912b71f003e36716df4dff57870e0cd5eb39cd3592f1fafa9eb766b4e2cc6cc5
+    # recorded there for the audit trail).
+    "src/webpent/shared/prioritization.py",
+})
+
+UMDR33_EVIDENCE_CHAIN_20261110_THAW_PATHS = frozenset({
+    # UM-DR-33 (researcher brain & autonomous campaign evolution,
+    # 2026-11-10): Phase 2 evidence-chain identity fix — the production
+    # builder passed bundle_id=None unconditionally, overriding the
+    # CompleteProofBundle default_factory (cqa2_pb_<uuid4hex>), so every
+    # production bundle carried bundle_id=None (empirically verified
+    # pre-fix; both production callers omit the argument). The fix passes
+    # bundle_id only when the caller supplied one. Seal/digest/validation
+    # logic untouched. Regression coverage verified BEFORE the re-pin:
+    # tests/test_umdr33_evidence_chain_fixes.py (5 bundle-identity pins
+    # + existing cqa_v2 consumers). Refreeze script:
+    # scripts/refreeze_manifest_umdr33.py (DR-009 protocol; old pin
+    # 5fdb526f460617a7b7163359d66459f798148db92c3eb61844f2c5c6fdf6f951
+    # recorded there for the audit trail).
+    "src/webpent/cqa_v2/proof_bundle_builder.py",
+})
+
+UMDR34_SCOPE_AUTHORITY_20261110_THAW_PATHS = frozenset({
+    # UM-DR-34 (scope authority, safe egress & execution governance,
+    # 2026-11-10): the canonical scope authority window thawed 14 frozen
+    # files (all documented in scripts/refreeze_manifest_umdr34.py with
+    # old pins recorded there for the audit trail). Seven of them
+    # (engagement_scope.py, http.py, global_rate_governor.py,
+    # settings.py, checkpoints.py, hunter_runner.py, execution_node.py)
+    # already appear in earlier-era drift sets; the six below are
+    # FIRST-TIME thaws relative to the pre-unfreeze baseline, so they
+    # need their own documented entry:
+    #   * scope/__init__.py, scope/models.py, scope/enforcer.py,
+    #     scope/parser.py — the ONE canonical authority contract
+    #     (ScopeDecision extension, strict single wildcard compiler
+    #     replacing fnmatch, explicit None port handling, fail-closed
+    #     boolean out_of_scope parser markers).
+    #   * shared/untrusted_content.py, shared/redaction.py — the LLM
+    #     provider boundary (secure_llm_input key-aware recursion fix,
+    #     session-cookie name families, key-aware redact_value).
+    # Regression coverage verified BEFORE the re-pin:
+    # tests/test_umdr34_*.py (170 tests) + all pre-existing suites
+    # touching these modules re-run green.
+    "src/webpent/scope/__init__.py",
+    "src/webpent/scope/models.py",
+    "src/webpent/scope/enforcer.py",
+    "src/webpent/scope/parser.py",
+    "src/webpent/shared/untrusted_content.py",
+    "src/webpent/shared/redaction.py",
+})
+
+# UM-DR-35/36 (confirmation-authority unification + semantic-model
+# production wiring + honest funnel, 2026-11-12): the corrective-closure
+# window thawed the shared verifier (every verification now routes
+# through the universal CausalGuard confirmation adapter) and the KEV
+# feed module (re-pinned as part of the same reviewed change set, see
+# scripts/refreeze_umdr35_36_repinned.py — old pins preserved in git
+# history for the audit trail). First-time thaws relative to the
+# pre-unfreeze baseline.
+UMDR35_36_CONFIRMATION_20261112_THAW_PATHS = frozenset({
+    "src/webpent/shared/verifier.py",
+    "src/webpent/shared/kev.py",
+})
+
 UMDR28_DISCOVERY_20261107_THAW_PATHS = frozenset({
     # UM-DR-28 (production discovery integration, 2026-11-07): the
     # representation-equivalence repair in the causal guard — the four
@@ -1073,6 +1189,12 @@ def test_baseline_disagrees_only_on_documented_unfreeze_paths() -> None:
         | UMDR30_CAPABILITY_WIRING_20261107_THAW_PATHS
         | UMDR31_ADAPTIVE_RESEARCH_20261107_THAW_PATHS
         | UMDR31_1_UPLIFT_20261108_THAW_PATHS
+        | UMDR33_EVIDENCE_CHAIN_20261110_THAW_PATHS
+        | UMDR33_PHASE2_SECURITY_20261110_THAW_PATHS
+        | UMDR33_INFO_GAIN_20261110_THAW_PATHS
+        | UMDR33_VERSION_BUMP_20261110_THAW_PATHS
+        | UMDR34_SCOPE_AUTHORITY_20261110_THAW_PATHS
+        | UMDR35_36_CONFIRMATION_20261112_THAW_PATHS
     )
     # ULTIMATE PLAN 2026-10-27, proposal 4: the pre-archive drift sets
     # (e.g. TEAM_MERGE_V152_LINEAGE_DRIFT_PATHS' goed_v1 entry) can no
@@ -1145,6 +1267,7 @@ def test_baseline_disagrees_only_on_documented_unfreeze_paths() -> None:
         | ALIAS_REMOVAL_20261101_SCOPE_COMPLETION_PATHS
         | REDTEAM_UMDR26_SCOPE_COMPLETION_20261106_PATHS
         | UMDR32_NEW_CAPABILITY_20261109_PATHS
+        | UMDR33_NEW_CAPABILITY_20261110_PATHS
     )
     assert not undocumented_current, (
         f"undocumented paths only in current manifest: {sorted(undocumented_current)}"

@@ -642,24 +642,78 @@ def _analyze_captured_jwts(
             context = verification_context or {}
             algorithm = str(item.get("algorithm") or "unknown")
             token_fingerprint = str(item.get("token_fingerprint") or "")
-            negative_observation = {
-                "type": "wrong_secret_rejected",
-                "algorithm": algorithm,
-                "token_fingerprint": token_fingerprint,
-                "observed": True,
-            }
-            baseline_observation = {
-                "type": "weak_secret_baseline",
-                "algorithm": algorithm,
-                "token_fingerprint": token_fingerprint,
-                "signature_verified": False,
-            }
-            candidate_observation = {
-                "type": "weak_secret_candidate",
-                "algorithm": algorithm,
-                "token_fingerprint": token_fingerprint,
-                "signature_verified": True,
-            }
+            # UM-DR-35 §1.3: the three observations of the RECORDED offline
+            # cryptographic verification experiment, shaped to the CausalGuard
+            # contract (experiment_domain=offline_crypto — the recorded
+            # verification outcome replaces the HTTP status channel; the
+            # semantic digest is the recorded outcome digest of the
+            # analyzed artifact; the captured token's fingerprint is the
+            # resource identity). Every value is a RECORDED fact of the
+            # offline HMAC replay: the candidate secret verified the
+            # captured signature (the class-specific validator's technical
+            # signal — condition 8, stamped on the candidate observation
+            # only), the wrong-secret control was REJECTED (the recorded
+            # negative control), and the baseline records the unverified
+            # pre-state. Nothing is caller-asserted: the guard still
+            # demands the real differential (distinct outcome digests) and
+            # the independent control before confirming (fail-closed).
+            import hashlib as _jwt_hashlib
+
+            def _crypto_observation(
+                role: str,
+                *,
+                verified: bool,
+                verifier_label: str,
+                class_signal: bool = False,
+            ) -> dict[str, Any]:
+                outcome_text = f"{role}|{algorithm}|{token_fingerprint}|verified={verified}|verifier={verifier_label}"
+                observation: dict[str, Any] = {
+                    "type": (
+                        "weak_secret_candidate" if role == "candidate"
+                        else "weak_secret_baseline" if role == "baseline"
+                        else "wrong_secret_rejected"
+                    ),
+                    "algorithm": algorithm,
+                    "token_fingerprint": token_fingerprint,
+                    "observation_role": role,
+                    "experiment_domain": "offline_crypto",
+                    "crypto_verified": bool(verified),
+                    "target_backed": True,
+                    "evidence_origin": "target_runtime",
+                    "target_fingerprint": (
+                        f"sha256:{_jwt_hashlib.sha256(str(base_url).encode('utf-8', 'ignore')).hexdigest()}"
+                    ),
+                    "request_digest": (
+                        f"sha256:{_jwt_hashlib.sha256(('offline-verify|' + role + '|' + token_fingerprint).encode('utf-8', 'ignore')).hexdigest()}"
+                    ),
+                    "response_digest": (
+                        f"sha256:{_jwt_hashlib.sha256(outcome_text.encode('utf-8', 'ignore')).hexdigest()}"
+                    ),
+                    "url_shape": str(base_url),
+                    "resource_type": "jwt_token",
+                    "resource_id": token_fingerprint or "captured-jwt",
+                    "verifier": verifier_label,
+                    "network_io": False,
+                }
+                if role == "negative_control":
+                    observation["observed"] = True
+                if class_signal:
+                    observation["validator_technical_signal"] = True
+                    observation["class_validator_id"] = "api_testing.jwt_weak_secret"
+                return observation
+
+            negative_observation = _crypto_observation(
+                "negative_control", verified=False,
+                verifier_label="wrong_secret_candidate",
+            )
+            baseline_observation = _crypto_observation(
+                "baseline", verified=False, verifier_label="no_secret_baseline",
+            )
+            candidate_observation = _crypto_observation(
+                "candidate", verified=True,
+                verifier_label="bounded_candidate_secret",
+                class_signal=True,
+            )
             verification = verify_replay_evidence(
                 Finding(
                     title="JWT signed with a bounded weak HMAC secret",

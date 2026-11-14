@@ -704,13 +704,24 @@ def run_hunter_campaign(
     started = time.monotonic()
     parsed = urlsplit(target_url)
     execution_target = target_url.rstrip("/")
-    program_scope = ScopeEnforcer(scope_policy) if scope_policy is not None else None
+    # UM-DR-34 §4.6: an omitted ``scope_policy`` must NOT create an
+    # unbounded campaign.  The compatibility path builds an explicit,
+    # narrowly-scoped TARGET-ONLY policy (exact declared origin:
+    # scheme + host + effective port, no wildcards) enforced on every
+    # request via acquire()/release(), and reported as ``target_only``
+    # in the summary — never presented as a full program scope.
+    scope_mode = "program" if scope_policy is not None else "target_only"
+    effective_scope_policy = scope_policy
+    if effective_scope_policy is None:
+        from webpent.scope import authority_for_target_only
+
+        effective_scope_policy = authority_for_target_only(execution_target).policy
+    program_scope = ScopeEnforcer(effective_scope_policy)
     scope_events: list[dict[str, Any]] = []
-    if program_scope is not None:
-        program_scope._on_event = lambda event_type, details: scope_events.append({"event_type": event_type, "details": dict(details)})
-        target_decision = program_scope.check_url(execution_target, method="GET")
-        if not target_decision.allowed:
-            raise ValueError(f"program scope rejected target: {target_decision.violation_code or target_decision.reason}")
+    program_scope._on_event = lambda event_type, details: scope_events.append({"event_type": event_type, "details": dict(details)})
+    target_decision = program_scope.check_url(execution_target, method="GET")
+    if not target_decision.allowed:
+        raise ValueError(f"program scope rejected target: {target_decision.violation_code or target_decision.reason}")
     supplied_principals = principal_credentials if principal_credentials is not None else credentials
     operator_surface_paths = _operator_surface_paths(
         supplied_principals,
@@ -884,39 +895,55 @@ def run_hunter_campaign(
             concrete = _hydrate_concrete_hypothesis(hypothesis, candidate)
             execution_candidate = _avi_candidate_from_concrete(concrete, candidate)
             concrete_specs = _redacted_request_specs(concrete.requests)
-            if program_scope is not None:
-                from urllib.parse import urljoin
+            # UM-DR-34 §4.6/§5.2: every candidate request passes through
+            # ScopeEnforcer.acquire() — the configured scope limits
+            # (rate + concurrency) are actually enforced across the
+            # request execution window, not just checked by URL — and
+            # the permit is ALWAYS released in ``finally`` (cancellation,
+            # network exceptions, scope denials alike).
+            from urllib.parse import urljoin
+
+            _scope_permits = 0
+            try:
                 for phase_name, spec in concrete.requests.items():
                     raw_path = str((spec or {}).get("url") or (spec or {}).get("path") or concrete.target_endpoint)
                     check_url = raw_path if "://" in raw_path else urljoin(execution_target + "/", raw_path.lstrip("/"))
-                    scope_decision = program_scope.check_url(check_url, method=str((spec or {}).get("method") or concrete.method), payload=str((spec or {}).get("body") or ""))
+                    scope_decision = program_scope.acquire(
+                        check_url,
+                        method=str((spec or {}).get("method") or concrete.method),
+                        payload=str((spec or {}).get("body") or ""),
+                    )
                     if not scope_decision.allowed:
                         audit.append_event(event_type="scope.violation.blocked", target_fingerprint=surface.target_fingerprint, details={"phase": phase_name, "code": scope_decision.violation_code or "scope_denied", "method": str((spec or {}).get("method") or concrete.method).upper()})
                         return ExploitationResult(hypothesis.hypothesis_id, HunterStatus.HALTED, False, False, evidence={"scope_blocked": True, "scope_decision": scope_decision.as_dict()}, authority_trace=("ProgramScope", "ScopeLaw", "ToolBoundary", "M4", "AVI"), error="program_scope_blocked_request")
-            result = orchestrator.run_autonomous_validation_campaign(target_url=execution_target, hypotheses=[execution_candidate], max_decisions=1)
-            _sync_observed_production_trace(production_trace, orchestrator)
-            decisions = result.get("decisions") if isinstance(result, dict) else []
-            decision = decisions[0] if decisions else {}
-            notes.append(role="exploiter", section="Attempts", text=f"Delegated concrete {candidate.get('vulnerability_class')} {concrete.method} request triple through governed AVI.", reference=str(candidate.get("hypothesis_id")))
-            return ExploitationResult(
-                hypothesis_id=hypothesis.hypothesis_id,
-                status=HunterStatus.VALIDATING,
-                request_executed=bool(decision),
-                response_received=bool(decision),
-                evidence={
-                    "decision": decision,
-                    "governed_candidate_id": execution_candidate.get("hypothesis_id"),
-                    "authority": "ModernOrchestrator/ScopeLaw/AVI",
-                    "concrete_request": True,
-                    "request_specs": concrete_specs,
-                    "method": concrete.method,
-                    "parameter_to_change": concrete.parameter_to_change,
-                    "owner_value": concrete.owner_value,
-                    "foreign_value": concrete.foreign_value,
-                    "expected_success": concrete.expected_success,
-                },
-                authority_trace=("ScopeLaw", "ToolBoundary", "M4", "AVI", "ProofBundle", "Replay", "PromotionPipeline"),
-            )
+                    _scope_permits += 1
+                result = orchestrator.run_autonomous_validation_campaign(target_url=execution_target, hypotheses=[execution_candidate], max_decisions=1)
+                _sync_observed_production_trace(production_trace, orchestrator)
+                decisions = result.get("decisions") if isinstance(result, dict) else []
+                decision = decisions[0] if decisions else {}
+                notes.append(role="exploiter", section="Attempts", text=f"Delegated concrete {candidate.get('vulnerability_class')} {concrete.method} request triple through governed AVI.", reference=str(candidate.get("hypothesis_id")))
+                return ExploitationResult(
+                    hypothesis_id=hypothesis.hypothesis_id,
+                    status=HunterStatus.VALIDATING,
+                    request_executed=bool(decision),
+                    response_received=bool(decision),
+                    evidence={
+                        "decision": decision,
+                        "governed_candidate_id": execution_candidate.get("hypothesis_id"),
+                        "authority": "ModernOrchestrator/ScopeLaw/AVI",
+                        "concrete_request": True,
+                        "request_specs": concrete_specs,
+                        "method": concrete.method,
+                        "parameter_to_change": concrete.parameter_to_change,
+                        "owner_value": concrete.owner_value,
+                        "foreign_value": concrete.foreign_value,
+                        "expected_success": concrete.expected_success,
+                    },
+                    authority_trace=("ScopeLaw", "ToolBoundary", "M4", "AVI", "ProofBundle", "Replay", "PromotionPipeline"),
+                )
+            finally:
+                for _ in range(_scope_permits):
+                    program_scope.release()
 
         def validate_callback(hypothesis: PlannerHypothesis, exploitation: ExploitationResult, state: dict[str, Any]) -> ValidationVerdict:
             decision = exploitation.evidence.get("decision", {})
@@ -1114,11 +1141,12 @@ def run_hunter_campaign(
                 "browser_observed_forms_added": browser_surface_forms,
             },
             "program_scope": {
-                "enabled": scope_policy is not None,
-                "fingerprint": scope_policy.fingerprint if scope_policy is not None else None,
-                "rule_count": len(scope_policy.rules) if scope_policy is not None else 0,
-                "violation_count": program_scope.violation_count if program_scope is not None else 0,
-                "halted": program_scope.halted if program_scope is not None else False,
+                "enabled": True,
+                "mode": scope_mode,
+                "fingerprint": effective_scope_policy.fingerprint,
+                "rule_count": len(effective_scope_policy.rules),
+                "violation_count": program_scope.violation_count,
+                "halted": program_scope.halted,
                 "events": scope_events[-64:],
             },
             "principal_provisioning": provisioning.as_dict(),

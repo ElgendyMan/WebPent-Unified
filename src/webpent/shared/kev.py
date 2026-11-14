@@ -24,10 +24,15 @@ def enrich_finding_with_kev(finding: Any, kev_ids: Iterable[str]) -> Any:
     evidence = dict(getattr(finding, "evidence", None) or {})
     raw_current = getattr(finding, "confidence", Confidence.TENTATIVE)
     current = raw_current.value if isinstance(raw_current, Confidence) else str(raw_current)
+    # UM-DR-35 corrective closure: a KEV catalog match is advisory evidence.
+    # The confidence ladder deliberately STOPS at FIRM — ``CONFIRMED`` is
+    # the exclusive verdict of the CausalGuard authority through the
+    # universal confirmation boundary, and no enrichment may produce it
+    # (the previous ladder could silently bump an advisory match to a
+    # confirmed state — a confidence-only promotion).
     confidence_order = [
         Confidence.TENTATIVE.value,
         Confidence.FIRM.value,
-        Confidence.CONFIRMED.value,
     ]
     current_index = confidence_order.index(current) if current in confidence_order else 0
     adjusted = confidence_order[min(current_index + 1, len(confidence_order) - 1)]

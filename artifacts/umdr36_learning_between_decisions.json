@@ -1,0 +1,62 @@
+{
+  "window": "UM-DR-35/36 integrated campaign \u2014 learning between decisions",
+  "source_campaign": "artifacts/umdr35_36_integrated_campaign_result.json",
+  "campaign_id": "eng_umdr35_36_integrated",
+  "entry_point": "webpent.cli.unified_hunt.run_unified_hunt (webpent hunt, programmatic core)",
+  "outcome_flow": {
+    "hypothesis": "A foreign authenticated principal may read another customer's invoice object (ownership-boundary failure)",
+    "selected_experiment": {
+      "id": "exp-IDOR-9ba05a1",
+      "shape": "GET /api/invoices/INV-A-101 as User_B (foreign principal)",
+      "authorization": "engagement lab-pentest-authorization; loopback scope only",
+      "linked_hypothesis_id": "exp-IDOR-9ba05a1"
+    },
+    "authorized_execution": {
+      "baseline": "GET as User_A (owner) -> 200, granted_full (recorded digest sha256:c453a2b45074f6bf\u2026)",
+      "candidate": "GET as User_B (foreign) -> 200, granted_full (recorded digest sha256:371dacb4d5bb4d82\u2026)",
+      "negative_control": "GET nonexistent-ID as User_B -> 404, boundary enforced (recorded digest sha256:d133d5ff2e44ed1c\u2026)"
+    },
+    "observed_result": {
+      "validator_outcome": "CONFIRMED (canonical IDOR validator contract: foreign principal granted the owner's resource; control 404 proves boundary enforcement)",
+      "causal_guard_verdict": "CONFIRMED",
+      "authorization_differential": true
+    },
+    "outcome_classification": "CONFIRMED_POSITIVE (cross-actor authorization failure)",
+    "evidence_ledger": {
+      "finding_id": "IDOR-9ba05a10ab842d4f",
+      "experiment_id": "exp-IDOR-9ba05a1",
+      "proof_bundle_id": "proof_bundle_6b5422a037644a8f93858478470016d6",
+      "replay_verified": true,
+      "promotion_decision": "PROMOTED"
+    },
+    "distinct_outcomes_preserved": {
+      "confirmed_positive": 1,
+      "confirmed_negative": 0,
+      "inconclusive": 0,
+      "not_tested": 0,
+      "blocked": 0,
+      "deferred": 0,
+      "validator_unavailable": 0,
+      "note": "no execution failure was converted into a negative result"
+    }
+  },
+  "subsequent_selection_change": {
+    "before": "IDOR hypothesis ranked exploratory (ownership enforcement unknown)",
+    "after": "ownership-enforcement hypothesis RESOLVED positive for invoice objects; adjacent untested resource classes (users directory) become the next priority \u2014 the recorded 404 boundary control proves resource-level mediation exists, so the next experiment targets the users resource class under the same principal pair",
+    "changed_by_observation": "sha256:371dacb4d5bb4d823619923e38f80f8a04995b20bf06af22be318cd46ccaf352",
+    "trace": "the candidate observation (foreign principal granted the owner's invoice) is the recorded outcome that resolved the hypothesis and reordered the remaining resource-class priorities"
+  },
+  "funnel_reconciliation": {
+    "total_findings": 0,
+    "causal_guard_confirmations": 1,
+    "valid_proof_bundles": 1,
+    "replay_verified": 1,
+    "promoted_findings": 1,
+    "confirmed_findings": 1,
+    "reconciles": "1 confirmed = 1 CausalGuard CONFIRMED = 1 valid ProofBundle = 1 verified Replay = 1 promoted, all for finding_id IDOR-9ba05a10ab842d4f",
+    "graph_campaign_findings_total": 0,
+    "note": "the compiled-graph quick campaign surfaced 0 findings on this minimal lab (its crawler/validator coverage targets different surfaces); the confirmed finding comes from the same lab through the production verifier chain \u2014 reported separately, never merged"
+  },
+  "unauthorized_requests": 0,
+  "synthetic_samples_used": 0
+}
