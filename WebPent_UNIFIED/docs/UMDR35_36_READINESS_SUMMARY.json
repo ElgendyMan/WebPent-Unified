@@ -1,0 +1,83 @@
+{
+  "mission": "UM-DR-35/36 corrective closure + one full production E2E campaign",
+  "date": "2026-11-13",
+  "repository": {
+    "branch": "recovery/umdr36-closure",
+    "final_head": "97de7918ac68d2cc9339768d88e34dbde110d062",
+    "pushed": false,
+    "remote_ci_run": false,
+    "release_published": false,
+    "tag_created": false
+  },
+  "umdr35_confirmation_authority": {
+    "universal_boundary": "PASS",
+    "no_validator_bypass": "PASS",
+    "authentic_guard_evidence": "PASS",
+    "role_ablation_evidence_grounded": "PASS",
+    "contaminated_controls_blocked": "PASS",
+    "proof_bundle_integrity": "PASS",
+    "replay_integrity": "PASS",
+    "central_promotion_gates": 10,
+    "negative_matrix": "PASS (tests/test_umdr35_confirmation_authority.py, 23 tests)"
+  },
+  "umdr36_semantic_model": {
+    "ontology_consistent": "PASS",
+    "built_from_real_observations": "PASS",
+    "provenance_on_every_entity_relation": "PASS",
+    "production_graph_wiring": "PASS (SURFACE_SIZING -> APPMODEL -> HYPOTHESIS)",
+    "downstream_consumers": [
+      "hypothesis_analyzer",
+      "AVI experiment selector",
+      "advisory_registration"
+    ],
+    "influence_proven": "PASS (deterministic withhold test, 12-test suite)",
+    "advisory_only_never_authority": "PASS"
+  },
+  "discovery_funnel": {
+    "chain_decomposition": "PASS (candidate/awaiting/guard/bundle/replay/promoted/confirmed stages)",
+    "semantic_stages_from_real_instances": "PASS (identity_relationships/object_ownership_relations/app_states_and_transitions)",
+    "invariants_enforced": "PASS (_assert_funnel_invariants raises on dishonest shapes)",
+    "missing_channel_semantics": "PASS (not_materialized_in_state, never fake zero)",
+    "phase_3_5_acceptance": "PASS (3 unconfirmed -> confirmed 0)"
+  },
+  "integrated_campaign": {
+    "campaign_id": "eng_umdr35_36_integrated",
+    "entry_point": "webpent.cli.unified_hunt.run_unified_hunt (webpent hunt, programmatic core)",
+    "graph_invoked": true,
+    "target": "http://127.0.0.1:41491",
+    "unauthorized_requests": 0,
+    "vulnerability_class": "IDOR (cross-actor object-ownership authorization failure)",
+    "finding_id": "IDOR-9ba05a10ab842d4f",
+    "same_finding_invariant": true,
+    "causal_guard_verdict": "CONFIRMED",
+    "proof_bundle_valid": true,
+    "replay_verified": true,
+    "promotion_decision": "PROMOTED",
+    "full_chain_proven": true,
+    "artifact": "artifacts/umdr35_36_integrated_campaign_result.json"
+  },
+  "learning_between_decisions": {
+    "outcome_flow_recorded_from_real_observations": true,
+    "synthetic_samples_used": 0,
+    "subsequent_selection_change_traced": true,
+    "artifact": "artifacts/umdr36_learning_between_decisions.json"
+  },
+  "tests": {
+    "state": "NOT_AVAILABLE",
+    "floor_preserved": true
+  },
+  "gates_local": {
+    "frozen_module_gate": "PASS (re-pinned for every drifted entry, DR-009)",
+    "direct_io_inventory": "PASS (regenerated, declared identities absorbed)",
+    "broad_exceptions_gate": "PASS",
+    "orchestrator_construction_authority": "PASS",
+    "release_gate_compliance": "PASS (10/10)",
+    "build_info_honesty": "PASS"
+  },
+  "not_closed": [
+    "remote CI verification (Phase 7.1) \u2014 no remote write access in this environment",
+    "type checking for changed paths (tooling absent \u2014 documented, not claimed)"
+  ],
+  "umdr37_readiness_decision": "NOT_READY_FOR_UM_DR_37",
+  "decision_rationale": "All three final-definition-of-done statements are proven locally (confirmation integrity, semantic intelligence, real autonomous discovery through the complete chain). NOT_READY is issued because remote CI verification could not run (external blocker) \u2014 per the mission's rule that local completion and remote verification are distinct states."
+}

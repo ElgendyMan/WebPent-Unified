@@ -1,0 +1,196 @@
+# R-08 (TEAM-2 residual): the delivery ZIP shipped without .github/, which
+# made tests/test_production_deployment_contract.py::
+# test_ci_security_environment_contract_is_explicit unverifiable. This
+# workflow restores the declared CI security-environment contract:
+# deterministic/offline providers only, no auth surface, no tool or webhook
+# egress, and the preserved test-count floor.
+#
+# Sprint I-1b, item 1.3 -- gate-to-finding map (read this before removing
+# any REQUIRED step below; each one re-opens exactly the finding named):
+#
+#   Static state-contract law            -> pre-existing (R-08 era) state-shape drift
+#   Orchestrator construction authority  -> the ORIGINAL P0 bypass (direct
+#                                            ModernOrchestrator construction,
+#                                            outside resolve_production_spine)
+#                                            -- ratified in R1, but was NEVER
+#                                            wired into CI before this sprint;
+#                                            a PR could have reintroduced it
+#                                            and stayed green
+#   Isolation denylist (S-1)             -> Sprint I-1 Part 2: external-writer
+#                                            (Strix) reachability from the
+#                                            production composition
+#   Vault import authority               -> Sprint I-1 Part 3: the
+#                                            reauth_vault perimeter (only
+#                                            Table 2-2's 8 callers may import
+#                                            the 10 vault symbols)
+#   Preserved test-count floor           -> silent test deletion/skip-mass
+#                                            drift (Sprint I-1b item 1.2:
+#                                            floor is now pytest's own real
+#                                            --collect-only count against a
+#                                            checked-in floor file, never a
+#                                            hand-typed CLI literal)
+#   VIP audit-gap closure suite          -> a previously-closed audit gap
+#                                            silently reopening
+#
+# Sprint I-1b item 3.1 note on the two steps below marked NOT REQUIRED:
+# ruff and pip-audit both found large PRE-EXISTING debt this sprint could
+# not respons­ibly clear in one pass (3,750 ruff findings after the safe
+# auto-fix -- the brief anticipated ~19; 12 known CVEs in the pinned
+# langgraph/langgraph-checkpoint*/langgraph-sdk versions, fixed only by a
+# 0.x->1.x major-version bump this sprint did not attempt, since that is
+# a separate, much larger, integration-testing-heavy effort, not a
+# one-line fix). Both run and REPORT on every CI run (so the debt stays
+# visible and cannot silently grow unnoticed) but do not fail the build
+# yet. See the sprint changelog for the full numbers and the escalation.
+# Promote each to a REQUIRED (blocking) step once its backlog is cleared.
+#
+# RESIDUAL CLOSURE WINDOW 2026-10-29 (unified roadmap Track 1) — the two
+# report-only steps above were PROMOTED to blocking gates, exactly as
+# this header planned, because the blockers they named no longer hold:
+#   * the lock moved to the langgraph 1.x family and the recorded scan
+#     (docs/pip_audit_release.json) reports ZERO open vulnerabilities;
+#   * ruff debt cannot be big-bang cleared, so it is now held by a
+#     RATCHET (scripts/check_ruff_ratchet.py + frozen baseline) that
+#     blocks INCREASES while scheduled batch reductions lower the bar.
+# New REQUIRED gates added in the same window (Track 1 table):
+#   * secret scanning (scripts/check_secrets.py, fingerprint-precise
+#     allowlist), SAST via the existing bandit high-severity gate,
+#     dependency CVE gate with audited allowlist, per-release SBOM
+#     artifact, and a coverage floor (measured baseline, ratchet).
+# Nightly lab canary + evidence: see .github/workflows/nightly.yml.
+name: WebPent CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  tests:
+    # Playwright Chromium is not yet supported on the Ubuntu 26 runner image.
+    # Pin the CI host image so browser integration tests remain reproducible.
+    runs-on: ubuntu-24.04
+    env:
+      LLM_ENABLED: "false"
+      EMBEDDINGS_OFFLINE: "true"
+      DISABLE_RAG: "true"
+      AUTH_ENABLED: "false"
+      FFUF_ENABLED: "false"
+      WEBHOOK_ENABLED: "false"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - name: Sync locked dependencies
+        run: uv sync --locked --extra dev
+
+      # Phase-2 P2-201b (audit R7, 2026-11-01, merged from v15.2 R4): browser
+      # integration tests launch a real Chromium; without this step they could
+      # never pass on a stock runner (the browser download was missing).
+      - name: Install Playwright Chromium
+        run: uv run playwright install chromium
+
+      # --- Static gates (REQUIRED) -----------------------------------
+      # Fast, no test-suite execution needed -- fail here first.
+
+      - name: Static state-contract law
+        run: uv run python scripts/check_state_contract.py --quiet
+
+      - name: Orchestrator construction authority (R1 gate)
+        run: uv run python scripts/check_orchestrator_construction_authority.py --quiet
+
+      - name: Isolation denylist (Sprint I-1 S-1)
+        run: uv run python scripts/check_isolation_denylist.py --quiet
+
+      - name: Vault import authority (Sprint I-1 M4)
+        run: uv run python scripts/check_vault_import_authority.py --quiet
+
+      - name: Preserved test-count floor
+        run: uv run python scripts/verify_test_count.py --floor-file scripts/test_count_floor.json
+
+      # Phase-2 P2-205 (2026-11-01, merged from v15.2 R4): BUILD_INFO.json is
+      # delivery provenance — well-formedness, provenance stability, and an
+      # inflation guard on suite_count.
+      - name: Build-info honesty (P2-205)
+        run: uv run python scripts/check_build_info_honesty.py
+      # Sprint I-1b item B.3: G-08 direct-I/O inventory drift gate.
+      # Re-runs the AST inventory on src/ and fails if it has drifted from
+      # the recorded artifact (docs/direct_io_inventory.json). One approval-
+      # completeness check inside the test is xfail pending security review
+      # of 18 raw-transport sites (see the test file's docstring).
+      - name: G-08 direct-I/O inventory drift (Sprint I-1b B.3)
+        run: uv run pytest -q tests/test_g02_direct_io_inventory.py
+
+      # --- Track-1 quality/security gates (REQUIRED, 2026-10-29) ------
+      # Ruff ratchet: blocks INCREASES over the frozen baseline
+      # (scripts/quality/ruff_baseline.json); reductions re-freeze it.
+      - name: Ruff ratchet (no new findings)
+        run: uv run python scripts/check_ruff_ratchet.py
+
+      # Dependency CVE gate: blocking with an audited allowlist
+      # (scripts/quality/cve_allowlist.json) — new vulns fail the build.
+      - name: Dependency CVE gate (audited allowlist)
+        run: uv run python scripts/check_deps_gate.py
+
+      # Secret scanning (Track 1: كشف الأسرار): values are never printed.
+      - name: Secret scan
+        run: uv run python scripts/check_secrets.py
+
+      # SAST: the existing Makefile high-severity bandit gate, now in CI.
+      - name: Bandit SAST (high severity)
+        run: uv run bandit -q -r src/webpent -x tests -lll
+
+      # M1-C (UM-DR-12): the honest-coverage ratchet as a REQUIRED gate.
+      # Measures the floor file's pinned scope and fails below the floor;
+      # the floor only moves up (a lowering is an explicit, reviewed
+      # --allow-lower decision recorded in the DRIFT_REGISTER).
+      - name: Coverage ratchet (M1-C)
+        run: make coverage-ratchet
+
+      # SBOM per CI run (Track 1: SBOM) — CycloneDX from the locked env.
+      - name: Generate SBOM (CycloneDX)
+        run: |
+          uv export --locked --format requirements-txt --output-file /tmp/locked-requirements.txt
+          uv run pip-audit --format cyclonedx-json --output docs/sbom.cdx.json -r /tmp/locked-requirements.txt || true
+      - name: Upload SBOM artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom-cyclonedx
+          path: docs/sbom.cdx.json
+          if-no-files-found: warn
+
+      # --- Test suites --------------------------------------------------
+
+      - name: VIP audit-gap closure suite
+        run: uv run pytest -q tests/test_vip_audit_gap_closure.py
+
+      # UM-DR-36.1 §4: isolate any pre-existing evidence BEFORE the run.
+      # The runner also deletes it, but an explicit removal step makes the
+      # contract visible in the workflow and guarantees no artifact left
+      # behind by an earlier workflow or local run can be mistaken for
+      # this run's evidence.
+      - name: Remove stale test evidence
+        run: |
+          rm -f docs/FULL_SUITE_EVIDENCE.txt docs/FULL_SUITE_EVIDENCE.json
+          echo "stale evidence removed (if any)"
+
+      - name: Full regression suite with evidence
+        run: uv run python scripts/run_tests_with_evidence.py
+
+      - name: Require complete current-run test evidence
+        if: always()
+        run: uv run python scripts/check_test_evidence.py
+
+      - name: Upload full-suite evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: full-suite-evidence
+          path: docs/FULL_SUITE_EVIDENCE.txt
+          if-no-files-found: error

@@ -1,0 +1,69 @@
+{
+  "mission": "UM-DR-36.1 recovery integrity & true production E2E closure",
+  "generated_at": "2026-11-14T11:14:05.953756+00:00",
+  "repository": {
+    "branch": "recovery/umdr36-closure",
+    "base": "1968f63c2076b1b804537f91cd5cfa01c3eee0bb",
+    "head": "0d9511f325a215a6fc7dd6228b966f710dd4fc7d",
+    "pushed": false,
+    "push_blocker": "no GitHub credentials in this environment (git push: could not read Username; gh CLI absent; API rate-limited unauthenticated)"
+  },
+  "package_version": "0.40.1",
+  "recovery": {
+    "zip_vs_tree": "4809 = 4802 tracked (byte-identical) + 7 untracked build artifacts",
+    "recovery_baseline_established": true,
+    "recovery_scripts_portable": true,
+    "manifest_repin": "DR-009 re-pinned (declared UM-DR-36.1 drift)",
+    "verification_verdict": "NOT_VERIFIED"
+  },
+  "dependency_sync": {
+    "uv_lock_check": "PASS",
+    "uv_sync_locked_dev": "PASS",
+    "pip_check": "PASS",
+    "import_and_cli": "PASS"
+  },
+  "build_info": {
+    "gate_redesigned": true,
+    "gate_tests": "23/23 PASS",
+    "rebaseline_commit": "PENDING full-suite completion"
+  },
+  "test_evidence": {
+    "contract_implemented": true,
+    "adversarial_tests": "40/40 PASS (23 provenance + 17 evidence)",
+    "full_suite_state": "completed_with_failures",
+    "full_suite_accounting": {
+      "passed": 9019,
+      "failed": 101,
+      "skipped": 12,
+      "xfailed": 3,
+      "xpassed": 0,
+      "deselected": 0,
+      "errors": 7,
+      "collected": 9141,
+      "executed": 9142,
+      "accounting_consistent": 0,
+      "summary_found": 1
+    }
+  },
+  "confirmation_authority": {
+    "family_promotion_bypass": "CLOSED (non-authoritative candidate insertion; Tool-Confirmed only via canonical verification)",
+    "stateful_discovery_confirmed_minting": "CLOSED (Pending candidate)",
+    "authority_tests": "tests/test_umdr36_1_confirmation_authority.py",
+    "oob_and_benchmark_paths": "documented in audit; lab/test-scoped, no production importers"
+  },
+  "production_e2e": {
+    "campaign_ok": false,
+    "finding_id": null,
+    "promotion_decision": null
+  },
+  "learning_between_decisions": {
+    "outcomes_recorded": true,
+    "selection_change_proven": false,
+    "verdict": "LEARNING_NOT_PROVEN"
+  },
+  "not_completed": [
+    "remote push / GitHub Actions verification / PR (credentials blocker \u2014 bundle provided instead)"
+  ],
+  "umdr37_readiness_decision": "NOT_READY_FOR_UM_DR_37",
+  "decision_rationale": "Substantial recovery/integrity work is verified locally (hash-verified recovery, dependency sync, evidence contract + adversarial tests, confirmation-authority closure, manifest re-pin), but mandatory acceptance items remain open: the completed full-suite evidence + BUILD_INFO re-baseline, the completed production E2E proof (if still running at handoff), the two-decision learning proof, and all remote CI verification. Per the mission's rule the readiness decision stays NOT_READY."
+}

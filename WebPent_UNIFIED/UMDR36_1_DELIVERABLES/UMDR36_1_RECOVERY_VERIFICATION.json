@@ -1,0 +1,68 @@
+{
+  "command": "scripts/verify_recovery_umdr36.py",
+  "spec": "UM-DR-36.1 \u00a71.4 reproducible recovery verification",
+  "executed_at": "2026-11-14T09:45:26.487285+00:00",
+  "repo_root": "/home/z/my-project/work/repo",
+  "git_state": {
+    "head": "97de7918ac68d2cc9339768d88e34dbde110d062",
+    "clean": false,
+    "recovery_baseline": "1968f63c2076b1b804537f91cd5cfa01c3eee0bb (public main at mission start)"
+  },
+  "required_files": {
+    "checked": 10,
+    "missing": [],
+    "ok": true
+  },
+  "frozen_module_integrity": {
+    "manifest": "frozen_modules.sha256",
+    "entries": 645,
+    "missing_files": [],
+    "hash_mismatches": [
+      "src/webpent/shared/engagement_scope.py"
+    ],
+    "ok": false
+  },
+  "baseline_pins": {
+    "BASELINE.sha256.txt": {
+      "target": "src/webpent/modern_spine.py",
+      "digest_ok": false,
+      "ok": false
+    },
+    "POST.sha256.txt": {
+      "target": "src/webpent/modern_spine.py",
+      "digest_ok": false,
+      "ok": false
+    }
+  },
+  "version_consistency": {
+    "versions": {
+      "pyproject.toml (SSOT)": "0.40.1",
+      "src/webpent/__init__.py": "0.40.1",
+      "uv.lock webpent entry": "0.40.1",
+      "BUILD_INFO.json package_version": "0.40.0"
+    },
+    "consistent": false,
+    "ok": false
+  },
+  "campaign_artifact": {
+    "path": "artifacts/umdr35_36_integrated_campaign_result.json",
+    "campaign_id": "eng_umdr35_36_integrated",
+    "finding_id": "IDOR-9ba05a10ab842d4f",
+    "problems": [
+      "confirmation_chain.causal_guard.finding_id != same_finding_invariant.finding_id ({} vs 'IDOR-9ba05a10ab842d4f')"
+    ],
+    "ok": false
+  },
+  "unverified_historical_claims": [
+    "BUILD_INFO.json umdr32/suite_evidence/suite_count fields (historical records, predating the recovery baseline)",
+    "docs/UMDR35_36_READINESS_SUMMARY.json local head df2b50d (not resolvable in the public repository \u2014 recorded by the mission brief as an unverifiable historical reference)"
+  ],
+  "verdict": "NOT_VERIFIED",
+  "checks": {
+    "required_files": "PASS",
+    "frozen_manifest": "FAIL",
+    "baseline_pins": "FAIL",
+    "version_consistency": "FAIL",
+    "campaign_artifact": "FAIL"
+  }
+}

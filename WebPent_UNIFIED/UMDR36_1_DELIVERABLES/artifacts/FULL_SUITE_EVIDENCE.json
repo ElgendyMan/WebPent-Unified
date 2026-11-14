@@ -1,0 +1,43 @@
+{
+  "schema": "full-suite-evidence/v2",
+  "runner": "run_tests_with_evidence.py",
+  "source_commit": "b3997c9158df0789b89530d31e52109f6ffa7f45",
+  "tree_clean": false,
+  "github": null,
+  "started_at_utc": "2026-11-14T10:05:07.727312+00:00",
+  "completed_at_utc": "2026-11-14T10:25:59.569002+00:00",
+  "python_version": "3.12.16",
+  "uv_version": "uv 0.13.8 (x86_64-unknown-linux-gnu)",
+  "lockfile_sha256": "7cfd89c9eddd6e59c60ee7b3d04e228e936b57c88643f77703f5604240fa1106",
+  "command": [
+    "/home/z/my-project/work/repo/.venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/",
+    "-v",
+    "--tb=short",
+    "--cov=src/webpent",
+    "--cov-report=json:/home/z/my-project/work/repo/docs/coverage_last_run.json",
+    "--cov-fail-under=72"
+  ],
+  "test_scope_digest": "83c874fd30a25948ad0434e05e5f78894f19fdf0a7a0df36b170863b22e5a117",
+  "accounting": {
+    "passed": 9019,
+    "failed": 101,
+    "skipped": 12,
+    "xfailed": 3,
+    "xpassed": 0,
+    "deselected": 0,
+    "errors": 7,
+    "collected": 9141,
+    "executed": 9142,
+    "accounting_consistent": 0,
+    "summary_found": 1
+  },
+  "coverage": {
+    "floor_percent": 72,
+    "result": "76.17% (floor 72% \u2014 OK)",
+    "percent_covered": 76.17
+  },
+  "exit_code": 1
+}

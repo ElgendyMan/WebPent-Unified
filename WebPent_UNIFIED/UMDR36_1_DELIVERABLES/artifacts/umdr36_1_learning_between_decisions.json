@@ -1,0 +1,56 @@
+{
+  "schema": "umdr36-1-learning/v1",
+  "executed_at": "2026-11-14T10:05:59.441148+00:00",
+  "mechanism": {
+    "orchestrator": "webpent.egaie.orchestrator.InvestigationOrchestrator.run",
+    "selector": "webpent.egaie.selection.InformationGainSelector",
+    "state": "webpent.egaie.schemas.InvestigationState",
+    "outcome_recording": "InvestigationState.mark_experiment_outcome + RepetitionRegister.record (inside orchestrator._run_experiment)"
+  },
+  "decision_1": {
+    "experiment_id": null,
+    "hypothesis_id": null,
+    "rationale": "highest information gain: e-neg-bola-1 (score 0.6, signature neg-bola-1/BOLA)",
+    "scores": {
+      "e-pos-idor-1": 0.6,
+      "e-pos-bola-1": 0.6,
+      "e-pos-authbypass-1": 0.6,
+      "e-pos-idor-multi": 0.6,
+      "e-neg-idor-1": 0.6,
+      "e-neg-bola-1": 0.6
+    }
+  },
+  "recorded_outcomes": {
+    "e-neg-bola-1": "clean",
+    "e-neg-idor-1": "clean",
+    "e-pos-authbypass-1": "confirmed"
+  },
+  "evidence_items": [
+    {
+      "hypothesis_id": null,
+      "stance": null
+    },
+    {
+      "hypothesis_id": null,
+      "stance": null
+    },
+    {
+      "hypothesis_id": null,
+      "stance": null
+    }
+  ],
+  "decision_2": {
+    "experiment_id": null,
+    "hypothesis_id": null,
+    "rationale": "highest information gain: e-neg-idor-1 (score 0.6, signature neg-idor-1/IDOR)",
+    "scores": {
+      "e-pos-idor-1": 0.6,
+      "e-pos-bola-1": 0.6,
+      "e-pos-authbypass-1": 0.6,
+      "e-pos-idor-multi": 0.6,
+      "e-neg-idor-1": 0.6
+    }
+  },
+  "selection_changed_by_recorded_evidence": false,
+  "problems": []
+}

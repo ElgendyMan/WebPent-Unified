@@ -1,0 +1,58 @@
+{
+  "schema": "umdr36-1-production-e2e/v1",
+  "campaign": {
+    "campaign_id": "eng-umdr36-1-production-e2e",
+    "entry_point": "webpent.cli.unified_hunt.run_unified_hunt",
+    "executed_at": "2026-11-14T10:06:18.103869+00:00",
+    "target": "http://127.0.0.1:46579",
+    "target_fingerprint": "sha256:4c54efdcb9937e99318c5edc826fe2d8b09fdf96841ea2378d11d3770c60b5b4",
+    "authorization_boundary": {
+      "authorization": "umdr36-1-authorized-lab-engagement",
+      "scope": "127.0.0.1 loopback only (ephemeral port)",
+      "mode": "standard",
+      "no_llm": true,
+      "auto_approve": true
+    },
+    "graph_invoked": true,
+    "thread_id": "829053f5-c39b-435a-a2da-5b0312d6ad39",
+    "engagement_id": "eng-umdr36-1-production-e2e",
+    "elapsed_s": 17.6
+  },
+  "lab_scenario": {
+    "principals": [
+      "User_A (owner, session sess-a7f3d1)",
+      "User_B (foreign, session sess-b9e2c4)",
+      "User_ADMIN (admin, session sess-adm0)"
+    ],
+    "resources": [
+      "INV-A-101 (owner User_A)",
+      "INV-B-777 (owner User_B)",
+      "INV-ADMIN-9001 (admin-restricted)"
+    ],
+    "vulnerable_path": "GET /api/invoices/INV-A-101 as User_B -> 200",
+    "owner_baseline": "GET /api/invoices/INV-A-101 as User_A -> 200",
+    "negative_control": "GET /api/invoices/INV-ADMIN-9001 as User_B -> 403 (boundary ENFORCED on a known resource \u2014 independent of the candidate observation)",
+    "boundary_probe": "GET /api/invoices/INV-NOPE-0000 -> 404"
+  },
+  "discovery": {
+    "findings_total": 0,
+    "findings_confirmed": 0,
+    "findings_detail": [],
+    "idor_finding": null
+  },
+  "promotion": {
+    "dispatch": "attempted",
+    "error": "TypeError(\"ProductionSpineConfig.__init__() missing 3 required positional arguments: 'engagement_id', 'target_url', and 'entrypoint'\")"
+  },
+  "same_finding_invariant": {
+    "discovery_finding_id": null,
+    "discovery_bundle_id": null,
+    "promotion_finding_id": null
+  },
+  "problems": [
+    "production discovery produced ZERO findings",
+    "no IDOR finding in the production findings"
+  ],
+  "unauthorized_requests": 0,
+  "secret_redaction": "session cookies supplied via the production identity channels only; never recorded in the artifact"
+}
