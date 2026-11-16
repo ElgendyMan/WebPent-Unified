@@ -1,0 +1,35 @@
+{
+  "schema": "umdr37-multi-family-results/v1",
+  "generated_at_utc": "2026-11-16T05:24:44.613919+00:00",
+  "families": {
+    "access_control_idor": {
+      "status": "PRODUCTION_PATH_VERIFIED",
+      "evidence": "3/3 run_unified_hunt campaigns confirm both boundary violations (INV-A-101, INV-B-777) via CausalGuard+bundle+replay; artifacts/umdr37_production_campaigns.json"
+    },
+    "business_logic": {
+      "status": "INTEGRATED",
+      "evidence": "family spine (families/business_logic, 6 scenarios) behind enable_family_execution_spine; lab-verified in tests/test_umdr31_campaign_e2e_ablation.py (research loop + family execution co-run in the real graph)"
+    },
+    "tenant_isolation": {
+      "status": "INTEGRATED",
+      "evidence": "family registry + passive analyzers; dedupe contract pinned in tests/test_umdr37_adversarial.py"
+    },
+    "race_condition": {
+      "status": "INTEGRATED (flag-gated spine)",
+      "evidence": "families/race_conditions scenarios + analyzer wired in family_execution node"
+    },
+    "multi_step_auth_bypass": {
+      "status": "INTEGRATED (flag-gated spine)",
+      "evidence": "families/multi_step_auth"
+    },
+    "oauth": {
+      "status": "INTEGRATED (flag-gated spine)",
+      "evidence": "families/oauth"
+    },
+    "injection_xss_ssrf_open_redirect": {
+      "status": "IMPLEMENTED (hypothesis generation + AVI contracts)",
+      "evidence": "hypothesis_analyzer URL/parameter signatures + production/vulnerability_family_contracts.py (advisory); NOT production-path confirmed in this mission's lab (no such vuln in the lab scenario)"
+    }
+  },
+  "honest_scope": "one family (access control) is PRODUCTION-path verified; the spine families are lab/flag-integrated; no family beyond access control claims production confirmation"
+}

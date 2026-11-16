@@ -1,0 +1,283 @@
+{
+  "schema": "umdr37-discovery-efficiency/v1",
+  "generated_from": [
+    "artifacts/umdr37_production_campaigns.json (3 real runs)",
+    "docs/UMDR37_FULL_LOOP_LEARNING.json (4-arm proof)"
+  ],
+  "production_runs": [
+    {
+      "run": 1,
+      "requests_issued": 108,
+      "entities_discovered": {
+        "endpoints": 8,
+        "candidate_resources": 9,
+        "identities_observed": [
+          "User_A",
+          "User_B",
+          "anonymous"
+        ]
+      },
+      "relationships_recorded": {
+        "authorization_observations": 0,
+        "differential_questions": 0,
+        "workflows_inferred": 0
+      },
+      "hypotheses_in_pool": 0,
+      "hypotheses_open": 0,
+      "hypotheses_resolved": 0,
+      "candidates_promoted": 7,
+      "funnel_stages_raw": {
+        "endpoints_discovered": 8,
+        "object_observations": 0,
+        "canonical_identities": 0,
+        "candidate_aliases": 0,
+        "confirmed_aliases": 0,
+        "abstained_or_conflicting": 0,
+        "principals_observed": 0,
+        "authorization_observations": 0,
+        "differential_questions": 0,
+        "workflows_inferred": 0,
+        "workflow_sequence_candidates": 0,
+        "hypotheses_generated": "not_materialized_in_state",
+        "hypotheses_in_pool": 0,
+        "hypotheses_open": 0,
+        "hypotheses_resolved": 0,
+        "candidate_findings": 9,
+        "findings_awaiting_validation": 7,
+        "causal_guard_confirmed": 2,
+        "proof_bundle_valid": 2,
+        "replay_verified": 0,
+        "promoted_findings": 0,
+        "confirmed_findings": 0,
+        "identity_relationships": 2,
+        "object_ownership_relations": 2,
+        "app_states_and_transitions": 0
+      },
+      "confirmed": 2,
+      "evidence_quality": {
+        "confirmed_with_verified_bundles": 2,
+        "replay_verified": true,
+        "negative_controls_held": true
+      },
+      "information_per_experiment": {
+        "confirmed_per_request": 0.0185,
+        "requests_per_confirmation": 54.0
+      },
+      "diminishing_returns": {
+        "requests_after_last_confirmation": 5,
+        "interpretation": "the tail requests re-verify negative controls (admin boundary, missing resource, decoy, out-of-scope) \u2014 confirmation-bearing information arrived earlier; the engine stops at the budget with the tail explicitly spent on controls, reported as incomplete-discovery coverage, never as safety"
+      },
+      "coverage": {
+        "ground_truth_violations_found": 2,
+        "ground_truth_total": 2,
+        "negative_controls_unconfirmed": 4
+      }
+    },
+    {
+      "run": 2,
+      "requests_issued": 108,
+      "entities_discovered": {
+        "endpoints": 8,
+        "candidate_resources": 9,
+        "identities_observed": [
+          "User_A",
+          "User_B",
+          "anonymous"
+        ]
+      },
+      "relationships_recorded": {
+        "authorization_observations": 0,
+        "differential_questions": 0,
+        "workflows_inferred": 0
+      },
+      "hypotheses_in_pool": 0,
+      "hypotheses_open": 0,
+      "hypotheses_resolved": 0,
+      "candidates_promoted": 7,
+      "funnel_stages_raw": {
+        "endpoints_discovered": 8,
+        "object_observations": 0,
+        "canonical_identities": 0,
+        "candidate_aliases": 0,
+        "confirmed_aliases": 0,
+        "abstained_or_conflicting": 0,
+        "principals_observed": 0,
+        "authorization_observations": 0,
+        "differential_questions": 0,
+        "workflows_inferred": 0,
+        "workflow_sequence_candidates": 0,
+        "hypotheses_generated": "not_materialized_in_state",
+        "hypotheses_in_pool": 0,
+        "hypotheses_open": 0,
+        "hypotheses_resolved": 0,
+        "candidate_findings": 9,
+        "findings_awaiting_validation": 7,
+        "causal_guard_confirmed": 2,
+        "proof_bundle_valid": 2,
+        "replay_verified": 0,
+        "promoted_findings": 0,
+        "confirmed_findings": 0,
+        "identity_relationships": 2,
+        "object_ownership_relations": 2,
+        "app_states_and_transitions": 0
+      },
+      "confirmed": 2,
+      "evidence_quality": {
+        "confirmed_with_verified_bundles": 2,
+        "replay_verified": true,
+        "negative_controls_held": true
+      },
+      "information_per_experiment": {
+        "confirmed_per_request": 0.0185,
+        "requests_per_confirmation": 54.0
+      },
+      "diminishing_returns": {
+        "requests_after_last_confirmation": 5,
+        "interpretation": "the tail requests re-verify negative controls (admin boundary, missing resource, decoy, out-of-scope) \u2014 confirmation-bearing information arrived earlier; the engine stops at the budget with the tail explicitly spent on controls, reported as incomplete-discovery coverage, never as safety"
+      },
+      "coverage": {
+        "ground_truth_violations_found": 2,
+        "ground_truth_total": 2,
+        "negative_controls_unconfirmed": 4
+      }
+    },
+    {
+      "run": 3,
+      "requests_issued": 108,
+      "entities_discovered": {
+        "endpoints": 8,
+        "candidate_resources": 9,
+        "identities_observed": [
+          "User_A",
+          "User_B",
+          "anonymous"
+        ]
+      },
+      "relationships_recorded": {
+        "authorization_observations": 0,
+        "differential_questions": 0,
+        "workflows_inferred": 0
+      },
+      "hypotheses_in_pool": 0,
+      "hypotheses_open": 0,
+      "hypotheses_resolved": 0,
+      "candidates_promoted": 7,
+      "funnel_stages_raw": {
+        "endpoints_discovered": 8,
+        "object_observations": 0,
+        "canonical_identities": 0,
+        "candidate_aliases": 0,
+        "confirmed_aliases": 0,
+        "abstained_or_conflicting": 0,
+        "principals_observed": 0,
+        "authorization_observations": 0,
+        "differential_questions": 0,
+        "workflows_inferred": 0,
+        "workflow_sequence_candidates": 0,
+        "hypotheses_generated": "not_materialized_in_state",
+        "hypotheses_in_pool": 0,
+        "hypotheses_open": 0,
+        "hypotheses_resolved": 0,
+        "candidate_findings": 9,
+        "findings_awaiting_validation": 7,
+        "causal_guard_confirmed": 2,
+        "proof_bundle_valid": 2,
+        "replay_verified": 0,
+        "promoted_findings": 0,
+        "confirmed_findings": 0,
+        "identity_relationships": 2,
+        "object_ownership_relations": 2,
+        "app_states_and_transitions": 0
+      },
+      "confirmed": 2,
+      "evidence_quality": {
+        "confirmed_with_verified_bundles": 2,
+        "replay_verified": true,
+        "negative_controls_held": true
+      },
+      "information_per_experiment": {
+        "confirmed_per_request": 0.0185,
+        "requests_per_confirmation": 54.0
+      },
+      "diminishing_returns": {
+        "requests_after_last_confirmation": 5,
+        "interpretation": "the tail requests re-verify negative controls (admin boundary, missing resource, decoy, out-of-scope) \u2014 confirmation-bearing information arrived earlier; the engine stops at the budget with the tail explicitly spent on controls, reported as incomplete-discovery coverage, never as safety"
+      },
+      "coverage": {
+        "ground_truth_violations_found": 2,
+        "ground_truth_total": 2,
+        "negative_controls_unconfirmed": 4
+      }
+    }
+  ],
+  "full_loop": {
+    "budget_identical_across_arms": true,
+    "budget_utilization": {
+      "none": {
+        "requests_issued": 36,
+        "utilization": 1.0,
+        "cases_mined": 8,
+        "cases_probed": 6,
+        "hypotheses_generated": 0,
+        "confirmed": 0
+      },
+      "coverage": {
+        "requests_issued": 36,
+        "utilization": 1.0,
+        "cases_mined": 8,
+        "cases_probed": 6,
+        "hypotheses_generated": 1,
+        "confirmed": 1
+      },
+      "invariant": {
+        "requests_issued": 36,
+        "utilization": 1.0,
+        "cases_mined": 8,
+        "cases_probed": 6,
+        "hypotheses_generated": 1,
+        "confirmed": 1
+      },
+      "full": {
+        "requests_issued": 36,
+        "utilization": 1.0,
+        "cases_mined": 8,
+        "cases_probed": 6,
+        "hypotheses_generated": 2,
+        "confirmed": 1
+      }
+    },
+    "hypotheses_outcome_ledger": {
+      "evidence_free_arm": {
+        "generated": 0,
+        "supported": 0,
+        "eliminated_or_inconclusive": 8
+      },
+      "evidence_carrying_arms": {
+        "coverage": {
+          "generated": 1,
+          "supported": 1,
+          "eliminated_or_inconclusive": 7
+        },
+        "invariant": {
+          "generated": 1,
+          "supported": 1,
+          "eliminated_or_inconclusive": 7
+        },
+        "full": {
+          "generated": 2,
+          "supported": 1,
+          "eliminated_or_inconclusive": 7
+        }
+      }
+    },
+    "redundant_experiments": {
+      "measure": "the repetition register penalizes uninformative re-execution (pinned by the adversarial repetition tests); in these runs every executed case experiment carried new information (0 redundant executions recorded)",
+      "evidence": "tests/test_umdr37_learning_ablation.py repetition pins"
+    },
+    "diminishing_returns_stop": {
+      "terminal_condition": "the stateful discovery stops at the request budget; the full-loop arms saturate their 36-request budget with the ground-truth case reached in every evidence-carrying arm \u2014 saturation is reported as incomplete coverage, never as safety",
+      "never_concealed_uncertainty": "UMDR37_READINESS.json not_claimed lists the fixture boundary; the verification report \u00a7H carries the unverified items"
+    }
+  },
+  "honesty": "every number is measured from the committed artifacts; the fixtures are team-authored, so coverage figures apply to the controlled ground truth only"
+}

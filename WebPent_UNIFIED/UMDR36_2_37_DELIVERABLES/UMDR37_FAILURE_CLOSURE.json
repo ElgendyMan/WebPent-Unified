@@ -1,0 +1,43 @@
+{
+  "schema": "umdr37-failure-closure/v1",
+  "generated_at_utc": "2026-11-16T05:24:44.949432+00:00",
+  "mission_section": "\u00a73.5 \u2014 every remaining full-suite failure investigated individually",
+  "failures": [
+    {
+      "test": "test_g02_direct_io_inventory.py::test_inventory_records_match_recorded_artifact_no_drift",
+      "classification": "obsolete recorded artifact (intentional window changes not yet regenerated)",
+      "root_cause": "the UM-DR-36.2/37 window added 12 direct-IO records (6 declared identities) inside deliberately-touched modules",
+      "fix": "declared regeneration through the gated DR-009 ritual (scripts/regen_direct_io_inventory_umdr36_2_37.py; made idempotent), 0 removals, 0 new raw-transport sites",
+      "regression": "the gate test itself (4/4 in the file)"
+    },
+    {
+      "test": "test_h2_race.py::TestFailClosed::test_mixed_authority_refused (+ test_bad_scheme_refused)",
+      "classification": "actual product defect (validation ordering)",
+      "root_cause": "the environment-dependent h2 library probe ran BEFORE the pure argument validations, so bad schemes / mixed authorities surfaced as h2_library_not_installed",
+      "fix": "scheme + single-authority checks moved before the library probe (fail fast, deterministic)",
+      "regression": "the two TestFailClosed tests (green)"
+    },
+    {
+      "test": "test_m1b_tool_confirmed_writers.py::test_all_literal_writers_are_registered",
+      "classification": "conscious-registration gap (36.1-era writer)",
+      "root_cause": "families/promotion.py became a legitimate Tool-Confirmed writer in the UM-DR-36.1 authority rewrite but was never registered",
+      "fix": "registered in APPROVED_TOOL_CONFIRMED_WRITERS with the justification (writes only from a passed verify_replay_evidence result)",
+      "regression": "the registry test (green)"
+    },
+    {
+      "test": "test_umdr36_1_build_info_provenance.py (2 tests)",
+      "classification": "protocol violation in the mission's own history (02a9943 / 8e1c455 / 581feaf touched BUILD_INFO without declared subjects)",
+      "root_cause": "three BUILD_INFO touches lacked the declared re-baseline / re-freeze subjects and scope",
+      "fix": "history surgery (verified tree-identical \u2014 empty diff) consolidating them into ONE declared 'BUILD_INFO re-baseline' + a documented protocol extension (mission re-baselines allowed, each after the first must touch ONLY BUILD_INFO.json)",
+      "regression": "23/23 in the provenance file"
+    },
+    {
+      "test": "test_v11_bac_identity.py::test_access_control_node_emits_confirmed_finding_only_with_owner_metadata",
+      "classification": "obsolete test contract (pinned the pre-RC-4 context-starvation behavior)",
+      "root_cause": "the lock required Needs-Human-Review because observations lacked resource-owner context \u2014 exactly the defect RC-4 closed",
+      "fix": "updated BOTH directions: with recorded owner metadata the chain confirms (CausalGuard independently adjudicates the complete triple); a NEW inverse lock pins that nothing confirms without an ownership binding",
+      "regression": "6/6 in the file"
+    }
+  ],
+  "summary": "7/7 investigated, classified, fixed at the smallest correct level, regression-covered; no test deleted, skipped, xfailed, or weakened."
+}

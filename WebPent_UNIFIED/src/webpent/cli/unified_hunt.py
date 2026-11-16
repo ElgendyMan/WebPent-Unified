@@ -313,9 +313,15 @@ def run_unified_hunt(
                     renderer, announcer,
                     manifest_origins=(manifest_projection or {}).get("authorized_origins") or [],
                     scope_declaration=scope_declaration,
-        identity_profiles=identity_profiles,
-    )
+                    identity_profiles=identity_profiles,
+                )
         else:
+            # UM-DR-37 root cause RC-3a (secondary): the no-checkpointer
+            # branch silently dropped operator-supplied identity_profiles,
+            # so secondary principals (e.g. a foreign user for BAC
+            # differentials) never reached the graph in environments
+            # without langgraph-checkpoint-sqlite. Both branches now
+            # forward the same kwargs.
             graph = build_graph(auto_approve=auto_approve)
             final_state = _invoke_with_progress(
                 graph, target, preset, resolved_thread_id,
@@ -324,6 +330,7 @@ def run_unified_hunt(
                 renderer, announcer,
                 manifest_origins=(manifest_projection or {}).get("authorized_origins") or [],
                 scope_declaration=scope_declaration,
+                identity_profiles=identity_profiles,
             )
     finally:
         if renderer is not None:
@@ -374,6 +381,13 @@ def run_unified_hunt(
     # re-derived hash) — compact per-finding records plus the raw
     # hypothesis dumps for the production promotion dispatch.
     def _artifact(v: Any, key: str, default: Any = None) -> Any:
+        # UM-DR-37: findings may carry evidence_bundle as a model_dump
+        # DICT (access_control seals verification.proof_bundle.
+        # model_dump) — getattr on a dict always returned the default,
+        # so every confirmed finding reported evidence_bundle_id == ""
+        # even with a sealed bundle attached.
+        if isinstance(v, dict):
+            return v.get(key, default)
         return getattr(v, key, default)
     summary["findings_detail"] = [
         {

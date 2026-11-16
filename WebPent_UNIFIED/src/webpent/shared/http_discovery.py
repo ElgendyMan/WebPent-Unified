@@ -309,6 +309,84 @@ def _bounded_js_routes(text: str, base_url: str, *, limit: int = 100) -> list[st
     return routes
 
 
+_JSON_LINK_KEYS = frozenset({
+    "links", "href", "url", "uri", "path", "endpoint", "route", "location",
+    "next", "prev", "self",
+})
+
+
+def _bounded_json_links(text: str, base_url: str, *, limit: int = 100) -> list[str]:
+    """Extract bounded link-like strings from a JSON document.
+
+    JSON hypermedia manifests (``{"links": ["/api/x", ...]}``, HAL-style
+    blocks, plain arrays of paths) are legitimate crawl surfaces. A string
+    is accepted only when it is the value of a link-named key or looks like
+    an absolute path/URL AND resolves to a path-like target; free-text
+    fields ("Cairo", "ok") are ignored. The walk is bounded so a hostile
+    document cannot blow up discovery, and ``_normalise_url`` enforces the
+    same-origin rule for every accepted link.
+    """
+    try:
+        document = json.loads(text[:2_000_000])
+    except (ValueError, TypeError):
+        return []
+    found: list[str] = []
+    node_budget = 2_000
+
+    def looks_like_path(value: str) -> bool:
+        return value.startswith(("./", "/")) or "://" in value[:12]
+
+    def walk(node: Any, key: str | None) -> None:
+        nonlocal node_budget
+        if node_budget <= 0 or len(found) >= limit:
+            return
+        if isinstance(node, dict):
+            for child_key, value in list(node.items())[:200]:
+                node_budget -= 1
+                walk(value, str(child_key))
+        elif isinstance(node, list):
+            for item in list(node)[:200]:
+                node_budget -= 1
+                walk(item, key)
+        elif isinstance(node, str) and node:
+            candidate = node.strip()[:500]
+            key_match = key is not None and key.lower() in _JSON_LINK_KEYS
+            if (key_match or candidate.startswith(("./", "/"))) and looks_like_path(candidate):
+                found.append(candidate)
+
+    walk(document, None)
+    resolved: list[str] = []
+    for candidate in found:
+        url = _normalise_url(candidate, base_url)
+        if url and url not in resolved:
+            resolved.append(url)
+    return resolved[:limit]
+
+
+def _bounded_ownership_markers(text: str, content_type: str) -> dict | None:
+    """Bounded extraction of EXPLICIT ownership semantics from a JSON
+    body: a top-level owner name (owner/owner_id/owned_by) or an
+    explicit public marker (public/is_public is true). Top-level keys
+    only, 100 KB slice, JSON only — never a deep crawl of the body."""
+    stripped = (text or "").lstrip()[:100_000]
+    if "json" not in (content_type or "") and not stripped.startswith("{"):
+        return None
+    try:
+        document = json.loads(stripped)
+    except (ValueError, TypeError):
+        return None
+    if not isinstance(document, dict):
+        return None
+    markers: dict = {}
+    owner = (document.get("owner") or document.get("owner_id")
+             or document.get("owned_by"))
+    if isinstance(owner, str) and owner.strip():
+        markers["owner_identity"] = owner.strip()[:120]
+    if document.get("public") is True or document.get("is_public") is True:
+        markers["public_resource"] = True
+    return markers or None
+
+
 def discover_http_surface(
     base_url: str,
     *,
@@ -609,6 +687,18 @@ def discover_http_surface(
                     "successor": None,
                 }
             )
+            # UM-DR-37 §12 decoy closure: record EXPLICIT ownership
+            # semantics from the JSON body when the target states them.
+            # An explicit owner (owner/owner_id/owned_by) is
+            # evidence-backed ownership for the access-control lane; an
+            # explicit public marker means the resource has NO ownership
+            # semantics to test — the crawl-session ownership heuristic
+            # must never fabricate them for public resources.
+            ownership_markers = _bounded_ownership_markers(
+                response.text if hasattr(response, "text") else "",
+                content_type)
+            if ownership_markers:
+                surface_records[-1].update(ownership_markers)
 
             if 300 <= response.status_code < 400:
                 location = response.headers.get("location", "")
@@ -641,6 +731,28 @@ def discover_http_surface(
                     if discovered not in queued and len(queued) < max_pages * 3:
                         queue.append((discovered, depth + 1))
                         queued.add(discovered)
+                continue
+
+            # UM-DR-37 root cause RC-1: API-first targets serve their entry
+            # manifest as JSON (hypermedia "links" arrays, HAL blocks, plain
+            # path arrays). The HTML-only gate below made those surfaces
+            # invisible to the crawler, so an authenticated JSON API yielded
+            # exactly one endpoint (the origin) and every downstream
+            # resource-hungry family starved. Extract bounded link-like
+            # strings from JSON bodies before the HTML gate.
+            if "json" in content_type or response_text.lstrip().startswith(("{", "[")):
+                json_links = _bounded_json_links(response_text, current, limit=100)
+                if json_links:
+                    metadata_links = discovery_metadata.setdefault(
+                        "json_link_candidates", [])
+                    metadata_links.extend(json_links)
+                    discovery_metadata["json_link_candidates"] = list(
+                        dict.fromkeys(metadata_links)
+                    )[:200]
+                    for discovered in json_links:
+                        if discovered not in queued and len(queued) < max_pages * 3:
+                            queue.append((discovered, depth + 1))
+                            queued.add(discovered)
                 continue
 
             if not (

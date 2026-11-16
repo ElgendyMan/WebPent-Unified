@@ -1,0 +1,167 @@
+{
+  "schema": "umdr37-full-loop-learning/v1",
+  "generated_at_utc": "2026-11-16T04:00:19.101353+00:00",
+  "mission": "UM-DR-37 \u00a710 full-loop learning proof",
+  "harness": "tests/test_umdr31_campaign_e2e_ablation.py machinery (_run_arm: research_loop_node + family_execution_node over the controlled two-directory target)",
+  "budget": 36,
+  "ground_truth": "/api/zzz/vaults/vlt_3",
+  "arms": {
+    "none": {
+      "signals": "none",
+      "loop": false,
+      "hypotheses_generated": 0,
+      "hypothesis_origins": [],
+      "cases_mined": 8,
+      "cases_probed": 6,
+      "cases_scope_refused": 0,
+      "confirmed": 0,
+      "confirmed_paths": [],
+      "requests_issued": 36,
+      "request_budget": 36,
+      "research_hints_applied": false,
+      "findings_count": 0,
+      "finding_urls": []
+    },
+    "coverage": {
+      "signals": "coverage",
+      "loop": true,
+      "hypotheses_generated": 1,
+      "hypothesis_origins": [
+        "coverage_gap"
+      ],
+      "cases_mined": 8,
+      "cases_probed": 6,
+      "cases_scope_refused": 2,
+      "confirmed": 1,
+      "confirmed_paths": [
+        "/api/zzz/vaults/vlt_3"
+      ],
+      "requests_issued": 36,
+      "request_budget": 36,
+      "research_hints_applied": true,
+      "findings_count": 1,
+      "finding_urls": [
+        "http://127.0.0.1:45831/api/zzz/vaults/vlt_3"
+      ]
+    },
+    "invariant": {
+      "signals": "invariant",
+      "loop": true,
+      "hypotheses_generated": 1,
+      "hypothesis_origins": [
+        "invariant"
+      ],
+      "cases_mined": 8,
+      "cases_probed": 6,
+      "cases_scope_refused": 2,
+      "confirmed": 1,
+      "confirmed_paths": [
+        "/api/zzz/vaults/vlt_3"
+      ],
+      "requests_issued": 36,
+      "request_budget": 36,
+      "research_hints_applied": true,
+      "findings_count": 1,
+      "finding_urls": [
+        "http://127.0.0.1:45831/api/zzz/vaults/vlt_3"
+      ]
+    },
+    "full": {
+      "signals": "full",
+      "loop": true,
+      "hypotheses_generated": 2,
+      "hypothesis_origins": [
+        "coverage_gap",
+        "invariant"
+      ],
+      "cases_mined": 8,
+      "cases_probed": 6,
+      "cases_scope_refused": 2,
+      "confirmed": 1,
+      "confirmed_paths": [
+        "/api/zzz/vaults/vlt_3"
+      ],
+      "requests_issued": 36,
+      "request_budget": 36,
+      "research_hints_applied": true,
+      "findings_count": 1,
+      "finding_urls": [
+        "http://127.0.0.1:45831/api/zzz/vaults/vlt_3"
+      ]
+    }
+  },
+  "six_step_chain": {
+    "step_1_competing_hypotheses_exist": {
+      "cases_mined_per_arm": {
+        "none": 8,
+        "coverage": 8,
+        "invariant": 8,
+        "full": 8
+      },
+      "held": true
+    },
+    "step_2_first_pass_produces_evidence": {
+      "evidence_channels_before_execution": {
+        "none": "no coverage ledger, no workflow observation",
+        "coverage": "campaign_ledger cell idor:vaults (not_scanned)",
+        "invariant": "observed cross-identity seal transition + invariant candidate",
+        "full": "both channels"
+      },
+      "hypotheses_generated": {
+        "none": 0,
+        "coverage": 1,
+        "invariant": 1,
+        "full": 2
+      },
+      "held": true
+    },
+    "step_3_subsequent_experiments_available": {
+      "cases_probed": {
+        "none": 6,
+        "coverage": 6,
+        "invariant": 6,
+        "full": 6
+      },
+      "held": true
+    },
+    "step_4_evidence_changes_selection": {
+      "same_budget_all_arms": true,
+      "research_hints_applied": {
+        "none": false,
+        "coverage": true,
+        "invariant": true,
+        "full": true
+      },
+      "selection_semantics": "the research hints reorder the constrained budget at the signal-rich directory; the alphabetical order of the evidence-free arm spends the same ceiling on the safe directory and clips the ground-truth case",
+      "held": true
+    },
+    "step_5_changed_experiments_executed": {
+      "requests_issued": {
+        "none": 36,
+        "coverage": 36,
+        "invariant": 36,
+        "full": 36
+      },
+      "within_ceiling": true,
+      "held": true
+    },
+    "step_6_result_traces_to_updated_decision": {
+      "confirmed_paths": {
+        "none": [],
+        "coverage": [
+          "/api/zzz/vaults/vlt_3"
+        ],
+        "invariant": [
+          "/api/zzz/vaults/vlt_3"
+        ],
+        "full": [
+          "/api/zzz/vaults/vlt_3"
+        ]
+      },
+      "held": true
+    }
+  },
+  "full_loop_proven": true,
+  "egaie_structural_note": "the EGAIE benchmark loop resolves a hypothesis on every verdict (confirmed/clean close the cell; inconclusive records no evidence), so an evidence-driven re-selection of a sibling experiment is structurally impossible there by design \u2014 the production research loop is where the full loop closes, and it closes here under an identical budget",
+  "honesty": "the controlled target is team-authored (author-known); this proves the full-loop causal chain (evidence channel -> reordered execution -> changed outcome) under a controlled budget, not real-world recall"
+}

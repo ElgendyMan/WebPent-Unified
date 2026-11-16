@@ -50,6 +50,13 @@ APPROVED_TOOL_CONFIRMED_WRITERS = {
     "graph/builder.py",
     "egaie/finding_bridge.py",
     "memory/db.py",  # mark_oob_confirmed (SQL flip + provenance stamp)
+    # UM-DR-36.2 §3.5 conscious registration: the UM-DR-36.1 authority
+    # rewrite made families/promotion.py a legitimate Tool-Confirmed
+    # writer — the literal is written ONLY from a passed
+    # verify_replay_evidence VerificationResult (CausalGuard-mandated,
+    # sealed ProofBundle attached); every other family-verdict path
+    # yields an explicit Pending candidate (fail-closed).
+    "families/promotion.py",
 }
 
 

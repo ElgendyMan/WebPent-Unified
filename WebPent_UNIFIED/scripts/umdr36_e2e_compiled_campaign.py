@@ -261,6 +261,12 @@ def main() -> int:
                                   "foreign principal granted the owner's resource; "
                                   "control 404 proves boundary enforcement)"),
             "causal_guard": {
+                # UM-DR-36.2 §3.6 finding-identity invariant: every node
+                # of the confirmation chain must carry the SAME finding
+                # id as same_finding_invariant.finding_id — the guard
+                # node previously omitted it, which the recovery
+                # verifier correctly flagged.
+                "finding_id": finding_id,
                 "authority": guard_ev.get("authority")
                 or "webpent.cqa_v2.causal_guard.guarded_causal_evaluate",
                 "adjudicated_by": guard_ev.get("adjudicated_by"),

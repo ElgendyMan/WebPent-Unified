@@ -641,6 +641,21 @@ UMDR35_36_CONFIRMATION_20261112_THAW_PATHS = frozenset({
     "src/webpent/shared/kev.py",
 })
 
+# UM-DR-37 (zero-findings root-cause closure, 2026-11-15): the four
+# root causes of the production zero-findings run — JSON-blind crawling
+# (http_discovery), the 10-char identifier gate + missing guard context
+# in access_control, and the identity_profiles drop in the
+# no-checkpointer branch of unified_hunt (plus the dict-bundle
+# findings_detail projection repair). Re-pinned through the DR-009
+# declared-drift ritual; old pins preserved in git history. Note:
+# cli/unified_hunt.py is not baseline-shared (it postdates the
+# pre-unfreeze baseline), so only the two shared paths appear here; the
+# byte-identical gate still pins it through the current manifest.
+UMDR37_ROOT_CAUSE_20261115_THAW_PATHS = frozenset({
+    "src/webpent/shared/http_discovery.py",
+    "src/webpent/agents/access_control/agent.py",
+})
+
 UMDR28_DISCOVERY_20261107_THAW_PATHS = frozenset({
     # UM-DR-28 (production discovery integration, 2026-11-07): the
     # representation-equivalence repair in the causal guard — the four
@@ -1195,6 +1210,7 @@ def test_baseline_disagrees_only_on_documented_unfreeze_paths() -> None:
         | UMDR33_VERSION_BUMP_20261110_THAW_PATHS
         | UMDR34_SCOPE_AUTHORITY_20261110_THAW_PATHS
         | UMDR35_36_CONFIRMATION_20261112_THAW_PATHS
+        | UMDR37_ROOT_CAUSE_20261115_THAW_PATHS
     )
     # ULTIMATE PLAN 2026-10-27, proposal 4: the pre-archive drift sets
     # (e.g. TEAM_MERGE_V152_LINEAGE_DRIFT_PATHS' goed_v1 entry) can no

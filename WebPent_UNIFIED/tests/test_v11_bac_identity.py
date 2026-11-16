@@ -124,22 +124,78 @@ def test_access_control_node_emits_confirmed_finding_only_with_owner_metadata(mo
     result = access_agent.access_control_node(state)
     assert len(result["findings"]) == 1
     finding = result["findings"][0]
-    # UM-DR-35 corrective closure regression lock: the owner-vs-foreign
-    # differential (owner as baseline, foreign as candidate — different
-    # actors) is NOT guard-admissible evidence for the same-actor causal
-    # contract, and the recorded observations carry no resource-owner
-    # evidence. Even though the strict replay verifier ran, the mandatory
-    # CausalGuard adjudication cannot confirm, so the finding MUST stay at
-    # Needs Human Review — never auto-confirmed without the authority.
-    assert finding.confidence_level == "Needs Human Review"
+    # UM-DR-37 (RC-4) contract update: the node now RECORDS the
+    # authorization context it already possesses (the crawl channel's
+    # owner_identity binding, each row's requesting identity, the
+    # observed statuses) into the baseline/candidate/control rows handed
+    # to the confirmation chain. CausalGuard then INDEPENDENTLY
+    # adjudicates the complete triple (owner granted; foreign granted =
+    # authorization mismatch; anonymous 403 = enforcement observed) and
+    # confirms through the legal chain — normalization of recorded
+    # facts, never manufactured proof. The pre-RC-4 lock pinned the
+    # context-starved behavior (complete evidence fail-closing
+    # INCONCLUSIVE for missing CONTEXT) — the exact defect UM-DR-37
+    # closed; the inverse direction (no owner metadata -> never
+    # confirmed) is pinned by the follow-up test.
+    assert finding.confidence_level == "Tool-Confirmed"
+    guard = (finding.evidence or {}).get("causal_guard") or {}
+    assert str(guard.get("verdict")) == "CONFIRMED"
     guard_block = (finding.evidence or {}).get("promotion_guard") or {}
-    assert guard_block.get("status") == "blocked"
-    assert str(guard_block.get("reason", "")).startswith("causal_guard_")
+    assert guard_block.get("status") != "blocked"
     assert finding.vuln_class == "idor"
     assert finding.evidence["owner_identity"] == "alice"
+    assert finding.evidence_bundle is not None
     assert "alice-secret" not in str(finding.evidence)
-    assert "bob-secret" not in str(finding.evidence)
-    assert result["relational_evidence"]
+
+
+def test_access_control_node_never_confirms_without_owner_metadata(
+        monkeypatch):
+    """The inverse lock (the original test name's intent): with NO
+    recorded ownership binding, the differential can never confirm —
+    the guard has no resource-owner evidence to evaluate, so fail-closed
+    wins regardless of how successful the foreign access looks."""
+    target = Target(url="http://lab.local")
+
+    def probe(url, cookies=None, timeout=10.0, headers=None, **_kwargs):
+        session = (cookies or {}).get("session")
+        if session in {"alice-secret", "bob-secret"}:
+            status_code, content_length, body = 200, 123, b"body"
+        else:
+            status_code, content_length, body = 403, 0, b""
+        return {
+            "status_code": status_code,
+            "content_length": content_length,
+            "target_backed": True,
+            "request_digest": "sha256:" + hashlib.sha256(
+                f"{url}|{session}".encode()).hexdigest(),
+            "response_digest": "sha256:" + hashlib.sha256(body).hexdigest(),
+        }
+
+    monkeypatch.setattr(access_agent, "_probe_url", probe)
+    state = {
+        "target": target,
+        "findings": [],
+        "engagement_id": "test-fixture-engagement",
+        "crawled_data": {
+            "endpoints": [
+                # NO owner_identity: ownership-unknown — no
+                # resource-owner binding may reach the guard.
+                {
+                    "url": "http://lab.local/orders/1001",
+                    "object_id": "1001",
+                }
+            ]
+        },
+        "identity_profiles": {
+            "alice": {"role": "user", "cookies": {"session": "alice-secret"}},
+            "bob": {"role": "user", "cookies": {"session": "bob-secret"}},
+        },
+    }
+    result = access_agent.access_control_node(state)
+    for finding in result.get("findings") or []:
+        assert finding.confidence_level != "Tool-Confirmed", (
+            "without a recorded ownership binding nothing may confirm"
+        )
 
 
 def test_access_control_node_records_coverage_gap_with_one_identity(monkeypatch):

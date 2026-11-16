@@ -1,0 +1,82 @@
+{
+  "schema": "umdr36_2-test-accounting/v1",
+  "generated_at_utc": "2026-11-16T05:24:44.613919+00:00",
+  "v3_model": {
+    "definition": "scripts/pytest_accounting_plugin.py counts every pytest report by hook phase",
+    "categories": [
+      "collected_items",
+      "collection_errors",
+      "collection_skips",
+      "deselected",
+      "started_items",
+      "not_started",
+      "outcomes(passed/failed/skipped/xfailed/xpassed)",
+      "setup_errors",
+      "teardown_errors",
+      "interrupted"
+    ],
+    "invariants": [
+      "collected == started + not_started + deselected",
+      "started == outcomes_total + setup_errors",
+      "errors_total == setup + teardown + collection errors",
+      "terminal summary cross-check must agree with the hooks"
+    ]
+  },
+  "historical_umdr36_1_anomaly_decomposition": {
+    "recorded": "collected 9141 vs executed 9142 (accounting_consistent=0)",
+    "explanation": "9,141 collected = 9,134 item outcomes + 7 setup-errored items; the terminal 'executed' 9,142 = 9,134 + 7 setup errors + 1 module-level collection skip (a NON-ITEM report the summary counts); terminal skipped 12 = 11 item skips + 1 collection skip; terminal errors 7 = 7 setup + 0 + 0",
+    "pinned_by": "tests/test_umdr36_2_accounting_plugin.py::test_umdr36_1_accounting_anomaly_decomposes_exactly"
+  },
+  "current_run": {
+    "source": "docs/FULL_SUITE_EVIDENCE.json (v3)",
+    "accounting_v3": {
+      "schema": "pytest-accounting/v1",
+      "collected_items": 9228,
+      "collection_errors": 0,
+      "collection_skips": 1,
+      "deselected": 0,
+      "started_items": 9228,
+      "not_started": 0,
+      "outcomes": {
+        "passed": 9217,
+        "failed": 0,
+        "skipped": 8,
+        "xfailed": 3,
+        "xpassed": 0
+      },
+      "outcomes_total": 9228,
+      "setup_errors": 0,
+      "teardown_errors": 0,
+      "errors_total": 0,
+      "interrupted": false,
+      "exitstatus": 0,
+      "invariants": {
+        "collected_eq_started_plus_not_started_plus_deselected": true,
+        "started_eq_outcomes_plus_setup_errors": true,
+        "errors_total_decomposes": true,
+        "not_started_zero_unless_interrupted": true
+      },
+      "invariants_all_true": true
+    },
+    "accounting": {
+      "passed": 9217,
+      "failed": 0,
+      "skipped": 9,
+      "xfailed": 3,
+      "xpassed": 0,
+      "deselected": 0,
+      "errors": 0,
+      "collected": 9228,
+      "executed": 9229,
+      "accounting_consistent": 0,
+      "summary_found": 1
+    },
+    "cross_check": {
+      "plugin_available": true,
+      "disagreements": {},
+      "all_agree": true,
+      "plugin_invariants_all_true": true
+    },
+    "exit_code": 0
+  }
+}

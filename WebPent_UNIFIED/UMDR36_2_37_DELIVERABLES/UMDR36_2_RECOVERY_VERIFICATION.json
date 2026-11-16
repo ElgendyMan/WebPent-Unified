@@ -1,0 +1,88 @@
+{
+  "schema": "umdr36_2-recovery-verification/v1",
+  "generated_at_utc": "2026-11-16T05:24:44.613919+00:00",
+  "head": "609da8ade4bcafce3ee52f6bb64e98485aeab693",
+  "verify_recovery_umdr36_result": {
+    "command": "scripts/verify_recovery_umdr36.py",
+    "spec": "UM-DR-36.1 \u00a71.4 reproducible recovery verification",
+    "executed_at": "2026-11-16T05:24:44.779033+00:00",
+    "repo_root": "/home/z/my-project/work/repo",
+    "git_state": {
+      "head": "609da8ade4bcafce3ee52f6bb64e98485aeab693",
+      "clean": false,
+      "recovery_baseline": "1968f63c2076b1b804537f91cd5cfa01c3eee0bb (public main at mission start)"
+    },
+    "required_files": {
+      "checked": 10,
+      "missing": [
+        "artifacts/umdr35_36_integrated_campaign_result.json"
+      ],
+      "ok": false
+    },
+    "frozen_module_integrity": {
+      "manifest": "frozen_modules.sha256",
+      "entries": 645,
+      "missing_files": [],
+      "hash_mismatches": [],
+      "ok": true
+    },
+    "baseline_pins": {
+      "BASELINE.sha256.txt": {
+        "classification": "historical_window_record",
+        "target": "src/webpent/production/modern_spine.py",
+        "well_formed": true,
+        "ok": true
+      },
+      "POST.sha256.txt": {
+        "classification": "historical_window_record",
+        "target": "src/webpent/production/modern_spine.py",
+        "well_formed": true,
+        "ok": true
+      },
+      "internal_consistency": {
+        "baseline_equals_post": true,
+        "ok": true
+      },
+      "note": "These pins record a historical tree state; current integrity is authoritatively enforced by frozen_modules.sha256 (checked above). They are intentionally NOT compared against the current tree."
+    },
+    "version_consistency": {
+      "versions": {
+        "pyproject.toml (SSOT)": "0.40.1",
+        "src/webpent/__init__.py": "0.40.1",
+        "uv.lock webpent entry": "0.40.1",
+        "BUILD_INFO.json package_version": "0.40.1"
+      },
+      "consistent": true,
+      "ok": true
+    },
+    "campaign_artifact": {
+      "ok": false,
+      "error": "[Errno 2] No such file or directory: '/home/z/my-project/work/repo/artifacts/umdr35_36_integrated_campaign_result.json'"
+    },
+    "unverified_historical_claims": [
+      "BUILD_INFO.json umdr32/suite_evidence/suite_count fields (historical records, predating the recovery baseline)",
+      "docs/UMDR35_36_READINESS_SUMMARY.json local head df2b50d (not resolvable in the public repository \u2014 recorded by the mission brief as an unverifiable historical reference)"
+    ],
+    "verdict": "NOT_VERIFIED",
+    "checks": {
+      "required_files": "FAIL",
+      "frozen_manifest": "PASS",
+      "baseline_pins": "PASS",
+      "version_consistency": "PASS",
+      "campaign_artifact": "FAIL"
+    }
+  },
+  "portable_recovery_proof": {
+    "scenario": "the build sandbox was fully recycled between missions; the repository was restored from the public GitHub clone + the delivered bundle",
+    "steps": [
+      "git clone public main",
+      "git bundle verify (OK)",
+      "fetch the bundle branch (15 commits)",
+      "branch mission/umdr36.2-umdr37 from the bundle tip",
+      "apply the published final-state delta",
+      "uv sync --locked --extra dev",
+      "48/48 UM-DR-36.1 regression tests pass on the restored tree"
+    ],
+    "no_absolute_paths": "the entrypoint gate rejects undeclared launch surfaces (WEBPENT_ENTRYPOINT=cli)"
+  }
+}

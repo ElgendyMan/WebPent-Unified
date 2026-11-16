@@ -1,3 +1,8 @@
+## [0.40.1] — UM-DR-36.2/37 (2026-11-15)
+
+Version identity alignment + recovery closure + production root-cause
+mission. See docs/UMDR36_2_*.md and docs/UMDR37_*.md.
+
 # Changelog
 
 ## 0.40.1 — 2026-11-12 (UM-DR-35/36: confirmation-authority unification, semantic-model production wiring & honest funnel)

@@ -142,9 +142,10 @@ def run_race(
 ) -> RaceResult:
     """Fire the burst on one H2 connection with a single request flush.
 
-    Raises (never silently downgrades): flag off, budget exceeded, h2
-    library missing, or H2 negotiation refused. The caller owns the
-    serialized fallback.
+    Raises (never silently downgrades): flag off, budget exceeded, bad
+    scheme, mixed authority, h2 library missing, or H2 negotiation
+    refused. The caller owns the serialized fallback. Argument
+    validation always precedes the environment-dependent library probe.
     """
     if not enable_h2_race:
         raise H2RaceError("h2_race_flag_off")
@@ -153,13 +154,20 @@ def run_race(
         raise H2RaceError("h2_race_requires_specs")
     if len(specs) > max_requests:
         raise H2RaceError("h2_race_budget_exceeded")
-    h2 = _import_h2()
 
+    # UM-DR-36.2 §3.5 (validation-ordering repair): scheme and
+    # single-authority rejection are pure input checks — they must fire
+    # BEFORE the environment-dependent h2 library probe, so a bad spec
+    # is always refused for the RIGHT reason (deterministically, even
+    # in library-less environments) instead of surfacing as
+    # h2_library_not_installed.
     host, path0, use_tls, authority, port = _authority_and_path(specs[0].url)
     for spec in specs:
         other_host, _, _, _, other_port = _authority_and_path(spec.url)
         if (other_host, other_port) != (host, port):
             raise H2RaceError("h2_race_requires_single_authority")
+
+    h2 = _import_h2()
 
     # UM-DR-34 §4.8: no silent raw-socket bypass — the engagement origin
     # decision runs BEFORE the raw TCP/TLS connection is opened, exactly

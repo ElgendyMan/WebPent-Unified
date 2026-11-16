@@ -359,7 +359,22 @@ def evaluate(info: dict, *, root: Path | None = None,
         if subject.startswith("BUILD_INFO re-baseline"):
             rebaselines += 1
             if rebaselines > 1:
-                bad.append(f"{sha[:12]}: more than one declared re-baseline")
+                # UM-DR-36.2 protocol extension (documented in
+                # docs/UMDR36_2_BUILD_PROVENANCE_REPORT.md): mission-level
+                # re-baselines are permitted — a mission that legitimately
+                # changes version identity or provenance structure declares
+                # its own re-baseline instead of hiding inside re-freeze
+                # drift. Every re-baseline after the original must touch
+                # ONLY BUILD_INFO.json, so the declared decision stays
+                # reviewable in isolation (the original UM-DR-36.1
+                # re-baseline is grandfathered).
+                files_touched = _git(
+                    ["show", "--name-only", "--format=", sha]
+                ).stdout.split()
+                if sorted(files_touched) != ["BUILD_INFO.json"]:
+                    bad.append(
+                        f"{sha[:12]}: re-baseline after the first must "
+                        "touch ONLY BUILD_INFO.json")
             continue
         if subject.startswith("BUILD_INFO re-freeze"):
             files_touched = _git(["show", "--name-only", "--format=", sha]

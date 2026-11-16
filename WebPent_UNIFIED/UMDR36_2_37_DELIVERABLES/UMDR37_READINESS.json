@@ -1,0 +1,44 @@
+{
+  "schema": "umdr37-readiness/v2",
+  "generated_at_utc": "2026-11-16T05:24:44.949432+00:00",
+  "head": "609da8ade4bcafce3ee52f6bb64e98485aeab693",
+  "verification_round": {
+    "G36_failures_investigated_individually": "7/7 (see UMDR37_FAILURE_CLOSURE.json)",
+    "runner_contract_resolved": "evidence_gate_ok \u2014 v3 authoritative, v2 equation explained only by collection-phase reports (4 gate tests)",
+    "rc_subchecks": "RC-1 nested/dedup/free-text + RC-3 checkpointer-enabled branch",
+    "lifecycle_12_states": "research/hypothesis_lifecycle.py (9/9 adversarial tests)",
+    "failure_taxonomy": "research/failure_taxonomy.py \u2014 16 stages, closed reason-code registry, evidence-gated influence (8/8 tests)",
+    "family_profiles": "research/family_profiles.py \u2014 8 families x 10 aspects, honest statuses (8/8 tests)",
+    "full_loop_learning": "PROVEN \u2014 docs/UMDR37_FULL_LOOP_LEARNING.json (six-step chain held, identical 36-request budget, ground truth reached only in evidence-carrying arms)",
+    "component_influence": "tests/test_umdr37_component_influence.py \u2014 3 new in-process checks + verified 8-component registry (12/12)",
+    "decoy_out_of_scope": "lab v1.6.0 \u2014 the decoy EXPOSED a real false-positive class (measured in artifacts/umdr37_decoy_exposure.json) and the closure holds: decoy unconfirmed, out-of-scope origin ZERO requests, 3/3 runs identical",
+    "discovery_efficiency": "docs/UMDR37_DISCOVERY_EFFICIENCY.json \u2014 measured \u00a79 metrics (entities, relationships, hypothesis ledger, information per experiment, budget utilization, diminishing-returns tail) from the real campaign and full-loop artifacts"
+  },
+  "full_suite": {
+    "evidence_commit": "1386d5707296aca629417e45318a212b0da1a257",
+    "head_at_generation": "609da8ade4bcafce3ee52f6bb64e98485aeab693",
+    "fresh_for_head": false,
+    "note": "the final full-suite run executed at 1386d5707296; any commits after it are the protocol BUILD_INFO re-freeze and deliverables regeneration only \u2014 no source changes (verifiable via git log --stat)",
+    "collected": 9228,
+    "outcomes": {
+      "passed": 9217,
+      "failed": 0,
+      "skipped": 8,
+      "xfailed": 3,
+      "xpassed": 0
+    },
+    "errors_total": 0,
+    "invariants_all_true": true,
+    "cross_check_all_agree": true,
+    "exit_code": 0
+  },
+  "state": "PARTIALLY_VERIFIED",
+  "blockers": [
+    "remote CI unverified: no GitHub credentials in the build environment (bundle provided for push/PR)",
+    "full-suite freshness for THIS head: see full_suite.note"
+  ],
+  "not_claimed": [
+    "no generalization beyond the controlled fixtures",
+    "families beyond access control are not production-confirmed"
+  ]
+}

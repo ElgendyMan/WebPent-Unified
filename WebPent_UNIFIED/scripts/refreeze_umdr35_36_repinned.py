@@ -56,6 +56,23 @@ DECLARED_DRIFT_PREFIXES = (
     "src/webpent/cli/unified_hunt.py",
     "src/webpent/agents/access_control/agent.py",
     "src/webpent/families/execution_node.py",
+    # UM-DR-37 root-cause closure change set (2026-11-15). Attributable
+    # to the zero-findings root-cause mission, re-pinned by the same
+    # DR-009 deterministic protocol:
+    #   * shared/http_discovery.py — RC-1: the HTTP crawler was blind to
+    #     JSON link manifests (API-first targets yielded endpoints ==
+    #     [origin]); bounded JSON link extraction added before the HTML
+    #     gate;
+    #   * agents/access_control/agent.py — RC-2 (identifier gate: the
+    #     10-char minimum dropped structured short ids such as
+    #     INV-A-101) and RC-4 (BAC rows now carry the authorization
+    #     context CausalGuard reads, so complete owner/foreign/denied
+    #     triples adjudicate instead of fail-closing INCONCLUSIVE);
+    #   * cli/unified_hunt.py — RC-3 (the no-checkpointer branch dropped
+    #     operator identity_profiles) plus the findings_detail dict-bundle
+    #     projection repair (evidence_bundle_id was always "" for
+    #     model_dump bundles).
+    "src/webpent/shared/http_discovery.py",
 )
 
 

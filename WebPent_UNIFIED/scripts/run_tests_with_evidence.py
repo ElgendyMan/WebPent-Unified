@@ -48,8 +48,9 @@ EVIDENCE_TXT = ROOT / "docs" / "FULL_SUITE_EVIDENCE.txt"
 EVIDENCE_JSON = ROOT / "docs" / "FULL_SUITE_EVIDENCE.json"
 COVERAGE_JSON = ROOT / "docs" / "coverage_last_run.json"
 COVERAGE_FLOOR_FILE = ROOT / "scripts" / "quality" / "coverage_baseline.json"
-EVIDENCE_SCHEMA = "full-suite-evidence/v2"
+EVIDENCE_SCHEMA = "full-suite-evidence/v3"
 RUNNER_NAME = "run_tests_with_evidence.py"
+ACCOUNTING_PLUGIN = "pytest_accounting_plugin"
 
 OUTCOME_KINDS = ("passed", "failed", "skipped", "xfailed", "xpassed",
                  "deselected", "errors")
@@ -153,15 +154,70 @@ def _uv_version() -> str:
     return r.stdout.strip() or "unknown"
 
 
+def evidence_gate_ok(
+    terminal_accounting: dict,
+    accounting_v3: dict | None,
+    cross_check: dict | None,
+) -> tuple[bool, str]:
+    """The fail-closed evidence gate (UM-DR-36.2 §3.6, contract level).
+
+    The hook-level v3 accounting is the AUTHORITATIVE model. The legacy
+    v2 terminal equation (collected == executed + deselected, where
+    "executed" conflates item outcomes with collection-phase reports)
+    is only well-formed when NO collection-phase reports exist; when
+    collection errors/skips are present the v2 equation is EXPECTED to
+    disagree, and the v3 invariants + terminal cross-check decide.
+
+    Never bypassed: a v2 disagreement WITHOUT collection-phase reports
+    still fails, and a missing / invariant-violating / disagreeing v3
+    always fails.
+    """
+    if accounting_v3 is None:
+        return False, ("hook-level accounting (pytest_accounting_plugin) "
+                       "is missing — the v3 evidence contract requires it")
+    if not accounting_v3.get("invariants_all_true"):
+        return False, "v3 accounting invariants violated"
+    if not (cross_check or {}).get("all_agree"):
+        return False, ("hook-level accounting disagrees with the terminal "
+                       f"summary: {(cross_check or {}).get('disagreements')}")
+    collection_phase_reports = (
+        int(accounting_v3.get("collection_errors") or 0)
+        + int(accounting_v3.get("collection_skips") or 0)
+    )
+    if not terminal_accounting.get("accounting_consistent") \
+            and not collection_phase_reports:
+        return False, ("the v2 terminal equation disagrees while the v3 "
+                       "model records NO collection-phase reports — "
+                       "unexplained accounting inconsistency")
+    return True, ("" if terminal_accounting.get("accounting_consistent")
+                  else f"v2 equation explained by {collection_phase_reports} "
+                       f"collection-phase report(s); v3 invariants hold")
+
+
 def main() -> int:
     floor = _floor_percent()
-    command = [sys.executable, "-m", "pytest", "tests/", "-v", "--tb=short"]
+    command = [sys.executable, "-m", "pytest", "tests/", "-v", "--tb=short",
+               "-p", ACCOUNTING_PLUGIN]
     if floor is not None:
         command += [
             "--cov=src/webpent",
             f"--cov-report=json:{COVERAGE_JSON}",
             f"--cov-fail-under={floor}",
         ]
+
+    # UM-DR-36.2 §3.4 (hook-level accounting): the plugin counts every
+    # report by phase, separating collection errors/skips (non-item
+    # reports) from setup/teardown errors — the categories the terminal
+    # summary collapses (the recorded 9141-collected vs 9142-executed
+    # anomaly was exactly this conflation).
+    import tempfile
+    accounting_file = Path(tempfile.mkdtemp(prefix="umdr-accounting-")) \
+        / "accounting.json"
+    run_env = dict(os.environ)
+    run_env["UMDR_ACCOUNTING_OUT"] = str(accounting_file)
+    scripts_dir = str(ROOT / "scripts")
+    run_env["PYTHONPATH"] = (scripts_dir + os.pathsep
+                             + run_env.get("PYTHONPATH", ""))
 
     # UM-DR-36.1 §4: stale evidence cannot survive this run. Delete any
     # pre-existing evidence (from an earlier workflow or local run) BEFORE
@@ -181,10 +237,63 @@ def main() -> int:
 
     completed = subprocess.run(command, cwd=ROOT, text=True,
                                stdout=subprocess.PIPE,
-                               stderr=subprocess.STDOUT, check=False)
+                               stderr=subprocess.STDOUT, check=False,
+                               env=run_env)
     output = completed.stdout
     finished = datetime.now(timezone.utc)
     accounting = parse_accounting(output)
+
+    # ---- v3: merge the hook-level accounting + cross-check -------------
+    accounting_v3 = None
+    cross_check: dict[str, object] = {"plugin_available": False}
+    if accounting_file.is_file():
+        try:
+            accounting_v3 = json.loads(
+                accounting_file.read_text(encoding="utf-8"))
+        except ValueError:
+            accounting_v3 = None
+    if accounting_v3 is not None:
+        cross_check["plugin_available"] = True
+        terminal = {
+            "errors": accounting.get("errors"),
+            "skipped": accounting.get("skipped"),
+            "passed": accounting.get("passed"),
+            "failed": accounting.get("failed"),
+            "xfailed": accounting.get("xfailed"),
+            "xpassed": accounting.get("xpassed"),
+            "collected": accounting.get("collected"),
+        }
+        checks = {
+            "collected": (
+                accounting_v3["collected_items"] == terminal["collected"]),
+            "errors": (
+                accounting_v3["errors_total"] == terminal["errors"]),
+            "skipped": (
+                accounting_v3["outcomes"]["skipped"]
+                + accounting_v3["collection_skips"]
+                == terminal["skipped"]),
+            "passed": (
+                accounting_v3["outcomes"]["passed"] == terminal["passed"]),
+            "failed": (
+                accounting_v3["outcomes"]["failed"] == terminal["failed"]),
+            "xfailed": (
+                accounting_v3["outcomes"]["xfailed"] == terminal["xfailed"]),
+            "xpassed": (
+                accounting_v3["outcomes"]["xpassed"] == terminal["xpassed"]),
+        }
+        # None terminal values (unparsed) do not fail the cross-check;
+        # a parsed number that DISAGREES with the hooks always does.
+        disagreements = {
+            k: v for k, v in checks.items() if terminal[k] is not None
+            and not v
+        }
+        cross_check["disagreements"] = disagreements
+        cross_check["all_agree"] = not disagreements
+        cross_check["plugin_invariants_all_true"] = accounting_v3.get(
+            "invariants_all_true", False)
+    else:
+        cross_check["all_agree"] = False
+        cross_check["plugin_invariants_all_true"] = False
 
     coverage_result = "not_configured"
     coverage_percent = None
@@ -216,6 +325,8 @@ def main() -> int:
         "command": command,
         "test_scope_digest": _scope_digest(),
         "accounting": accounting,
+        "accounting_v3": accounting_v3,
+        "accounting_cross_check": cross_check,
         "coverage": {"floor_percent": floor, "result": coverage_result,
                      "percent_covered": coverage_percent},
         "exit_code": completed.returncode,
@@ -247,6 +358,25 @@ def main() -> int:
         f"# Accounting consistent: {bool(a['accounting_consistent'])}",
         f"# Exit code: {completed.returncode}",
     ]
+    if accounting_v3 is not None:
+        o = accounting_v3["outcomes"]
+        evidence_txt += [
+            "# --- V3 HOOK-LEVEL ACCOUNTING "
+            "(scripts/pytest_accounting_plugin.py) ---",
+            f"# Collected items: {accounting_v3['collected_items']} | "
+            f"started: {accounting_v3['started_items']} | "
+            f"not_started: {accounting_v3['not_started']}",
+            f"# Item outcomes: passed {o['passed']} | failed {o['failed']} | "
+            f"skipped {o['skipped']} | xfailed {o['xfailed']} | "
+            f"xpassed {o['xpassed']}",
+            f"# Setup errors: {accounting_v3['setup_errors']} | "
+            f"teardown errors: {accounting_v3['teardown_errors']} | "
+            f"collection errors: {accounting_v3['collection_errors']} | "
+            f"collection skips: {accounting_v3['collection_skips']}",
+            f"# Invariants all true: "
+            f"{accounting_v3.get('invariants_all_true')} | "
+            f"terminal cross-check agree: {cross_check.get('all_agree')}",
+        ]
     EVIDENCE_TXT.write_text("\n".join(evidence_txt) + "\n", encoding="utf-8")
 
     print(f"collected={a['collected']} executed={a['executed']} "
@@ -258,14 +388,16 @@ def main() -> int:
           f"exit_code={completed.returncode}")
     print(f"evidence: {EVIDENCE_JSON}")
 
-    # Fail-closed: a non-zero pytest exit, or an accounting we could not
-    # parse/verify, is never a green evidence state.
+    # Fail-closed: a non-zero pytest exit or an accounting the evidence
+    # gate cannot verify is never a green evidence state (§3.6 contract).
     if completed.returncode != 0:
         return completed.returncode
-    if not a["accounting_consistent"]:
-        print("FAIL: test accounting could not be verified from the pytest "
-              "session summary", file=sys.stderr)
+    gate_ok, gate_reason = evidence_gate_ok(a, accounting_v3, cross_check)
+    if not gate_ok:
+        print(f"FAIL: {gate_reason}", file=sys.stderr)
         return 1
+    if gate_reason:
+        print(f"accounting note: {gate_reason}")
     return 0
 
 

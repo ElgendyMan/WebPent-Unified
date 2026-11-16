@@ -11,7 +11,11 @@ proof of a current test run. This checker validates that the evidence
   2. records a COMPLETE accounting (collected, executed, passed,
      failed, skipped, xfailed, xpassed, errors, deselected) whose math
      verifies: executed == passed+failed+errors+skipped+xfailed+xpassed
-     and collected == executed+deselected;
+     and the collected == executed+deselected terminal equation ONLY
+     when no collection-phase reports exist (§3.6: the hook-level v3
+     model is authoritative; a v2 equation disagreement explained by
+     recorded collection errors/skips, with green v3 invariants and a
+     green terminal cross-check, does not fail);
   3. belongs to the CURRENT source revision — the recorded commit must
      equal this checkout's HEAD (a stale evidence file from another
      commit fails);
@@ -38,7 +42,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 EVIDENCE_JSON = ROOT / "docs" / "FULL_SUITE_EVIDENCE.json"
 EVIDENCE_TXT = ROOT / "docs" / "FULL_SUITE_EVIDENCE.txt"
-EXPECTED_SCHEMA = "full-suite-evidence/v2"
+EXPECTED_SCHEMA = "full-suite-evidence/v3"
+LEGACY_SCHEMA = "full-suite-evidence/v2"
 EXPECTED_RUNNER = "run_tests_with_evidence.py"
 REQUIRED_COUNTS = ("collected", "executed", "passed", "failed", "skipped",
                    "xfailed", "xpassed", "errors", "deselected")
@@ -55,9 +60,9 @@ def evaluate(record: dict, *, head: str, env: dict[str, str]) -> list[str]:
     """Return the list of failures (empty list == evidence validates)."""
     failures: list[str] = []
 
-    if record.get("schema") != EXPECTED_SCHEMA:
+    if record.get("schema") not in (EXPECTED_SCHEMA, LEGACY_SCHEMA):
         failures.append(f"schema is {record.get('schema')!r}, "
-                        f"expected {EXPECTED_SCHEMA!r}")
+                        f"expected {EXPECTED_SCHEMA!r} or {LEGACY_SCHEMA!r}")
     if record.get("runner") != EXPECTED_RUNNER:
         failures.append(f"runner is {record.get('runner')!r}, expected "
                         f"{EXPECTED_RUNNER!r} (hand-written evidence is not "
@@ -99,17 +104,45 @@ def evaluate(record: dict, *, head: str, env: dict[str, str]) -> list[str]:
         failures.append(f"accounting missing integer counts: {missing}")
     else:
         a = accounting
+        # §3.6 contract (same as the runner's evidence_gate_ok): the
+        # hook-level v3 accounting is AUTHORITATIVE. The legacy v2
+        # terminal equation (collected == executed + deselected) is
+        # only well-formed with ZERO collection-phase reports; when the
+        # v3 block records collection errors/skips, its disagreement
+        # (and the runner's accounting_consistent=False) is EXPLAINED —
+        # provided the v3 invariants hold and the terminal cross-check
+        # agrees. Never bypassed: an UNEXPLAINED v2 disagreement, a
+        # missing/violated v3, or a disagreeing cross-check still
+        # fails.
+        v3 = record.get("accounting_v3")
+        v3 = v3 if isinstance(v3, dict) else {}
+        collection_phase_reports = (
+            int(v3.get("collection_errors") or 0)
+            + int(v3.get("collection_skips") or 0)
+        )
+        v3_green = (
+            bool(v3)
+            and bool(v3.get("invariants_all_true"))
+            and bool((record.get("accounting_cross_check") or {}).get(
+                "all_agree"))
+        )
+        v2_explained = v3_green and collection_phase_reports > 0
+
         total = (a["passed"] + a["failed"] + a["errors"] + a["skipped"]
                  + a["xfailed"] + a["xpassed"])
         if a["executed"] != total:
             failures.append(
                 f"executed {a['executed']} != passed+failed+errors+skipped"
                 f"+xfailed+xpassed {total}")
-        if a["collected"] != a["executed"] + a["deselected"]:
+        if a["collected"] != a["executed"] + a["deselected"] \
+                and not v2_explained:
             failures.append(
                 f"collected {a['collected']} != executed+deselected "
-                f"{a['executed'] + a['deselected']}")
-        if not accounting.get("accounting_consistent"):
+                f"{a['executed'] + a['deselected']}"
+                + ("" if not v2_explained else
+                   " (explained by collection-phase reports; v3 governs)"))
+        if not accounting.get("accounting_consistent") \
+                and not v2_explained:
             failures.append("runner could not verify the accounting against "
                             "the pytest session summary")
     if not accounting.get("summary_found"):
@@ -120,6 +153,35 @@ def evaluate(record: dict, *, head: str, env: dict[str, str]) -> list[str]:
     if exit_code != 0:
         failures.append(f"recorded test exit code is {exit_code!r}, not 0 — "
                         "evidence of a failed run never validates")
+
+    # ---- v3: hook-level accounting invariants + terminal cross-check ----
+    if record.get("schema") == EXPECTED_SCHEMA:
+        v3 = record.get("accounting_v3")
+        if not isinstance(v3, dict):
+            failures.append("v3 evidence requires the hook-level "
+                            "accounting_v3 block (pytest_accounting_plugin)")
+        else:
+            if not v3.get("invariants_all_true"):
+                failures.append(
+                    f"v3 accounting invariants violated: {v3.get('invariants')}")
+            if v3.get("interrupted"):
+                failures.append("v3 accounting records an INTERRUPTED run")
+            if v3.get("not_started"):
+                failures.append(
+                    f"v3 accounting records {v3['not_started']} collected "
+                    "items that never started")
+            outcomes = v3.get("outcomes") or {}
+            if v3.get("started_items") != (
+                    sum(outcomes.values()) + v3.get("setup_errors", -1)):
+                failures.append("v3 started_items != outcomes + setup_errors")
+        cross = record.get("accounting_cross_check")
+        if not isinstance(cross, dict) or not cross.get("plugin_available"):
+            failures.append("v3 evidence missing the hook-level/terminal "
+                            "cross-check")
+        elif not cross.get("all_agree"):
+            failures.append(
+                f"hook-level accounting disagrees with the terminal summary: "
+                f"{cross.get('disagreements')}")
 
     started = str(record.get("started_at_utc", ""))
     completed = str(record.get("completed_at_utc", ""))

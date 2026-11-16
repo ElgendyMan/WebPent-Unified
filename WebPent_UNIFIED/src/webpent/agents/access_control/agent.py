@@ -46,7 +46,14 @@ _ID_PATTERN = re.compile(
         r"items?|products?|invoices?|payments?|transactions?|user_profiles?|profiles?|"
 
     r"settings?|configs?|projects?|tasks?|tickets?|reports?)"
-    r"/(\d+|[a-f0-9-]{8,}|[a-zA-Z0-9_-]{10,})"
+    # UM-DR-37 root cause RC-2: the previous ``[a-zA-Z0-9_-]{10,}`` minimum
+    # silently dropped real-world structured identifiers such as
+    # "INV-A-101" (9 chars). The new alternative accepts any identifier
+    # segment of >=5 chars that contains at least one digit — plain words
+    # ("session", "health") still never match. Pure digits keep matching
+    # via ``\d+``; hex/UUID-ish ids via the 8+ branch.
+    r"/(\d+|[a-f0-9-]{8,}|[a-zA-Z0-9_-]{10,}"
+    r"|(?=[A-Za-z0-9_-]*\d)(?=[A-Za-z0-9_-]{5,})[A-Za-z0-9_-]+)"
     r")",
     re.IGNORECASE,
 )
@@ -172,6 +179,51 @@ def _graphql_projection_records(javascript_intelligence: Any) -> list[dict[str, 
     return records
 
 
+def _authz_context_row(
+    row: dict[str, Any],
+    *,
+    owner: str | None,
+    object_id: str | None,
+    url: str,
+) -> dict[str, Any]:
+    """Stamp the authorization context this node already possesses into
+    the observation contract CausalGuard reads.
+
+    UM-DR-37 root cause RC-4: BAC probe rows carry ``identity``/``role``/
+    ``status_code`` but not the actor/resource context keys the guard
+    extracts (``actor_id``, ``resource_owner``,
+    ``authorization_outcome``, ...), so every production differential was
+    adjudicated ``INCONCLUSIVE_INSUFFICIENT_AUTH_CONTEXT`` even with a
+    complete owner/foreign/denied triple — the confirmation chain
+    fail-closed correctly, but on missing CONTEXT, not missing evidence.
+    Nothing is invented here: ``actor_id`` is the row's own recorded
+    requesting identity, ``resource_owner`` is the ownership observation
+    that qualified this record, and the outcome is derived from the
+    observed status code.
+    """
+    status = int(row.get("status_code") or 0)
+    if 200 <= status < 300:
+        outcome = "granted_full"
+    elif status in (401, 403):
+        outcome = "denied"
+    elif status == 404:
+        outcome = "not_found_boundary_enforced"
+    else:
+        outcome = "unknown"
+    path = urlparse(url).path.rstrip("/")
+    resource_type = path.rsplit("/", 2)[-2] if path.count("/") >= 2 else ""
+    enriched = dict(row)
+    enriched.update({
+        "actor_id": str(row.get("identity") or "") or None,
+        "actor_role": str(row.get("role") or "") or None,
+        "resource_id": str(object_id or "") or None,
+        "resource_type": resource_type or None,
+        "resource_owner": str(owner) if owner else None,
+        "authorization_outcome": outcome,
+    })
+    return {k: v for k, v in enriched.items() if v is not None}
+
+
 def _extract_candidate_records(
     crawled_data: Any,
     javascript_intelligence: Any = None,
@@ -186,7 +238,13 @@ def _extract_candidate_records(
     seen: set[str] = set()
     values: list[Any] = []
     if isinstance(crawled_data, dict):
-        for key in ("urls", "endpoints", "links", "pages", "resources"):
+        # RICHER records first: surface_records (dicts carrying the
+        # body-level ownership markers recorded by the crawl channel)
+        # must register BEFORE the plain-URL endpoints list, so the
+        # dedup canonical keeps the record with explicit evidence
+        # (owner_identity / public_resource) instead of the bare URL.
+        for key in ("surface_records", "urls", "endpoints", "links",
+                    "pages", "resources"):
             value = crawled_data.get(key)
             if isinstance(value, list):
                 values.extend(value)
@@ -823,7 +881,39 @@ def access_control_node(state: PentestState) -> dict:
         url = str(record["url"])
         effective_profiles = list(probe_profiles)
         object_id = str(record.get("object_id") or extract_object_id(url) or "") or None
+        if record.get("public_resource"):
+            # UM-DR-37 §12 decoy closure: the crawl channel recorded an
+            # EXPLICIT public marker in the resource body. A public
+            # resource has no ownership semantics — the primary-session
+            # ownership heuristic must not fabricate them (the decoy
+            # route exposed exactly this false-positive class: a public
+            # invoice lookalike confirmed as an IDOR). Recorded
+            # honestly as a skipped public resource, never probed as a
+            # differential.
+            gaps_out.append(
+                {
+                    "resource_url": url,
+                    "object_id": object_id,
+                    "owner_identity": None,
+                    "status": "public_resource",
+                    "confidence_level": "Not Applicable",
+                    "reason": (
+                        "the resource body carries an explicit public "
+                        "marker — no ownership differential can exist"),
+                    "identities_tested": [],
+                }
+            )
+            continue
         owner_identity = str(record.get("owner_identity") or "").strip() or None
+        if owner_identity and owner_identity not in {
+                profile.name for profile in profiles
+        }:
+            # A body-recorded owner that no probed identity REPRESENTS
+            # cannot serve as the baseline side of a differential (we
+            # hold no session for that owner). Keep it as corroborating
+            # channel evidence and let the profile-based ownership
+            # resolution decide — never fabricate a baseline.
+            owner_identity = None
         if not owner_identity:
             owners = [
                 profile.name
@@ -999,6 +1089,20 @@ def access_control_node(state: PentestState) -> dict:
             owner_row = next(
                 row for row in rows if row.get("identity") == owner_identity
             )
+            # UM-DR-37 RC-4: hand the confirmation chain the authorization
+            # context (actor/owner/outcome) this node already possesses so
+            # the guard can adjudicate instead of fail-closing on missing
+            # context. Values are recorded facts, not derivations.
+            guard_baseline = _authz_context_row(
+                owner_row, owner=owner_identity, object_id=object_id, url=url)
+            guard_candidate = _authz_context_row(
+                foreign, owner=owner_identity, object_id=object_id, url=url)
+            guard_control = _authz_context_row(
+                negative_control, owner=owner_identity,
+                object_id=str(negative_control.get("object_id")
+                              or extract_object_id(
+                                  str(negative_control.get("url") or url)) or ""),
+                url=str(negative_control.get("url") or url))
             finding = _create_idor_finding(
                 url,
                 int(foreign["status_code"]),
@@ -1029,9 +1133,9 @@ def access_control_node(state: PentestState) -> dict:
             )
             verification = verify_replay_evidence(
                 finding,
-                baseline=owner_row,
-                candidate=foreign,
-                negative_control=negative_control,
+                baseline=guard_baseline,
+                candidate=guard_candidate,
+                negative_control=guard_control,
                 causal_signal=True,
                 negative_control_complete=True,
                 validator_id="access_control.idor",

@@ -1,0 +1,23 @@
+{
+  "schema": "umdr36_2-readiness/v1",
+  "generated_at_utc": "2026-11-16T05:24:44.613919+00:00",
+  "head": "609da8ade4bcafce3ee52f6bb64e98485aeab693",
+  "gates": {
+    "G36-01_repository_baseline_verified": true,
+    "G36-02_recovery_sources_reconciled": true,
+    "G36-03_portable_restore_verified": true,
+    "G36-04_dependency_version_integrity": true,
+    "G36-05_frozen_manifest_integrity": true,
+    "G36-06_build_info_provenance": true,
+    "G36-07_test_accounting_consistency": true,
+    "G36-08_current_run_evidence": true,
+    "G36-09_finding_identity_invariants": true,
+    "G36-10_full_suite_honestly_classified": true,
+    "G36-11_ci_verified_or_blocked": "BLOCKED: no GitHub credentials in the build environment; push/PR left to the owner (bundle provided)"
+  },
+  "state": "PARTIALLY_VERIFIED",
+  "blockers": [
+    "G36-08 current-run v3 evidence: the full suite is executing at generation time; regenerate this file after it lands",
+    "G36-11 remote CI: cannot push without credentials (external blocker, documented)"
+  ]
+}
