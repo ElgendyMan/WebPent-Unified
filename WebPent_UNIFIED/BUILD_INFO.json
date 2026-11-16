@@ -1,6 +1,6 @@
 {
  "build_name": "WebPent v15.2 (unified)",
- "build_date": "2026-11-10T00:00:00Z",
+ "build_date": "2026-11-16T07:56:46.297964+00:00",
  "version_identity_contract": {
   "note": "UM-DR-32 \u00a73.4 \u2014 every identity field below is UNAMBIGUOUS. The single-source-of-truth for the package version is pyproject.toml + CHANGELOG.md. build_name is the legacy v-lineage delivery label, kept for lineage only.",
   "historical_merge_baseline": "0.34.0 (the UNIFIED merge line, 2026-11-02 \u2014 historical record, NOT the current version)",
@@ -19,12 +19,32 @@
   },
   "current_release": {
    "package_version": "0.40.1",
-   "window": "UM-DR-36.2/37 recovery closure + production root-cause",
-   "source_revision": "recorded in UMDR32_RELEASE_INTEGRITY_REPORT.md (release archive manifest)",
-   "python_floor": ">=3.11 (declared in pyproject.toml; deliberate \u2014 the CVE-patched dnspython 2.9.2 line publishes no 3.10 release)",
-   "python_tested": "3.12.16 (the UM-DR-32 execution environment; documented separately from the floor)",
-   "provenance_note": "corrected by UM-DR-36.2 \u00a73.5: the 0.38.0/0.40.0 stale entries were the version_consistency FAIL flagged since UM-DR-36.1"
-  }
+   "window": "0.40.1 release line: UM-DR-35/36 corrective closure, UM-DR-36.1 recovery, UM-DR-36.2/37 root-cause + production campaigns, UM-DR-38 publication integrity & release closure",
+   "source_revision": "e6f387c8230d12c2b6acfbc4f47b56ee9010238c",
+   "python_floor": ">=3.11 (pyproject.toml)",
+   "python_tested": "3.12.16",
+   "provenance_note": "UM-DR-38 \u00a710 reconciliation: current release identity is this revision; the 0.40.1 mission windows are documented in the window field, historical entries live in release_history below"
+  },
+  "release_history": [
+   {
+    "package_version": "0.38.0",
+    "window": "UM-DR-32 identity & business-logic evolution",
+    "source_revision": "989c49ba5cb3747859496d06736ae7c8317086ed",
+    "note": "public main publish (Update to v0.38.0 UMDR32)"
+   },
+   {
+    "package_version": "0.39.0",
+    "window": "UM-DR-33 researcher brain & autonomous campaigns",
+    "source_revision": "4795f02377373a1a2dc4d3376987f7702cd24bf6",
+    "note": "features/v0.39.0-umdr33 feature branch (never merged to main)"
+   },
+   {
+    "package_version": "0.40.0",
+    "window": "UM-DR-34 scope authority, safe egress & execution governance",
+    "source_revision": null,
+    "source_revision_note": "local lineage of the security/umdr34-origin-scope-hardening branch; no single published 0.40.0 commit on main \u2014 recorded as explicitly-unverifiable local lineage"
+   }
+  ]
  },
  "git_head": "RECORD_LIMITATION: a single git_head field cannot represent source-revision, test-revision, artifact-revision and publication-revision at once. Each UM-DR-32 artifact records its own provenance block via scripts/experiment_provenance.py (UM-DR-32 \u00a73.2). See docs/engineering/umdr32/.",
  "units_closed": [
@@ -53,13 +73,17 @@
   "TC4-C3",
   "TC4-C4",
   "TC4-DR-013",
-  "TC5-TRACE-R1",
   "TC5-DR-014",
+  "TC5-TRACE-R1",
   "U-0R",
   "UM-DR-30",
   "UM-DR-31",
   "UM-DR-31.1",
-  "UM-DR-32"
+  "UM-DR-32",
+  "UM-DR-36.1",
+  "UM-DR-36.2",
+  "UM-DR-37",
+  "UM-DR-38"
  ],
  "brain_modules": [
   "ev_scheduler",
@@ -84,19 +108,9 @@
   "authority": "cqa_v2.guarded_causal_evaluate / CausalGuard remains the SOLE confirmation authority; ProofBundle generation and replay verification remain mandatory; negative controls unchanged",
   "m10": "CLOSED \u2014 independent holdout BLOCKED_EXTERNAL_DEPENDENCY (unchanged; UM-DR-32 evaluation is a controlled local engineering evaluation, NOT independent validation)"
  },
- "suite_evidence": "current-window accounting: see docs/engineering/umdr32/UMDR32_TEST_ACCOUNTING.json (exact reconciliation); historical UM-DR-31.1: 8744 collected -> 8735/0/6/3",
+ "suite_evidence": "current-release accounting: the full-suite v3 evidence run at commit e6f387c8230d (machine record .webpent-evidence/FULL_SUITE_EVIDENCE.json, uploaded as the CI workflow artifact) \u2014 collected 9249, executed 9250, passed 9238, failed 0, errors 0; provenance block carries the identical counts",
  "package_version": "0.40.1",
- "suite_count": 9228,
- "current_release": {
-  "package_version": "0.39.0",
-  "window": "UM-DR-33 researcher brain & autonomous campaign evolution",
-  "previous_release": {
-   "package_version": "0.38.0",
-   "window": "UM-DR-32 identity & business-logic evolution",
-   "provenance": "local lineage da1f828 (verified, 12-commit chain); release zip source_commit d3937b2"
-  }
- },
- "suite_count_note": "UM-DR-35/36 final (Phase 3+6 closure): verification state recorded in docs/UMDR35_36_READINESS_SUMMARY.json (full-suite rerun outcome at delivery is the honest authority for the numbers).",
+ "suite_count": 9250,
  "umdr34": {
   "window": "UM-DR-34 scope authority, safe egress & execution governance",
   "version": "0.40.0",
@@ -119,10 +133,56 @@
   "integrated_campaign": "artifacts/umdr35_36_integrated_campaign_result.json (run_unified_hunt entrypoint, complete chain, same-finding invariant)",
   "readiness_decision": "NOT_READY_FOR_UM_DR_37 (honest: remote CI unverified)"
  },
- "suite_evidence_provenance": {
-  "note": "suite_count refreshed from the CURRENT full-suite v3 evidence run",
-  "evidence_file": "docs/FULL_SUITE_EVIDENCE.json",
-  "measured": "collected 9178, passed 9160, failed 7, errors 0 (v3 hook accounting; cross-check all_agree=True)",
-  "refreshed_at_commit": "51dfb44"
- }
+ "provenance": {
+  "source_revision": "e6f387c8230d12c2b6acfbc4f47b56ee9010238c",
+  "tested_revision": "e31cad5efcf80331cde1fae5b3c1befb7aad313c",
+  "evidence_revision": "e31cad5efcf80331cde1fae5b3c1befb7aad313c",
+  "recovery_baseline": "1968f63c2076b1b804537f91cd5cfa01c3eee0bb",
+  "package_version": "0.40.1",
+  "manifest_digest": "9a385d03bcec7c0a10489a2c027803498d626b51a8f1a9a0a081fab421a4e257",
+  "build_date": "2026-11-16T07:56:46.297964+00:00",
+  "publication": {
+   "published": false,
+   "release_tag": null,
+   "note": "remote publication BLOCKED_EXTERNAL_DEPENDENCY (no push credentials); the closure branch + bundle carry the release"
+  },
+  "test_accounting": {
+   "passed": 9238,
+   "failed": 0,
+   "skipped": 9,
+   "xfailed": 3,
+   "xpassed": 0,
+   "deselected": 0,
+   "errors": 0,
+   "collected": 9249,
+   "executed": 9250,
+   "accounting_consistent": 0,
+   "summary_found": 1
+  },
+  "evidence": {
+   "runner": "scripts/run_tests_with_evidence.py",
+   "record": ".webpent-evidence/FULL_SUITE_EVIDENCE.json",
+   "schema": "full-suite-evidence/v3",
+   "tree_clean_at_test_start": true,
+   "lockfile_sha256": "6d714ff5ed5212b8e751d19fc50917aa52fec042583f4d69d9d6b2a75c4ef650",
+   "coverage_percent": 77.09
+  },
+  "note": "UM-DR-38 \u00a710: every number here is derived from the current evidence record at generation time \u2014 never typed, never copied from an older report",
+  "schema": "umdr36-1-provenance-v1"
+ },
+ "fixes_applied": [
+  "umdr38-evidence-output-contract (.webpent-evidence/)",
+  "umdr38-checker-provenance-freshness (\u00a76.3)",
+  "umdr38-workflows-to-repository-root (\u00a75)",
+  "umdr38-root-readme (\u00a75.1)",
+  "umdr38-campaign-instrumentation-reversible (\u00a77.2.A)",
+  "umdr38-authoritative-final-graph-state (\u00a77.2.B)",
+  "umdr38-campaign-cleanup-and-redaction (\u00a77.2.E/F)",
+  "umdr38-lab-version-ssot (Phase 5)",
+  "umdr38-report-generators-fail-closed (\u00a79.1)",
+  "umdr38-buildinfo-historical-separation (Phase 6)",
+  "umdr38-soupsieve-security-upgrade (4 CVEs, 2.9.2->4.1.1)",
+  "umdr38-coverage-ratchet-env-fix (uv run make)",
+  "umdr38-durable-evidence-publication (\u00a77.1)"
+ ]
 }

@@ -1,4 +1,389 @@
 {
   "schema": "umdr37-learning-ablation/v2",
-  "missing": true
+  "generated_at_utc": "2026-11-16T07:03:29.340698+00:00",
+  "mission": "UM-DR-37 Part 10.2 / gate G37-14",
+  "design": {
+    "run_a": "real orchestrator; the stock InformationGainSelector decides every round (ShadowSelector records the counterfactual decision at each point without influencing the run)",
+    "run_b": "identical orchestrator + seed with the evidence channel into selection cut (AblatedFeedbackSelector)",
+    "causal_chain": "observation -> evidence/state records -> score delta on the affected candidate -> selection change (real vs counterfactual)"
+  },
+  "same_first_decision": true,
+  "decisions_run_a": [
+    {
+      "round": 1,
+      "action": "select",
+      "selected_experiment_id": "e-neg-bola-1",
+      "scores": {
+        "e-neg-bola-1": 0.6,
+        "e-neg-idor-1": 0.6,
+        "e-pos-authbypass-1": 0.6,
+        "e-pos-bola-1": 0.6,
+        "e-pos-idor-1": 0.6,
+        "e-pos-idor-multi": 0.6
+      },
+      "alternatives": [
+        [
+          "e-neg-bola-1",
+          0.6
+        ],
+        [
+          "e-neg-idor-1",
+          0.6
+        ],
+        [
+          "e-pos-authbypass-1",
+          0.6
+        ],
+        [
+          "e-pos-bola-1",
+          0.6
+        ],
+        [
+          "e-pos-idor-1",
+          0.6
+        ],
+        [
+          "e-pos-idor-multi",
+          0.6
+        ]
+      ],
+      "rationale": "highest information gain: e-neg-bola-1 (score 0.6, signature neg-bola-1/BOLA)"
+    },
+    {
+      "round": 2,
+      "action": "select",
+      "selected_experiment_id": "e-neg-idor-1",
+      "scores": {
+        "e-neg-idor-1": 0.6,
+        "e-pos-authbypass-1": 0.6,
+        "e-pos-bola-1": 0.6,
+        "e-pos-idor-1": 0.6,
+        "e-pos-idor-multi": 0.6
+      },
+      "alternatives": [
+        [
+          "e-neg-idor-1",
+          0.6
+        ],
+        [
+          "e-pos-authbypass-1",
+          0.6
+        ],
+        [
+          "e-pos-bola-1",
+          0.6
+        ],
+        [
+          "e-pos-idor-1",
+          0.6
+        ],
+        [
+          "e-pos-idor-multi",
+          0.6
+        ]
+      ],
+      "rationale": "highest information gain: e-neg-idor-1 (score 0.6, signature neg-idor-1/IDOR)"
+    },
+    {
+      "round": 3,
+      "action": "select",
+      "selected_experiment_id": "e-pos-authbypass-1",
+      "scores": {
+        "e-pos-authbypass-1": 0.6,
+        "e-pos-bola-1": 0.6,
+        "e-pos-idor-1": 0.6,
+        "e-pos-idor-multi": 0.6
+      },
+      "alternatives": [
+        [
+          "e-pos-authbypass-1",
+          0.6
+        ],
+        [
+          "e-pos-bola-1",
+          0.6
+        ],
+        [
+          "e-pos-idor-1",
+          0.6
+        ],
+        [
+          "e-pos-idor-multi",
+          0.6
+        ]
+      ],
+      "rationale": "highest information gain: e-pos-authbypass-1 (score 0.6, signature pos-authbypass-1/AUTH_BYPASS)"
+    }
+  ],
+  "decisions_run_b": [
+    {
+      "round": 1,
+      "action": "select",
+      "selected_experiment_id": "e-neg-bola-1",
+      "scores": {
+        "e-neg-bola-1": 0.6,
+        "e-neg-idor-1": 0.6,
+        "e-pos-authbypass-1": 0.6,
+        "e-pos-bola-1": 0.6,
+        "e-pos-idor-1": 0.6,
+        "e-pos-idor-multi": 0.6
+      },
+      "alternatives": [
+        [
+          "e-neg-bola-1",
+          0.6
+        ],
+        [
+          "e-neg-idor-1",
+          0.6
+        ],
+        [
+          "e-pos-authbypass-1",
+          0.6
+        ],
+        [
+          "e-pos-bola-1",
+          0.6
+        ],
+        [
+          "e-pos-idor-1",
+          0.6
+        ],
+        [
+          "e-pos-idor-multi",
+          0.6
+        ]
+      ],
+      "rationale": "highest information gain: e-neg-bola-1 (score 0.6, signature neg-bola-1/BOLA)"
+    },
+    {
+      "round": 2,
+      "action": "select",
+      "selected_experiment_id": "e-neg-idor-1",
+      "scores": {
+        "e-neg-idor-1": 0.6,
+        "e-pos-authbypass-1": 0.6,
+        "e-pos-bola-1": 0.6,
+        "e-pos-idor-1": 0.6,
+        "e-pos-idor-multi": 0.6
+      },
+      "alternatives": [
+        [
+          "e-neg-idor-1",
+          0.6
+        ],
+        [
+          "e-pos-authbypass-1",
+          0.6
+        ],
+        [
+          "e-pos-bola-1",
+          0.6
+        ],
+        [
+          "e-pos-idor-1",
+          0.6
+        ],
+        [
+          "e-pos-idor-multi",
+          0.6
+        ]
+      ],
+      "rationale": "highest information gain: e-neg-idor-1 (score 0.6, signature neg-idor-1/IDOR)"
+    },
+    {
+      "round": 3,
+      "action": "select",
+      "selected_experiment_id": "e-pos-authbypass-1",
+      "scores": {
+        "e-pos-authbypass-1": 0.6,
+        "e-pos-bola-1": 0.6,
+        "e-pos-idor-1": 0.6,
+        "e-pos-idor-multi": 0.6
+      },
+      "alternatives": [
+        [
+          "e-pos-authbypass-1",
+          0.6
+        ],
+        [
+          "e-pos-bola-1",
+          0.6
+        ],
+        [
+          "e-pos-idor-1",
+          0.6
+        ],
+        [
+          "e-pos-idor-multi",
+          0.6
+        ]
+      ],
+      "rationale": "highest information gain: e-pos-authbypass-1 (score 0.6, signature pos-authbypass-1/AUTH_BYPASS)"
+    }
+  ],
+  "decision_point_trace": [
+    {
+      "round": 1,
+      "real_selected": "e-neg-bola-1",
+      "counterfactual_selected": "e-neg-bola-1",
+      "real_scores": {
+        "e-neg-bola-1": 0.6,
+        "e-neg-idor-1": 0.6,
+        "e-pos-authbypass-1": 0.6,
+        "e-pos-bola-1": 0.6,
+        "e-pos-idor-1": 0.6,
+        "e-pos-idor-multi": 0.6
+      },
+      "counterfactual_scores": {
+        "e-neg-bola-1": 0.6,
+        "e-neg-idor-1": 0.6,
+        "e-pos-authbypass-1": 0.6,
+        "e-pos-bola-1": 0.6,
+        "e-pos-idor-1": 0.6,
+        "e-pos-idor-multi": 0.6
+      }
+    },
+    {
+      "round": 2,
+      "real_selected": "e-neg-idor-1",
+      "counterfactual_selected": "e-neg-idor-1",
+      "real_scores": {
+        "e-neg-idor-1": 0.6,
+        "e-pos-authbypass-1": 0.6,
+        "e-pos-bola-1": 0.6,
+        "e-pos-idor-1": 0.6,
+        "e-pos-idor-multi": 0.6
+      },
+      "counterfactual_scores": {
+        "e-neg-idor-1": 0.6,
+        "e-pos-authbypass-1": 0.6,
+        "e-pos-bola-1": 0.6,
+        "e-pos-idor-1": 0.6,
+        "e-pos-idor-multi": 0.6
+      }
+    },
+    {
+      "round": 3,
+      "real_selected": "e-pos-authbypass-1",
+      "counterfactual_selected": "e-pos-authbypass-1",
+      "real_scores": {
+        "e-pos-authbypass-1": 0.6,
+        "e-pos-bola-1": 0.6,
+        "e-pos-idor-1": 0.6,
+        "e-pos-idor-multi": 0.6
+      },
+      "counterfactual_scores": {
+        "e-pos-authbypass-1": 0.6,
+        "e-pos-bola-1": 0.6,
+        "e-pos-idor-1": 0.6,
+        "e-pos-idor-multi": 0.6
+      }
+    }
+  ],
+  "counterfactual_divergences": [],
+  "evidence_driven_score_deltas": [],
+  "cross_arm_divergence": null,
+  "evidence_run_a": [
+    {
+      "evidence_id": "ev-e-neg-bola-1",
+      "kind": "contradicting",
+      "source": "causal_guard",
+      "ref": "e-neg-bola-1",
+      "summary": "guard verdict clean",
+      "round": 1
+    },
+    {
+      "evidence_id": "ev-e-neg-idor-1",
+      "kind": "contradicting",
+      "source": "causal_guard",
+      "ref": "e-neg-idor-1",
+      "summary": "guard verdict clean",
+      "round": 2
+    },
+    {
+      "evidence_id": "ev-e-pos-authbypass-1",
+      "kind": "supporting",
+      "source": "causal_guard",
+      "ref": "e-pos-authbypass-1",
+      "summary": "sealed bundle replay-valid, verdict confirmed",
+      "round": 3
+    }
+  ],
+  "hypotheses_run_a": [
+    {
+      "hypothesis_id": "h-pos-idor-1",
+      "family": "IDOR",
+      "statement": "seeded hypothesis for pos-idor-1",
+      "source": "ground_truth_seed",
+      "origin": "pos-idor-1",
+      "status": "proposed"
+    },
+    {
+      "hypothesis_id": "h-pos-bola-1",
+      "family": "BOLA",
+      "statement": "seeded hypothesis for pos-bola-1",
+      "source": "ground_truth_seed",
+      "origin": "pos-bola-1",
+      "status": "proposed"
+    },
+    {
+      "hypothesis_id": "h-pos-authbypass-1",
+      "family": "AUTH_BYPASS",
+      "statement": "seeded hypothesis for pos-authbypass-1",
+      "source": "ground_truth_seed",
+      "origin": "pos-authbypass-1",
+      "status": "confirmed"
+    },
+    {
+      "hypothesis_id": "h-pos-idor-multi",
+      "family": "IDOR",
+      "statement": "seeded hypothesis for pos-idor-multi",
+      "source": "ground_truth_seed",
+      "origin": "pos-idor-multi",
+      "status": "proposed"
+    },
+    {
+      "hypothesis_id": "h-neg-idor-1",
+      "family": "IDOR",
+      "statement": "seeded hypothesis for neg-idor-1",
+      "source": "ground_truth_seed",
+      "origin": "neg-idor-1",
+      "status": "contradicted"
+    },
+    {
+      "hypothesis_id": "h-neg-bola-1",
+      "family": "BOLA",
+      "statement": "seeded hypothesis for neg-bola-1",
+      "source": "ground_truth_seed",
+      "origin": "neg-bola-1",
+      "status": "contradicted"
+    }
+  ],
+  "scenario_limitation": {
+    "mechanism": "one experiment per hypothesis in the stock benchmark pool: evidence recorded for an executed experiment's hypothesis has no pending follow-up candidate to re-rank",
+    "evidence_affected_hypotheses": [
+      "h-neg-bola-1",
+      "h-neg-idor-1",
+      "h-pos-authbypass-1"
+    ],
+    "pending_candidates_on_those_hypotheses": {
+      "h-neg-bola-1": 0,
+      "h-neg-idor-1": 0,
+      "h-pos-authbypass-1": 0
+    },
+    "evidence_did_flow": true,
+    "hypothesis_status_updates": {
+      "h-pos-idor-1": "proposed",
+      "h-pos-bola-1": "proposed",
+      "h-pos-authbypass-1": "confirmed",
+      "h-pos-idor-multi": "proposed",
+      "h-neg-idor-1": "contradicted",
+      "h-neg-bola-1": "contradicted"
+    },
+    "complementary_campaign_level_proof": "tests/test_umdr31_campaign_e2e_ablation.py \u2014 the same-budget 4-arm campaign ablation where evidence-channel hints (coverage/invariant) change which experiments run first and what gets confirmed, with feedback closing the covered cell"
+  },
+  "learning_proven": false,
+  "honest_verdict": "Two-layer honest verdict. (1) SELECTOR LEVEL \u2014 PROVEN: tests/test_umdr37_learning_ablation.py drives the REAL InformationGainSelector over the REAL InvestigationState: recorded evidence lifts the affected candidate by exactly EVIDENCE_LIFT and flips the next selection; contradicting evidence reorders downward; the supported-status lift layers on top. Same seed, no randomness \u2014 the difference is attributable to the evidence channel alone. (2) FULL LOOP \u2014 NOT OBSERVABLE UNDER THE STOCK SCENARIO, for the structural reason recorded in scenario_limitation: the benchmark pool has one experiment per hypothesis, so recorded evidence has no pending follow-up candidate to re-rank (the evidence itself DID flow \u2014 three items recorded, two hypotheses contradicted, one confirmed). The campaign-level feedback ablation (tests/test_umdr31_campaign_e2e_ablation.py) complements this: same-budget arms with and without evidence-channel hints select different experiments and confirm different outcomes.",
+  "unit_level_proof": "tests/test_umdr37_learning_ablation.py \u2014 same seeded state, real selector: evidence lifts the affected candidate by exactly EVIDENCE_LIFT and flips the selection; contradicting evidence reorders downward."
 }

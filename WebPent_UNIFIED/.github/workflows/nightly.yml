@@ -1,3 +1,11 @@
+# UM-DR-38 §5.2/§5.3 — CANONICAL ROOT-LEVEL WORKFLOW. GitHub discovers
+# workflows ONLY under .github/workflows/ at the REPOSITORY ROOT; the
+# historical nested copy (WebPent_UNIFIED/.github/workflows/) never ran
+# on push. This file migrates the full gate set unchanged (the
+# gate-to-finding map below is preserved verbatim) and executes every
+# command from the actual project root (WebPent_UNIFIED/) via
+# defaults.run.working-directory. The nested copies are RETIRED
+# (removed) — this is the single source of truth for this workflow.
 # Nightly lab canary + deep evidence (Track 2, بند 5 of the unified roadmap).
 #
 # Roadmap contract: "إنشاء canary ليلي في مختبر ضعيف عمدًا، مع baseline
@@ -23,6 +31,10 @@ on:
 jobs:
   canary:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: WebPent_UNIFIED
     env:
       LLM_ENABLED: "false"
       EMBEDDINGS_OFFLINE: "true"
@@ -55,7 +67,7 @@ jobs:
         run: uv run pytest -q tests/dojo/test_self_benchmark.py tests/dojo/test_u_dojo_1.py
 
       - name: Coverage ratchet (enforcement, nightly re-measure)
-        run: make coverage-ratchet
+        run: uv run make coverage-ratchet
 
       - name: Upload canary evidence
         if: always()

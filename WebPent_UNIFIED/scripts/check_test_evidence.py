@@ -36,12 +36,13 @@ import json
 import os
 import re
 import subprocess
-import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-EVIDENCE_JSON = ROOT / "docs" / "FULL_SUITE_EVIDENCE.json"
-EVIDENCE_TXT = ROOT / "docs" / "FULL_SUITE_EVIDENCE.txt"
+EVIDENCE_DIR = Path(os.environ.get("WEBPENT_EVIDENCE_DIR")
+                    or (ROOT / ".webpent-evidence"))
+EVIDENCE_JSON = EVIDENCE_DIR / "FULL_SUITE_EVIDENCE.json"
+EVIDENCE_TXT = EVIDENCE_DIR / "FULL_SUITE_EVIDENCE.txt"
 EXPECTED_SCHEMA = "full-suite-evidence/v3"
 LEGACY_SCHEMA = "full-suite-evidence/v2"
 EXPECTED_RUNNER = "run_tests_with_evidence.py"
@@ -56,7 +57,24 @@ def _git_head() -> str:
     return r.stdout.strip() if r.returncode == 0 else ""
 
 
-def evaluate(record: dict, *, head: str, env: dict[str, str]) -> list[str]:
+def _current_lockfile_sha() -> str:
+    """SHA-256 of the CURRENT uv.lock (empty when absent) — the freshness
+    anchor for §6.3: evidence recorded against a different lockfile is
+    stale and must not validate."""
+    import hashlib
+
+    lockfile = ROOT / "uv.lock"
+    if not lockfile.is_file():
+        return ""
+    h = hashlib.sha256()
+    with open(lockfile, "rb") as f:
+        for chunk in iter(lambda: f.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def evaluate(record: dict, *, head: str, env: dict[str, str],
+             expected_lockfile_sha: str = "") -> list[str]:
     """Return the list of failures (empty list == evidence validates)."""
     failures: list[str] = []
 
@@ -154,6 +172,29 @@ def evaluate(record: dict, *, head: str, env: dict[str, str]) -> list[str]:
         failures.append(f"recorded test exit code is {exit_code!r}, not 0 — "
                         "evidence of a failed run never validates")
 
+    # ---- UM-DR-38 §6.3: provenance completeness + freshness ----------
+    for key in ("python_version", "uv_version", "command",
+                "test_scope_digest"):
+        if not record.get(key):
+            failures.append(f"provenance field {key!r} missing")
+    lockfile_sha = str(record.get("lockfile_sha256") or "")
+    if not lockfile_sha:
+        failures.append("lockfile_sha256 missing — evidence without the "
+                        "lockfile digest cannot prove its environment")
+    elif expected_lockfile_sha and lockfile_sha != expected_lockfile_sha:
+        failures.append("lockfile_sha256 does not match the CURRENT "
+                        "uv.lock — stale evidence from a different "
+                        "dependency state")
+    cov = record.get("coverage") or {}
+    if cov.get("floor_percent") is not None:
+        percent = cov.get("percent_covered")
+        if percent is None or float(percent) < float(cov["floor_percent"]):
+            failures.append(f"coverage {percent!r} does not satisfy the "
+                            f"required floor {cov['floor_percent']!r}")
+    # NOTE: the GitHub workflow run/attempt identity checks (§6.3) live
+    # earlier in evaluate() — they predate UM-DR-38 and already reject a
+    # missing or mismatched workflow identity under CI.
+
     # ---- v3: hook-level accounting invariants + terminal cross-check ----
     if record.get("schema") == EXPECTED_SCHEMA:
         v3 = record.get("accounting_v3")
@@ -209,7 +250,8 @@ def main() -> int:
         print(f"FAIL: human-readable transcript missing ({EVIDENCE_TXT})")
         return 1
 
-    failures = evaluate(record, head=_git_head(), env=dict(os.environ))
+    failures = evaluate(record, head=_git_head(), env=dict(os.environ),
+                        expected_lockfile_sha=_current_lockfile_sha())
     if failures:
         print(f"test_evidence: GATE FAILURE ({len(failures)})")
         for f in failures:

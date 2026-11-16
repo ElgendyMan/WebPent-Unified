@@ -214,8 +214,23 @@ def test_docker_image_metadata_matches_current_project_version() -> None:
     assert arg.group(1) == pyproject_version
 
 
+def _canonical_ci_workflow() -> Path:
+    """UM-DR-38 §5.2: the canonical CI workflow lives at the REPOSITORY
+    root (.github/workflows/ci.yml) — the only location GitHub actually
+    discovers. In a standalone checkout of just the project directory
+    the nested copy is the fallback (retired in the publication repo).
+    """
+    root = PROJECT_ROOT.parent / ".github" / "workflows" / "ci.yml"
+    nested = PROJECT_ROOT / ".github" / "workflows" / "ci.yml"
+    return root if root.is_file() else nested
+
+
 def test_ci_security_environment_contract_is_explicit() -> None:
-    content = (PROJECT_ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
+    workflow = _canonical_ci_workflow()
+    assert workflow.is_file(), (
+        "the canonical root-level CI workflow must exist (UM-DR-38 §5.2)"
+        " — GitHub discovers workflows only at the repository root")
+    content = workflow.read_text(encoding="utf-8")
 
     for key, value in {
         "LLM_ENABLED": '"false"',
@@ -229,4 +244,7 @@ def test_ci_security_environment_contract_is_explicit() -> None:
     assert "verify_test_count.py" in content
     assert "scripts/test_count_floor.json" in content or "test_count_floor.json" in content
     assert "tests/test_vip_audit_gap_closure.py" in content
+    # UM-DR-38 §5.2: the root workflow executes every command from the
+    # actual project root
+    assert "working-directory: WebPent_UNIFIED" in content
 

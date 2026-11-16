@@ -1,0 +1,1803 @@
+{
+  "schema": "umdr37-graph-trace/v1",
+  "phase": "after",
+  "campaign_id": "umdr37-rootcause-after-edfacbf7",
+  "started_at_utc": "2026-11-16T07:03:30.718642+00:00",
+  "completed_at_utc": "2026-11-16T07:03:44.538635+00:00",
+  "lab": {
+    "origin": "http://127.0.0.1:43869",
+    "scenario": "invoice-lab v1.5.0 (User_A owner, User_B foreign, admin negative control, missing resource, public health resource)",
+    "vulnerable_boundary": "GET /api/invoices/INV-A-101 as User_B",
+    "enforced_boundary": "GET /api/invoices/INV-ADMIN-9001 as non-admin -> 403",
+    "missing_resource": "GET /api/invoices/INV-MISSING-404 -> 404"
+  },
+  "invocation": {
+    "url": "http://127.0.0.1:43869",
+    "mode": "standard",
+    "authorization": "umdr37-authorized-lab-engagement",
+    "cookies": "session=sess-a7f3d1",
+    "identity_profiles": {
+      "user-b": {
+        "name": "user-b",
+        "role": "user",
+        "cookies": {
+          "session": "sess-b9e2c4"
+        }
+      }
+    },
+    "auto_approve": true,
+    "no_llm": true,
+    "progress": false,
+    "run_graph": true,
+    "engagement_id": "umdr37-rootcause-after-edfacbf7"
+  },
+  "stage_count": 40,
+  "stages": [
+    {
+      "node": "target_package_preflight",
+      "wall_s": 0.818,
+      "writes": {
+        "target_package_preflight_status": null,
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "wildcard_scope",
+      "wall_s": 0.002,
+      "writes": {
+        "scope_compile_status": null,
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "planner",
+      "wall_s": 0.003,
+      "writes": {
+        "messages": 1,
+        "current_phase": null,
+        "llm_budget_trace": 1,
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "lesson_consultation",
+      "wall_s": 0.002,
+      "writes": {
+        "consulted_lessons": 1,
+        "lesson_priority_adjustments": {
+          "route_modifiers": {},
+          "family_modifiers": {},
+          "minimum_family_quota": {}
+        },
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "auth",
+      "wall_s": 0.097,
+      "writes": {
+        "session_cookies": {
+          "session": null
+        },
+        "auth_state": {
+          "cookies": 1,
+          "source": null,
+          "validated": null
+        },
+        "identity_profiles": {
+          "primary-owner": {
+            "name": null,
+            "role": null,
+            "cookies": {
+              "session": null
+            },
+            "headers": {},
+            "validated": null,
+            "metadata": {
+              "authenticated_primary": null,
+              "auth_source": null
+            }
+          },
+          "user-b": {
+            "name": null,
+            "role": null,
+            "cookies": {
+              "session": null
+            },
+            "validated": null
+          }
+        },
+        "identity_records": {
+          "primary-owner": {
+            "identity_id": null,
+            "role": null,
+            "validated": null,
+            "auth_source": null
+          },
+          "user-b": {
+            "identity_id": null,
+            "role": null,
+            "validated": null,
+            "auth_source": null
+          }
+        },
+        "session_headers": {},
+        "pre_auth_snapshot": {
+          "schema_version": null,
+          "status": null,
+          "url": null,
+          "captured_at": null,
+          "authenticated": null,
+          "status_code": null,
+          "headers": {
+            "server": null,
+            "content-type": null
+          },
+          "body_sha256": null,
+          "body_bytes": null,
+          "title": null,
+          "links": 0,
+          "forms": 0,
+          "link_count": null,
+          "form_count": null
+        },
+        "authentication_status": null,
+        "engagement_limitations": 0,
+        "messages": 1,
+        "current_phase": null,
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "recon",
+      "wall_s": 0.28,
+      "writes": {
+        "target": null,
+        "target_package": {},
+        "target_package_status": null,
+        "target_package_id": null,
+        "target_package_sha256": null,
+        "target_package_scope_digest": null,
+        "target_package_policy_digest": null,
+        "target_package_capability_digest": null,
+        "target_package_authorization": {},
+        "target_package_preflight_status": null,
+        "target_package_capability_matrix": {},
+        "target_package_knowledge_gaps": 0,
+        "target_package_blocked_tasks": 0,
+        "target_package_binding": {},
+        "additional_target_origins": 0,
+        "messages": 1,
+        "findings": 0,
+        "current_phase": null,
+        "hypotheses": 0,
+        "lessons": 0,
+        "payloads_to_test": {},
+        "crawled_data": {},
+        "waf_profile": {},
+        "consulted_lessons": 1,
+        "lesson_priority_adjustments": {
+          "route_modifiers": {},
+          "family_modifiers": {},
+          "minimum_family_quota": {}
+        },
+        "extracted_lessons": 0,
+        "surface_metrics": {},
+        "detector_results": 0,
+        "oast_candidate_findings": 0,
+        "llm_budget_usd": null,
+        "max_llm_calls": null,
+        "max_hypotheses": null,
+        "auth_state": {
+          "cookies": 1,
+          "source": null,
+          "validated": null
+        },
+        "optimization_retries": {},
+        "optimization_attempt_fingerprints": {},
+        "errors": 0,
+        "session_cookies": {
+          "session": null
+        },
+        "session_headers": {},
+        "raw_scope_entries": 0,
+        "compiled_scope": {}
+      }
+    },
+    {
+      "node": "research_campaign",
+      "wall_s": 0.003,
+      "writes": {
+        "research_campaign_skipped": null,
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "crawler",
+      "wall_s": 0.123,
+      "writes": {
+        "crawled_data": {
+          "endpoints": 7,
+          "http_discovery": {
+            "endpoints": 7,
+            "pages_fetched": null,
+            "redirects_followed": null,
+            "errors": null,
+            "skipped_off_origin": null,
+            "skipped_state_changing": null,
+            "coverage_gaps": 2,
+            "coverage_blockers": 0,
+            "surface_records": 7,
+            "discovery_metadata": {
+              "robots_fetched": null,
+              "robots_disallow_count": null,
+              "sitemap_urls": 0,
+              "openapi_urls": 0,
+              "graphql_urls": 1,
+              "openapi_routes": 0,
+              "graphql_operations": 0,
+              "javascript_urls": 0,
+              "js_route_candidates": 0,
+              "route_seed_candidates": 0,
+              "route_seed_queued": null,
+              "json_link_candidates": 7
+            },
+            "openapi_routes": 0,
+            "graphql_operations": 0,
+            "workflow_mode": null
+          },
+          "surface_records": 7
+        },
+        "mental_model": {
+          "nodes": {
+            "host-12ca17b49af22894": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original": null
+              }
+            },
+            "endpoint-5b20391fee95f403": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original_url": null
+              }
+            },
+            "endpoint-447281ac4b1e01cf": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original_url": null
+              }
+            },
+            "endpoint-9fed76692e948fce": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original_url": null
+              }
+            },
+            "endpoint-41795afe4ace15c1": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original_url": null
+              }
+            },
+            "endpoint-709bee575eee5391": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original_url": null
+              }
+            },
+            "endpoint-a177ea3c494c75bf": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original_url": null
+              }
+            },
+            "endpoint-4cbf38815ee73ba8": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original_url": null
+              }
+            }
+          },
+          "edges": 7
+        },
+        "messages": 1,
+        "current_phase": null,
+        "session_liveness": {
+          "schema_version": null,
+          "status": null,
+          "last_verified_at": null,
+          "last_probe_reason": null,
+          "reauth_attempts": null,
+          "max_reauth_attempts": null,
+          "downgrade_requested": null
+        },
+        "auth_surface_diff": {
+          "schema_version": null,
+          "status": null,
+          "counts": {
+            "both": null,
+            "auth_only": null,
+            "anonymous_only": null
+          },
+          "records": 7,
+          "auth_only_endpoints": 7,
+          "anonymous_link_count": null,
+          "anonymous_only_paths": 0
+        },
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "subdomain_takeover",
+      "wall_s": 0.002,
+      "writes": {
+        "findings": 0,
+        "subdomain_takeover_observations": 0,
+        "subdomain_takeover_coverage_gaps": 0,
+        "negative_evidence_ledger": 0,
+        "current_phase": null,
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "cloud_storage",
+      "wall_s": 0.004,
+      "writes": {
+        "findings": 0,
+        "cloud_storage_observations": 9,
+        "cloud_storage_coverage_gaps": 0,
+        "current_phase": null,
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "scope_enforcer",
+      "wall_s": 0.003,
+      "writes": {
+        "findings": 0,
+        "crawled_data": {
+          "endpoints": 7,
+          "http_discovery": {
+            "endpoints": 7,
+            "pages_fetched": null,
+            "redirects_followed": null,
+            "errors": null,
+            "skipped_off_origin": null,
+            "skipped_state_changing": null,
+            "coverage_gaps": 2,
+            "coverage_blockers": 0,
+            "surface_records": 7,
+            "discovery_metadata": {
+              "robots_fetched": null,
+              "robots_disallow_count": null,
+              "sitemap_urls": 0,
+              "openapi_urls": 0,
+              "graphql_urls": 1,
+              "openapi_routes": 0,
+              "graphql_operations": 0,
+              "javascript_urls": 0,
+              "js_route_candidates": 0,
+              "route_seed_candidates": 0,
+              "route_seed_queued": null,
+              "json_link_candidates": 7
+            },
+            "openapi_routes": 0,
+            "graphql_operations": 0,
+            "workflow_mode": null
+          },
+          "surface_records": 7
+        },
+        "mental_model": {
+          "nodes": {
+            "host-12ca17b49af22894": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original": null
+              }
+            },
+            "endpoint-5b20391fee95f403": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original_url": null
+              }
+            },
+            "endpoint-447281ac4b1e01cf": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original_url": null
+              }
+            },
+            "endpoint-9fed76692e948fce": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original_url": null
+              }
+            },
+            "endpoint-41795afe4ace15c1": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original_url": null
+              }
+            },
+            "endpoint-709bee575eee5391": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original_url": null
+              }
+            },
+            "endpoint-a177ea3c494c75bf": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original_url": null
+              }
+            },
+            "endpoint-4cbf38815ee73ba8": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original_url": null
+              }
+            }
+          },
+          "edges": 0
+        },
+        "scope_drift_detected": null,
+        "scope_drift_events": 0,
+        "messages": 1,
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "waf_detector",
+      "wall_s": 0.001,
+      "writes": {
+        "messages": 1,
+        "current_phase": null,
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "surface_sizing",
+      "wall_s": 0.001,
+      "writes": {
+        "surface_metrics": {
+          "endpoints": null,
+          "forms": null,
+          "parameters": null,
+          "graphql_operations": null,
+          "surface_size": null,
+          "budget_source": null
+        },
+        "dynamic_step_budget": null,
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "appmodel",
+      "wall_s": 0.006,
+      "writes": {
+        "appmodel": {
+          "version": null,
+          "engagement_id": null,
+          "entities": {
+            "appmodel-org:umdr37-rootcause-after-edfacbf7": {
+              "id": null,
+              "kind": null,
+              "label": null,
+              "provenance": null,
+              "confidence": null,
+              "evidence_refs": 1,
+              "observed_at": null,
+              "metadata": {}
+            },
+            "appmodel-tenant:umdr37-rootcause-after-edfacbf7": {
+              "id": null,
+              "kind": null,
+              "label": null,
+              "provenance": null,
+              "confidence": null,
+              "evidence_refs": 1,
+              "observed_at": null,
+              "metadata": {}
+            },
+            "appmodel-app:127-0-0-1": {
+              "id": null,
+              "kind": null,
+              "label": null,
+              "provenance": null,
+              "confidence": null,
+              "evidence_refs": 1,
+              "observed_at": null,
+              "metadata": {
+                "host": null
+              }
+            },
+            "appmodel-endpoint:127-0-0-1": {
+              "id": null,
+              "kind": null,
+              "label": null,
+              "provenance": null,
+              "confidence": null,
+              "evidence_refs": 1,
+              "observed_at": null,
+              "metadata": {
+                "host": null,
+                "path": null
+              }
+            },
+            "appmodel-endpoint:127-0-0-1-api-users": {
+              "id": null,
+              "kind": null,
+              "label": null,
+              "provenance": null,
+              "confidence": null,
+              "evidence_refs": 1,
+              "observed_at": null,
+              "metadata": {
+                "host": null,
+                "path": null
+              }
+            },
+            "appmodel-endpoint:127-0-0-1-api-session": {
+              "id": null,
+              "kind": null,
+              "label": null,
+              "provenance": null,
+              "confidence": null,
+              "evidence_refs": 1,
+              "observed_at": null,
+              "metadata": {
+                "host": null,
+                "path": null
+              }
+            },
+            "appmodel-endpoint:127-0-0-1-api-health": {
+              "id": null,
+              "kind": null,
+              "label": null,
+              "provenance": null,
+              "confidence": null,
+              "evidence_refs": 1,
+              "observed_at": null,
+              "metadata": {
+                "host": null,
+                "path": null
+              }
+            },
+            "appmodel-endpoint:127-0-0-1-api-invoices-inv-a-101": {
+              "id": null,
+              "kind": null,
+              "label": null,
+              "provenance": null,
+              "confidence": null,
+              "evidence_refs": 1,
+              "observed_at": null,
+              "metadata": {
+                "host": null,
+                "path": null
+              }
+            },
+            "appmodel-identity:user-a": {
+              "id": null,
+              "kind": null,
+              "label": null,
+              "provenance": null,
+              "confidence": null,
+              "evidence_refs": 1,
+              "observed_at": null,
+              "metadata": {
+                "role": null,
+                "validated": null
+              }
+            },
+            "appmodel-endpoint:127-0-0-1-api-invoices-inv-b-777": {
+              "id": null,
+              "kind": null,
+              "label": null,
+              "provenance": null,
+              "confidence": null,
+              "evidence_refs": 1,
+              "observed_at": null,
+              "metadata": {
+                "host": null,
+                "path": null
+              }
+            },
+            "appmodel-identity:user-b": {
+              "id": null,
+              "kind": null,
+              "label": null,
+              "provenance": null,
+              "confidence": null,
+              "evidence_refs": 1,
+              "observed_at": null,
+              "metadata": {
+                "role": null,
+                "validated": null
+              }
+            },
+            "appmodel-endpoint:127-0-0-1-api-invoices-inv-admin-9001": {
+              "id": null,
+              "kind": null,
+              "label": null,
+              "provenance": null,
+              "confidence": null,
+              "evidence_refs": 1,
+              "observed_at": null,
+              "metadata": {
+                "host": null,
+                "path": null
+              }
+            },
+            "appmodel-identity:user": {
+              "id": null,
+              "kind": null,
+              "label": null,
+              "provenance": null,
+              "confidence": null,
+              "evidence_refs": 1,
+              "observed_at": null,
+              "metadata": {
+                "role": null,
+                "validated": null
+              }
+            },
+            "appmodel-identity:owner": {
+              "id": null,
+              "kind": null,
+              "label": null,
+              "provenance": null,
+              "confidence": null,
+              "evidence_refs": 1,
+              "observed_at": null,
+              "metadata": {
+                "role": null,
+                "validated": null
+              }
+            }
+          },
+          "relations": 13,
+          "coverage_gaps": 1,
+          "provenance_note": null
+        },
+        "appmodel_research_hints": {
+          "appmodel-hint:ownership-boundary:appmodel-endpoint:127-0-0-1-api-invoices-inv-a-101": {
+            "kind": null,
+            "priority": null,
+            "reason": null,
+            "evidence_refs": 1,
+            "subject": {
+              "endpoint_id": null,
+              "path": null,
+              "owner_identity_ids": 1
+            },
+            "advisory_only": null,
+            "source": null
+          },
+          "appmodel-hint:ownership-boundary:appmodel-endpoint:127-0-0-1-api-invoices-inv-b-777": {
+            "kind": null,
+            "priority": null,
+            "reason": null,
+            "evidence_refs": 1,
+            "subject": {
+              "endpoint_id": null,
+              "path": null,
+              "owner_identity_ids": 1
+            },
+            "advisory_only": null,
+            "source": null
+          },
+          "appmodel-hint:identity:appmodel-identity:user": {
+            "kind": null,
+            "priority": null,
+            "reason": null,
+            "evidence_refs": 1,
+            "subject": {
+              "identity_id": null,
+              "role": null
+            },
+            "advisory_only": null,
+            "source": null
+          },
+          "appmodel-hint:identity:appmodel-identity:owner": {
+            "kind": null,
+            "priority": null,
+            "reason": null,
+            "evidence_refs": 1,
+            "subject": {
+              "identity_id": null,
+              "role": null
+            },
+            "advisory_only": null,
+            "source": null
+          },
+          "appmodel-hint:gap:appmodel_no_observations_derived": {
+            "kind": null,
+            "priority": null,
+            "reason": null,
+            "evidence_refs": 1,
+            "subject": {
+              "gap": null
+            },
+            "advisory_only": null,
+            "source": null
+          }
+        },
+        "appmodel_summary": {
+          "built": null,
+          "advisory_only": null,
+          "version": null,
+          "engagement_id": null,
+          "entity_count": null,
+          "relation_count": null,
+          "entity_kind_counts": {
+            "organization": null,
+            "tenant": null,
+            "application": null,
+            "endpoint": null,
+            "identity": null
+          },
+          "relation_kind_counts": {
+            "contains": null,
+            "hosts": null,
+            "owns": null,
+            "authenticates_as": null
+          },
+          "provenance_counts": {
+            "declared": null,
+            "observed": null
+          },
+          "coverage_gaps": 1,
+          "research_hint_count": null,
+          "research_hint_kinds": 3,
+          "input_channels": {
+            "engagement_id": null,
+            "crawled_channels": 2,
+            "identity_profiles": null,
+            "mental_model_nodes": null
+          },
+          "influence_contract": null
+        },
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "hypothesis",
+      "wall_s": 11.284,
+      "writes": {
+        "hypotheses": 19,
+        "mental_model": {
+          "nodes": {
+            "host-12ca17b49af22894": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original": null
+              }
+            },
+            "endpoint-5b20391fee95f403": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original_url": null
+              }
+            },
+            "endpoint-447281ac4b1e01cf": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original_url": null
+              }
+            },
+            "endpoint-9fed76692e948fce": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original_url": null
+              }
+            },
+            "endpoint-41795afe4ace15c1": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original_url": null
+              }
+            },
+            "endpoint-709bee575eee5391": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original_url": null
+              }
+            },
+            "endpoint-a177ea3c494c75bf": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original_url": null
+              }
+            },
+            "endpoint-4cbf38815ee73ba8": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original_url": null
+              }
+            }
+          },
+          "edges": 8
+        },
+        "messages": 1,
+        "current_phase": null,
+        "appmodel_summary": {
+          "influenced_hypotheses": 6,
+          "influence_kind": null,
+          "advisory_only": null
+        },
+        "deep_recon_summary": {
+          "engagement_id": null,
+          "principals": null,
+          "resources": null,
+          "actions": null,
+          "parameters": null,
+          "relationships": null,
+          "trust_boundaries": null,
+          "hypotheses_generated": null,
+          "unresolved_questions": null,
+          "is_producer_not_planner": null,
+          "schema_derived_not_proof": null,
+          "bounded": null,
+          "ingested_endpoints": null,
+          "hypotheses_emitted": null
+        },
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "access_control",
+      "wall_s": 0.075,
+      "writes": {
+        "findings": 2,
+        "bac_observations": 3,
+        "bac_coverage_gaps": 1,
+        "relational_evidence": 9,
+        "proof_bundles": 2,
+        "authorization_matrix": {},
+        "mental_model": {
+          "nodes": {
+            "host-12ca17b49af22894": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original": null
+              }
+            },
+            "endpoint-709bee575eee5391": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original_url": null
+              }
+            },
+            "endpoint-a177ea3c494c75bf": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original_url": null
+              }
+            },
+            "endpoint-4cbf38815ee73ba8": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original_url": null
+              }
+            }
+          },
+          "edges": 3
+        },
+        "messages": 1,
+        "current_phase": null,
+        "session_liveness": {
+          "schema_version": null,
+          "status": null,
+          "last_verified_at": null,
+          "last_probe_reason": null,
+          "reauth_attempts": null,
+          "max_reauth_attempts": null,
+          "downgrade_requested": null
+        },
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "api_testing",
+      "wall_s": 0.202,
+      "writes": {
+        "findings": 2,
+        "hypotheses": 0,
+        "mental_model": {
+          "nodes": {
+            "host-12ca17b49af22894": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original": null
+              }
+            },
+            "endpoint-5b20391fee95f403": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original_url": null
+              }
+            }
+          },
+          "edges": 1
+        },
+        "jwt_deep_observations": 0,
+        "jwt_deep_coverage_gaps": 1,
+        "messages": 1,
+        "current_phase": null,
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "business_logic_fuzzer",
+      "wall_s": 0.032,
+      "writes": {
+        "messages": 1,
+        "current_phase": null,
+        "session_liveness": {
+          "schema_version": null,
+          "status": null,
+          "last_verified_at": null,
+          "last_probe_reason": null,
+          "reauth_attempts": null,
+          "max_reauth_attempts": null,
+          "downgrade_requested": null
+        },
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "request_smuggling",
+      "wall_s": 0.016,
+      "writes": {
+        "findings": 2,
+        "coverage_ledger": {
+          "request_smuggling": {
+            "status": null,
+            "probes": 2,
+            "finding_count": null
+          }
+        },
+        "mental_model": {
+          "nodes": {
+            "host-12ca17b49af22894": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original": null
+              }
+            }
+          },
+          "edges": 0
+        },
+        "messages": 1,
+        "current_phase": null,
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "graphql_testing",
+      "wall_s": 0.001,
+      "writes": {
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "cache_poisoning",
+      "wall_s": 0.017,
+      "writes": {
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "prototype_pollution",
+      "wall_s": 0.002,
+      "writes": {
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "oauth_misconfig",
+      "wall_s": 0.002,
+      "writes": {
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "disclosed_report_intel",
+      "wall_s": 0.002,
+      "writes": {
+        "disclosed_report_advisories": 0,
+        "advisory_coverage_gaps": 1,
+        "messages": 1,
+        "current_phase": null,
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "strategist",
+      "wall_s": 0.088,
+      "writes": {
+        "findings": 6,
+        "coverage_ledger": {
+          "schema_version": null,
+          "selection_policy": null,
+          "candidate_count": null,
+          "status_counts": {
+            "tested": null,
+            "missing-validator": null,
+            "blocked": null
+          },
+          "entries": {
+            "c3b08040-4c8b-4354-90d8-4e4958cc4cac": {
+              "hypothesis_id": null,
+              "vuln_class": null,
+              "status": null,
+              "action": null,
+              "reason": null,
+              "validator_route": null,
+              "score": null
+            },
+            "e9f6d472-75cf-4042-906d-5bf0d947b9aa": {
+              "hypothesis_id": null,
+              "vuln_class": null,
+              "status": null,
+              "action": null,
+              "reason": null,
+              "validator_route": null,
+              "score": null
+            },
+            "2093bf81-0941-4310-9076-9731e16c6fed": {
+              "hypothesis_id": null,
+              "vuln_class": null,
+              "status": null,
+              "action": null,
+              "reason": null,
+              "validator_route": null,
+              "score": null
+            },
+            "628739ae-b2d2-4093-b0ce-baa3457ee79d": {
+              "hypothesis_id": null,
+              "vuln_class": null,
+              "status": null,
+              "action": null,
+              "reason": null,
+              "validator_route": null,
+              "score": null
+            },
+            "f15fb800-936d-40a5-9e7d-29f36ee89ed2": {
+              "hypothesis_id": null,
+              "vuln_class": null,
+              "status": null,
+              "action": null,
+              "reason": null,
+              "validator_route": null,
+              "score": null
+            },
+            "b94b315b-a542-4c5a-af4a-e7c0e6089746": {
+              "hypothesis_id": null,
+              "vuln_class": null,
+              "status": null,
+              "action": null,
+              "reason": null,
+              "validator_route": null,
+              "score": null
+            },
+            "b7192a0d-555f-484a-9d09-bed86b3a4420": {
+              "hypothesis_id": null,
+              "vuln_class": null,
+              "status": null,
+              "action": null,
+              "reason": null,
+              "validator_route": null,
+              "score": null
+            },
+            "8940cccf-1b02-4c10-aba8-27ee38209236": {
+              "hypothesis_id": null,
+              "vuln_class": null,
+              "status": null,
+              "action": null,
+              "reason": null,
+              "validator_route": null,
+              "score": null
+            },
+            "b19f4c71-68d4-4c68-9d35-3bb9e7c326c7": {
+              "hypothesis_id": null,
+              "vuln_class": null,
+              "status": null,
+              "action": null,
+              "reason": null,
+              "validator_route": null,
+              "score": null
+            },
+            "c2eec7d1-e94b-4ce6-801d-0a8eef873b96": {
+              "hypothesis_id": null,
+              "vuln_class": null,
+              "status": null,
+              "action": null,
+              "reason": null,
+              "validator_route": null,
+              "score": null
+            },
+            "1d299ab7-c2fb-4688-b192-fe8970aff5bb": {
+              "hypothesis_id": null,
+              "vuln_class": null,
+              "status": null,
+              "action": null,
+              "reason": null,
+              "validator_route": null,
+              "score": null
+            },
+            "fd91395e-9a65-462d-b9da-52bec99e2868": {
+              "hypothesis_id": null,
+              "vuln_class": null,
+              "status": null,
+              "action": null,
+              "reason": null,
+              "validator_route": null,
+              "score": null
+            },
+            "4ae51cd5-410c-4175-a5ee-c80e5084b526": {
+              "hypothesis_id": null,
+              "vuln_class": null,
+              "status": null,
+              "action": null,
+              "reason": null,
+              "validator_route": null,
+              "score": null
+            },
+            "4a5db984-1703-4b9e-ae34-c5c9a01b61a3": {
+              "hypothesis_id": null,
+              "vuln_class": null,
+              "status": null,
+              "action": null,
+              "reason": null,
+              "validator_route": null,
+              "score": null
+            },
+            "d5959567-1302-446d-bbf6-f18c8c55d0da": {
+              "hypothesis_id": null,
+              "vuln_class": null,
+              "status": null,
+              "action": null,
+              "reason": null,
+              "validator_route": null,
+              "score": null
+            },
+            "76153710-8b45-41d2-995f-b59be317bd58": {
+              "hypothesis_id": null,
+              "vuln_class": null,
+              "status": null,
+              "action": null,
+              "reason": null,
+              "validator_route": null,
+              "score": null
+            },
+            "45cd67fe-11ac-4368-854c-2423fc70b34c": {
+              "hypothesis_id": null,
+              "vuln_class": null,
+              "status": null,
+              "action": null,
+              "reason": null,
+              "validator_route": null,
+              "score": null
+            },
+            "9ae4d9a5-cf9e-4ab8-b7f8-b9143cf69a36": {
+              "hypothesis_id": null,
+              "vuln_class": null,
+              "status": null,
+              "action": null,
+              "reason": null,
+              "validator_route": null,
+              "score": null
+            },
+            "aaa00bdb-c291-4781-90d1-67e20f9187e2": {
+              "hypothesis_id": null,
+              "vuln_class": null,
+              "status": null,
+              "action": null,
+              "reason": null,
+              "validator_route": null,
+              "score": null
+            }
+          }
+        },
+        "hypotheses": 6,
+        "trust_matrix": {
+          "schema_version": null,
+          "entries": {
+            "auth_bypass|access_control_mapper|unknown": {
+              "accepted": null,
+              "rejected": null,
+              "uncertain": null,
+              "sample_count": null,
+              "reliability": null,
+              "confidence": null
+            }
+          },
+          "sample_count": null,
+          "policy": null
+        },
+        "decision_log": 7,
+        "learned_strategy": {},
+        "messages": 1,
+        "current_phase": null,
+        "post_validation_replan_count": null,
+        "post_validation_replan_evidence_count": null,
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "payload_generator",
+      "wall_s": 0.001,
+      "writes": {
+        "payloads_to_test": {},
+        "findings": 8,
+        "messages": 1,
+        "current_phase": null,
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "execution_sandbox",
+      "wall_s": 0.022,
+      "writes": {
+        "session_liveness": {
+          "schema_version": null,
+          "status": null,
+          "last_verified_at": null,
+          "last_probe_reason": null,
+          "reauth_attempts": null,
+          "max_reauth_attempts": null,
+          "downgrade_requested": null
+        },
+        "execution_gate": {
+          "status": null,
+          "risk_level": null,
+          "reason": null,
+          "human_approval_required": null
+        },
+        "execution_observations": 3,
+        "messages": 1,
+        "current_phase": null,
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "validator",
+      "wall_s": 0.261,
+      "writes": {
+        "findings": 8,
+        "messages": 1,
+        "current_phase": null,
+        "evidence_ledger": 6,
+        "session_cookies": {
+          "session": null
+        },
+        "auth_state": {
+          "cookies": 1,
+          "source": null,
+          "validated": null
+        },
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "devils_advocate",
+      "wall_s": 0.002,
+      "writes": {
+        "findings": 8,
+        "messages": 1,
+        "current_phase": null,
+        "devils_advocate_gate_active": null,
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "exploit_chainer",
+      "wall_s": 0.002,
+      "writes": {
+        "findings": 8,
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "post_exploitation",
+      "wall_s": 0.001,
+      "writes": {
+        "findings": 8,
+        "mental_model": {
+          "nodes": {
+            "host-12ca17b49af22894": {
+              "id": null,
+              "kind": null,
+              "identity_key": null,
+              "discovery_source": null,
+              "in_scope": null,
+              "criticality": null,
+              "metadata": {
+                "original": null
+              }
+            }
+          },
+          "edges": 0
+        },
+        "messages": 1,
+        "current_phase": null,
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "rabbit_hole",
+      "wall_s": 0.002,
+      "writes": {
+        "messages": 1,
+        "current_phase": null,
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "cvss_engine",
+      "wall_s": 0.001,
+      "writes": {
+        "findings": 8,
+        "messages": 1,
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "business_impact",
+      "wall_s": 0.001,
+      "writes": {
+        "findings": 8,
+        "messages": 1,
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "cross_reasoning",
+      "wall_s": 0.001,
+      "writes": {
+        "hypotheses": 0,
+        "messages": 1,
+        "current_phase": null,
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "executive_summary",
+      "wall_s": 0.001,
+      "writes": {
+        "executive_summary": null,
+        "risk_score": null,
+        "messages": 1,
+        "current_phase": null,
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "dedup_gate",
+      "wall_s": 0.051,
+      "writes": {
+        "findings": 8,
+        "dedup_report": {
+          "status": null,
+          "checked_at": null,
+          "engagement_id": null,
+          "reviewed": null,
+          "new_count": null,
+          "duplicate_count": null,
+          "indeterminate_count": null,
+          "prior_base_size": null,
+          "records": 8,
+          "note": null
+        },
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "reporter",
+      "wall_s": 0.338,
+      "writes": {
+        "messages": 1,
+        "report_quality_gate": {
+          "status": null,
+          "finding_count": null,
+          "ready_finding_count": null,
+          "blocked_finding_count": null,
+          "findings": 8
+        },
+        "current_phase": null,
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "reflection",
+      "wall_s": 0.001,
+      "writes": {
+        "lessons": 0,
+        "messages": 1,
+        "current_phase": null,
+        "node_step_trace": 1
+      }
+    },
+    {
+      "node": "lesson_extraction",
+      "wall_s": 0.051,
+      "writes": {
+        "node_step_trace": 1
+      }
+    }
+  ],
+  "skip_flags": [],
+  "verifications": [
+    {
+      "finding_id": "8fc33f38-cb48-4f96-bcf2-1880cc14c89a",
+      "vuln_class": "auth_bypass",
+      "passed": true,
+      "reason": "verified_replay",
+      "has_bundle": true,
+      "guard_verdict": "CONFIRMED",
+      "guard_block_reason": "None"
+    },
+    {
+      "finding_id": "01563a0f-dee7-45da-ba81-8e8a6428977d",
+      "vuln_class": "auth_bypass",
+      "passed": true,
+      "reason": "verified_replay",
+      "has_bundle": true,
+      "guard_verdict": "CONFIRMED",
+      "guard_block_reason": "None"
+    }
+  ],
+  "access_control_findings": [
+    {
+      "id": "8fc33f38-cb48-4f96-bcf2-1880cc14c89a",
+      "vuln_class": "auth_bypass",
+      "confidence_level": "Tool-Confirmed",
+      "reasoning": "Privilege escalation via role differential: owner role=owner, foreign role=user; with non-owner identity user-b; HTTP 200, 98 bytes.",
+      "has_bundle": true,
+      "evidence_keys": [
+        "baseline",
+        "candidate",
+        "causal_basis",
+        "causal_guard",
+        "causal_oracle",
+        "causal_signal",
+        "cleanup_status",
+        "evidence_origin",
+        "evidence_refs",
+        "finding_id",
+        "hypothesis_id",
+        "identity_context",
+        "identity_observations",
+        "negative_control",
+        "negative_control_complete",
+        "negative_control_independent",
+        "object_id",
+        "owner_identity",
+        "promotion_guard",
+        "proof_bundle",
+        "proof_bundle_sealed",
+        "proof_evidence",
+        "proof_verified",
+        "redaction",
+        "relational_edges",
+        "replay_context",
+        "replay_metadata",
+        "request_evidence",
+        "response_evidence",
+        "scope_context",
+        "target_backed",
+        "target_fingerprint",
+        "type",
+        "validator_id",
+        "validator_version",
+        "verifier"
+      ]
+    },
+    {
+      "id": "01563a0f-dee7-45da-ba81-8e8a6428977d",
+      "vuln_class": "auth_bypass",
+      "confidence_level": "Tool-Confirmed",
+      "reasoning": "Privilege escalation via role differential: owner role=owner, foreign role=user; with non-owner identity user-b; HTTP 200, 98 bytes.",
+      "has_bundle": true,
+      "evidence_keys": [
+        "baseline",
+        "candidate",
+        "causal_basis",
+        "causal_guard",
+        "causal_oracle",
+        "causal_signal",
+        "cleanup_status",
+        "evidence_origin",
+        "evidence_refs",
+        "finding_id",
+        "hypothesis_id",
+        "identity_context",
+        "identity_observations",
+        "negative_control",
+        "negative_control_complete",
+        "negative_control_independent",
+        "object_id",
+        "owner_identity",
+        "promotion_guard",
+        "proof_bundle",
+        "proof_bundle_sealed",
+        "proof_evidence",
+        "proof_verified",
+        "redaction",
+        "relational_edges",
+        "replay_context",
+        "replay_metadata",
+        "request_evidence",
+        "response_evidence",
+        "scope_context",
+        "target_backed",
+        "target_fingerprint",
+        "type",
+        "validator_id",
+        "validator_version",
+        "verifier"
+      ]
+    }
+  ],
+  "derived": {
+    "endpoints_in_crawled_delta": 7,
+    "lab_surface_candidate_records": 4,
+    "findings_total": 8,
+    "findings_confirmed": 2,
+    "causal_guard_invocations": 2,
+    "causal_guard_verdicts": [
+      "None",
+      "None"
+    ]
+  },
+  "drop_offs": [],
+  "summary_from_entrypoint": {
+    "findings_total": 8,
+    "findings_confirmed": 2,
+    "mode": "standard"
+  },
+  "findings_detail": [
+    {
+      "id": "8fc33f38-cb48-4f96-bcf2-1880cc14c89a",
+      "vuln_class": "auth_bypass",
+      "confidence_level": "Tool-Confirmed",
+      "confidence": "tentative",
+      "url": "http://127.0.0.1:43869/api/invoices/INV-A-101",
+      "reasoning": "None",
+      "evidence_keys": [],
+      "has_bundle": false
+    },
+    {
+      "id": "01563a0f-dee7-45da-ba81-8e8a6428977d",
+      "vuln_class": "auth_bypass",
+      "confidence_level": "Tool-Confirmed",
+      "confidence": "tentative",
+      "url": "http://127.0.0.1:43869/api/invoices/INV-B-777",
+      "reasoning": "None",
+      "evidence_keys": [],
+      "has_bundle": false
+    },
+    {
+      "id": "3c2aa3e5-26d6-4728-8751-bc9597f6e8fd",
+      "vuln_class": "api_issue",
+      "confidence_level": "Needs Human Review",
+      "confidence": "tentative",
+      "url": "http://127.0.0.1:43869/api/invoices/INV-A-101",
+      "reasoning": "None",
+      "evidence_keys": [],
+      "has_bundle": false
+    },
+    {
+      "id": "21f59eaf-6520-46c0-ac0a-9a3cfe2c1eba",
+      "vuln_class": "api_issue",
+      "confidence_level": "Needs Human Review",
+      "confidence": "tentative",
+      "url": "http://127.0.0.1:43869/api/invoices/INV-B-777",
+      "reasoning": "None",
+      "evidence_keys": [],
+      "has_bundle": false
+    },
+    {
+      "id": "c3217238-8329-4207-86e8-330f26a638d0",
+      "vuln_class": "api_issue",
+      "confidence_level": "Needs Human Review",
+      "confidence": "tentative",
+      "url": "http://127.0.0.1:43869/api/users",
+      "reasoning": "None",
+      "evidence_keys": [],
+      "has_bundle": false
+    },
+    {
+      "id": "86741eaf-fd15-40cc-8b54-baff52bb0dd2",
+      "vuln_class": "api_issue",
+      "confidence_level": "Needs Human Review",
+      "confidence": "tentative",
+      "url": "http://127.0.0.1:43869/api/session",
+      "reasoning": "None",
+      "evidence_keys": [],
+      "has_bundle": false
+    },
+    {
+      "id": "98b05915-44a1-4d90-9067-7e0ff1b1336b",
+      "vuln_class": "api_issue",
+      "confidence_level": "Needs Human Review",
+      "confidence": "tentative",
+      "url": "http://127.0.0.1:43869/api/health",
+      "reasoning": "None",
+      "evidence_keys": [],
+      "has_bundle": false
+    },
+    {
+      "id": "fe65682f-6dee-4f05-a2fb-7318669aab97",
+      "vuln_class": "api_issue",
+      "confidence_level": "Not Scanned",
+      "confidence": "tentative",
+      "url": "http://127.0.0.1:43869/api/invoices/INV-ADMIN-9001",
+      "reasoning": "None",
+      "evidence_keys": [],
+      "has_bundle": false
+    }
+  ],
+  "notes": [
+    "input counts per stage are the previous stage's outputs (updates stream exposes writes only)",
+    "lab_surface_candidate_records is recomputed from the known lab surface with the production extractor \u2014 it isolates RC-2 from crawling behavior",
+    "guard invocations are counted by wrapping adjudicate_with_causal_guard (observation only)"
+  ]
+}

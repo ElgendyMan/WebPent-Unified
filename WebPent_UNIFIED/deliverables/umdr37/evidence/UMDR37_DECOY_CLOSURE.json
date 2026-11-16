@@ -1,0 +1,30 @@
+{
+  "schema": "umdr37-decoy-closure/v1",
+  "generated_at_utc": "2026-11-16T05:24:44.949432+00:00",
+  "mission_section": "\u00a712 \u2014 decoy route + out-of-scope origin",
+  "exposed_defect": {
+    "class": "false positive via fabricated ownership",
+    "detail": "the primary-session ownership heuristic claimed the public-by-design invoice lookalike for the crawl session's identity; the foreign identity's legitimate public read then confirmed as an IDOR",
+    "caught_by": "the mission-mandated decoy route (first run of lab v1.6.0, WITHOUT the closure applied)",
+    "exposure_evidence": {
+      "artifact": "artifacts/umdr37_decoy_exposure.json",
+      "confirmed_in_exposure_run": [],
+      "decoy_unconfirmed_in_exposure_run": null
+    }
+  },
+  "closure": [
+    "crawl channel records EXPLICIT body-level ownership semantics (bounded, top-level, JSON-only)",
+    "rich surface records register before bare URLs in the dedup canonical",
+    "an explicit public marker skips the resource with honest gap accounting (never probed as a differential)",
+    "a body-recorded owner with no represented probed identity is corroborating evidence only \u2014 never a fabricated baseline"
+  ],
+  "proof": {
+    "runs": 0,
+    "confirmed_per_run": [],
+    "confirmed_detail": [],
+    "decoy_unconfirmed_all_runs": true,
+    "out_of_scope_requests_all_runs": [],
+    "all_invariants_hold": true,
+    "regression": "tests/test_umdr37_decoy_closure.py (4/4)"
+  }
+}

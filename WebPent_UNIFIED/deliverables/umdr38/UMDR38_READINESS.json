@@ -1,0 +1,32 @@
+{
+  "schema": "umdr38-readiness/v1",
+  "generated_at_utc": "2026-11-16T08:03:54.902983+00:00",
+  "release_version": "0.40.1",
+  "gates": {
+    "campaign_evidence": {
+      "state": "PASS",
+      "failures": []
+    },
+    "full_suite_evidence": {
+      "state": "PASS",
+      "reason": null,
+      "evidence": {
+        "source_commit": "e31cad5efcf80331cde1fae5b3c1befb7aad313c",
+        "collected": 9249,
+        "executed": 9250,
+        "passed": 9238,
+        "failed": 0,
+        "coverage_percent": 77.09,
+        "tree_clean_at_test_start": true
+      }
+    },
+    "learning_classification": "classified with explicit scope separation (see UMDR38_LEARNING_CAUSALITY_REPORT.md)",
+    "remote_ci": "BLOCKED_EXTERNAL_DEPENDENCY \u2014 no GitHub push credentials in the build environment; the bundle and push/PR commands are provided in the deliverables"
+  },
+  "not_claimed": [
+    "no generalization beyond the controlled fixtures",
+    "families beyond access control are not production-confirmed",
+    "no independent holdout corpus (out of scope)",
+    "remote CI verification on the exact release commit"
+  ]
+}

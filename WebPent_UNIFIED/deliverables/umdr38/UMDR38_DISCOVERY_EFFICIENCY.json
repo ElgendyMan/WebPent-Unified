@@ -1,0 +1,104 @@
+{
+  "schema": "umdr38-discovery-efficiency/v1",
+  "generated_at_utc": "2026-11-16T08:03:54.901838+00:00",
+  "source": "artifacts/umdr37_production_campaigns.json (funnel stages from the AUTHORITATIVE final graph state, \u00a77.2.B)",
+  "runs": [
+    {
+      "run": 1,
+      "endpoint_discovery": 8,
+      "resource_discovery": 9,
+      "identity_observations": [
+        "User_A",
+        "User_B"
+      ],
+      "ownership_authorization_observations": {
+        "authorization_observations": 0,
+        "differential_questions": 0
+      },
+      "hypothesis_generation": {
+        "in_pool": 22,
+        "open": 15,
+        "resolved": 7
+      },
+      "hypothesis_selection": 7,
+      "experiment_execution": 108,
+      "confirmation": 2,
+      "replay_verification": 2,
+      "confirmed_vs_exploratory_requests": {
+        "requests_total": 108,
+        "requests_after_last_confirmation": 5,
+        "interpretation": "the tail re-verifies negative controls (admin boundary, missing resource, decoy, public routes) \u2014 confirmation-bearing information arrived earlier; spending the budget is reported as incomplete discovery coverage, never as efficiency or safety"
+      },
+      "information_per_request": 0.0185,
+      "budget": {
+        "dynamic_step_budget": 58,
+        "requests_issued": 108
+      }
+    },
+    {
+      "run": 2,
+      "endpoint_discovery": 8,
+      "resource_discovery": 9,
+      "identity_observations": [
+        "User_A",
+        "User_B"
+      ],
+      "ownership_authorization_observations": {
+        "authorization_observations": 0,
+        "differential_questions": 0
+      },
+      "hypothesis_generation": {
+        "in_pool": 22,
+        "open": 15,
+        "resolved": 7
+      },
+      "hypothesis_selection": 7,
+      "experiment_execution": 108,
+      "confirmation": 2,
+      "replay_verification": 2,
+      "confirmed_vs_exploratory_requests": {
+        "requests_total": 108,
+        "requests_after_last_confirmation": 5,
+        "interpretation": "the tail re-verifies negative controls (admin boundary, missing resource, decoy, public routes) \u2014 confirmation-bearing information arrived earlier; spending the budget is reported as incomplete discovery coverage, never as efficiency or safety"
+      },
+      "information_per_request": 0.0185,
+      "budget": {
+        "dynamic_step_budget": 58,
+        "requests_issued": 108
+      }
+    },
+    {
+      "run": 3,
+      "endpoint_discovery": 8,
+      "resource_discovery": 9,
+      "identity_observations": [
+        "User_A",
+        "User_B"
+      ],
+      "ownership_authorization_observations": {
+        "authorization_observations": 0,
+        "differential_questions": 0
+      },
+      "hypothesis_generation": {
+        "in_pool": 22,
+        "open": 15,
+        "resolved": 7
+      },
+      "hypothesis_selection": 7,
+      "experiment_execution": 108,
+      "confirmation": 2,
+      "replay_verification": 2,
+      "confirmed_vs_exploratory_requests": {
+        "requests_total": 108,
+        "requests_after_last_confirmation": 5,
+        "interpretation": "the tail re-verifies negative controls (admin boundary, missing resource, decoy, public routes) \u2014 confirmation-bearing information arrived earlier; spending the budget is reported as incomplete discovery coverage, never as efficiency or safety"
+      },
+      "information_per_request": 0.0185,
+      "budget": {
+        "dynamic_step_budget": 58,
+        "requests_issued": 108
+      }
+    }
+  ],
+  "honesty": "every metric is derived from the actual final campaign state; the fixtures are team-authored, so coverage applies to the controlled ground truth only; an empty stage is recorded as the measured value it is \u2014 never as successful security coverage"
+}

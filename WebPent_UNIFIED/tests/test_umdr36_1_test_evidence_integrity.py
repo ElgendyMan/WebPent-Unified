@@ -29,7 +29,7 @@ OK_OUTPUT = """\
 ============================= test session starts ==============================
 collected 9056 items
 tests/test_a.py::test_one PASSED [  0%]
-======================== 9040 passed, 12 skipped, 3 xfailed, 1 xpassed in 60.2s ========================
+=============== 9040 passed, 12 skipped, 3 xfailed, 1 xpassed in 60.2s ===============
 """
 
 FAIL_OUTPUT = """\
@@ -42,17 +42,39 @@ ERROR tests/test_b.py
 
 
 def _record(**overrides) -> dict:
+    # UM-DR-38 §6.3: the current-run record carries the FULL provenance
+    # contract (v3 schema + environment identity + hook-level
+    # accounting); the legacy v2 shape can no longer validate.
     record = {
-        "schema": "full-suite-evidence/v2",
+        "schema": "full-suite-evidence/v3",
         "runner": "run_tests_with_evidence.py",
         "source_commit": HEAD,
         "github": None,
         "started_at_utc": "2026-11-14T09:00:00+00:00",
         "completed_at_utc": "2026-11-14T09:05:00+00:00",
+        "python_version": "3.12.16",
+        "uv_version": "uv 0.13.8",
+        "lockfile_sha256": "c" * 64,
+        "command": ["python", "-m", "pytest", "tests/"],
+        "test_scope_digest": "d" * 64,
         "accounting": {"collected": 100, "executed": 100, "passed": 98,
                        "failed": 0, "skipped": 2, "xfailed": 0, "xpassed": 0,
                        "errors": 0, "deselected": 0,
                        "accounting_consistent": 1, "summary_found": 1},
+        "accounting_v3": {
+            "invariants_all_true": True, "interrupted": False,
+            "not_started": 0, "collection_errors": 0, "collection_skips": 0,
+            "collected_items": 100, "started_items": 100,
+            "outcomes": {"passed": 98, "failed": 0, "skipped": 2,
+                         "xfailed": 0, "xpassed": 0},
+            "setup_errors": 0, "teardown_errors": 0,
+        },
+        "accounting_cross_check": {
+            "plugin_available": True, "all_agree": True,
+            "disagreements": {}},
+        "coverage": {"floor_percent": 72,
+                     "result": "80.00% (floor 72% — OK)",
+                     "percent_covered": 80.0},
         "exit_code": 0,
     }
     record.update(overrides)

@@ -4,31 +4,41 @@
 The script intentionally owns the evidence files: reports must reference
 the files produced by this command rather than handwritten test counts.
 
-UM-DR-36.1 §4 (stale-evidence elimination) — the evidence contract:
+UM-DR-38 §6.2 (evidence output contract) — evidence is a BUILD ARTIFACT:
 
-* BOTH a human-readable transcript (docs/FULL_SUITE_EVIDENCE.txt) and a
-  machine-readable record (docs/FULL_SUITE_EVIDENCE.json) are written.
+* Evidence is written to the ignored `.webpent-evidence/` directory
+  (configurable via the WEBPENT_EVIDENCE_DIR environment variable),
+  NEVER to tracked source files: a test run must not modify the source
+  revision it is testing. `tree_clean` therefore describes the checkout
+  at TEST-START time (captured before pytest runs); the historical
+  records under docs/history/ are never touched.
+* BOTH a human-readable transcript (FULL_SUITE_EVIDENCE.txt) and a
+  machine-readable record (FULL_SUITE_EVIDENCE.json) are written
+  ATOMICALLY (tmp file + os.replace), so an interrupted write can never
+  leave a truncated or partial record at the evidence path.
 * The JSON record carries full run provenance: source commit SHA, git
-  tree clean/dirty state, GitHub workflow run id/attempt (when running
-  under Actions), UTC start/completion timestamps, Python and uv
-  versions, the dependency lockfile SHA-256, the exact test command,
-  the test-inventory scope digest, coverage result + floor, and the
-  complete outcome accounting (collected, executed, passed, failed,
-  skipped, xfailed, xpassed, errors, deselected, exit code).
+  tree clean/dirty state at test start (plus a bounded status sample),
+  GitHub workflow run id/attempt (when running under Actions), UTC
+  start/completion timestamps, Python and uv versions, the dependency
+  lockfile SHA-256, the exact test command, the test-inventory scope
+  digest, coverage result + floor, and the complete outcome accounting
+  (collected, executed, passed, failed, skipped, xfailed, xpassed,
+  errors, deselected, exit code).
 * Accounting is parsed from pytest's own final session summary (never
-  progress-line counts) and verified mathematically:
-  executed == passed+failed+errors+skipped+xfailed+xpassed and
-  collected == executed+deselected. An unparseable or inconsistent
-  accounting fails the run (fail-closed) — the evidence never claims a
-  green state the transcript does not support.
-* Any pre-existing evidence file is DELETED before the run starts, so a
-  failed or interrupted run can never leave an older green evidence
-  file behind for a checker to accept.
+  progress-line counts) and cross-checked against the hook-level v3
+  model (UM-DR-36.2 §3.6): the v3 invariants are authoritative and the
+  legacy terminal equation is only well-formed with zero
+  collection-phase reports; an unparseable or UNEXPLAINED accounting
+  fails the run (fail-closed) — the evidence never claims a green
+  state the transcript does not support.
+* Any pre-existing evidence in the evidence directory is DELETED before
+  the run starts, so a failed or interrupted run can never leave an
+  older green evidence file behind for a checker to accept.
 
 Coverage (RESIDUAL CLOSURE WINDOW 2026-10-29, Track 1): when
 scripts/quality/coverage_baseline.json exists the run measures coverage
 over src/webpent and enforces its floor; one run produces evidence AND
-coverage. Coverage data lands in docs/coverage_last_run.json.
+coverage. Coverage data lands in the evidence directory.
 """
 from __future__ import annotations
 
@@ -44,9 +54,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-EVIDENCE_TXT = ROOT / "docs" / "FULL_SUITE_EVIDENCE.txt"
-EVIDENCE_JSON = ROOT / "docs" / "FULL_SUITE_EVIDENCE.json"
-COVERAGE_JSON = ROOT / "docs" / "coverage_last_run.json"
+EVIDENCE_DIR = Path(os.environ.get("WEBPENT_EVIDENCE_DIR")
+                    or (ROOT / ".webpent-evidence"))
+EVIDENCE_TXT = EVIDENCE_DIR / "FULL_SUITE_EVIDENCE.txt"
+EVIDENCE_JSON = EVIDENCE_DIR / "FULL_SUITE_EVIDENCE.json"
+COVERAGE_JSON = EVIDENCE_DIR / "coverage_last_run.json"
 COVERAGE_FLOOR_FILE = ROOT / "scripts" / "quality" / "coverage_baseline.json"
 EVIDENCE_SCHEMA = "full-suite-evidence/v3"
 RUNNER_NAME = "run_tests_with_evidence.py"
@@ -55,7 +67,9 @@ ACCOUNTING_PLUGIN = "pytest_accounting_plugin"
 OUTCOME_KINDS = ("passed", "failed", "skipped", "xfailed", "xpassed",
                  "deselected", "errors")
 _SUMMARY_LINE_RE = re.compile(r"^=+\s*(?P<body>.*?)\s*=+$")
-_OUTCOME_RE = re.compile(r"(?P<count>\d+)\s+(?P<kind>passed|failed|skipped|xfailed|xpassed|deselected|errors?)\b")
+_OUTCOME_RE = re.compile(
+    r"(?P<count>\d+)\s+(?P<kind>passed|failed|skipped|xfailed|xpassed"
+    r"|deselected|errors?)\b")
 # pytest prints "collecting ... collected 6713 items" in the run header
 # and "9056 tests collected" under --collect-only -q; accept both.
 _COLLECTED_RE = re.compile(
@@ -76,6 +90,16 @@ def _sha256_file(path: Path) -> str:
         for chunk in iter(lambda: f.read(1 << 20), b""):
             h.update(chunk)
     return h.hexdigest()
+
+
+def _atomic_write(path: Path, text: str) -> None:
+    """UM-DR-38 §6.2: evidence writes are atomic (tmp + os.replace), so
+    an interrupted write can never leave a truncated record at the
+    evidence path."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_name(path.name + ".tmp")
+    tmp.write_text(text, encoding="utf-8")
+    os.replace(tmp, path)
 
 
 def _git(args: list[str]) -> str:
@@ -113,7 +137,7 @@ def parse_accounting(output: str) -> dict[str, int | None]:
     xpassed/errors/deselected (None where pytest did not report a kind)
     plus 'accounting_consistent' (1/0) and 'summary_found' (1/0).
     """
-    counts: dict[str, int | None] = {k: None for k in OUTCOME_KINDS}
+    counts: dict[str, int | None] = dict.fromkeys(OUTCOME_KINDS)
     collected = _collected_count(output)
     summary_found = False
     for line in reversed(output.splitlines()):
@@ -229,7 +253,18 @@ def main() -> int:
 
     started = datetime.now(timezone.utc)
     commit = _git(["rev-parse", "HEAD"])
-    dirty = bool(_git(["status", "--porcelain"]))
+    if not commit:
+        print("FAIL: not a git checkout — the v3 evidence contract "
+              "requires the exact source commit under test",
+              file=sys.stderr)
+        return 1
+    # UM-DR-38 §6.2: tree state at TEST START. Captured BEFORE pytest
+    # runs; the evidence directory is git-ignored, so a clean checkout
+    # stays clean and `tree_clean` describes the source revision being
+    # tested — never run-generated output.
+    status_porcelain = _git(["status", "--porcelain"])
+    dirty = bool(status_porcelain)
+    tree_status_sample = status_porcelain.splitlines()[:50]
     github_run = os.environ.get("GITHUB_RUN_ID")
     github_attempt = os.environ.get("GITHUB_RUN_ATTEMPT")
     lockfile_sha = (_sha256_file(ROOT / "uv.lock")
@@ -315,6 +350,7 @@ def main() -> int:
         "runner": RUNNER_NAME,
         "source_commit": commit or "unknown",
         "tree_clean": not dirty,
+        "tree_status_sample_at_test_start": tree_status_sample,
         "github": ({"run_id": github_run, "run_attempt": github_attempt}
                    if github_run else None),
         "started_at_utc": started.isoformat(),
@@ -332,8 +368,8 @@ def main() -> int:
         "exit_code": completed.returncode,
     }
     EVIDENCE_JSON.parent.mkdir(parents=True, exist_ok=True)
-    EVIDENCE_JSON.write_text(json.dumps(record, indent=2) + "\n",
-                             encoding="utf-8")
+    _atomic_write(EVIDENCE_JSON,
+                  json.dumps(record, indent=2) + "\n")
 
     a = accounting
     evidence_txt = [
@@ -377,7 +413,7 @@ def main() -> int:
             f"{accounting_v3.get('invariants_all_true')} | "
             f"terminal cross-check agree: {cross_check.get('all_agree')}",
         ]
-    EVIDENCE_TXT.write_text("\n".join(evidence_txt) + "\n", encoding="utf-8")
+    _atomic_write(EVIDENCE_TXT, "\n".join(evidence_txt) + "\n")
 
     print(f"collected={a['collected']} executed={a['executed']} "
           f"passed={a['passed']} failed={a['failed']} "

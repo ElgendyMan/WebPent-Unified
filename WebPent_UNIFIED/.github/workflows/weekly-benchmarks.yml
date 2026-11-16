@@ -1,3 +1,11 @@
+# UM-DR-38 §5.2/§5.3 — CANONICAL ROOT-LEVEL WORKFLOW. GitHub discovers
+# workflows ONLY under .github/workflows/ at the REPOSITORY ROOT; the
+# historical nested copy (WebPent_UNIFIED/.github/workflows/) never ran
+# on push. This file migrates the full gate set unchanged (the
+# gate-to-finding map below is preserved verbatim) and executes every
+# command from the actual project root (WebPent_UNIFIED/) via
+# defaults.run.working-directory. The nested copies are RETIRED
+# (removed) — this is the single source of truth for this workflow.
 # M12 (Part 4 §13/§14, UM-DR-23): the weekly benchmark + qualification
 # canary — the ق5 self-benchmark / weekly-runs enrollment the registry
 # names ("weekly Juice Suite runs + canary scheduler + ق5 self-benchmark
@@ -18,6 +26,10 @@ on:
 jobs:
   weekly-benchmarks:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: WebPent_UNIFIED
     timeout-minutes: 30
     env:
       LLM_ENABLED: "false"

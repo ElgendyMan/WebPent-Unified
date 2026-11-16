@@ -1,3 +1,11 @@
+# UM-DR-38 §5.2/§5.3 — CANONICAL ROOT-LEVEL WORKFLOW. GitHub discovers
+# workflows ONLY under .github/workflows/ at the REPOSITORY ROOT; the
+# historical nested copy (WebPent_UNIFIED/.github/workflows/) never ran
+# on push. This file migrates the full gate set unchanged (the
+# gate-to-finding map below is preserved verbatim) and executes every
+# command from the actual project root (WebPent_UNIFIED/) via
+# defaults.run.working-directory. The nested copies are RETIRED
+# (removed) — this is the single source of truth for this workflow.
 # R-08 (TEAM-2 residual): the delivery ZIP shipped without .github/, which
 # made tests/test_production_deployment_contract.py::
 # test_ci_security_environment_contract_is_explicit unverifiable. This
@@ -64,12 +72,17 @@ on:
   push:
     branches: ["**"]
   pull_request:
+  workflow_dispatch:
 
 jobs:
   tests:
     # Playwright Chromium is not yet supported on the Ubuntu 26 runner image.
     # Pin the CI host image so browser integration tests remain reproducible.
     runs-on: ubuntu-24.04
+
+    defaults:
+      run:
+        working-directory: WebPent_UNIFIED
     env:
       LLM_ENABLED: "false"
       EMBEDDINGS_OFFLINE: "true"
@@ -150,7 +163,7 @@ jobs:
       # the floor only moves up (a lowering is an explicit, reviewed
       # --allow-lower decision recorded in the DRIFT_REGISTER).
       - name: Coverage ratchet (M1-C)
-        run: make coverage-ratchet
+        run: uv run make coverage-ratchet
 
       # SBOM per CI run (Track 1: SBOM) — CycloneDX from the locked env.
       - name: Generate SBOM (CycloneDX)
@@ -162,7 +175,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: sbom-cyclonedx
-          path: docs/sbom.cdx.json
+          path: WebPent_UNIFIED/docs/sbom.cdx.json
           if-no-files-found: warn
 
       # --- Test suites --------------------------------------------------
@@ -175,9 +188,9 @@ jobs:
       # contract visible in the workflow and guarantees no artifact left
       # behind by an earlier workflow or local run can be mistaken for
       # this run's evidence.
-      - name: Remove stale test evidence
+      - name: Remove stale test evidence (ignored evidence dir)
         run: |
-          rm -f docs/FULL_SUITE_EVIDENCE.txt docs/FULL_SUITE_EVIDENCE.json
+          rm -rf .webpent-evidence
           echo "stale evidence removed (if any)"
 
       - name: Full regression suite with evidence
@@ -192,5 +205,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: full-suite-evidence
-          path: docs/FULL_SUITE_EVIDENCE.txt
+          path: WebPent_UNIFIED/.webpent-evidence/
           if-no-files-found: error

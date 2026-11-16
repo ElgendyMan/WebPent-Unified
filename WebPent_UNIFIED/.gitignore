@@ -79,3 +79,9 @@ artifacts/*
 # UM-DR-09 hygiene (2026-11-04): regenerated build metadata must never be
 # committed or shipped — fresh checkouts regenerate it on `pip install -e .`.
 *.egg-info/
+
+# UM-DR-38 §6.2: full-suite run evidence is a BUILD ARTIFACT, not source.
+# It is written here at run time (runner: run_tests_with_evidence.py,
+# checker: check_test_evidence.py) and uploaded as a CI workflow artifact;
+# it must never modify the tracked source revision under test.
+.webpent-evidence/

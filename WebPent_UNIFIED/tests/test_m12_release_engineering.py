@@ -139,9 +139,22 @@ def test_backup_restore_detects_missing_files(tmp_path: Path) -> None:
 # ---------------------------------------------------------------------------
 
 
+def _workflow(name: str) -> Path:
+    """UM-DR-38 §5.2: the canonical workflows live at the REPOSITORY
+    root (.github/workflows/) — where GitHub discovers them. Nested
+    copies are the fallback for a standalone project checkout (retired
+    in the publication repo)."""
+    root = REPO.parent / ".github" / "workflows" / name
+    nested = REPO / ".github" / "workflows" / name
+    return root if root.is_file() else nested
+
+
 def test_weekly_workflow_exists_and_enrolls_the_m11_runner() -> None:
-    workflow = REPO / ".github" / "workflows" / "weekly-benchmarks.yml"
+    workflow = _workflow("weekly-benchmarks.yml")
     assert workflow.is_file()
+    assert workflow == REPO.parent / ".github" / "workflows" / (
+        "weekly-benchmarks.yml"), (
+        "the canonical root-level workflow must exist (UM-DR-38 §5.2)")
     text = workflow.read_text(encoding="utf-8")
     assert "run_weekly_benchmarks" in text
     assert 'cron: "0 3 * * 1"' in text  # scheduled
@@ -182,7 +195,7 @@ def test_release_process_doc_carries_the_required_contracts() -> None:
 
 
 def test_ci_workflow_carries_the_gate_chain() -> None:
-    ci = REPO / ".github" / "workflows" / "ci.yml"
+    ci = _workflow("ci.yml")
     assert ci.is_file()
     text = ci.read_text(encoding="utf-8")
     for step in (
@@ -204,6 +217,6 @@ def test_ci_workflow_carries_the_gate_chain() -> None:
 
 
 def test_nightly_canary_workflow_remains_enrolled() -> None:
-    nightly = REPO / ".github" / "workflows" / "nightly.yml"
+    nightly = _workflow("nightly.yml")
     assert nightly.is_file()
     assert "cron:" in nightly.read_text(encoding="utf-8")

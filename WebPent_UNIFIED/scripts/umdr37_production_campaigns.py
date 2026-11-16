@@ -12,8 +12,30 @@ engagement/campaign id, isolated artifact), with:
   confirmed, missing resource never confirmed, every request on-origin;
 * CausalGuard invocations and verify_replay_evidence outcomes counted
   (observation only — nothing is confirmed outside the graph);
-* the production discovery funnel (production/discovery_funnel.py)
-  computed from the reconstructed final state.
+* the production discovery funnel (production/discovery_funnel.py).
+
+UM-DR-38 §7.2 instrumentation repairs (all pinned by
+tests/test_umdr38_campaign_instrumentation.py):
+
+* A. MONKEYPATCH LIFECYCLE — instrumentation is installed through the
+  REVERSIBLE ``campaign_instrumentation`` context manager: every
+  original function is restored in ``finally``, and each campaign
+  installs its single observation layer over the ORIGINALS, never over
+  a previous campaign's layer — wrappers cannot accumulate across
+  sequential runs and the per-run counts stay per-run.
+* B. AUTHORITATIVE FINAL STATE — the funnel is computed from the ACTUAL
+  final graph state read via ``graph.get_state(config)`` while the run
+  context is still open (the checkpointer applies the reducers); the
+  tee'd last-write merge survives only as an explicitly-labeled
+  fallback, never silently.
+* E. CLEANUP — the lab server and the out-of-scope origin are closed
+  in ``finally`` even when the campaign raises; a failed campaign
+  leaves no running server and no shared state.
+* F. REDACTION — the recorded invocation carries cookie/session values
+  redacted; only the minimum needed to reproduce the security
+  conclusion is preserved.
+* Phase 5 (UM-DR-38 §9) — one authoritative lab version constant used
+  by the HTTP response, the per-run records and the combined record.
 
 Mission Part 12.5 reproducibility: same lab version, same controlled
 configuration, fresh state, unique campaign ids, isolated artifacts,
@@ -21,8 +43,12 @@ recorded budgets. Any result difference must be explained.
 """
 from __future__ import annotations
 
+import contextlib
+import hashlib
 import json
 import os
+import platform
+import subprocess
 import sys
 import threading
 import time
@@ -38,6 +64,12 @@ os.environ.setdefault("WEBPENT_ENTRYPOINT", "cli")
 
 RUNS = 3
 
+# UM-DR-38 Phase 5: THE single authoritative lab version — used by the
+# HTTP response, every per-run record and the combined record. Reports
+# and readiness JSON derive from these records, so the value cannot
+# diverge again (regression-pinned).
+LAB_VERSION = "1.6.0"
+
 INVOICES = {
     "INV-A-101": ("User_A", "paid", 1200),
     "INV-B-777": ("User_B", "open", 3400),
@@ -47,6 +79,23 @@ SESSIONS = {"sess-a7f3d1": "User_A", "sess-b9e2c4": "User_B",
             "sess-admin9": "User_ADMIN"}
 MISSING = "INV-MISSING-404"
 DECOY = "DECOY-9999"  # public-by-design invoice lookalike: never confirms
+
+
+def _git(args: list[str]) -> str:
+    r = subprocess.run(["git", *args], cwd=REPO, capture_output=True,
+                       text=True, check=False)
+    return r.stdout.strip() if r.returncode == 0 else ""
+
+
+def _lockfile_sha256() -> str | None:
+    lock = REPO / "uv.lock"
+    if not lock.is_file():
+        return None
+    h = hashlib.sha256()
+    with open(lock, "rb") as f:
+        for chunk in iter(lambda: f.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()
 
 
 class _OutOfScopeOrigin:
@@ -112,7 +161,7 @@ class _IdorLab(BaseHTTPRequestHandler):
             {"path": path, "principal": principal})
         if path in ("", "/"):
             self._send(200, json.dumps({
-                "app": "invoice-lab", "version": "1.6.0",
+                "app": "invoice-lab", "version": LAB_VERSION,
                 "auth": "cookie session",
                 "links": ["/api/users", "/api/session", "/api/health",
                           "/api/invoices/INV-A-101",
@@ -189,25 +238,35 @@ def _count(value):
     return None
 
 
-def run_campaign(run_index: int) -> dict:
-    out_of_scope = _OutOfScopeOrigin()
-    server = HTTPServer(("127.0.0.1", 0), _IdorLab)
-    server.out_of_scope_origin = out_of_scope.origin
-    _IdorLab.request_log = []
-    threading.Thread(target=server.serve_forever, daemon=True).start()
-    origin = f"http://127.0.0.1:{server.server_address[1]}"
-    campaign_id = f"umdr37-campaign-{run_index}-{uuid.uuid4().hex[:8]}"
+@contextlib.contextmanager
+def campaign_instrumentation(sink: dict):
+    """UM-DR-38 §7.2.A — REVERSIBLE instrumentation for exactly ONE
+    campaign.
 
+    Installs a single observation layer around the production modules
+    and RESTORES every original in ``finally``. Sequential campaigns in
+    one process each install their layer over the ORIGINALS (never over
+    a previous campaign's layer): wrappers cannot accumulate, tracing
+    is per-campaign, and CausalGuard/verification counts stay per-run.
+
+    §7.2.B: while the run context is open, the tee also captures the
+    AUTHORITATIVE final graph state via ``graph.get_state(config)``
+    (reducer-applied by the checkpointer) as soon as the update stream
+    is exhausted; the last-write merge is kept only as an explicitly
+    labeled fallback.
+    """
+    import webpent.agents.access_control.agent as ac_agent
     import webpent.graph.builder as gb
     import webpent.production.confirmation_adapter as ca
     import webpent.shared.verifier as verifier_mod
-    import webpent.agents.access_control.agent as ac_agent
 
-    stages: list[dict] = []
-    guard_calls: list[dict] = []
-    verifications: list[dict] = []
-    raw_state: dict = {}  # raw last-write channel values, for the funnel
+    stages = sink["stages"]
+    guard_calls = sink["guard_calls"]
+    verifications = sink["verifications"]
+    raw_state = sink["raw_state"]
+    graphs = sink["graphs"]
     last_t = [time.perf_counter()]
+
     real_build = gb.build_graph
 
     def traced_build(*args, **kwargs):
@@ -215,6 +274,7 @@ def run_campaign(run_index: int) -> dict:
         real_stream = graph.stream
 
         def tee_stream(state, config=None, **stream_kwargs):
+            graphs.append((graph, config))
             for chunk in real_stream(state, config=config, **stream_kwargs):
                 now = time.perf_counter()
                 if isinstance(chunk, dict):
@@ -234,32 +294,39 @@ def run_campaign(run_index: int) -> dict:
                                     raw_state[str(key)] = value
                 last_t[0] = now
                 yield chunk
+            # §7.2.B: the stream is exhausted and the run context (and
+            # its checkpointer) is still open HERE — read the actual
+            # final state with the reducers applied by LangGraph.
+            try:
+                snapshot = graph.get_state(config)
+                values = getattr(snapshot, "values", None)
+                if values:
+                    sink["authoritative_final_state"] = dict(values)
+            except Exception as exc:  # noqa: BLE001 — recorded honestly
+                sink["authoritative_final_state_error"] = (
+                    f"{type(exc).__name__}: {exc}")
 
         graph.stream = tee_stream
         return graph
-
-    gb.build_graph = traced_build
 
     real_adjudicate = ca.adjudicate_with_causal_guard
 
     def counted_adjudicate(*args, **kwargs):
         result = real_adjudicate(*args, **kwargs)
+        verdict = None
         if isinstance(result, dict):
             verdict = result.get("verdict")
         else:
-            verdict = getattr(result, "verdict", None)
+            # the production adapter returns GuardedAdjudication with a
+            # TYPED GuardedCausalResult — the verdict lives on
+            # .guard_result.verdict (a Verdict enum)
+            guard_result = getattr(result, "guard_result", None)
+            verdict = getattr(guard_result, "verdict", None)
             if verdict is None:
-                evidence = getattr(result, "evidence", None) or {}
-                guard = evidence.get("causal_guard", {}) \
-                    if isinstance(evidence, dict) else {}
-                verdict = guard.get("verdict") if isinstance(
-                    guard, dict) else None
-        guard_calls.append({"verdict": str(verdict)})
+                verdict = getattr(result, "verdict", None)
+        guard_calls.append(
+            {"verdict": str(getattr(verdict, "value", verdict))})
         return result
-
-    ca.adjudicate_with_causal_guard = counted_adjudicate
-    if hasattr(verifier_mod, "adjudicate_with_causal_guard"):
-        verifier_mod.adjudicate_with_causal_guard = counted_adjudicate
 
     real_verify = verifier_mod.verify_replay_evidence
 
@@ -274,14 +341,67 @@ def run_campaign(run_index: int) -> dict:
         })
         return result
 
+    saved = {
+        "gb.build_graph": gb.build_graph,
+        "ca.adjudicate_with_causal_guard": ca.adjudicate_with_causal_guard,
+        "verifier_mod.adjudicate_with_causal_guard": getattr(
+            verifier_mod, "adjudicate_with_causal_guard", None),
+        "verifier_mod.verify_replay_evidence":
+            verifier_mod.verify_replay_evidence,
+        "ac_agent.verify_replay_evidence":
+            ac_agent.verify_replay_evidence,
+    }
+    gb.build_graph = traced_build
+    ca.adjudicate_with_causal_guard = counted_adjudicate
+    if saved["verifier_mod.adjudicate_with_causal_guard"] is not None:
+        verifier_mod.adjudicate_with_causal_guard = counted_adjudicate
     verifier_mod.verify_replay_evidence = counted_verify
     ac_agent.verify_replay_evidence = counted_verify
+    try:
+        yield sink
+    finally:
+        # §7.2.A: STRICT restoration — the next campaign (and the rest
+        # of the process) sees the original functions, never a wrapper.
+        gb.build_graph = saved["gb.build_graph"]
+        ca.adjudicate_with_causal_guard = saved[
+            "ca.adjudicate_with_causal_guard"]
+        if saved["verifier_mod.adjudicate_with_causal_guard"] is not None:
+            verifier_mod.adjudicate_with_causal_guard = saved[
+                "verifier_mod.adjudicate_with_causal_guard"]
+        verifier_mod.verify_replay_evidence = saved[
+            "verifier_mod.verify_replay_evidence"]
+        ac_agent.verify_replay_evidence = saved[
+            "ac_agent.verify_replay_evidence"]
 
-    from webpent.cli.unified_hunt import run_unified_hunt
+
+def _redacted_invocation(invocation: dict) -> dict:
+    """§7.2.F: the RECORDED copy of the invocation carries cookies and
+    session-like values redacted; the run itself uses the real (lab-
+    synthetic) values, and only the minimum needed to reproduce the
+    security conclusion is preserved."""
+    out = dict(invocation)
+    if out.get("cookies"):
+        out["cookies"] = "***REDACTED***"
+    if out.get("identity_profiles"):
+        out["identity_profiles"] = {
+            name: {**profile,
+                   "cookies": dict.fromkeys(profile.get("cookies") or {}, "***REDACTED***")}
+            for name, profile in out["identity_profiles"].items()}
+    return out
+
+
+def run_campaign(run_index: int) -> dict:
+    out_of_scope = _OutOfScopeOrigin()
+    server = HTTPServer(("127.0.0.1", 0), _IdorLab)
+    server.out_of_scope_origin = out_of_scope.origin
+    _IdorLab.request_log = []
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    origin = f"http://127.0.0.1:{server.server_address[1]}"
+    campaign_id = f"umdr38-campaign-{run_index}-{uuid.uuid4().hex[:8]}"
 
     invocation = {
         "url": origin, "mode": "standard",
-        "authorization": "umdr37-authorized-lab-engagement",
+        "authorization": "umdr38-authorized-lab-engagement",
         "cookies": "session=sess-a7f3d1",
         "identity_profiles": {
             "user-b": {"name": "user-b", "role": "user",
@@ -290,10 +410,33 @@ def run_campaign(run_index: int) -> dict:
         "auto_approve": True, "no_llm": True, "progress": False,
         "run_graph": True, "engagement_id": campaign_id,
     }
+
+    sink: dict = {
+        "stages": [], "guard_calls": [], "verifications": [],
+        "raw_state": {}, "graphs": [],
+        "authoritative_final_state": None,
+        "authoritative_final_state_error": None,
+    }
+
+    from webpent.cli.unified_hunt import run_unified_hunt
+
     started = datetime.now(timezone.utc).isoformat()
     started_mono = time.monotonic()
-    summary = run_unified_hunt(**invocation)
-    elapsed = round(time.monotonic() - started_mono, 1)
+    try:
+        with campaign_instrumentation(sink):
+            summary = run_unified_hunt(**invocation)
+        elapsed = round(time.monotonic() - started_mono, 1)
+    finally:
+        # §7.2.E: servers are closed even when the campaign raises — a
+        # failed campaign leaves no running server and no shared state
+        # that could influence the next run.
+        out_of_scope.shutdown()
+        server.shutdown()
+
+    stages = sink["stages"]
+    guard_calls = sink["guard_calls"]
+    verifications = sink["verifications"]
+    raw_state = sink["raw_state"]
 
     # ---- safety invariants, proven from the lab's own request log -----
     requests_log = list(_IdorLab.request_log)
@@ -345,23 +488,72 @@ def run_campaign(run_index: int) -> dict:
             len(out_of_scope.request_log) == 0),
     }
 
-    # ---- discovery funnel from the reconstructed state -----------------
+    # ---- §7.2.B: the funnel from the AUTHORITATIVE final state -------
+    funnel_state = sink["authoritative_final_state"]
+    if funnel_state is not None:
+        final_state_source = ("graph.get_state(config) — the actual "
+                              "final graph state (reducer-applied), "
+                              "read while the run context was open")
+    else:
+        funnel_state = raw_state
+        final_state_source = (
+            "FALLBACK: tee'd last-write merge of the update stream — an "
+            "approximation (authoritative read unavailable: "
+            f"{sink['authoritative_final_state_error']!r})")
     funnel = None
     funnel_error = None
     try:
         from webpent.production.discovery_funnel import build_discovery_funnel
-        funnel = build_discovery_funnel(raw_state)
+        funnel = build_discovery_funnel(funnel_state)
     except Exception as exc:  # noqa: BLE001 — fail-soft, recorded honestly
         funnel_error = f"{type(exc).__name__}: {exc}"
+    funnel_stages = (funnel or {}).get("stages") or {}
 
+    # ---- §7.2.C: the full per-campaign assertion set ------------------
+    principals_observed = sorted({
+        r["principal"] for r in requests_log if r["principal"]})
     run_record = {
-        "schema": "umdr37-production-campaign/v1",
+        "schema": "umdr38-production-campaign/v1",
         "run": run_index,
         "campaign_id": campaign_id,
         "started_at_utc": started,
+        "completed_at_utc": datetime.now(timezone.utc).isoformat(),
         "elapsed_s": elapsed,
+        "source_commit": _git(["rev-parse", "HEAD"]) or None,
+        "tree_sha": _git(["rev-parse", "HEAD^{tree}"]) or None,
+        "tree_clean": not bool(_git(["status", "--porcelain"])),
+        "python_version": platform.python_version(),
+        "lockfile_sha256": _lockfile_sha256(),
+        "lab_version": f"invoice-lab/{LAB_VERSION}",
+        "execution_mode": ("campaign script -> production entrypoint "
+                           "webpent.cli.unified_hunt.run_unified_hunt "
+                           "(no_llm=True, auto_approve=True)"),
+        "request_budget": {
+            "dynamic_step_budget": summary.get("dynamic_step_budget"),
+            "note": "CLI standard-mode preset budgets; the enforced "
+                    "request surface is proven by the lab request log",
+        },
+        "lab_requests_issued": len(requests_log),
+        "discovered_endpoints": funnel_stages.get("endpoints_discovered"),
+        "discovered_candidate_resources": funnel_stages.get(
+            "candidate_findings"),
+        "identities_observed": principals_observed,
+        "authorization_relationships": {
+            "authorization_observations": funnel_stages.get(
+                "authorization_observations"),
+            "differential_questions": funnel_stages.get(
+                "differential_questions"),
+        },
+        "hypotheses": {
+            "in_pool": funnel_stages.get("hypotheses_in_pool"),
+            "open": funnel_stages.get("hypotheses_open"),
+            "resolved": funnel_stages.get("hypotheses_resolved"),
+        },
         "lab_origin": origin,
-        "invocation": invocation,
+        "invocation": _redacted_invocation(invocation),
+        "redaction": ("cookies/session values redacted in the recorded "
+                      "copy (synthetic lab credentials); the run itself "
+                      "used the real values"),
         "stage_count": len(stages),
         "stages": stages,
         "lab_request_count": len(requests_log),
@@ -380,35 +572,37 @@ def run_campaign(run_index: int) -> dict:
         "causal_guard_invocations": len(guard_calls),
         "guard_verdicts": [g["verdict"] for g in guard_calls],
         "verifications": verifications,
+        "final_state_source": final_state_source,
         "invariant_checks": invariant_checks,
         "funnel": funnel,
         "funnel_error": funnel_error,
         "notes": [
-            "the funnel is computed from the tee'd update stream "
-            "(raw last-write merge of the channel values) — an "
-            "approximation of the final state, documented as such",
+            "the funnel is computed from the AUTHORITATIVE final state "
+            "(graph.get_state) — the tee'd last-write merge survives "
+            "only as an explicitly labeled fallback",
             "requests logged by the lab itself prove the safety "
             "invariants from the run, not from expectations",
         ],
     }
-    out_of_scope.shutdown()
-    server.shutdown()
     return run_record
 
 
 def main() -> int:
     runs = [run_campaign(index + 1) for index in range(RUNS)]
     combined = {
-        "schema": "umdr37-production-campaigns/v1",
+        "schema": "umdr38-production-campaigns/v1",
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
-        "mission": "UM-DR-37 Part 12 / gates G37-16..G37-23",
+        "mission": "UM-DR-38 Phase 8 (from UM-DR-37 Part 12 / "
+                   "gates G37-16..G37-23)",
         "run_count": len(runs),
-        "lab_version": "invoice-lab 1.5.0",
+        "lab_version": f"invoice-lab/{LAB_VERSION}",
         "configuration": "mode=standard, no_llm=True, auto_approve=True, "
                          "User_A cookies + user-b identity profile",
         "runs": runs,
         "reproducibility": {
-            "same_lab_version": True,
+            "same_lab_version": all(
+                r["lab_version"] == f"invoice-lab/{LAB_VERSION}"
+                for r in runs),
             "same_configuration": True,
             "fresh_state_per_run": True,
             "unique_campaign_ids": [r["campaign_id"] for r in runs],
@@ -428,6 +622,7 @@ def main() -> int:
         },
     }
     out = REPO / "artifacts" / "umdr37_production_campaigns.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(combined, indent=2, default=str),
                    encoding="utf-8")
     for run in runs:
@@ -435,6 +630,7 @@ def main() -> int:
             f"umdr37_production_campaign_run{run['run']}.json")
         single.write_text(json.dumps(run, indent=2, default=str),
                           encoding="utf-8")
+    print(f"[campaigns] lab version: {LAB_VERSION}")
     print(f"[campaigns] confirmed per run: "
           f"{combined['reproducibility']['confirmed_counts']}")
     print(f"[campaigns] all runs confirm IDOR: "
@@ -442,9 +638,12 @@ def main() -> int:
     print(f"[campaigns] all invariants hold: "
           f"{combined['reproducibility']['all_invariants_hold']}")
     for run in runs:
+        state = ("authoritative"
+                 if "get_state" in run["final_state_source"]
+                 else "fallback")
         print(f"  run {run['run']}: stages={run['stage_count']} "
               f"requests={run['lab_request_count']} "
-              f"guard={run['guard_verdicts']} "
+              f"guard={run['guard_verdicts']} state={state} "
               f"funnel={'ok' if run['funnel'] else run['funnel_error']}")
     print(f"[artifact] {out}")
     return 0
