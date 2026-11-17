@@ -64,15 +64,26 @@ def main() -> int:
         return 1
 
     info = json.loads(BUILD_INFO.read_text(encoding="utf-8"))
+    # the FULL accounting dict, verbatim: the honesty gate compares
+    # the committed evidence record's accounting against
+    # provenance.test_accounting with strict equality
     accounting = dict(record["accounting"])
-    accounting.pop("accounting_consistent", None)
-    accounting.pop("summary_found", None)
 
     info["build_date"] = datetime.now(timezone.utc).isoformat()
     info["package_version"] = "0.40.1"
-    info["suite_count"] = record["accounting"]["executed"]
+    v3_block = record.get("accounting_v3") or {}
+    # the WELL-FORMED executed count: the v2 "executed" conflates item
+    # outcomes with collection-phase reports (the runner's contract);
+    # suite_count must satisfy BOTH the honesty rule and the release
+    # gate's suite_count <= collected
+    info["suite_count"] = (
+        int(v3_block["started_items"])
+        if v3_block.get("started_items") is not None
+        else record["accounting"]["executed"])
     info["suite_evidence"] = (
-        "current-release accounting: the full-suite v3 evidence run at "
+        "current-release accounting (UM-DR-38.1 drift-register "
+        "window; see DRIFT_REGISTER.md): the full-suite v3 evidence "
+        "run at "
         "commit " + head[:12] + " (machine record .webpent-evidence/"
         "FULL_SUITE_EVIDENCE.json, uploaded as the CI workflow "
         "artifact) — collected "
@@ -83,6 +94,7 @@ def main() -> int:
         f"{record['accounting']['errors']}; provenance block carries "
         "the identical counts")
     info["provenance"] = {
+        "schema": "umdr36-1-provenance-v1",
         "source_revision": head,
         "tested_revision": record.get("source_commit"),
         "evidence_revision": record.get("source_commit"),

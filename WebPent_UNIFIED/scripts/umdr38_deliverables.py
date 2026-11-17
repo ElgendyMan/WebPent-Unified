@@ -196,9 +196,9 @@ def generate_provenance_report() -> Path:
         f"(\u201c{_git(['log', '-1', '--format=%s', PUBLISHED_HEAD])}\u201d) "
         "— the mission RESULT published as a squash; its parent lineage "
         f"is the publish-squash chain (… ← {PREV_BASELINE[:12]} ← 1968f63).",
-        f"* The detailed mission branch (`mission/umdr36.2-umdr37` in the "
+        "* The detailed mission branch (`mission/umdr36.2-umdr37` in the "
         "build-environment repository) had its final segment "
-        f"(**01d1708…073c64b**, including the evidence commit "
+        "(**01d1708…073c64b**, including the evidence commit "
         "**1386d57**) lost to a build-environment recycle; it was never "
         "pushed. The recoverable mission history ended at **01d1708**; "
         "the old git bundle ended even earlier, at **9ee46b5**.",
@@ -241,10 +241,10 @@ def generate_provenance_report() -> Path:
         "explicitly unusable as current-release proof: it was migrated "
         "to `docs/history/` with a README explaining exactly this, and "
         "the CURRENT release evidence is generated fresh by the §6.2 "
-        f"runner at the release revision (source_commit below).",
+        "runner at the release revision (source_commit below).",
         "",
         f"* Release branch HEAD at generation: **{head}**",
-        f"* Current evidence source_commit: see "
+        "* Current evidence source_commit: see "
         "UMDR38_TEST_EVIDENCE_INTEGRITY_REPORT.md.",
         "",
         "## What is authoritative now",
@@ -370,6 +370,22 @@ GATES = [
     ("coverage-ratchet", "uv run --extra dev make coverage-ratchet"),
     ("vip-audit-gap", "uv run --extra dev python -m pytest -q "
      "tests/test_vip_audit_gap_closure.py"),
+    # UM-DR-38.1: the verification checks the matrix aggregates over
+    ("test-evidence-check", "uv run --extra dev python scripts/"
+     "check_test_evidence.py"),
+    ("evidence-contract-tests", "uv run --extra dev python -m pytest "
+     "-q tests/test_umdr38_evidence_contract.py "
+     "tests/test_umdr36_1_test_evidence_integrity.py"),
+    ("instrumentation-tests", "uv run --extra dev python -m pytest -q "
+     "tests/test_umdr38_campaign_instrumentation.py "
+     "tests/test_umdr38_1_funnel_integrity.py"),
+    ("report-generator-tests", "uv run --extra dev python -m pytest -q "
+     "tests/test_umdr38_report_generators.py "
+     "tests/test_umdr38_1_gate_status.py tests/test_umdr38_1_acceptance.py"),
+    ("evidence-publication", "uv run --extra dev python scripts/"
+     "umdr38_publish_campaign_evidence.py --verify"),
+    ("structure-discovery-tests", "uv run --extra dev python -m pytest "
+     "-q tests/test_umdr38_1_repository_structure.py"),
 ]
 
 

@@ -288,12 +288,26 @@ def evaluate(info: dict, *, root: Path | None = None,
                     and not v3_explained:
                 failures.append("test_accounting.collected != executed + "
                                 "deselected")
-            if isinstance(suite_count, int) and suite_count != accounting[
-                    "executed"]:
+            # UM-DR-38.1 v3 alignment: when collection-phase reports
+            # exist (v3-explained), the WELL-FORMED executed count is
+            # accounting_v3.started_items — the v2 "executed" conflates
+            # item outcomes with collection-phase reports (the runner's
+            # own contract) and can exceed the collected count. The
+            # release gate (UM-DR-24) requires suite_count <= collected;
+            # both contracts hold exactly when suite_count reports
+            # started_items under a v3-explained record.
+            well_formed_executed = (
+                int(ev_v3["started_items"])
+                if v3_explained and ev_v3.get("started_items") is not None
+                else accounting["executed"])
+            if isinstance(suite_count, int) and suite_count != (
+                    well_formed_executed):
                 failures.append(
-                    f"suite_count {suite_count} != test_accounting.executed "
-                    f"{accounting['executed']} (suite_count must report the "
-                    "EXECUTED count, never the collected count)")
+                    f"suite_count {suite_count} != the well-formed "
+                    f"EXECUTED count {well_formed_executed} "
+                    f"(v3 started_items when collection-phase reports "
+                    "are v3-explained; otherwise test_accounting."
+                    "executed)")
         if isinstance(evidence_record, dict) and isinstance(
                 evidence_record.get("accounting"), dict):
             ev_commit = str(evidence_record.get("source_commit", ""))

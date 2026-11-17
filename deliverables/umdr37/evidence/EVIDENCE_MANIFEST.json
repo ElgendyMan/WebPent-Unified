@@ -1,0 +1,120 @@
+{
+  "schema": "umdr38-release-evidence/v1",
+  "published_at_utc": "2026-11-17T04:23:07.414811+00:00",
+  "source_commit": "c2a12b200fd57bd9ca721f3818f8694330a10718",
+  "policy": "durable release evidence under deliverables/umdr37/evidence/ \u2014 tracked in git, one SHA-256 per file; runtime artifacts/ stays ignored. All campaign records are redacted (\u00a77.2.F); no cookies, credentials or runtime databases are published",
+  "files": [
+    {
+      "file": "umdr37_production_campaigns.json",
+      "source": "artifacts/umdr37_production_campaigns.json",
+      "sha256": "55ee1505f025b80c98e37501686623f39aed62eea0cdf5ad059e60777127b555",
+      "era": "current revision",
+      "description": "combined record of the three production campaigns (Phase 8) \u2014 requests, findings, CausalGuard verdicts, ProofBundle ids, replay verifications, negative controls, out-of-scope request log, authoritative final-state funnel"
+    },
+    {
+      "file": "umdr37_production_campaign_run1.json",
+      "source": "artifacts/umdr37_production_campaign_run1.json",
+      "sha256": "bd96aa2d2f0d91d021fd414781d4032945ec7aac3c692fa3da1f2f32a3a2d230",
+      "era": "current revision",
+      "description": "campaign 1 raw run record"
+    },
+    {
+      "file": "umdr37_production_campaign_run2.json",
+      "source": "artifacts/umdr37_production_campaign_run2.json",
+      "sha256": "ac43066e8a45a33c3c236ffc2dfe257c18175112c4a16fa40f56863dfe38c3b5",
+      "era": "current revision",
+      "description": "campaign 2 raw run record"
+    },
+    {
+      "file": "umdr37_production_campaign_run3.json",
+      "source": "artifacts/umdr37_production_campaign_run3.json",
+      "sha256": "db780903c6c620b3d3e62b3b24a64a99806343cb50a115adb5beebba943aece9",
+      "era": "current revision",
+      "description": "campaign 3 raw run record"
+    },
+    {
+      "file": "umdr37_full_loop_learning.json",
+      "source": "artifacts/umdr37_full_loop_learning.json",
+      "sha256": "2ea1760a49a68880f50f28261d2b859ecccb3f0de910a2ecd2220894b4876a59",
+      "era": "committed durable copy (UM-DR-38 era \u2014 historical, never re-dated)",
+      "description": "four-arm full-loop learning proof (evidence channel changes a real decision; six-step chain held; ground truth confirmed only with evidence)"
+    },
+    {
+      "file": "umdr37_learning_ablation.json",
+      "source": "artifacts/umdr37_learning_ablation.json",
+      "sha256": "d1f0ddfe3c4d4ca17260db99542d54f20035eef720b812c717074aed2f5ed419",
+      "era": "committed durable copy (UM-DR-38 era \u2014 historical, never re-dated)",
+      "description": "selector-level learning ablation (two-layer honest verdict; unit-level causal chain proven by the pinned test)"
+    },
+    {
+      "file": "umdr37_graph_trace_after.json",
+      "source": "artifacts/umdr37_graph_trace_after.json",
+      "sha256": "ac1b7fa7be2b540351340c619f335028fc16a7b2d45c9342b2dd6f8e98623e25",
+      "era": "committed durable copy (UM-DR-38 era \u2014 historical, never re-dated)",
+      "description": "root-cause production campaign graph trace (after the fixes: endpoints, findings, guard calls, drop-offs)"
+    },
+    {
+      "file": "UMDR37_FULL_LOOP_LEARNING.json",
+      "source": "docs/UMDR37_FULL_LOOP_LEARNING.json",
+      "sha256": "2ea1760a49a68880f50f28261d2b859ecccb3f0de910a2ecd2220894b4876a59",
+      "era": "current revision",
+      "description": "tracked copy of the full-loop record"
+    },
+    {
+      "file": "UMDR37_LEARNING_ABLATION.json",
+      "source": "docs/UMDR37_LEARNING_ABLATION.json",
+      "sha256": "d1f0ddfe3c4d4ca17260db99542d54f20035eef720b812c717074aed2f5ed419",
+      "era": "current revision",
+      "description": "tracked copy of the ablation record (the published file was a missing-stub; replaced by the regenerated real record)"
+    },
+    {
+      "file": "UMDR37_DISCOVERY_EFFICIENCY.json",
+      "source": "docs/UMDR37_DISCOVERY_EFFICIENCY.json",
+      "sha256": "1c398e91afa86540c29ee0200e7c668ce565e66e517868af32e847e5ea558c59",
+      "era": "current revision",
+      "description": "discovery-efficiency metrics from the release-revision campaigns"
+    },
+    {
+      "file": "UMDR37_PRODUCTION_CAMPAIGN.json",
+      "source": "docs/UMDR37_PRODUCTION_CAMPAIGN.json",
+      "sha256": "3af07bf6d056475c8fdc87fec4fa02874483ed232c8fe311d6f907b8f8edbef9",
+      "era": "current revision",
+      "description": "tracked combined campaign record (the published file was a missing-stub; replaced by the regenerated real record)"
+    },
+    {
+      "file": "UMDR37_DECOY_CLOSURE.json",
+      "source": "docs/UMDR37_DECOY_CLOSURE.json",
+      "sha256": "60af98dc6132b52514696ea4e38d2cedf3164821c7f3977adadfbf62a31b38b8",
+      "era": "current revision",
+      "description": "decoy exposure and closure (decoy unconfirmed; per-campaign decoy invariants also live inside the campaign records)"
+    },
+    {
+      "file": "UMDR37_CONFIRMATION_CHAIN.json",
+      "source": "docs/UMDR37_CONFIRMATION_CHAIN.json",
+      "sha256": "a98a3d2e1ca4c13d4749fbfeb33f6e9bc14ae297c2482ad8c06b581744424911",
+      "era": "current revision",
+      "description": "the confirmation authority chain record (CausalGuard -> ProofBundle -> replay)"
+    },
+    {
+      "file": "UMDR37_GRAPH_TRACE.json",
+      "source": "docs/UMDR37_GRAPH_TRACE.json",
+      "sha256": "c6f31c9dacae5d837450980ee303f45ec64dca30323e447c8812bdc490b96da2",
+      "era": "current revision",
+      "description": "the umdr37-era graph trace record (tracked)"
+    },
+    {
+      "file": "UMDR37_MULTI_FAMILY_RESULTS.json",
+      "source": "docs/UMDR37_MULTI_FAMILY_RESULTS.json",
+      "sha256": "bc0b29e7120c65d9f25e0a92c6fd28d6433bfb384ec06f3181eaa4be758c8d4c",
+      "era": "current revision",
+      "description": "multi-family validation results (controlled scope)"
+    },
+    {
+      "file": "UMDR37_STAGE_METRICS.json",
+      "source": "docs/UMDR37_STAGE_METRICS.json",
+      "sha256": "0bb730a9accaffa6b8da6b241e3e18af8edcf162ce9b80ecef3d7386a9a879d1",
+      "era": "current revision",
+      "description": "discovery stage metrics (tracked)"
+    }
+  ]
+}

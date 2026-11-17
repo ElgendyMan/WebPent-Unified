@@ -324,8 +324,16 @@ def campaign_instrumentation(sink: dict):
             verdict = getattr(guard_result, "verdict", None)
             if verdict is None:
                 verdict = getattr(result, "verdict", None)
-        guard_calls.append(
-            {"verdict": str(getattr(verdict, "value", verdict))})
+        guard_calls.append({
+            "verdict": str(getattr(verdict, "value", verdict)),
+            "vulnerability_class": str(kwargs.get("vulnerability_class")
+                                       or ""),
+            # UM-DR-38.1 §5.3: the authority interface exposes NO
+            # finding identity — correlation stays count-level and the
+            # per-finding chain joins happen at the verification stage
+            "correlation": "count-level (no finding identity in the "
+                           "authority interface)",
+        })
         return result
 
     real_verify = verifier_mod.verify_replay_evidence
@@ -509,6 +517,17 @@ def run_campaign(run_index: int) -> dict:
         funnel_error = f"{type(exc).__name__}: {exc}"
     funnel_stages = (funnel or {}).get("stages") or {}
 
+    # UM-DR-38.1 §5.4: the per-finding confirmation chain — joined on
+    # finding_id across the run summary artifacts and the
+    # instrumentation events, with the funnel kept separate and labeled
+    import confirmation_chain
+    confirmation_chain_record = confirmation_chain.build_confirmation_chain(
+        confirmed, verifications, guard_calls,
+        eligible_candidates=(
+            funnel_stages.get("candidate_findings")
+            if isinstance(funnel_stages.get("candidate_findings"), int)
+            else None))
+
     # ---- §7.2.C: the full per-campaign assertion set ------------------
     principals_observed = sorted({
         r["principal"] for r in requests_log if r["principal"]})
@@ -573,6 +592,7 @@ def run_campaign(run_index: int) -> dict:
         "guard_verdicts": [g["verdict"] for g in guard_calls],
         "verifications": verifications,
         "final_state_source": final_state_source,
+        "confirmation_chain": confirmation_chain_record,
         "invariant_checks": invariant_checks,
         "funnel": funnel,
         "funnel_error": funnel_error,

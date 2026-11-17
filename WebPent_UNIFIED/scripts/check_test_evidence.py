@@ -73,6 +73,40 @@ def _current_lockfile_sha() -> str:
     return h.hexdigest()
 
 
+_METADATA_ALLOW = (
+    "README.md", "DRIFT_REGISTER.md", ".github/",
+    "deliverables/", "WebPent_UNIFIED/deliverables/",
+    "BUILD_INFO.json", "WebPent_UNIFIED/BUILD_INFO.json",
+    "docs/", "WebPent_UNIFIED/docs/",
+    "scripts/", "WebPent_UNIFIED/scripts/")
+
+
+def _metadata_only_delta(commit: str, head: str) -> bool:
+    """UM-DR-38.1: True when commit is a real ancestor of head and
+    every path changed since touches METADATA only — the documented
+    test-commit vs metadata-commit relationship (BUILD_INFO
+    re-baselines and generated deliverables follow the evidence; they
+    never invalidate it). Any src/tests/pyproject/uv.lock change keeps
+    the evidence STALE."""
+    if not commit or not head or commit == head:
+        return commit == head
+    anc = subprocess.run(
+        ["git", "merge-base", "--is-ancestor", commit, head],
+        cwd=ROOT, capture_output=True)
+    if anc.returncode != 0:
+        return False
+    diff = subprocess.run(
+        ["git", "diff", "--name-only", commit, head],
+        cwd=ROOT, capture_output=True, text=True)
+    for line in diff.stdout.splitlines():
+        if not line:
+            continue
+        if not any(line == a or line.startswith(a)
+                   for a in _METADATA_ALLOW):
+            return False
+    return True
+
+
 def evaluate(record: dict, *, head: str, env: dict[str, str],
              expected_lockfile_sha: str = "") -> list[str]:
     """Return the list of failures (empty list == evidence validates)."""
@@ -89,10 +123,17 @@ def evaluate(record: dict, *, head: str, env: dict[str, str],
     commit = str(record.get("source_commit", ""))
     if not _HEX40.match(commit):
         failures.append(f"source_commit is not a 40-hex sha: {commit!r}")
-    elif head and commit != head:
+    elif head and commit != head and not _metadata_only_delta(
+            commit, head):
         failures.append(
-            f"evidence belongs to commit {commit}, but this checkout is "
-            f"{head} — STALE evidence from a different source revision")
+            f"evidence belongs to commit {commit}, but this checkout "
+            f"is {head} — STALE evidence from a different source "
+            "revision (an ancestor is accepted ONLY when every change "
+            "since it is metadata: BUILD_INFO/deliverables/docs/"
+            "README/DRIFT_REGISTER/.github/scripts)")
+        # else: an ancestor with a metadata-only delta — the documented
+        # test-commit vs metadata-commit relationship; the evidence
+        # stays fresh
 
     run_env_id = env.get("GITHUB_RUN_ID")
     recorded = record.get("github")

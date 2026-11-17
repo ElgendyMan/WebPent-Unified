@@ -1725,3 +1725,38 @@ recon/observations → signal inventory → adaptive hypotheses → الـ pool 
   recall 1.0, zero false positives in every arm. Resolution metrics
   reported separately from detection metrics. M10 unchanged: CLOSED —
   BLOCKED_EXTERNAL_DEPENDENCY.
+
+## UM-DR-38 / UM-DR-38.1 — PUBLICATION INTEGRITY WINDOWS (2026-11-16)
+
+- **UM-DR-38 window**: the evidence-output contract moved to the
+  ignored .webpent-evidence/ directory (tree_clean captured at test
+  start), the canonical workflows moved to the repository root, the
+  three production campaigns regenerated with reversible
+  instrumentation and an authoritative final graph state, the
+  discovery-funnel metrics rebuilt from the actual state, BUILD_INFO
+  re-baselined from the machine evidence, the release ZIP rebuilt
+  with repository-root layout, and the durable campaign evidence
+  published under deliverables/umdr37/evidence/ with per-file
+  digests.
+- **UM-DR-38.1 corrective window**: the published-tree root layout
+  repaired (root README + root workflows + root deliverables,
+  nested shadows removed), the acceptance-matrix generator made
+  fail-closed (canonical gate statuses, honest aggregates — the
+  G38-07 exit_code=1/PASS defect fixed), the confirmation chain
+  joined on finding_id (the funnel-vs-instrumentation
+  contradiction resolved with labeled sources), the ZIP builder
+  made clean-clone reproducible with conflict detection and a
+  staged-package secret scan, the ruff ratchet proven at exit 0
+  with every attributable finding fixed (including one real F821
+  in the campaigns script), soupsieve/CVE claims verified from the
+  raw pip-audit JSON, and the BUILD_INFO evidence statement pinned
+  to THIS drift-register window (UM-DR-24/28 release-gate ritual).
+- **Measurement**: the full regression suite re-run at the
+  corrective source revision through the official runner
+  (failures 0, errors 0, hook-level v3 invariants true, terminal
+  cross-check agree), three fresh production campaigns (confirmed
+  [2,2,2], all negative controls held, zero out-of-scope
+  requests), classification precision documented (INV-B-777:
+  object-level authorization failure proven by the cross-identity
+  differential; INV-A-101: production-confirmed auth_bypass, NOT
+  claimed as IDOR).

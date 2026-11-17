@@ -1,0 +1,67 @@
+{
+  "schema": "umdr38-initial-baseline/v1",
+  "generated_at_utc": "2026-11-17T04:52:57.601811+00:00",
+  "observed_at": "mission start (2026-11-16)",
+  "public_repository": {
+    "url": "https://github.com/ElgendyMan/WebPent-Unified",
+    "default_branch": "main",
+    "published_head": "2338fd5c172ecb68b3e492b90da0a08980644121",
+    "published_head_subject": "Update project to v0.40.1 UMDR36-2-37 FINAL",
+    "previously_reviewed_baseline": "64a5bea6530306a0ed6a0d7adc1384e249477fae",
+    "remote_refs_at_generation": {
+      "HEAD": "bf9a136c9c3cf9ee7c275d629baac8ef2928425f",
+      "refs/heads/features/v0.39.0-umdr33": "bbe7c4e7300faf29fe487d94df93c3364e877ce7",
+      "refs/heads/main": "bf9a136c9c3cf9ee7c275d629baac8ef2928425f",
+      "refs/heads/security/umdr34-origin-scope-hardening": "15569005334158f4d1794fac2210bf6f15c7d2b8",
+      "refs/pull/1/head": "15569005334158f4d1794fac2210bf6f15c7d2b8",
+      "refs/pull/1/merge": "b1a4e3a53301155a45fcb211215cc6d96d722dd3"
+    },
+    "tracked_files_at_published_head": 4925,
+    "project_root_at_published_head": "WebPent_UNIFIED/",
+    "root_level_workflows_at_published_head": "NONE \u2014 workflows nested inside WebPent_UNIFIED/.github/workflows/ only (GitHub cannot discover them there)",
+    "nested_workflows_at_published_head": [
+      "WebPent_UNIFIED/.github/workflows/ci.yml",
+      "WebPent_UNIFIED/.github/workflows/nightly.yml",
+      "WebPent_UNIFIED/.github/workflows/weekly-benchmarks.yml"
+    ],
+    "package_version_at_published_head": "0.40.1",
+    "build_info_at_published_head": {
+      "suite_count": 9228,
+      "stale_provenance_measured": "collected 9178, passed 9160, failed 7, errors 0 (v3 hook accounting; cross-check all_agree=True)"
+    },
+    "published_evidence_commit_unresolvable": {
+      "evidence_source_commit": "1386d5707296aca629417e45318a212b0da1a257",
+      "tree_clean": false,
+      "resolvable_in_public_history": true,
+      "finding": "the recorded evidence commit was never pushed; its content survives as the published squash tree itself"
+    },
+    "published_artifacts_dir": "EMPTY at the published head \u2014 .gitignore's artifacts/* exclusion dropped the campaign evidence at publish time while reports claimed successful campaigns"
+  },
+  "mission_repo_state": {
+    "path": "/home/z/my-project/work/repo",
+    "branches": {
+      "64a5bea": "main",
+      "mission/umdr36.2-umdr37": "*",
+      "0d9511f": "recovery/umdr36-closure"
+    },
+    "mission_branch_head": "01d1708",
+    "total_commits_all_branches": "39",
+    "working_tree_dirty": true
+  },
+  "bundle": {
+    "path": "/home/z/my-project/download/UMDR36_2_37_DELIVERABLES/WebPent_Unified_mission-umdr36.2-umdr37.bundle",
+    "exists": true,
+    "list_heads": "9ee46b5361698d148ab0614becfed71c276a328f refs/heads/mission/umdr36.2-umdr37",
+    "verify": "The bundle uses this hash algorithm: sha1"
+  },
+  "findings_confirmed_at_baseline": [
+    "the project is nested inside WebPent_UNIFIED/ with no root README and no root-level CI workflow",
+    "the recorded full-suite evidence references commit 1386d57 which is absent from the published history",
+    "the test evidence records tree_clean: false (structural: the runner deleted tracked evidence files before the run)",
+    "BUILD_INFO provenance carries stale numbers (9178/9160/7 @ 51dfb44) against suite_count 9228",
+    "published artifacts/ is empty \u2014 campaign evidence lost to .gitignore at publish time",
+    "delivered campaign evidence files contained \"missing\": true",
+    "campaign instrumentation could accumulate monkeypatch wrappers across sequential runs",
+    "lab version values disagreed (1.5.0 in records vs 1.6.0 in HTTP responses)"
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "generated_at_utc": "2026-11-17T04:55:45.471409+00:00",
+  "commit": "b7b0b4fd77adf5374e756d7f72c4e27e04dc8460",
+  "gates": [
+    {
+      "gate": "state-contract",
+      "command": "uv run --extra dev python scripts/check_state_contract.py --quiet",
+      "exit_code": 0,
+      "last_line": "STATE CONTRACT: OK \u2014 all literal node-written keys are declared."
+    },
+    {
+      "gate": "orchestrator-construction-authority",
+      "command": "uv run --extra dev python scripts/check_orchestrator_construction_authority.py --quiet",
+      "exit_code": 0,
+      "last_line": ""
+    },
+    {
+      "gate": "isolation-denylist",
+      "command": "uv run --extra dev python scripts/check_isolation_denylist.py --quiet",
+      "exit_code": 0,
+      "last_line": ""
+    },
+    {
+      "gate": "vault-import-authority",
+      "command": "uv run --extra dev python scripts/check_vault_import_authority.py --quiet",
+      "exit_code": 0,
+      "last_line": ""
+    },
+    {
+      "gate": "test-count-floor",
+      "command": "uv run --extra dev python scripts/verify_test_count.py --floor-file scripts/test_count_floor.json",
+      "exit_code": 0,
+      "last_line": "OK: pytest-collected test count 9288 >= floor 8115"
+    },
+    {
+      "gate": "build-info-honesty",
+      "command": "uv run --extra dev python scripts/check_build_info_honesty.py",
+      "exit_code": 0,
+      "last_line": "build_info_honesty: PASS \u2014 version identity, provenance revisions, manifest digest, test accounting and stability discipline all verified; historical narrative preserved"
+    },
+    {
+      "gate": "direct-io-inventory",
+      "command": "uv run --extra dev python -m pytest -q tests/test_g02_direct_io_inventory.py",
+      "exit_code": 0,
+      "last_line": "4 passed in 10.67s"
+    },
+    {
+      "gate": "ruff-ratchet",
+      "command": "uv run --extra dev python scripts/check_ruff_ratchet.py",
+      "exit_code": 0,
+      "last_line": "  IMPROVEMENT: count dropped below the baseline \u2014 lower it with --update-baseline so the gain is frozen."
+    },
+    {
+      "gate": "deps-cve-gate",
+      "command": "uv run --extra dev python scripts/check_deps_gate.py",
+      "exit_code": 0,
+      "last_line": "PASS: no un-allow-listed vulnerabilities."
+    },
+    {
+      "gate": "secret-scan",
+      "command": "uv run --extra dev python scripts/check_secrets.py",
+      "exit_code": 0,
+      "last_line": "PASS: no secrets detected."
+    },
+    {
+      "gate": "bandit-high",
+      "command": "uv run --extra dev bandit -q -r src/webpent -x tests -lll",
+      "exit_code": 0,
+      "last_line": ""
+    },
+    {
+      "gate": "coverage-ratchet",
+      "command": "uv run --extra dev make coverage-ratchet",
+      "exit_code": 0,
+      "last_line": "OK: coverage 4.56% >= floor 4.07%"
+    },
+    {
+      "gate": "vip-audit-gap",
+      "command": "uv run --extra dev python -m pytest -q tests/test_vip_audit_gap_closure.py",
+      "exit_code": 0,
+      "last_line": "8 passed in 12.05s"
+    },
+    {
+      "gate": "test-evidence-check",
+      "command": "uv run --extra dev python scripts/check_test_evidence.py",
+      "exit_code": 0,
+      "last_line": "test_evidence: PASS \u2014 current-run evidence verified (commit 9802cd22f2b7, collected 9288, executed 9289, passed 9277, failed 0, skipped 9, xfailed 3, xpassed 0, errors 0)"
+    },
+    {
+      "gate": "evidence-contract-tests",
+      "command": "uv run --extra dev python -m pytest -q tests/test_umdr38_evidence_contract.py tests/test_umdr36_1_test_evidence_integrity.py",
+      "exit_code": 0,
+      "last_line": "28 passed in 0.88s"
+    },
+    {
+      "gate": "instrumentation-tests",
+      "command": "uv run --extra dev python -m pytest -q tests/test_umdr38_campaign_instrumentation.py tests/test_umdr38_1_funnel_integrity.py",
+      "exit_code": 0,
+      "last_line": "9 passed in 2.00s"
+    },
+    {
+      "gate": "report-generator-tests",
+      "command": "uv run --extra dev python -m pytest -q tests/test_umdr38_report_generators.py tests/test_umdr38_1_gate_status.py tests/test_umdr38_1_acceptance.py",
+      "exit_code": 0,
+      "last_line": "35 passed in 1.09s"
+    },
+    {
+      "gate": "evidence-publication",
+      "command": "uv run --extra dev python scripts/umdr38_publish_campaign_evidence.py --verify",
+      "exit_code": 0,
+      "last_line": "evidence verification PASS (16 files)"
+    },
+    {
+      "gate": "structure-discovery-tests",
+      "command": "uv run --extra dev python -m pytest -q tests/test_umdr38_1_repository_structure.py",
+      "exit_code": 0,
+      "last_line": "5 passed in 0.74s"
+    }
+  ]
+}

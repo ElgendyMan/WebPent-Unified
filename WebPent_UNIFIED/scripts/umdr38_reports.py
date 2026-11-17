@@ -40,7 +40,9 @@ REPO = Path(__file__).resolve().parents[1]
 PUB = Path(__file__).resolve().parents[2]
 DELIV = PUB / "deliverables" / "umdr38"
 EVIDENCE37 = PUB / "deliverables" / "umdr37" / "evidence"
-CAMPAIGNS_ARTIFACT = PUB / "deliverables" / "umdr37" / "evidence" / "umdr37_production_campaigns.json"
+CAMPAIGNS_ARTIFACT = (
+    PUB / "deliverables" / "umdr37" / "evidence"
+    / "umdr37_production_campaigns.json")
 FULL_LOOP = REPO / "docs" / "UMDR37_FULL_LOOP_LEARNING.json"
 ABLATION = REPO / "docs" / "UMDR37_LEARNING_ABLATION.json"
 TEST_EVIDENCE = REPO / ".webpent-evidence" / "FULL_SUITE_EVIDENCE.json"

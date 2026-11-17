@@ -100,11 +100,20 @@ def _sha256(path: Path) -> str:
 
 
 def main() -> int:
+    # UM-DR-38.1 Phase 6: the FRESH campaign records must come from the
+    # current run's artifacts (fail-closed); the historical umdr37-era
+    # experiments (full-loop, ablation, root-cause trace) may fall back
+    # to their committed durable copies — labeled historical, never
+    # re-dated
+    required_fresh = {"umdr37_production_campaigns.json",
+                      "umdr37_production_campaign_run1.json",
+                      "umdr37_production_campaign_run2.json",
+                      "umdr37_production_campaign_run3.json"}
     missing = [(src, name) for src, name, _ in EVIDENCE_SET
-               if not (REPO / src).is_file()]
+               if name in required_fresh and not (REPO / src).is_file()]
     if missing:
-        print("REFUSED — missing source artifacts (never publish an "
-              "incomplete evidence set):", file=sys.stderr)
+        print("REFUSED — fresh campaign artifacts missing (never "
+              "publish an incomplete evidence set):", file=sys.stderr)
         for src, name in missing:
             print(f"  - {src} (would be {name})", file=sys.stderr)
         return 1
@@ -127,12 +136,21 @@ def main() -> int:
     }
     for src, name, description in EVIDENCE_SET:
         source = REPO / src
+        era = "current revision"
+        if not source.is_file():
+            committed = OUT / name
+            if not committed.is_file():
+                continue
+            source = committed
+            era = ("committed durable copy (UM-DR-38 era — historical, "
+                   "never re-dated)")
         target = OUT / name
         target.write_bytes(source.read_bytes())
         digest = _sha256(target)
         digests.append(f"{digest}  {name}")
         manifest["files"].append({
             "file": name, "source": src, "sha256": digest,
+            "era": era,
             "description": description})
     (OUT / "SHA256SUMS.txt").write_text(
         "\n".join(digests) + "\n", encoding="utf-8")
@@ -146,5 +164,34 @@ def main() -> int:
     return 0
 
 
+def verify() -> int:
+    """UM-DR-38.1 gate: recompute every digest and match it against
+    the published SHA256SUMS + manifest — exit 0 only when the durable
+    evidence set is internally consistent."""
+    sums = (OUT / "SHA256SUMS.txt").read_text(encoding="utf-8")
+    failures = []
+    for line in sums.strip().splitlines():
+        digest, name = line.split(None, 1)
+        target = OUT / name.strip()
+        if not target.is_file():
+            failures.append(f"missing: {name.strip()}")
+        elif _sha256(target) != digest:
+            failures.append(f"digest mismatch: {name.strip()}")
+    manifest = json.loads(
+        (OUT / "EVIDENCE_MANIFEST.json").read_text(encoding="utf-8"))
+    published = {f["file"]: f["sha256"] for f in manifest["files"]}
+    for line in sums.strip().splitlines():
+        digest, name = line.split(None, 1)
+        if published.get(name.strip()) != digest:
+            failures.append(f"manifest disagrees: {name.strip()}")
+    if failures:
+        print("evidence verification FAILED:", file=sys.stderr)
+        for f in failures:
+            print(f"  - {f}", file=sys.stderr)
+        return 1
+    print(f"evidence verification PASS ({len(sums.splitlines())} files)")
+    return 0
+
+
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(verify() if "--verify" in sys.argv else main())
