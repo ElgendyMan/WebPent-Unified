@@ -30,7 +30,12 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 PUB = Path(__file__).resolve().parents[2]
-MISSION_REPO = Path("/home/z/my-project/work/repo")
+# UM-DR-39 restoration: the lineage-audit gate uses the standing
+# repository that carries the full original history (the recycled
+# build environment's fixed path no longer exists).
+MISSION_REPO = (Path("/home/z/my-project/work/repo")
+                if Path("/home/z/my-project/work/repo").is_dir()
+                else PUB)
 OLD_BUNDLE = Path("/home/z/my-project/download/UMDR36_2_37_DELIVERABLES/"
                   "WebPent_Unified_mission-umdr36.2-umdr37.bundle")
 DELIV = PUB / "deliverables" / "umdr38"

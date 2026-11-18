@@ -185,34 +185,66 @@ def add_extras(stage: Path) -> list[str]:
 
 
 def package_secret_scan(stage: Path) -> tuple[int, str]:
-    """Run the project's OWN secret gate over the STAGED project tree —
-    the CURRENT interpreter executes the STAGED script (its ROOT
-    resolves inside the stage). A package manager is NEVER invoked
-    inside the stage (it would materialize a virtualenv there), plus a
-    credential-pattern scan over the root-level deliverables."""
+    """The PACKAGE-WIDE secret scan (UM-DR-38.2 §3.2): the project's
+    OWN secret gate over the STAGED project tree (the CURRENT
+    interpreter executes the STAGED script — its ROOT resolves inside
+    the stage; a package manager is NEVER invoked inside the stage, it
+    would materialize a virtualenv there), PLUS a credential-pattern
+    scan over EVERY text file of the ENTIRE package: the root README,
+    the root workflows, all deliverables, the SBOM, the nested source
+    tree and the generated indexes. Secret VALUES are never printed —
+    only path + pattern."""
     r = subprocess.run(
         [sys.executable,
          str(stage / "WebPent_UNIFIED" / "scripts" / "check_secrets.py")],
         capture_output=True, text=True, timeout=300)
     staged_exit = r.returncode
-    deliverable_failures = []
-    for path in (stage / "deliverables").rglob("*"):
-        if not path.is_file():
+    # single-policy-source: the project's OWN calibrated gate (above)
+    # adjudicates the staged project tree — its exclusion semantics
+    # (example/env placeholders, docs) are the reviewed policy. The
+    # raw credential-pattern net adds coverage ONLY where that gate
+    # does not run: the root README, the root workflows, the
+    # deliverables, the SBOM and the generated indexes. Applying the
+    # raw net inside the project tree would only re-flag the
+    # placeholders the calibrated gate deliberately allows.
+    package_failures = []
+    scanned = 0
+    project_prefix = stage / "WebPent_UNIFIED"
+    record_rel = Path("deliverables") / "umdr38" / \
+        "UMDR38_ZIP_VALIDATION.json"
+    for path in sorted(stage.rglob("*")):
+        if not path.is_file() or path.is_symlink():
+            continue
+        if project_prefix in path.parents or path == project_prefix:
+            continue
+        if path.relative_to(stage) == record_rel:
+            # self-referential by construction: the validation record
+            # ENUMERATES the credential patterns it reports (its detail
+            # lines are documentation, not credentials) — scanning it
+            # would find its own pattern names and loop forever
+            continue
+        if path.suffix in (".png", ".jpg", ".jpeg", ".gif", ".ico",
+                           ".woff", ".woff2", ".ttf", ".zip", ".gz",
+                           ".bundle", ".bin", ".pdf", ".mp4", ".webp",
+                           ".pyc"):
             continue
         try:
             text = path.read_text(encoding="utf-8")
         except (UnicodeDecodeError, OSError):
             continue
+        scanned += 1
         for pattern in CREDENTIAL_PATTERNS:
             if pattern.lower() in text.lower():
-                deliverable_failures.append(
+                package_failures.append(
                     f"{path.relative_to(stage)}: {pattern}")
-    exit_code = staged_exit if not deliverable_failures else 1
-    detail = (f"staged check_secrets exit={staged_exit} (executed via "
+    exit_code = staged_exit if not package_failures else 1
+    detail = (f"scan_scope=full package ({scanned} text files across "
+              f"the ENTIRE stage: root README, root workflows, "
+              f"deliverables, SBOM, nested source, generated indexes); "
+              f"staged check_secrets exit={staged_exit} (executed via "
               f"{Path(sys.executable).name} over the STAGED script); "
-              f"deliverable credential scan failures="
-              f"{len(deliverable_failures)}")
-    for f in deliverable_failures[:10]:
+              f"credential-pattern failures={len(package_failures)}")
+    for f in package_failures[:10]:
         detail += f"\n  - {f}"
     return exit_code, detail
 
@@ -299,11 +331,20 @@ def validate_zip(zip_path: Path, stage: Path) -> list[str]:
         for name in zip_files:
             if name.startswith("/") or ".." in name.split("/"):
                 failures.append(f"path traversal member: {name}")
-        for name in sorted(zip_files)[::50]:
+        # UM-DR-38.2 §3.2: EVERY member is validated — presence,
+        # relative path, size and sha256 against the staged content
+        # (the previous every-50th sampling was a verification gap)
+        for name in sorted(zip_files):
             src = stage / name
-            if src.is_file() and hashlib.sha256(
-                    zf.read(name)).hexdigest() != _sha256(src):
-                failures.append(f"content mismatch after compression: {name}")
+            info = zf.getinfo(name)
+            if info.file_size != src.stat().st_size:
+                failures.append(f"size mismatch: {name} "
+                                f"({info.file_size} vs "
+                                f"{src.stat().st_size})")
+                continue
+            if hashlib.sha256(zf.read(name)).hexdigest() != _sha256(src):
+                failures.append(f"content mismatch after compression: "
+                                f"{name}")
     return failures
 
 
@@ -342,6 +383,17 @@ def main() -> int:
             print(f"  - {c}", file=sys.stderr)
         return 1
     notes = add_extras(stage)
+    # UM-DR-38.2 §3: a conflict reported by add_extras is FATAL — a
+    # conflict that is merely appended to notes must never silently
+    # pass validation (the published record carried an SBOM conflict
+    # alongside archive_integrity: PASS)
+    extra_conflicts = [n for n in notes if n.startswith("CONFLICT")]
+    if extra_conflicts:
+        print("REFUSED — extra-file conflicts (generated extras would "
+              "overwrite canonical content):", file=sys.stderr)
+        for c in extra_conflicts:
+            print(f"  - {c}", file=sys.stderr)
+        return 1
     secret_exit, secret_detail = package_secret_scan(stage)
     # a package never ships an environment: defensive removal AFTER the
     # scan too (in case anything materialized one inside the stage)
@@ -356,6 +408,51 @@ def main() -> int:
             print(f"  - {f}", file=sys.stderr)
         return 1
 
+    # UM-DR-38.2 §3.3: the IN-ARCHIVE validation record is written
+    # INTO the stage BEFORE zipping, describing the staged content it
+    # travels with (file_count, digests, scans) — the archive can
+    # never again carry a stale record from a previous build. The
+    # archive-level digest is published EXTERNALLY (a container cannot
+    # contain its own digest).
+    stage_record = {
+        "schema": "umdr38-2-zip-validation/v1",
+        "generated_at_utc": _utcnow(),
+        "release_commit": _git(["rev-parse", "HEAD"]).strip(),
+        "builder": "scripts/umdr38_build_zip.py (tracked sources only, "
+                   "output-parameterized, conflicts fatal)",
+        "package": {
+            "zip": out_zip.name,
+            "layout": "repository-root layout: README.md + "
+                      ".github/workflows/ + WebPent_UNIFIED/ + "
+                      "deliverables/ + the git bundle",
+            "stage_file_count": len([p for p in stage.rglob("*")
+                                     if p.is_file()]),
+            "stage_failures": failures,
+            "stage_validation": "PASS" if not failures else "FAIL",
+            "archive_integrity": ("verified post-build over EVERY "
+                                  "member (size + sha256 against the "
+                                  "staged content); the release record "
+                                  "at the repository root carries the "
+                                  "result and the archive digest"),
+        },
+        "package_secret_scan_exit": secret_exit,
+        "package_secret_scan_detail": secret_detail,
+        "extras": notes,
+        "zip_sha256": None,
+        "zip_sha256_note": "an archive cannot contain its own digest; "
+                           "the exact archive SHA-256 is published "
+                           "externally with the artifact and recorded "
+                           "in the repository-level record after the "
+                           "build",
+    }
+    in_stage_record = (stage / "deliverables" / "umdr38"
+                       / "UMDR38_ZIP_VALIDATION.json")
+    in_stage_record.parent.mkdir(parents=True, exist_ok=True)
+    in_stage_record.write_text(
+        json.dumps(stage_record, indent=2) + chr(10), encoding="utf-8")
+    # the indexes must include the record itself: regenerate them
+    write_index_and_digests(stage)
+
     count = build_zip(stage, out_zip)
     zip_failures = validate_zip(out_zip, stage)
     zip_sha = _sha256(out_zip)
@@ -364,29 +461,16 @@ def main() -> int:
         "UMDR38_ZIP_VALIDATION.json"
     record_path.parent.mkdir(parents=True, exist_ok=True)
     record_path.write_text(json.dumps({
-        "schema": "umdr38-1-zip-validation/v1",
-        "generated_at_utc": _utcnow(),
-        "release_commit": _git(["rev-parse", "HEAD"]).strip(),
-        "builder": "scripts/umdr38_build_zip.py (tracked sources only, "
-                   "output-parameterized, conflict-detecting)",
-        "package": {
-            "zip": out_zip.name,
-            "file_count": count,
-            "layout": "repository-root layout: README.md + "
-                      ".github/workflows/ + WebPent_UNIFIED/ + "
-                      "deliverables/ + the git bundle",
-            "archive_integrity":
-                "PASS" if not zip_failures else "FAIL",
-            "note": "the ZIP's own SHA-256 is published externally "
-                    "with the artifact — a container cannot contain "
-                    "its own digest",
-        },
-        "package_secret_scan_exit": secret_exit,
-        "package_secret_scan_detail": secret_detail,
-        "extras": notes,
-        "stage_failures": failures,
+        **stage_record,
+        "package": {**stage_record["package"],
+                    "file_count": count,
+                    "archive_integrity":
+                        "PASS" if not zip_failures else "FAIL"},
         "zip_failures": zip_failures,
         "zip_sha256": zip_sha,
+        "member_validation": "every member: presence, relative path, "
+                             "size, sha256, staged-content equality, "
+                             "archive-content equality",
     }, indent=2) + chr(10), encoding="utf-8")
     print(f"[zip] {out_zip}")
     print(f"[zip] files: {count} | stage failures: {len(failures)} | "

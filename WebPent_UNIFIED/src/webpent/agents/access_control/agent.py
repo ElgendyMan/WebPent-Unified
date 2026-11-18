@@ -1386,8 +1386,21 @@ def access_control_node(state: PentestState) -> dict:
 
     # Do not return runtime cookie material.  The identity profile state is
     # supplied by the auth layer and is intentionally left untouched.
+    # UM-DR-39 RC-2: one evidence-backed authorization observation per
+    # Tool-Confirmed finding (CausalGuard context only); the local
+    # import keeps the module-level import surface untouched.
+    from webpent.production.authorization_observations import (
+        build_authorization_observation,
+    )
+    authorization_observations_out = [
+        obs for obs in (
+            build_authorization_observation(f, "access_control")
+            for f in new_findings
+        ) if obs
+    ]
     _bac_result: dict[str, Any] = {
         "findings": findings + new_findings,
+        "authorization_observations": authorization_observations_out,
         "bac_observations": observations_out,
         "bac_coverage_gaps": gaps_out,
         "relational_evidence": relational_out,

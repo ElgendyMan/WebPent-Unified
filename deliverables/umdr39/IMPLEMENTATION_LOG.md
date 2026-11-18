@@ -1,0 +1,13 @@
+# UM-DR-39 — Implementation Log (§12.2)
+
+Generated: 2026-11-17T12:44:18.929890+00:00 — revision `e50900d0e7c3`.
+
+The bounded set: the THREE highest-value, evidence-backed root causes (RC-1/2/3 of the register), each minimal and contract-tested. Per the mission charter nothing else was auto-implemented; the documented follow-ups keep their acceptance criteria for an explicit product decision.
+
+| RC | Change | Files | Contract tests |
+|---|---|---|---|
+| RC-1 | the funnel counts the replay/promotion shapes the verifier and the AVI merge actually write (legacy synthetic shapes stay readable; the unverified-replay negative case is pinned) | src/webpent/production/discovery_funnel.py | test_funnel_counts_every_production_replay_shape (5 shapes), test_funnel_avi_promotion_decision_counts, test_funnel_unverified_replay_still_not_confirmed |
+| RC-2 | the authorization_observations channel DECLARED on PentestState (merge_lists) + the promotion-boundary projection (validator + access-control) via the new production/authorization_observations.py — CausalGuard context only, absent values None — PLUS the checkpoint-redactor exemption (layer 3: the generic "authorization" fragment blanked the persisted channel in every prior run) | src/webpent/state/state.py, src/webpent/agents/validator/agent.py, src/webpent/agents/access_control/agent.py, src/webpent/production/authorization_observations.py, src/webpent/graph/checkpoints.py | test_authorization_observations_channel_is_declared, test_merge_lists_reducer_is_additive, the projection honesty trio, test_authorization_observations_survive_checkpoint_redaction, test_funnel_reads_real_observations_from_state |
+| RC-3 | preconditions load-bearing: declared-and-unsatisfied preconditions DEFER with the named reason before the promotion ladder; preconditions_satisfied is an additive optional model field (None = not evaluated) | src/webpent/models/hypothesis.py, src/webpent/shared/prioritization.py | test_preconditions_block_promotion_when_unsatisfied, test_preconditions_satisfied_restores_normal_path, test_hypothesis_without_preconditions_unchanged, test_preconditions_satisfied_field_is_additive_optional |
+
+Not implemented BY DESIGN (documented, not silently dropped): RC-4 (enabling the four identity-workflow flags is a product decision with budget impact), RC-5 (fingerprint dedup at generation), RC-6 (measured information gain), RC-7 (alternatives in the decision record), RC-8 (rabbit-hole new-evidence stopping), RC-9 (knowledge-model consolidation), RC-10 (the orphaned autonomous stack entry point). Each keeps its acceptance criteria in the register.

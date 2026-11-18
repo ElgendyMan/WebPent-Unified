@@ -1,6 +1,6 @@
 # UM-DR-38 — Recovery and Provenance Report
 
-Generated: 2026-11-17T04:52:59.218515+00:00 — every claim below is backed by a git command executed at generation time.
+Generated: 2026-11-17T12:41:00.639032+00:00 — every claim below is backed by a git command executed at generation time.
 
 ## The situation at mission start
 
@@ -19,15 +19,14 @@ Generated: 2026-11-17T04:52:59.218515+00:00 — every claim below is backed by a
 ## Merge commits
 
 ```
-b0d760e merge(umdr38.1): restore the UM-DR-38 mission history from the published bundle
-3a9c25f merge(umdr38.1): preserve the recoverable UM-DR-36.2/37 mission history as ancestry
+
 ```
 
 ## The evidence contract consequence (§6)
 
 Because `1386d57` is unrecoverable, the old evidence file is explicitly unusable as current-release proof: it was migrated to `docs/history/` with a README explaining exactly this, and the CURRENT release evidence is generated fresh by the §6.2 runner at the release revision (source_commit below).
 
-* Release branch HEAD at generation: **b7b0b4fd77adf5374e756d7f72c4e27e04dc8460**
+* Release branch HEAD at generation: **e50900d0e7c360ccbe8ce1a2f9099499201cc2b3**
 * Current evidence source_commit: see UMDR38_TEST_EVIDENCE_INTEGRITY_REPORT.md.
 
 ## What is authoritative now

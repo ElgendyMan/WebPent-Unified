@@ -1,6 +1,6 @@
 # UM-DR-38 — Campaign Instrumentation Report
 
-Generated: 2026-11-17T04:55:45.474110+00:00 — from the release-revision campaign records.
+Generated: 2026-11-17T12:43:50.732413+00:00 — from the release-revision campaign records.
 
 ## The §7.2 repairs (each regression-pinned)
 

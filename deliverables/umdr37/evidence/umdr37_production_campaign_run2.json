@@ -1,12 +1,12 @@
 {
   "schema": "umdr38-production-campaign/v1",
   "run": 2,
-  "campaign_id": "umdr38-campaign-2-79ecf9c6",
-  "started_at_utc": "2026-11-17T04:22:20.898736+00:00",
-  "completed_at_utc": "2026-11-17T04:22:23.676726+00:00",
+  "campaign_id": "umdr38-campaign-2-01906b55",
+  "started_at_utc": "2026-11-17T12:40:36.324584+00:00",
+  "completed_at_utc": "2026-11-17T12:40:39.072542+00:00",
   "elapsed_s": 2.3,
-  "source_commit": "c2a12b200fd57bd9ca721f3818f8694330a10718",
-  "tree_sha": "f04e6548256559d8f43d5062ae34125a59f91bf7",
+  "source_commit": "e50900d0e7c360ccbe8ce1a2f9099499201cc2b3",
+  "tree_sha": "5ce614b8a1bfd8724b20ebe0ab5fd27586d61bbb",
   "tree_clean": true,
   "python_version": "3.12.16",
   "lockfile_sha256": "6d714ff5ed5212b8e751d19fc50917aa52fec042583f4d69d9d6b2a75c4ef650",
@@ -19,12 +19,18 @@
   "lab_requests_issued": 108,
   "discovered_endpoints": 8,
   "discovered_candidate_resources": 9,
+  "funnel_confirmation_stages": {
+    "replay_verified": 2,
+    "promoted_findings": 2,
+    "confirmed_findings": 2
+  },
+  "authorization_observations_count": 4,
   "identities_observed": [
     "User_A",
     "User_B"
   ],
   "authorization_relationships": {
-    "authorization_observations": 0,
+    "authorization_observations": 4,
     "differential_questions": 0
   },
   "hypotheses": {
@@ -32,9 +38,9 @@
     "open": 15,
     "resolved": 7
   },
-  "lab_origin": "http://127.0.0.1:40785",
+  "lab_origin": "http://127.0.0.1:36401",
   "invocation": {
-    "url": "http://127.0.0.1:40785",
+    "url": "http://127.0.0.1:36401",
     "mode": "standard",
     "authorization": "umdr38-authorized-lab-engagement",
     "cookies": "***REDACTED***",
@@ -51,14 +57,14 @@
     "no_llm": true,
     "progress": false,
     "run_graph": true,
-    "engagement_id": "umdr38-campaign-2-79ecf9c6"
+    "engagement_id": "umdr38-campaign-2-01906b55"
   },
   "redaction": "cookies/session values redacted in the recorded copy (synthetic lab credentials); the run itself used the real values",
   "stage_count": 40,
   "stages": [
     {
       "node": "target_package_preflight",
-      "wall_s": 0.393,
+      "wall_s": 0.618,
       "writes": {
         "target_package_preflight_status": null,
         "node_step_trace": 1
@@ -66,7 +72,7 @@
     },
     {
       "node": "wildcard_scope",
-      "wall_s": 0.005,
+      "wall_s": 0.002,
       "writes": {
         "scope_compile_status": null,
         "node_step_trace": 1
@@ -84,7 +90,7 @@
     },
     {
       "node": "lesson_consultation",
-      "wall_s": 0.002,
+      "wall_s": 0.004,
       "writes": {
         "consulted_lessons": 1,
         "lesson_priority_adjustments": {
@@ -97,7 +103,7 @@
     },
     {
       "node": "auth",
-      "wall_s": 0.266,
+      "wall_s": 0.034,
       "writes": {
         "session_cookies": {
           "session": null
@@ -173,7 +179,7 @@
     },
     {
       "node": "recon",
-      "wall_s": 0.275,
+      "wall_s": 0.266,
       "writes": {
         "target": null,
         "target_package": {},
@@ -229,7 +235,7 @@
     },
     {
       "node": "research_campaign",
-      "wall_s": 0.002,
+      "wall_s": 0.001,
       "writes": {
         "research_campaign_skipped": null,
         "node_step_trace": 1
@@ -237,7 +243,7 @@
     },
     {
       "node": "crawler",
-      "wall_s": 0.116,
+      "wall_s": 0.112,
       "writes": {
         "crawled_data": {
           "endpoints": 8,
@@ -284,7 +290,7 @@
                 "original": null
               }
             },
-            "endpoint-3179ebaad55c97a2": {
+            "endpoint-2a41c8888dc46353": {
               "id": null,
               "kind": null,
               "identity_key": null,
@@ -295,7 +301,7 @@
                 "original_url": null
               }
             },
-            "endpoint-7b9cfec8fc3b074e": {
+            "endpoint-dba0da96c861bcca": {
               "id": null,
               "kind": null,
               "identity_key": null,
@@ -306,7 +312,7 @@
                 "original_url": null
               }
             },
-            "endpoint-9efc67e91e4d24f3": {
+            "endpoint-c648b817ee8212f6": {
               "id": null,
               "kind": null,
               "identity_key": null,
@@ -317,7 +323,7 @@
                 "original_url": null
               }
             },
-            "endpoint-910199396113e236": {
+            "endpoint-25ac61c1427d9d8b": {
               "id": null,
               "kind": null,
               "identity_key": null,
@@ -328,7 +334,7 @@
                 "original_url": null
               }
             },
-            "endpoint-dd8ade44cf2e3790": {
+            "endpoint-0ca3de4effce8e4e": {
               "id": null,
               "kind": null,
               "identity_key": null,
@@ -339,7 +345,7 @@
                 "original_url": null
               }
             },
-            "endpoint-a6a0057d90f6829a": {
+            "endpoint-6b69e276fee1ebbd": {
               "id": null,
               "kind": null,
               "identity_key": null,
@@ -350,7 +356,7 @@
                 "original_url": null
               }
             },
-            "endpoint-b295c589c15b6f44": {
+            "endpoint-e8754a64c268ebe9": {
               "id": null,
               "kind": null,
               "identity_key": null,
@@ -361,7 +367,7 @@
                 "original_url": null
               }
             },
-            "endpoint-c4861f0f8827122c": {
+            "endpoint-f9fa23f019ce830d": {
               "id": null,
               "kind": null,
               "identity_key": null,
@@ -416,7 +422,7 @@
     },
     {
       "node": "cloud_storage",
-      "wall_s": 0.004,
+      "wall_s": 0.009,
       "writes": {
         "findings": 0,
         "cloud_storage_observations": 10,
@@ -475,7 +481,7 @@
                 "original": null
               }
             },
-            "endpoint-3179ebaad55c97a2": {
+            "endpoint-2a41c8888dc46353": {
               "id": null,
               "kind": null,
               "identity_key": null,
@@ -486,7 +492,7 @@
                 "original_url": null
               }
             },
-            "endpoint-7b9cfec8fc3b074e": {
+            "endpoint-dba0da96c861bcca": {
               "id": null,
               "kind": null,
               "identity_key": null,
@@ -497,7 +503,7 @@
                 "original_url": null
               }
             },
-            "endpoint-9efc67e91e4d24f3": {
+            "endpoint-c648b817ee8212f6": {
               "id": null,
               "kind": null,
               "identity_key": null,
@@ -508,7 +514,7 @@
                 "original_url": null
               }
             },
-            "endpoint-910199396113e236": {
+            "endpoint-25ac61c1427d9d8b": {
               "id": null,
               "kind": null,
               "identity_key": null,
@@ -519,7 +525,7 @@
                 "original_url": null
               }
             },
-            "endpoint-dd8ade44cf2e3790": {
+            "endpoint-0ca3de4effce8e4e": {
               "id": null,
               "kind": null,
               "identity_key": null,
@@ -530,7 +536,7 @@
                 "original_url": null
               }
             },
-            "endpoint-a6a0057d90f6829a": {
+            "endpoint-6b69e276fee1ebbd": {
               "id": null,
               "kind": null,
               "identity_key": null,
@@ -541,7 +547,7 @@
                 "original_url": null
               }
             },
-            "endpoint-b295c589c15b6f44": {
+            "endpoint-e8754a64c268ebe9": {
               "id": null,
               "kind": null,
               "identity_key": null,
@@ -552,7 +558,7 @@
                 "original_url": null
               }
             },
-            "endpoint-c4861f0f8827122c": {
+            "endpoint-f9fa23f019ce830d": {
               "id": null,
               "kind": null,
               "identity_key": null,
@@ -599,13 +605,13 @@
     },
     {
       "node": "appmodel",
-      "wall_s": 0.015,
+      "wall_s": 0.002,
       "writes": {
         "appmodel": {
           "version": null,
           "engagement_id": null,
           "entities": {
-            "appmodel-org:umdr38-campaign-2-79ecf9c6": {
+            "appmodel-org:umdr38-campaign-2-01906b55": {
               "id": null,
               "kind": null,
               "label": null,
@@ -615,7 +621,7 @@
               "observed_at": null,
               "metadata": {}
             },
-            "appmodel-tenant:umdr38-campaign-2-79ecf9c6": {
+            "appmodel-tenant:umdr38-campaign-2-01906b55": {
               "id": null,
               "kind": null,
               "label": null,
@@ -901,7 +907,7 @@
     },
     {
       "node": "hypothesis",
-      "wall_s": 0.109,
+      "wall_s": 0.135,
       "writes": {
         "hypotheses": 22,
         "mental_model": {
@@ -917,7 +923,7 @@
                 "original": null
               }
             },
-            "endpoint-3179ebaad55c97a2": {
+            "endpoint-2a41c8888dc46353": {
               "id": null,
               "kind": null,
               "identity_key": null,
@@ -928,7 +934,7 @@
                 "original_url": null
               }
             },
-            "endpoint-7b9cfec8fc3b074e": {
+            "endpoint-dba0da96c861bcca": {
               "id": null,
               "kind": null,
               "identity_key": null,
@@ -939,7 +945,7 @@
                 "original_url": null
               }
             },
-            "endpoint-9efc67e91e4d24f3": {
+            "endpoint-c648b817ee8212f6": {
               "id": null,
               "kind": null,
               "identity_key": null,
@@ -950,7 +956,7 @@
                 "original_url": null
               }
             },
-            "endpoint-910199396113e236": {
+            "endpoint-25ac61c1427d9d8b": {
               "id": null,
               "kind": null,
               "identity_key": null,
@@ -961,7 +967,7 @@
                 "original_url": null
               }
             },
-            "endpoint-dd8ade44cf2e3790": {
+            "endpoint-0ca3de4effce8e4e": {
               "id": null,
               "kind": null,
               "identity_key": null,
@@ -972,7 +978,7 @@
                 "original_url": null
               }
             },
-            "endpoint-a6a0057d90f6829a": {
+            "endpoint-6b69e276fee1ebbd": {
               "id": null,
               "kind": null,
               "identity_key": null,
@@ -983,7 +989,7 @@
                 "original_url": null
               }
             },
-            "endpoint-b295c589c15b6f44": {
+            "endpoint-e8754a64c268ebe9": {
               "id": null,
               "kind": null,
               "identity_key": null,
@@ -994,7 +1000,7 @@
                 "original_url": null
               }
             },
-            "endpoint-c4861f0f8827122c": {
+            "endpoint-f9fa23f019ce830d": {
               "id": null,
               "kind": null,
               "identity_key": null,
@@ -1036,9 +1042,10 @@
     },
     {
       "node": "access_control",
-      "wall_s": 0.096,
+      "wall_s": 0.082,
       "writes": {
         "findings": 2,
+        "authorization_observations": 2,
         "bac_observations": 3,
         "bac_coverage_gaps": 2,
         "relational_evidence": 9,
@@ -1057,7 +1064,7 @@
                 "original": null
               }
             },
-            "endpoint-dd8ade44cf2e3790": {
+            "endpoint-0ca3de4effce8e4e": {
               "id": null,
               "kind": null,
               "identity_key": null,
@@ -1068,7 +1075,7 @@
                 "original_url": null
               }
             },
-            "endpoint-a6a0057d90f6829a": {
+            "endpoint-6b69e276fee1ebbd": {
               "id": null,
               "kind": null,
               "identity_key": null,
@@ -1079,7 +1086,7 @@
                 "original_url": null
               }
             },
-            "endpoint-b295c589c15b6f44": {
+            "endpoint-e8754a64c268ebe9": {
               "id": null,
               "kind": null,
               "identity_key": null,
@@ -1090,7 +1097,7 @@
                 "original_url": null
               }
             },
-            "endpoint-c4861f0f8827122c": {
+            "endpoint-f9fa23f019ce830d": {
               "id": null,
               "kind": null,
               "identity_key": null,
@@ -1120,7 +1127,7 @@
     },
     {
       "node": "api_testing",
-      "wall_s": 0.217,
+      "wall_s": 0.215,
       "writes": {
         "findings": 2,
         "hypotheses": 0,
@@ -1137,7 +1144,7 @@
                 "original": null
               }
             },
-            "endpoint-3179ebaad55c97a2": {
+            "endpoint-2a41c8888dc46353": {
               "id": null,
               "kind": null,
               "identity_key": null,
@@ -1160,7 +1167,7 @@
     },
     {
       "node": "business_logic_fuzzer",
-      "wall_s": 0.032,
+      "wall_s": 0.028,
       "writes": {
         "messages": 1,
         "current_phase": null,
@@ -1178,7 +1185,7 @@
     },
     {
       "node": "request_smuggling",
-      "wall_s": 0.023,
+      "wall_s": 0.019,
       "writes": {
         "findings": 2,
         "coverage_ledger": {
@@ -1232,7 +1239,7 @@
     },
     {
       "node": "oauth_misconfig",
-      "wall_s": 0.003,
+      "wall_s": 0.001,
       "writes": {
         "node_step_trace": 1
       }
@@ -1250,7 +1257,7 @@
     },
     {
       "node": "strategist",
-      "wall_s": 0.107,
+      "wall_s": 0.11,
       "writes": {
         "findings": 7,
         "coverage_ledger": {
@@ -1263,7 +1270,7 @@
             "blocked": null
           },
           "entries": {
-            "04da600e-8a97-4a00-a59e-e64ec7fc5eeb": {
+            "3436038d-ea15-402b-8c45-a0d6139b282c": {
               "hypothesis_id": null,
               "vuln_class": null,
               "status": null,
@@ -1272,7 +1279,7 @@
               "validator_route": null,
               "score": null
             },
-            "94d04ed3-829b-447b-bd1f-e3bcc4c78d91": {
+            "b277ddfd-c19e-46ba-a30c-a4a8d84bacf4": {
               "hypothesis_id": null,
               "vuln_class": null,
               "status": null,
@@ -1281,7 +1288,7 @@
               "validator_route": null,
               "score": null
             },
-            "a158953e-70d4-4a56-9259-ef9435b25005": {
+            "df14499f-b24f-45d1-9ed9-3a76a8572814": {
               "hypothesis_id": null,
               "vuln_class": null,
               "status": null,
@@ -1290,7 +1297,7 @@
               "validator_route": null,
               "score": null
             },
-            "d5b4c3a8-d091-4a1c-9c20-bf185ffabb8e": {
+            "e1d620ab-6b79-4ab2-a0c7-40b34dc07e44": {
               "hypothesis_id": null,
               "vuln_class": null,
               "status": null,
@@ -1299,7 +1306,7 @@
               "validator_route": null,
               "score": null
             },
-            "6ef4d2f9-18ea-4dc6-b4c0-761b82bceb04": {
+            "c3b5841c-4d95-4ade-bbf2-42e53588a0f7": {
               "hypothesis_id": null,
               "vuln_class": null,
               "status": null,
@@ -1308,7 +1315,7 @@
               "validator_route": null,
               "score": null
             },
-            "0ced36e2-af89-4862-b845-f59a96f56975": {
+            "38facb47-10ba-496c-b6cf-0fac499b9fce": {
               "hypothesis_id": null,
               "vuln_class": null,
               "status": null,
@@ -1317,7 +1324,7 @@
               "validator_route": null,
               "score": null
             },
-            "a9b56249-b715-4ce9-97a9-06f0c66a678f": {
+            "d4913abd-8e07-410d-ad43-55d0b10bf4f9": {
               "hypothesis_id": null,
               "vuln_class": null,
               "status": null,
@@ -1326,7 +1333,7 @@
               "validator_route": null,
               "score": null
             },
-            "8931343d-a23a-402c-ae82-f1b64bb86d46": {
+            "23402878-854c-4b0e-98de-cbf43a9a1c69": {
               "hypothesis_id": null,
               "vuln_class": null,
               "status": null,
@@ -1335,7 +1342,7 @@
               "validator_route": null,
               "score": null
             },
-            "6f3a79a0-1673-4763-b1fc-82c03e198376": {
+            "0d5ef27e-404d-4eb2-a6ae-4b9df9c33287": {
               "hypothesis_id": null,
               "vuln_class": null,
               "status": null,
@@ -1344,7 +1351,7 @@
               "validator_route": null,
               "score": null
             },
-            "f9bc8104-5e6e-42c2-9a13-0caa27ecc97f": {
+            "b43756a9-4a96-4616-b6a6-51040aa76dff": {
               "hypothesis_id": null,
               "vuln_class": null,
               "status": null,
@@ -1353,7 +1360,7 @@
               "validator_route": null,
               "score": null
             },
-            "6fa2fb15-fd44-4254-af88-2e64d3730cd1": {
+            "34e85661-a37c-4cce-aa9c-a743c724722a": {
               "hypothesis_id": null,
               "vuln_class": null,
               "status": null,
@@ -1362,7 +1369,7 @@
               "validator_route": null,
               "score": null
             },
-            "891015b0-c1b0-4044-9f98-6519a2a05e83": {
+            "e79f4683-ab10-4b48-b302-b726fc6bf816": {
               "hypothesis_id": null,
               "vuln_class": null,
               "status": null,
@@ -1371,7 +1378,7 @@
               "validator_route": null,
               "score": null
             },
-            "bb431ce1-c03a-469c-b76a-04c0fee55ca1": {
+            "aee824a1-dfd1-4fc2-b3c9-ab9b2c086852": {
               "hypothesis_id": null,
               "vuln_class": null,
               "status": null,
@@ -1380,7 +1387,7 @@
               "validator_route": null,
               "score": null
             },
-            "a789730c-ef85-42c6-902e-ae46b2a1466a": {
+            "379041d3-e68e-4aac-8dce-dab3ccca812b": {
               "hypothesis_id": null,
               "vuln_class": null,
               "status": null,
@@ -1389,7 +1396,7 @@
               "validator_route": null,
               "score": null
             },
-            "01309083-1e3c-4469-b7cc-305138052fbc": {
+            "69b5e9bb-0147-42b6-ab8b-232223027557": {
               "hypothesis_id": null,
               "vuln_class": null,
               "status": null,
@@ -1398,7 +1405,7 @@
               "validator_route": null,
               "score": null
             },
-            "31423bd0-772e-4112-b342-9854b8f77387": {
+            "22ad90fb-9d3a-4f6a-9ff6-d62ca1bd2277": {
               "hypothesis_id": null,
               "vuln_class": null,
               "status": null,
@@ -1407,7 +1414,7 @@
               "validator_route": null,
               "score": null
             },
-            "8c4ecfaa-e7f9-4989-87cb-39c680f8edf9": {
+            "ecc765b6-cdfe-40b5-831b-967219f788de": {
               "hypothesis_id": null,
               "vuln_class": null,
               "status": null,
@@ -1416,7 +1423,7 @@
               "validator_route": null,
               "score": null
             },
-            "9f4e43e1-871e-441f-bc35-1ca4c7901b5e": {
+            "603b319c-df85-44a0-a602-091b74d03751": {
               "hypothesis_id": null,
               "vuln_class": null,
               "status": null,
@@ -1425,7 +1432,7 @@
               "validator_route": null,
               "score": null
             },
-            "37bfbcdf-2db6-435e-8853-c63456c4e226": {
+            "d635c137-2c2c-4fdb-81cd-280d10e2f941": {
               "hypothesis_id": null,
               "vuln_class": null,
               "status": null,
@@ -1434,7 +1441,7 @@
               "validator_route": null,
               "score": null
             },
-            "6f6b1d31-2738-4d5c-87f7-e35dedb72ae2": {
+            "1fa33e13-25f7-4bba-8479-1d2fc24bd3fa": {
               "hypothesis_id": null,
               "vuln_class": null,
               "status": null,
@@ -1443,7 +1450,7 @@
               "validator_route": null,
               "score": null
             },
-            "a8f422d4-1337-46bb-b4e2-68f1cb12c1aa": {
+            "cd27be0f-7261-4f3f-85a8-88fa7270b001": {
               "hypothesis_id": null,
               "vuln_class": null,
               "status": null,
@@ -1452,7 +1459,7 @@
               "validator_route": null,
               "score": null
             },
-            "8e346482-c3e6-44e7-a0ed-9cb840cb1c61": {
+            "5ac8600c-2304-4498-a367-e221c736ce98": {
               "hypothesis_id": null,
               "vuln_class": null,
               "status": null,
@@ -1540,6 +1547,7 @@
           "source": null,
           "validated": null
         },
+        "authorization_observations": 2,
         "node_step_trace": 1
       }
     },
@@ -1638,7 +1646,7 @@
     },
     {
       "node": "dedup_gate",
-      "wall_s": 0.061,
+      "wall_s": 0.04,
       "writes": {
         "findings": 9,
         "dedup_report": {
@@ -1658,7 +1666,7 @@
     },
     {
       "node": "reporter",
-      "wall_s": 0.361,
+      "wall_s": 0.377,
       "writes": {
         "messages": 1,
         "report_quality_gate": {
@@ -1674,7 +1682,7 @@
     },
     {
       "node": "reflection",
-      "wall_s": 0.008,
+      "wall_s": 0.002,
       "writes": {
         "lessons": 0,
         "messages": 1,
@@ -1684,7 +1692,7 @@
     },
     {
       "node": "lesson_extraction",
-      "wall_s": 0.05,
+      "wall_s": 0.056,
       "writes": {
         "node_step_trace": 1
       }
@@ -2125,18 +2133,18 @@
       "principal": "User_A"
     }
   ],
-  "out_of_scope_origin": "http://127.0.0.1:45785",
+  "out_of_scope_origin": "http://127.0.0.1:33707",
   "out_of_scope_request_count": 0,
   "out_of_scope_requests": [],
   "findings_total": 9,
   "findings_confirmed": 2,
   "confirmed_detail": [
     {
-      "id": "f166dc52-126b-4cee-9ea5-071f4625dcbd",
+      "id": "e6397ab1-017b-4190-ba08-252fd585380c",
       "vuln_class": "auth_bypass",
       "confidence_level": "Tool-Confirmed",
-      "url": "http://127.0.0.1:40785/api/invoices/INV-A-101",
-      "evidence_bundle_id": "proof_bundle_1818115da19240c5879ee6959ca2b2fb",
+      "url": "http://127.0.0.1:36401/api/invoices/INV-A-101",
+      "evidence_bundle_id": "proof_bundle_1cbd98520bbe454795ff667a2106d6e7",
       "evidence_keys": [
         "baseline",
         "candidate",
@@ -2177,14 +2185,31 @@
         "validator_id",
         "validator_version",
         "verifier"
-      ]
+      ],
+      "classification_evidence": {
+        "raw_vuln_class": "auth_bypass",
+        "object_id": "INV-A-101",
+        "requesting_principals": [
+          "User_A",
+          "User_B"
+        ],
+        "object_owner": "User_A",
+        "ownership_source": "invoice-lab fixture registry (INVOICES \u2014 controlled ground truth)",
+        "request_evidence_source": "the lab's own request log",
+        "non_owner_requesting_principals": [
+          "User_B"
+        ],
+        "access_success_evidence": "the Tool-Confirmed finding itself (CausalGuard adjudication + sealed ProofBundle + passing replay) validates that the cross-identity access succeeded",
+        "cross_identity_differential_proven": true,
+        "classification": "object_level_authorization_failure (BOLA/IDOR family; at least one logged non-owner principal reached the confirmed object \u2014 owner from the fixture registry, requesters from the lab's own log, access success validated by the confirmed chain)"
+      }
     },
     {
-      "id": "6673ef41-2d06-4432-96b7-408e27dd7515",
+      "id": "03f842a0-a618-44b5-a989-a8faf87abd50",
       "vuln_class": "auth_bypass",
       "confidence_level": "Tool-Confirmed",
-      "url": "http://127.0.0.1:40785/api/invoices/INV-B-777",
-      "evidence_bundle_id": "proof_bundle_d6926def1e8d4427aa0c129660df1877",
+      "url": "http://127.0.0.1:36401/api/invoices/INV-B-777",
+      "evidence_bundle_id": "proof_bundle_8631da95145449eebbeec97a10288f70",
       "evidence_keys": [
         "baseline",
         "candidate",
@@ -2225,7 +2250,24 @@
         "validator_id",
         "validator_version",
         "verifier"
-      ]
+      ],
+      "classification_evidence": {
+        "raw_vuln_class": "auth_bypass",
+        "object_id": "INV-B-777",
+        "requesting_principals": [
+          "User_A",
+          "User_B"
+        ],
+        "object_owner": "User_B",
+        "ownership_source": "invoice-lab fixture registry (INVOICES \u2014 controlled ground truth)",
+        "request_evidence_source": "the lab's own request log",
+        "non_owner_requesting_principals": [
+          "User_A"
+        ],
+        "access_success_evidence": "the Tool-Confirmed finding itself (CausalGuard adjudication + sealed ProofBundle + passing replay) validates that the cross-identity access succeeded",
+        "cross_identity_differential_proven": true,
+        "classification": "object_level_authorization_failure (BOLA/IDOR family; at least one logged non-owner principal reached the confirmed object \u2014 owner from the fixture registry, requesters from the lab's own log, access success validated by the confirmed chain)"
+      }
     }
   ],
   "causal_guard_invocations": 2,
@@ -2235,14 +2277,14 @@
   ],
   "verifications": [
     {
-      "finding_id": "f166dc52-126b-4cee-9ea5-071f4625dcbd",
+      "finding_id": "e6397ab1-017b-4190-ba08-252fd585380c",
       "vuln_class": "auth_bypass",
       "passed": true,
       "reason": "verified_replay",
       "has_bundle": true
     },
     {
-      "finding_id": "6673ef41-2d06-4432-96b7-408e27dd7515",
+      "finding_id": "03f842a0-a618-44b5-a989-a8faf87abd50",
       "vuln_class": "auth_bypass",
       "passed": true,
       "reason": "verified_replay",
@@ -2260,24 +2302,58 @@
     },
     "events": [
       {
-        "finding_id": "f166dc52-126b-4cee-9ea5-071f4625dcbd",
+        "finding_id": "e6397ab1-017b-4190-ba08-252fd585380c",
         "vuln_class": "auth_bypass",
-        "url": "http://127.0.0.1:40785/api/invoices/INV-A-101",
+        "classification_evidence": {
+          "raw_vuln_class": "auth_bypass",
+          "object_id": "INV-A-101",
+          "requesting_principals": [
+            "User_A",
+            "User_B"
+          ],
+          "object_owner": "User_A",
+          "ownership_source": "invoice-lab fixture registry (INVOICES \u2014 controlled ground truth)",
+          "request_evidence_source": "the lab's own request log",
+          "non_owner_requesting_principals": [
+            "User_B"
+          ],
+          "access_success_evidence": "the Tool-Confirmed finding itself (CausalGuard adjudication + sealed ProofBundle + passing replay) validates that the cross-identity access succeeded",
+          "cross_identity_differential_proven": true,
+          "classification": "object_level_authorization_failure (BOLA/IDOR family; at least one logged non-owner principal reached the confirmed object \u2014 owner from the fixture registry, requesters from the lab's own log, access success validated by the confirmed chain)"
+        },
+        "url": "http://127.0.0.1:36401/api/invoices/INV-A-101",
         "chain_status": "complete",
         "causal_guard_verdict": "NOT_MATERIALIZED",
-        "proof_bundle_id": "proof_bundle_1818115da19240c5879ee6959ca2b2fb",
+        "proof_bundle_id": "proof_bundle_1cbd98520bbe454795ff667a2106d6e7",
         "proof_bundle_sealed": true,
         "replay_passed": true,
         "replay_events": 1,
         "promotion_status": "promoted"
       },
       {
-        "finding_id": "6673ef41-2d06-4432-96b7-408e27dd7515",
+        "finding_id": "03f842a0-a618-44b5-a989-a8faf87abd50",
         "vuln_class": "auth_bypass",
-        "url": "http://127.0.0.1:40785/api/invoices/INV-B-777",
+        "classification_evidence": {
+          "raw_vuln_class": "auth_bypass",
+          "object_id": "INV-B-777",
+          "requesting_principals": [
+            "User_A",
+            "User_B"
+          ],
+          "object_owner": "User_B",
+          "ownership_source": "invoice-lab fixture registry (INVOICES \u2014 controlled ground truth)",
+          "request_evidence_source": "the lab's own request log",
+          "non_owner_requesting_principals": [
+            "User_A"
+          ],
+          "access_success_evidence": "the Tool-Confirmed finding itself (CausalGuard adjudication + sealed ProofBundle + passing replay) validates that the cross-identity access succeeded",
+          "cross_identity_differential_proven": true,
+          "classification": "object_level_authorization_failure (BOLA/IDOR family; at least one logged non-owner principal reached the confirmed object \u2014 owner from the fixture registry, requesters from the lab's own log, access success validated by the confirmed chain)"
+        },
+        "url": "http://127.0.0.1:36401/api/invoices/INV-B-777",
         "chain_status": "complete",
         "causal_guard_verdict": "NOT_MATERIALIZED",
-        "proof_bundle_id": "proof_bundle_d6926def1e8d4427aa0c129660df1877",
+        "proof_bundle_id": "proof_bundle_8631da95145449eebbeec97a10288f70",
         "proof_bundle_sealed": true,
         "replay_passed": true,
         "replay_events": 1,
@@ -2294,17 +2370,17 @@
       "causal_guard_confirmed_ids": null,
       "causal_guard_confirmed_ids_reason": "NOT_MATERIALIZED \u2014 adjudicate_with_causal_guard receives an evidence triple (baseline, candidate, negative_control) with no finding identity; correlating verdicts to finding ids would require inventing ids",
       "proof_bundle_valid_ids": [
-        "proof_bundle_1818115da19240c5879ee6959ca2b2fb",
-        "proof_bundle_d6926def1e8d4427aa0c129660df1877"
+        "proof_bundle_1cbd98520bbe454795ff667a2106d6e7",
+        "proof_bundle_8631da95145449eebbeec97a10288f70"
       ],
       "replay_verified_ids": [
-        "6673ef41-2d06-4432-96b7-408e27dd7515",
-        "f166dc52-126b-4cee-9ea5-071f4625dcbd"
+        "03f842a0-a618-44b5-a989-a8faf87abd50",
+        "e6397ab1-017b-4190-ba08-252fd585380c"
       ],
       "orphan_replay_ids": [],
       "promoted_ids": [
-        "6673ef41-2d06-4432-96b7-408e27dd7515",
-        "f166dc52-126b-4cee-9ea5-071f4625dcbd"
+        "03f842a0-a618-44b5-a989-a8faf87abd50",
+        "e6397ab1-017b-4190-ba08-252fd585380c"
       ]
     },
     "invariants": {
@@ -2317,9 +2393,26 @@
     },
     "invariants_all_true": true
   },
+  "measurement_discrepancies": {
+    "principals_in_lab_request_log": [
+      "User_A",
+      "User_B"
+    ],
+    "funnel_principals_observed": 0,
+    "funnel_authorization_observations": 4,
+    "funnel_differential_questions": 0,
+    "funnel_object_ownership_relations": 2,
+    "sources": {
+      "principals_in_lab_request_log": "the lab's own request log (ground truth)",
+      "funnel_*": "build_discovery_funnel over the authoritative final graph state (graph.get_state) \u2014 the multi_identity_reasoning / authorization_observations channels are not materialized by this campaign's final state"
+    },
+    "disposition": "documented as a measurement limitation; the graph-channel wiring investigation is UM-DR-39 scope (root-cause register)"
+  },
   "invariant_checks": {
-    "at_least_one_confirmed_idor": true,
-    "confirmed_idors_carry_bundles": true,
+    "at_least_one_confirmed_access_control_finding": true,
+    "confirmed_access_control_findings_carry_bundles": true,
+    "object_level_differential_proven": true,
+    "differential_findings_carry_bundles": true,
     "enforced_admin_boundary_unconfirmed": true,
     "admin_boundary_actually_enforced_in_lab": true,
     "missing_resource_unconfirmed": true,
@@ -2334,13 +2427,13 @@
     "version": "funnel/v1",
     "stages": {
       "endpoints_discovered": 8,
-      "object_observations": 0,
+      "object_observations": 4,
       "canonical_identities": 0,
       "candidate_aliases": 0,
       "confirmed_aliases": 0,
       "abstained_or_conflicting": 0,
       "principals_observed": 0,
-      "authorization_observations": 0,
+      "authorization_observations": 4,
       "differential_questions": 0,
       "workflows_inferred": 0,
       "workflow_sequence_candidates": 0,
@@ -2352,16 +2445,16 @@
       "findings_awaiting_validation": 7,
       "causal_guard_confirmed": 2,
       "proof_bundle_valid": 2,
-      "replay_verified": 0,
-      "promoted_findings": 0,
-      "confirmed_findings": 0,
+      "replay_verified": 2,
+      "promoted_findings": 2,
+      "confirmed_findings": 2,
       "identity_relationships": 2,
       "object_ownership_relations": 2,
       "app_states_and_transitions": 0
     },
     "capabilities": {},
     "drops_explained": [
-      "open hypotheses but zero confirmed findings: normal for a running campaign (confirmation requires the CausalGuard authority chain); if persistent, check validator coverage and budget exhaustion"
+      "observations>0 but identities=0: the object-identity capability flag is OFF (fail-closed default) \u2014 observations are not being resolved into identities"
     ],
     "invariants": {
       "confirmed_le_promoted": true,

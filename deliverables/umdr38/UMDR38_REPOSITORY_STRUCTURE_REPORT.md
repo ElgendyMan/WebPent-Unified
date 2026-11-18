@@ -1,6 +1,6 @@
 # UM-DR-38 — Repository Structure Report
 
-Generated: 2026-11-17T04:52:59.220230+00:00.
+Generated: 2026-11-17T12:41:00.640709+00:00.
 
 ## The decision (§5.1)
 
@@ -10,7 +10,10 @@ The project stays under `WebPent_UNIFIED/` as the canonical project root — no 
 
 ```
 .github
+AS_BUILT_ARCHITECTURE.md
+DISCOVERY_LOSS_MAP.md
 README.md
+ROOT_CAUSE_REGISTER.md
 WebPent_UNIFIED
 WebPent_Unified_umdr38.bundle
 deliverables

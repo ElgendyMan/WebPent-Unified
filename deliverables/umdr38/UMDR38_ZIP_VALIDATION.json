@@ -1,24 +1,24 @@
 {
-  "schema": "umdr38-1-zip-validation/v1",
-  "generated_at_utc": "2026-11-17T04:58:30.492278+00:00",
-  "release_commit": "98184af16754b1241feff3f2bb37193dbac0a933",
-  "builder": "scripts/umdr38_build_zip.py (tracked sources only, output-parameterized, conflict-detecting)",
+  "schema": "umdr38-2-zip-validation/v1",
+  "generated_at_utc": "2026-11-17T12:45:05.786463+00:00",
+  "release_commit": "9c13f7d2242aa2186449f1ff1a4983ae8fc09d72",
+  "builder": "scripts/umdr38_build_zip.py (tracked sources only, output-parameterized, conflicts fatal)",
   "package": {
-    "zip": "WebPent-Unified_v0.40.1_UMDR38_1_FINAL.zip",
-    "file_count": 4972,
+    "zip": "WebPent_Unified_v0.40.1_UMDR39_FINAL.zip",
     "layout": "repository-root layout: README.md + .github/workflows/ + WebPent_UNIFIED/ + deliverables/ + the git bundle",
-    "archive_integrity": "PASS",
-    "note": "the ZIP's own SHA-256 is published externally with the artifact \u2014 a container cannot contain its own digest"
+    "stage_file_count": 4989,
+    "stage_failures": [],
+    "stage_validation": "PASS",
+    "archive_integrity": "verified post-build over EVERY member (size + sha256 against the staged content); the release record at the repository root carries the result and the archive digest"
   },
   "package_secret_scan_exit": 0,
-  "package_secret_scan_detail": "staged check_secrets exit=0 (executed via python over the STAGED script); deliverable credential scan failures=0",
+  "package_secret_scan_detail": "scan_scope=full package (62 text files across the ENTIRE stage: root README, root workflows, deliverables, SBOM, nested source, generated indexes); staged check_secrets exit=0 (executed via python over the STAGED script); credential-pattern failures=0",
   "extras": [
-    "CONFLICT: extra sbom.cdx.json would overwrite a tracked file at deliverables/umdr38/sbom.cdx.json",
+    "extra: deliverables/umdr38/sbom.cdx.json",
     "extra: deliverables/umdr38/test_evidence/FULL_SUITE_EVIDENCE.json",
     "extra: deliverables/umdr38/test_evidence/FULL_SUITE_EVIDENCE.txt",
     "extra: deliverables/umdr38/test_evidence/coverage_last_run.json"
   ],
-  "stage_failures": [],
-  "zip_failures": [],
-  "zip_sha256": "6e453e74cf3804ce3308f9e80ad46530c68497d8d915e8af42fed0368e5b9e4d"
+  "zip_sha256": null,
+  "zip_sha256_note": "an archive cannot contain its own digest; the exact archive SHA-256 is published externally with the artifact and recorded in the repository-level record after the build"
 }

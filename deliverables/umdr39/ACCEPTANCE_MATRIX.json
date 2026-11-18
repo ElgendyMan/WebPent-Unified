@@ -1,0 +1,166 @@
+{
+  "schema": "umdr39-acceptance-matrix/v1",
+  "generated_at_utc": "2026-11-17T12:44:20.677177+00:00",
+  "release_commit": "e50900d0e7c360ccbe8ce1a2f9099499201cc2b3",
+  "counts": {
+    "PASS": 12,
+    "BLOCKED_EXTERNAL_DEPENDENCY": 2
+  },
+  "final_decision": "COMPLETE_LOCAL_REMOTE_PUBLICATION_BLOCKED",
+  "gates": [
+    {
+      "gate": "D1",
+      "description": "As-built architecture audit (wiring map with file:line evidence)",
+      "status": "PASS",
+      "evidence_path": "AS_BUILT_ARCHITECTURE.md",
+      "source_commit": "e50900d0e7c360ccbe8ce1a2f9099499201cc2b3",
+      "command": "three parallel read-only audits",
+      "exit_code": 0,
+      "explanation": "production graph, state model, writer registration, component classification",
+      "remaining_issue": null
+    },
+    {
+      "gate": "D2",
+      "description": "Discovery loss map (the chain transition by transition)",
+      "status": "PASS",
+      "evidence_path": "DISCOVERY_LOSS_MAP.md",
+      "source_commit": "e50900d0e7c360ccbe8ce1a2f9099499201cc2b3",
+      "command": "audit synthesis",
+      "exit_code": 0,
+      "explanation": "eleven transitions; three headline losses with exact code-level causes",
+      "remaining_issue": null
+    },
+    {
+      "gate": "D3",
+      "description": "Root-cause register (ranked, with minimal fixes and required tests)",
+      "status": "PASS",
+      "evidence_path": "ROOT_CAUSE_REGISTER.md",
+      "source_commit": "e50900d0e7c360ccbe8ce1a2f9099499201cc2b3",
+      "command": "audit synthesis",
+      "exit_code": 0,
+      "explanation": "RC-1..RC-10; the bounded set implemented, the rest documented with acceptance criteria",
+      "remaining_issue": null
+    },
+    {
+      "gate": "D4",
+      "description": "Bounded implementation (RC-1/2/3)",
+      "status": "PASS",
+      "evidence_path": "IMPLEMENTATION_LOG.md",
+      "source_commit": "e50900d0e7c360ccbe8ce1a2f9099499201cc2b3",
+      "command": "tests/test_umdr39_contracts.py",
+      "exit_code": 0,
+      "explanation": "19 contract cases; the related existing suites pass unchanged",
+      "remaining_issue": null
+    },
+    {
+      "gate": "D5",
+      "description": "Full-suite execution at the final revision",
+      "status": "PASS",
+      "evidence_path": "test evidence",
+      "source_commit": "e50900d0e7c360ccbe8ce1a2f9099499201cc2b3",
+      "command": "scripts/run_tests_with_evidence.py",
+      "exit_code": 0,
+      "explanation": "the machine record carries the full accounting",
+      "remaining_issue": null
+    },
+    {
+      "gate": "D6",
+      "description": "Current-run evidence binding",
+      "status": "PASS",
+      "evidence_path": "UMDR38_GATE_RESULTS.json",
+      "source_commit": "e50900d0e7c360ccbe8ce1a2f9099499201cc2b3",
+      "command": "scripts/check_test_evidence.py",
+      "exit_code": 0,
+      "explanation": "",
+      "remaining_issue": null
+    },
+    {
+      "gate": "D7",
+      "description": "BUILD_INFO provenance (honest, durable domain)",
+      "status": "PASS",
+      "evidence_path": "UMDR38_GATE_RESULTS.json",
+      "source_commit": "e50900d0e7c360ccbe8ce1a2f9099499201cc2b3",
+      "command": "scripts/check_build_info_honesty.py",
+      "exit_code": 0,
+      "explanation": "",
+      "remaining_issue": null
+    },
+    {
+      "gate": "D8",
+      "description": "Durable release evidence consistent",
+      "status": "PASS",
+      "evidence_path": "deliverables/umdr38/test_evidence/",
+      "source_commit": "e50900d0e7c360ccbe8ce1a2f9099499201cc2b3",
+      "command": "binding + digest check",
+      "exit_code": 0,
+      "explanation": "",
+      "remaining_issue": null
+    },
+    {
+      "gate": "D9",
+      "description": "Campaign evidence (fresh, verified)",
+      "status": "PASS",
+      "evidence_path": "deliverables/umdr37/evidence/",
+      "source_commit": "e50900d0e7c360ccbe8ce1a2f9099499201cc2b3",
+      "command": "umdr38_publish_campaign_evidence.py --verify",
+      "exit_code": 0,
+      "explanation": "",
+      "remaining_issue": null
+    },
+    {
+      "gate": "D10",
+      "description": "Before/after from real state (no counter edits)",
+      "status": "PASS",
+      "evidence_path": "BEFORE_AFTER_COMPARISON.md",
+      "source_commit": "e50900d0e7c360ccbe8ce1a2f9099499201cc2b3",
+      "command": "funnel over graph.get_state",
+      "exit_code": 0,
+      "explanation": "replay/confirmed now visible from the authoritative state (2, 2), authorization_observations=4",
+      "remaining_issue": null
+    },
+    {
+      "gate": "D11",
+      "description": "Quality evaluation honest (no inflation claims)",
+      "status": "PASS",
+      "evidence_path": "QUALITY_EVALUATION.md",
+      "source_commit": "e50900d0e7c360ccbe8ce1a2f9099499201cc2b3",
+      "command": "this generator",
+      "exit_code": 0,
+      "explanation": "explicitly records what did NOT move",
+      "remaining_issue": null
+    },
+    {
+      "gate": "D12",
+      "description": "Standard gate set",
+      "status": "PASS",
+      "evidence_path": "UMDR38_GATE_RESULTS.json",
+      "source_commit": "e50900d0e7c360ccbe8ce1a2f9099499201cc2b3",
+      "command": "umdr38_deliverables.py",
+      "exit_code": 0,
+      "explanation": "",
+      "remaining_issue": null
+    },
+    {
+      "gate": "D13",
+      "description": "Remote CI on the exact commit (GitHub Actions)",
+      "status": "BLOCKED_EXTERNAL_DEPENDENCY",
+      "evidence_path": "-",
+      "source_commit": "e50900d0e7c360ccbe8ce1a2f9099499201cc2b3",
+      "command": "requires push + an Actions run",
+      "exit_code": null,
+      "explanation": "no push credentials in this environment",
+      "remaining_issue": "push mission/umdr39-discovery-intelligence and let Actions verify the exact commit"
+    },
+    {
+      "gate": "D14",
+      "description": "Remote publication (PR)",
+      "status": "BLOCKED_EXTERNAL_DEPENDENCY",
+      "evidence_path": "-",
+      "source_commit": "e50900d0e7c360ccbe8ce1a2f9099499201cc2b3",
+      "command": "requires push credentials",
+      "exit_code": null,
+      "explanation": "honest external blocker",
+      "remaining_issue": "open the focused PR after push credentials exist"
+    }
+  ]
+}

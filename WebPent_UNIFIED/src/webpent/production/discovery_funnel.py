@@ -140,9 +140,25 @@ def _confirmation_chain_counts(findings: Any) -> tuple[Any, Any, Any, Any, Any, 
         bundle_ok = bundle is not None and (
             bool(bundle) if isinstance(bundle, Mapping) else True
         )
-        replay_ok = evidence.get("replay_verified") is True or (
-            isinstance(evidence.get("replay"), Mapping)
-            and evidence["replay"].get("verified") is True
+        # UM-DR-39 RC-1: count the shapes PRODUCTION writes — the
+        # verifier records replay success inside replay_metadata /
+        # promotion_guard (shared/verifier.py:506-540) and the AVI merge
+        # prefixes avi_ (graph/builder.py:1986). The legacy top-level
+        # keys stay readable for the synthetic recovery fixtures. The
+        # producer/consumer vocabulary mismatch is what made the funnel
+        # report zero replays/promotions in every campaign while the
+        # instrumentation recorded passing replays.
+        replay_ok = (
+            evidence.get("replay_verified") is True
+            or (isinstance(evidence.get("replay"), Mapping)
+                and evidence["replay"].get("verified") is True)
+            or (isinstance(evidence.get("replay_metadata"), Mapping)
+                and evidence["replay_metadata"].get("replay_verified")
+                is True)
+            or (isinstance(evidence.get("promotion_guard"), Mapping)
+                and evidence["promotion_guard"].get("replay_verified")
+                is True)
+            or evidence.get("avi_replay_verified") is True
         )
         if isinstance(finding, Mapping):
             promotion = finding.get("promotion")
@@ -150,6 +166,14 @@ def _confirmation_chain_counts(findings: Any) -> tuple[Any, Any, Any, Any, Any, 
                 promotion.get("decision", "")
                 if isinstance(promotion, Mapping) else ""
             )
+            # UM-DR-39 RC-1: the AVI merge records the promotion
+            # pipeline decision inside the finding's evidence
+            # (avi_promotion, graph/builder.py:1994)
+            if not promotion_decision:
+                avi_promotion = evidence.get("avi_promotion")
+                if isinstance(avi_promotion, Mapping):
+                    promotion_decision = str(
+                        avi_promotion.get("decision", "") or "")
             confidence = finding.get("confidence_level", "")
         else:
             promotion_decision = str(

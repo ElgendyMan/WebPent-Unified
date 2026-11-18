@@ -460,15 +460,90 @@ def run_campaign(run_index: int) -> dict:
     findings_detail = summary.get("findings_detail") or []
     confirmed = [f for f in findings_detail
                  if f.get("confidence_level") == "Tool-Confirmed"]
-    idor_confirmed = [
+
+    # UM-DR-38.2 §2.3: per-finding classification evidence. The RAW
+    # engine classification stays authoritative; the object-level
+    # authorization differential is recorded as SEPARATE, fixture-
+    # backed evidence (requesting principal from the lab's own request
+    # log, object owner from the invoice-lab fixture registry — the
+    # controlled ground truth). A finding is only labeled
+    # object-level-authorization-failure when the cross-identity
+    # differential is PROVEN from that evidence; path+principal alone
+    # never proves ownership, and no aggregate flag may override the
+    # raw classes.
+    def _classification_evidence(finding: dict) -> dict:
+        url = str(finding.get("url", ""))
+        inv_id = url.rstrip("/").rsplit("/", 1)[-1]
+        owner = INVOICES.get(inv_id, (None,))[0] if "/" in url else None
+        # the finding URL may carry the full origin; the lab log stores
+        # the PATH — normalize before joining (a path/principal join
+        # must actually match the logged requests, else requesters
+        # would read as None and the differential would never prove)
+        raw_path = url.split("?", 1)[0]
+        if "://" in raw_path:
+            raw_path = "/" + raw_path.split("://", 1)[1].split("/", 1)[1]
+        requesters = sorted({
+            r["principal"] for r in requests_log
+            if r["path"] == raw_path and r["principal"]})
+        raw_class = str(finding.get("vuln_class", ""))
+        retained = raw_class or "unclassified"
+        # the differential: at least one LOGGED non-owner principal
+        # reached the confirmed object — the Tool-Confirmed finding
+        # (CausalGuard + sealed ProofBundle + replay) validates that
+        # the access SUCCEEDED; the owner comes from the fixture
+        # registry (controlled ground truth)
+        non_owners = [req for req in requesters if req != owner]
+        differential = bool(owner) and bool(non_owners)
+        return {
+            "raw_vuln_class": raw_class,
+            "object_id": inv_id if owner else None,
+            "requesting_principals": requesters or None,
+            "object_owner": owner,
+            "ownership_source": ("invoice-lab fixture registry "
+                                 "(INVOICES — controlled ground truth)"
+                                 if owner else None),
+            "request_evidence_source": "the lab's own request log",
+            "non_owner_requesting_principals": non_owners or None,
+            "access_success_evidence": (
+                "the Tool-Confirmed finding itself (CausalGuard "
+                "adjudication + sealed ProofBundle + passing replay) "
+                "validates that the cross-identity access succeeded"),
+            "cross_identity_differential_proven": differential,
+            "classification": (
+                "object_level_authorization_failure (BOLA/IDOR family; "
+                "at least one logged non-owner principal reached the "
+                "confirmed object — owner from the fixture registry, "
+                "requesters from the lab's own log, access success "
+                "validated by the confirmed chain)"
+                if differential else
+                f"raw engine classification retained ({retained}) — "
+                "the recorded evidence does not prove an object-level "
+                "authorization failure"),
+        }
+
+    confirmed = [
+        {**f, "classification_evidence": _classification_evidence(f)}
+        for f in confirmed]
+    access_control_confirmed = [
         f for f in confirmed
         if str(f.get("vuln_class", "")).lower() in
         {"auth_bypass", "idor"}]
+    differential_proven = [
+        f for f in access_control_confirmed
+        if f["classification_evidence"][
+            "cross_identity_differential_proven"]]
 
     invariant_checks = {
-        "at_least_one_confirmed_idor": bool(idor_confirmed),
-        "confirmed_idors_carry_bundles": all(
-            f.get("evidence_bundle_id") for f in idor_confirmed),
+        # UM-DR-38.2 §2.3: the HONEST forms — raw classes (never a
+        # blanket IDOR claim) + the separately-proven differential
+        "at_least_one_confirmed_access_control_finding": bool(
+            access_control_confirmed),
+        "confirmed_access_control_findings_carry_bundles": all(
+            f.get("evidence_bundle_id")
+            for f in access_control_confirmed),
+        "object_level_differential_proven": bool(differential_proven),
+        "differential_findings_carry_bundles": all(
+            f.get("evidence_bundle_id") for f in differential_proven),
         "enforced_admin_boundary_unconfirmed": not any(
             "INV-ADMIN-9001" in f.get("url", "") for f in confirmed),
         "admin_boundary_actually_enforced_in_lab": bool(
@@ -556,6 +631,16 @@ def run_campaign(run_index: int) -> dict:
         "discovered_endpoints": funnel_stages.get("endpoints_discovered"),
         "discovered_candidate_resources": funnel_stages.get(
             "candidate_findings"),
+        # UM-DR-39 §12.4: the RC-1/RC-2 after-state proof — the
+        # confirmation chain and the authorization observations as the
+        # AUTHORITATIVE final state reports them (the funnel now counts
+        # the producer vocabulary; the projection writes the channel)
+        "funnel_confirmation_stages": {
+            key: funnel_stages.get(key)
+            for key in ("replay_verified", "promoted_findings",
+                        "confirmed_findings")},
+        "authorization_observations_count": funnel_stages.get(
+            "authorization_observations"),
         "identities_observed": principals_observed,
         "authorization_relationships": {
             "authorization_observations": funnel_stages.get(
@@ -583,9 +668,10 @@ def run_campaign(run_index: int) -> dict:
         "findings_total": summary.get("findings_total"),
         "findings_confirmed": summary.get("findings_confirmed"),
         "confirmed_detail": [
-            {k: f.get(k) for k in
-             ("id", "vuln_class", "confidence_level", "url",
-              "evidence_bundle_id", "evidence_keys")}
+            {**{k: f.get(k) for k in
+                ("id", "vuln_class", "confidence_level", "url",
+                 "evidence_bundle_id", "evidence_keys")},
+             "classification_evidence": f["classification_evidence"]}
             for f in confirmed
         ],
         "causal_guard_invocations": len(guard_calls),
@@ -593,6 +679,36 @@ def run_campaign(run_index: int) -> dict:
         "verifications": verifications,
         "final_state_source": final_state_source,
         "confirmation_chain": confirmation_chain_record,
+        # UM-DR-38.2 §2.2: the measurement discrepancies between the
+        # lab's ground-truth request log and the graph-state funnel,
+        # recorded EXPLICITLY with sources (never silently corrected;
+        # the graph-channel wiring is the UM-DR-39 root-cause work)
+        "measurement_discrepancies": {
+            "principals_in_lab_request_log": principals_observed,
+            "funnel_principals_observed": funnel_stages.get(
+                "principals_observed"),
+            "funnel_authorization_observations": funnel_stages.get(
+                "authorization_observations"),
+            "funnel_differential_questions": funnel_stages.get(
+                "differential_questions"),
+            "funnel_object_ownership_relations": funnel_stages.get(
+                "object_ownership_relations"),
+            "sources": {
+                "principals_in_lab_request_log": "the lab's own "
+                                                 "request log "
+                                                 "(ground truth)",
+                "funnel_*": "build_discovery_funnel over the "
+                            "authoritative final graph state "
+                            "(graph.get_state) — the "
+                            "multi_identity_reasoning / "
+                            "authorization_observations channels are "
+                            "not materialized by this campaign's "
+                            "final state",
+            },
+            "disposition": "documented as a measurement limitation; "
+                           "the graph-channel wiring investigation is "
+                           "UM-DR-39 scope (root-cause register)",
+        },
         "invariant_checks": invariant_checks,
         "funnel": funnel,
         "funnel_error": funnel_error,
@@ -628,8 +744,16 @@ def main() -> int:
             "unique_campaign_ids": [r["campaign_id"] for r in runs],
             "confirmed_counts": [r["findings_confirmed"] for r in runs],
             "guard_verdicts_per_run": [r["guard_verdicts"] for r in runs],
-            "all_runs_confirm_idor": all(
-                r["invariant_checks"]["at_least_one_confirmed_idor"]
+            "confirmed_raw_classes_per_run": [
+                sorted({str(f.get("vuln_class"))
+                        for f in r["confirmed_detail"]})
+                for r in runs],
+            "all_runs_confirm_access_control_finding": all(
+                r["invariant_checks"][
+                    "at_least_one_confirmed_access_control_finding"]
+                for r in runs),
+            "all_runs_prove_object_level_differential": all(
+                r["invariant_checks"]["object_level_differential_proven"]
                 for r in runs),
             "all_invariants_hold": all(
                 all(r["invariant_checks"].values()) for r in runs),
@@ -651,12 +775,15 @@ def main() -> int:
         single.write_text(json.dumps(run, indent=2, default=str),
                           encoding="utf-8")
     print(f"[campaigns] lab version: {LAB_VERSION}")
+    repro = combined["reproducibility"]
     print(f"[campaigns] confirmed per run: "
-          f"{combined['reproducibility']['confirmed_counts']}")
-    print(f"[campaigns] all runs confirm IDOR: "
-          f"{combined['reproducibility']['all_runs_confirm_idor']}")
+          f"{repro['confirmed_counts']}")
+    print(f"[campaigns] raw classes per run: "
+          f"{repro['confirmed_raw_classes_per_run']}")
+    print(f"[campaigns] all runs prove object-level differential: "
+          f"{repro['all_runs_prove_object_level_differential']}")
     print(f"[campaigns] all invariants hold: "
-          f"{combined['reproducibility']['all_invariants_hold']}")
+          f"{repro['all_invariants_hold']}")
     for run in runs:
         state = ("authoritative"
                  if "get_state" in run["final_state_source"]

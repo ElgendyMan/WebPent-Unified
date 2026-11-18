@@ -490,6 +490,20 @@ class PentestState(TypedDict, total=False):
     # existing merge_hypotheses reducer and are never auto-promoted.
     workflow_observations: Annotated[list[dict[str, Any]], merge_lists]
 
+    # UM-DR-39 RC-2: the authorization-observation channel. DECLARED
+    # (previously absent — LangGraph silently drops undeclared keys,
+    # and no producer existed, so the funnel reported zero forever)
+    # and additive: one evidence-backed projection per Tool-Confirmed
+    # finding, written at the promotion boundary (validator /
+    # access-control). Every value comes ONLY from the finding's own
+    # CausalGuard evidence (the actor/resource context the guard
+    # already required to adjudicate); absent context is recorded as
+    # null, never invented. Read by the discovery funnel and the
+    # identity workflow; strictly additive channel data — never a
+    # promotion, scope, or authority decision.
+    authorization_observations: Annotated[
+        list[dict[str, Any]], merge_lists]
+
     # UM-DR-30 (Workstream D §6 business-logic): the deterministic
     # invariant review over the workflow observations above (see
     # business_logic/invariant_checker.py — previously a zero-importer

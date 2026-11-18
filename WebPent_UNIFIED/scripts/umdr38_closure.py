@@ -442,10 +442,15 @@ def generate_acceptance_matrix() -> Path:
           "UMDR38_CAMPAIGN_EVIDENCE.json", "campaign runs",
           0 if campaign_counts_ok and all(
               r.get("invariant_checks", {}).get(
-                  "at_least_one_confirmed_idor") is True
+                  "at_least_one_confirmed_access_control_finding")
+              is True
+              and r.get("invariant_checks", {}).get(
+                  "object_level_differential_proven") is True
               for r in runs) else (1 if runs else None),
-          explanation="confirmed counts match the raw records; see the "
-                      "classification note in the final report"),
+          explanation="confirmed counts match the raw records; raw "
+                      "engine classes recorded per run with the "
+                      "fixture-backed cross-identity differential as "
+                      "separate evidence (no blanket IDOR claim)"),
         g("G38-18", "ProofBundle and replay evidence valid",
           "confirmation_chain records (per campaign)",
           "scripts/confirmation_chain.py joins",

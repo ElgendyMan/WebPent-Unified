@@ -66,9 +66,23 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 BI = ROOT / "BUILD_INFO.json"
 MANIFEST = ROOT / "frozen_modules.sha256"
-EVIDENCE = Path(
-    os.environ.get("WEBPENT_EVIDENCE_DIR")
-    or (ROOT / ".webpent-evidence")) / "FULL_SUITE_EVIDENCE.json"
+# UM-DR-38.2 §1.2 — TWO SEPARATE evidence domains, never compared:
+#   * DURABLE RELEASE EVIDENCE (this gate): the tracked copy under
+#     deliverables/umdr38/test_evidence/ that proves the exact source
+#     revision and test run behind the release record. BUILD_INFO is
+#     validated against THIS record.
+#   * CURRENT-RUN EVIDENCE (.webpent-evidence/, ignored): proves the
+#     CURRENT workflow execution ran its own tests; validated by
+#     scripts/check_test_evidence.py with the workflow run id/attempt
+#     binding. A CI run's runtime counters must never masquerade as
+#     the recorded release run — and a missing runtime record must
+#     never fail THIS gate.
+_PUB_LAYOUT = (ROOT.parent / "deliverables").is_dir()
+DURABLE_DIR = Path(
+    os.environ.get("WEBPENT_RELEASE_EVIDENCE")
+    or ((ROOT.parent if _PUB_LAYOUT else ROOT) / "deliverables" / "umdr38"
+        / "test_evidence"))
+EVIDENCE = DURABLE_DIR / "FULL_SUITE_EVIDENCE.json"
 
 PROVENANCE_SCHEMA = "umdr36-1-provenance-v1"
 # The genuine, verifiable recovery baseline: public main at the moment
@@ -311,18 +325,24 @@ def evaluate(info: dict, *, root: Path | None = None,
         if isinstance(evidence_record, dict) and isinstance(
                 evidence_record.get("accounting"), dict):
             ev_commit = str(evidence_record.get("source_commit", ""))
-            if ev_commit == str(prov.get("evidence_revision", "")):
-                if evidence_record["accounting"] != accounting:
-                    failures.append(
-                        "committed evidence accounting differs from "
-                        "provenance.test_accounting for the same "
-                        "evidence_revision")
-            else:
-                notes.append(
-                    f"committed evidence records commit {ev_commit[:12]}, "
-                    "provenance.evidence_revision is "
+            # UM-DR-38.2: for the DURABLE RELEASE EVIDENCE the binding
+            # is STRICT — this record is the release's own proof, so
+            # its source_commit must be exactly provenance.evidence_
+            # revision (a durable record bound elsewhere is a release-
+            # consistency failure, not a soft note)
+            if ev_commit != str(prov.get("evidence_revision", "")):
+                failures.append(
+                    f"durable release evidence records source_commit "
+                    f"{ev_commit[:12]} but provenance.evidence_revision "
+                    f"is "
                     f"{str(prov.get('evidence_revision', ''))[:12]} — "
-                    "binding not evaluated")
+                    "the release record and its durable evidence are "
+                    "bound to different revisions")
+            elif evidence_record["accounting"] != accounting:
+                failures.append(
+                    "durable release evidence accounting differs from "
+                    "provenance.test_accounting for the same "
+                    "evidence_revision")
 
     if isinstance(suite_count, bool) or not isinstance(suite_count, int) \
             or suite_count <= 0:
@@ -501,6 +521,14 @@ def main() -> int:
             evidence_record = json.loads(EVIDENCE.read_text(encoding="utf-8"))
         except ValueError:
             evidence_record = None
+    else:
+        print(f"build_info_honesty: FAIL — durable release evidence "
+              f"missing: {EVIDENCE}")
+        print("BUILD_INFO test accounting is only verifiable against the "
+              "tracked release-evidence record (UM-DR-38.2 §1.2); "
+              "regenerate it via scripts/run_tests_with_evidence.py + "
+              "scripts/umdr38_buildinfo_rebaseline.py")
+        return 1
 
     failures, notes = evaluate(info, evidence_record=evidence_record)
     for n in notes:

@@ -783,7 +783,31 @@ def recommend_action(
     is_deterministic = getattr(hypothesis, "deterministic_match", False)
 
     vuln_class = str(getattr(hypothesis, "vuln_class", ""))
-    if vuln_class == VulnClass.IDOR.value:
+    # UM-DR-39 RC-3: preconditions are load-bearing. A hypothesis
+    # that DECLARES preconditions without recorded satisfaction
+    # evidence is not promotable this round — it DEFERs with the named
+    # reason. Hypotheses without preconditions keep today's semantics
+    # (the current production generator emits none: zero
+    # current-behavior change, pure contract tightening for the
+    # writers that fill them).
+    _preconds = [
+        str(p).strip()
+        for p in (getattr(hypothesis, "preconditions", None) or [])
+        if str(p).strip()
+    ]
+    if _preconds and getattr(
+            hypothesis, "preconditions_satisfied", None) is not True:
+        named = "; ".join(_preconds[:3])
+        if len(_preconds) > 3:
+            named += f" (+{len(_preconds) - 3} more)"
+        action = PrioritizationAction.DEFER
+        rule = (
+            "preconditions unverified: " + named
+            + " — promotion gated until the precondition evidence is "
+              f"recorded (preconditions_satisfied is not True); "
+              f"score={score:.4f}"
+        )
+    elif vuln_class == VulnClass.IDOR.value:
         action = PrioritizationAction.DEFER
         rule = (
             "IDOR/BAC promotion guard: live owner/foreign observations and "

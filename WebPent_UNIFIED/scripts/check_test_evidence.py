@@ -73,12 +73,32 @@ def _current_lockfile_sha() -> str:
     return h.hexdigest()
 
 
+# UM-DR-38.2 §1.6 — the NARROW, explicit, reviewed path-level policy.
+# Every entry carries its rationale. Anything NOT listed invalidates the
+# evidence: src/, tests/, scripts/ (runner, checkers, gates, report
+# generators), .github/ (workflows), pyproject.toml, uv.lock, Makefile,
+# configuration. The previous broad directory allowances (scripts/,
+# .github/, docs/) were REMOVED — a change to the test runner, an
+# evidence checker, a gate or a workflow can affect the validity of the
+# test evidence and must fail freshness.
 _METADATA_ALLOW = (
-    "README.md", "DRIFT_REGISTER.md", ".github/",
-    "deliverables/", "WebPent_UNIFIED/deliverables/",
-    "BUILD_INFO.json", "WebPent_UNIFIED/BUILD_INFO.json",
-    "docs/", "WebPent_UNIFIED/docs/",
-    "scripts/", "WebPent_UNIFIED/scripts/")
+    # repository entrypoint documentation (no executable effect)
+    "README.md",
+    # project documentation / release notes (no executable effect)
+    "WebPent_UNIFIED/README.md",
+    "WebPent_UNIFIED/CHANGELOG.md",
+    # the declared-drift ritual register (documentation)
+    "WebPent_UNIFIED/DRIFT_REGISTER.md",
+    # DERIVED release metadata — the BUILD_INFO re-baseline is the
+    # documented metadata-only follow-up to a green evidence run
+    "BUILD_INFO.json",
+    "WebPent_UNIFIED/BUILD_INFO.json",
+    # generated mission deliverables + the durable evidence copies
+    "deliverables/",
+    "WebPent_UNIFIED/deliverables/",
+    # generated SBOM + non-executable historical engineering reports
+    "WebPent_UNIFIED/docs/",
+)
 
 
 def _metadata_only_delta(commit: str, head: str) -> bool:
@@ -129,8 +149,9 @@ def evaluate(record: dict, *, head: str, env: dict[str, str],
             f"evidence belongs to commit {commit}, but this checkout "
             f"is {head} — STALE evidence from a different source "
             "revision (an ancestor is accepted ONLY when every change "
-            "since it is metadata: BUILD_INFO/deliverables/docs/"
-            "README/DRIFT_REGISTER/.github/scripts)")
+            "since it is in the NARROW metadata policy: BUILD_INFO, "
+            "deliverables, README/CHANGELOG/DRIFT_REGISTER, docs — "
+            "scripts/workflows/src/tests/lockfile changes invalidate)")
         # else: an ancestor with a metadata-only delta — the documented
         # test-commit vs metadata-commit relationship; the evidence
         # stays fresh

@@ -91,7 +91,16 @@ jobs:
       FFUF_ENABLED: "false"
       WEBHOOK_ENABLED: "false"
     steps:
+      # UM-DR-38.2 §1.1: FULL history. The provenance gates resolve
+      # historical commits (recovery baseline, release-history
+      # revisions, the published lineage) with `git cat-file`; the
+      # default depth-1 checkout makes every one of them unresolvable
+      # and turned the P2-205 gate into eight spurious failures in run
+      # 44023244366. fetch-depth: 0 fetches all branches and tags, so
+      # provenance verification inspects the required history.
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Install uv
         uses: astral-sh/setup-uv@v5
@@ -129,8 +138,15 @@ jobs:
       # Phase-2 P2-205 (2026-11-01, merged from v15.2 R4): BUILD_INFO.json is
       # delivery provenance — well-formedness, provenance stability, and an
       # inflation guard on suite_count.
-      - name: Build-info honesty (P2-205)
-        run: uv run python scripts/check_build_info_honesty.py
+      # UM-DR-38.2 §1.3: this gate now runs AFTER the full suite and the
+      # current-run evidence check (moved from its pre-suite position — in
+      # run 44023244366 it executed before any evidence existed and its
+      # accounting/suite_count cross-checks failed for ORDERING reasons,
+      # stopping the suite). It validates BUILD_INFO against the DURABLE
+      # RELEASE EVIDENCE (deliverables/umdr38/test_evidence/, tracked) —
+      # the current-run .webpent-evidence/ record is a SEPARATE domain
+      # validated by check_test_evidence.py with the workflow run-id/
+      # attempt binding; the two are never compared.
       # Sprint I-1b item B.3: G-08 direct-I/O inventory drift gate.
       # Re-runs the AST inventory on src/ and fails if it has drifted from
       # the recorded artifact (docs/direct_io_inventory.json). One approval-
@@ -199,6 +215,13 @@ jobs:
       - name: Require complete current-run test evidence
         if: always()
         run: uv run python scripts/check_test_evidence.py
+
+      # UM-DR-38.2 §1.3: BUILD_INFO honesty AFTER the current-run
+      # evidence check — validated against the DURABLE release evidence
+      # (tracked deliverables copy), independent of this run's counters.
+      - name: Build-info honesty (P2-205, durable release evidence)
+        if: always()
+        run: uv run python scripts/check_build_info_honesty.py
 
       - name: Upload full-suite evidence
         if: always()

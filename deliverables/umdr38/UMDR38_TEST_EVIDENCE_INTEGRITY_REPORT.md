@@ -1,18 +1,18 @@
 # UM-DR-38 — Test Evidence Integrity Report
 
-Generated: 2026-11-17T04:55:45.472845+00:00 — from `.webpent-evidence/FULL_SUITE_EVIDENCE.json`, the machine record of the current run (§6.2: evidence is a build artifact, never tracked source).
+Generated: 2026-11-17T12:43:50.731021+00:00 — from `.webpent-evidence/FULL_SUITE_EVIDENCE.json`, the machine record of the current run (§6.2: evidence is a build artifact, never tracked source).
 
 ## The current run (authoritative for this release)
 
-* **Source commit:** `9802cd22f2b7c11ed5350eaa33a965573d4b339b`
+* **Source commit:** `a0807294694ce969c3664cbd3b6e7be4d3ed3b04`
 * **Tree clean at test START:** **True** (captured BEFORE anything is written; the evidence directory is git-ignored, so a clean checkout stays clean — the structural `tree_clean: false` of every earlier recorded run is impossible under this contract)
 * Python: 3.12.16 | uv: uv 0.13.8 (x86_64-unknown-linux-gnu)
 * Lockfile SHA-256: `6d714ff5ed5212b8e751d19fc50917aa52fec042583f4d69d9d6b2a75c4ef650`
-* Test scope digest: `55304f036becaf0c79ad3e14da5fa851bb842b61919d3f9d61ddac7d254722af`
-* Collected **9288** | executed **9289** | passed **9277** | failed **0** | errors **0** | skipped 9 | xfailed 3 | xpassed 0
-* Hook-level v3: collected_items 9288, started 9288, not_started 0, collection errors 0, collection skips 1, setup errors 0, teardown errors 0, interrupted False
+* Test scope digest: `f27b2d3144618cf2f980abcb6a297198a0d774be01de57473bfe39df57e66749`
+* Collected **9341** | executed **9342** | passed **9330** | failed **0** | errors **0** | skipped 9 | xfailed 3 | xpassed 0
+* Hook-level v3: collected_items 9341, started 9341, not_started 0, collection errors 0, collection skips 1, setup errors 0, teardown errors 0, interrupted False
 * v3 invariants all true: **True**; terminal cross-check agrees: **True
-* Coverage: 77.09% (floor 72% — OK)
+* Coverage: 77.10% (floor 72% — OK)
 * Exit code: **0**
 
 ## What changed and why (§6)

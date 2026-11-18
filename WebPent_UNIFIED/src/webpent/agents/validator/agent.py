@@ -4515,6 +4515,20 @@ def validator_node(state: PentestState) -> dict:
     # no-op when no re-login occurred (same values written back).
     if auth_state:
         result["auth_state"] = auth_state
+    # UM-DR-39 RC-2: project one evidence-backed authorization
+    # observation per Tool-Confirmed finding onto the declared channel
+    # (values from the finding's own CausalGuard evidence only)
+    from webpent.production.authorization_observations import (
+        build_authorization_observation,
+    )
+    auth_observations = [
+        obs for obs in (
+            build_authorization_observation(f, "validator")
+            for f in (result.get("findings") or [])
+        ) if obs
+    ]
+    if auth_observations:
+        result["authorization_observations"] = auth_observations
     return result
 
 

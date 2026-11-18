@@ -1,8 +1,8 @@
 # UM-DR-38 — CI Verification Report
 
-Generated: 2026-11-17T04:55:45.469765+00:00 — every gate below was RE-EXECUTED at the release commit by scripts/umdr38_deliverables.py; exit codes are recorded from the real processes, not from session memory or YAML presence.
+Generated: 2026-11-17T12:43:50.727325+00:00 — every gate below was RE-EXECUTED at the release commit by scripts/umdr38_deliverables.py; exit codes are recorded from the real processes, not from session memory or YAML presence.
 
-Release commit: **b7b0b4fd77adf5374e756d7f72c4e27e04dc8460**
+Release commit: **e50900d0e7c360ccbe8ce1a2f9099499201cc2b3**
 
 ## Local gate execution (the same commands the root workflow runs)
 

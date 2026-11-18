@@ -19,11 +19,7 @@ while an unresolvable non-null revision fails.
 from __future__ import annotations
 
 import hashlib
-import json
-import subprocess
 from pathlib import Path
-
-import pytest
 
 REPO = Path(__file__).resolve().parents[1]
 import sys  # noqa: E402
@@ -236,14 +232,28 @@ def test_history_null_revision_with_note_is_accepted() -> None:
     assert any("explicitly-unverifiable local lineage" in n for n in notes)
 
 
-def test_evidence_from_different_revision_not_bound_but_noted() -> None:
+def test_evidence_accounting_mismatch_same_revision_fails() -> None:
     info = _valid_info()
     evidence = {"source_commit": RESOLVABLE_OLD,
                 "accounting": dict(info["provenance"]["test_accounting"])}
     # Same revision, DIFFERENT accounting -> binding failure.
     evidence["accounting"] = dict(evidence["accounting"], passed=9000)
     failures, _ = _evaluate(info, evidence_record=evidence)
-    assert any("committed evidence accounting differs" in f for f in failures)
+    # UM-DR-38.2: the durable-release-evidence domain carries the
+    # strict-binding contract and its message
+    assert any("durable release evidence accounting differs" in f
+               for f in failures)
+
+
+def test_durable_evidence_bound_to_different_revision_fails() -> None:
+    info = _valid_info()
+    # a durable record bound to a DIFFERENT revision is a
+    # release-consistency failure under UM-DR-38.2 §1.2 — never a soft
+    # note (the current-run domain handles its own run-id binding)
+    evidence = {"source_commit": "b" * 40,
+                "accounting": dict(info["provenance"]["test_accounting"])}
+    failures, _ = _evaluate(info, evidence_record=evidence)
+    assert any("bound to different revisions" in f for f in failures)
 
 
 def test_evidence_from_same_revision_with_matching_accounting_binds() -> None:

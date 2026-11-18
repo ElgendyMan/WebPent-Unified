@@ -173,6 +173,25 @@ def _redact_channel(channel: str, value: Any) -> Any:
                 "runtime_context_status": "degraded",
                 "degraded_reason": type(exc).__name__,
             }
+    if channel == "authorization_observations":
+        # UM-DR-39 RC-2 (root cause, layer 3): the channel NAME trips
+        # the generic "authorization" secret-fragment below (written for
+        # HTTP auth headers), which blanked the ENTIRE channel to [] at
+        # EVERY checkpoint write — the observations existed in the live
+        # state (proven by downstream reads) and silently vanished from
+        # every persisted final state. This channel carries structured,
+        # non-secret authorization METADATA (actor ids, resource ids,
+        # owner names); the projection contract forbids credentials in
+        # it, and field-wise redaction below still strips any
+        # sensitive-keyed entry a future writer might add.
+        if isinstance(value, list):
+            return [
+                {k: v for k, v in item.items()
+                 if not _is_sensitive_key(str(k))}
+                if isinstance(item, dict) else item
+                for item in value
+            ]
+        return value
     if channel in _SECRET_CHANNELS:
         return {}
     if channel == "jwt_weak_secret_candidates":

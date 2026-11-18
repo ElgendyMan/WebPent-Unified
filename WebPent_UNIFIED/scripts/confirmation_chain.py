@@ -93,6 +93,8 @@ def build_confirmation_chain(
         events.append({
             "finding_id": fid,
             "vuln_class": finding.get("vuln_class"),
+            "classification_evidence": finding.get(
+                "classification_evidence"),
             "url": finding.get("url"),
             "chain_status": (
                 "complete"

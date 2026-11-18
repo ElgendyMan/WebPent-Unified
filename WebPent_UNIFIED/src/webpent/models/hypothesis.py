@@ -323,6 +323,16 @@ class Hypothesis(BaseModel):
     # rejecting unknown keys). They make the research contract explicit:
     # a hypothesis names its PRECONDITIONS and the control that would
     # REFUTE it, not only the claim.
+    preconditions_satisfied: bool | None = Field(
+        default=None,
+        description=(
+            "UM-DR-39 RC-3: whether the declared preconditions have "
+            "recorded satisfaction evidence. None = not evaluated "
+            "(the honest default). When preconditions are declared "
+            "and this is not True, the promotion path DEFERs with the "
+            "named reason — preconditions are load-bearing. Additive "
+            "OPTIONAL field: legacy constructors stay valid."),
+    )
     preconditions: list[str] = Field(
         default_factory=list,
         description=(
