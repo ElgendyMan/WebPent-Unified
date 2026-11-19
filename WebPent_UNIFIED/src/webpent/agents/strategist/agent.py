@@ -345,6 +345,16 @@ def strategist_node(state: PentestState) -> dict[str, Any]:
     updated_hypotheses: list[Hypothesis] = []
     decision_log_entries: list[dict[str, Any]] = []
     coverage_entries: dict[str, dict[str, Any]] = {}
+    # UM-DR-40 RC-6/RC-7 (adapted INTO the strategist, per the 39
+    # register): the before-snapshot of the decision batch. With
+    # RC-5's deterministic generation-time ids, the before/after set
+    # difference is a real measurement, not a content guess.
+    from webpent.production.decision_ledger import (
+        information_gain_snapshot,
+        ranked_alternatives,
+    )
+    _pool_before_ids = [
+        str(model_get(h, "id", "")) for h, _s in ranked]
     promoted_count = 0
     abandoned_count = 0
     cadence_overrides: dict[str, tuple[Any, str]] = {}
@@ -411,6 +421,11 @@ def strategist_node(state: PentestState) -> dict[str, Any]:
             "reason": reason,
             "validator_route": validator_route,
             "score": round(float(score_value), 6),
+            # UM-DR-40 RC-7: the ranked runner-up slice — the
+            # alternatives this decision passed over, with their
+            # scores, bounded and excluding the entry itself.
+            "alternatives_considered": ranked_alternatives(
+                ranked, exclude_id=hypothesis_id),
         }
 
     for hypothesis, score in ranked:
@@ -676,6 +691,28 @@ def strategist_node(state: PentestState) -> dict[str, Any]:
     logger.info(summary)
 
     # Best-effort Decision Log persistence (Phase 6).
+    # UM-DR-40 RC-6: the batch's measured information gain — recorded
+    # in the decision log (alternatives ride on the per-candidate
+    # coverage entries). distinguished = the ids THIS batch resolved
+    # out of the pool (promoted or abandoned);
+    # resolved_preconditions stays empty here (this pass has no
+    # precondition channel — recorded empty rather than invented).
+    _pool_after_ids = [
+        str(model_get(h, "id", "")) for h in updated_hypotheses]
+    decision_log_entries.append({
+        # PRIORITIZATION: the frozen DecisionType vocabulary has no
+        # batch-measurement member; the batch IS the strategist's
+        # prioritization decision, and rule_fired distinguishes it.
+        "decision_type": "prioritization",
+        "rule_fired": "umdr40_rc6_measured_information_gain",
+        "rule_fired": "umdr40_rc6_measured_information_gain",
+        "outcome": "measured",
+        "entity_refs": [],
+        "metadata": {
+            "information_gain": information_gain_snapshot(
+                _pool_before_ids, _pool_after_ids),
+        },
+    })
     for entry in decision_log_entries:
         try:
             from webpent.memory.decision_log import log_decision

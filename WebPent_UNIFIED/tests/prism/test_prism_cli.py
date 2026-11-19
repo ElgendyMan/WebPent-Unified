@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from datetime import datetime, timezone
 from pathlib import Path
 
 import pytest
@@ -176,12 +177,17 @@ def test_rabbit_holes_check_command(mounted_app) -> None:
 # -- metrics / dashboard ----------------------------------------------------------------------
 
 def test_metrics_command(mounted_app, tmp_path: Path) -> None:
+    # recorded_on must fall INSIDE the CLI's rolling window: derive
+    # it from the current date instead of a hardcoded one (the
+    # hardcoded 2026-10-18 silently left the default 30-day window
+    # on 2026-11-18 and failed the suite with PRISM-L-10)
+    recent = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     observations = (
         [{"phase": "before", "accepted": True, "time_hours": 0.5,
-          "evidence_score": 0.5, "recorded_on": "2026-10-18"}]
+          "evidence_score": 0.5, "recorded_on": recent}]
         * 4
         + [{"phase": "after", "accepted": True, "time_hours": 0.3,
-            "evidence_score": 0.9, "recorded_on": "2026-10-18"}]
+            "evidence_score": 0.9, "recorded_on": recent}]
         * 6
     )
     path = tmp_path / "observations.json"

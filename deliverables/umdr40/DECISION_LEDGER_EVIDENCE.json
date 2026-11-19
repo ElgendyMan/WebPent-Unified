@@ -1,0 +1,143 @@
+{
+  "schema": "umdr40-decision-ledger-evidence/v1",
+  "generated_at_utc": "2026-11-18T12:40:38.754304+00:00",
+  "batch_size": 5,
+  "rc5_deterministic_ids": true,
+  "rc7_alternatives_considered": {
+    "2258adb3-e8cb-5e35-8bed-c7aea60703fb": [
+      {
+        "hypothesis_id": "abe74d6d-77fb-56de-a129-82d4e521c6c7",
+        "score": 0.374,
+        "rank": 1
+      },
+      {
+        "hypothesis_id": "e363fc87-5fd3-5925-ba6a-2293af5f1de5",
+        "score": 0.314,
+        "rank": 2
+      },
+      {
+        "hypothesis_id": "3da16355-39d0-508f-84f1-a0a5ac1069f5",
+        "score": 0.199,
+        "rank": 3
+      },
+      {
+        "hypothesis_id": "e94dac03-39cd-5c93-8204-3c0a7df8a65b",
+        "score": 0.199,
+        "rank": 4
+      }
+    ],
+    "abe74d6d-77fb-56de-a129-82d4e521c6c7": [
+      {
+        "hypothesis_id": "2258adb3-e8cb-5e35-8bed-c7aea60703fb",
+        "score": 0.374,
+        "rank": 1
+      },
+      {
+        "hypothesis_id": "e363fc87-5fd3-5925-ba6a-2293af5f1de5",
+        "score": 0.314,
+        "rank": 2
+      },
+      {
+        "hypothesis_id": "3da16355-39d0-508f-84f1-a0a5ac1069f5",
+        "score": 0.199,
+        "rank": 3
+      },
+      {
+        "hypothesis_id": "e94dac03-39cd-5c93-8204-3c0a7df8a65b",
+        "score": 0.199,
+        "rank": 4
+      }
+    ],
+    "e363fc87-5fd3-5925-ba6a-2293af5f1de5": [
+      {
+        "hypothesis_id": "2258adb3-e8cb-5e35-8bed-c7aea60703fb",
+        "score": 0.374,
+        "rank": 1
+      },
+      {
+        "hypothesis_id": "abe74d6d-77fb-56de-a129-82d4e521c6c7",
+        "score": 0.374,
+        "rank": 2
+      },
+      {
+        "hypothesis_id": "3da16355-39d0-508f-84f1-a0a5ac1069f5",
+        "score": 0.199,
+        "rank": 3
+      },
+      {
+        "hypothesis_id": "e94dac03-39cd-5c93-8204-3c0a7df8a65b",
+        "score": 0.199,
+        "rank": 4
+      }
+    ],
+    "3da16355-39d0-508f-84f1-a0a5ac1069f5": [
+      {
+        "hypothesis_id": "2258adb3-e8cb-5e35-8bed-c7aea60703fb",
+        "score": 0.374,
+        "rank": 1
+      },
+      {
+        "hypothesis_id": "abe74d6d-77fb-56de-a129-82d4e521c6c7",
+        "score": 0.374,
+        "rank": 2
+      },
+      {
+        "hypothesis_id": "e363fc87-5fd3-5925-ba6a-2293af5f1de5",
+        "score": 0.314,
+        "rank": 3
+      },
+      {
+        "hypothesis_id": "e94dac03-39cd-5c93-8204-3c0a7df8a65b",
+        "score": 0.199,
+        "rank": 4
+      }
+    ],
+    "e94dac03-39cd-5c93-8204-3c0a7df8a65b": [
+      {
+        "hypothesis_id": "2258adb3-e8cb-5e35-8bed-c7aea60703fb",
+        "score": 0.374,
+        "rank": 1
+      },
+      {
+        "hypothesis_id": "abe74d6d-77fb-56de-a129-82d4e521c6c7",
+        "score": 0.374,
+        "rank": 2
+      },
+      {
+        "hypothesis_id": "e363fc87-5fd3-5925-ba6a-2293af5f1de5",
+        "score": 0.314,
+        "rank": 3
+      },
+      {
+        "hypothesis_id": "3da16355-39d0-508f-84f1-a0a5ac1069f5",
+        "score": 0.199,
+        "rank": 4
+      }
+    ]
+  },
+  "rc6_information_gain": {
+    "pool_before": 5,
+    "pool_after": 0,
+    "pool_delta": -5,
+    "distinguished": [
+      "2258adb3-e8cb-5e35-8bed-c7aea60703fb",
+      "3da16355-39d0-508f-84f1-a0a5ac1069f5",
+      "abe74d6d-77fb-56de-a129-82d4e521c6c7",
+      "e363fc87-5fd3-5925-ba6a-2293af5f1de5",
+      "e94dac03-39cd-5c93-8204-3c0a7df8a65b"
+    ],
+    "distinguished_count": 5,
+    "added": [],
+    "resolved_preconditions": []
+  },
+  "pool_after": [],
+  "decision_log_types": [
+    "prioritization"
+  ],
+  "proof": {
+    "rc7_ranked_runner_up_slice_recorded": true,
+    "rc6_measured_gain_recorded": true,
+    "proven": true
+  },
+  "note": "distinguished ids in rc6_information_gain are the ids THIS batch resolved out of the pool (promoted/abandoned); resolved_preconditions is recorded empty because this strategist pass has no precondition channel"
+}

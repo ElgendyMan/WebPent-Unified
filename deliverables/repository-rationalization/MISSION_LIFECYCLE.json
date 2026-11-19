@@ -1,0 +1,250 @@
+{
+  "schema": "mission-lifecycle/v1",
+  "generated_at_utc": "2026-11-18T18:04:43.362226+00:00",
+  "generated_at_revision": "0a0828ba4e46ddaa313be199a0845d1e6b16419c",
+  "status_vocabulary": [
+    "COMPLETED",
+    "RETIRED",
+    "SUPERSEDED",
+    "DEFERRED",
+    "BLOCKED_EXTERNAL_DEPENDENCY",
+    "ACTIVE"
+  ],
+  "missions": [
+    {
+      "mission": "UM-DR release None",
+      "title": "Release window None",
+      "status": "COMPLETED",
+      "last_known_revision": null,
+      "evidence": [
+        "BUILD_INFO.release_history[None]",
+        "published ancestor/branch commit None"
+      ],
+      "successor": null,
+      "reason": "Published release window (see CHANGELOG) \u2014 closed with its evidence retained in the history.",
+      "recorded_at_utc": "2026-11-18T18:04:43.362226+00:00"
+    },
+    {
+      "mission": "UM-DR release None",
+      "title": "Release window None",
+      "status": "COMPLETED",
+      "last_known_revision": "4795f02377373a1a2dc4d3376987f7702cd24bf6",
+      "evidence": [
+        "BUILD_INFO.release_history[None]",
+        "published ancestor/branch commit 4795f0237737"
+      ],
+      "successor": null,
+      "reason": "Published release window (features/v0.39.0-umdr33 feature branch (never merged to main)) \u2014 closed with its evidence retained in the history.",
+      "recorded_at_utc": "2026-11-18T18:04:43.362226+00:00"
+    },
+    {
+      "mission": "UM-DR release None",
+      "title": "Release window None",
+      "status": "COMPLETED",
+      "last_known_revision": "989c49ba5cb3747859496d06736ae7c8317086ed",
+      "evidence": [
+        "BUILD_INFO.release_history[None]",
+        "published ancestor/branch commit 989c49ba5cb3"
+      ],
+      "successor": null,
+      "reason": "Published release window (public main publish (Update to v0.38.0 UMDR32)) \u2014 closed with its evidence retained in the history.",
+      "recorded_at_utc": "2026-11-18T18:04:43.362226+00:00"
+    },
+    {
+      "mission": "UM-DR-36.2/37",
+      "title": "Root-cause closure + production campaigns",
+      "status": "COMPLETED",
+      "last_known_revision": "2338fd5 (published main)",
+      "evidence": [
+        "deliverables/umdr37/evidence",
+        "deliverables/umdr37/evidence/EVIDENCE_MANIFEST.json",
+        "deliverables/umdr37/evidence/SHA256SUMS.txt",
+        "deliverables/umdr37/evidence/UMDR37_CONFIRMATION_CHAIN.json",
+        "deliverables/umdr37/evidence/UMDR37_DECOY_CLOSURE.json",
+        "deliverables/umdr37/evidence/UMDR37_DISCOVERY_EFFICIENCY.json",
+        "deliverables/umdr37/evidence/UMDR37_FULL_LOOP_LEARNING.json",
+        "deliverables/umdr37/evidence/UMDR37_GRAPH_TRACE.json",
+        "deliverables/umdr37/evidence/UMDR37_LEARNING_ABLATION.json",
+        "deliverables/umdr37/evidence/UMDR37_MULTI_FAMILY_RESULTS.json",
+        "deliverables/umdr37/evidence/UMDR37_PRODUCTION_CAMPAIGN.json",
+        "deliverables/umdr37/evidence/UMDR37_STAGE_METRICS.json",
+        "deliverables/umdr37/evidence/umdr37_full_loop_learning.json",
+        "deliverables/umdr37/evidence/umdr37_graph_trace_after.json",
+        "deliverables/umdr37/evidence/umdr37_learning_ablation.json",
+        "deliverables/umdr37/evidence/umdr37_production_campaign_run1.json",
+        "deliverables/umdr37/evidence/umdr37_production_campaign_run2.json",
+        "deliverables/umdr37/evidence/umdr37_production_campaign_run3.json",
+        "deliverables/umdr37/evidence/umdr37_production_campaigns.json"
+      ],
+      "successor": "UM-DR-38 publication-integrity window",
+      "reason": "Campaigns, instrumentation and publication evidence delivered; superseded operationally by the 38/39 release line but preserved as canonical release evidence.",
+      "recorded_at_utc": "2026-11-18T18:04:43.362226+00:00"
+    },
+    {
+      "mission": "UM-DR-38",
+      "title": "Publication integrity",
+      "status": "COMPLETED",
+      "last_known_revision": "bf9a136 (published main)",
+      "evidence": [
+        "deliverables/umdr38/FILE_INDEX.txt",
+        "deliverables/umdr38/SHA256SUMS.txt",
+        "deliverables/umdr38/UMDR38_1_ACCEPTANCE_INTEGRITY_REPORT.md",
+        "deliverables/umdr38/UMDR38_1_DISCOVERY_FUNNEL_INTEGRITY_REPORT.md",
+        "deliverables/umdr38/UMDR38_1_EVIDENCE_PROVENANCE_REPORT.md",
+        "deliverables/umdr38/UMDR38_1_FINAL_CORRECTIVE_CLOSEOUT_REPORT.md",
+        "deliverables/umdr38/UMDR38_1_INITIAL_STATE_REPORT.md",
+        "deliverables/umdr38/UMDR38_1_REPOSITORY_STRUCTURE_REPORT.md",
+        "deliverables/umdr38/UMDR38_1_SECURITY_GATE_REPORT.md",
+        "deliverables/umdr38/UMDR38_ACCEPTANCE_MATRIX.json",
+        "deliverables/umdr38/UMDR38_CAMPAIGN_EVIDENCE.json",
+        "deliverables/umdr38/UMDR38_CAMPAIGN_INSTRUMENTATION_REPORT.md",
+        "deliverables/umdr38/UMDR38_CHANGED_FILES_MANIFEST.txt",
+        "deliverables/umdr38/UMDR38_CI_VERIFICATION_REPORT.md",
+        "deliverables/umdr38/UMDR38_DISCOVERY_EFFICIENCY.json",
+        "deliverables/umdr38/UMDR38_DOCUMENTATION_CONSISTENCY_REPORT.md",
+        "deliverables/umdr38/UMDR38_FINAL_ENGINEERING_REPORT.md",
+        "deliverables/umdr38/UMDR38_GATE_RESULTS.json",
+        "deliverables/umdr38/UMDR38_INITIAL_REPOSITORY_BASELINE.json",
+        "deliverables/umdr38/UMDR38_LEARNING_CAUSALITY_REPORT.md",
+        "deliverables/umdr38/UMDR38_PRODUCTION_CAMPAIGN_REPORT.md",
+        "deliverables/umdr38/UMDR38_READINESS.json",
+        "deliverables/umdr38/UMDR38_RECOVERY_AND_PROVENANCE_REPORT.md",
+        "deliverables/umdr38/UMDR38_RELEASE_MANIFEST.json",
+        "deliverables/umdr38/UMDR38_REPOSITORY_STRUCTURE_REPORT.md",
+        "deliverables/umdr38/UMDR38_TEST_EVIDENCE_INTEGRITY_REPORT.md",
+        "deliverables/umdr38/UMDR38_VERSION_INTEGRITY_REPORT.md",
+        "deliverables/umdr38/UMDR38_ZIP_VALIDATION.json",
+        "deliverables/umdr38/raw",
+        "deliverables/umdr38/raw/pip_audit_umdr38_1.json",
+        "deliverables/umdr38/sbom.cdx.json",
+        "deliverables/umdr38/test_evidence",
+        "deliverables/umdr38/test_evidence/FULL_SUITE_EVIDENCE.json",
+        "deliverables/umdr38/test_evidence/FULL_SUITE_EVIDENCE.txt",
+        "deliverables/umdr38/test_evidence/coverage_last_run.json"
+      ],
+      "successor": "UM-DR-38.2",
+      "reason": "Delivered; its CI failures were root-caused and repaired by the successor window.",
+      "recorded_at_utc": "2026-11-18T18:04:43.362226+00:00"
+    },
+    {
+      "mission": "UM-DR-38.2",
+      "title": "CI & release-integrity repair",
+      "status": "COMPLETED",
+      "last_known_revision": "54fc95c..ca4ae448 (tree published)",
+      "evidence": [
+        "deliverables/umdr38/ (test evidence + gates)"
+      ],
+      "successor": "UM-DR-39",
+      "reason": "Full green suite on the restored release tree; package validated member-by-member.",
+      "recorded_at_utc": "2026-11-18T18:04:43.362226+00:00"
+    },
+    {
+      "mission": "UM-DR-39",
+      "title": "Discovery intelligence (bounded RC-1/2/3)",
+      "status": "COMPLETED",
+      "last_known_revision": "ca4ae448 (tree published; lineage revisions HISTORICAL_UNRESOLVABLE \u2014 see umdr39.1 matrix)",
+      "evidence": [
+        "deliverables/umdr39/ACCEPTANCE_MATRIX.json",
+        "deliverables/umdr39/AS_BUILT_ARCHITECTURE.md",
+        "deliverables/umdr39/BEFORE_AFTER_COMPARISON.md",
+        "deliverables/umdr39/DISCOVERY_LOSS_MAP.md",
+        "deliverables/umdr39/FINAL_CLOSEOUT_REPORT.md",
+        "deliverables/umdr39/IMPLEMENTATION_LOG.md",
+        "deliverables/umdr39/QUALITY_EVALUATION.md",
+        "deliverables/umdr39/ROOT_CAUSE_REGISTER.md"
+      ],
+      "successor": "UM-DR-39.1",
+      "reason": "RC-1/2/3 implemented with 19 contract tests; full green suite recorded in the durable evidence; the commit-level chain reconciliation is the successor's task.",
+      "recorded_at_utc": "2026-11-18T18:04:43.362226+00:00"
+    },
+    {
+      "mission": "UM-DR-39.1",
+      "title": "Publication provenance reconciliation",
+      "status": "ACTIVE",
+      "last_known_revision": "0a0828ba4e46 (mission branch)",
+      "evidence": [
+        "deliverables/umdr39.1/CI_VERIFICATION_REPORT.md",
+        "deliverables/umdr39.1/FINAL_CLOSEOUT_REPORT.md",
+        "deliverables/umdr39.1/PROVENANCE_RECONCILIATION_MATRIX.json",
+        "deliverables/umdr39.1/PROVENANCE_RECONCILIATION_REPORT.md"
+      ],
+      "successor": "Repository rationalization (gated on acceptance)",
+      "reason": "In flight: provenance matrix generated; fresh suite binding in progress at this writing; remote CI blocked (no push credentials in the build environment).",
+      "recorded_at_utc": "2026-11-18T18:04:43.362226+00:00"
+    },
+    {
+      "mission": "Repository Rationalization",
+      "title": "Leaner, coherent repository + permanent mission closure",
+      "status": "ACTIVE",
+      "last_known_revision": "0a0828ba4e46",
+      "evidence": [
+        "deliverables/repository-rationalization/CLEANUP_DECISIONS.md",
+        "deliverables/repository-rationalization/FILE_MIGRATION_MAP.md",
+        "deliverables/repository-rationalization/FINAL_CLOSEOUT_REPORT.md",
+        "deliverables/repository-rationalization/MISSION_LIFECYCLE.json",
+        "deliverables/repository-rationalization/REPOSITORY_INVENTORY.json",
+        "deliverables/repository-rationalization/REPOSITORY_INVENTORY.md",
+        "deliverables/repository-rationalization/REPOSITORY_STRUCTURE_FINAL.md",
+        "deliverables/repository-rationalization/SIZE_COMPARISON.md"
+      ],
+      "successor": "UM-DR-40 (gated on acceptance)",
+      "reason": "In flight: measured inventory generated; decisions and cleanup follow the inventory.",
+      "recorded_at_utc": "2026-11-18T18:04:43.362226+00:00"
+    },
+    {
+      "mission": "MCP integration workstream",
+      "title": "MCP server/client integration",
+      "status": "DEFERRED",
+      "last_known_revision": "n/a",
+      "evidence": [
+        "mission charter (UM-DR-39.1..40 \u00a72.4): do not reopen"
+      ],
+      "successor": null,
+      "reason": "Explicitly out of scope for this mission by charter; not silently reopened.",
+      "recorded_at_utc": "2026-11-18T18:04:43.362226+00:00"
+    },
+    {
+      "mission": "Independent benchmark/holdout",
+      "title": "External benchmark parity (e.g. XBOW)",
+      "status": "DEFERRED",
+      "last_known_revision": "n/a",
+      "evidence": [
+        "mission charter \u00a72.4: no parity claims without independent evidence"
+      ],
+      "successor": null,
+      "reason": "Explicitly out of scope; no parity claim is made.",
+      "recorded_at_utc": "2026-11-18T18:04:43.362226+00:00"
+    },
+    {
+      "mission": "Remote publication (push/PR + remote CI)",
+      "title": "Branch publication and remote verification",
+      "status": "BLOCKED_EXTERNAL_DEPENDENCY",
+      "last_known_revision": "0a0828ba4e46",
+      "evidence": [
+        "push attempts: 'could not read Username' (no credentials)",
+        "GitHub API from build env: HTTP 403"
+      ],
+      "successor": null,
+      "reason": "Requires repository push credentials or an authenticated runner; every local gate is otherwise green.",
+      "recorded_at_utc": "2026-11-18T18:04:43.362226+00:00"
+    },
+    {
+      "mission": "UM-DR-39 RC-4..RC-10 follow-ups",
+      "title": "Identity flags, semantic dedup, measured info-gain, alternatives, rabbit-hole stopping, knowledge consolidation, autonomous-stack assessment",
+      "status": "ACTIVE",
+      "last_known_revision": "ca4ae448 (documented in the 39 register)",
+      "evidence": [
+        "deliverables/umdr39/ROOT_CAUSE_REGISTER.md"
+      ],
+      "successor": "UM-DR-40",
+      "reason": "Documented with acceptance criteria in the 39 register; evaluated and (where justified) implemented in UM-DR-40 \u2014 not silently dropped, not silently closed.",
+      "recorded_at_utc": "2026-11-18T18:04:43.362226+00:00"
+    }
+  ],
+  "counts": {
+    "COMPLETED": 7,
+    "ACTIVE": 3,
+    "DEFERRED": 2,
+    "BLOCKED_EXTERNAL_DEPENDENCY": 1
+  }
+}

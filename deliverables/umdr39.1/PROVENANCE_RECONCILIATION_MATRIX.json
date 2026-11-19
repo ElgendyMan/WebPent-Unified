@@ -1,0 +1,133 @@
+{
+  "schema": "umdr39.1-provenance-reconciliation/v1",
+  "generated_at_utc": "2026-11-18T09:41:28.264521+00:00",
+  "generated_at_revision": "bcebc8c0e731e7303898820ea7b57b6a5d722d32",
+  "published_main": "ca4ae44855c4c096fdb5c96ee7de8e23610b4463",
+  "remote_observation_method": "GitHub commit pages fetched out-of-band 2026-11-18 (the build environment's direct API access is HTTP-403 blocked); results recorded verbatim per revision",
+  "tree_identity_verification": {
+    "published_commit": "ca4ae44855c4c096fdb5c96ee7de8e23610b4463",
+    "package": "WebPent_Unified_v0.40.1_UMDR39_FINAL.zip",
+    "package_sha256": "12c38190a2bc5df5e13dd457ac1a6a2d6ea183f1309ab7c7a8637e3e8b75c16e",
+    "method": "diff -rq --exclude=.git of the extracted package vs the published checkout (4,989 tracked files)",
+    "result": "identical \u2014 0 differing/missing/extra files",
+    "observed_at": "2026-11-18"
+  },
+  "revisions": [
+    {
+      "revision": "ca4ae44855c4c096fdb5c96ee7de8e23610b4463",
+      "artifact": "refs/heads/main (remote HEAD)",
+      "claimed_role": "currently published source revision",
+      "local_resolvable": true,
+      "remote_resolvable": "resolvable",
+      "remote_observation": "published main HEAD \u2014 \"Update project to v0.40.1 UMDR39 FINAL\"",
+      "branch_or_tag": "main",
+      "ancestor_of_current_main": true,
+      "associated_test_evidence": "none bound at commit level (see a080729 row); tree-identical to the validated package",
+      "associated_ci_run": null,
+      "classification": "VERIFIED_REMOTE",
+      "explanation": "The publication squashed the UM-DR-39 mission tree into one new commit on main. Its 4,989-file tree is byte-identical to the delivered UMDR39_FINAL package (full recursive diff: 0 differences), so the historical 9,330-pass record is evidence for THIS TREE's content \u2014 but no commit-level chain binds them, and no CI run on this SHA is verifiable from this environment."
+    },
+    {
+      "revision": "a0807294694ce969c3664cbd3b6e7be4d3ed3b04",
+      "artifact": "WebPent_UNIFIED/BUILD_INFO.json provenance (source/tested/evidence) + deliverables/umdr38/test_evidence/FULL_SUITE_EVIDENCE.json source_commit",
+      "claimed_role": "declared tested source revision of the published tree",
+      "local_resolvable": false,
+      "remote_resolvable": "not_resolvable",
+      "remote_observation": "HTTP 404 \u2014 No commit found",
+      "branch_or_tag": "none (not an ancestor of main)",
+      "ancestor_of_current_main": false,
+      "associated_test_evidence": "durable record: collected 9341, passed 9330, failed 0, errors 0",
+      "associated_ci_run": null,
+      "classification": "HISTORICAL_UNRESOLVABLE",
+      "explanation": "The commit existed only in the mission's local build repositories, which were lost to environment recycling before publication; the owner published the validated TREE as ca4ae448 instead of the branch. The revision is therefore unresolvable both locally (fresh clone) and remotely (404). The evidence stays intact as a historical record; it is NOT silently re-bound. UM-DR-39.1 re-establishes the chain with a fresh suite on the re-baselined descendant."
+    },
+    {
+      "revision": "e50900d0e7c360ccbe8ce1a2f9099499201cc2b3",
+      "artifact": "deliverables/umdr39/ACCEPTANCE_MATRIX.json release_commit + deliverables/umdr38/UMDR38_GATE_RESULTS.json",
+      "claimed_role": "39-lineage release/reporting revision",
+      "local_resolvable": false,
+      "remote_resolvable": "not_resolvable",
+      "remote_observation": "HTTP 404 \u2014 No commit found",
+      "branch_or_tag": "none (not an ancestor of main)",
+      "ancestor_of_current_main": false,
+      "associated_test_evidence": "acceptance matrix 12 PASS / 2 BLOCKED_EXTERNAL_DEPENDENCY (historical record)",
+      "associated_ci_run": null,
+      "classification": "HISTORICAL_UNRESOLVABLE",
+      "explanation": "Same lost local lineage as a080729 \u2014 the 39 acceptance matrix's release_commit was never pushed. Historical record preserved unchanged; classified HISTORICAL_UNRESOLVABLE."
+    },
+    {
+      "revision": "1968f63c2076b1b804537f91cd5cfa01c3eee0bb",
+      "artifact": "BUILD_INFO.json provenance.recovery_baseline",
+      "claimed_role": "declared recovery baseline",
+      "local_resolvable": true,
+      "remote_resolvable": "resolvable",
+      "remote_observation": "page shows \"Update project to v0.40.1 UMDR35-36\"",
+      "branch_or_tag": "main",
+      "ancestor_of_current_main": true,
+      "associated_test_evidence": "historical (UM-DR-35/36 window)",
+      "associated_ci_run": null,
+      "classification": "VERIFIED_REMOTE",
+      "explanation": "Published ancestor of main; resolves locally and remotely. Valid recovery baseline."
+    },
+    {
+      "revision": "989c49ba5cb3747859496d06736ae7c8317086ed",
+      "artifact": "BUILD_INFO.json release_history[0] (v0.38.0)",
+      "claimed_role": "historical release identity anchor",
+      "local_resolvable": true,
+      "remote_resolvable": "resolvable",
+      "remote_observation": "page shows \"Update to v0.38.0 UMDR32\"",
+      "branch_or_tag": "main",
+      "ancestor_of_current_main": true,
+      "associated_test_evidence": "historical",
+      "associated_ci_run": null,
+      "classification": "VERIFIED_REMOTE",
+      "explanation": "Published ancestor of main."
+    },
+    {
+      "revision": "4795f02377373a1a2dc4d3376987f7702cd24bf6",
+      "artifact": "BUILD_INFO.json version_identity_contract.previous_release + release_history[1] + umdr34.baseline",
+      "claimed_role": "previous release source (0.39.0 features window)",
+      "local_resolvable": true,
+      "remote_resolvable": "resolvable",
+      "remote_observation": "page shows \"Start feature development with v0.39.0 UMDR33\"",
+      "branch_or_tag": "features/v0.39.0-umdr33 (via clone)",
+      "ancestor_of_current_main": false,
+      "associated_test_evidence": "historical",
+      "associated_ci_run": null,
+      "classification": "VERIFIED_REMOTE",
+      "explanation": "Resolvable locally (via the published features branch history) and remotely; NOT an ancestor of main (the features branch diverges). Correctly referenced as the previous-release anchor, not as the current lineage."
+    },
+    {
+      "revision": "54fc95c873060486287eb4939654bd63b5e0a93f",
+      "artifact": "refs/heads/main parent (published)",
+      "claimed_role": "previous published final (UMDR38-1)",
+      "local_resolvable": true,
+      "remote_resolvable": "NOT_CHECKED_FROM_SANDBOX",
+      "remote_observation": "direct GitHub API blocked (403) from the build environment",
+      "branch_or_tag": "main",
+      "ancestor_of_current_main": true,
+      "associated_test_evidence": "historical (its own mission evidence)",
+      "associated_ci_run": null,
+      "classification": "VERIFIED_LOCAL_ONLY",
+      "explanation": "Published ancestor of main; the immediate parent of ca4ae448."
+    },
+    {
+      "revision": "30d0917275384c16a42351ae844a4508dd80c3c9",
+      "artifact": "BUILD_INFO.json umdr34.baseline (inline string)",
+      "claimed_role": "recorded TREE hash of the 0.39.0 baseline (not a commit)",
+      "local_resolvable": true,
+      "remote_resolvable": "NOT_APPLICABLE (tree object, not a commit URL)",
+      "branch_or_tag": "tree of 4795f02",
+      "ancestor_of_current_main": false,
+      "associated_test_evidence": "historical",
+      "associated_ci_run": null,
+      "classification": "VERIFIED_LOCAL_ONLY",
+      "explanation": "A tree hash recorded inside the umdr34 baseline string; resolves as a tree object locally. Not subject to commit-level resolution."
+    }
+  ],
+  "counts": {
+    "VERIFIED_REMOTE": 4,
+    "HISTORICAL_UNRESOLVABLE": 2,
+    "VERIFIED_LOCAL_ONLY": 2
+  }
+}

@@ -623,10 +623,8 @@
     }
   ],
   "coverage": {
-    "approved_transport": 122,
-    "not_applicable": 1068,
-    "unapproved_raw_transport": 27,
-    "total_records": 1217
+    "files_scanned": 277,
+    "total_sites": 1221
   },
   "dynamic_import_allowlist": [
     {
@@ -679,7 +677,7 @@
       ]
     }
   ],
-  "generated_from": "canonical AST scan of src",
+  "generated_from": "scripts/regen_direct_io_inventory_umdr40.py (declared UM-DR-40 window regeneration)",
   "logical_transports": {
     "api": {
       "authority": "API testing action family and target-origin scope",
@@ -767,14 +765,14 @@
       "window": "M2-impl reopened (Dispatch #009-A)",
       "added": [],
       "removed": [],
-      "note": "pure linedrift regen: 422 records shifted by the WP-I scoped edits (cli/commands.py, workers/pentest_worker.py — exit-code honesty only) and the NF-009A-02 builder.py gate reorder; zero identity-level sites added or removed"
+      "note": "pure linedrift regen: 422 records shifted by the WP-I scoped edits (cli/commands.py, workers/pentest_worker.py \u2014 exit-code honesty only) and the NF-009A-02 builder.py gate reorder; zero identity-level sites added or removed"
     },
     {
       "date": "2026-10-06",
       "window": "M2-impl reopened (Dispatch #009-A)",
       "added": [],
       "removed": [],
-      "note": "pure linedrift regen: 431 records shifted by the WP-I scoped edits (cli/commands.py, workers/pentest_worker.py — exit-code honesty only) and the NF-009A-02 builder.py gate reorder; zero identity-level sites added or removed"
+      "note": "pure linedrift regen: 431 records shifted by the WP-I scoped edits (cli/commands.py, workers/pentest_worker.py \u2014 exit-code honesty only) and the NF-009A-02 builder.py gate reorder; zero identity-level sites added or removed"
     },
     {
       "at": "2026-10-28T18:01:45Z",
@@ -788,7 +786,7 @@
     {
       "at": "2026-10-29T15:49:56Z",
       "window": "LEARNING A/B LAB 2026-10-29 (v0.27.0)",
-      "reason": "deliberate regen for the LEARNING A/B LAB window (C-9/C-10): the new scope-completion file memory/ab_lab.py adds its subprocess import and subprocess.run call site (the real webpent hunt launcher — process spawn, not network transport). No raw-transport site added; the unapproved-site pin is unchanged; no identity removed.",
+      "reason": "deliberate regen for the LEARNING A/B LAB window (C-9/C-10): the new scope-completion file memory/ab_lab.py adds its subprocess import and subprocess.run call site (the real webpent hunt launcher \u2014 process spawn, not network transport). No raw-transport site added; the unapproved-site pin is unchanged; no identity removed.",
       "records_before": 815,
       "records_after": 817,
       "added_unique": 2,
@@ -880,7 +878,7 @@
     },
     {
       "window": "M2 AUTHORIZATION & SCOPE 2026-11-05",
-      "reason": "deliberate regen for the M2 authorization & scope window: closes the artifact drift accumulated since the UNIFIED-MERGE phase-1/2 regen (2026-11-02) — M0 R1-R5 fixes, the M1-A M-4/M-5 safe-transport migration (raw urlopen/httpx sites removed), M1-C wiring files, and the M2 subprocess-site adjudication (3 sites approved with reasons); unapproved pin re-pinned 47->36 records / 41->30 identities by adjudication only",
+      "reason": "deliberate regen for the M2 authorization & scope window: closes the artifact drift accumulated since the UNIFIED-MERGE phase-1/2 regen (2026-11-02) \u2014 M0 R1-R5 fixes, the M1-A M-4/M-5 safe-transport migration (raw urlopen/httpx sites removed), M1-C wiring files, and the M2 subprocess-site adjudication (3 sites approved with reasons); unapproved pin re-pinned 47->36 records / 41->30 identities by adjudication only",
       "regenerated_at": "2026-11-05T14:43:03.846249+00:00",
       "record_count_before": 1035,
       "record_count_after": 1084,
@@ -889,7 +887,7 @@
     },
     {
       "window": "M3 RESEARCH WIRING 2026-11-05",
-      "reason": "deliberate regen for the M3 research wiring window: the two advisory hypothesis wirings (target_understanding ق6, javascript_intelligence ق8) add four dynamic_resolution getattr identities in their dedup logic; no removals, no new raw transports, pin unchanged",
+      "reason": "deliberate regen for the M3 research wiring window: the two advisory hypothesis wirings (target_understanding \u06426, javascript_intelligence \u06428) add four dynamic_resolution getattr identities in their dedup logic; no removals, no new raw transports, pin unchanged",
       "regenerated_at": "2026-11-05T15:15:43.117400+00:00",
       "record_count_before": 1084,
       "record_count_after": 1089,
@@ -979,7 +977,7 @@
     {
       "at": "2026-11-07T15:07:36Z",
       "window": "UM-DR-31 ADAPTIVE-RESEARCH-LOOP WINDOW 2026-11-07",
-      "reason": "deliberate regen for the UM-DR-31 adaptive-research-loop window: +2 declared identities (both dynamic-resolution getattr in the new non-frozen module production/adaptive_research.py — the fail-closed settings limits read and the checkpoint-round-trip-safe pool-index dual-shape read) plus line drift inside the re-pinned frozen files (state.py, settings.py, graph/builder.py, models/hypothesis.py, families/execution_node.py). ZERO removed identities, ZERO new raw transport, unapproved pin unchanged.",
+      "reason": "deliberate regen for the UM-DR-31 adaptive-research-loop window: +2 declared identities (both dynamic-resolution getattr in the new non-frozen module production/adaptive_research.py \u2014 the fail-closed settings limits read and the checkpoint-round-trip-safe pool-index dual-shape read) plus line drift inside the re-pinned frozen files (state.py, settings.py, graph/builder.py, models/hypothesis.py, families/execution_node.py). ZERO removed identities, ZERO new raw transport, unapproved pin unchanged.",
       "records": 1155,
       "identities_added": 2,
       "identities_removed": 0
@@ -987,7 +985,7 @@
     {
       "at": "2026-11-08T19:01:29Z",
       "window": "UM-DR-31 ADAPTIVE-RESEARCH-LOOP WINDOW 2026-11-07",
-      "reason": "deliberate regen for the UM-DR-31 adaptive-research-loop window: +2 declared identities (both dynamic-resolution getattr in the new non-frozen module production/adaptive_research.py — the fail-closed settings limits read and the checkpoint-round-trip-safe pool-index dual-shape read) plus line drift inside the re-pinned frozen files (state.py, settings.py, graph/builder.py, models/hypothesis.py, families/execution_node.py). ZERO removed identities, ZERO new raw transport, unapproved pin unchanged.",
+      "reason": "deliberate regen for the UM-DR-31 adaptive-research-loop window: +2 declared identities (both dynamic-resolution getattr in the new non-frozen module production/adaptive_research.py \u2014 the fail-closed settings limits read and the checkpoint-round-trip-safe pool-index dual-shape read) plus line drift inside the re-pinned frozen files (state.py, settings.py, graph/builder.py, models/hypothesis.py, families/execution_node.py). ZERO removed identities, ZERO new raw transport, unapproved pin unchanged.",
       "records": 1155,
       "identities_added": 0,
       "identities_removed": 0
@@ -995,8 +993,8 @@
     {
       "at": "2026-11-08T19:02:19Z",
       "window": "UM-DR-31.1 INTELLIGENCE & ENGINEERING UPLIFT WINDOW 2026-11-08",
-      "reason": "deliberate regen for the UM-DR-31.1 uplift window: ZERO added / ZERO removed identities (the R3 hypothesis-admission filter, the R4 fingerprint canonicalization, the R5 hint-semantics fix, the R6/F20 classification contract, the R7 corrupted-channel fail-closed handling and the §6.1 coverage-surface scheduling hints add no new dynamic-resolution sites), line drift only in the touched modules. ALSO carries the R11/F17 attribution correction for the UM-DR-31 entry (see attribution_correction).",
-      "attribution_correction": "UM-DR-31 regen-reason attribution correction (audit F17, remediation R11): the UM-DR-31 reason declared '+2 declared identities in production/adaptive_research.py'. The accurate attribution of that window's dynamic-resolution delta is: FOUR getattr sites in production/adaptive_research.py (two identity classes — the fail-closed settings limits read and the pool-index dual-shape read — at two call sites each) PLUS TWO getattr sites in families/execution_node.py (the research-hints wiring: the loop-flag read and the stateful_research_hints resolution block). The recorded IDENTITY SET was complete and correct; only the reason text under-attributed the execution_node additions. This correction is appended, never rewritten into history.",
+      "reason": "deliberate regen for the UM-DR-31.1 uplift window: ZERO added / ZERO removed identities (the R3 hypothesis-admission filter, the R4 fingerprint canonicalization, the R5 hint-semantics fix, the R6/F20 classification contract, the R7 corrupted-channel fail-closed handling and the \u00a76.1 coverage-surface scheduling hints add no new dynamic-resolution sites), line drift only in the touched modules. ALSO carries the R11/F17 attribution correction for the UM-DR-31 entry (see attribution_correction).",
+      "attribution_correction": "UM-DR-31 regen-reason attribution correction (audit F17, remediation R11): the UM-DR-31 reason declared '+2 declared identities in production/adaptive_research.py'. The accurate attribution of that window's dynamic-resolution delta is: FOUR getattr sites in production/adaptive_research.py (two identity classes \u2014 the fail-closed settings limits read and the pool-index dual-shape read \u2014 at two call sites each) PLUS TWO getattr sites in families/execution_node.py (the research-hints wiring: the loop-flag read and the stateful_research_hints resolution block). The recorded IDENTITY SET was complete and correct; only the reason text under-attributed the execution_node additions. This correction is appended, never rewritten into history.",
       "records": 1155,
       "identities_added": 0,
       "identities_removed": 0
@@ -1004,7 +1002,7 @@
     {
       "at": "2026-11-09T08:53:27Z",
       "window": "UM-DR-32 IDENTITY & BUSINESS-LOGIC EVOLUTION WINDOW 2026-11-09",
-      "reason": "deliberate regen for the UM-DR-32 window: SEVEN added dynamic_resolution identities (four dual-shape result reads in production/composite_workflows.py — the CausalGuard/validator/verdict/outcome fields over returned objects whose concrete type varies — and three in production/identity_workflow.py — the hypothesis-pool dual-shape reads and the fail-closed bounded-limits settings gate, the established identity classes), ZERO removed. No new transport sites: the four new capability modules are pure computation; every request flows through injected clients inside the authorized executor layer.",
+      "reason": "deliberate regen for the UM-DR-32 window: SEVEN added dynamic_resolution identities (four dual-shape result reads in production/composite_workflows.py \u2014 the CausalGuard/validator/verdict/outcome fields over returned objects whose concrete type varies \u2014 and three in production/identity_workflow.py \u2014 the hypothesis-pool dual-shape reads and the fail-closed bounded-limits settings gate, the established identity classes), ZERO removed. No new transport sites: the four new capability modules are pure computation; every request flows through injected clients inside the authorized executor layer.",
       "records": 1177,
       "identities_added": 7,
       "identities_removed": 0
@@ -1012,7 +1010,7 @@
     {
       "at": "2026-11-09T09:38:01Z",
       "window": "UM-DR-32 IDENTITY & BUSINESS-LOGIC EVOLUTION WINDOW 2026-11-09",
-      "reason": "deliberate regen for the UM-DR-32 window: SEVEN added dynamic_resolution identities (four dual-shape result reads in production/composite_workflows.py — the CausalGuard/validator/verdict/outcome fields over returned objects whose concrete type varies — and three in production/identity_workflow.py — the hypothesis-pool dual-shape reads and the fail-closed bounded-limits settings gate, the established identity classes), ZERO removed. No new transport sites: the four new capability modules are pure computation; every request flows through injected clients inside the authorized executor layer.",
+      "reason": "deliberate regen for the UM-DR-32 window: SEVEN added dynamic_resolution identities (four dual-shape result reads in production/composite_workflows.py \u2014 the CausalGuard/validator/verdict/outcome fields over returned objects whose concrete type varies \u2014 and three in production/identity_workflow.py \u2014 the hypothesis-pool dual-shape reads and the fail-closed bounded-limits settings gate, the established identity classes), ZERO removed. No new transport sites: the four new capability modules are pure computation; every request flows through injected clients inside the authorized executor layer.",
       "records": 1177,
       "identities_added": 0,
       "identities_removed": 0
@@ -1020,7 +1018,7 @@
     {
       "at": "2026-11-10T00:09:32Z",
       "window": "UM-DR-33 RESEARCHER BRAIN WINDOW 2026-11-10",
-      "reason": "deliberate regen for the UM-DR-33 window: ONE added dynamic_resolution identity — production/discovery_funnel.py's hypothesis-status dual-shape read (getattr over Hypothesis objects and Mapping-shaped pool records, the established identity class from identity_workflow.py), ZERO removed. No new transport sites: the funnel is pure telemetry over state channels; it performs no requests and never touches the executor layer.",
+      "reason": "deliberate regen for the UM-DR-33 window: ONE added dynamic_resolution identity \u2014 production/discovery_funnel.py's hypothesis-status dual-shape read (getattr over Hypothesis objects and Mapping-shaped pool records, the established identity class from identity_workflow.py), ZERO removed. No new transport sites: the funnel is pure telemetry over state channels; it performs no requests and never touches the executor layer.",
       "records": 1179,
       "identities_added": 1,
       "identities_removed": 0
@@ -1137,13 +1135,26 @@
         ]
       ],
       "identities_removed": 0
+    },
+    {
+      "window": "UM-DR-40",
+      "regenerated_at_utc": "2026-11-18T18:04:12.623537+00:00",
+      "added": 3,
+      "removed": 0,
+      "declared_modules": [
+        "src/webpent/agents/strategist/agent.py",
+        "src/webpent/production/decision_ledger.py",
+        "src/webpent/production/hypothesis_dedup.py",
+        "src/webpent/production/identity_activation.py"
+      ],
+      "reason": "the window's new production modules (hypothesis_dedup, identity_activation) carry function-local imports per the lazy-import convention"
     }
   ],
   "record_count": 1217,
   "generated_at": "2026-11-17T11:43:12.725802+00:00",
   "unapproved_transport_pin": 47,
   "window": "UM-DR-34 SCOPE AUTHORITY WINDOW 2026-11-10",
-  "regen_reason": "deliberate regen for the UM-DR-34 window: the raw httpx.Client construction in families/execution_node.py is REMOVED (replaced by the full safe factory — §4.8 no-silent-raw-client fix), and five documented identities are added (safe_boundary_call through make_safe_httpx_client, the method-aware redirect-guard read, the message-clone sanitization reads, the authority's dual-shape spec reads, and the executor's shifted response reads). No new raw transport sites.",
+  "regen_reason": "deliberate regen for the UM-DR-34 window: the raw httpx.Client construction in families/execution_node.py is REMOVED (replaced by the full safe factory \u2014 \u00a74.8 no-silent-raw-client fix), and five documented identities are added (safe_boundary_call through make_safe_httpx_client, the method-aware redirect-guard read, the message-clone sanitization reads, the authority's dual-shape spec reads, and the executor's shifted response reads). No new raw transport sites.",
   "regenerated_at": "2026-11-10T02:42:53.377121+00:00",
   "records": [
     {
@@ -4541,7 +4552,7 @@
     },
     {
       "file": "src/webpent/agents/strategist/agent.py",
-      "line": 580,
+      "line": 595,
       "column": 32,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -4554,7 +4565,7 @@
     },
     {
       "file": "src/webpent/agents/strategist/agent.py",
-      "line": 620,
+      "line": 635,
       "column": 35,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -4567,7 +4578,7 @@
     },
     {
       "file": "src/webpent/agents/strategist/agent.py",
-      "line": 632,
+      "line": 647,
       "column": 32,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -4580,7 +4591,7 @@
     },
     {
       "file": "src/webpent/agents/strategist/agent.py",
-      "line": 661,
+      "line": 676,
       "column": 31,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -4593,7 +4604,7 @@
     },
     {
       "file": "src/webpent/agents/strategist/agent.py",
-      "line": 703,
+      "line": 740,
       "column": 17,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -7141,7 +7152,7 @@
     },
     {
       "file": "src/webpent/graph/builder.py",
-      "line": 316,
+      "line": 326,
       "column": 24,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -7154,7 +7165,7 @@
     },
     {
       "file": "src/webpent/graph/builder.py",
-      "line": 317,
+      "line": 327,
       "column": 23,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -7167,7 +7178,7 @@
     },
     {
       "file": "src/webpent/graph/builder.py",
-      "line": 336,
+      "line": 346,
       "column": 9,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -7180,7 +7191,7 @@
     },
     {
       "file": "src/webpent/graph/builder.py",
-      "line": 337,
+      "line": 347,
       "column": 19,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -7193,7 +7204,7 @@
     },
     {
       "file": "src/webpent/graph/builder.py",
-      "line": 1399,
+      "line": 1409,
       "column": 17,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -7206,7 +7217,7 @@
     },
     {
       "file": "src/webpent/graph/builder.py",
-      "line": 1675,
+      "line": 1685,
       "column": 16,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -7219,7 +7230,7 @@
     },
     {
       "file": "src/webpent/graph/builder.py",
-      "line": 1686,
+      "line": 1696,
       "column": 39,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -7232,7 +7243,7 @@
     },
     {
       "file": "src/webpent/graph/builder.py",
-      "line": 1693,
+      "line": 1703,
       "column": 26,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -7245,7 +7256,7 @@
     },
     {
       "file": "src/webpent/graph/builder.py",
-      "line": 1936,
+      "line": 1946,
       "column": 59,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -7258,7 +7269,7 @@
     },
     {
       "file": "src/webpent/graph/builder.py",
-      "line": 2111,
+      "line": 2125,
       "column": 12,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -7271,7 +7282,7 @@
     },
     {
       "file": "src/webpent/graph/builder.py",
-      "line": 2118,
+      "line": 2132,
       "column": 8,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -7284,7 +7295,7 @@
     },
     {
       "file": "src/webpent/graph/builder.py",
-      "line": 2557,
+      "line": 2577,
       "column": 8,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -11378,6 +11389,19 @@
       "reason": "dynamic attribute access observed without a transport signal"
     },
     {
+      "file": "src/webpent/production/decision_ledger.py",
+      "line": 57,
+      "column": 29,
+      "kind": "dynamic_resolution",
+      "symbol": "getattr",
+      "normalized_symbol": "getattr(hypothesis, ... )",
+      "transport": "dynamic_resolution",
+      "transport_family": "non_transport",
+      "classification": "dynamic_resolution",
+      "approval_status": "not_applicable",
+      "reason": "dynamic attribute access observed without a transport signal"
+    },
+    {
       "file": "src/webpent/production/discovery_funnel.py",
       "line": 133,
       "column": 19,
@@ -11527,6 +11551,45 @@
       "kind": "dynamic_resolution",
       "symbol": "getattr",
       "normalized_symbol": "getattr(finding, ... )",
+      "transport": "dynamic_resolution",
+      "transport_family": "non_transport",
+      "classification": "dynamic_resolution",
+      "approval_status": "not_applicable",
+      "reason": "dynamic attribute access observed without a transport signal"
+    },
+    {
+      "file": "src/webpent/production/hypothesis_dedup.py",
+      "line": 79,
+      "column": 26,
+      "kind": "dynamic_resolution",
+      "symbol": "getattr",
+      "normalized_symbol": "getattr(hypothesis, ... )",
+      "transport": "dynamic_resolution",
+      "transport_family": "non_transport",
+      "classification": "dynamic_resolution",
+      "approval_status": "not_applicable",
+      "reason": "dynamic attribute access observed without a transport signal"
+    },
+    {
+      "file": "src/webpent/production/hypothesis_dedup.py",
+      "line": 80,
+      "column": 26,
+      "kind": "dynamic_resolution",
+      "symbol": "getattr",
+      "normalized_symbol": "getattr(hypothesis, ... )",
+      "transport": "dynamic_resolution",
+      "transport_family": "non_transport",
+      "classification": "dynamic_resolution",
+      "approval_status": "not_applicable",
+      "reason": "dynamic attribute access observed without a transport signal"
+    },
+    {
+      "file": "src/webpent/production/identity_activation.py",
+      "line": 58,
+      "column": 24,
+      "kind": "dynamic_resolution",
+      "symbol": "getattr",
+      "normalized_symbol": "getattr(settings, ... )",
       "transport": "dynamic_resolution",
       "transport_family": "non_transport",
       "classification": "dynamic_resolution",

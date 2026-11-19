@@ -60,6 +60,16 @@ from webpent.agents.execution_sandbox.agent import execution_sandbox_node
 from webpent.agents.executive_summary.agent import executive_summary_node
 from webpent.agents.exploit_chainer.agent import exploit_chainer_node
 from webpent.agents.hypothesis_analyzer.agent import hypothesis_node
+
+# UM-DR-40 RC-5: the registered node is the dedup-wrapped generator —
+# every emitted hypothesis gets its deterministic content id (uuid5
+# of the (target_url, vuln_class) fingerprint) at GENERATION time, so
+# the upsert-by-id merge_hypotheses reducer absorbs cross-pass
+# content duplicates instead of appending them. The bare import above
+# stays for backward compatibility of external callers.
+from webpent.production.hypothesis_dedup import (
+    deduplicated_hypothesis_node,
+)
 from webpent.agents.javascript_intelligence.agent import javascript_intelligence_node
 from webpent.agents.payload_generator.agent import payload_generator_node
 from webpent.agents.payload_optimizer.agent import (
@@ -2038,7 +2048,11 @@ def build_graph(checkpointer: Any = None, auto_approve: bool = False,
     graph.add_node(NODE_SCOPE_ENFORCER, _trace_wrap(NODE_SCOPE_ENFORCER, scope_enforcer_node))
     graph.add_node(NODE_SCOPE_REVIEW, _trace_wrap(NODE_SCOPE_REVIEW, scope_review_node))
     graph.add_node(NODE_WAF_DETECTOR, _trace_wrap(NODE_WAF_DETECTOR, waf_detector_node))
-    graph.add_node(NODE_HYPOTHESIS, _trace_wrap(NODE_HYPOTHESIS, hypothesis_node))
+    # UM-DR-40 RC-5: register the dedup-wrapped generator (generation-
+    # time semantic fingerprint ids; flag-independent, advisory pool
+    # hygiene — the pool content per (url, vuln_class) is unchanged).
+    graph.add_node(NODE_HYPOTHESIS, _trace_wrap(
+        NODE_HYPOTHESIS, deduplicated_hypothesis_node))
     graph.add_node(NODE_PAYLOAD_GENERATOR, _trace_wrap(NODE_PAYLOAD_GENERATOR, payload_generator_node))
     graph.add_node(NODE_EXECUTION_SANDBOX, _trace_wrap(NODE_EXECUTION_SANDBOX, execution_sandbox_node))
     graph.add_node(NODE_VALIDATOR, _trace_wrap(NODE_VALIDATOR, validator_node))
@@ -2326,7 +2340,13 @@ def build_graph(checkpointer: Any = None, auto_approve: bool = False,
         # backward-compat alias is kept above for external callers.
         # R2-graph-02: the path map lives in HYPOTHESIS_PATH_MAP and now
         # also wires NODE_STRATEGIST (the budget-pressure return).
-        NODE_HYPOTHESIS, route_after_hypothesis, dict(HYPOTHESIS_PATH_MAP),
+        # UM-DR-40 RC-4: the hypothesis router no longer bypasses the
+        # composed advisory redirect — strategist-bound branches run
+        # identity_workflow first when any identity capability is
+        # enabled (_research_route_redirects is a byte-identical no-op
+        # when every identity flag is OFF, preserving the graph shape).
+        NODE_HYPOTHESIS, route_after_hypothesis,
+        dict(_research_route_redirects(HYPOTHESIS_PATH_MAP)),
     )
 
     # V7 Sprint 2: Deep-probing agent chain.

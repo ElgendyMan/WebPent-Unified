@@ -1,0 +1,100 @@
+{
+  "schema": "umdr40-acceptance-matrix/v2",
+  "generated_at_utc": "2026-11-18T13:10:01.800487+00:00",
+  "release_commit": "bafe618ee6f7",
+  "binding_suite": {
+    "commit": "ccb4aea",
+    "passed": 9354,
+    "failed": 0,
+    "skipped": 9,
+    "xfailed": 3,
+    "xpassed": 0,
+    "deselected": 0,
+    "errors": 0,
+    "collected": 9365,
+    "executed": 9366,
+    "accounting_consistent": 0,
+    "summary_found": 1
+  },
+  "criteria": [
+    {
+      "id": "C1",
+      "criterion": "RC-4 redirect asymmetry fixed",
+      "status": "PASS",
+      "evidence": "builder.py wiring (fe091f6); 7/7 contract cases; flags-off map byte-identical"
+    },
+    {
+      "id": "C2",
+      "criterion": "RC-4 per-campaign activation + recorded budget impact",
+      "status": "PASS",
+      "evidence": "identity_activation.py (7/7 unit tests incl. wired-router integration); deltas recorded: requests +0, findings +0, identity channels 0->3"
+    },
+    {
+      "id": "C3",
+      "criterion": "RC-4 campaign demonstrates principals_observed > 0",
+      "status": "PASS",
+      "evidence": "production entrypoint, clean tree, 4 reproductions across rebuilds: enabled principals=3 vs baseline=0, guard verdicts unchanged, proven=True"
+    },
+    {
+      "id": "C4",
+      "criterion": "RC-5 fingerprint at generation time (deterministic uuid5)",
+      "status": "PASS",
+      "evidence": "hypothesis_dedup.py wired at the builder registration boundary; 4/4 contract cases"
+    },
+    {
+      "id": "C5",
+      "criterion": "RC-5 dedup test across two node passes",
+      "status": "PASS",
+      "evidence": "two registered-node passes: identical id sets; merged pool has each (url,class) once"
+    },
+    {
+      "id": "C6",
+      "criterion": "RC-7 ranked runner-up slice in the coverage ledger",
+      "status": "PASS",
+      "evidence": "alternatives_considered per candidate (bounded top-5 with scores); production-node proof proven=True"
+    },
+    {
+      "id": "C7",
+      "criterion": "RC-6 measured information gain in the decision log",
+      "status": "PASS",
+      "evidence": "batch before/after pool difference, distinguished ids recorded (rule_fired=umdr40_rc6_measured_information_gain); proven=True; RC-5 deterministic ids are the enabler; adapted INTO the strategist (its only caller)"
+    },
+    {
+      "id": "C8",
+      "criterion": "Frozen-modules regime respected (both windows)",
+      "status": "PASS",
+      "evidence": "builder.py re-pinned (refreeze_umdr40: 95efa271) + strategist re-pinned (refreeze_umdr40b: 887c4c0f) via declared scripts; gate green against the updated manifest"
+    },
+    {
+      "id": "C9",
+      "criterion": "Editable registers updated through declared tools",
+      "status": "PASS",
+      "evidence": "broad-exception narrowed; direct_io_inventory regen declares the new modules + thawed strategist (+1 site); baseline drift union includes UMDR40B; both gates green"
+    },
+    {
+      "id": "C10",
+      "criterion": "Full suite green at the window head",
+      "status": "PASS",
+      "evidence": "9365 collected / 9354 passed / 0 failed / 0 errors at ccb4aea (9,330 baseline + 24 window contract tests)"
+    },
+    {
+      "id": "C11",
+      "criterion": "BUILD_INFO honesty + evidence gates",
+      "status": "PASS",
+      "evidence": "check_build_info_honesty PASS; check_test_evidence PASS (commit ccb4aea)"
+    },
+    {
+      "id": "C12",
+      "criterion": "RC-8/RC-9/RC-10",
+      "status": "ASSESSED_REMAINS_OPEN",
+      "evidence": "honest statuses in UMDR40_ENGINEERING_DESIGN.md; no coverage claimed"
+    },
+    {
+      "id": "C13",
+      "criterion": "Remote CI on the exact commits",
+      "status": "BLOCKED_EXTERNAL_DEPENDENCY",
+      "evidence": "no push credentials; GitHub API 403 from the build env; branch ready to push"
+    }
+  ],
+  "decision": "COMPLETE_LOCAL_RC4_RC5_RC6_RC7 \u2014 REMOTE_CI_BLOCKED"
+}

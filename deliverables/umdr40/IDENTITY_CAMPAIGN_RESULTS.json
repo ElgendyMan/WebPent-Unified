@@ -1,0 +1,175 @@
+{
+  "schema": "umdr40-identity-campaigns/v1",
+  "generated_at_utc": "2026-11-18T12:28:48.040234+00:00",
+  "started_at_utc": "2026-11-18T12:28:01.478800+00:00",
+  "mission": "UM-DR-40 RC-4 (per-campaign identity activation)",
+  "entrypoint": "umdr37_production_campaigns.run_campaign -> webpent.cli.unified_hunt.run_unified_hunt (no_llm=True, auto_approve=True)",
+  "arms": {
+    "baseline": {
+      "runs": 2,
+      "capabilities": "all four identity flags OFF (fail-closed default)",
+      "snapshot": {
+        "identity_capabilities": {
+          "enable_object_identity": false,
+          "enable_alias_resolution": false,
+          "enable_multi_identity_reasoning": false,
+          "enable_composite_workflows": false
+        },
+        "activated_at_utc": "2026-11-18T12:28:48.047330+00:00"
+      }
+    },
+    "enabled": {
+      "runs": 2,
+      "capabilities": "all four identity flags ON via identity_campaign_activation"
+    }
+  },
+  "baseline_metrics": [
+    {
+      "campaign_id": "umdr38-campaign-1-4d940173",
+      "elapsed_s": 35.4,
+      "lab_request_count": 108,
+      "findings_confirmed": 2,
+      "findings_total": 9,
+      "funnel_principals_observed": 0,
+      "differential_questions": 0,
+      "authorization_observations": 4,
+      "identities_observed": [
+        "User_A",
+        "User_B"
+      ],
+      "guard_verdicts": [
+        "CONFIRMED",
+        "CONFIRMED"
+      ],
+      "source_commit": "ba0d294dc0bf2dca879a0f91f66ed7a4a994b8e1",
+      "tree_sha": "cc232f8b01e1cd38f6fe62769d89cd01580511c2",
+      "tree_clean": true
+    },
+    {
+      "campaign_id": "umdr38-campaign-2-e9db95d4",
+      "elapsed_s": 1.9,
+      "lab_request_count": 108,
+      "findings_confirmed": 2,
+      "findings_total": 9,
+      "funnel_principals_observed": 0,
+      "differential_questions": 0,
+      "authorization_observations": 4,
+      "identities_observed": [
+        "User_A",
+        "User_B"
+      ],
+      "guard_verdicts": [
+        "CONFIRMED",
+        "CONFIRMED"
+      ],
+      "source_commit": "ba0d294dc0bf2dca879a0f91f66ed7a4a994b8e1",
+      "tree_sha": "cc232f8b01e1cd38f6fe62769d89cd01580511c2",
+      "tree_clean": true
+    }
+  ],
+  "enabled_metrics": [
+    {
+      "campaign_id": "umdr38-campaign-3-c74652fc",
+      "elapsed_s": 2.3,
+      "lab_request_count": 108,
+      "findings_confirmed": 2,
+      "findings_total": 9,
+      "funnel_principals_observed": 3,
+      "differential_questions": 0,
+      "authorization_observations": 4,
+      "identities_observed": [
+        "User_A",
+        "User_B"
+      ],
+      "guard_verdicts": [
+        "CONFIRMED",
+        "CONFIRMED"
+      ],
+      "source_commit": "ba0d294dc0bf2dca879a0f91f66ed7a4a994b8e1",
+      "tree_sha": "cc232f8b01e1cd38f6fe62769d89cd01580511c2",
+      "tree_clean": true
+    },
+    {
+      "campaign_id": "umdr38-campaign-4-b5f63d2f",
+      "elapsed_s": 2.0,
+      "lab_request_count": 108,
+      "findings_confirmed": 2,
+      "findings_total": 9,
+      "funnel_principals_observed": 3,
+      "differential_questions": 0,
+      "authorization_observations": 4,
+      "identities_observed": [
+        "User_A",
+        "User_B"
+      ],
+      "guard_verdicts": [
+        "CONFIRMED",
+        "CONFIRMED"
+      ],
+      "source_commit": "ba0d294dc0bf2dca879a0f91f66ed7a4a994b8e1",
+      "tree_sha": "cc232f8b01e1cd38f6fe62769d89cd01580511c2",
+      "tree_clean": true
+    }
+  ],
+  "budget_impact": [
+    {
+      "schema": "umdr40-identity-budget-impact/v1",
+      "recorded_at_utc": "2026-11-18T12:28:48.040168+00:00",
+      "baseline_campaign_id": "umdr38-campaign-1-4d940173",
+      "enabled_campaign_id": "umdr38-campaign-3-c74652fc",
+      "deltas": {
+        "lab_request_count": 0.0,
+        "requests_total": null,
+        "elapsed_s": -33.1,
+        "duration_seconds": null,
+        "findings_confirmed": 0.0,
+        "findings_pending": null
+      },
+      "baseline_identity_counts": {
+        "principals_observed": 0,
+        "identities_observed": 2,
+        "differential_questions": 0
+      },
+      "enabled_identity_counts": {
+        "principals_observed": 3,
+        "identities_observed": 2,
+        "differential_questions": 0
+      },
+      "note": "advisory identity layer: adds reasoning over already-collected observations; any request-budget delta is from the enabled node's own passes, recorded here per RC-4"
+    },
+    {
+      "schema": "umdr40-identity-budget-impact/v1",
+      "recorded_at_utc": "2026-11-18T12:28:48.040212+00:00",
+      "baseline_campaign_id": "umdr38-campaign-2-e9db95d4",
+      "enabled_campaign_id": "umdr38-campaign-4-b5f63d2f",
+      "deltas": {
+        "lab_request_count": 0.0,
+        "requests_total": null,
+        "elapsed_s": 0.10000000000000009,
+        "duration_seconds": null,
+        "findings_confirmed": 0.0,
+        "findings_pending": null
+      },
+      "baseline_identity_counts": {
+        "principals_observed": 0,
+        "identities_observed": 2,
+        "differential_questions": 0
+      },
+      "enabled_identity_counts": {
+        "principals_observed": 3,
+        "identities_observed": 2,
+        "differential_questions": 0
+      },
+      "note": "advisory identity layer: adds reasoning over already-collected observations; any request-budget delta is from the enabled node's own passes, recorded here per RC-4"
+    }
+  ],
+  "rc4_proof": {
+    "acceptance_text": "a campaign demonstrates principals_observed > 0 from the registered node (39 register RC-4)",
+    "enabled_runs_have_principals_observed": true,
+    "baseline_runs_identity_channels_empty": true,
+    "guard_verdicts_unchanged_across_arms": true,
+    "proven": true,
+    "differential_questions_note": "reported, not required: the advisory matrix asks questions only when observed authorization evidence differs across principals"
+  },
+  "notes": "The identity layer is advisory: the causal guard stays the sole verdict authority, so the confirmed findings and guard verdicts are expected to match across arms; the difference must be the identity channels and the recorded budget impact."
+}

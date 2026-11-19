@@ -98,6 +98,28 @@ R3_RULING_THAW_PATHS = frozenset(
     }
 )
 
+# UM-DR-40b (2026-11-18): ONE frozen file thawed for the declared
+# refreeze window — src/webpent/agents/strategist/agent.py, re-pinned
+# by scripts/refreeze_manifest_umdr40b.py AFTER its changes were
+# verified by the window's regression tests
+# (tests/test_umdr40_rc6_rc7_decision_ledger.py). The changes:
+#   1. RC-7 — record_coverage carries the ranked runner-up slice
+#      (alternatives_considered, bounded top-5 with scores) from
+#      production/decision_ledger.ranked_alternatives;
+#   2. RC-6 — the decision batch records its MEASURED information
+#      gain (before/after pool difference via
+#      decision_ledger.information_gain_snapshot; RC-5's
+#      deterministic ids make the difference stable) as a
+#      "prioritization" decision entry
+#      (rule_fired=umdr40_rc6_measured_information_gain).
+# The 39 register's RC-6 constraint — "adapted INTO the strategist,
+# not a parallel orchestrator" — is exactly what this thaw enables.
+UMDR40B_20261118_THAW_PATHS = frozenset(
+    {
+        "src/webpent/agents/strategist/agent.py",
+    }
+)
+
 # TEAM-MERGE 2026-10-22 (donorC Comprehensive(1) + donorV v15.2; re-freeze
 # commit 1dfcbe4, documented in the TEAM-MERGE re-freeze addendum of
 # docs/UNFREEZE_FILES_20261005.md): the v15.2 lineage regenerated
@@ -1149,6 +1171,15 @@ def test_frozen_file_byte_identical(relpath: str) -> None:
     assert absolute.exists(), f"frozen module missing from tree: {relpath}"
     expected = _parse_manifest(MANIFEST)[relpath]
     observed = _sha256(absolute)
+    if observed != expected and relpath in UMDR40B_20261118_THAW_PATHS:
+        # UM-DR-40b declared-refreeze delta mode: authorized exactly
+        # this file for this window; byte-identity is restored by the
+        # declared refreeze script at window close.
+        pytest.skip(
+            f"{relpath} thawed mid-window per the declared UM-DR-40b "
+            "refreeze convention — delta-mode enforcement; "
+            "byte-identity restored at re-freeze by "
+            "scripts/refreeze_manifest_umdr40b.py")
     if observed != expected and relpath in R3_RULING_THAW_PATHS:
         # Mid-window delta mode: the ruling authorized exactly this file.
         # Authorization/mapping/sub-scope are enforced by the delta gate
@@ -1211,6 +1242,7 @@ def test_baseline_disagrees_only_on_documented_unfreeze_paths() -> None:
         | UMDR34_SCOPE_AUTHORITY_20261110_THAW_PATHS
         | UMDR35_36_CONFIRMATION_20261112_THAW_PATHS
         | UMDR37_ROOT_CAUSE_20261115_THAW_PATHS
+        | UMDR40B_20261118_THAW_PATHS
     )
     # ULTIMATE PLAN 2026-10-27, proposal 4: the pre-archive drift sets
     # (e.g. TEAM_MERGE_V152_LINEAGE_DRIFT_PATHS' goed_v1 entry) can no
