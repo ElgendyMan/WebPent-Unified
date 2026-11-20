@@ -33,7 +33,6 @@ def main() -> int:
 
     head = git("rev-parse", "HEAD")
     branch = git("rev-parse", "--abbrev-ref", "HEAD")
-    status = git("status", "--porcelain") or "(clean)"
     dirty = bool(git("status", "--porcelain"))
 
     # --- diff anatomy 86e5861 -> 5a7e511c -----------------------------

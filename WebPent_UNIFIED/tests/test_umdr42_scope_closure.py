@@ -22,8 +22,6 @@ import sqlite3
 import textwrap
 from pathlib import Path
 
-import pytest
-
 from webpent.scope import (
     GLOBAL_SCOPE_REGISTRY,
     ScopeRegistry,
@@ -107,8 +105,8 @@ def test_api_scope_endpoints_map_store_unavailable_to_503(tmp_path,
     503 (retryable, honest) — never an opaque 500 that looks like a bug
     and never a fail-open response."""
     from fastapi.testclient import TestClient
+
     from webpent.api import app as app_module
-    from webpent.api.app import app
 
     class _BrokenStore:
         def current(self, engagement_id: str):  # pragma: no cover
@@ -149,7 +147,7 @@ def test_api_scope_endpoints_map_store_unavailable_to_503(tmp_path,
 
     monkeypatch.setattr(api_app, "GLOBAL_SCOPE_REGISTRY",
                         _RegistryWithBrokenStore())
-    client = TestClient(app, raise_server_exceptions=False)
+    client = TestClient(api_app.app, raise_server_exceptions=False)
 
     r = client.get("/api/v1/scope")
     assert r.status_code == 503, r.text

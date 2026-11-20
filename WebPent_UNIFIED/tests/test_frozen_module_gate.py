@@ -130,8 +130,6 @@ UMDR40B_20261118_THAW_PATHS = frozenset(
 # commit, manifest was simply stale). All 27 re-pinned by
 # scripts/refreeze_manifest_umdr42.py after the window's regression
 # tests passed (85 targeted tests green; the only full-suite failures
-# were the frozen-gate byte checks this list documents).
-# tests passed (85 targeted tests green; the only full-suite failures
 # were the frozen-gate byte checks this list documents). Nine of the 29
 # re-pinned files postdate the pre-unfreeze baseline entirely (they did
 # not exist at the 2026-10-05 freeze), so they cannot appear as drift
@@ -165,6 +163,39 @@ UMDR42_20261119_THAW_PATHS = frozenset(
         "src/webpent/recon/payload_advisor.py",
         "src/webpent/service/manager.py",
         "src/webpent/shared/fixture_store.py",
+    }
+)
+
+# UMDR42-closure (2026-11-20): the four P1 scope-authority repairs of
+# the closure window (commit "fix(umdr42 A1): scope revocation
+# integrity") touched two frozen files AFTER the UMDR42 D1 re-pin:
+#   * src/webpent/scope/store.py — clear() tombstones every active
+#     version; current()/current_version()/redacted() use
+#     latest-then-revoked ordering (P1-SCOPE-REVIVE);
+#   * src/webpent/api/app.py — /api/v1/scope/* map
+#     ScopeStoreUnavailable to 503 (P1-SCOPE-API-500);
+#   * src/webpent/workers/pentest_worker.py — consumes the shared
+#     WEBPENT_SCOPE_STORE_* contract (P1-SCOPE-WORKER-INIT).
+# Regression proof BEFORE the re-pin: tests/test_umdr42_scope_closure.py
+# (7/7; all four defects proven RED on the 5a7e511c baseline first).
+# Byte-identity is restored at window close by re-pinning the manifest
+# (the closure report documents the exact refreeze step).
+# NOTE: scope/store.py postdates the 2026-10-05 pre-unfreeze baseline
+# entirely, so it never appears in the baseline-drift comparison below —
+# it is listed only for the byte-identity delta mode above.
+UMDR42_CLOSURE_20261120_THAW_PATHS = frozenset(
+    {
+        "src/webpent/scope/store.py",
+        "src/webpent/api/app.py",
+        "src/webpent/workers/pentest_worker.py",
+    }
+)
+# The pre-unfreeze drift expectation needs only the two paths that
+# exist in that baseline (store.py is newer than it).
+UMDR42_CLOSURE_20261120_BASELINE_DRIFT_PATHS = frozenset(
+    {
+        "src/webpent/api/app.py",
+        "src/webpent/workers/pentest_worker.py",
     }
 )
 
@@ -1228,6 +1259,15 @@ def test_frozen_file_byte_identical(relpath: str) -> None:
             "refreeze convention — delta-mode enforcement; "
             "byte-identity restored at re-freeze by "
             "scripts/refreeze_manifest_umdr40b.py")
+    if observed != expected and relpath in UMDR42_CLOSURE_20261120_THAW_PATHS:
+        # UMDR42 closure window: the P1 scope-authority repairs touched
+        # these frozen files after the D1 re-pin; regression proof is
+        # tests/test_umdr42_scope_closure.py, byte-identity is restored
+        # by the closure refreeze documented in the closure report.
+        pytest.skip(
+            f"{relpath} thawed mid-window per the declared UMDR42-"
+            "closure scope-revocation window — delta-mode enforcement; "
+            "byte-identity restored at the closure re-freeze")
     if observed != expected and relpath in R3_RULING_THAW_PATHS:
         # Mid-window delta mode: the ruling authorized exactly this file.
         # Authorization/mapping/sub-scope are enforced by the delta gate
@@ -1292,6 +1332,7 @@ def test_baseline_disagrees_only_on_documented_unfreeze_paths() -> None:
         | UMDR37_ROOT_CAUSE_20261115_THAW_PATHS
         | UMDR40B_20261118_THAW_PATHS
         | UMDR42_20261119_THAW_PATHS
+        | UMDR42_CLOSURE_20261120_BASELINE_DRIFT_PATHS
     )
     # ULTIMATE PLAN 2026-10-27, proposal 4: the pre-archive drift sets
     # (e.g. TEAM_MERGE_V152_LINEAGE_DRIFT_PATHS' goed_v1 entry) can no
