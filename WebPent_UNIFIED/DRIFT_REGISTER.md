@@ -1760,3 +1760,22 @@ recon/observations → signal inventory → adaptive hypotheses → الـ pool 
   object-level authorization failure proven by the cross-identity
   differential; INV-A-101: production-confirmed auth_bypass, NOT
   claimed as IDOR).
+
+## 2026-11-19 — UMDR42 Phase D2: dead-code deletion (34 symbols)
+
+Verified-dead public symbols removed (zero external references, not
+frozen-gated, no string-literal/dynamic-dispatch usage — full decision
+table in deliverables/umdr42_audit/D2_FINAL_VERDICTS.json):
+egaie/discovery_runner (run_discovery_adaptive/fixed/ablation),
+apex/sandbox (kill_after_deadline, cleanup_all), causal_reasoning+
+causal_reasoning_v2 (9 analyzer helpers incl. v2/v3 callees),
+shared/target_spec (RequestBudget, load_target_spec + 8 validators),
+shared/console (5 print helpers), irta/v3/blind (4 owner-case hooks),
+egaie (assertions/differential/http_target/benchmark helpers), and 11
+further single-site helpers across campaign/ekg/forge/labsuite/
+learning/memory/models/prism/qualification/shared/verification/
+stateful_api/tools. 256 lines removed across 29 files; compileall
+clean; frozen gate 649/649; G-02 scan count unchanged (1223 — none of
+the deleted symbols were transport sites). Decision evidence and the
+exclusion classes (136 frozen-gated, 13 dynamic-dispatch) recorded in
+D2_DECISION_TABLE.json.

@@ -12,7 +12,7 @@ any error it returns a neutral state (no adaptation, no crash).
 """
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any
 
 _WAF_HEADERS = ("cf-ray", "x-sucuri-id", "x-waf", "x-cdn", "server: cloudflare",

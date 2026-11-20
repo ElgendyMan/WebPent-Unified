@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Iterable
 
-from webpent.llm_researcher.key_pool import KeyPool, ProviderModel
+from webpent.llm_researcher.key_pool import KeyPool
 
 
 class LLMTask(str, Enum):

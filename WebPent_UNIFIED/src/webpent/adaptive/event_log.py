@@ -7,7 +7,7 @@ exactly how the hunter adapted (and how often it was detected).
 """
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any
 
 

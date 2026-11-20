@@ -1,0 +1,53 @@
+{
+ "expired_count": 49,
+ "expiry_date": "2026-11-19",
+ "by_file": {
+  "src/webpent/adapters/generic_web/adapter.py": 1,
+  "src/webpent/shared/http.py": 5,
+  "src/webpent/tools/utils/subprocess.py": 2,
+  "src/webpent/cli/git_source.py": 2,
+  "src/webpent/shared/capability_manifest.py": 2,
+  "src/webpent/shared/preflight.py": 1,
+  "src/webpent/shared/playwright_adapter.py": 2,
+  "src/webpent/shared/oob_provider.py": 2,
+  "src/webpent/agents/authentication/agent.py": 2,
+  "src/webpent/agents/execution_sandbox/agent.py": 2,
+  "src/webpent/agents/validator/agent.py": 2,
+  "src/webpent/cli/__init__.py": 2,
+  "src/webpent/agents/request_smuggling/agent.py": 2,
+  "src/webpent/agents/subdomain_takeover/agent.py": 2,
+  "src/webpent/adapters/controlled_target/adapter.py": 2,
+  "src/webpent/service/health.py": 2,
+  "src/webpent/recon/browser_farm.py": 4,
+  "src/webpent/recon/browser_crawler.py": 2,
+  "src/webpent/recon/traffic_interceptor.py": 1
+ },
+ "by_canonical_wrapper": {
+  "generic_adapter_uses_hardened_http_boundary": 1,
+  "hardened_httpx_and_dns_boundary": 5,
+  "bounded_subprocess_boundary": 2,
+  "bounded_git_source_subprocess": 2,
+  "read_only_tool_capability_probe": 2,
+  "read_only_playwright_capability_probe": 1,
+  "typed_playwright_observation_boundary": 2,
+  "bounded_opt_in_oob_subprocess_and_session_files": 2,
+  "scoped_playwright_auth_flow": 2,
+  "scoped_playwright_xss_replay": 2,
+  "scoped_playwright_csrf_replay": 2,
+  "bounded_playwright_preflight": 2,
+  "scoped_raw_tcp_validator": 2,
+  "scoped_dns_resolution_validator": 2,
+  "loopback_only_controlled_target_http_boundary": 2,
+  "fixed_gate_scripts_bounded_subprocess_monitor": 2,
+  "bounded_playwright_browser_farm_scope_and_lifecycle": 4,
+  "bounded_playwright_rendered_recon_scope": 2,
+  "redacted_playwright_traffic_boundary": 1
+ },
+ "all_owners": [
+  "security-engineering"
+ ],
+ "approved_by": [
+  "g02-baseline-review-20260821",
+  "g02-oob-review-20260823"
+ ]
+}

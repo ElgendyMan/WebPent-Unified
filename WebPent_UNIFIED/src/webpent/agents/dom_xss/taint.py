@@ -18,7 +18,7 @@ Everything is deterministic string/AST work — no LLM, no network.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 __all__ = ["TaintFlow", "find_taint_flows"]
 

@@ -193,33 +193,3 @@ def defects_for(app: str, spec: Any) -> list[dict[str, str]]:
     raise ValueError(app)
 
 
-def ambiguous_behaviors(app: str, spec: Any) -> list[str]:
-    """Documented behaviors that MIMIC violations (ground truth clean).
-
-    A confirmation attributed to one of these is a false positive by
-    construction; the evaluation counts it in the false-positive
-    denominator.
-    """
-    if app == "docvault" and spec.variant == "ambiguous":
-        return ["documented guest read access to the lobby notice"]
-    if app == "market" and spec.variant == "ambiguous":
-        return ["documented bulk rule: orders of three or more "
-                "units are charged at 80 percent"]
-    if app == "ticketflow" and spec.variant == "ambiguous":
-        return ["documented shared-desk ticket any on-duty agent "
-                "may act on"]
-    if app == "requisitions" and spec.variant == "ambiguous":
-        return ["documented shared intake pool any on-duty buyer "
-                "may act on"]
-    if app == "slots" and spec.variant == "ambiguous":
-        return ["documented waitlist class records every "
-                "submission, duplicates included"]
-    if app == "consign" and spec.variant == "transition_no_vuln":
-        return ["documented collective escrow policy: any "
-                "authenticated agent may append the settlement "
-                "record on every consignment"]
-    if app == "permit" and spec.variant == "transition_no_vuln":
-        return ["documented collective examination desk: any "
-                "licensed officer may satisfy requirements and "
-                "approve on every permit"]
-    return []

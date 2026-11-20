@@ -19,7 +19,6 @@ advisory evidence only (DEEP-L-8 ADVISORY_ONLY).
 """
 from __future__ import annotations
 
-import json
 from dataclasses import dataclass
 
 BURST_SIZE = 20

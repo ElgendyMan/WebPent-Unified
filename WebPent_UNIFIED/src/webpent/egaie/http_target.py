@@ -144,14 +144,6 @@ class ControlledInvestigationTarget:
         with self._lock:
             return tuple(sorted(self._applied_mutations))
 
-    def applied_count_for(self, resource_id: str) -> int:
-        """Distinct idempotency tokens actually applied to one resource."""
-        with self._lock:
-            return sum(
-                1 for _family, rid, _idem in self._applied_mutations
-                if rid == resource_id
-            )
-
     def applied_count_for_family(self, family: str, resource_id: str) -> int:
         """Distinct idempotency tokens applied to one resource by one
         mutation family (a family's mutation must never repeat)."""

@@ -20,7 +20,7 @@ promotes, only downgrades.
 from __future__ import annotations
 
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any
 
 
@@ -108,10 +108,6 @@ class AttackMemory:
     def failed_reasons(self, scenario_id: str) -> list[str]:
         return sorted({e.reason for e in self.entries.values()
                        if e.scenario_id == scenario_id and e.outcome == "failed" and e.reason})
-
-    def failed_categories(self, scenario_id: str) -> list[str]:
-        return sorted({e.category for e in self.entries.values()
-                       if e.scenario_id == scenario_id and e.outcome == "failed"})
 
 
 # Generic benign explanations — apply to EVERY finding regardless of vuln

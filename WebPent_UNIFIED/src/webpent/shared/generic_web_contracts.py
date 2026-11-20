@@ -8,10 +8,15 @@ finding and never authorizes a state-changing operation.
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
-from typing import TYPE_CHECKING, Final, Literal
+from typing import Final, Literal
 
-if TYPE_CHECKING:
-    from webpent.shared.verifier import VerificationResult
+# UM-DR-41 §5.3: direct import (no TYPE_CHECKING guard). The annotation
+# ``verification: VerificationResult | None`` previously resolved to
+# NameError under ``typing.get_type_hints`` because the name only existed
+# under the TYPE_CHECKING branch. ``shared.verifier`` does not import this
+# module (verified by import-graph analysis), so a direct import introduces
+# no cycle while keeping the annotation resolvable at runtime.
+from webpent.shared.verifier import VerificationResult
 
 CAPABILITY_CONTRACT_VERSION: Final[str] = "generic-capability.v1"
 CASE_CONTRACT_VERSION: Final[str] = "generic-case.v1"

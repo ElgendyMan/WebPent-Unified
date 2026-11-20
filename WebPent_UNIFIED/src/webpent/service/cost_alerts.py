@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import asyncio
 import inspect
-import uuid
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from typing import Any, Awaitable, Callable, Mapping

@@ -14,7 +14,6 @@ from typing import Any, Callable, TypedDict
 from langgraph.graph import END, START, StateGraph
 
 from webpent.agents.hunter_contracts import (
-    BudgetState,
     ExploitationResult,
     HunterState,
     HunterStatus,
@@ -22,7 +21,6 @@ from webpent.agents.hunter_contracts import (
     ValidationVerdict,
     Verdict,
     digest,
-    sanitize_mapping,
     sanitize_text,
 )
 

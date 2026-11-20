@@ -31,6 +31,10 @@ from typing import Any, Iterable, Mapping
 
 from pydantic import BaseModel, ConfigDict, Field
 
+
+import logging
+
+logger = logging.getLogger(__name__)
 __all__ = [
     "ApiOperation",
     "StateDependency",
@@ -170,8 +174,8 @@ def operations_from_state(state: Mapping[str, Any] | Any) -> list[ApiOperation]:
                     operation_id=f"{_method(entry.get('method'))} {path}",
                 )
             )
-    except Exception:  # noqa: BLE001 — observed surface is best-effort
-        pass
+    except Exception as exc:  # noqa: BLE001 — observed surface is best-effort
+        logger.debug("observed-surface record skipped: %s", exc)
 
     return operations
 

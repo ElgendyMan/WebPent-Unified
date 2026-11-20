@@ -18,7 +18,6 @@ from __future__ import annotations
 
 import ast
 from dataclasses import dataclass
-from typing import Any
 
 # Operation types that carry semantic meaning and are preserved in canonical form.
 _SEMANTIC_OPS = frozenset({

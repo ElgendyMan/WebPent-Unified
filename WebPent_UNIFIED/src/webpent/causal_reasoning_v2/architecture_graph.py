@@ -382,10 +382,6 @@ class SystemArchitectureGraph:
     def node_count(self) -> int:
         return len(self._nodes)
 
-    @property
-    def edge_count(self) -> int:
-        return sum(len(v) for v in self._out_edges.values())
-
     def as_dict(self) -> dict[str, Any]:
         return {
             "nodes": [

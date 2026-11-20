@@ -35,7 +35,7 @@ import math
 import re
 from collections import Counter
 from dataclasses import dataclass
-from typing import Callable, Iterable, Mapping, Sequence
+from typing import Callable, Sequence
 
 __all__ = [
     "PATTERN_LIBRARY",

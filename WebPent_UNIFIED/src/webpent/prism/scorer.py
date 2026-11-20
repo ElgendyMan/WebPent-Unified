@@ -140,12 +140,6 @@ class EvidenceScorer:
 
     # -- scoring ---------------------------------------------------------------
 
-    @property
-    def integration_config(self) -> dict[str, Any]:
-        """The integration block shared with U-PRISM-4 (validated lazily
-        there; exposed here so Wave 2 needs one config file)."""
-        return dict(self._config.get("integration") or {})
-
     def tier_for(self, score: float) -> str:
         tiers = self._config["tiers"]
         for tier in ("A", "B", "C", "D"):

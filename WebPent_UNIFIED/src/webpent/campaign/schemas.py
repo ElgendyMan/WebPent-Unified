@@ -14,7 +14,6 @@ import uuid
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from enum import Enum
-from typing import Any
 
 
 class ConfidenceLevel(str, Enum):
@@ -233,14 +232,6 @@ class CampaignBudget:
     requests_used: int = 0
     time_seconds_used: float = 0.0
     llm_calls_used: int = 0
-
-    def would_exceed(self, requests: int, time_seconds: float,
-                     llm_calls: int) -> bool:
-        return (
-            self.requests_used + requests > self.max_requests
-            or self.time_seconds_used + time_seconds > self.max_time_minutes * 60
-            or self.llm_calls_used + llm_calls > self.max_llm_calls
-        )
 
 
 @dataclass(frozen=True)

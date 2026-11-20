@@ -14,7 +14,6 @@ Tokens are read from options or environment (``WEBPENT_POC_OWNER_TOKEN`` /
 
 from __future__ import annotations
 
-import os
 from pathlib import Path
 from typing import Any
 

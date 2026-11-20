@@ -20,6 +20,10 @@ from webpent.models.research import (
 from webpent.shared.research_intelligence import ActionClass, InformationAction
 
 
+
+import logging
+
+logger = logging.getLogger(__name__)
 @dataclass(frozen=True)
 class ResearchDecision:
     """Explainable score for one validated candidate action."""
@@ -804,8 +808,8 @@ def active_research_node(
     if llm_selector is not None and getattr(result, "selected", None) is not None:
         try:
             llm_selector.record_outcome(result.selected.candidate, result.observation)
-        except Exception:
-            pass
+        except Exception as exc:
+            logger.warning("llm selector outcome recording failed: %s", exc)
     observation = result.observation.model_dump(mode="json")
     failed_update = []
     if observation["status"] in {"negative", "inconclusive", "infrastructure_failure"}:

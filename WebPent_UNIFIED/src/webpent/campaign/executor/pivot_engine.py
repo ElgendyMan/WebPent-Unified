@@ -21,7 +21,7 @@ from webpent.campaign.schemas import PhaseStatus, PivotAction
 
 if TYPE_CHECKING:  # pragma: no cover
     from webpent.campaign.executor.phase_runner import PhaseResult
-    from webpent.campaign.schemas import Phase, PivotTrigger
+    from webpent.campaign.schemas import Phase
 
 
 @dataclass(frozen=True)

@@ -25,7 +25,7 @@ from __future__ import annotations
 import json
 import math
 import os
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any
 
 from webpent.verification.robust import (
@@ -123,15 +123,6 @@ class StrictAlternativeCheck:
         return AlternativeCheckResult("rate_limit", executed=True, result=is_likely,
                                       confidence=0.8 if is_likely else 0.9,
                                       note=f"recent_request_count={recent_request_count}")
-
-    def check_transient(self, retries_succeeded: int | None) -> AlternativeCheckResult:
-        if retries_succeeded is None:
-            return AlternativeCheckResult("transient_error", executed=False, result=False,
-                                           confidence=0.0, note="no_retry_data_available")
-        return AlternativeCheckResult("transient_error", executed=True,
-                                      result=retries_succeeded > 0,
-                                      confidence=0.85,
-                                      note=f"retries_succeeded={retries_succeeded}")
 
 
 # ---------------------------------------------------------------------------

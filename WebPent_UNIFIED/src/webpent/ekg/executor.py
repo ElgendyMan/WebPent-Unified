@@ -28,6 +28,10 @@ from typing import Any, Callable, Mapping
 
 from webpent.ekg.schema import KnowledgeItem
 
+
+import logging
+
+logger = logging.getLogger(__name__)
 __all__ = [
     "ExecutionResult",
     "execute_knowledge_item",
@@ -234,8 +238,8 @@ def execute_knowledge_item(
         try:
             cleanup(item.cleanup)
             cleanup_invoked = True
-        except Exception:  # noqa: BLE001 — cleanup is best-effort
-            pass
+        except Exception as exc:  # noqa: BLE001 — cleanup is best-effort
+            logger.debug("ekg cleanup skipped: %s", exc)
 
     return ExecutionResult(
         item_id=item.id,

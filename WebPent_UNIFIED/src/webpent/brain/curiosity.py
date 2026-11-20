@@ -2,7 +2,6 @@
 from __future__ import annotations
 import re, json, logging
 from pathlib import Path
-from typing import Any
 from dataclasses import dataclass
 from urllib.parse import parse_qs, urlsplit
 _logger=logging.getLogger(__name__)

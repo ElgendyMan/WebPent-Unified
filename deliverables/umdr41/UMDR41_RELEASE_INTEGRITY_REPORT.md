@@ -1,0 +1,12 @@
+# UMDR41 Release Integrity Report
+## Verified failures (reproduced, not assumed)
+1. Unresolvable provenance: source/tested/evidence revisions = fe92f1780b4f417dd4f0d928bcaf5d2ad4f6b042 — NOT in main, any remote branch, or the umdr38 bundle (bundle contains only mission/umdr38-closure = 8f43e88). Acceptance matrix also references ccb4aea, bafe618ee6f7, 887c4c0f, 95efa271, fe091f6 — none resolvable. local gate output: `build_info_honesty: GATE FAILURE (5)` (3 revisions + accounting mismatch + current_release.source_revision a080729... also unresolvable ≠ provenance).
+2. Accounting inconsistency (F-012): evidence executed=9366 vs collected=9365 explained by 1 collection-phase skip (9 skipped = 8 item + 1 collection; v3 started_items=9365, invariants true, cross-check agrees) — a modeling difference the gates already understand; the REAL defect is BUILD_INFO copying accounting_consistent=1 against the evidence record's 0 for the same revision.
+3. CI run 44438324258 FAILED; all 13 historical runs failed. G-08 (49 expired approvals, expiry 2026-11-19) blocks before the full suite, so downstream evidence checks misreport missing current-run evidence (F-014 ordering defect).
+## Why not fixed here (and the honest path)
+- Per directive §9.1: numbers/revisions must NEVER be typed in; the fix is either (a) owner pushes the mission commits so the SHAs resolve, or (b) regenerate BUILD_INFO + evidence from a fresh full run on a reachable commit using the existing UM-DR-38 re-baseline tooling pattern. Both require owner-controlled actions (push credentials / a full-suite environment).
+- G-08: triaged (49 records → G08_EXPIRED_APPROVALS_TRIAGE.json; 19 files; all security-engineering; approved_by g02-baseline-review-20260821 + g02-oob-review-20260823). No dates extended, no test weakened. Required: per-site migrate-to-shared-transport or explicit security-owner reapproval.
+## Provenance contract for the next release (recommendations)
+Separate fields with defined semantics: source_revision (tested tree), tested_revision, evidence_revision, artifact_revision, publication_revision; each either resolves via git cat-file or carries an explicit unavailable+reason record. Publication: published=true ONLY for tag/GitHub-release/registry publication; public branch ≠ published. Test accounting: keep v3 hook model authoritative; BUILD_INFO must COPY the evidence record verbatim (single writer = the runner).
+## SBOM
+CI already generates CycloneDX per run (pip-audit --format cyclonedx-json) and uploads as artifact — retained, not duplicated here.

@@ -59,7 +59,6 @@ from webpent.agents.disclosed_report_intel.agent import disclosed_report_intel_n
 from webpent.agents.execution_sandbox.agent import execution_sandbox_node
 from webpent.agents.executive_summary.agent import executive_summary_node
 from webpent.agents.exploit_chainer.agent import exploit_chainer_node
-from webpent.agents.hypothesis_analyzer.agent import hypothesis_node
 
 # UM-DR-40 RC-5: the registered node is the dedup-wrapped generator —
 # every emitted hypothesis gets its deterministic content id (uuid5

@@ -195,14 +195,6 @@ class CausalReasoningEngine:
     # ------------------------------------------------------------------
     # Introspection (audit / debug)
     # ------------------------------------------------------------------
-    @property
-    def inference_log(self) -> tuple[InferenceResult, ...]:
-        return tuple(self._inference_log)
-
-    @property
-    def findings_seen(self) -> tuple[dict[str, Any], ...]:
-        return tuple(self._findings_seen)
-
     def pattern_summary(self) -> dict[str, Any]:
         """Expose the memory's distilled cross-engagement pattern summary."""
         return self._memory.pattern_summary()

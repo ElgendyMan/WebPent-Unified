@@ -41,7 +41,6 @@ from webpent.causal_reasoning_v2.contextual_memory_v2 import (
 )
 from webpent.causal_reasoning_v2.root_cause_inferrer import (
     CausalConclusionV2,
-    RootCauseClusterV2,
     RootCauseInferrer,
 )
 

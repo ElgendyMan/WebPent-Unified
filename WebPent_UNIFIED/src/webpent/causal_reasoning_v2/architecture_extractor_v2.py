@@ -16,7 +16,7 @@ from __future__ import annotations
 
 import ast
 from collections import deque
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -55,11 +55,6 @@ class CallNodeV2:
     @property
     def callees(self) -> tuple[str, ...]:
         return tuple(cs.callee for cs in self.call_sites)
-
-    @property
-    def guaranteed_callees(self) -> tuple[str, ...]:
-        """Callees NOT inside any conditional block — guaranteed on every path."""
-        return tuple(cs.callee for cs in self.call_sites if not cs.conditional)
 
 
 @dataclass(frozen=True)

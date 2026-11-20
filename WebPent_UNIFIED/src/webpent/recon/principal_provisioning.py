@@ -264,6 +264,15 @@ class PrincipalProvisioner:
             audit_chain=self.audit_chain,
         )
         results: list[ProvisionedPrincipal] = []
+        # UM-DR-41 §5.1: the detected auth type is derived ONCE, before the
+        # per-principal loop, from the authoritative detection record. The
+        # previous implementation read ``detected_type`` inside the
+        # unsupported-type branch (line ~275) BEFORE the assignment at the
+        # bottom of the loop body — an UnboundLocalError for the FIRST
+        # unsupported principal, and a value inherited from the previous
+        # iteration's assignment for later ones. Deriving it here, per
+        # iteration, keeps each principal's record its own.
+        detected_type = str(getattr(detection, "auth_type", "") or "")
         for index, (profile_name, profile) in enumerate(normalized[:3]):
             role = _role_for(index, profile)
             alias = _canonical_alias(index, profile_name, role)
@@ -295,7 +304,16 @@ class PrincipalProvisioner:
                     candidates_for_profile = ()
                 else:
                     candidates_for_profile = (signal,)
-            detected_type = str(getattr(detection, "auth_type", "") or "")
+            # UM-DR-41 §5.1: per-principal detected type. The authoritative
+            # record remains the detection's primary signal; per-principal
+            # signal candidates can reorder (api_jwt signals are promoted to
+            # the front of ``signal_candidates``), so the detected type for
+            # THIS principal is the first candidate it can actually use,
+            # falling back to the detection primary.
+            if candidates_for_profile:
+                detected_type = str(candidates_for_profile[0].auth_type or getattr(detection, "auth_type", "") or "")
+            else:
+                detected_type = str(getattr(detection, "auth_type", "") or "")
             requested_candidates_present = bool(candidates_for_profile)
             login: LoginResult | None = None
             registration: RegistrationResult | None = None

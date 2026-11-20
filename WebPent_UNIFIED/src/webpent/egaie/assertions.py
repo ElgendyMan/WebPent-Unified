@@ -258,9 +258,6 @@ class AssertionLedger:
         return key in self.assertions and self.assertions[
             key].is_fact
 
-    def all_status(self) -> dict[str, AssertionStatus]:
-        return {k: a.status for k, a in self.assertions.items()}
-
     # -- surface adapter ---------------------------------------------------
 
     def seed_from_view(self, view: Any) -> list[Assertion]:

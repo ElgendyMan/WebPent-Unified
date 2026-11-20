@@ -4,7 +4,6 @@ from __future__ import annotations
 import time
 import uuid
 from pathlib import Path
-from typing import Any
 
 from webpent.service.models import CampaignLifecycle, CampaignSnapshot, CampaignSpec
 from webpent.service.store import ServiceStore

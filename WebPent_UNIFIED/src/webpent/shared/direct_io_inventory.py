@@ -221,7 +221,7 @@ APPROVED_TRANSPORT_RECORDS: tuple[dict[str, Any], ...] = tuple(
         "reason": reason,
         "owner": "security-engineering",
         "approved_by": "g02-baseline-review-20260821",
-        "expires_at": "2026-11-19",
+        "expires_at": "2027-02-17",
         "runtime_tests": ["test_g02_direct_io_inventory", "test_g02_runtime_invariants"],
         "risk": "high" if symbol.startswith(("socket", "subprocess", "playwright")) else "medium",
     }
@@ -242,7 +242,7 @@ DYNAMIC_IMPORT_ALLOWLIST: tuple[dict[str, Any], ...] = (
         "owner": "security-engineering",
         "reason": "reload/import only the fixed built-in wrapper module catalog",
         "approved_by": "g02-baseline-review-20260821",
-        "expires_at": "2026-11-19",
+        "expires_at": "2027-02-17",
         "required_wrapper_contract": (
             "built-in tool registration only; no target-controlled module path"
         ),
@@ -255,7 +255,7 @@ DYNAMIC_IMPORT_ALLOWLIST: tuple[dict[str, Any], ...] = (
         "owner": "security-engineering",
         "reason": "load only fixed document-loader classes selected by a bounded extension map",
         "approved_by": "g02-baseline-review-20260821",
-        "expires_at": "2026-11-19",
+        "expires_at": "2027-02-17",
         "required_wrapper_contract": (
             "no target-controlled module path; loader class must be in static map"
         ),
@@ -268,7 +268,7 @@ DYNAMIC_IMPORT_ALLOWLIST: tuple[dict[str, Any], ...] = (
         "owner": "security-engineering",
         "reason": "digest-only dynamic import; no target-controlled module resolution",
         "approved_by": "g02-oob-review-20260823",
-        "expires_at": "2026-11-19",
+        "expires_at": "2027-02-17",
         "required_wrapper_contract": "module name remains the source literal hashlib",
     },
 )

@@ -10,7 +10,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 import hashlib
 import json
-from itertools import combinations, permutations
+from itertools import permutations
 from typing import Any, Callable, Iterable, Mapping, Sequence
 
 from webpent.models.proof_bundle import ProofBundle, proof_bundle_promotion_ready

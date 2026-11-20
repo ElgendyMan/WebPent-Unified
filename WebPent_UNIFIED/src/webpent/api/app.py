@@ -56,6 +56,15 @@ from webpent.production.product_layer import estimate_campaign_cost, render_camp
 from webpent.recon.autonomous_crawler import CrawlConfig
 from webpent.reporter.bounty_report import generate_bounty_reports
 from webpent.scope import GLOBAL_SCOPE_REGISTRY, ScopeEnforcer, parse_scope_text
+# UM-DR-41 §6.3: optional durable cross-process scope store. Setting
+# WEBPENT_SCOPE_STORE_PATH upgrades the module-level registry to a
+# versioned SQLite-backed authority shared by every API worker and
+# restartable process; unset keeps the exact legacy in-memory behavior.
+from webpent.scope.store import (
+    ScopeStoreUnavailable,
+    SqliteScopeStore,
+    default_scope_store_path,
+)
 from webpent.shared.action_ledger import SQLiteActionLedger
 from webpent.shared.engagement_scope import (
     admission_target_check,  # F-06 (0.33.0)
@@ -357,6 +366,32 @@ except Exception as _registry_init_exc:
         "scan_registry init failed at app startup; ownership/status paths will fail closed: %s",
         _registry_init_exc,
     )
+
+# ===========================================================================
+# UM-DR-41 §6.3 — durable cross-process scope authority (opt-in).
+# When WEBPENT_SCOPE_STORE_PATH is set (or WEBPENT_SCOPE_STORE_ENABLED=1
+# for the default location), the module-level scope registry gains the
+# SQLite-backed shared store: policies loaded via /api/v1/scope/load
+# become visible to every worker/process and survive restarts, with
+# versioned append-only history and fail-closed reads. Store init
+# failure is FATAL here — an operator who explicitly requested a shared
+# authority must not get a silent in-memory downgrade that other
+# processes cannot see.
+# ===========================================================================
+if os.getenv("WEBPENT_SCOPE_STORE_PATH", "").strip() or os.getenv(
+        "WEBPENT_SCOPE_STORE_ENABLED", "").strip().lower() in {"1", "true", "yes"}:
+    try:
+        _scope_store = SqliteScopeStore(default_scope_store_path())
+        GLOBAL_SCOPE_REGISTRY.attach_store(_scope_store)
+        logger.info(
+            "scope registry upgraded to durable shared store at %s "
+            "(versioned, fail-closed)", default_scope_store_path(),
+        )
+    except ScopeStoreUnavailable as _scope_store_exc:
+        raise SystemExit(
+            "FATAL: WEBPENT_SCOPE_STORE requested but the scope store "
+            f"cannot be initialised: {_scope_store_exc}"
+        ) from _scope_store_exc
 
 # V10 P0-1/P0-3: startup capability preflight. Emits an INFO-level
 # capability report and fail-closes an explicitly public bind with the

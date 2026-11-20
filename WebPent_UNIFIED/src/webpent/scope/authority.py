@@ -46,8 +46,8 @@ import itertools
 import json
 import re
 import time
-from dataclasses import dataclass, field
-from typing import Any, Iterable
+from dataclasses import dataclass
+from typing import Any
 from urllib.parse import unquote, urlsplit
 
 from .models import ScopePolicy, ScopeRule, ScopeStatus, severity_allowed
@@ -650,7 +650,6 @@ def authority_from_scope_file_spec(
     ONE canonical authority here.  Fail-closed on any ambiguity.
     """
     from .models import ScopeLimits, ScopePolicy, ScopeRule
-    from .parser import parse_scope_text
 
     allow_entries = list(getattr(spec, "allow_entries", ()) or ())
     excluded_hosts = list(getattr(spec, "excluded_hosts", ()) or ())

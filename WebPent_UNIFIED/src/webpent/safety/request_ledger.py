@@ -24,8 +24,11 @@ import threading
 import time
 from typing import Any, Callable
 
-from webpent.shared.target_workspace_context import get_active_target_workspace
 
+
+import logging
+
+logger = logging.getLogger(__name__)
 __all__ = [
     "MAX_LEDGER_ROWS",
     "REQUEST_TTL_S",
@@ -162,8 +165,8 @@ class RequestLedger:
                     (self._max_rows,),
                 )
                 self._conn.commit()
-            except Exception:  # noqa: BLE001 — observability must not block
-                pass
+            except Exception as exc:  # noqa: BLE001 — observability must not block
+                logger.debug("request-ledger write skipped: %s", exc)
 
     def stats(self) -> dict[str, Any]:
         """Read-only dashboard view: row count and ledger age."""
@@ -260,8 +263,8 @@ def ledger_request_hook(request: Any) -> None:
             engagement_id=_active_engagement_id(),
             flags=_PINNED_FLAG,
         )
-    except Exception:  # noqa: BLE001 — observability must not block
-        pass
+    except Exception as exc:  # noqa: BLE001 — observability must not block
+        logger.debug("request-ledger flag write skipped: %s", exc)
 
 
 def ledger_stats() -> dict[str, Any]:

@@ -18,7 +18,7 @@ Fail-closed rules:
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 __all__ = [
     "SourceMap",
@@ -46,10 +46,6 @@ class SourceMap:
     sources: tuple[str, ...]
     sources_content: tuple[str | None, ...]
     mappings: str
-
-    @property
-    def total_content_chars(self) -> int:
-        return sum(len(c) for c in self.sources_content if c)
 
 
 @dataclass(frozen=True)

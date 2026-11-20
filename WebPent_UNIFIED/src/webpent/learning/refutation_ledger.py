@@ -45,6 +45,10 @@ from datetime import datetime, timezone
 from typing import Any
 from urllib.parse import urlsplit
 
+
+import logging
+
+logger = logging.getLogger(__name__)
 DEFAULT_SUPPRESSION_THRESHOLD = 3
 
 _SCHEMA = """
@@ -131,8 +135,8 @@ class RefutationLedger:
                     " WHERE vuln_class = ? AND target_fingerprint = ?",
                     (str(vuln_class), str(target_fingerprint)),
                 )
-        except Exception:
-            pass
+        except Exception as exc:
+            logger.debug("refutation record skipped: %s", exc)
 
     # -- reads (fail-open: errors mean "do not suppress") -------------------
     def refutation_count(self, *, vuln_class: str, target_fingerprint: str) -> int:

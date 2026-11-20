@@ -16,6 +16,10 @@ import re
 from dataclasses import dataclass
 from typing import Any
 
+
+import logging
+
+logger = logging.getLogger(__name__)
 _OBVIOUS_PAYLOAD = re.compile(
     r"(union\s+select|<script|>\s*<|/\.\./|;--|drop\s+table|cat\s+/etc/passwd|1=1|or 1=1)",
     re.I,
@@ -153,8 +157,8 @@ class DefenseEmulator:
         try:
             setattr(plan, "adaptive_slowdown", 0.5)
             setattr(plan, "obfuscate_payload", True)
-        except Exception:
-            pass
+        except Exception as exc:
+            logger.debug("adaptive attribute decoration skipped: %s", exc)
         return plan
 
 

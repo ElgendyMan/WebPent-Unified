@@ -12,8 +12,7 @@ import re
 import time
 from dataclasses import asdict, dataclass, field
 from html.parser import HTMLParser
-from pathlib import PurePosixPath
-from typing import Any, Callable, Mapping
+from typing import Any, Callable
 from urllib.parse import parse_qsl, urlencode, urljoin, urlsplit, urlunsplit
 from urllib.robotparser import RobotFileParser
 

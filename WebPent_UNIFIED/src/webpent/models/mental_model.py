@@ -72,6 +72,10 @@ from urllib.parse import urlparse
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
+
+import logging
+
+logger = logging.getLogger(__name__)
 # ---------------------------------------------------------------------------
 # Enums — typed node kinds and edge kinds
 # ---------------------------------------------------------------------------
@@ -634,8 +638,8 @@ def extract_mental_model_updates(
             parsed = urlparse(target_url)
             if parsed.hostname:
                 derived_hosts = [parsed.hostname]
-        except Exception:
-            pass
+        except Exception as exc:
+            logger.debug("url host derivation skipped: %s", exc)
             # Intentionally suppressed — reviewed 2026-09-03
 
     # -- HOST nodes --
@@ -733,8 +737,8 @@ def extract_mental_model_updates(
                         target_id=host_node_id,
                         source_ref="",  # Back-filled when Decision Log exists (Phase 6)
                     ).model_dump(mode="json"))
-        except Exception:
-            pass
+        except Exception as exc:
+            logger.debug("decision-log backfill skipped: %s", exc)
             # Intentionally suppressed — reviewed 2026-09-03
 
     # -- CREDENTIAL nodes (fingerprinted; raw value NEVER stored) --

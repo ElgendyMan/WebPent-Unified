@@ -32,7 +32,7 @@ from __future__ import annotations
 import re
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
-from typing import Callable, Iterable, Sequence
+from typing import Callable, Sequence
 
 __all__ = [
     "FINGERPRINTS",

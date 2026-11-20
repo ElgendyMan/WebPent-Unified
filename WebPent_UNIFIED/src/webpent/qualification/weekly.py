@@ -31,7 +31,6 @@ from webpent.production.hypothesis_qualification_harness import (
     replay_deterministic_baseline,
 )
 from webpent.qualification.labels import (
-    QualificationLabel,
     evaluate_qualification_label,
 )
 

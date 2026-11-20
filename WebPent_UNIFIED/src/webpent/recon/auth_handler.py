@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Callable, Mapping
+from typing import Callable, Mapping
 
 from webpent.recon.browser_farm import BrowserFarm
 from webpent.recon.state_graph import StateGraph

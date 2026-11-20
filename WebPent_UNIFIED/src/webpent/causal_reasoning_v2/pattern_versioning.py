@@ -49,12 +49,6 @@ class VersionedPattern:
     fix_hint: str = ""
     evidence: list[EvidenceRecord] = field(default_factory=list)
 
-    @property
-    def signature_hash(self) -> str:
-        return hashlib.sha256(
-            f"{self.cause_type}|{self.structural_signature}".encode()
-        ).hexdigest()[:16]
-
     def fresh_evidence(self) -> list[EvidenceRecord]:
         """Evidence matching current signature_version + current engine."""
         return [

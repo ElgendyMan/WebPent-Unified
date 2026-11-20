@@ -28,7 +28,7 @@ import os
 import time
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
-from typing import Any, Iterable, Mapping
+from typing import Any, Mapping
 
 FeedbackType = str  # 'EXAMINED_MATCHED' | 'EXAMINED_UNRELATED' | 'PARTIAL_MATCH' | 'NOT_EXAMINED'
 

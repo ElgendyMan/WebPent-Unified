@@ -36,9 +36,6 @@ from webpent.campaign.schemas import (
     TargetThesis,
     ThesisEvidence,
 )
-from webpent.campaign.strategist.phase_templates import (
-    TYPICAL_HYPOTHESIS_COUNT,
-)
 from webpent.campaign.strategist.thesis_evidence import (
     evidence_from_economist,
     evidence_from_oracle,

@@ -243,7 +243,12 @@ class ProductionTrace:
     _stage_set: set[str] = field(default_factory=set)
     _counted_stage_count: int = field(default=0, init=False, repr=False)
 
-    MAX_STAGES: Final[int] = 50
+    # UM-DR-41 §5.3: a bare ``Final[int]`` dataclass annotation raises
+    # TypeError under ``typing.get_type_hints`` (``Final[...]`` is not a
+    # valid type argument in that position). Class-level constants on
+    # dataclasses are conventionally left UNANNOTATED — the value stays
+    # constant in spirit and the class's annotations stay resolvable.
+    MAX_STAGES = 50
 
     def record(
         self,

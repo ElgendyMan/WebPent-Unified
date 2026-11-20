@@ -23,7 +23,7 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Any, Iterable, Mapping
+from typing import Any, Iterable
 
 
 class FeedbackState(str, Enum):
@@ -58,15 +58,6 @@ class PatternConfidence:
     def effective_weight(self) -> float:
         """Combined weight for priority blending.  0 for unobserved patterns."""
         return round(self.jeffrey_confidence * self.evidence_weight, 4)
-
-    def blended_score(self, structural_match: float = 1.0, relevance: float = 1.0) -> float:
-        w = self.component_weights
-        comp = (
-            min(1.0, structural_match) * w.get("structural_match", 1.0) * 0.4
-            + self.jeffrey_confidence * w.get("historical_success", 1.0) * 0.4
-            + min(1.0, relevance) * w.get("relevance", 1.0) * 0.2
-        )
-        return round(min(1.0, max(0.0, comp * self.evidence_weight)), 4)
 
 
 class ConfidenceEngine:

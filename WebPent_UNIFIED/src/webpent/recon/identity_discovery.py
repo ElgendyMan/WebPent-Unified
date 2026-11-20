@@ -42,7 +42,7 @@ import json
 import re
 from dataclasses import dataclass, field
 from typing import Any, Callable, Iterable, Mapping
-from urllib.parse import quote, urljoin, urlsplit
+from urllib.parse import urljoin, urlsplit
 
 from webpent.config.identity_vocab import load_identity_vocab
 

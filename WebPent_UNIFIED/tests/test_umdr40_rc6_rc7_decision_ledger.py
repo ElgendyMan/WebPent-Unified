@@ -141,6 +141,15 @@ def test_strategist_records_alternatives_and_measured_gain() -> None:
         assert all(a["rank"] >= 1 for a in s)
 
     # RC-6: the decision log carries the measured batch gain
+    # UM-DR-41 §10.1 contract update: the after-pool is computed
+    # reducer-equivalently (before-pool minus the batch's
+    # PROMOTED/ABANDONED terminal ids), NOT from the bare
+    # updated_hypotheses list. In this scenario none of the three
+    # hypotheses is promoted or abandoned (no validator route, no
+    # promotion evidence), so NOTHING is distinguished and the pool
+    # is unchanged — the previous semantics counted all three open
+    # hypotheses as "distinguished" on an empty update list, the
+    # exact false-positive the UMDR41 directive ordered removed.
     log = result.get("decision_log") or []
     gain_entries = [e for e in log
                     if e.get("rule_fired")
@@ -148,12 +157,17 @@ def test_strategist_records_alternatives_and_measured_gain() -> None:
     assert len(gain_entries) == 1, log
     gain = gain_entries[0]["metadata"]["information_gain"]
     assert gain["pool_before"] == 3
-    # distinguished = the ids resolved out of the pool by the batch
-    after_ids = {str(h.id) for h in result.get("hypotheses", [])}
-    expected = sorted(pool_ids - after_ids)
-    assert gain["distinguished"] == expected
-    assert gain["distinguished_count"] == len(expected)
-    assert gain["pool_after"] == len(after_ids)
+    updated_ids = {str(h.id) for h in result.get("hypotheses", [])}
+    terminal_ids = {
+        str(h.id) for h in result.get("hypotheses", [])
+        if str(getattr(h, "status", "")) in {"promoted", "abandoned"}}
+    expected_after = sorted(pool_ids - terminal_ids)
+    assert gain["distinguished"] == sorted(pool_ids - set(expected_after))
+    assert gain["distinguished_count"] == len(pool_ids) - len(expected_after)
+    assert gain["pool_after"] == len(expected_after)
+    # the update accounting is explicit and separate from resolution
+    assert gain_entries[0]["metadata"]["updated_in_batch_count"] == len(
+        updated_ids)
     # every recorded alternative must reference a real pool id
     for entry in candidate_entries.values():
         for alt in entry.get("alternatives_considered") or []:

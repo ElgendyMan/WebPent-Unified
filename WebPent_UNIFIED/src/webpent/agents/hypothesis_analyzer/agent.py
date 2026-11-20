@@ -716,8 +716,8 @@ def _classify_by_url_path(url: str) -> tuple[str, str] | None:
                 continue
             if substring.lower() in path:
                 return (vuln_class, reason)
-    except Exception:
-        pass
+    except Exception as exc:
+        logger.debug("path classification skipped: %s", exc)
         # Intentionally suppressed — reviewed 2026-09-03
     return None
 

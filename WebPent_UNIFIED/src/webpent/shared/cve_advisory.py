@@ -56,6 +56,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
+from webpent.models.hypothesis import Hypothesis as _StateHypothesis
 from webpent.shared.epss import (
     build_epss_index,
     enrich_correlations_with_epss,
@@ -68,6 +69,14 @@ from webpent.shared.tech_stack_cve import (
     correlate_cves,
     fingerprint_tech_stack,
 )
+
+# UM-DR-41 §5.3: expose the model under its annotation name so
+# ``typing.get_type_hints(advisory_hypothesis_to_state_hypothesis)``
+# resolves. ``models.hypothesis`` imports nothing from ``webpent.shared``
+# (verified by import-graph analysis), so a direct import introduces no
+# cycle; the function body keeps its own local import for its
+# HypothesisOrigin/HypothesisStatus companions.
+Hypothesis = _StateHypothesis
 
 logger = logging.getLogger(__name__)
 

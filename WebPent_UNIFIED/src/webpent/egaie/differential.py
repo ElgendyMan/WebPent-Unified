@@ -824,9 +824,6 @@ class ProbePlan:
     # of any single deployment's literals.
     context: tuple[tuple[str, str], ...] = ()
 
-    def by_purpose(self, purpose: str) -> tuple[ProbeStep, ...]:
-        return tuple(s for s in self.steps if s.purpose == purpose)
-
     def context_dict(self) -> dict[str, str]:
         return dict(self.context)
 

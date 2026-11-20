@@ -13,6 +13,10 @@ from dataclasses import asdict, dataclass
 from typing import Any
 
 
+
+import logging
+
+logger = logging.getLogger(__name__)
 def _canonical_hash(obj: Any) -> str:
     return hashlib.sha256(
         json.dumps(obj, sort_keys=True, separators=(",", ":"), default=str).encode()
@@ -93,8 +97,8 @@ class SmartMemory:
                 try:
                     max_val = max(abs(a[k]), abs(b[k]), 1)
                     matches += 1.0 - min(abs(a[k] - b[k]) / max_val, 1.0)
-                except Exception:
-                    pass
+                except Exception as exc:
+                    logger.debug("feature comparison skipped: %s", exc)
                     # Intentionally suppressed — reviewed 2026-09-03
         return matches / len(common_keys)
 

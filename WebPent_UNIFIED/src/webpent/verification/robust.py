@@ -24,7 +24,7 @@ from __future__ import annotations
 import json
 import os
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any
 
 # ---------------------------------------------------------------------------
@@ -49,7 +49,17 @@ CENTRAL_CONSTANTS: dict[str, Any] = {
 # ---------------------------------------------------------------------------
 
 class UnifiedLogger:
-    """Single logging interface — every module writes through here."""
+    """Single logging interface — every module writes through here.
+
+    UM-DR-41 §5.4: this is NOT a ``logging.Logger`` — it is an in-memory
+    structured entry sink with the calling convention
+    ``method(module, message)`` (positional, exactly two arguments).
+    Standard-library aliases (``warning``/``critical``/``info``/``debug``)
+    are provided as thin delegates so callers that reflexively use the
+    stdlib names cannot crash with AttributeError; the legacy
+    ``warn`` name is retained (all 7 existing call sites use it) and is
+    documented as the canonical spelling for this class.
+    """
 
     LEVELS = ("DEBUG", "INFO", "WARN", "ERROR", "CRITICAL")
 
@@ -67,6 +77,25 @@ class UnifiedLogger:
 
     def error(self, module: str, message: str) -> str:
         return self.log("ERROR", module, message)
+
+    def critical(self, module: str, message: str) -> str:
+        return self.log("CRITICAL", module, message)
+
+    # --- stdlib-name delegates (UM-DR-41 §5.4) ------------------------
+    # Same (module, message) arity as warn/error — deliberately NOT the
+    # stdlib (message, *args) arity. A call with stdlib-style positional
+    # args raises TypeError, which is the desired loud failure for code
+    # that assumed logging.Logger semantics without inspecting this
+    # class; the regression test pins that contract.
+
+    def warning(self, module: str, message: str) -> str:
+        return self.log("WARN", module, message)
+
+    def info(self, module: str, message: str) -> str:
+        return self.log("INFO", module, message)
+
+    def debug(self, module: str, message: str) -> str:
+        return self.log("DEBUG", module, message)
 
 
 LOGGER = UnifiedLogger()

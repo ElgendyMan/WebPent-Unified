@@ -229,16 +229,6 @@ class ResourceLimits:
     def record_finding(self) -> None:
         self.total_findings += 1
 
-    def can_send_request(self) -> tuple[bool, str]:
-        now = time.time()
-        self.requests_this_minute = [t for t in self.requests_this_minute if now - t < 60]
-        if len(self.requests_this_minute) >= self.max_requests_per_minute:
-            return False, f"rate_limit_exceeded: {self.max_requests_per_minute}/min"
-        if now - self.start_time > self.max_seconds:
-            return False, f"max_runtime_exceeded: {self.max_seconds}s"
-        self.requests_this_minute.append(now)
-        return True, "ok"
-
 
 # ---------------------------------------------------------------------------
 # Phase 2 — PriorityQueue (step 2-1): retest priority actually applied

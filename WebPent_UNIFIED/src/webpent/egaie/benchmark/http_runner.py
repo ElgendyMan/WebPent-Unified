@@ -375,14 +375,6 @@ def _run_loop(
     return state, metrics
 
 
-def run_http_adaptive(
-    target: Any, max_rounds: int = 14,
-    cases: tuple[HTTPCase, ...] = HTTP_GROUND_TRUTH_V1,
-) -> tuple[InvestigationState, dict[str, Any]]:
-    """Adaptive loop (information-gain selection + follow-ups)."""
-    return _run_loop(target, adaptive=True, max_rounds=max_rounds,
-                     cases=cases)
-
 
 def run_http_baseline(
     target: Any, max_rounds: int = 14,

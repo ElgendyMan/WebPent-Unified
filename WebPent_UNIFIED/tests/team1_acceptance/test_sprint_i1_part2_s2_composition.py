@@ -18,6 +18,7 @@ audit objective).
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -29,9 +30,23 @@ SUBPROCESS_BODY = Path(__file__).parent / "_s2_composition_subprocess_body.py"
 
 @pytest.fixture(scope="module")
 def s2_result():
+    # The subprocess must resolve `webpent` the same way the parent
+    # pytest process does. pyproject's `pythonpath = ["src", "."]` only
+    # applies to pytest itself, so a bare `sys.executable` spawn loses
+    # the package (this test was red in any environment without a
+    # `pip install -e`). Forward an explicit PYTHONPATH anchored at the
+    # repo root so the subprocess is environment-independent.
+    repo_root = Path(__file__).resolve().parents[2]
+    src_root = repo_root / "src"
+    env = dict(os.environ)
+    existing = env.get("PYTHONPATH", "")
+    parts = [str(src_root), str(repo_root)]
+    if existing:
+        parts.append(existing)
+    env["PYTHONPATH"] = os.pathsep.join(parts)
     proc = subprocess.run(
         [sys.executable, str(SUBPROCESS_BODY)],
-        capture_output=True, text=True, timeout=120,
+        capture_output=True, text=True, timeout=120, env=env,
     )
     assert proc.returncode == 0, (
         f"S-2 subprocess exited {proc.returncode}\nstdout={proc.stdout}\nstderr={proc.stderr}"

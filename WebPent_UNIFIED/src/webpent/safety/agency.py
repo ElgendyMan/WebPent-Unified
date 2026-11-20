@@ -21,7 +21,6 @@ evaluation.
 from __future__ import annotations
 
 import os
-from typing import Any
 
 _OVERRIDE_ENV = "WEBPENT_ROBOTS_OVERRIDE_ENGAGEMENTS"
 

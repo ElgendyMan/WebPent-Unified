@@ -37,6 +37,10 @@ import threading
 import time
 from typing import Any, Iterable
 
+
+import logging
+
+logger = logging.getLogger(__name__)
 __all__ = [
     "MAX_CAMPAIGN_RETRIES",
     "BACKOFF_BASE_S",
@@ -166,8 +170,8 @@ class CampaignCheckpointStore:
                 "DELETE FROM campaign_checkpoints WHERE interrupted_at < ?",
                 (time.time() - MARKER_TTL_S,),
             )
-        except Exception:  # noqa: BLE001 — pruning failure is non-fatal
-            pass
+        except Exception as exc:  # noqa: BLE001 — pruning failure is non-fatal
+            logger.debug("checkpoint prune skipped: %s", exc)
 
     def mark(self, engagement_id: str, *, reason: str, node: str | None, state_hash: str) -> bool:
         """Record (or refresh) an interrupt marker. Never raises."""
@@ -259,8 +263,8 @@ class CampaignCheckpointStore:
                     (engagement_id,),
                 )
                 self._conn.commit()
-            except Exception:  # noqa: BLE001 — clear failure is non-fatal
-                pass
+            except Exception as exc:  # noqa: BLE001 — clear failure is non-fatal
+                logger.debug("checkpoint clear skipped: %s", exc)
 
     def increment_resume(self, engagement_id: str) -> None:
         with self._lock:
@@ -276,8 +280,8 @@ class CampaignCheckpointStore:
                     (engagement_id,),
                 )
                 self._conn.commit()
-            except Exception:  # noqa: BLE001 — non-fatal
-                pass
+            except Exception as exc:  # noqa: BLE001 — non-fatal
+                logger.debug("checkpoint delete skipped: %s", exc)
 
     def resumable(self) -> list[dict[str, Any]]:
         """Read-only snapshot of fresh, resumable markers (status view)."""

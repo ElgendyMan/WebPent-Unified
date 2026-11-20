@@ -104,8 +104,21 @@ def _check_version() -> CheckResult:
         from importlib.metadata import version
 
         return CheckResult("version", _OK, f"webpent {version('webpent')}")
-    except Exception as exc:  # pragma: no cover - packaging anomaly
-        return CheckResult("version", _FAIL, f"package import failed: {type(exc).__name__}")
+    except Exception:  # pragma: no cover - packaging anomaly
+        # Not installed as a distribution (e.g. running straight from
+        # the src/ checkout without `pip install -e .`). The package
+        # still imports and carries its __version__ — report that
+        # instead of failing the whole doctor run.
+        try:
+            from webpent import __version__
+
+            return CheckResult(
+                "version", _OK,
+                f"webpent {__version__} (uninstalled checkout)")
+        except Exception as exc:  # pragma: no cover - broken checkout
+            return CheckResult(
+                "version", _FAIL,
+                f"package import failed: {type(exc).__name__}")
 
 
 def _check_database() -> CheckResult:

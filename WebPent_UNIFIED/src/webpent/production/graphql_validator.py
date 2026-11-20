@@ -28,7 +28,6 @@ from webpent.production.validators import (
     EvidenceQuality,
     ValidationOutcome,
     ValidationResult,
-    ValidatorError,
     _body,
     _require_evidence,
     _status,

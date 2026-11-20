@@ -126,9 +126,6 @@ class KnowledgeRegistry:
             return None
         return max(candidates, key=lambda item: tuple(int(p) for p in item.version.split(".")))
 
-    def list_items(self) -> list[str]:
-        return sorted(self._items)
-
     def release(
         self,
         item: KnowledgeItem,

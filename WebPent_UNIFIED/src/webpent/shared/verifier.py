@@ -25,7 +25,6 @@ from dataclasses import dataclass
 from typing import Any
 from urllib.parse import urlparse, urlunparse
 
-from webpent.cqa_v2.causal_guard import Verdict as CausalGuardVerdict
 from webpent.models.evidence import redact_sensitive
 from webpent.models.findings import Finding
 from webpent.models.proof_bundle import (

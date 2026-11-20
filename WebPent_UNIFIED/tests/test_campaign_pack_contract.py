@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import shlex
 import subprocess
 import sys
@@ -60,9 +61,18 @@ R01_SCRIPTS = [
 # ---------------------------------------------------------------------------
 def test_python_dash_m_webpent_cli_is_executable() -> None:
     """The exact invocation run/stop/verify_campaign.sh rely on."""
+    # pyproject's `pythonpath` only reaches pytest; the child python
+    # needs an explicit PYTHONPATH to resolve webpent from this
+    # checkout when the wheel is not installed (CI installs it, local
+    # runs do not — the campaign scripts themselves export PYTHONPATH).
+    src_root = REPO_ROOT / "src"
+    env = dict(os.environ)
+    existing = env.get("PYTHONPATH", "")
+    env["PYTHONPATH"] = os.pathsep.join(
+        [str(src_root)] + ([existing] if existing else []))
     proc = subprocess.run(
         [PYTHON, "-m", "webpent.cli", "--help"],
-        cwd=REPO_ROOT, capture_output=True, text=True, timeout=60,
+        cwd=REPO_ROOT, capture_output=True, text=True, timeout=60, env=env,
     )
     assert proc.returncode == 0, (
         "python -m webpent.cli is not executable — every campaign script "

@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import json
-import re
 import time
 from dataclasses import dataclass
 from typing import Any, Iterable
@@ -11,7 +10,7 @@ from langchain_core.messages import HumanMessage, SystemMessage
 
 from webpent.recon.autonomous_crawler import RouteSurface, SurfaceMap
 from webpent.recon.payload_library import PayloadLibrary
-from webpent.recon.payloads import PayloadSpec, payload_library, payloads_for_family
+from webpent.recon.payloads import payload_library, payloads_for_family
 from webpent.recon.wstg_catalog import WSTGCatalog
 from webpent.shared.untrusted_content import secure_prompt_value
 

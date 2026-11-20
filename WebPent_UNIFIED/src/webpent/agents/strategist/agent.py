@@ -67,6 +67,7 @@ Safety properties inherited:
 
 from __future__ import annotations
 
+import hashlib
 import logging
 from types import SimpleNamespace
 from typing import Any
@@ -407,6 +408,17 @@ def strategist_node(state: PentestState) -> dict[str, Any]:
         reason: str,
         validator_route: str | None,
         score_value: float,
+        # UM-DR-41 §10.2 (RC-7 persistence): the candidate's rank in
+        # THIS batch's decision order (1 = highest score overall) and
+        # the batch id. The coverage ledger is a merge_dicts state field
+        # keyed by hypothesis id, so per-cycle rank/batch records on a
+        # surviving entry compose its full reranking history across
+        # research cycles — the directive's challenger-survival
+        # requirement — without a new state field or a frozen-module
+        # edit. The reason string IS the rejection/unavailability
+        # reason the directive asks to record alongside each pass-over.
+        rank_in_batch: int = 0,
+        batch_id: str = "",
     ) -> None:
         """Record bounded, report-safe disposition metadata for one candidate."""
         hypothesis_id = str(model_get(hypothesis, "id", ""))
@@ -426,9 +438,41 @@ def strategist_node(state: PentestState) -> dict[str, Any]:
             # scores, bounded and excluding the entry itself.
             "alternatives_considered": ranked_alternatives(
                 ranked, exclude_id=hypothesis_id),
+            # UM-DR-41 §10.2: this cycle's decision context. challenger_
+            # status is derived, never caller-supplied: promoted/abandoned
+            # candidates left the pool (resolved); everything else stays
+            # a live challenger whose later cycles overwrite this entry
+            # via the merge_dicts reducer while the ledger's cycle_count
+            # shows how many batches it has survived.
+            "rank_in_batch": int(rank_in_batch),
+            "batch_id": batch_id,
+            "challenger_status": (
+                "resolved" if status == "tested"
+                or action in ("abandon",)
+                else "challenger"
+            ),
         }
 
-    for hypothesis, score in ranked:
+    # UM-DR-41 §10.2: the decision batch's identity. Deterministic from
+    # this batch's candidate ids (sorted) so the same batch always maps
+    # to the same id in the ledger and the decision log — no clock, no
+    # randomness, checkpoint-safe.
+    _batch_id = hashlib.sha256(
+        ",".join(sorted(
+            str(model_get(h, "id", "")) for h, _s in ranked)).encode()
+    ).hexdigest()[:12]
+    # UM-DR-41 §10.2: read the PRIOR cycle count defensively — the
+    # state field is typed as a dict, but a dict-shaped state whose
+    # coverage_ledger value is a string (or any non-dict) must degrade
+    # to cycle 1 rather than crash the strategist mid-batch.
+    _prior_ledger = model_get(state, "coverage_ledger", None)
+    if not isinstance(_prior_ledger, dict):
+        _prior_ledger = {}
+    try:
+        _batch_cycle = 1 + int(_prior_ledger.get("cycle_count", 0) or 0)
+    except (TypeError, ValueError):
+        _batch_cycle = 1
+    for batch_rank, (hypothesis, score) in enumerate(ranked, start=1):
         validator_route: str | None = None
         try:
             # _classify_finding is the validator agent's single routing
@@ -473,6 +517,8 @@ def strategist_node(state: PentestState) -> dict[str, Any]:
                 reason="recommend_action_failed",
                 validator_route=validator_route,
                 score_value=score,
+                rank_in_batch=batch_rank,
+                batch_id=_batch_id,
             )
             continue
 
@@ -559,6 +605,8 @@ def strategist_node(state: PentestState) -> dict[str, Any]:
                 reason="no_deterministic_validator_route",
                 validator_route=None,
                 score_value=score,
+                rank_in_batch=batch_rank,
+                batch_id=_batch_id,
             )
 
         elif action not in (PrioritizationAction.PROMOTE, PrioritizationAction.ABANDON):
@@ -578,6 +626,8 @@ def strategist_node(state: PentestState) -> dict[str, Any]:
                 ),
                 validator_route=validator_route,
                 score_value=score,
+                rank_in_batch=batch_rank,
+                batch_id=_batch_id,
             )
 
         if action == PrioritizationAction.PROMOTE:
@@ -596,6 +646,8 @@ def strategist_node(state: PentestState) -> dict[str, Any]:
                     reason="promotion_conversion_failed",
                     validator_route=validator_route,
                     score_value=score,
+                    rank_in_batch=batch_rank,
+                    batch_id=_batch_id,
                 )
                 continue
 
@@ -608,6 +660,8 @@ def strategist_node(state: PentestState) -> dict[str, Any]:
                     reason="promoted_to_validator_pipeline",
                     validator_route=validator_route,
                     score_value=score,
+                rank_in_batch=batch_rank,
+                batch_id=_batch_id,
                 )
                 # Mark the hypothesis as promoted (terminal state).
                 updated_hyp = hypothesis.model_copy(
@@ -648,6 +702,8 @@ def strategist_node(state: PentestState) -> dict[str, Any]:
                     reason="promotion_gate_returned_no_finding",
                     validator_route=validator_route,
                     score_value=score,
+                    rank_in_batch=batch_rank,
+                    batch_id=_batch_id,
                 )
         elif action == PrioritizationAction.ABANDON:
             # Mark the hypothesis as abandoned (terminal state).
@@ -665,6 +721,8 @@ def strategist_node(state: PentestState) -> dict[str, Any]:
                     reason="prioritization_gate_abandoned",
                     validator_route=validator_route,
                     score_value=score,
+                rank_in_batch=batch_rank,
+                batch_id=_batch_id,
                 )
             abandoned_count += 1
             entry_abandon: dict[str, Any] = {
@@ -697,20 +755,51 @@ def strategist_node(state: PentestState) -> dict[str, Any]:
     # out of the pool (promoted or abandoned);
     # resolved_preconditions stays empty here (this pass has no
     # precondition channel — recorded empty rather than invented).
+    # UM-DR-41 §10.1 (RC-6 correction): the after-snapshot must be the
+    # pool state AFTER applying this batch's updates to the BEFORE pool
+    # — i.e. the same computation the merge_hypotheses reducer will
+    # perform (upsert-by-id). The previous code derived _pool_after_ids
+    # from `updated_hypotheses` ALONE, so a batch that updated nothing
+    # reported an EMPTY after-pool and every open hypothesis was counted
+    # as "distinguished" — the exact false-positive information-gain
+    # scenario the directive describes. With deterministic RC-5 ids the
+    # reducer-equivalent computation is exact.
     _pool_after_ids = [
-        str(model_get(h, "id", "")) for h in updated_hypotheses]
+        str(model_get(h, "id", "")) for h, _s in ranked]
+    _updated_ids = {
+        str(model_get(h, "id", "")) for h in updated_hypotheses}
+    # statuses leaving the OPEN pool this batch (the reducer's terminal
+    # transitions): PROMOTED and ABANDONED are the only ones the
+    # strategist itself emits as updates.
+    _terminal_ids = {
+        str(model_get(h, "id", ""))
+        for h in updated_hypotheses
+        if str(model_get(h, "status", "")) in {
+            HypothesisStatus.PROMOTED.value,
+            HypothesisStatus.ABANDONED.value,
+        }
+    }
+    _pool_after_ids = [
+        hid for hid in _pool_after_ids if hid not in _terminal_ids]
     decision_log_entries.append({
         # PRIORITIZATION: the frozen DecisionType vocabulary has no
         # batch-measurement member; the batch IS the strategist's
         # prioritization decision, and rule_fired distinguishes it.
         "decision_type": "prioritization",
         "rule_fired": "umdr40_rc6_measured_information_gain",
-        "rule_fired": "umdr40_rc6_measured_information_gain",
         "outcome": "measured",
         "entity_refs": [],
         "metadata": {
             "information_gain": information_gain_snapshot(
                 _pool_before_ids, _pool_after_ids),
+            # UM-DR-41 §10.1: explicit accounting of what the delta
+            # means — updated_in_batch (reducer upserts, including
+            # deferred/retagged entries that REMAIN in the pool) is
+            # distinct from resolved_out_of_pool (promoted/abandoned).
+            # An empty update list is NOT proof that every hypothesis
+            # was resolved, and the snapshot now reflects that.
+            "updated_in_batch": sorted(i for i in _updated_ids if i),
+            "updated_in_batch_count": len(_updated_ids),
         },
     })
     for entry in decision_log_entries:
@@ -751,6 +840,13 @@ def strategist_node(state: PentestState) -> dict[str, Any]:
         "selection_policy": "coverage-based-no-fixed-top-n",
         "candidate_count": len(coverage_entries),
         "status_counts": status_counts,
+        # UM-DR-41 §10.2: the number of decision batches this ledger has
+        # recorded. The state field is merge_dicts'd, so a scalar here is
+        # overwritten by each strategist pass — carrying the running
+        # count forward requires reading the previous value first
+        # (_batch_cycle above) and emitting the increment here.
+        "cycle_count": _batch_cycle,
+        "last_batch_id": _batch_id,
         "entries": coverage_entries,
     }
 

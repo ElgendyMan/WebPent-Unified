@@ -2,8 +2,7 @@
 from __future__ import annotations
 import logging
 from dataclasses import dataclass
-from typing import Any
-from webpent.brain.ev_scheduler import EVScheduler, FAMILY_BASE_RATES
+from webpent.brain.ev_scheduler import FAMILY_BASE_RATES
 _logger=logging.getLogger(__name__)
 EV_COLLAPSE_THRESHOLD=5; SWITCH_COOLDOWN=3
 @dataclass

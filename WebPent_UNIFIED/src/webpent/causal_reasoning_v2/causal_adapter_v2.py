@@ -20,7 +20,7 @@ from __future__ import annotations
 
 import os
 import time
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any, Iterable, Mapping
 
 from webpent.causal_reasoning_v2.confidence_engine_v2 import ConfidenceEngineV2

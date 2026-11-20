@@ -25,8 +25,7 @@ achieves the same explicitly.
 """
 from __future__ import annotations
 
-import traceback
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any, Iterable, Mapping
 
 from webpent.causal_reasoning_v2.architecture_extractor import ArchitectureExtractor

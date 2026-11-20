@@ -69,6 +69,10 @@ from webpent.shared.surface_evidence_graph import build_surface_evidence_graph
 from webpent.shared.surface_influence_graph import build_surface_influence_graph
 from webpent.shared.tech_stack_cve import correlate_cves, fingerprint_tech_stack
 
+
+import logging
+
+logger = logging.getLogger(__name__)
 # A no-op executor: the default "act" step. It never performs anything;
 # it marks the action as handed-off-but-not-executed so a dry-run
 # campaign (plan + ledger only) is expressible without any hooks.
@@ -392,8 +396,8 @@ class VipOrchestrator:
                             result["review_surviving_explanations"] = surviving
                             result["outcome"] = "needs_review"
                             outcome = "needs_review"
-                    except Exception:  # noqa: BLE001 — reviewer failure never upgrades
-                        pass
+                    except Exception as exc:  # noqa: BLE001 — reviewer failure never upgrades
+                        logger.debug("reviewer escalation check skipped: %s", exc)
             elif outcome == "failed":
                 self.optimizer.record_failure(sid)
             if outcome in ("confirmed", "failed", "needs_review"):
@@ -405,8 +409,8 @@ class VipOrchestrator:
                         reason=str(result.get("reason", "")),
                     )
                     verification["recorded"] += 1
-                except Exception:  # noqa: BLE001
-                    pass
+                except Exception as exc:  # noqa: BLE001
+                    logger.debug("verification record skipped: %s", exc)
         self._log("verify", cycle, **verification)
         return verification
 
@@ -437,8 +441,8 @@ class VipOrchestrator:
                     thread_id=self.config.thread_id,
                     postmortem_manager=self.config.postmortem_manager,
                 )
-            except Exception:  # noqa: BLE001 — postmortem is best-effort
-                pass
+            except Exception as exc:  # noqa: BLE001 — postmortem is best-effort
+                logger.debug("postmortem skipped: %s", exc)
         payload = {
             "selfcheck": "ran",
             "escape_rate": report.escape_rate,

@@ -71,17 +71,26 @@ ENV CGO_ENABLED=0 GOOS=linux GOARCH=amd64
 # only re-fetches modules that actually changed version, not
 # everything from scratch, even if this RUN's own layer gets
 # invalidated by an unrelated change elsewhere in the file.
+# UM-DR-41 §6.10 (F-010): subfinder/httpx pinned to verified upstream
+# release tags (resolved from the official repositories' tag lists on
+# 2026-11-19) instead of @latest, matching the nuclei/dalfox pinning
+# policy — tool identity in the image is now reproducible and
+# auditable. Re-verify against
+# https://github.com/projectdiscovery/subfinder/releases (etc.) before
+# bumping.
 RUN --mount=type=cache,target=/root/go/pkg/mod \
     --mount=type=cache,target=/root/.cache/go-build \
     go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@v3.11.0 && \
-    go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest && \
-    go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest
+    go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@v2.17.0 && \
+    go install -v github.com/projectdiscovery/httpx/cmd/httpx@v1.12.0
 
 # katana specifically needs CGO_ENABLED=1 per its own install docs.
+# UM-DR-41 §6.10 (F-010): pinned to the verified v1.8.0 release tag
+# (same policy as above).
 RUN --mount=type=cache,target=/root/go/pkg/mod \
     --mount=type=cache,target=/root/.cache/go-build \
     CGO_ENABLED=1 GOOS=linux GOARCH=amd64 \
-    go install -v github.com/projectdiscovery/katana/cmd/katana@latest
+    go install -v github.com/projectdiscovery/katana/cmd/katana@v1.8.0
 
 # dalfox: pinned, see the note in the file header above.
 RUN --mount=type=cache,target=/root/go/pkg/mod \

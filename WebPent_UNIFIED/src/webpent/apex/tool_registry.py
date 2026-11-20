@@ -192,9 +192,6 @@ class ToolRegistry:
         executes anything and never touches the network (APEX-L-9)."""
         return shutil.which(self.get(tool_id).binary) is not None
 
-    def installation_report(self) -> dict[str, bool]:
-        return {t.id: self.verify_installed(t.id) for t in self.list_tools()}
-
     # -- summary -----------------------------------------------------------------
 
     def summary(self) -> dict:

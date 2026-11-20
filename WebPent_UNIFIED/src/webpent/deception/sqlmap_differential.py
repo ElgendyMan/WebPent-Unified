@@ -30,7 +30,6 @@ caller already captured (the frozen runner owns process execution).
 from __future__ import annotations
 
 import re
-from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field
 

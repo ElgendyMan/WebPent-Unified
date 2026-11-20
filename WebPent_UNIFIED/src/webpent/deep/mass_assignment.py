@@ -12,7 +12,7 @@ body)`` callable; this module never opens a socket and never exploits
 """
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 # Spec payload corpus, verbatim structure (U-DEEP-7).
 MASS_ASSIGN_PAYLOADS: dict[str, list[dict]] = {

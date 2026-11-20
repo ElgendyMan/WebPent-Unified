@@ -29,12 +29,11 @@ never seen before.
 """
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any, Iterable, Mapping
 
 from webpent.causal_reasoning_v2.architecture_graph import (
     ArchNode,
-    EdgeKind,
     NodeKind,
     PathTrace,
     SystemArchitectureGraph,

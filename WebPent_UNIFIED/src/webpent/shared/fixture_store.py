@@ -10,7 +10,7 @@ from __future__ import annotations
 import json
 import os
 import tempfile
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from typing import Any, Optional
 
@@ -20,17 +20,12 @@ from .fixture_registry import (
     REASON_BUDGET,
     REASON_CATCHER_UNKNOWN,
     REASON_DUPLICATE_BINDING,
-    REASON_FOREIGN_ORIGIN,
-    REASON_LOOPBACK,
     REASON_OVERSIZE,
     REASON_RESCAN_UNCLEAN,
-    REASON_SECRET_AMBIGUOUS,
-    REASON_SECRET_LIVE,
     REASON_UNKNOWN_SOURCE,
     REASON_WINDOW,
     SOURCE_RESERVED_CATCHER,
     SOURCE_STATIC_HAR,
-    SOURCE_STATIC_JSON,
     FixtureManifestChain,
     content_digest,
     detect_source_type,

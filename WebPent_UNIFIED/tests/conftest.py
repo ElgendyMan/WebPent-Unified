@@ -28,6 +28,23 @@ import os
 
 import pytest
 
+# --- UMDR42: make src/ resolvable for ALL spawned subprocesses -------
+# pyproject's `pythonpath = ["src", "."]` only reaches the pytest process
+# itself. Several tests spawn `sys.executable` children (`-m webpent.cli`,
+# `-c "import webpent..."`, composition bodies) that inherit os.environ;
+# in any environment without `pip install -e .` those children failed with
+# ModuleNotFoundError (umdr30 flag contract, r3_e2 builder rejection,
+# sprint_i1 s2 composition, campaign_pack R-01, blind_discovery oracle
+# isolation — all red for this reason). Exporting PYTHONPATH here at import
+# time fixes every child that uses `dict(os.environ)`/inherits the env,
+# which is all of them; tests that build a pristine env set their own.
+_REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_SRC_ROOT = os.path.join(_REPO_ROOT, "src")
+_existing = os.environ.get("PYTHONPATH", "")
+if _SRC_ROOT not in _existing.split(os.pathsep):
+    os.environ["PYTHONPATH"] = os.pathsep.join(
+        [_SRC_ROOT] + ([_existing] if _existing else []))
+
 # R3 E-4 (Ruling R3-002 §3.4, mechanism (b)): the production graph node
 # derives its entrypoint TRUTHFULLY and fails closed when the surface is
 # underivable. The test harness invokes nodes/graphs directly in-process —

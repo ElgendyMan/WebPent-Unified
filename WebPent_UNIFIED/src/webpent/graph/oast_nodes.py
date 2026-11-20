@@ -149,8 +149,8 @@ def oast_correlation_node(state: PentestState) -> dict[str, Any]:
         finally:
             try:
                 bridge.disarm(hypothesis_id)
-            except Exception:  # noqa: BLE001 — cleanup is best-effort
-                pass
+            except Exception as exc:  # noqa: BLE001 — cleanup is best-effort
+                logger.debug("oast bridge disarm skipped: %s", exc)
 
     status = "correlated" if candidates else "polled_no_interactions"
     message = AIMessage(

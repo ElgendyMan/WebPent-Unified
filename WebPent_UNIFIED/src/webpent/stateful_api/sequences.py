@@ -24,7 +24,7 @@ bounded budgets/cleanup".
 from __future__ import annotations
 
 import hashlib
-from typing import Any, Iterable, Mapping
+from typing import Any, Iterable
 
 from pydantic import BaseModel, ConfigDict, Field
 

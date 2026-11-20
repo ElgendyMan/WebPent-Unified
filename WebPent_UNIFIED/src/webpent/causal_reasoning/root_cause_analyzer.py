@@ -23,7 +23,6 @@ from webpent.causal_reasoning.contracts import (
     InferenceResult,
     RootCauseCluster,
     WeaknessCategory,
-    route_to_glob,
     stable_id,
 )
 

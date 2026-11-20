@@ -50,10 +50,6 @@ class FamilyMetrics(BaseModel):
     cost_per_confirmed_usd: float = Field(default=0.0, ge=0.0)
     requests_per_finding: float = Field(default=0.0, ge=0.0)
 
-    @property
-    def defined_sample(self) -> bool:
-        return self.sample_size > 0
-
 
 def compute_family_metrics(
     family: str, observations: Iterable[Mapping[str, Any]]

@@ -50,6 +50,10 @@ from pathlib import Path
 from typing import Any, Callable, Mapping
 from urllib.parse import urlsplit
 
+
+import logging
+
+logger = logging.getLogger(__name__)
 MAX_VIDEO_BYTES = 5 * 1024 * 1024  # 5 MiB
 MAX_VIDEO_SECONDS = 30
 DEFAULT_TOKEN_HEADER = "Authorization"
@@ -199,8 +203,8 @@ def _audit_event(audit_chain: Any, event_type: str, details: dict[str, Any]) -> 
     (docs/ACCEPTED_EXCEPTIONS_REGISTER.md: best-effort audit boundary.)"""
     try:
         audit_chain.append_event(event_type=event_type, details=details)
-    except Exception:  # noqa: BLE001 — registered best-effort audit
-        pass
+    except Exception as exc:  # noqa: BLE001 — registered best-effort audit
+        logger.debug("audit-chain append skipped: %s", exc)
 
 
 def record_poc(
@@ -278,14 +282,14 @@ def record_poc(
         finally:
             try:
                 context.close()  # finalizes the video file
-            except Exception:  # noqa: BLE001 — registered best-effort close
-                pass
+            except Exception as exc:  # noqa: BLE001 — registered best-effort close
+                logger.debug("video finalize close skipped: %s", exc)
             handle = getattr(context, "_webpent_handle", None)
             if handle is not None:
                 try:
                     handle.stop()
-                except Exception:  # noqa: BLE001 — registered best-effort close
-                    pass
+                except Exception as exc:  # noqa: BLE001 — registered best-effort close
+                    logger.debug("recorder handle stop skipped: %s", exc)
 
         elapsed = round(time.monotonic() - t0, 3)
         final_path = out / f"poc_{stem}.webm"

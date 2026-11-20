@@ -11,7 +11,6 @@ arithmetic is untouched). Zero network.
 """
 from __future__ import annotations
 
-import sqlite3
 from datetime import datetime, timezone
 
 _SCHEMA = """
@@ -88,15 +87,6 @@ class EvolutionEngine:
                 "WHERE payload_id = ? AND context_key = ?",
                 (payload_id, context_key)).fetchone()
         return row["boost"] if row else 0.0
-
-    def candidates_for(self, payload_id: str) -> list[tuple[str, str]]:
-        conn = self._indexer._conn
-        with conn:
-            rows = conn.execute(
-                "SELECT name, encoded FROM evolution_candidates "
-                "WHERE payload_id = ? ORDER BY name", (payload_id,)
-            ).fetchall()
-        return [(row["name"], row["encoded"]) for row in rows]
 
     # ------------------------------------------------------------------
     # learning

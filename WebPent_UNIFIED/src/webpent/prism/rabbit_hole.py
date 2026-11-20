@@ -113,9 +113,6 @@ class RabbitHoleProtector:
     def max_time_hours(self) -> float:
         return float(self._config["max_time_hours"])
 
-    def get_patterns(self) -> list[RabbitHolePattern]:
-        return list(self._patterns)
-
     def _matches_known_hole(self, signal: Signal) -> bool:
         return any(p.name == signal.anomaly_type for p in self._patterns)
 

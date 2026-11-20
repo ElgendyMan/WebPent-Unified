@@ -25,13 +25,12 @@ Design notes
 """
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any, Iterable, Mapping
 
 from webpent.causal_reasoning.contracts import (
     AtRiskRegion,
     CausalHypothesis,
-    InferenceLifecycle,
     InferenceResult,
     WeaknessCategory,
     route_to_glob,

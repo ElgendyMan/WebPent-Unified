@@ -31,7 +31,7 @@ from __future__ import annotations
 
 import secrets
 from dataclasses import dataclass
-from typing import Any, Callable, Mapping, Sequence
+from typing import Callable, Mapping, Sequence
 
 __all__ = [
     "CACHE_KEY_HEADER_CANDIDATES",

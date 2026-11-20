@@ -24,11 +24,28 @@ over loopback.
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
+from pathlib import Path
 from typing import Any
 
 from webpent.egaie import discovery_runner as dr
+
+
+def _child_env_with_src() -> dict[str, str]:
+    """Subprocess env that resolves webpent from this checkout.
+
+    pyproject's `pythonpath = ["src", "."]` only reaches pytest itself;
+    a bare `sys.executable -c` child loses the package unless we forward
+    an explicit PYTHONPATH (CI installs the wheel, local runs do not).
+    """
+    src_root = Path(__file__).resolve().parents[2] / "src"
+    env = dict(os.environ)
+    existing = env.get("PYTHONPATH", "")
+    env["PYTHONPATH"] = os.pathsep.join(
+        [str(src_root)] + ([existing] if existing else []))
+    return env
 from webpent.egaie.eval_instances import InstanceTarget, generate_instance
 from webpent.evalsuite.evaluator import (
     corpus_summary,
@@ -173,6 +190,7 @@ def test_evaluator_is_outside_the_discovery_package() -> None:
     )
     proc = subprocess.run(
         [sys.executable, "-c", code], capture_output=True, text=True,
+        env=_child_env_with_src(),
     )
     assert proc.returncode == 0, proc.stderr
 

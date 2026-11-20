@@ -40,6 +40,10 @@ from webpent.families.execution_plans import ExecutionPlan, build_plan_for
 from webpent.families.promotion import promote_confirmed_finding
 from webpent.families.surface_adapter import detect_capabilities, surface_graph_to_inventory
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 FAMILY_EXECUTION_NODE_NAME = "family_execution"
 
 _NODE_EXECUTION_SANDBOX = "execution_sandbox"
@@ -97,8 +101,8 @@ def _action_authority_permit(plan: Any, state: dict[str, Any]) -> bool:
         permit = getattr(authority, "permit", None)
         if callable(permit):
             return bool(permit(plan))
-    except Exception:
-        pass
+    except Exception as exc:  # noqa: BLE001 — analyzer optional, never fatal
+        logger.debug("optional analyzer skipped: %s", exc)
     return True
 
 
@@ -181,38 +185,38 @@ def _run_analyzers(
         candidates.extend(BurstPatternDetector().analyze(
             inventory, target_id=target_id, engagement_id=engagement_id, is_production=is_production,
         ).candidates)
-    except Exception:
-        pass
+    except Exception as exc:  # noqa: BLE001 — analyzer optional, never fatal
+        logger.debug("optional analyzer skipped: %s", exc)
     try:
         from webpent.tenant_isolation import TenantBoundaryDetector
         candidates.extend(TenantBoundaryDetector().analyze(
             inventory, target_id=target_id, engagement_id=engagement_id, multi_tenant=multi_tenant,
         ).candidates)
-    except Exception:
-        pass
+    except Exception as exc:  # noqa: BLE001 — analyzer optional, never fatal
+        logger.debug("optional analyzer skipped: %s", exc)
     try:
         from webpent.multi_step_auth import AuthStateMachineAnalyzer
         if auth_flows:
             candidates.extend(AuthStateMachineAnalyzer().analyze(
                 auth_flows, target_id=target_id, engagement_id=engagement_id,
             ).candidates)
-    except Exception:
-        pass
+    except Exception as exc:  # noqa: BLE001 — analyzer optional, never fatal
+        logger.debug("optional analyzer skipped: %s", exc)
     try:
         from webpent.chained_exploits import PreconditionGraphBuilder
         if confirmed_findings:
             candidates.extend(PreconditionGraphBuilder().analyze(
                 confirmed_findings, target_id=target_id, engagement_id=engagement_id,
             ).candidates)
-    except Exception:
-        pass
+    except Exception as exc:  # noqa: BLE001 — analyzer optional, never fatal
+        logger.debug("optional analyzer skipped: %s", exc)
     try:
         from webpent.oauth import OAuthSurfaceDetector
         candidates.extend(OAuthSurfaceDetector().analyze(
             inventory, target_id=target_id, engagement_id=engagement_id,
         ).candidates)
-    except Exception:
-        pass
+    except Exception as exc:  # noqa: BLE001 — analyzer optional, never fatal
+        logger.debug("optional analyzer skipped: %s", exc)
     # Sixth family: business_logic (lightweight, no langchain)
     candidates.extend(_business_logic_candidates(
         inventory, target_id=target_id, engagement_id=engagement_id,
@@ -338,8 +342,8 @@ def family_execution_node(state: dict[str, Any]) -> dict[str, Any]:
         if not auth_flows:
             auth_flows = auth_flows_from_state(state)
             feeds_applied = feeds_applied or bool(auth_flows)
-    except Exception:
-        pass
+    except Exception as exc:  # noqa: BLE001 — analyzer optional, never fatal
+        logger.debug("optional analyzer skipped: %s", exc)
     if not inventory and not auth_flows and not confirmed_findings:
         return {
             "family_execution_status": "no_input_surface",
@@ -421,8 +425,8 @@ def family_execution_node(state: dict[str, Any]) -> dict[str, Any]:
                                         planner.report_stall("primary")
                                         event_log.record("defense_monitor", "block_detected",
                                                          detail=tactic.reason, action_taken="backoff_and_lane_switch")
-                                except Exception:
-                                    pass
+                                except Exception as exc:  # noqa: BLE001 — analyzer optional, never fatal
+                                    logger.debug("optional analyzer skipped: %s", exc)
                         except Exception as exc:
                             # Red-team fix: do NOT fake a 429 on arbitrary exceptions.
                             # Record the error honestly and continue — a code bug is
@@ -573,8 +577,8 @@ def family_execution_node(state: dict[str, Any]) -> dict[str, Any]:
                 composed_replays.update(planner.execute_composed_chains(
                     chain_hyps, executor, base_url=base_url,
                 ))
-            except Exception:
-                pass
+            except Exception as exc:  # noqa: BLE001 — analyzer optional, never fatal
+                logger.debug("optional analyzer skipped: %s", exc)
         chain_result = planner.validate_and_promote(
             chain_hyps, composed_replays, engagement_id=engagement_id,
         )
@@ -629,8 +633,8 @@ def family_execution_node(state: dict[str, Any]) -> dict[str, Any]:
                     "surviving_benign_explanations": surviving,
                 })
         promoted_findings = kept
-    except Exception:
-        pass
+    except Exception as exc:  # noqa: BLE001 — analyzer optional, never fatal
+        logger.debug("optional analyzer skipped: %s", exc)
 
     # 8b. PROPOSAL 1 (self-verify): confidence scoring + double-check +
     #     alternative-exclusion + adaptive retest. Fail-closed: any finding
@@ -660,8 +664,8 @@ def family_execution_node(state: dict[str, Any]) -> dict[str, Any]:
         ]
         quality_summary = sv_result["quality_summary"]
         learned_rules = sv_result["learned_rules"]
-    except Exception:
-        pass
+    except Exception as exc:  # noqa: BLE001 — analyzer optional, never fatal
+        logger.debug("optional analyzer skipped: %s", exc)
 
     # 9. PROPOSAL 2 (horizon): creative hybrid hypotheses + surface expansion.
     hybrid_hypotheses: list[dict[str, Any]] = []
@@ -672,8 +676,8 @@ def family_execution_node(state: dict[str, Any]) -> dict[str, Any]:
         hybrid_hypotheses = CreativeHypothesisGenerator().generate(set(observed), deep_exploration=deep_exploration)
         bodies = [{"body": str(getattr(r, "body", "") or "")} for r in validation_results]
         expanded_surface = AttackSurfaceExpander().expand(bodies)
-    except Exception:
-        pass
+    except Exception as exc:  # noqa: BLE001 — analyzer optional, never fatal
+        logger.debug("optional analyzer skipped: %s", exc)
 
     # 10. Merge promoted findings into the ledger (D2 fix pattern)
     status = "ok" if not plans else ("executed_and_validated" if executed_count else "plans_pending_execution")

@@ -23,7 +23,7 @@ a real measurement, not a content guess.
 """
 from __future__ import annotations
 
-from typing import Any, Iterable, Mapping
+from typing import Any, Iterable
 
 __all__ = [
     "ranked_alternatives",

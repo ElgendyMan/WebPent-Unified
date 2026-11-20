@@ -41,7 +41,6 @@ from webpent.production.validators import (
     EvidenceQuality,
     ValidationOutcome,
     ValidationResult,
-    ValidatorError,
     _require_evidence,
 )
 

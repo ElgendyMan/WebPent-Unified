@@ -23,7 +23,6 @@ This module is that surface — PREVIEW ONLY by design:
 
 from __future__ import annotations
 
-import json
 from pathlib import Path
 from typing import Any
 

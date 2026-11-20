@@ -7,7 +7,6 @@ seal, replay, or promote findings itself.
 """
 from __future__ import annotations
 
-from dataclasses import asdict
 from typing import Any, Callable, Iterable
 from urllib.parse import urlsplit, urlunsplit
 

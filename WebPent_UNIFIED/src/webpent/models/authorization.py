@@ -252,23 +252,6 @@ class AuthorizationManifest(BaseModel):
             )
         return None
 
-    def as_redacted_dict(self) -> dict[str, Any]:
-        """Checkpoint/report-safe projection (counts and digests, no prose)."""
-        return {
-            "schema_version": self.schema_version,
-            "engagement_id": self.engagement_id,
-            "client_id": self.client_id,
-            "operator": self.operator,
-            "authorization_reference": self.authorization_reference,
-            "manifest_sha256": self.manifest_sha256,
-            "authorized_origin_count": len(self.authorized_origins),
-            "excluded_host_count": len(self.excluded_hosts),
-            "include_path_count": len(self.include_paths),
-            "exclude_path_count": len(self.exclude_paths),
-            "not_before": self.not_before.isoformat() if self.not_before else None,
-            "expires_at": self.expires_at.isoformat() if self.expires_at else None,
-        }
-
 
 class AuthorizationDecision(BaseModel):
     """Typed outcome of checking one target against one manifest."""

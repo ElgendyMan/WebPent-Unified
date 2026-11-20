@@ -669,8 +669,8 @@ def _check_risk_manager_caps(caps: dict[str, Any]) -> str | None:
                 f"curiosity_budget {budget_consumed:.2f} >= "
                 f"ceiling {budget_ceiling:.2f}"
             )
-    except Exception:
-        pass
+    except Exception as exc:
+        logger.debug("budget ceiling check skipped: %s", exc)
         # Intentionally suppressed — reviewed 2026-09-03
     return None
 

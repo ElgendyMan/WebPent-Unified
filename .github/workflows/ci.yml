@@ -66,6 +66,29 @@
 #     dependency CVE gate with audited allowlist, per-release SBOM
 #     artifact, and a coverage floor (measured baseline, ratchet).
 # Nightly lab canary + evidence: see .github/workflows/nightly.yml.
+#
+# UM-DR-41 §8 (F-014 remediation) — two structural changes, both
+# evidence-preserving:
+#
+# 1. G-08 ISOLATION (job split). The direct-I/O inventory gate previously
+#    ran as a step INSIDE the tests job, before the full suite. When the
+#    49 transport approvals expired on 2026-11-19 the gate failed, the
+#    remaining steps (incl. the full regression suite) were skipped, and
+#    the downstream evidence checks reported "missing current-run
+#    evidence" — a misattributed failure mode. G-08 now runs as its own
+#    job (g08-inventory) so its failure is attributable by job name, and
+#    the tests job does NOT depend on it: the full suite + evidence
+#    upload run regardless of the inventory gate's state, exactly as
+#    they do for the other static gates' sibling jobs. No gate was
+#    weakened or removed; the same command runs, in the same
+#    environment, with the same failure semantics.
+# 2. ACTIONS PINNED TO COMMIT SHAs (supply chain). checkout,
+#    setup-uv and upload-artifact now reference the exact commit SHAs
+#    resolved from their upstream tags (SHAs fetched via git ls-remote
+#    on 2026-11-19; the tag is kept as a comment for auditability):
+#      actions/checkout@v4        -> 11d5960a326750d5838078e36cf38b85af677262
+#      astral-sh/setup-uv@v5      -> e58605a9b6da7c637471fab8847a5e5a6b8df081
+#      actions/upload-artifact@v4 -> ea165f8d65b6e75b540449e92b4886f43607fa02
 name: WebPent CI
 
 on:
@@ -75,6 +98,45 @@ on:
   workflow_dispatch:
 
 jobs:
+  # ---------------------------------------------------------------------
+  # UM-DR-41 §8: the G-08 direct-I/O inventory gate as a SEPARATE job.
+  # Its failure (e.g. expired approvals, inventory drift) is attributable
+  # by job name and no longer masks the full-suite results.
+  # ---------------------------------------------------------------------
+  g08-inventory:
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: WebPent_UNIFIED
+    env:
+      LLM_ENABLED: "false"
+      EMBEDDINGS_OFFLINE: "true"
+      DISABLE_RAG: "true"
+      AUTH_ENABLED: "false"
+      FFUF_ENABLED: "false"
+      WEBHOOK_ENABLED: "false"
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@e58605a9b6da7c637471fab8847a5e5a6b8df081 # v5
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - name: Sync locked dependencies
+        run: uv sync --locked --extra dev
+
+      # Sprint I-1b item B.3: G-08 direct-I/O inventory drift gate.
+      # Re-runs the AST inventory on src/ and fails if it has drifted from
+      # the recorded artifact (docs/direct_io_inventory.json). One approval-
+      # completeness check inside the test is xfail pending security review
+      # of 18 raw-transport sites (see the test file's docstring).
+      - name: G-08 direct-I/O inventory drift (Sprint I-1b B.3)
+        run: uv run pytest -q tests/test_g02_direct_io_inventory.py
+
   tests:
     # Playwright Chromium is not yet supported on the Ubuntu 26 runner image.
     # Pin the CI host image so browser integration tests remain reproducible.
@@ -98,12 +160,12 @@ jobs:
       # and turned the P2-205 gate into eight spurious failures in run
       # 44023244366. fetch-depth: 0 fetches all branches and tags, so
       # provenance verification inspects the required history.
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@e58605a9b6da7c637471fab8847a5e5a6b8df081 # v5
 
       - name: Set up Python
         run: uv python install 3.12
@@ -147,19 +209,27 @@ jobs:
       # the current-run .webpent-evidence/ record is a SEPARATE domain
       # validated by check_test_evidence.py with the workflow run-id/
       # attempt binding; the two are never compared.
-      # Sprint I-1b item B.3: G-08 direct-I/O inventory drift gate.
-      # Re-runs the AST inventory on src/ and fails if it has drifted from
-      # the recorded artifact (docs/direct_io_inventory.json). One approval-
-      # completeness check inside the test is xfail pending security review
-      # of 18 raw-transport sites (see the test file's docstring).
-      - name: G-08 direct-I/O inventory drift (Sprint I-1b B.3)
-        run: uv run pytest -q tests/test_g02_direct_io_inventory.py
+      # UM-DR-41 §8: the G-08 direct-I/O inventory gate that previously
+      # ran here moved to its own job (g08-inventory) above, so its
+      # failure no longer skips the full suite and misreports as missing
+      # evidence. The gate command itself is unchanged.
 
       # --- Track-1 quality/security gates (REQUIRED, 2026-10-29) ------
       # Ruff ratchet: blocks INCREASES over the frozen baseline
       # (scripts/quality/ruff_baseline.json); reductions re-freeze it.
       - name: Ruff ratchet (no new findings)
         run: uv run python scripts/check_ruff_ratchet.py
+
+      # --- UMDR42 audit ratchets (2026-11-19) ------------------------
+      # Dead-code ratchet: blocks new unreferenced public symbols over the
+      # frozen baseline (scripts/quality/dead_code_baseline.json).
+      - name: UMDR42 audit scanner (dead-code ratchet)
+        run: uv run python scripts/umdr42_audit_scanner.py
+
+      # Marker ratchet: no new TODO/FIXME/XXX/HACK in src/ beyond the
+      # classified allowlist (docs/backlog/TODO_REGISTER.md).
+      - name: UMDR42 marker ratchet (no new TODO/FIXME)
+        run: uv run python scripts/umdr42_check_no_new_markers.py
 
       # Dependency CVE gate: blocking with an audited allowlist
       # (scripts/quality/cve_allowlist.json) — new vulns fail the build.
@@ -188,7 +258,7 @@ jobs:
           uv run pip-audit --format cyclonedx-json --output docs/sbom.cdx.json -r /tmp/locked-requirements.txt || true
       - name: Upload SBOM artifact
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: sbom-cyclonedx
           path: WebPent_UNIFIED/docs/sbom.cdx.json
@@ -225,7 +295,7 @@ jobs:
 
       - name: Upload full-suite evidence
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: full-suite-evidence
           path: WebPent_UNIFIED/.webpent-evidence/

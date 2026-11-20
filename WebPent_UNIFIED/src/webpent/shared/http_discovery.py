@@ -18,6 +18,10 @@ from urllib.parse import parse_qsl, urlencode, urljoin, urlsplit, urlunsplit
 
 from webpent.config.settings import get_settings
 
+
+import logging
+
+logger = logging.getLogger(__name__)
 # Route seeds must be target-scoped. Operators can provide explicit seeds
 # through discovery_route_seeds; the built-in discovery path never invents
 # target-specific hypotheses.
@@ -809,8 +813,8 @@ def discover_http_surface(
                             absolute, base_url
                         ):
                             skipped_off_origin += 1
-                    except Exception:
-                        pass
+                    except Exception as exc:
+                        logger.debug("off-origin response accounting skipped: %s", exc)
                         # Intentionally suppressed — reviewed 2026-09-03
                     continue
                 if discovered not in queued and depth < max_depth:

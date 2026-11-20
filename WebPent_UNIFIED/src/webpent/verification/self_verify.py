@@ -20,7 +20,7 @@ from enum import Enum
 from typing import Any
 
 from webpent.verification.advanced import (
-    FailureClass, UncertaintyReason, classify_failure, classify_uncertainty,
+    FailureClass, classify_failure, classify_uncertainty,
 )
 
 

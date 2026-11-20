@@ -248,8 +248,8 @@ def _infer_usage_node() -> str:
             name = frame.function
             if name.endswith("_node"):
                 return name[:80]
-    except Exception:  # pragma: no cover - diagnostics must never break LLM use
-        pass
+    except Exception as exc:  # pragma: no cover - diagnostics must never break LLM use
+        logger.debug("node-name diagnostics skipped: %s", exc)
         # Intentionally suppressed — reviewed 2026-09-03
     return "unknown"
 

@@ -533,29 +533,7 @@ def _run_loop(
     return state, metrics
 
 
-def run_discovery_adaptive(
-    target: Any, seed: int = 1, max_rounds: int = 48,
-) -> tuple[InvestigationState, dict[str, Any]]:
-    """Full differential discovery engine (recon -> ranked probes)."""
-    return _run_loop(target, mode="adaptive", seed=seed,
-                     max_rounds=max_rounds)
 
-
-def run_discovery_fixed(
-    target: Any, seed: int = 1, max_rounds: int = 48,
-) -> tuple[InvestigationState, dict[str, Any]]:
-    """Prioritization ablation: same probes, insertion order."""
-    return _run_loop(target, mode="fixed", seed=seed,
-                     max_rounds=max_rounds)
-
-
-def run_discovery_ablation(
-    target: Any, seed: int = 1, max_rounds: int = 48,
-) -> tuple[InvestigationState, dict[str, Any]]:
-    """No-proposer ablation: the existing baseline on the discovery
-    surface (empty seed, no differential proposer)."""
-    return _run_loop(target, mode="ablation", seed=seed,
-                     max_rounds=max_rounds)
 
 
 # --------------------------------------------------------------------------

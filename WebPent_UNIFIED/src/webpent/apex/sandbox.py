@@ -16,7 +16,6 @@ from __future__ import annotations
 
 import re
 import shlex
-import signal
 import subprocess
 import time
 from dataclasses import dataclass, field
@@ -197,10 +196,6 @@ class Sandbox:
         self._backend.cleanup(container_id)
         self.container_ids = [c for c in self.container_ids if c != container_id]
 
-    def cleanup_all(self) -> None:
-        for cid in list(self.container_ids):
-            self.cleanup(cid)
-
 
 class DockerSandbox:
     """Builds the isolated `docker run` argv for a command.
@@ -322,8 +317,3 @@ class LocalSandbox:
         return None
 
 
-def kill_after_deadline(pid: int) -> None:  # pragma: no cover - signal helper
-    """SIGKILL helper used by long-running sandboxed children."""
-    import os
-
-    os.kill(pid, signal.SIGKILL)

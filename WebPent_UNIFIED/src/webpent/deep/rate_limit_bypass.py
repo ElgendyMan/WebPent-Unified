@@ -23,7 +23,7 @@ Findings are advisory evidence only (DEEP-L-8 ADVISORY_ONLY).
 """
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 # Spec corpus, verbatim header names and order (U-DEEP-2).
 RATE_LIMIT_BYPASSES: dict = {

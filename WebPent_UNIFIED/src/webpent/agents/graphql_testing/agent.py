@@ -35,7 +35,6 @@ nothing here routes into EXPLOITABLE_CLASSES.
 """
 from __future__ import annotations
 
-import json
 import time
 from typing import Any
 from urllib.parse import urlsplit

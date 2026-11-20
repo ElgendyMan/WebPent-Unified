@@ -24,7 +24,6 @@ from __future__ import annotations
 from collections import Counter
 from typing import Iterable
 
-from webpent.models.hypothesis import HypothesisStatus
 
 # Main-model status -> mission lifecycle stage (total mapping; every
 # enum value appears exactly once).

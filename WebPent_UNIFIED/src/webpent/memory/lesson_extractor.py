@@ -5,7 +5,7 @@ execution, authorization, validation, sealing, replay, or promotion authority.
 """
 from __future__ import annotations
 
-from collections import Counter, defaultdict
+from collections import Counter
 from typing import Any, Iterable
 
 from webpent.memory.lesson_models import (

@@ -8,6 +8,10 @@ from dataclasses import dataclass, field
 from typing import Any
 
 
+
+import logging
+
+logger = logging.getLogger(__name__)
 @dataclass
 class LLMResponse:
     response_id: str = field(default_factory=lambda: str(uuid.uuid4()))
@@ -82,8 +86,8 @@ class BaseLLMProvider(ABC):
                 from webpent.safety.spend_governor import enforce_spend_cap
 
                 response = enforce_spend_cap(response)
-        except Exception:  # noqa: BLE001 — the cap never breaks a real call
-            pass
+        except Exception as exc:  # noqa: BLE001 — the cap never breaks a real call
+            logger.debug("spend-cap enforcement skipped: %s", exc)
 
         telemetry = TelemetryRecord(
             call_id=response.response_id,

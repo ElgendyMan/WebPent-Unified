@@ -64,11 +64,6 @@ def defects_for(spec: LabSpec) -> list[dict[str, str]]:
     return out
 
 
-def invariant_families(spec: LabSpec) -> list[str]:
-    """All invariant families the deployment exercises, defective or
-    secured. Secured lookalikes belong to the same invariant family."""
-    return sorted(ENGINE_FAMILY)
-
 
 @dataclass
 class FamilyScore:

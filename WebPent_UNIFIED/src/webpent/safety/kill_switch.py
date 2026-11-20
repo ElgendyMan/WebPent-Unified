@@ -28,6 +28,10 @@ import threading
 import time
 from typing import Any
 
+
+import logging
+
+logger = logging.getLogger(__name__)
 __all__ = [
     "engage",
     "release",
@@ -128,8 +132,8 @@ def _publish(payload: dict[str, Any]) -> None:
                 return
             client = redis.Redis.from_url(url, socket_connect_timeout=1.0, socket_timeout=1.0)
             client.publish(_CHANNEL, json.dumps(payload))
-    except Exception:  # noqa: BLE001 — fanout is opportunistic
-        pass
+    except Exception as exc:  # noqa: BLE001 — fanout is opportunistic
+        logger.debug("kill-switch redis fanout skipped: %s", exc)
 
 
 def _apply_remote(payload: bytes) -> None:
@@ -191,8 +195,8 @@ def _listen_loop(url: str) -> None:
             for message in pubsub.listen():
                 if message and message.get("type") == "message":
                     _apply_remote(message.get("data") or b"")
-        except Exception:  # noqa: BLE001 — subscriber is opportunistic
-            pass
+        except Exception as exc:  # noqa: BLE001 — subscriber is opportunistic
+            logger.debug("kill-switch subscriber iteration failed: %s", exc)
         # Redis dropped (or never came up): the v3.0 defect exited
         # the thread permanently, so this process silently stopped
         # receiving remote engages/releases for the rest of its

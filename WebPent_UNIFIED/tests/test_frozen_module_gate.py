@@ -120,6 +120,54 @@ UMDR40B_20261118_THAW_PATHS = frozenset(
     }
 )
 
+# UMDR42 (2026-11-19): Phase D1 converted every silent
+# `except Exception: pass` in src/ to a logging site (debug by default,
+# warning where a learning-loop signal is lost) across 22 files
+# (commits 22f0f4a + c57f765), and closed the UMDR41 residual gap where
+# 277b1a5 modified five files without re-pinning them
+# (production_spine, principal_provisioning, scope/__init__,
+# scope/registry, generic_web_contracts — bytes unchanged since that
+# commit, manifest was simply stale). All 27 re-pinned by
+# scripts/refreeze_manifest_umdr42.py after the window's regression
+# tests passed (85 targeted tests green; the only full-suite failures
+# were the frozen-gate byte checks this list documents).
+# tests passed (85 targeted tests green; the only full-suite failures
+# were the frozen-gate byte checks this list documents). Nine of the 29
+# re-pinned files postdate the pre-unfreeze baseline entirely (they did
+# not exist at the 2026-10-05 freeze), so they cannot appear as drift
+# and are correctly absent here.
+UMDR42_20261119_THAW_PATHS = frozenset(
+    {
+        "src/webpent/tools/exploitation/sqlmap.py",
+        "src/webpent/agents/hunter_runner.py",
+        "src/webpent/agents/hypothesis_analyzer/agent.py",
+        "src/webpent/agents/post_exploit/agent.py",
+        "src/webpent/llm_researcher/providers/base.py",
+        "src/webpent/llm_researcher/providers/pool.py",
+        "src/webpent/models/mental_model.py",
+        "src/webpent/recon/login_executor.py",
+        "src/webpent/shared/http_discovery.py",
+        "src/webpent/shared/llm.py",
+        "src/webpent/shared/prioritization.py",
+        "src/webpent/shared/research_contracts.py",
+        "src/webpent/shared/self_critique.py",
+        "src/webpent/smart/memory_engine.py",
+        "src/webpent/workers/pentest_worker.py",
+        "src/webpent/production/production_spine.py",
+        "src/webpent/recon/principal_provisioning.py",
+        "src/webpent/scope/__init__.py",
+        "src/webpent/scope/registry.py",
+        "src/webpent/shared/generic_web_contracts.py",
+        "src/webpent/agents/chain_engine.py",
+        "src/webpent/llm_researcher/task_router.py",
+        "src/webpent/memory/lesson_extractor.py",
+        "src/webpent/production/autonomous_recon.py",
+        "src/webpent/recon/payload_advisor.py",
+        "src/webpent/service/manager.py",
+        "src/webpent/shared/fixture_store.py",
+    }
+)
+
 # TEAM-MERGE 2026-10-22 (donorC Comprehensive(1) + donorV v15.2; re-freeze
 # commit 1dfcbe4, documented in the TEAM-MERGE re-freeze addendum of
 # docs/UNFREEZE_FILES_20261005.md): the v15.2 lineage regenerated
@@ -1243,6 +1291,7 @@ def test_baseline_disagrees_only_on_documented_unfreeze_paths() -> None:
         | UMDR35_36_CONFIRMATION_20261112_THAW_PATHS
         | UMDR37_ROOT_CAUSE_20261115_THAW_PATHS
         | UMDR40B_20261118_THAW_PATHS
+        | UMDR42_20261119_THAW_PATHS
     )
     # ULTIMATE PLAN 2026-10-27, proposal 4: the pre-archive drift sets
     # (e.g. TEAM_MERGE_V152_LINEAGE_DRIFT_PATHS' goed_v1 entry) can no

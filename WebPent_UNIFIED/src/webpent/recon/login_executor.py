@@ -17,14 +17,17 @@ from typing import Any, Mapping
 from urllib.parse import urljoin, urlsplit
 
 from webpent.recon.auth_detector import AuthSignal
-from webpent.recon.identity_discovery import _has_identity_scalars, _walk_identity, decode_login_jwt_claims
+from webpent.recon.identity_discovery import _has_identity_scalars, decode_login_jwt_claims
 from webpent.shared.engagement_scope import (
     clear_engagement_target_hosts,
     set_engagement_target_hosts,
 )
-from webpent.shared.http import build_cookie_header, make_safe_httpx_client
-from webpent.shared.untrusted_content import wrap_httpx_response
+from webpent.shared.http import make_safe_httpx_client
 
+
+import logging
+
+logger = logging.getLogger(__name__)
 _SECRET_KEYS = {"token", "access_token", "accessToken", "id_token", "idToken", "jwt", "api_key", "apiKey", "session_token"}
 _SESSION_COOKIE_RE = re.compile(r"(?:session|phpsessid|jsessionid|connect\.sid|sid|auth|token|jwt)", re.I)
 _NON_AUTH_COOKIE_RE = re.compile(r"(?:consent|language|preferences?|theme|analytics)", re.I)
@@ -623,8 +626,8 @@ class LoginExecutor:
             if owns_client:
                 try:
                     active_client.close()
-                except Exception:
-                    pass
+                except Exception as exc:
+                    logger.debug("login client close skipped: %s", exc)
             clear_engagement_target_hosts(target_token)
 
 

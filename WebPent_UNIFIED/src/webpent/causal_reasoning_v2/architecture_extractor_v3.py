@@ -19,7 +19,7 @@ from __future__ import annotations
 
 import ast
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -59,10 +59,6 @@ class CallNodeV3:
     @property
     def direct_callees(self) -> tuple[str, ...]:
         return tuple(cs.callee for cs in self.call_sites if not cs.conditional)
-
-    @property
-    def conditional_callees(self) -> tuple[str, ...]:
-        return tuple(cs.callee for cs in self.call_sites if cs.conditional)
 
 
 @dataclass(frozen=True)

@@ -240,8 +240,8 @@ class ProviderPool:
                         telemetry = provider.get_redacted_telemetry()
                         if telemetry:
                             tokens = telemetry[-1].get("tokens_used", 0) if telemetry else 0
-                    except Exception:
-                        pass
+                    except Exception as exc:
+                        logger.debug("telemetry token read skipped: %s", exc)
 
                     # F-02 (0.33.0) honest failure: BaseLLMProvider.generate
                     # returns an error-carrying LLMResponse instead of raising,

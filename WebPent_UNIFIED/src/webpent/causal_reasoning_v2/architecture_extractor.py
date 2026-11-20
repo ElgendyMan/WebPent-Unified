@@ -26,11 +26,10 @@ All results are confidence-scored and bounded.  Failures on individual files
 from __future__ import annotations
 
 import ast
-import re
-from collections import defaultdict, deque
-from dataclasses import dataclass, field
+from collections import deque
+from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Iterable, Mapping
+from typing import Any, Iterable
 
 # Name heuristics — documented, additive.  A function matching ANY hint is
 # classified as that role.  Structural signals (calls to known verifiers)
@@ -246,14 +245,6 @@ class ArchitectureExtractor:
         ]
         return tuple(sorted(meaningful))
 
-    def endpoints_sharing_dependency(self, dep_name: str) -> tuple[str, ...]:
-        """All routes whose call chain contains a given shared node."""
-        result = []
-        for ep in self.endpoints:
-            if dep_name in ep.call_chain:
-                result.append(ep.route)
-        return tuple(sorted(result))
-
     @property
     def stats(self) -> dict[str, Any]:
         return {
@@ -308,9 +299,6 @@ class ArchitectureExtractor:
 # ---------------------------------------------------------------------------
 # Module-level helpers
 # ---------------------------------------------------------------------------
-
-def node_for(_qualname: str, _func_calls: dict[str, set[str]]) -> Any:
-    return None  # placeholder; line numbers not critical for inference
 
 
 def _callee_name(func: ast.AST) -> str | None:

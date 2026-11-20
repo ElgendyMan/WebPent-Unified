@@ -228,8 +228,8 @@ def compute_novelty_bonus(hypothesis: Hypothesis, state: Any | None = None) -> f
         try:
             from webpent.shared.trust_matrix import trust_adjustment
             bonus += max(0.0, trust_adjustment(state.get("trust_matrix"), hypothesis))
-        except Exception:
-            pass
+        except Exception as exc:
+            logger.debug("trust adjustment skipped: %s", exc)
             # Intentionally suppressed — reviewed 2026-09-03
     return round(max(0.0, min(_NOVELTY_CAP, bonus)), 6)
 
@@ -469,8 +469,8 @@ def score_hypothesis(
                 if node.identity_key == target_norm and node.kind == NodeKind.ENDPOINT.value:
                     crit_str = node.criticality
                     break
-        except Exception:
-            pass
+        except Exception as exc:
+            logger.debug("criticality read skipped: %s", exc)
             # Intentionally suppressed — reviewed 2026-09-03
     crit_rank = _CRITICALITY_RANK.get(crit_str, 0)
     crit_norm = crit_rank / 3.0

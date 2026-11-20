@@ -31,7 +31,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
@@ -211,9 +211,6 @@ class ExperienceCorpus:
                 self._by_digest.pop(evicted.digest, None)
         self._flush()
         return True
-
-    def add_documents(self, documents: list[ExperienceDocument]) -> int:
-        return sum(1 for doc in documents if self.add(doc))
 
     def search(
         self,

@@ -26,7 +26,7 @@ deciding that trade.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Mapping, Sequence
+from typing import Any, Mapping
 
 __all__ = [
     "TIER_FAST",

@@ -28,7 +28,6 @@ from webpent.agents.personas import PersonaSpec, select_personas
 from webpent.config.settings import get_settings
 from webpent.memory import learning_lifecycle
 from webpent.memory.lesson_consultant import consult_lessons
-from webpent.production.autonomous_recon import AutonomousReconError
 from webpent.production.experiment_fabric import EXPERIMENT_REGISTRY
 from webpent.production.production_spine import ProductionSpineConfig, resolve_production_spine
 from webpent.recon.auth_detector import AuthDetector
@@ -52,6 +51,10 @@ from webpent.shared.llm import (
 from webpent.scope import ScopeEnforcer, ScopePolicy
 
 
+
+import logging
+
+logger = logging.getLogger(__name__)
 def _safe_json(value: Any) -> Any:
     if hasattr(value, "to_dict"):
         return value.to_dict()
@@ -974,8 +977,8 @@ def run_hunter_campaign(
                             return principal.login
                     if getattr(reprovisioned, "principals", None):
                         return reprovisioned.principals[0].login
-                except Exception:
-                    pass
+                except Exception as exc:
+                    logger.debug("recovery login skipped: %s", exc)
                 return type("_LoginStub", (), {"success": False, "reason": "recovery_login_unavailable"})()
 
             recovery_manager = SessionRecoveryManager(
