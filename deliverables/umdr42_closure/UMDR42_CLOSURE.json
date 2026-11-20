@@ -91,13 +91,15 @@
       "status": "COMPLETE (first increment)",
       "implementation": "ApplicationModel.apply_observation — incremental single-observation merge, canonical entity IDs (merges with full-rebuild entities), provenance-exact (observed vs inferred), abstain-with-reason, evidence_ref mandatory",
       "tests": "tests/test_umdr43_appmodel_incremental.py 6/6",
-      "commit": "6e70c4d"
+      "commit": "absorbed into 413f739"
     },
     "umdr43_workstream_b": {
       "status": "COMPLETE (first increment)",
       "implementation": "egaie/identity_scope.py — 12-dimension IdentityContext (directive §13), stable sha256 scope fingerprint stripping representation-only details, absence-as-distinction, explainable merge/keep decisions with differing fields, bounded dedup report; state semantics deliberately untouched",
       "audit": "add_hypothesis appends without dedup; finding-level keying lives entirely in proposer-minted hypothesis_ids — no deterministic identity mechanism existed",
-      "tests": "tests/test_umdr43_identity_scope.py 11/11 (both mandatory directive cases pinned)"
+      "tests": "tests/test_umdr43_identity_scope.py 11/11 (both mandatory directive cases pinned)",
+      "commit": "f6b3ca8 + 7419edcc (dynamic-resolution-free rewrite)",
+      "note": "initial commit tripped two gates (egaie forbids getattr; G-02 inventory records dynamic-resolution sites) — rewritten with explicit asdict field access; 0 dynamic sites, scan==artifact"
     }
   },
   "gates_local": {
@@ -105,7 +107,7 @@
     "build_info_honesty": "PASS",
     "frozen_manifest": "PASS (after refreeze)",
     "g02_inventory": "PASS (4/4)",
-    "full_suite": "9395 passed / 1 failed (provenance re-baseline gate, closed by BUILD_INFO re-baseline) / 10 skipped / 3 xfailed"
+    "full_suite": "9413 passed / 0 failed / 10 skipped / 3 xfailed on final HEAD 7419edcc (9425 collected; v3 invariants all true) — the suite is fully green for the first time in the project's UMDR42 era"
   },
   "blocked_or_open": [
     "Publishing to main requires the owner (no push credentials)",
