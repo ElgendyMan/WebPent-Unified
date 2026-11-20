@@ -44,7 +44,7 @@ from __future__ import annotations
 
 import hashlib
 from collections.abc import Mapping, Sequence
-from dataclasses import dataclass, field, replace
+from dataclasses import asdict, dataclass, field
 
 from webpent.egaie.schemas import HypothesisRecord
 
@@ -110,6 +110,18 @@ PARAM_ALIASES: Mapping[str, str] = {
 }
 
 
+def _field_values(ctx: IdentityContext) -> dict[str, str]:
+    """Explicit field-value map in canonical order (dataclasses.asdict
+    keeps the egaie package's static-resolution invariant — no
+    dynamic attribute access)."""
+    data = asdict(ctx)
+    return {
+        name: (",".join(data["preconditions"]) if name == "preconditions"
+               else str(data[name]))
+        for name in IDENTITY_CONTEXT_FIELDS
+    }
+
+
 @dataclass(frozen=True)
 class IdentityContext:
     """The security-relevant identity scope of one hypothesis."""
@@ -132,14 +144,18 @@ class IdentityContext:
         (methods are case-insensitive), sorted preconditions. Case of
         identity-bearing values (actor, tenant, ...) is PRESERVED —
         ``User`` and ``user`` may be distinct principals."""
-        return replace(
-            self,
-            **{
-                name: str(getattr(self, name)).strip()
-                for name in IDENTITY_CONTEXT_FIELDS
-                if name not in ("method", "preconditions")
-            },
-            method=str(self.method).strip().upper(),
+        return IdentityContext(
+            actor=self.actor.strip(),
+            role=self.role.strip(),
+            tenant=self.tenant.strip(),
+            namespace=self.namespace.strip(),
+            resource_owner=self.resource_owner.strip(),
+            object_id=self.object_id.strip(),
+            operation=self.operation.strip(),
+            workflow_state=self.workflow_state.strip(),
+            session=self.session.strip(),
+            auth_strength=self.auth_strength.strip(),
+            method=self.method.strip().upper(),
             preconditions=tuple(sorted(
                 p.strip() for p in self.preconditions if str(p).strip())),
         )
@@ -148,15 +164,10 @@ class IdentityContext:
         """Deterministic multi-line ``field=value`` rendering over ALL
         dimensions in fixed order (absence contributes ``field=`` —
         absence is itself a security distinction)."""
-        ctx = self.normalized()
-        lines = []
-        for name in IDENTITY_CONTEXT_FIELDS:
-            if name == "preconditions":
-                value = ",".join(ctx.preconditions)
-            else:
-                value = str(getattr(ctx, name))
-            lines.append(f"{name}={value}")
-        return "\n".join(lines)
+        values = _field_values(self.normalized())
+        return "\n".join(
+            f"{name}={values[name]}"
+            for name in IDENTITY_CONTEXT_FIELDS)
 
 
 def identity_scope_key(context: IdentityContext) -> str:
@@ -194,14 +205,11 @@ def compare_identity_scope(
                    "differences are not part of the fingerprint",
             a_key=a_key, b_key=b_key,
         )
-    a_n, b_n = a.normalized(), b.normalized()
+    a_values, b_values = _field_values(a.normalized()), _field_values(
+        b.normalized())
     differing = tuple(
         name for name in IDENTITY_CONTEXT_FIELDS
-        if (",".join(a_n.preconditions) if name == "preconditions"
-            else str(getattr(a_n, name)))
-        != (",".join(b_n.preconditions) if name == "preconditions"
-            else str(getattr(b_n, name)))
-    )
+        if a_values[name] != b_values[name])
     return MergeDecision(
         verdict="keep_separate",
         reason="security contexts differ on: " + ", ".join(differing),
