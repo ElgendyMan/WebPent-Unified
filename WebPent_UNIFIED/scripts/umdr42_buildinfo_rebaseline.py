@@ -53,10 +53,10 @@ def main() -> int:
     prov["build_date"] = datetime.now(timezone.utc).isoformat()
     prov["manifest_digest"] = hashlib.sha256(
         (REPO / "frozen_modules.sha256").read_bytes()).hexdigest()
-    prov["test_accounting"] = {k: acct[k] for k in (
-        "passed", "failed", "skipped", "xfailed", "xpassed",
-        "deselected", "errors", "collected", "executed")}
-    prov["test_accounting"]["accounting_consistent"] = 1
+    # The honesty gate compares provenance.test_accounting to the
+    # durable evidence record VERBATIM (dict equality) — copy the whole
+    # accounting dict, never a key subset.
+    prov["test_accounting"] = dict(acct)
     prov["publication"] = {
         "published": False,
         "release_tag": None,
