@@ -153,6 +153,13 @@ services:
       # were ephemeral and invisible to the API.
       - WEBPENT_DATABASE_URL=${DATABASE_URL:-sqlite:////app/runtime/webpent.db}
       - WEBPENT_TARGET_WORKSPACE_ROOT=/app/runtime/workspaces
+      # UMDR42 P1-SCOPE-COMPOSE-ENV: durable cross-process scope authority.
+      # Without these, api and worker each ran a process-local in-memory
+      # registry and a revocation issued through the API was invisible to
+      # the worker. Same path + same volume mount = one SQLite authority
+      # with WAL visibility for both processes.
+      - WEBPENT_SCOPE_STORE_ENABLED=true
+      - WEBPENT_SCOPE_STORE_PATH=/app/runtime/scope-store/scope_policies.sqlite3
     restart: unless-stopped
     volumes:
       - ./output:/app/output
@@ -160,6 +167,9 @@ services:
       # TEAM-1 Phase 2: directory mount (never a single-file bind) shared
       # verbatim with the worker — database + all engagement workspaces.
       - ./runtime:/app/runtime
+      # UMDR42 P1-SCOPE-COMPOSE-ENV: dedicated scope-store volume, shared
+      # with the worker so both processes read/write ONE authority.
+      - scope-store:/app/runtime/scope-store
     networks:
       - webpent-net
     healthcheck:
@@ -197,6 +207,11 @@ services:
       # api service — same database URL, same workspace root, same mount.
       - WEBPENT_DATABASE_URL=${DATABASE_URL:-sqlite:////app/runtime/webpent.db}
       - WEBPENT_TARGET_WORKSPACE_ROOT=/app/runtime/workspaces
+      # UMDR42 P1-SCOPE-COMPOSE-ENV: same durable scope authority as the
+      # api service — see the api service comment for the failure mode
+      # this closes (split-brain scope registries across processes).
+      - WEBPENT_SCOPE_STORE_ENABLED=true
+      - WEBPENT_SCOPE_STORE_PATH=/app/runtime/scope-store/scope_policies.sqlite3
     restart: unless-stopped
     volumes:
       - ./output:/app/output
@@ -204,6 +219,8 @@ services:
       # TEAM-1 Phase 2: shared with api — resume and OOB parity depend on
       # both processes observing identical persisted state.
       - ./runtime:/app/runtime
+      # UMDR42 P1-SCOPE-COMPOSE-ENV: shared with api (same named volume).
+      - scope-store:/app/runtime/scope-store
     networks:
       - webpent-net
 
@@ -225,6 +242,10 @@ services:
 # =============================================================================
 volumes:
   postgres-data:
+    driver: local
+  # UMDR42 P1-SCOPE-COMPOSE-ENV: durable scope authority shared by the
+  # api and worker containers (mounted at /app/runtime/scope-store).
+  scope-store:
     driver: local
 
 # =============================================================================
