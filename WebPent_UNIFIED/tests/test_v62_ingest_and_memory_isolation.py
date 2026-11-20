@@ -59,7 +59,15 @@ def test_clone_repository_is_shallow_and_non_interactive(
     assert captured["kwargs"]["env"]["GIT_TERMINAL_PROMPT"] == "0"
 
 
-def test_lesson_storage_and_search_require_exact_scope(tmp_path) -> None:
+def test_lesson_storage_and_search_require_exact_scope(
+        tmp_path, monkeypatch) -> None:
+    # The scope contract is exercised on the ACTIVE store path; the
+    # CI production contract sets DISABLE_RAG=true, which degrades
+    # the manager to its no-store fallback before the fake is hit.
+    monkeypatch.delenv("DISABLE_RAG", raising=False)
+    monkeypatch.delenv("EMBEDDINGS_OFFLINE", raising=False)
+    from webpent.config.settings import get_settings
+    get_settings.cache_clear()
     manager = VectorStoreManager(persist_path=str(tmp_path))
 
     class FakeStore:

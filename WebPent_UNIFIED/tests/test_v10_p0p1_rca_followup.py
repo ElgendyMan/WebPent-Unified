@@ -244,9 +244,14 @@ class TestPreflight:
 class TestEmbeddingsOfflineSettings:
     """V10 P0-2: EMBEDDINGS_OFFLINE / DISABLE_RAG settings are wired."""
 
-    def test_settings_have_embeddings_offline_field(self):
+    def test_settings_have_embeddings_offline_field(self, monkeypatch):
         from webpent.config.settings import get_settings
 
+        # This test pins the DEFAULTS; the CI production contract
+        # sets EMBEDDINGS_OFFLINE/DISABLE_RAG in the environment.
+        monkeypatch.delenv("EMBEDDINGS_OFFLINE", raising=False)
+        monkeypatch.delenv("DISABLE_RAG", raising=False)
+        get_settings.cache_clear()
         s = get_settings()
         assert hasattr(s, "embeddings_offline")
         assert hasattr(s, "disable_rag")

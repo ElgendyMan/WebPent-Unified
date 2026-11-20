@@ -112,6 +112,13 @@ def test_crawler_structure_aware_queue_overrides_url_only_llm_bias(monkeypatch) 
     monkeypatch.setattr(crawler_agent, "run_katana", lambda *_args, **_kwargs: endpoints)
     monkeypatch.setattr(crawler_agent, "get_llm", lambda *_args, **_kwargs: _LLM())
     monkeypatch.setattr(crawler_agent, "_fetch_and_analyze_js", lambda *_args, **_kwargs: [])
+    # The structure-aware override exists to correct an LLM bias;
+    # is_llm_enabled is imported into the module namespace, so the
+    # get_settings patch above cannot reach it. The CI production
+    # contract sets LLM_ENABLED=false, which would skip the path
+    # under test entirely.
+    monkeypatch.setattr(crawler_agent, "is_llm_enabled",
+                        lambda *_args, **_kwargs: True)
     monkeypatch.setattr(crawler_agent, "_discover_html_forms", lambda *_args, **_kwargs: [])
     monkeypatch.setattr(
         "webpent.config.settings.get_settings",

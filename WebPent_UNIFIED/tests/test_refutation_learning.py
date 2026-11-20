@@ -559,6 +559,14 @@ class TestPlannerAdvisory:
     def test_advisory_failure_never_breaks_planning(self, planner_env, clean_settings,
                                                     fresh_ledger, monkeypatch):
         monkeypatch.setenv("ENABLE_COVERAGE_SCHEDULING", "true")
+        # The planner path under test is the designed default; the
+        # CI production contract sets LLM_ENABLED=false, which would
+        # swap in the deterministic fallback template.
+        monkeypatch.delenv("LLM_ENABLED", raising=False)
+        # The planner path under test is the designed default; the
+        # CI production contract sets LLM_ENABLED=false, which would
+        # swap in the deterministic fallback template.
+        monkeypatch.delenv("LLM_ENABLED", raising=False)
         get_settings.cache_clear()
         # A broken ledger singleton must degrade to a no-advisory plan.
         broken = RefutationLedger(":memory:")

@@ -504,6 +504,22 @@ class TestDetectorGraphNodes:
 # ---------------------------------------------------------------------------
 
 
+def _strip_ansi(text: str) -> str:
+    """Rich styles CLI panels even without a TTY when GITHUB_ACTIONS is
+    set (the CI environment); the contract under test is the text, not
+    the styling. Normalise before asserting on option spellings."""
+    out: list[str] = []
+    i = 0
+    while i < len(text):
+        if text.startswith("\x1b[", i):
+            end = text.find("m", i)
+            i = end + 1 if end != -1 else i + 2
+        else:
+            out.append(text[i])
+            i += 1
+    return "".join(out)
+
+
 class TestCliSelfIdentification:
     def test_version_option_reports_the_build(self):
         from typer.testing import CliRunner
@@ -530,7 +546,7 @@ class TestCliSelfIdentification:
 
         result = CliRunner().invoke(app, ["--help"])
         assert result.exit_code == 0
-        assert "--version" in result.output
+        assert "--version" in _strip_ansi(result.output)
 
 
 class TestSecurityHeadersMiddleware:
