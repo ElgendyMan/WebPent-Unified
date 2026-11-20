@@ -21,7 +21,6 @@ from webpent.causal_reasoning_v2.root_cause_analyzer_v2 import (
 )
 from webpent.causal_reasoning_v2.structural_knowledge_base import StructuralKnowledgeBase
 
-
 # ---------------------------------------------------------------------------
 # Phase 1 — ArchitectureExtractor (static analysis from source)
 # ---------------------------------------------------------------------------

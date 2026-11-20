@@ -12,9 +12,9 @@ import json
 
 import pytest
 
+from webpent.forge.indexer import PayloadIndexer
 from webpent.forge.payload_cli import PayloadCLI
 from webpent.forge.schemas import Family, NormalizedPayload
-from webpent.forge.indexer import PayloadIndexer
 
 
 def _seed(indexer: PayloadIndexer) -> None:

@@ -13,8 +13,8 @@ import uuid
 from typing import Any
 
 from webpent.appmodel.builder import (
-    build_appmodel_research_hints,
     build_application_model,
+    build_appmodel_research_hints,
 )
 from webpent.graph.appmodel_nodes import appmodel_node
 from webpent.models.findings import Finding

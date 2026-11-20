@@ -39,7 +39,10 @@ def test_run_pivot_on_trigger(runner_with_stub_brain_failing, phase_with_pivot,
 def test_run_exhausted_budget(tight_budget):
     """Phase exhausts the campaign budget before finishing."""
     from webpent.campaign.schemas import (
-        Family, Hypothesis, Phase, PhaseBudget,
+        Family,
+        Hypothesis,
+        Phase,
+        PhaseBudget,
     )
 
     # 10 hypotheses × 50 requests = 500 requested, budget allows 20

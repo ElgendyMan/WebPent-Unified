@@ -110,6 +110,7 @@ def test_scope_drift_approval_is_a_declared_channel():
 def test_scope_drift_approval_survives_channel_filtering():
     langgraph = pytest.importorskip("langgraph")
     from langgraph.graph import END, START, StateGraph  # noqa: F401
+
     from webpent.state.state import PentestState
 
     g = StateGraph(PentestState)

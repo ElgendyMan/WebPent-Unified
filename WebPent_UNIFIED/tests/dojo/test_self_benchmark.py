@@ -34,7 +34,6 @@ from webpent.dojo.self_benchmark import (
     compare,
 )
 
-
 # ---------------------------------------------------------------------------
 # fixtures — real dojo scenarios (the yaml library) and scripted agents
 # ---------------------------------------------------------------------------

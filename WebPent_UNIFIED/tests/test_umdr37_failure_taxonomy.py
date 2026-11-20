@@ -5,11 +5,11 @@ from __future__ import annotations
 import pytest
 
 from webpent.research.failure_taxonomy import (
+    REASON_CODES,
     CausalAttribution,
     FailureLedger,
     FailureStage,
     LearningEvent,
-    REASON_CODES,
     apply_failure_policy,
 )
 

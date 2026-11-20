@@ -36,8 +36,8 @@ def test_static_tool_boundary_gate_passes() -> None:
 
 
 def test_dalfox_output_is_masked_before_prompt_use(monkeypatch) -> None:
-    import webpent.tools.exploitation.dalfox as dalfox
     import webpent.shared.engagement_scope as engagement_scope
+    import webpent.tools.exploitation.dalfox as dalfox
     from webpent.llm_researcher.tool_boundary_adapter import adapt_tool_boundary_result
 
     monkeypatch.setattr(engagement_scope, "is_engagement_target_host", lambda _host: True)

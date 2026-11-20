@@ -25,7 +25,6 @@ import pytest
 from webpent.recon.auth_detector import AuthDetector
 from webpent.recon.principal_provisioning import PrincipalProvisioner
 
-
 # ---------------------------------------------------------------------------
 # §5.1 — detected_type provisioning correctness
 # ---------------------------------------------------------------------------
@@ -277,10 +276,10 @@ def test_5_3_production_trace_class_hints_resolve():
 
 def test_5_3_no_import_cycle_introduced():
     """The direct imports added for resolution must not create cycles."""
+    import webpent.models.hypothesis  # noqa: F401
     import webpent.shared.cve_advisory  # noqa: F401
     import webpent.shared.generic_web_contracts  # noqa: F401
     import webpent.shared.verifier  # noqa: F401
-    import webpent.models.hypothesis  # noqa: F401
 
 
 # ---------------------------------------------------------------------------

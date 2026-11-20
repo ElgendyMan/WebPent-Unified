@@ -83,8 +83,8 @@ class TestKillSwitch:
 
 class TestKillSwitchRateGovernorIntegration:
     def test_flag_off_kill_switch_ignored(self, clean_kill_switch: Any) -> None:
-        from webpent.shared.rate_governor import RequestRateGovernor
         from webpent.config.settings import activate_settings
+        from webpent.shared.rate_governor import RequestRateGovernor
 
         kill_switch.engage("frozen")
         governor = RequestRateGovernor(max_concurrent=2)
@@ -93,8 +93,8 @@ class TestKillSwitchRateGovernorIntegration:
                 assert permit.aborted is False  # flag off: unchanged behaviour
 
     def test_engaged_switch_aborts_before_cap(self, clean_kill_switch: Any) -> None:
-        from webpent.shared.rate_governor import RequestRateGovernor
         from webpent.config.settings import Settings, activate_settings
+        from webpent.shared.rate_governor import RequestRateGovernor
 
         kill_switch.engage("frozen")
         governor = RequestRateGovernor(max_concurrent=2)
@@ -392,7 +392,8 @@ class TestV31Fixes:
             sg._counters.pop(f"eng-evict-{i}", None)
 
     def test_capped_response_keeps_its_spend(self) -> None:
-        from dataclasses import dataclass, field as dc_field
+        from dataclasses import dataclass
+        from dataclasses import field as dc_field
 
         @dataclass
         class Resp:

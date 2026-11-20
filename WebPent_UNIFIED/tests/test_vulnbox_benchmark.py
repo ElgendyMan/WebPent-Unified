@@ -24,8 +24,8 @@ settings_mod = importlib.import_module("webpent.config.settings")
 
 import json  # noqa: E402
 
-from starlette.testclient import TestClient  # noqa: E402
 import pytest  # noqa: E402
+from starlette.testclient import TestClient  # noqa: E402
 
 
 # ---------------------------------------------------------------------------

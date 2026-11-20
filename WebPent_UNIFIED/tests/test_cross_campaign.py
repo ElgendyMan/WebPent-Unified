@@ -17,6 +17,17 @@ import json
 
 import pytest
 
+from webpent.learning.campaign_dedupe import (
+    CLASS_TOKEN_WEIGHT,
+    DEFAULT_THRESHOLD,
+    CrossCampaignRegistry,
+    InventoryError,
+    annotate_finding,
+    load_inventory,
+    save_inventory,
+    tokenize,
+    weighted_jaccard,
+)
 from webpent.learning.technique_library import (
     LIBRARY_SCHEMA_VERSION,
     REMEMBERING_CAP,
@@ -28,17 +39,6 @@ from webpent.learning.technique_library import (
     save_library,
     success_rate,
     top_payloads,
-)
-from webpent.learning.campaign_dedupe import (
-    CLASS_TOKEN_WEIGHT,
-    DEFAULT_THRESHOLD,
-    InventoryError,
-    CrossCampaignRegistry,
-    annotate_finding,
-    load_inventory,
-    save_inventory,
-    tokenize,
-    weighted_jaccard,
 )
 
 # ---------------------------------------------------------------------------

@@ -5,10 +5,10 @@ from __future__ import annotations
 from webpent.research.failure_taxonomy import REASON_CODES
 from webpent.research.family_profiles import (
     ADVISORY,
+    FAMILY_PROFILES,
     IMPLEMENTED,
     INTEGRATED,
     PRODUCTION_PATH_VERIFIED,
-    FAMILY_PROFILES,
     FamilySecurityProfile,
     families_for_entity,
     profiles_by_status,

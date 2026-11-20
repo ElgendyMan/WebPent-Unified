@@ -17,7 +17,6 @@ from webpent.shared.prototype_pollution_detector import (
     validate_server_side_pollution,
 )
 
-
 # ---------------------------------------------------------------------------
 # analyze_client_merge_gadgets
 # ---------------------------------------------------------------------------

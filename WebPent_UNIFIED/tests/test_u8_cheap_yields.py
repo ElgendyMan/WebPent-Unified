@@ -30,8 +30,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from webpent.production.validators import (  # noqa: E402
     ValidationOutcome,
-    validate_ssrf,
     validate_sqli,
+    validate_ssrf,
     validate_xss,
 )
 

@@ -27,7 +27,6 @@ from webpent.shared.cache_key_discovery import (
     to_validator_inputs,
 )
 
-
 # ---------------------------------------------------------------------------
 # In-memory cache model.
 #
@@ -331,7 +330,7 @@ class TestLiveFixtureServer:
     @staticmethod
     def _http_fetcher(url: str, headers: Any, params: Any) -> "tuple[int, str]":
         import http.client
-        from urllib.parse import urlsplit, urlencode
+        from urllib.parse import urlencode, urlsplit
 
         parts = urlsplit(url)
         conn = http.client.HTTPConnection(parts.hostname, parts.port, timeout=5)

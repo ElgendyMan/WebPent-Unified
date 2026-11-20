@@ -21,21 +21,21 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 
 import pytest
 
+from webpent.integrations.notifications.daily_digest import (
+    DailyDigestBuffer,
+    build_digest,
+    render_text,
+)
 from webpent.integrations.notifications.dispatch import (
+    SEVERITY_ORDER,
     DispatchEntry,
     DispatchReport,
     NotificationError,
-    SEVERITY_ORDER,
     _default_send,
     dispatch,
     notifications_refusal,
     severity_gate,
     severity_rank,
-)
-from webpent.integrations.notifications.daily_digest import (
-    DailyDigestBuffer,
-    build_digest,
-    render_text,
 )
 from webpent.models.findings import Finding
 
@@ -109,8 +109,8 @@ class TestFormatters:
 
     def test_telegram_payload_shape_and_html_escaping(self):
         from webpent.integrations.notifications.formatters.telegram import (
-            format_telegram,
             escape_html,
+            format_telegram,
         )
 
         finding = _finding()

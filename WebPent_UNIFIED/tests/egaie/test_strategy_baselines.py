@@ -12,12 +12,12 @@ the secured lookalike.
 """
 from __future__ import annotations
 
+from webpent.appsuite.corpus import SuiteEntry, open_instance
 from webpent.egaie import discovery_runner as dr
 from webpent.egaie.benchmark.fixed_prerequisites import (
     FixedPrerequisiteRemediator,
 )
 from webpent.egaie.planner import PlannerConfig, StatefulPlanner
-from webpent.appsuite.corpus import SuiteEntry, open_instance
 
 
 def _run(entry: SuiteEntry, budget: int = 16, **wiring):

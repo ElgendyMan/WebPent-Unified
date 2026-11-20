@@ -18,6 +18,7 @@ from datetime import datetime, timezone
 
 import pytest
 
+from webpent.config.settings import Settings
 from webpent.reporter.evidence_bundle import (
     EvidenceBundleError,
     SubmissionRefused,
@@ -31,7 +32,6 @@ from webpent.reporter.evidence_bundle import (
     root_endpoint_of,
     submit_bundle,
 )
-from webpent.config.settings import Settings
 
 WHEN = datetime(2026, 10, 29, 12, 0, 0, tzinfo=timezone.utc)
 

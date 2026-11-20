@@ -1,13 +1,16 @@
 """Unfreeze-fix verification tests (TEAM-RED defects D2/D3/D4/D7). Synthetic, no network."""
 from __future__ import annotations
-import sys, os
+
+import os
+import sys
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from webpent.integration.session_recovery_bridge import ExploitResultView, RecoveringExploiter
-from webpent.recon.session_recovery import SessionRecoveryManager, CampaignHalted
 from webpent.recon.auth_detector import AuthDetector
-from webpent.recon.login_executor import LoginExecutor
 from webpent.recon.hypothesis_generator import _advised_value
+from webpent.recon.login_executor import LoginExecutor
+from webpent.recon.session_recovery import CampaignHalted, SessionRecoveryManager
 
 
 # -- D2: ExploitResultView understands ExploitationResult shape ----------------

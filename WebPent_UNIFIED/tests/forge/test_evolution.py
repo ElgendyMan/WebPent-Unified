@@ -17,7 +17,7 @@ from webpent.forge.encoding_engine import EncodedVariant
 from webpent.forge.evolution import EvolutionEngine
 from webpent.forge.indexer import PayloadIndexer
 from webpent.forge.ingester import MultiSourceIngester
-from webpent.forge.outcome_tracker import PayloadOutcome, OutcomeTracker
+from webpent.forge.outcome_tracker import OutcomeTracker, PayloadOutcome
 
 NOW = datetime(2026, 10, 19, 12, 0, 0, tzinfo=timezone.utc)
 

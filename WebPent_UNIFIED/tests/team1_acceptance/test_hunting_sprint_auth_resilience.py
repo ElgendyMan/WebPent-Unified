@@ -8,12 +8,12 @@ from __future__ import annotations
 import pytest
 
 from webpent.recon.auth_resilience import (
+    SUPPORTED_AUTH_TYPES,
     ApiKeyAuthExecutor,
     BasicAuthFallback,
     CookieExpiryInspector,
     OAuth2FlowHandler,
     OAuth2Outcome,
-    SUPPORTED_AUTH_TYPES,
 )
 
 

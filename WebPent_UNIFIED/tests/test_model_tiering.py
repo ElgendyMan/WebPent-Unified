@@ -19,11 +19,11 @@ from webpent.config.settings import Settings, activate_settings, get_settings
 from webpent.llm_researcher import tiering
 from webpent.llm_researcher.task_router import LLMTask
 from webpent.llm_researcher.tiering import (
+    TASK_TIER_TABLE,
     TIER_FAST,
     TIER_STRONG,
     UNCLASSIFIED_TIER,
     ModelTieringError,
-    TASK_TIER_TABLE,
     model_tier_of,
     note_tiered_call,
     parse_tier_flag,
@@ -31,7 +31,6 @@ from webpent.llm_researcher.tiering import (
     tier_for_task,
 )
 from webpent.safety import spend_governor
-
 
 # ---------------------------------------------------------------------------
 # Deterministic task->tier table.

@@ -15,8 +15,8 @@ import json
 import pytest
 
 from webpent.agents.sourcemap_analysis import (
-    SourceMapError,
     SourceMapAgent,
+    SourceMapError,
     build_source_map_agent,
     decode_vlq_segment,
     extract_source_map_url,

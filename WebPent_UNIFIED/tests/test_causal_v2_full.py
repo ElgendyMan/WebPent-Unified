@@ -16,7 +16,6 @@ from pathlib import Path
 
 import pytest
 
-from webpent.models.hypothesis import Hypothesis
 from webpent.causal_reasoning_v2 import (
     BehaviorProfile,
     CausalIntegrationLayer,
@@ -28,7 +27,7 @@ from webpent.causal_reasoning_v2 import (
     SystemArchitectureGraph,
     VerificationVerdict,
 )
-
+from webpent.models.hypothesis import Hypothesis
 
 # ---------------------------------------------------------------------------
 # Fixture: a realistic synthetic target architecture

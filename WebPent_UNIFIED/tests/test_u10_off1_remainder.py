@@ -40,17 +40,11 @@ os.environ.setdefault("WEBPENT_ENTRYPOINT", "cli")
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
+from webpent.reporter.export import build_report_data  # noqa: E402
 from webpent.shared.confidence import (  # noqa: E402
     DevilsAdvocateVerdict,
     EvidenceType,
     compute_confidence_score,
-)
-from webpent.shared.self_critique import (  # noqa: E402
-    SelfCritiqueAction,
-    SelfCritiqueCheckpoint,
-    generate_adversarial_questions,
-    recommend_self_critique_action,
-    should_fire_before_promotion,
 )
 from webpent.shared.poc_policy import (  # noqa: E402
     evaluate_execution_gate,
@@ -60,7 +54,13 @@ from webpent.shared.report_quality import (  # noqa: E402
     ReportQualityGateError,
     enforce_report_quality,
 )
-from webpent.reporter.export import build_report_data  # noqa: E402
+from webpent.shared.self_critique import (  # noqa: E402
+    SelfCritiqueAction,
+    SelfCritiqueCheckpoint,
+    generate_adversarial_questions,
+    recommend_self_critique_action,
+    should_fire_before_promotion,
+)
 
 
 # ---------------------------------------------------------------------------

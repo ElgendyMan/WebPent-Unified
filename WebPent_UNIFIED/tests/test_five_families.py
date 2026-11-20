@@ -8,8 +8,9 @@ No network. No langchain dependency.
 """
 from __future__ import annotations
 
-import pytest
 import os
+
+import pytest
 
 from webpent.agents.validator.family_checks import (
     FAMILY_VALIDATORS,
@@ -32,6 +33,7 @@ from webpent.families.base import (
     FamilyId,
     ScenarioSpec,
 )
+
 try:
     from webpent.goed_v1.family_strategies import (  # type: ignore[attr-defined]
         ALL_FAMILY_STRATEGIES,
@@ -529,8 +531,8 @@ class TestExecutionPlans:
         assert plan.post_state_check is not None  # attacker capture
 
     def test_build_plan_for_dispatch(self):
-        from webpent.families.execution_plans import build_plan_for
         from webpent.families.base import FamilyId
+        from webpent.families.execution_plans import build_plan_for
         plan = build_plan_for(self._candidate(FamilyId.TENANT_ISOLATION, "GET /api/items/1"),
                               foreign_resource_ref="42")
         assert plan is not None
@@ -569,7 +571,9 @@ class TestArtifactGraph:
 
     def test_publish_and_compose_real_edge(self):
         from webpent.chained_exploits.artifact_graph import (
-            ArtifactGraph, ArtifactType, CHAIN_SCENARIO_CONSUMERS,
+            CHAIN_SCENARIO_CONSUMERS,
+            ArtifactGraph,
+            ArtifactType,
         )
         g = ArtifactGraph()
         g.publish("finding-info-disclosure-1", [ArtifactType.LEAKED_TOKEN])
@@ -581,7 +585,11 @@ class TestArtifactGraph:
         assert edges[0].injection_point == "header:Authorization"
 
     def test_no_edge_when_no_artifact_match(self):
-        from webpent.chained_exploits.artifact_graph import ArtifactGraph, ArtifactType, CHAIN_SCENARIO_CONSUMERS
+        from webpent.chained_exploits.artifact_graph import (
+            CHAIN_SCENARIO_CONSUMERS,
+            ArtifactGraph,
+            ArtifactType,
+        )
         g = ArtifactGraph()
         g.publish("finding-xss-1", [ArtifactType.CSRF_TOKEN])
         consumers = [{"path": "/api/x", "consumes": [ArtifactType.LEAKED_TOKEN]}]
@@ -606,8 +614,8 @@ class TestCritiqueFixesVerification:
 
     def test_build_plan_absolute_url_with_base(self):
         # Fix #2: relative paths must be prefixed with base_url.
-        from webpent.families.execution_plans import build_plan_for
         from webpent.families.base import FamilyCandidate, FamilyId
+        from webpent.families.execution_plans import build_plan_for
         c = FamilyCandidate(candidate_id="c1", family=FamilyId.RACE_CONDITION,
                             vuln_class="race_condition", scenario_id="RACE-1",
                             affected_endpoint="POST /api/transfer", hypothesis="h")
@@ -653,8 +661,8 @@ class TestProposal1ExecutionSpine:
         assert len(out["family_execution_plans"]) >= 1
 
     def test_node_promotes_confirmed_and_merges_findings(self):
-        from webpent.families.execution_node import family_execution_node
         from webpent.agents.validator.family_checks import Replay
+        from webpent.families.execution_node import family_execution_node
         r = Replay(method="POST", url="https://t/x", request_body=None, status_code=200, body="b")
         post = Replay(method="GET", url="https://t/s", request_body=None, status_code=200, body="", label="side_effects:3")
         state = {
@@ -683,7 +691,10 @@ class TestProposal1ExecutionSpine:
         assert out["family_findings_merged"] == 0
 
     def test_wire_function_importable(self):
-        from webpent.families.execution_node import FAMILY_EXECUTION_NODE_NAME, wire_family_execution
+        from webpent.families.execution_node import (
+            FAMILY_EXECUTION_NODE_NAME,
+            wire_family_execution,
+        )
         assert FAMILY_EXECUTION_NODE_NAME == "family_execution"
         assert callable(wire_family_execution)
 
@@ -747,8 +758,8 @@ class TestExecutionLoopClosed:
         assert "business_logic" in families  # sixth family now present
 
     def test_proof_bundle_seal_attempted(self):
-        from webpent.families.execution_node import family_execution_node
         from webpent.agents.validator.family_checks import Replay
+        from webpent.families.execution_node import family_execution_node
         r = Replay(method="POST", url="https://t/x", request_body=None, status_code=200, body="b")
         post = Replay(method="GET", url="https://t/s", request_body=None, status_code=200, body="", label="side_effects:3")
         state = {
@@ -774,8 +785,8 @@ class TestProposal2AttackGraph:
         assert len(published) >= 2  # info_disclosure publishes 3 types, xss 2
 
     def test_planner_composes_real_chains(self):
-        from webpent.chained_exploits.attack_graph_planner import AttackGraphPlanner
         from webpent.chained_exploits.artifact_graph import ArtifactType
+        from webpent.chained_exploits.attack_graph_planner import AttackGraphPlanner
         planner = AttackGraphPlanner()
         planner.ingest_findings([{"vuln_class": "info_disclosure"}])
         consumers = [{"path": "/api/admin", "consumes": [ArtifactType.LEAKED_TOKEN],
@@ -786,8 +797,8 @@ class TestProposal2AttackGraph:
         assert hyps[0].composed_request_plan["url"].startswith("https://t.example")
 
     def test_planner_validates_and_promotes_confirmed_chains(self):
-        from webpent.chained_exploits.attack_graph_planner import AttackGraphPlanner
         from webpent.agents.validator.family_checks import Replay
+        from webpent.chained_exploits.attack_graph_planner import AttackGraphPlanner
         planner = AttackGraphPlanner()
         planner.ingest_findings([{"vuln_class": "info_disclosure"}, {"vuln_class": "xss"}])
         consumers = [{"path": "/api/admin", "consumes": ["leaked_token"], "injection_point": "body"}]
@@ -818,8 +829,8 @@ class TestProposal2AttackGraph:
         assert ex is None or callable(ex)
 
     def test_execute_composed_chains_injects_artifact_and_sends(self):
-        from webpent.chained_exploits.attack_graph_planner import AttackGraphPlanner
         from webpent.chained_exploits.artifact_graph import ArtifactType
+        from webpent.chained_exploits.attack_graph_planner import AttackGraphPlanner
 
         sent = []
 
@@ -841,7 +852,10 @@ class TestProposal2AttackGraph:
         assert "Authorization" in sent[0][2]  # artifact injected at header point
 
     def test_prioritize_chains_ranks_by_feeder_count(self):
-        from webpent.chained_exploits.attack_graph_planner import AttackGraphPlanner, ChainHypothesis
+        from webpent.chained_exploits.attack_graph_planner import (
+            AttackGraphPlanner,
+            ChainHypothesis,
+        )
         planner = AttackGraphPlanner()
         h1 = ChainHypothesis(chain_id="h1", scenario_id="C-1", feeder_findings=["f1"],
                              artifact_types_used=["t1"], consumer_endpoint="/a",
@@ -1033,8 +1047,9 @@ class TestAdaptiveDefensePhases:
         assert "waf" in tactic.reason or "captcha" in tactic.reason
 
     def test_phase2_emulator_scores_obvious_payload_high(self):
-        from webpent.adaptive.defense_emulator import DefenseEmulator
         from dataclasses import dataclass
+
+        from webpent.adaptive.defense_emulator import DefenseEmulator
 
         @dataclass
         class P:
@@ -1047,8 +1062,9 @@ class TestAdaptiveDefensePhases:
         assert risk.action != "send" or risk.level == "medium"
 
     def test_phase2_emulator_low_risk_for_clean_plan(self):
-        from webpent.adaptive.defense_emulator import DefenseEmulator
         from dataclasses import dataclass
+
+        from webpent.adaptive.defense_emulator import DefenseEmulator
 
         @dataclass
         class P:
@@ -1177,7 +1193,7 @@ class TestSelfVerifyEngine:
     """Central Proposal 1 — self-verification & confidence engine (4 phases)."""
 
     def test_phase1_confidence_levels(self):
-        from webpent.verification.self_verify import ConfidenceScorer, ConfidenceLevel, level_for
+        from webpent.verification.self_verify import ConfidenceLevel, ConfidenceScorer, level_for
         scorer = ConfidenceScorer()
         weak = scorer.score(None, {})
         assert weak.score < 0.70
@@ -1189,7 +1205,7 @@ class TestSelfVerifyEngine:
         assert level_for(0.96) == ConfidenceLevel.CONFIRMED
 
     def test_phase1_result_filter_routes_low_confidence(self):
-        from webpent.verification.self_verify import ResultFilter, ConfidenceReport, ConfidenceLevel
+        from webpent.verification.self_verify import ConfidenceLevel, ConfidenceReport, ResultFilter
         rf = ResultFilter(threshold=0.70)
         high = ConfidenceReport(score=0.95, level=ConfidenceLevel.CONFIRMED)
         low = ConfidenceReport(score=0.50, level=ConfidenceLevel.POSSIBLE)
@@ -1211,7 +1227,11 @@ class TestSelfVerifyEngine:
         assert all("passed" in t for t in tests2)
 
     def test_phase2_adaptive_retest_only_for_borderline(self):
-        from webpent.verification.self_verify import AdaptiveRetester, ConfidenceReport, ConfidenceLevel
+        from webpent.verification.self_verify import (
+            AdaptiveRetester,
+            ConfidenceLevel,
+            ConfidenceReport,
+        )
         ar = AdaptiveRetester()
         borderline = ConfidenceReport(score=0.60, level=ConfidenceLevel.POSSIBLE)
         confirmed = ConfidenceReport(score=0.96, level=ConfidenceLevel.CONFIRMED)
@@ -1236,8 +1256,9 @@ class TestSelfVerifyEngine:
         assert "suggested_focus_next_run" in q
 
     def test_phase4_engine_orchestrator_accepts_strong_rejects_weak(self):
-        from webpent.verification.self_verify import SelfVerifyEngine
         from dataclasses import dataclass
+
+        from webpent.verification.self_verify import SelfVerifyEngine
 
         @dataclass
         class F:
@@ -1287,8 +1308,9 @@ class TestRedTeamFixes:
         assert q["coverage_note"] == "unknown_real_endpoint_total"
 
     def test_adaptive_retest_wired_to_borderline_reports(self):
-        from webpent.verification.self_verify import SelfVerifyEngine
         from dataclasses import dataclass
+
+        from webpent.verification.self_verify import SelfVerifyEngine
 
         @dataclass
         class F:
@@ -1344,13 +1366,14 @@ class TestRedTeamPlanExecution:
     """Full red-team plan (15 steps) — verified implemented."""
 
     def test_R8_transient_failure_never_becomes_rule(self):
-        from webpent.verification.advanced import classify_failure, FailureClass
+        from webpent.verification.advanced import FailureClass, classify_failure
         assert classify_failure("connection timeout") == FailureClass.TRANSIENT
         assert classify_failure("verification_failed") == FailureClass.FALSE_POSITIVE
 
     def test_R6_correlation_boosts_similar_findings(self):
-        from webpent.verification.advanced import CorrelationAnalyzer
         from dataclasses import dataclass
+
+        from webpent.verification.advanced import CorrelationAnalyzer
 
         @dataclass
         class F:
@@ -1362,8 +1385,9 @@ class TestRedTeamPlanExecution:
         assert deltas.get("a", 0) > 0  # similar → boost
 
     def test_R10_conflict_detector_flags_opposite_verdicts(self):
-        from webpent.verification.advanced import ConflictDetector
         from dataclasses import dataclass
+
+        from webpent.verification.advanced import ConflictDetector
 
         @dataclass
         class F:
@@ -1382,8 +1406,8 @@ class TestRedTeamPlanExecution:
         assert tc.multiplier("good-target") >= 1.0
 
     def test_R12_uncertainty_reason_classified(self):
-        from webpent.verification.advanced import classify_uncertainty, UncertaintyReason
-        from webpent.verification.self_verify import ConfidenceReport, ConfidenceLevel
+        from webpent.verification.advanced import UncertaintyReason, classify_uncertainty
+        from webpent.verification.self_verify import ConfidenceLevel, ConfidenceReport
         report = ConfidenceReport(score=0.6, level=ConfidenceLevel.POSSIBLE)
         r = classify_uncertainty(report, missing_tests=["a", "b"], surviving_alternatives=[])
         assert r == UncertaintyReason.INSUFFICIENT_DATA
@@ -1391,7 +1415,9 @@ class TestRedTeamPlanExecution:
         assert r2 == UncertaintyReason.CONFLICTING_EVIDENCE
 
     def test_R13_rules_io_export_import_and_scope(self):
-        import tempfile, os
+        import os
+        import tempfile
+
         from webpent.verification.advanced import RulesIO, ScopedRule
         rule = ScopedRule(reason="test", scope="endpoint", pattern="/api/admin")
         with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as fh:
@@ -1425,8 +1451,9 @@ class TestRedTeamPlanExecution:
         assert MAX_RETRIES == 2  # hard bound, never infinite
 
     def test_report_has_missing_tests_assumptions_uncertainty(self):
-        from webpent.verification.self_verify import SelfVerifyEngine
         from dataclasses import dataclass
+
+        from webpent.verification.self_verify import SelfVerifyEngine
 
         @dataclass
         class F:
@@ -1497,7 +1524,7 @@ class TestRobustLayer:
         assert "duplicate" in reason
 
     def test_step9_max_retries_reason(self):
-        from webpent.verification.robust import max_retries_reason, CENTRAL_CONSTANTS
+        from webpent.verification.robust import CENTRAL_CONSTANTS, max_retries_reason
         r = max_retries_reason(CENTRAL_CONSTANTS["MAX_RETRIES"])
         assert r["uncertainty_reason"] == "max_retries"
         assert "uncertainty_detail" in r
@@ -1606,8 +1633,9 @@ class TestCoreInfrastructure:
     """Red-team 15-step plan — core/ infrastructure verified."""
 
     def test_finding_validates_at_construction(self):
-        from webpent.core.infrastructure import Finding
         import pytest
+
+        from webpent.core.infrastructure import Finding
         with pytest.raises(ValueError):
             Finding(finding_id="", vuln_class="xss", endpoint="/x", confidence=0.5)
         with pytest.raises(ValueError):
@@ -1616,8 +1644,9 @@ class TestCoreInfrastructure:
         assert f.confidence == 0.8
 
     def test_rule_validates_scope_and_priority(self):
-        from webpent.core.infrastructure import Rule
         import pytest
+
+        from webpent.core.infrastructure import Rule
         with pytest.raises(ValueError):
             Rule(rule_id="r1", pattern="x", scope="bogus")
         with pytest.raises(ValueError):
@@ -1685,7 +1714,7 @@ class TestCoreInfrastructure:
         assert any("created_missing_dir" in i for i in report["issues"])
 
     def test_shutdown_handler_marks_safely_stopped(self):
-        from webpent.core.infrastructure import ExecutionSession, ShutdownHandler, SessionStatus
+        from webpent.core.infrastructure import ExecutionSession, SessionStatus, ShutdownHandler
         sess = ExecutionSession("s1", "/tmp/nonexistent_sess.json")
         sess.start()
         handler = ShutdownHandler(sess)
@@ -1694,8 +1723,9 @@ class TestCoreInfrastructure:
         assert handler.triggered is True
 
     def test_performance_metrics_tracks_components(self):
-        from webpent.core.infrastructure import PerformanceMetrics
         import time
+
+        from webpent.core.infrastructure import PerformanceMetrics
         pm = PerformanceMetrics()
         pm.begin("discovery")
         time.sleep(0.01)
@@ -1705,7 +1735,7 @@ class TestCoreInfrastructure:
         assert s["total_runtime_seconds"] >= 0
 
     def test_version_compatibility_check(self):
-        from webpent.core.version import is_compatible, DATA_FORMAT_VERSION
+        from webpent.core.version import DATA_FORMAT_VERSION, is_compatible
         ok, _ = is_compatible(DATA_FORMAT_VERSION)
         assert ok is True
         ok2, reason = is_compatible(DATA_FORMAT_VERSION - 1)
@@ -1761,7 +1791,7 @@ class TestAutonomousHunter:
         assert "changed" in reason
 
     def test_strategy_engine_escalation_and_priority(self):
-        from webpent.autonomous_hunter import StrategyEngine, RiskLevel, ImpactLevel
+        from webpent.autonomous_hunter import ImpactLevel, RiskLevel, StrategyEngine
         r = StrategyEngine().escalate({"finding_id": "f1"}, confirmation_level=2,
                                       impact_evidence="system_admin_access")
         assert r.confirmation_level == 2
@@ -1776,7 +1806,7 @@ class TestAutonomousHunter:
         assert "<script>" in v
 
     def test_stealth_layer_detects_rate_limit_and_adapts(self):
-        from webpent.autonomous_hunter import StealthResilienceLayer, DefenseSignal
+        from webpent.autonomous_hunter import DefenseSignal, StealthResilienceLayer
         s = StealthResilienceLayer()
         sig = s.analyze_response(429, {})
         assert sig == DefenseSignal.RATE_LIMIT

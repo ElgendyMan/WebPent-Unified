@@ -39,7 +39,6 @@ from webpent.production.validators import (  # noqa: E402
     validate_ssrf,
 )
 
-
 # ---------------------------------------------------------------------------
 # DVWA literals stripped (5 tests)
 # ---------------------------------------------------------------------------

@@ -27,11 +27,11 @@ from __future__ import annotations
 from typing import Any
 
 from webpent.appmodel import (
+    ApplicationModel,
     AppModelEntity,
     AppModelEntityKind,
     AppModelRelation,
     AppModelRelationKind,
-    ApplicationModel,
     DiscoveryProvenance,
     build_application_model,
     merge_appmodel_into_attack_graph,

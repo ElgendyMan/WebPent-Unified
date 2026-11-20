@@ -44,12 +44,12 @@ os.environ.setdefault("WEBPENT_ENTRYPOINT", "cli")
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from webpent.brain.lessons import Lesson, LessonsLedger, get_lessons_ledger  # noqa: E402
 from webpent.brain.lesson_emission import (  # noqa: E402
     emit_run_lessons,
     lesson_from_family_outcomes,
     lessons_from_scorecard_emission,
 )
+from webpent.brain.lessons import Lesson, LessonsLedger, get_lessons_ledger  # noqa: E402
 from webpent.brain.scorecard import ScorecardEmitter  # noqa: E402
 from webpent.config.settings import get_settings  # noqa: E402
 from webpent.models.findings import VulnClass  # noqa: E402

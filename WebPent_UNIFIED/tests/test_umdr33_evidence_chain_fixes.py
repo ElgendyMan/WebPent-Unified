@@ -25,11 +25,11 @@ import pytest
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
+from webpent.cqa_v2.causal_guard import GuardedCausalResult, Verdict  # noqa: E402
 from webpent.cqa_v2.proof_bundle_builder import (  # noqa: E402
     CompleteProofBundle,
     build_complete_proof_bundle,
 )
-from webpent.cqa_v2.causal_guard import GuardedCausalResult, Verdict  # noqa: E402
 
 
 def _causal_result() -> GuardedCausalResult:

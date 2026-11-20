@@ -244,8 +244,8 @@ class TestV31LedgerBoundsAndPruning:
             cc.MAX_PROBE_ROWS = original
 
     def test_probe_ledger_enforces_max_rows_memory(self, tmp_path) -> None:
-        from webpent.resume.campaign_checkpoints import ProbeLedger
         import webpent.resume.campaign_checkpoints as cc
+        from webpent.resume.campaign_checkpoints import ProbeLedger
 
         ledger = ProbeLedger(db_path=None)
         original = cc.MAX_PROBE_ROWS

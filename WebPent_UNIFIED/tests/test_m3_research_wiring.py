@@ -22,6 +22,7 @@ Covers the CANONICAL_PHASE_REGISTRY M3 scope items delivered this window:
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
+from types import SimpleNamespace
 
 import pytest
 
@@ -30,7 +31,6 @@ from webpent.shared.cve_advisory import (
     advisory_for_target_state,
     advisory_hypothesis_to_state_hypothesis,
 )
-from types import SimpleNamespace
 
 FEED = [
     {

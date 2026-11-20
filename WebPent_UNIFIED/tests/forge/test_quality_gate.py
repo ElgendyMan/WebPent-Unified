@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import pytest
 
-from webpent.forge.quality_gate import QualityGate, QualityDecision
+from webpent.forge.quality_gate import QualityDecision, QualityGate
 from webpent.forge.schemas import PayloadAttribution, QualitySignal
 
 

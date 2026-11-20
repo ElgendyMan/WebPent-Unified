@@ -28,8 +28,8 @@ from webpent.shared.oob import poll_remote_collector
 
 def _start_loopback_collector(monkeypatch, records: list[dict]):
     """Serve GET /poll?token=... returning ``records`` on 127.0.0.1."""
-    from http.server import BaseHTTPRequestHandler, HTTPServer
     import threading
+    from http.server import BaseHTTPRequestHandler, HTTPServer
 
     class Handler(BaseHTTPRequestHandler):
         def do_GET(self):  # noqa: N802
@@ -104,8 +104,8 @@ def test_exemption_cannot_widen_to_private_nonloopback():
 
 def test_dispatch_loopback_receiver_connects(monkeypatch):
     """The documented https/loopback dispatch rule is now truly end-to-end."""
-    from http.server import BaseHTTPRequestHandler, HTTPServer
     import threading
+    from http.server import BaseHTTPRequestHandler, HTTPServer
 
     seen: list[tuple[str, int]] = []
 

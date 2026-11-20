@@ -23,7 +23,6 @@ from webpent.shared.engagement_scope import (
     set_engagement_target_hosts,
 )
 
-
 # ---------------------------------------------------------------------------
 # F-04 — raw-client fallback restricted to literal loopback origins
 # ---------------------------------------------------------------------------

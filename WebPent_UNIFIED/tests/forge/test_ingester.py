@@ -9,8 +9,8 @@ from __future__ import annotations
 import pytest
 
 from forge.conftest import DUPLICATED_TXT
-from webpent.forge.ingester import MultiSourceIngester
 from webpent.forge.indexer import PayloadIndexer
+from webpent.forge.ingester import MultiSourceIngester
 
 
 @pytest.fixture

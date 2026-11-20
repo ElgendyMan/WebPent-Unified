@@ -15,16 +15,15 @@ import pytest
 
 from webpent.causal_reasoning import (
     ArchitectureInferrer,
+    CausalReasoningEngine,
     ContextFingerprint,
     ContextualMemory,
-    CausalReasoningEngine,
     RootCauseAnalyzer,
     WeaknessCategory,
     glob_matches,
     route_to_glob,
     stable_id,
 )
-
 
 # ---------------------------------------------------------------------------
 # Contracts

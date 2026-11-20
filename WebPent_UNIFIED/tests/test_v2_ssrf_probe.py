@@ -1,7 +1,12 @@
 """V-2: The Real-Server SSRF Probe — the most security-critical test in the project."""
 from __future__ import annotations
-import os, socket, threading, time
+
+import os
+import socket
+import threading
+import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+
 import pytest
 
 os.environ.setdefault("WEBPENT_AUDIT_SECRET_KEY", "test_key_32_chars_minimum_required_1234567890")
@@ -57,8 +62,11 @@ class TestV2RealServerSSRFProbe:
         origin_url = f"http://127.0.0.1:{origin_port}"
         redirect_url = f"http://127.0.0.1:{origin_port}/redirect"
         CountingHandler.request_counts = {"origin": 0, "redirect": 0, "destination": 0, "other": 0}
-        from webpent.shared.http import make_safe_httpx_client, SSRFRedirectBlockedError
-        from webpent.shared.engagement_scope import set_engagement_target_hosts, clear_engagement_target_hosts
+        from webpent.shared.engagement_scope import (
+            clear_engagement_target_hosts,
+            set_engagement_target_hosts,
+        )
+        from webpent.shared.http import SSRFRedirectBlockedError, make_safe_httpx_client
         target_token = set_engagement_target_hosts(origin_url)
         try:
             try:
@@ -75,8 +83,11 @@ class TestV2RealServerSSRFProbe:
         origin_url = f"http://127.0.0.1:{origin_port}"
         redirect_url = f"http://127.0.0.1:{origin_port}/redirect"
         CountingHandler.request_counts = {"origin": 0, "redirect": 0, "destination": 0, "other": 0}
-        from webpent.shared.http import make_safe_httpx_client, SSRFRedirectBlockedError
-        from webpent.shared.engagement_scope import set_engagement_target_hosts, clear_engagement_target_hosts
+        from webpent.shared.engagement_scope import (
+            clear_engagement_target_hosts,
+            set_engagement_target_hosts,
+        )
+        from webpent.shared.http import SSRFRedirectBlockedError, make_safe_httpx_client
         target_token = set_engagement_target_hosts(origin_url)
         try:
             try:
@@ -93,8 +104,11 @@ class TestV2RealServerSSRFProbe:
         origin_url = f"http://127.0.0.1:{origin_port}"
         redirect_url = f"http://127.0.0.1:{origin_port}/redirect"
         CountingHandler.request_counts = {"origin": 0, "redirect": 0, "destination": 0, "other": 0}
-        from webpent.shared.http import make_safe_httpx_client, SSRFRedirectBlockedError
-        from webpent.shared.engagement_scope import set_engagement_target_hosts, clear_engagement_target_hosts
+        from webpent.shared.engagement_scope import (
+            clear_engagement_target_hosts,
+            set_engagement_target_hosts,
+        )
+        from webpent.shared.http import SSRFRedirectBlockedError, make_safe_httpx_client
         target_token = set_engagement_target_hosts(origin_url)
         try:
             try:

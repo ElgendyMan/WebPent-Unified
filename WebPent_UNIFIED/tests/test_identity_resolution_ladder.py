@@ -191,7 +191,12 @@ def test_transport_variants_unsupported_by_boundary_recorded_honestly():
 
 def test_m4_credential_relocation_query_and_cookie_variants_inside_boundary():
     """Transport variants relocate ONLY the M4-attached credential."""
-    from webpent.production.context_authority import AuthContextRef, ContextAuthority, PrincipalRef, PrincipalRole
+    from webpent.production.context_authority import (
+        AuthContextRef,
+        ContextAuthority,
+        PrincipalRef,
+        PrincipalRole,
+    )
 
     authority = ContextAuthority(engagement_id="transport-test", target_fingerprint="target123")
     principal = PrincipalRef(principal_alias="owner", engagement_id="transport-test", target_fingerprint="target123", role=PrincipalRole.OWNER)

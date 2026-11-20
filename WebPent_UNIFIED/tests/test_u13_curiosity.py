@@ -40,8 +40,8 @@ os.environ.setdefault("WEBPENT_ENTRYPOINT", "cli")
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from webpent.brain.curiosity import (  # noqa: E402
-    CuriositySignal,
     CuriosityEngine,
+    CuriositySignal,
     extract_data_behind_4xx,
     extract_header_comment_js,
     extract_odd_params,

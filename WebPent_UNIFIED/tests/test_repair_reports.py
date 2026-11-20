@@ -7,7 +7,6 @@ from pathlib import Path
 from webpent.reporter.bounty_report import BountyReport, CausalEvidence, ReproductionStep
 from webpent.reporter.poc_export import build_curl_commands, export_finding_evidence
 
-
 _SECRET = "super-secret-value"
 
 

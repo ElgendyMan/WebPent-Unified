@@ -13,7 +13,6 @@ import os
 
 import pytest
 
-
 # ---------------------------------------------------------------------------
 # WP-A — audit seam (NF-R2-04): the REAL chain fires through the seam
 # ---------------------------------------------------------------------------
@@ -90,8 +89,8 @@ def test_audit_fail_closed_on_chain_failure(tmp_path):
     """D8: a chain-side failure propagates (no silent audit drop). A
     finalized chain refuses appends — the failure reaches the caller
     instead of being swallowed into a silent no-audit path."""
-    from webpent.shared.engagement_audit import EngagementAuditChain
     from webpent.production import advisory_registration as ar
+    from webpent.shared.engagement_audit import EngagementAuditChain
 
     chain = EngagementAuditChain(
         engagement_id="e_fc", audit_dir=tmp_path / "a",
@@ -158,8 +157,8 @@ def test_bounds_recheck_rejects_oversized_fixture(monkeypatch):
     """NF-M2-06 disposition: the seam re-checks bounds — an oversized
     fixture is REJECTED with the frozen layer's oversize reason, not
     admitted unbounded (RED-2 P-4: 5 MiB field admitted verbatim)."""
-    from webpent.production.modern_spine_integration import _recheck_fixture_bounds
     from webpent.production.fixture_intake import RejectionRegister
+    from webpent.production.modern_spine_integration import _recheck_fixture_bounds
     from webpent.shared.fixture_registry import (
         REASON_OVERSIZE,
         REASON_STRUCTURE,
@@ -203,8 +202,8 @@ def test_noncanonical_record_rejected_not_crashed(monkeypatch):
 # ---------------------------------------------------------------------------
 
 def test_target_derivation_ladder_from_declared_state():
-    from webpent.production.modern_spine_integration import _derive_target_url
     from webpent.models.targets import Target
+    from webpent.production.modern_spine_integration import _derive_target_url
 
     assert _derive_target_url({"target_url": "http://a"}) == "http://a"
     assert _derive_target_url({"target": Target(url="http://b")}) == "http://b"
@@ -225,7 +224,8 @@ def test_state_schema_extension_additive_sqlite_roundtrip(tmp_path):
     descriptor/projection shapes survive a resume unchanged."""
     import pytest as _pytest
     from langgraph.checkpoint.sqlite import SqliteSaver
-    from langgraph.graph import StateGraph, START, END
+    from langgraph.graph import END, START, StateGraph
+
     from webpent.state.state import PentestState
 
     payload = {

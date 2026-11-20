@@ -19,8 +19,8 @@ from webpent.agents.dom_xss import (
     dom_xss_causal_predicate,
     find_taint_flows,
     parse_script,
+    payloads,
 )
-from webpent.agents.dom_xss import payloads
 
 
 class _FakeSettings:

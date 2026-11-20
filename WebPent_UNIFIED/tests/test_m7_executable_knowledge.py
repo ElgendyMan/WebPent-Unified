@@ -148,9 +148,8 @@ def test_malicious_fill_stays_one_argv_token() -> None:
 
 
 def test_default_runner_is_the_frozen_argv_typed_run_command() -> None:
-    from webpent.ekg import executor
-
     import webpent.tools.utils.subprocess as subprocess_module
+    from webpent.ekg import executor
 
     assert executor.default_runner.__module__ == "webpent.ekg.executor"
     # The runner delegates to the frozen argv-typed wrapper.

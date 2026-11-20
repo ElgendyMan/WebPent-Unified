@@ -31,8 +31,8 @@ import pytest
 
 from webpent.benchmark.ground_truth import (
     GroundTruthError,
-    TargetGroundTruth,
     GroundTruthVuln,
+    TargetGroundTruth,
     load_ground_truth,
 )
 from webpent.benchmark.live_runner import (

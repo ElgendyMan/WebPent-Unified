@@ -20,7 +20,6 @@ from webpent.learning.lessons_ledger import (
     influence_of,
 )
 
-
 EVIDENCE = {"kind": "proof_bundle", "finding": "idor-1", "verdict": "confirmed"}
 
 

@@ -27,17 +27,16 @@ import httpx
 import pytest
 
 import webpent.shared.http as http_module
-from webpent.shared.http import (
-    SSRFRedirectBlockedError,
-    _is_blocked_host,
-    make_safe_httpx_client,
-)
 from webpent.shared.engagement_scope import (
     admission_target_check,
     clear_engagement_target_hosts,
     set_engagement_target_hosts,
 )
-
+from webpent.shared.http import (
+    SSRFRedirectBlockedError,
+    _is_blocked_host,
+    make_safe_httpx_client,
+)
 
 # ---------------------------------------------------------------------------
 # DNS control — simulate the attacker's resolver

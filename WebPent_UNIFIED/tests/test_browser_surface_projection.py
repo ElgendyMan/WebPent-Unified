@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from webpent.agents.hunter_runner import _candidate_projection, _merge_browser_observed_forms
 from webpent.agents.hunter_graph import _advisory_json
+from webpent.agents.hunter_runner import _candidate_projection, _merge_browser_observed_forms
 from webpent.recon.autonomous_crawler import SurfaceMap
 from webpent.shared.untrusted_content import secure_prompt_value
 

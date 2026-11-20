@@ -12,7 +12,7 @@ import pytest
 
 from webpent.campaign.executor.budget_guard import BudgetSnapshot
 from webpent.campaign.executor.phase_runner import HypothesisResult
-from webpent.campaign.executor.pivot_engine import PivotEngine, PivotDecision
+from webpent.campaign.executor.pivot_engine import PivotDecision, PivotEngine
 from webpent.campaign.schemas import (
     Family,
     Hypothesis,
@@ -59,7 +59,8 @@ def make_phase(trigger=None):
 def make_result(status=PhaseStatus.FAILED, findings=None,
                 hypothesis_results=None):
     from webpent.campaign.executor.phase_runner import (
-        HypothesisResult, PhaseResult,
+        HypothesisResult,
+        PhaseResult,
     )
 
     if hypothesis_results is None:

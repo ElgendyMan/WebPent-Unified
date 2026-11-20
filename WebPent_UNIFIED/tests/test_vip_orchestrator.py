@@ -32,8 +32,8 @@ from webpent.shared.detector_hardening import (
     fold_evasion_padding,
 )
 from webpent.shared.red_vs_blue import (
-    RedVsBlueReport,
     EvasionAttemptResult,
+    RedVsBlueReport,
     run_red_vs_blue,
 )
 from webpent.shared.surface_evidence_graph import build_surface_evidence_graph

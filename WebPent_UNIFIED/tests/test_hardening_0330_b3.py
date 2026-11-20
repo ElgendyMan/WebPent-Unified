@@ -13,7 +13,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from webpent.autonomous.hunt_memory import ScopedHuntMemory, MemoryEntry, _MAX_ENTRIES
+from webpent.autonomous.hunt_memory import _MAX_ENTRIES, MemoryEntry, ScopedHuntMemory
 from webpent.brain.ev_scheduler import EVScheduler
 from webpent.core.infrastructure import ExecutionSession
 from webpent.memory.ab_lab import RUNNING_RUN_STALE_AFTER_SECONDS, LessonABLab
@@ -426,8 +426,8 @@ def test_p114_request_budget_is_atomic_under_concurrency(monkeypatch):
 
 def test_p115_ingest_observation_trims():
     from webpent.llm_researcher.interface import (
-        LLMResearcher,
         _MAX_OBSERVATIONS,
+        LLMResearcher,
     )
 
     researcher = LLMResearcher()

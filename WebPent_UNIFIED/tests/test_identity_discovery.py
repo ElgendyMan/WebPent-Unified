@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import inspect
+
 import httpx
 
 from webpent.recon.hypothesis_generator import HypothesisGenerator
