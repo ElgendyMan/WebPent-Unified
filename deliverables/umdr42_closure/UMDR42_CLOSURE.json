@@ -17,7 +17,7 @@
     "B_umdr42_source_closure": "COMPLETE",
     "C_ci_and_verification": "PARTIAL",
     "D_security": "COMPLETE_WITH_DOCUMENTED_LIMITATIONS",
-    "E_umdr43": "STARTED_WORKSTREAM_A",
+    "E_umdr43": "STARTED (Workstreams A + B)",
     "G_final": {
       "umdr42": "COMPLETE",
       "umdr43": "STARTED (Workstream A)"
@@ -92,6 +92,12 @@
       "implementation": "ApplicationModel.apply_observation — incremental single-observation merge, canonical entity IDs (merges with full-rebuild entities), provenance-exact (observed vs inferred), abstain-with-reason, evidence_ref mandatory",
       "tests": "tests/test_umdr43_appmodel_incremental.py 6/6",
       "commit": "6e70c4d"
+    },
+    "umdr43_workstream_b": {
+      "status": "COMPLETE (first increment)",
+      "implementation": "egaie/identity_scope.py — 12-dimension IdentityContext (directive §13), stable sha256 scope fingerprint stripping representation-only details, absence-as-distinction, explainable merge/keep decisions with differing fields, bounded dedup report; state semantics deliberately untouched",
+      "audit": "add_hypothesis appends without dedup; finding-level keying lives entirely in proposer-minted hypothesis_ids — no deterministic identity mechanism existed",
+      "tests": "tests/test_umdr43_identity_scope.py 11/11 (both mandatory directive cases pinned)"
     }
   },
   "gates_local": {
