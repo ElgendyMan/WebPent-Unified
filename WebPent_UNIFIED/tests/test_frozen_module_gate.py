@@ -183,19 +183,30 @@ UMDR42_20261119_THAW_PATHS = frozenset(
 # NOTE: scope/store.py postdates the 2026-10-05 pre-unfreeze baseline
 # entirely, so it never appears in the baseline-drift comparison below —
 # it is listed only for the byte-identity delta mode above.
+# UMDR42-closure addendum (same window, second fix): the 62 pre-existing
+# full-suite failures were root-caused to G02_HTTP_APPROVAL_EXPIRY in
+# src/webpent/shared/g02_contract.py still reading "2026-11-19" (the
+# UMDR42 D2 renewal pass updated direct_io_inventory.py to 2027-02-17
+# but missed this single constant). Renewed to 2027-02-17 to match the
+# documented approval; the adapter registry then validates again and
+# the appsuite/egaie suites pass (16/16 sample; full suite re-run as
+# the window's regression proof).
 UMDR42_CLOSURE_20261120_THAW_PATHS = frozenset(
     {
         "src/webpent/scope/store.py",
         "src/webpent/api/app.py",
         "src/webpent/workers/pentest_worker.py",
+        "src/webpent/shared/g02_contract.py",
     }
 )
-# The pre-unfreeze drift expectation needs only the two paths that
-# exist in that baseline (store.py is newer than it).
+# The pre-unfreeze drift expectation needs only the paths that
+# exist in that baseline (store.py is newer than it — a
+# byte-identity-only entry above).
 UMDR42_CLOSURE_20261120_BASELINE_DRIFT_PATHS = frozenset(
     {
         "src/webpent/api/app.py",
         "src/webpent/workers/pentest_worker.py",
+        "src/webpent/shared/g02_contract.py",
     }
 )
 

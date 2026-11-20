@@ -10,7 +10,7 @@ G02_HTTP_CANONICAL_WRAPPER = "webpent.shared.http.make_safe_httpx_client"
 G02_HTTP_SCOPE_POLICY = "same-origin"
 G02_HTTP_INVENTORY_REF = "docs/direct_io_inventory.json#native-http"
 G02_HTTP_PROOF_CONTRACT = "response-causal-negative-control-proof-bundle"
-G02_HTTP_APPROVAL_EXPIRY = "2026-11-19"
+G02_HTTP_APPROVAL_EXPIRY = "2027-02-17"
 
 
 def g02_http_metadata(extra: Mapping[str, Any] | None = None) -> dict[str, Any]:

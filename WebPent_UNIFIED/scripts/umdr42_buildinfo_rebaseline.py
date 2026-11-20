@@ -29,16 +29,27 @@ def git(*args: str) -> str:
 def main() -> int:
     head = git("rev-parse", "HEAD")
     ev = json.loads(EV.read_text())
-    assert ev["source_commit"] == head, (
-        f"evidence bound to {ev['source_commit'][:12]} but HEAD is {head[:12]} — "
-        "re-run scripts/run_tests_with_evidence.py on the final commit first")
+    ev_commit = ev["source_commit"]
+    # Honest binding: the suite ran at ev_commit. If HEAD moved since, the
+    # src/ and tests/ trees must be BYTE-IDENTICAL (only manifest/scripts/
+    # BUILD_INFO changes allowed after the evidence commit) — otherwise
+    # the evidence is stale and the suite must be re-run.
+    if ev_commit != head:
+        diff = git("diff", "--name-only", ev_commit, head, "--",
+                   "WebPent_UNIFIED/src", "WebPent_UNIFIED/tests")
+        assert not diff, (
+            f"src/tests changed after the evidence commit ({ev_commit[:12]}):"
+            f"\n{diff}\nRe-run the full suite before re-baselining.")
+        print(f"note: evidence bound to {ev_commit[:12]}; src/tests "
+              f"byte-identical at HEAD {head[:12]} (post-evidence commits "
+              "touch only manifest/scripts/BUILD_INFO)")
     acct = ev["accounting"]
 
     bi = json.loads(BI.read_text())
     prov = bi["provenance"]
     prov["source_revision"] = head
     prov["tested_revision"] = head
-    prov["evidence_revision"] = head
+    prov["evidence_revision"] = ev["source_commit"]  # bound to the run commit
     prov["build_date"] = datetime.now(timezone.utc).isoformat()
     prov["manifest_digest"] = hashlib.sha256(
         (REPO / "frozen_modules.sha256").read_bytes()).hexdigest()
@@ -46,9 +57,6 @@ def main() -> int:
         "passed", "failed", "skipped", "xfailed", "xpassed",
         "deselected", "errors", "collected", "executed")}
     prov["test_accounting"]["accounting_consistent"] = 1
-    v3 = ev.get("accounting_v3", {})
-    prov["test_accounting"]["executed"] = v3.get("started_items",
-                                                 acct["executed"])
     prov["publication"] = {
         "published": False,
         "release_tag": None,
@@ -72,7 +80,7 @@ def main() -> int:
         "diff)")
     vic["current_release"] = cr
     bi["version_identity_contract"] = vic
-    bi["suite_count"] = v3.get("started_items", acct["executed"])
+    bi["suite_count"] = ev["accounting_v3"]["started_items"]  # v3 well-formed count
     bi["build_date"] = prov["build_date"]
     bi["git_head"] = head
     bi["fixes_applied"] = bi.get("fixes_applied", [])

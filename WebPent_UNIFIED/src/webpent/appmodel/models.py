@@ -31,6 +31,7 @@ Design contracts:
 from __future__ import annotations
 
 from enum import Enum
+from collections.abc import Mapping
 from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -301,6 +302,134 @@ class ApplicationModel(BaseModel):
         })
         self.revision += 1
         return True
+
+    def apply_observation(
+        self,
+        observation: dict[str, Any],
+    ) -> dict[str, Any]:
+        """UM-DR-43 Workstream A — incremental single-observation update.
+
+        Applies ONE observation to the model WITHOUT rebuilding it: the
+        typed entities and relations this observation evidences are
+        merged via add_entity/add_relation (which already preserve
+        provenance, merge evidence refs, and strengthen confidence
+        deterministically), and every derived fact records exactly the
+        provenance the observation carries — an INFERRED link is never
+        stored as OBSERVED, and an unresolvable observation ABSTAINS
+        (records a coverage gap) instead of inventing structure.
+
+        Observation contract (all fields optional except url/actor):
+          url:          the observed request URL (endpoint identity)
+          method:       HTTP method (stored in endpoint metadata)
+          actor:        principal/role identity that made/may make the
+                        request (IDENTITY entity + OBSERVED_ON relation —
+                        provenance INFERRED, never OBSERVED, because the
+                        model does not see the server's decision)
+          status_code:  response status (endpoint metadata + evidence)
+          evidence_ref: provenance token (request id, ledger digest,
+                        observation id) — REQUIRED for traceability;
+                        without it the observation is rejected.
+          inferred:     mapping of {entity_kind: label} for relationships
+                        the CALLER inferred — stored as INFERRED with
+                        the deterministic weak confidence.
+
+        Returns a bounded, explainable result: what was touched, which
+        provenance was assigned, and which parts abstained with why.
+        """
+        evidence_ref = str(observation.get("evidence_ref") or "").strip()
+        if not evidence_ref:
+            return {"applied": False, "reason": "evidence_ref_required",
+                    "touched": [], "abstained": []}
+        url = str(observation.get("url") or "").strip()
+        method = str(observation.get("method") or "GET").strip().upper()[:8]
+        actor = str(observation.get("actor") or "").strip()
+        status_code = observation.get("status_code")
+        inferred = observation.get("inferred") or {}
+        touched: list[str] = []
+        abstained: list[dict[str, str]] = []
+
+        if url:
+            from webpent.appmodel.builder import _entity_id, _host_of, _path_of
+            host = _host_of(url)
+            path = _path_of(url)
+            if host:
+                endpoint_id = _entity_id("endpoint", f"{host}{path}")
+                self.add_entity(AppModelEntity(
+                    id=endpoint_id,
+                    kind=AppModelEntityKind.ENDPOINT,
+                    label=f"endpoint:{host}{path}"[:160],
+                    provenance=DiscoveryProvenance.OBSERVED,
+                    confidence=provenance_confidence(
+                        DiscoveryProvenance.OBSERVED),
+                    evidence_refs=[evidence_ref[:_MAX_REF]],
+                    metadata={
+                        "host": host, "path": path,
+                        "methods_seen": [method],
+                        **({"status_code": int(status_code)}
+                           if isinstance(status_code, int) else {}),
+                    },
+                ))
+                touched.append(endpoint_id)
+            else:
+                abstained.append({"what": "endpoint", "why": "unparseable_url"})
+        else:
+            abstained.append({"what": "endpoint", "why": "no_url_abstained"})
+
+        if actor:
+            principal_id = f"identity:{actor[:120]}"
+            self.add_entity(AppModelEntity(
+                id=principal_id,
+                kind=AppModelEntityKind.IDENTITY,
+                label=f"identity:{actor[:120]}",
+                # The observation evidences the REQUEST, not the server's
+                # authorization decision — the link stays INFERRED.
+                provenance=DiscoveryProvenance.INFERRED,
+                confidence=provenance_confidence(
+                    DiscoveryProvenance.INFERRED),
+                evidence_refs=[evidence_ref[:_MAX_REF]],
+            ))
+            touched.append(principal_id)
+            if url and host and endpoint_id in self.entities:
+                self.add_relation(AppModelRelation(
+                    id=f"{principal_id}->observed_on->{endpoint_id}",
+                    kind=AppModelRelationKind.OBSERVED_ON,
+                    source_id=principal_id,
+                    target_id=endpoint_id,
+                    provenance=DiscoveryProvenance.INFERRED,
+                    confidence=provenance_confidence(
+                        DiscoveryProvenance.INFERRED),
+                    evidence_refs=[evidence_ref[:_MAX_REF]],
+                ))
+        if isinstance(inferred, Mapping):
+            for kind_raw, label in list(inferred.items())[:16]:
+                kind = str(kind_raw).strip().lower()
+                label = str(label).strip()
+                if not label:
+                    continue
+                try:
+                    entity_kind = AppModelEntityKind(kind)
+                except ValueError:
+                    abstained.append({"what": f"inferred:{kind_raw}",
+                                      "why": "unknown_entity_kind"})
+                    continue
+                inferred_id = f"{kind}:{label[:120]}"
+                self.add_entity(AppModelEntity(
+                    id=inferred_id,
+                    kind=entity_kind,
+                    label=f"{kind}:{label}"[:160],
+                    provenance=DiscoveryProvenance.INFERRED,
+                    confidence=provenance_confidence(
+                        DiscoveryProvenance.INFERRED),
+                    evidence_refs=[evidence_ref[:_MAX_REF]],
+                ))
+                touched.append(inferred_id)
+        return {
+            "applied": True,
+            "touched": touched[:50],
+            "touched_count": len(touched),
+            "abstained": abstained[:20],
+            "revision": self.revision,
+        }
 
     def delta_since(self, previous: "ApplicationModel") -> dict[str, Any]:
         """UM-DR-37 Part 5.6 — the observable delta between two model

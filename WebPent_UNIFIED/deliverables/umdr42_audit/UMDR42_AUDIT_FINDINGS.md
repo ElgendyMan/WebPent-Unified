@@ -536,10 +536,10 @@ Categories: dead-code, error, lint, markers, tooling, weak-code
 - **File:** `src/`
 - **Detail:** all modules compile
 
-## UMDR42-107 [INFO] (lint) — ruff findings: 3310
+## UMDR42-107 [INFO] (lint) — ruff findings: 3313
 
 - **File:** `src/`
-- **Detail:** Full list in ruff output; categorized counts in detail. This is pre-existing tracked debt (ruff ratchet baseline in scripts/quality/ruff_baseline.json governs CI); recorded for the audit, fix handled via the ratchet, not one-by-one here. | top codes: E501=2205, E702=302, E701=168, UP037=85, I001=73, B008=32, `Mapping`=31, UP045=30, `Iterable`,=26, SIM105=22
+- **Detail:** Full list in ruff output; categorized counts in detail. This is pre-existing tracked debt (ruff ratchet baseline in scripts/quality/ruff_baseline.json governs CI); recorded for the audit, fix handled via the ratchet, not one-by-one here. | top codes: E501=2205, E702=302, E701=168, UP037=85, I001=76, B008=32, `Mapping`=31, UP045=30, `Iterable`,=26, SIM105=22
 
 ## UMDR42-108 [INFO] (tooling) — bandit not installed in sandbox
 

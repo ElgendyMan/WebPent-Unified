@@ -19,6 +19,7 @@ UMDR42_CLOSURE_REPINNED_FILES = (
     "src/webpent/scope/store.py",
     "src/webpent/api/app.py",
     "src/webpent/workers/pentest_worker.py",
+    "src/webpent/shared/g02_contract.py",
 )
 
 
