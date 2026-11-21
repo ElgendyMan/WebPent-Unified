@@ -8,11 +8,11 @@ ATTRIBUTION_IS_SACRED). Zero network, zero mutation.
 from __future__ import annotations
 
 import pytest
-
 from forge.conftest import PAYLOADSALLTHETHINGS_MD
+
 from webpent.forge.bridge import probe_strategy, ranked_for
-from webpent.forge.ingester import MultiSourceIngester
 from webpent.forge.indexer import PayloadIndexer
+from webpent.forge.ingester import MultiSourceIngester
 from webpent.forge.query_engine import PayloadQueryEngine
 from webpent.forge.schemas import Family, TargetContext
 

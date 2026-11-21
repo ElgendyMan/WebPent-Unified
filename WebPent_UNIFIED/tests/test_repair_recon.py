@@ -5,13 +5,13 @@ import json
 import httpx
 import pytest
 
+from webpent import recon
 from webpent.recon.auth_detector import AuthDetector, AuthSignal
-from webpent.recon.login_executor import LoginExecutor
-from webpent.recon.principal_provisioning import PrincipalProvisioner
 from webpent.recon.autonomous_crawler import _canonical_url
 from webpent.recon.browser_crawler import BrowserCrawlConfig, _safe_navigation_target
+from webpent.recon.login_executor import LoginExecutor
+from webpent.recon.principal_provisioning import PrincipalProvisioner
 from webpent.scope import ScopeEnforcer, ScopeParseError, parse_scope_text
-from webpent import recon
 
 
 def test_api_jwt_signal_routes_to_json_and_never_form_cookie_capture(monkeypatch):

@@ -1,7 +1,9 @@
 """U-4 (RA-3) behavioral tests: B-1 SameSite, B-4 per-call factory."""
 from __future__ import annotations
+
 import os
 from unittest.mock import MagicMock
+
 import pytest
 
 os.environ.setdefault("WEBPENT_AUDIT_SECRET_KEY", "test_key_32_chars_minimum_required_1234567890")
@@ -49,6 +51,7 @@ class TestB2ChainStopsOnAuthRejection:
     """B-2 (RA-3): session-death probe must catch 401/403, not just redirects."""
     def test_401_triggers_session_death_handling(self):
         import inspect
+
         from webpent.agents.validator import agent as agent_mod
         source = inspect.getsource(agent_mod)
         assert "probe_resp.status_code in (401, 403)" in source, "B-2 FAIL: 401/403 check not found"
@@ -59,6 +62,7 @@ class TestB2ChainStopsOnAuthRejection:
 
     def test_403_also_triggers_session_death_handling(self):
         import inspect
+
         from webpent.agents.validator import agent as agent_mod
         source = inspect.getsource(agent_mod)
         assert "in (401, 403)" in source, "B-2 FAIL: 401 and 403 must be in the same check"

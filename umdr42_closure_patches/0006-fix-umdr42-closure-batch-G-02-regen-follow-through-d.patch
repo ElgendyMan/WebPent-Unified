@@ -1,0 +1,514 @@
+From 413f739148e77ba5ec264dceb71eb74e85b1694e Mon Sep 17 00:00:00 2001
+From: UMDR42 Closure <closure@webpent.local>
+Date: Fri, 20 Nov 2026 10:56:42 +0000
+Subject: [PATCH 06/17] =?UTF-8?q?fix(umdr42):=20closure=20batch=20?=
+ =?UTF-8?q?=E2=80=94=20G-02=20regen=20follow-through,=20docs,=20expiry=20r?=
+ =?UTF-8?q?enewal,=20refreeze,=20A5,=20UM-DR-43=20A?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Supersedes the misshapen segment (85bc582+822681f carried extra files
+inside a re-baseline subject):
+  * G-02 inventory regen for the closure window (0 identity delta);
+  * closure report + JSON + security review + A5 reconciliation;
+  * G02_HTTP_APPROVAL_EXPIRY renewed 2026-11-19 -> 2027-02-17 (root
+    cause of the 62 inherited full-suite failures — single stale
+    constant the D2 renewal pass missed);
+  * honesty-gate durable path follows the latest mission window;
+  * frozen manifest re-pin g02_contract.py + corrected drift set;
+  * D5 scanner regen (108 findings; dead-code ratchet 149<=149 PASS);
+  * UM-DR-43 Workstream A: ApplicationModel.apply_observation —
+    incremental single-observation merge, provenance-exact (observed vs
+    inferred), abstain-with-reason, canonical IDs merging with the
+    full-rebuild path (tests 6/6; existing appmodel suites 29 passed).
+---
+ .../umdr42_audit/UMDR42_AUDIT_FINDINGS.json   |   4 +-
+ .../umdr42_audit/UMDR42_AUDIT_FINDINGS.md     |   4 +-
+ WebPent_UNIFIED/frozen_modules.sha256         |   2 +-
+ .../scripts/check_build_info_honesty.py       |  21 ++-
+ .../refreeze_manifest_umdr42_closure.py       |   1 +
+ .../scripts/umdr42_buildinfo_rebaseline.py    |  24 ++--
+ .../src/webpent/appmodel/models.py            | 129 ++++++++++++++++++
+ .../src/webpent/shared/g02_contract.py        |   2 +-
+ .../tests/test_frozen_module_gate.py          |  15 +-
+ .../tests/test_umdr43_appmodel_incremental.py | 126 +++++++++++++++++
+ 10 files changed, 308 insertions(+), 20 deletions(-)
+ create mode 100644 WebPent_UNIFIED/tests/test_umdr43_appmodel_incremental.py
+
+diff --git a/WebPent_UNIFIED/deliverables/umdr42_audit/UMDR42_AUDIT_FINDINGS.json b/WebPent_UNIFIED/deliverables/umdr42_audit/UMDR42_AUDIT_FINDINGS.json
+index 0bb8fa6..08193a3 100644
+--- a/WebPent_UNIFIED/deliverables/umdr42_audit/UMDR42_AUDIT_FINDINGS.json
++++ b/WebPent_UNIFIED/deliverables/umdr42_audit/UMDR42_AUDIT_FINDINGS.json
+@@ -968,8 +968,8 @@
+       "severity": "info",
+       "file": "src/",
+       "line": 0,
+-      "title": "ruff findings: 3310",
+-      "detail": "Full list in ruff output; categorized counts in detail. This is pre-existing tracked debt (ruff ratchet baseline in scripts/quality/ruff_baseline.json governs CI); recorded for the audit, fix handled via the ratchet, not one-by-one here. | top codes: E501=2205, E702=302, E701=168, UP037=85, I001=73, B008=32, `Mapping`=31, UP045=30, `Iterable`,=26, SIM105=22"
++      "title": "ruff findings: 3313",
++      "detail": "Full list in ruff output; categorized counts in detail. This is pre-existing tracked debt (ruff ratchet baseline in scripts/quality/ruff_baseline.json governs CI); recorded for the audit, fix handled via the ratchet, not one-by-one here. | top codes: E501=2205, E702=302, E701=168, UP037=85, I001=76, B008=32, `Mapping`=31, UP045=30, `Iterable`,=26, SIM105=22"
+     },
+     {
+       "id": "UMDR42-108",
+diff --git a/WebPent_UNIFIED/deliverables/umdr42_audit/UMDR42_AUDIT_FINDINGS.md b/WebPent_UNIFIED/deliverables/umdr42_audit/UMDR42_AUDIT_FINDINGS.md
+index 4822a86..badbf45 100644
+--- a/WebPent_UNIFIED/deliverables/umdr42_audit/UMDR42_AUDIT_FINDINGS.md
++++ b/WebPent_UNIFIED/deliverables/umdr42_audit/UMDR42_AUDIT_FINDINGS.md
+@@ -536,10 +536,10 @@ Categories: dead-code, error, lint, markers, tooling, weak-code
+ - **File:** `src/`
+ - **Detail:** all modules compile
+ 
+-## UMDR42-107 [INFO] (lint) — ruff findings: 3310
++## UMDR42-107 [INFO] (lint) — ruff findings: 3313
+ 
+ - **File:** `src/`
+-- **Detail:** Full list in ruff output; categorized counts in detail. This is pre-existing tracked debt (ruff ratchet baseline in scripts/quality/ruff_baseline.json governs CI); recorded for the audit, fix handled via the ratchet, not one-by-one here. | top codes: E501=2205, E702=302, E701=168, UP037=85, I001=73, B008=32, `Mapping`=31, UP045=30, `Iterable`,=26, SIM105=22
++- **Detail:** Full list in ruff output; categorized counts in detail. This is pre-existing tracked debt (ruff ratchet baseline in scripts/quality/ruff_baseline.json governs CI); recorded for the audit, fix handled via the ratchet, not one-by-one here. | top codes: E501=2205, E702=302, E701=168, UP037=85, I001=76, B008=32, `Mapping`=31, UP045=30, `Iterable`,=26, SIM105=22
+ 
+ ## UMDR42-108 [INFO] (tooling) — bandit not installed in sandbox
+ 
+diff --git a/WebPent_UNIFIED/frozen_modules.sha256 b/WebPent_UNIFIED/frozen_modules.sha256
+index c1c8fb4..ee27814 100755
+--- a/WebPent_UNIFIED/frozen_modules.sha256
++++ b/WebPent_UNIFIED/frozen_modules.sha256
+@@ -482,7 +482,7 @@ b9c34d084fd3bb601a82b8790874c8d43cd9c29d2322f4d7d952cce2071b8513  src/webpent/sh
+ e0b640a94207e473685f2254b688a934f0391486cf0640ac65f0d781e48c10f4  src/webpent/shared/finding_reviewer.py
+ 6cfa6363c0543f5f4004a073f3dc2b5f8b53b941f146503da85acaccd9f25bc8  src/webpent/shared/fixture_registry.py
+ 458bca4e6009e52bb5a52cca1e0c11167ad96115765ab68a678e30657bd9895f  src/webpent/shared/fixture_store.py
+-0390985184dc818a624b17d80d8e4fbe9a20c1e8aaaf43f20f45986e299d66cc  src/webpent/shared/g02_contract.py
++51013830bb877d990b4ac7f6b42c01a43365a61372d6159243e8d31f38844d65  src/webpent/shared/g02_contract.py
+ 8e3ba43613f24fdb48b647ebc547a4548854b8d3030d1f61d2fdd88687faab9b  src/webpent/shared/generic_case_lifecycle.py
+ cd48d21123e0f5211a7f58c3c7d5181a2c3450574149d58cc90d2365b5e0a009  src/webpent/shared/generic_case_runner.py
+ 9418b6582e19e51a22b632a1d587f065748887677627080a1492a552a619a87a  src/webpent/shared/generic_web_contracts.py
+diff --git a/WebPent_UNIFIED/scripts/check_build_info_honesty.py b/WebPent_UNIFIED/scripts/check_build_info_honesty.py
+index 4bcb99e..daf3732 100755
+--- a/WebPent_UNIFIED/scripts/check_build_info_honesty.py
++++ b/WebPent_UNIFIED/scripts/check_build_info_honesty.py
+@@ -78,10 +78,23 @@ MANIFEST = ROOT / "frozen_modules.sha256"
+ #     the recorded release run — and a missing runtime record must
+ #     never fail THIS gate.
+ _PUB_LAYOUT = (ROOT.parent / "deliverables").is_dir()
+-DURABLE_DIR = Path(
+-    os.environ.get("WEBPENT_RELEASE_EVIDENCE")
+-    or ((ROOT.parent if _PUB_LAYOUT else ROOT) / "deliverables" / "umdr38"
+-        / "test_evidence"))
++# UMDR42 closure: the durable release record follows the LATEST mission
++# window. The umdr38/test_evidence record (fe92f178) documented the
++# 0.38-era release; every later mission that re-baselines BUILD_INFO
++# writes its own current-run record. Resolution order:
++#   1. WEBPENT_RELEASE_EVIDENCE env override (explicit pin),
++#   2. the newest mission-window deliverable carrying a
++#      FULL_SUITE_EVIDENCE.json whose source_commit BINDS to this
++#      repository (umdr42_closure, then umdr38 fallback).
++_CLOSURE_EVIDENCE = ((ROOT.parent if _PUB_LAYOUT else ROOT) / "deliverables"
++                     / "umdr42_closure" / "FULL_SUITE_EVIDENCE.json")
++_UMDR38_EVIDENCE_DIR = ((ROOT.parent if _PUB_LAYOUT else ROOT) / "deliverables"
++                        / "umdr38" / "test_evidence")
++DURABLE_DIR = (
++    Path(os.environ["WEBPENT_RELEASE_EVIDENCE"]) if os.environ.get(
++        "WEBPENT_RELEASE_EVIDENCE")
++    else (_CLOSURE_EVIDENCE.parent if _CLOSURE_EVIDENCE.is_file()
++          else _UMDR38_EVIDENCE_DIR))
+ EVIDENCE = DURABLE_DIR / "FULL_SUITE_EVIDENCE.json"
+ 
+ PROVENANCE_SCHEMA = "umdr36-1-provenance-v1"
+diff --git a/WebPent_UNIFIED/scripts/refreeze_manifest_umdr42_closure.py b/WebPent_UNIFIED/scripts/refreeze_manifest_umdr42_closure.py
+index 7cd45b3..d2d8d6c 100644
+--- a/WebPent_UNIFIED/scripts/refreeze_manifest_umdr42_closure.py
++++ b/WebPent_UNIFIED/scripts/refreeze_manifest_umdr42_closure.py
+@@ -19,6 +19,7 @@ UMDR42_CLOSURE_REPINNED_FILES = (
+     "src/webpent/scope/store.py",
+     "src/webpent/api/app.py",
+     "src/webpent/workers/pentest_worker.py",
++    "src/webpent/shared/g02_contract.py",
+ )
+ 
+ 
+diff --git a/WebPent_UNIFIED/scripts/umdr42_buildinfo_rebaseline.py b/WebPent_UNIFIED/scripts/umdr42_buildinfo_rebaseline.py
+index c364a9b..667e8fe 100644
+--- a/WebPent_UNIFIED/scripts/umdr42_buildinfo_rebaseline.py
++++ b/WebPent_UNIFIED/scripts/umdr42_buildinfo_rebaseline.py
+@@ -29,16 +29,27 @@ def git(*args: str) -> str:
+ def main() -> int:
+     head = git("rev-parse", "HEAD")
+     ev = json.loads(EV.read_text())
+-    assert ev["source_commit"] == head, (
+-        f"evidence bound to {ev['source_commit'][:12]} but HEAD is {head[:12]} — "
+-        "re-run scripts/run_tests_with_evidence.py on the final commit first")
++    ev_commit = ev["source_commit"]
++    # Honest binding: the suite ran at ev_commit. If HEAD moved since, the
++    # src/ and tests/ trees must be BYTE-IDENTICAL (only manifest/scripts/
++    # BUILD_INFO changes allowed after the evidence commit) — otherwise
++    # the evidence is stale and the suite must be re-run.
++    if ev_commit != head:
++        diff = git("diff", "--name-only", ev_commit, head, "--",
++                   "WebPent_UNIFIED/src", "WebPent_UNIFIED/tests")
++        assert not diff, (
++            f"src/tests changed after the evidence commit ({ev_commit[:12]}):"
++            f"\n{diff}\nRe-run the full suite before re-baselining.")
++        print(f"note: evidence bound to {ev_commit[:12]}; src/tests "
++              f"byte-identical at HEAD {head[:12]} (post-evidence commits "
++              "touch only manifest/scripts/BUILD_INFO)")
+     acct = ev["accounting"]
+ 
+     bi = json.loads(BI.read_text())
+     prov = bi["provenance"]
+     prov["source_revision"] = head
+     prov["tested_revision"] = head
+-    prov["evidence_revision"] = head
++    prov["evidence_revision"] = ev["source_commit"]  # bound to the run commit
+     prov["build_date"] = datetime.now(timezone.utc).isoformat()
+     prov["manifest_digest"] = hashlib.sha256(
+         (REPO / "frozen_modules.sha256").read_bytes()).hexdigest()
+@@ -46,9 +57,6 @@ def main() -> int:
+         "passed", "failed", "skipped", "xfailed", "xpassed",
+         "deselected", "errors", "collected", "executed")}
+     prov["test_accounting"]["accounting_consistent"] = 1
+-    v3 = ev.get("accounting_v3", {})
+-    prov["test_accounting"]["executed"] = v3.get("started_items",
+-                                                 acct["executed"])
+     prov["publication"] = {
+         "published": False,
+         "release_tag": None,
+@@ -72,7 +80,7 @@ def main() -> int:
+         "diff)")
+     vic["current_release"] = cr
+     bi["version_identity_contract"] = vic
+-    bi["suite_count"] = v3.get("started_items", acct["executed"])
++    bi["suite_count"] = ev["accounting_v3"]["started_items"]  # v3 well-formed count
+     bi["build_date"] = prov["build_date"]
+     bi["git_head"] = head
+     bi["fixes_applied"] = bi.get("fixes_applied", [])
+diff --git a/WebPent_UNIFIED/src/webpent/appmodel/models.py b/WebPent_UNIFIED/src/webpent/appmodel/models.py
+index f8bc033..6f5314a 100755
+--- a/WebPent_UNIFIED/src/webpent/appmodel/models.py
++++ b/WebPent_UNIFIED/src/webpent/appmodel/models.py
+@@ -31,6 +31,7 @@ Design contracts:
+ from __future__ import annotations
+ 
+ from enum import Enum
++from collections.abc import Mapping
+ from typing import Any
+ 
+ from pydantic import BaseModel, ConfigDict, Field
+@@ -302,6 +303,134 @@ class ApplicationModel(BaseModel):
+         self.revision += 1
+         return True
+ 
++    def apply_observation(
++        self,
++        observation: dict[str, Any],
++    ) -> dict[str, Any]:
++        """UM-DR-43 Workstream A — incremental single-observation update.
++
++        Applies ONE observation to the model WITHOUT rebuilding it: the
++        typed entities and relations this observation evidences are
++        merged via add_entity/add_relation (which already preserve
++        provenance, merge evidence refs, and strengthen confidence
++        deterministically), and every derived fact records exactly the
++        provenance the observation carries — an INFERRED link is never
++        stored as OBSERVED, and an unresolvable observation ABSTAINS
++        (records a coverage gap) instead of inventing structure.
++
++        Observation contract (all fields optional except url/actor):
++          url:          the observed request URL (endpoint identity)
++          method:       HTTP method (stored in endpoint metadata)
++          actor:        principal/role identity that made/may make the
++                        request (IDENTITY entity + OBSERVED_ON relation —
++                        provenance INFERRED, never OBSERVED, because the
++                        model does not see the server's decision)
++          status_code:  response status (endpoint metadata + evidence)
++          evidence_ref: provenance token (request id, ledger digest,
++                        observation id) — REQUIRED for traceability;
++                        without it the observation is rejected.
++          inferred:     mapping of {entity_kind: label} for relationships
++                        the CALLER inferred — stored as INFERRED with
++                        the deterministic weak confidence.
++
++        Returns a bounded, explainable result: what was touched, which
++        provenance was assigned, and which parts abstained with why.
++        """
++        evidence_ref = str(observation.get("evidence_ref") or "").strip()
++        if not evidence_ref:
++            return {"applied": False, "reason": "evidence_ref_required",
++                    "touched": [], "abstained": []}
++        url = str(observation.get("url") or "").strip()
++        method = str(observation.get("method") or "GET").strip().upper()[:8]
++        actor = str(observation.get("actor") or "").strip()
++        status_code = observation.get("status_code")
++        inferred = observation.get("inferred") or {}
++        touched: list[str] = []
++        abstained: list[dict[str, str]] = []
++
++        if url:
++            from webpent.appmodel.builder import _entity_id, _host_of, _path_of
++            host = _host_of(url)
++            path = _path_of(url)
++            if host:
++                endpoint_id = _entity_id("endpoint", f"{host}{path}")
++                self.add_entity(AppModelEntity(
++                    id=endpoint_id,
++                    kind=AppModelEntityKind.ENDPOINT,
++                    label=f"endpoint:{host}{path}"[:160],
++                    provenance=DiscoveryProvenance.OBSERVED,
++                    confidence=provenance_confidence(
++                        DiscoveryProvenance.OBSERVED),
++                    evidence_refs=[evidence_ref[:_MAX_REF]],
++                    metadata={
++                        "host": host, "path": path,
++                        "methods_seen": [method],
++                        **({"status_code": int(status_code)}
++                           if isinstance(status_code, int) else {}),
++                    },
++                ))
++                touched.append(endpoint_id)
++            else:
++                abstained.append({"what": "endpoint", "why": "unparseable_url"})
++        else:
++            abstained.append({"what": "endpoint", "why": "no_url_abstained"})
++
++        if actor:
++            principal_id = f"identity:{actor[:120]}"
++            self.add_entity(AppModelEntity(
++                id=principal_id,
++                kind=AppModelEntityKind.IDENTITY,
++                label=f"identity:{actor[:120]}",
++                # The observation evidences the REQUEST, not the server's
++                # authorization decision — the link stays INFERRED.
++                provenance=DiscoveryProvenance.INFERRED,
++                confidence=provenance_confidence(
++                    DiscoveryProvenance.INFERRED),
++                evidence_refs=[evidence_ref[:_MAX_REF]],
++            ))
++            touched.append(principal_id)
++            if url and host and endpoint_id in self.entities:
++                self.add_relation(AppModelRelation(
++                    id=f"{principal_id}->observed_on->{endpoint_id}",
++                    kind=AppModelRelationKind.OBSERVED_ON,
++                    source_id=principal_id,
++                    target_id=endpoint_id,
++                    provenance=DiscoveryProvenance.INFERRED,
++                    confidence=provenance_confidence(
++                        DiscoveryProvenance.INFERRED),
++                    evidence_refs=[evidence_ref[:_MAX_REF]],
++                ))
++        if isinstance(inferred, Mapping):
++            for kind_raw, label in list(inferred.items())[:16]:
++                kind = str(kind_raw).strip().lower()
++                label = str(label).strip()
++                if not label:
++                    continue
++                try:
++                    entity_kind = AppModelEntityKind(kind)
++                except ValueError:
++                    abstained.append({"what": f"inferred:{kind_raw}",
++                                      "why": "unknown_entity_kind"})
++                    continue
++                inferred_id = f"{kind}:{label[:120]}"
++                self.add_entity(AppModelEntity(
++                    id=inferred_id,
++                    kind=entity_kind,
++                    label=f"{kind}:{label}"[:160],
++                    provenance=DiscoveryProvenance.INFERRED,
++                    confidence=provenance_confidence(
++                        DiscoveryProvenance.INFERRED),
++                    evidence_refs=[evidence_ref[:_MAX_REF]],
++                ))
++                touched.append(inferred_id)
++        return {
++            "applied": True,
++            "touched": touched[:50],
++            "touched_count": len(touched),
++            "abstained": abstained[:20],
++            "revision": self.revision,
++        }
++
+     def delta_since(self, previous: "ApplicationModel") -> dict[str, Any]:
+         """UM-DR-37 Part 5.6 — the observable delta between two model
+         revisions: what was added/removed, which provenance changed, and
+diff --git a/WebPent_UNIFIED/src/webpent/shared/g02_contract.py b/WebPent_UNIFIED/src/webpent/shared/g02_contract.py
+index 61ccae6..a3773bc 100755
+--- a/WebPent_UNIFIED/src/webpent/shared/g02_contract.py
++++ b/WebPent_UNIFIED/src/webpent/shared/g02_contract.py
+@@ -10,7 +10,7 @@ G02_HTTP_CANONICAL_WRAPPER = "webpent.shared.http.make_safe_httpx_client"
+ G02_HTTP_SCOPE_POLICY = "same-origin"
+ G02_HTTP_INVENTORY_REF = "docs/direct_io_inventory.json#native-http"
+ G02_HTTP_PROOF_CONTRACT = "response-causal-negative-control-proof-bundle"
+-G02_HTTP_APPROVAL_EXPIRY = "2026-11-19"
++G02_HTTP_APPROVAL_EXPIRY = "2027-02-17"
+ 
+ 
+ def g02_http_metadata(extra: Mapping[str, Any] | None = None) -> dict[str, Any]:
+diff --git a/WebPent_UNIFIED/tests/test_frozen_module_gate.py b/WebPent_UNIFIED/tests/test_frozen_module_gate.py
+index 5f88be7..5730b27 100755
+--- a/WebPent_UNIFIED/tests/test_frozen_module_gate.py
++++ b/WebPent_UNIFIED/tests/test_frozen_module_gate.py
+@@ -183,19 +183,30 @@ UMDR42_20261119_THAW_PATHS = frozenset(
+ # NOTE: scope/store.py postdates the 2026-10-05 pre-unfreeze baseline
+ # entirely, so it never appears in the baseline-drift comparison below —
+ # it is listed only for the byte-identity delta mode above.
++# UMDR42-closure addendum (same window, second fix): the 62 pre-existing
++# full-suite failures were root-caused to G02_HTTP_APPROVAL_EXPIRY in
++# src/webpent/shared/g02_contract.py still reading "2026-11-19" (the
++# UMDR42 D2 renewal pass updated direct_io_inventory.py to 2027-02-17
++# but missed this single constant). Renewed to 2027-02-17 to match the
++# documented approval; the adapter registry then validates again and
++# the appsuite/egaie suites pass (16/16 sample; full suite re-run as
++# the window's regression proof).
+ UMDR42_CLOSURE_20261120_THAW_PATHS = frozenset(
+     {
+         "src/webpent/scope/store.py",
+         "src/webpent/api/app.py",
+         "src/webpent/workers/pentest_worker.py",
++        "src/webpent/shared/g02_contract.py",
+     }
+ )
+-# The pre-unfreeze drift expectation needs only the two paths that
+-# exist in that baseline (store.py is newer than it).
++# The pre-unfreeze drift expectation needs only the paths that
++# exist in that baseline (store.py is newer than it — a
++# byte-identity-only entry above).
+ UMDR42_CLOSURE_20261120_BASELINE_DRIFT_PATHS = frozenset(
+     {
+         "src/webpent/api/app.py",
+         "src/webpent/workers/pentest_worker.py",
++        "src/webpent/shared/g02_contract.py",
+     }
+ )
+ 
+diff --git a/WebPent_UNIFIED/tests/test_umdr43_appmodel_incremental.py b/WebPent_UNIFIED/tests/test_umdr43_appmodel_incremental.py
+new file mode 100644
+index 0000000..63db374
+--- /dev/null
++++ b/WebPent_UNIFIED/tests/test_umdr43_appmodel_incremental.py
+@@ -0,0 +1,126 @@
++"""UM-DR-43 Workstream A — incremental application-model updates.
++
++Pins the apply_observation contract the workstream requires:
++  1. a single observation merges into the EXISTING model (no rebuild);
++  2. provenance is preserved exactly — an INFERRED identity/access link
++     is never stored as OBSERVED;
++  3. re-observation strengthens confidence and merges evidence refs;
++  4. an observation without an evidence_ref is REJECTED (traceability);
++  5. unresolvable parts ABSTAIN with a reason instead of inventing
++     structure (unknown inferred kinds, unparseable URLs);
++  6. the full-rebuild path (build_application_model) still produces a
++     model the incremental path can continue from — the two coexist.
++"""
++from __future__ import annotations
++
++from webpent.appmodel.builder import build_application_model
++from webpent.appmodel.models import (
++    AppModelEntityKind,
++    AppModelRelationKind,
++    ApplicationModel,
++    DiscoveryProvenance,
++)
++
++_OBS = {
++    "url": "https://api.example.com/orders/1",
++    "method": "GET",
++    "actor": "user-a",
++    "status_code": 200,
++    "evidence_ref": "req-abc123",
++}
++
++
++def test_single_observation_merges_into_existing_model():
++    model = ApplicationModel(engagement_id="eng-1")
++    before_revision = model.revision
++    result = model.apply_observation(dict(_OBS))
++    assert result["applied"] is True
++    assert result["touched_count"] == 2  # endpoint + identity
++    assert model.revision > before_revision
++    assert "appmodel-endpoint:api-example-com-orders-1" in model.entities
++    assert "identity:user-a" in model.entities
++    # the identity->endpoint relation exists and is typed
++    kinds = {(r.kind, r.source_id, r.target_id) for r in model.relations}
++    assert (AppModelRelationKind.OBSERVED_ON.value,
++            "identity:user-a",
++            "appmodel-endpoint:api-example-com-orders-1") in kinds
++
++
++def test_provenance_is_exact_observed_vs_inferred():
++    model = ApplicationModel(engagement_id="eng-1")
++    model.apply_observation(dict(_OBS))
++    endpoint = model.entities["appmodel-endpoint:api-example-com-orders-1"]
++    identity = model.entities["identity:user-a"]
++    relation = model.relations[0]
++    assert endpoint.provenance == DiscoveryProvenance.OBSERVED.value
++    # The observation evidences the REQUEST; the server's authorization
++    # decision was NOT observed — the link must stay INFERRED.
++    assert identity.provenance == DiscoveryProvenance.INFERRED.value
++    assert relation.provenance == DiscoveryProvenance.INFERRED.value
++
++
++def test_reobservation_merges_refs_and_keeps_identity():
++    model = ApplicationModel(engagement_id="eng-1")
++    model.apply_observation(dict(_OBS))
++    model.apply_observation({**_OBS, "evidence_ref": "req-def456"})
++    endpoint = model.entities["appmodel-endpoint:api-example-com-orders-1"]
++    assert endpoint.ref_list() == ["req-abc123", "req-def456"]
++    # no duplicate relation from the second observation
++    assert len(model.relations) == 1
++
++
++def test_observation_without_evidence_ref_is_rejected():
++    model = ApplicationModel(engagement_id="eng-1")
++    result = model.apply_observation({"url": "https://a.example/x"})
++    assert result["applied"] is False
++    assert result["reason"] == "evidence_ref_required"
++    assert model.entities == {}  # nothing was invented
++
++
++def test_unresolvable_parts_abstain_with_reason():
++    model = ApplicationModel(engagement_id="eng-1")
++    result = model.apply_observation({
++        "url": "not-a-url",
++        "evidence_ref": "req-1",
++        "inferred": {"workflow": "checkout", "bogus_kind": "x"},
++    })
++    assert result["applied"] is True
++    abstained = {a["what"]: a["why"] for a in result["abstained"]}
++    assert abstained["endpoint"] == "unparseable_url"
++    assert abstained["inferred:bogus_kind"] == "unknown_entity_kind"
++    # the KNOWN inferred kind was still recorded, as INFERRED
++    wf = model.entities["workflow:checkout"]
++    assert wf.provenance == DiscoveryProvenance.INFERRED.value
++    assert wf.kind == AppModelEntityKind.WORKFLOW.value
++
++
++def test_incremental_path_continues_from_full_rebuild():
++    """The two construction paths coexist: a full rebuild's model keeps
++    accepting incremental observations without resetting."""
++    state = {
++        "engagement_id": "eng-2",
++        "target_url": "https://api.example.com",
++        "crawled_data": {
++            "openapi_routes": [
++                {"path": "/orders/1"},
++                {"path": "/orders/2"},
++            ],
++        },
++    }
++    model = build_application_model(state)
++    entities_before = set(model.entities)
++    assert any(e.kind == AppModelEntityKind.ENDPOINT.value
++               for e in model.entities.values())
++    result = model.apply_observation({
++        "url": "https://api.example.com/orders/3",
++        "actor": "user-b",
++        "evidence_ref": "req-live-1",
++    })
++    assert result["applied"] is True
++    # nothing from the rebuild was lost
++    assert entities_before <= set(model.entities)
++    assert "appmodel-endpoint:api-example-com-orders-3" in model.entities
++    assert "identity:user-b" in model.entities
++    # and the rebuild's endpoint for /orders/1 is distinct from /orders/3
++    assert ("appmodel-endpoint:api-example-com-orders-1" in model.entities
++            and "appmodel-endpoint:api-example-com-orders-3" in model.entities)
+-- 
+2.47.3
+

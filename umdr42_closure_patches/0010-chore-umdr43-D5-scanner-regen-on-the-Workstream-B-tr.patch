@@ -1,0 +1,52 @@
+From 661efe61a5e09b46353ba63bddaf34db7f0f6d8f Mon Sep 17 00:00:00 2001
+From: UMDR43 <umdr43@webpent.local>
+Date: Fri, 20 Nov 2026 11:54:10 +0000
+Subject: [PATCH 10/17] =?UTF-8?q?chore(umdr43):=20D5=20scanner=20regen=20o?=
+ =?UTF-8?q?n=20the=20Workstream-B=20tree=20=E2=80=94=20108=20findings=20un?=
+ =?UTF-8?q?changed,=20dead-code=20ratchet=20149<=3D149=20PASS?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Confirms the Workstream-B module is fully referenced (no dead public
+symbols added) and the B-gates stay green on the new HEAD f6b3ca8.
+---
+ .../deliverables/umdr42_audit/UMDR42_AUDIT_FINDINGS.json      | 4 ++--
+ .../deliverables/umdr42_audit/UMDR42_AUDIT_FINDINGS.md        | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/WebPent_UNIFIED/deliverables/umdr42_audit/UMDR42_AUDIT_FINDINGS.json b/WebPent_UNIFIED/deliverables/umdr42_audit/UMDR42_AUDIT_FINDINGS.json
+index 08193a3..1ba6189 100644
+--- a/WebPent_UNIFIED/deliverables/umdr42_audit/UMDR42_AUDIT_FINDINGS.json
++++ b/WebPent_UNIFIED/deliverables/umdr42_audit/UMDR42_AUDIT_FINDINGS.json
+@@ -968,8 +968,8 @@
+       "severity": "info",
+       "file": "src/",
+       "line": 0,
+-      "title": "ruff findings: 3313",
+-      "detail": "Full list in ruff output; categorized counts in detail. This is pre-existing tracked debt (ruff ratchet baseline in scripts/quality/ruff_baseline.json governs CI); recorded for the audit, fix handled via the ratchet, not one-by-one here. | top codes: E501=2205, E702=302, E701=168, UP037=85, I001=76, B008=32, `Mapping`=31, UP045=30, `Iterable`,=26, SIM105=22"
++      "title": "ruff findings: 3314",
++      "detail": "Full list in ruff output; categorized counts in detail. This is pre-existing tracked debt (ruff ratchet baseline in scripts/quality/ruff_baseline.json governs CI); recorded for the audit, fix handled via the ratchet, not one-by-one here. | top codes: E501=2205, E702=302, E701=168, UP037=85, I001=77, B008=32, `Mapping`=31, UP045=30, `Iterable`,=26, SIM105=22"
+     },
+     {
+       "id": "UMDR42-108",
+diff --git a/WebPent_UNIFIED/deliverables/umdr42_audit/UMDR42_AUDIT_FINDINGS.md b/WebPent_UNIFIED/deliverables/umdr42_audit/UMDR42_AUDIT_FINDINGS.md
+index badbf45..1e3af44 100644
+--- a/WebPent_UNIFIED/deliverables/umdr42_audit/UMDR42_AUDIT_FINDINGS.md
++++ b/WebPent_UNIFIED/deliverables/umdr42_audit/UMDR42_AUDIT_FINDINGS.md
+@@ -536,10 +536,10 @@ Categories: dead-code, error, lint, markers, tooling, weak-code
+ - **File:** `src/`
+ - **Detail:** all modules compile
+ 
+-## UMDR42-107 [INFO] (lint) — ruff findings: 3313
++## UMDR42-107 [INFO] (lint) — ruff findings: 3314
+ 
+ - **File:** `src/`
+-- **Detail:** Full list in ruff output; categorized counts in detail. This is pre-existing tracked debt (ruff ratchet baseline in scripts/quality/ruff_baseline.json governs CI); recorded for the audit, fix handled via the ratchet, not one-by-one here. | top codes: E501=2205, E702=302, E701=168, UP037=85, I001=76, B008=32, `Mapping`=31, UP045=30, `Iterable`,=26, SIM105=22
++- **Detail:** Full list in ruff output; categorized counts in detail. This is pre-existing tracked debt (ruff ratchet baseline in scripts/quality/ruff_baseline.json governs CI); recorded for the audit, fix handled via the ratchet, not one-by-one here. | top codes: E501=2205, E702=302, E701=168, UP037=85, I001=77, B008=32, `Mapping`=31, UP045=30, `Iterable`,=26, SIM105=22
+ 
+ ## UMDR42-108 [INFO] (tooling) — bandit not installed in sandbox
+ 
+-- 
+2.47.3
+

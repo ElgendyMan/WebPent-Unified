@@ -9,8 +9,8 @@ without ever becoming a negative security verdict.
 """
 
 from webpent.egaie.differential import (
-    DifferentialGenerator,
     FAMILY_WORKFLOW_IDENTITY,
+    DifferentialGenerator,
     RelationshipView,
 )
 from webpent.egaie.prerequisites import (

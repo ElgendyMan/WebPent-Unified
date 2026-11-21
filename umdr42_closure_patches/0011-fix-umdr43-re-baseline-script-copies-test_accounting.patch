@@ -1,0 +1,37 @@
+From 3db8c354cacab850a5e340a6ab923ed9e5d42041 Mon Sep 17 00:00:00 2001
+From: UMDR43 <umdr43@webpent.local>
+Date: Fri, 20 Nov 2026 11:55:20 +0000
+Subject: [PATCH 11/17] fix(umdr43): re-baseline script copies test_accounting
+ verbatim
+
+The honesty gate compares provenance.test_accounting to the durable
+evidence record with dict equality; the previous key-subset copy
+dropped summary_found and forced accounting_consistent=1, which made
+every re-baseline fail the gate until a manual sync. Copy the whole
+accounting dict instead.
+---
+ WebPent_UNIFIED/scripts/umdr42_buildinfo_rebaseline.py | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/WebPent_UNIFIED/scripts/umdr42_buildinfo_rebaseline.py b/WebPent_UNIFIED/scripts/umdr42_buildinfo_rebaseline.py
+index 667e8fe..554bee4 100644
+--- a/WebPent_UNIFIED/scripts/umdr42_buildinfo_rebaseline.py
++++ b/WebPent_UNIFIED/scripts/umdr42_buildinfo_rebaseline.py
+@@ -53,10 +53,10 @@ def main() -> int:
+     prov["build_date"] = datetime.now(timezone.utc).isoformat()
+     prov["manifest_digest"] = hashlib.sha256(
+         (REPO / "frozen_modules.sha256").read_bytes()).hexdigest()
+-    prov["test_accounting"] = {k: acct[k] for k in (
+-        "passed", "failed", "skipped", "xfailed", "xpassed",
+-        "deselected", "errors", "collected", "executed")}
+-    prov["test_accounting"]["accounting_consistent"] = 1
++    # The honesty gate compares provenance.test_accounting to the
++    # durable evidence record VERBATIM (dict equality) — copy the whole
++    # accounting dict, never a key subset.
++    prov["test_accounting"] = dict(acct)
+     prov["publication"] = {
+         "published": False,
+         "release_tag": None,
+-- 
+2.47.3
+

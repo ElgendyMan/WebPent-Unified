@@ -10,8 +10,8 @@ import pytest
 
 from webpent.integration.hypothesis_priority_contract import EndpointProfile, PriorityLevel
 from webpent.integration.planner_enrichment_bridge import (
-    ContextEnricher,
     ContextAwarePayloadSelector,
+    ContextEnricher,
     PriorityScorer,
     apply_lesson_priorities,
     secure_prompt_value,

@@ -1,0 +1,643 @@
+From f6b3ca89a9ed1a8f493f51a97114e8474618afd5 Mon Sep 17 00:00:00 2001
+From: UMDR43 <umdr43@webpent.local>
+Date: Fri, 20 Nov 2026 11:38:24 +0000
+Subject: [PATCH 09/17] =?UTF-8?q?feat(umdr43=20B):=20identity-aware=20hypo?=
+ =?UTF-8?q?thesis=20intelligence=20(directive=20=C2=A713)?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+AUDIT: InvestigationState.add_hypothesis appends without dedup, and
+finding-level keying lives entirely in proposer-minted hypothesis_ids
+— no deterministic identity-scope mechanism existed, so nothing
+prevents security-distinct investigations from collapsing onto one id
+or logically identical ones duplicating on representation noise.
+
+IMPLEMENTATION (src/webpent/egaie/identity_scope.py):
+  * IdentityContext over the directive's twelve dimensions (actor,
+    role, tenant, namespace, resource ownership, object identity,
+    operation, workflow state, session, auth strength, HTTP method,
+    preconditions) — presence vs absence of a dimension is itself a
+    distinction (unauthenticated != authenticated);
+  * identity_scope_key: stable sha256 fingerprint over a canonical
+    form; representation-only details (request ids, idempotency
+    tokens, nonces, timestamps, query order) are stripped at
+    construction and can never split identical hypotheses;
+  * compare_identity_scope/explain: every decision carries a reason
+    and the exact differing fields;
+  * deduplicate_hypotheses: groups by (family, scope) — deterministic
+    (smallest id kept), bounded report, unknown contexts never merge;
+  * state semantics deliberately untouched — dedup is an explicit,
+    reportable operation, never silent loss mid-investigation.
+
+TESTS (tests/test_umdr43_identity_scope.py, 11/11): both mandatory
+directive regression cases pinned (genuine duplicates merge;
+security-distinct hypotheses stay separate), fingerprint stability,
+bounded reporting. Existing egaie suites unaffected (module is additive).
+---
+ .../src/webpent/egaie/identity_scope.py       | 324 ++++++++++++++++++
+ .../tests/test_umdr43_identity_scope.py       | 197 +++++++++++
+ .../umdr42_closure/UMDR42_CLOSURE.json        |   8 +-
+ .../umdr42_closure/UMDR42_CLOSURE_REPORT.md   |  22 +-
+ 4 files changed, 549 insertions(+), 2 deletions(-)
+ create mode 100644 WebPent_UNIFIED/src/webpent/egaie/identity_scope.py
+ create mode 100644 WebPent_UNIFIED/tests/test_umdr43_identity_scope.py
+
+diff --git a/WebPent_UNIFIED/src/webpent/egaie/identity_scope.py b/WebPent_UNIFIED/src/webpent/egaie/identity_scope.py
+new file mode 100644
+index 0000000..56ecbd8
+--- /dev/null
++++ b/WebPent_UNIFIED/src/webpent/egaie/identity_scope.py
+@@ -0,0 +1,324 @@
++"""UM-DR-43 Workstream B — identity-aware hypothesis intelligence.
++
++AUDIT (directive §13). Where the engine currently merges or splits
++hypotheses:
++
++  * ``InvestigationState.add_hypothesis`` (schemas.py) appends WITHOUT
++    any deduplication — every intake lands, duplicates included.
++  * Findings are keyed by ``case_id`` = the ``hypothesis_id`` half of
++    ``{hypothesis_id}/{family}`` (finding_bridge.py), so all identity
++    distinctions live entirely in how the proposer mints hypothesis
++    ids. There is no deterministic identity-scope mechanism, and
++    nothing prevents two security-DISTINCT investigations from
++    collapsing onto one id, or two logically IDENTICAL ones from
++    duplicating because a harmless representation detail changed.
++
++This module supplies the missing mechanism as pure, deterministic,
++explainable functions:
++
++  * ``IdentityContext`` — the security-relevant dimensions the
++    directive lists (actor/role/tenant/namespace/resource ownership/
++    object identity/operation/workflow state/session/auth strength/
++    method/preconditions). Presence vs absence of a dimension is
++    itself a distinction (unauthenticated vs authenticated contexts
++    must never merge), so every field always contributes to the
++    fingerprint — empty string included.
++  * ``identity_scope_key`` — a stable sha256 fingerprint over the
++    canonical form. Harmless representation details (request ids,
++    idempotency tokens, nonces, timestamps, query order) are stripped
++    at construction (``from_params``) and can NEVER split hypotheses.
++  * ``compare_identity_scope`` / ``explain`` — every merge or
++    keep-separate decision carries a reason and the exact differing
++    fields (directive: "Every merge or deduplication decision must be
++    explainable").
++  * ``deduplicate_hypotheses`` — groups records by
++    ``(family, scope_key)``: logically identical hypotheses merge
++    (the lexicographically smallest id is kept, for determinism);
++    security-distinct ones stay separate with an explanation.
++    The report is bounded, so deduplication cannot explode.
++
++State semantics are deliberately untouched: deduplication is an
++explicit, reportable operation — never a silent loss mid-investigation.
++"""
++from __future__ import annotations
++
++import hashlib
++from collections.abc import Mapping, Sequence
++from dataclasses import dataclass, field, replace
++
++from webpent.egaie.schemas import HypothesisRecord
++
++__all__ = [
++    "IDENTITY_CONTEXT_FIELDS",
++    "REPRESENTATION_ONLY_FIELDS",
++    "PARAM_ALIASES",
++    "IdentityContext",
++    "MergeDecision",
++    "DedupReport",
++    "identity_scope_key",
++    "compare_identity_scope",
++    "explain",
++    "from_params",
++    "deduplicate_hypotheses",
++]
++
++# Directive §13: the dimensions two otherwise similar hypotheses may
++# legitimately differ by. Fixed order — the canonical form (and hence
++# the fingerprint) is stable across runs and processes.
++IDENTITY_CONTEXT_FIELDS: tuple[str, ...] = (
++    "actor",            # user / principal identity
++    "role",             # role the principal holds
++    "tenant",           # tenant or namespace boundary
++    "namespace",
++    "resource_owner",   # object ownership
++    "object_id",        # object identity the operation targets
++    "operation",        # operation (distinct from HTTP method)
++    "workflow_state",
++    "session",
++    "auth_strength",    # authentication strength class
++    "method",           # HTTP method (case-insensitive)
++    "preconditions",    # sorted tuple of required preconditions
++)
++
++# Harmless request-representation details: stripped at construction so
++# they can never split two logically identical hypotheses (directive:
++# "Do not duplicate logically identical hypotheses merely because
++# harmless request representation details changed").
++REPRESENTATION_ONLY_FIELDS: frozenset[str] = frozenset({
++    "request_id", "idempotency_key", "idem", "nonce", "csrf",
++    "csrf_token", "timestamp", "ts", "correlation_id", "trace_id",
++    "span_id", "token", "access_token", "request_uri_reference",
++    "query_order", "user_agent", "referer", "epoch",
++})
++
++# Common observation-param spellings mapped onto identity dimensions.
++PARAM_ALIASES: Mapping[str, str] = {
++    "actor": "actor", "user": "actor", "username": "actor",
++    "principal": "actor",
++    "role": "role",
++    "tenant": "tenant", "tenant_id": "tenant",
++    "namespace": "namespace", "ns": "namespace",
++    "owner": "resource_owner", "resource_owner": "resource_owner",
++    "object_id": "object_id", "resource_id": "object_id",
++    "object": "object_id",
++    "operation": "operation", "op": "operation",
++    "workflow_state": "workflow_state", "state": "workflow_state",
++    "session": "session", "session_id": "session",
++    "auth_strength": "auth_strength", "auth_level": "auth_strength",
++    "authentication_strength": "auth_strength",
++    "method": "method",
++}
++
++
++@dataclass(frozen=True)
++class IdentityContext:
++    """The security-relevant identity scope of one hypothesis."""
++
++    actor: str = ""
++    role: str = ""
++    tenant: str = ""
++    namespace: str = ""
++    resource_owner: str = ""
++    object_id: str = ""
++    operation: str = ""
++    workflow_state: str = ""
++    session: str = ""
++    auth_strength: str = ""
++    method: str = ""
++    preconditions: tuple[str, ...] = ()
++
++    def normalized(self) -> IdentityContext:
++        """Canonical form: trimmed fields, uppercased HTTP method
++        (methods are case-insensitive), sorted preconditions. Case of
++        identity-bearing values (actor, tenant, ...) is PRESERVED —
++        ``User`` and ``user`` may be distinct principals."""
++        return replace(
++            self,
++            **{
++                name: str(getattr(self, name)).strip()
++                for name in IDENTITY_CONTEXT_FIELDS
++                if name not in ("method", "preconditions")
++            },
++            method=str(self.method).strip().upper(),
++            preconditions=tuple(sorted(
++                p.strip() for p in self.preconditions if str(p).strip())),
++        )
++
++    def canonical_form(self) -> str:
++        """Deterministic multi-line ``field=value`` rendering over ALL
++        dimensions in fixed order (absence contributes ``field=`` —
++        absence is itself a security distinction)."""
++        ctx = self.normalized()
++        lines = []
++        for name in IDENTITY_CONTEXT_FIELDS:
++            if name == "preconditions":
++                value = ",".join(ctx.preconditions)
++            else:
++                value = str(getattr(ctx, name))
++            lines.append(f"{name}={value}")
++        return "\n".join(lines)
++
++
++def identity_scope_key(context: IdentityContext) -> str:
++    """Stable deterministic fingerprint (sha256, 16 hex chars)."""
++    return hashlib.sha256(
++        context.canonical_form().encode("utf-8")).hexdigest()[:16]
++
++
++@dataclass(frozen=True)
++class MergeDecision:
++    """An explainable merge / keep-separate decision."""
++
++    verdict: str                 # "merge" | "keep_separate"
++    reason: str
++    differing_fields: tuple[str, ...] = ()
++    a_key: str = ""
++    b_key: str = ""
++
++    @property
++    def merge(self) -> bool:
++        return self.verdict == "merge"
++
++
++def compare_identity_scope(
++    a: IdentityContext, b: IdentityContext,
++) -> MergeDecision:
++    """Compare two identity scopes. Equal scopes MERGE (any harmless
++    representation difference was already stripped at construction);
++    differing scopes stay separate with the exact differing fields."""
++    a_key, b_key = identity_scope_key(a), identity_scope_key(b)
++    if a_key == b_key:
++        return MergeDecision(
++            verdict="merge",
++            reason="identity scopes identical; representation-only "
++                   "differences are not part of the fingerprint",
++            a_key=a_key, b_key=b_key,
++        )
++    a_n, b_n = a.normalized(), b.normalized()
++    differing = tuple(
++        name for name in IDENTITY_CONTEXT_FIELDS
++        if (",".join(a_n.preconditions) if name == "preconditions"
++            else str(getattr(a_n, name)))
++        != (",".join(b_n.preconditions) if name == "preconditions"
++            else str(getattr(b_n, name)))
++    )
++    return MergeDecision(
++        verdict="keep_separate",
++        reason="security contexts differ on: " + ", ".join(differing),
++        differing_fields=differing,
++        a_key=a_key, b_key=b_key,
++    )
++
++
++def explain(a: IdentityContext, b: IdentityContext) -> MergeDecision:
++    """Alias kept for readability at call sites that audit decisions."""
++    return compare_identity_scope(a, b)
++
++
++def from_params(params: Mapping[str, object]) -> IdentityContext:
++    """Build a context from raw observation parameters: representation-
++    only keys are dropped, alias spellings are mapped onto identity
++    dimensions, anything unmapped is ignored (never guessed into an
++    identity dimension)."""
++    kwargs: dict[str, object] = {}
++    preconditions: list[str] = []
++    for key, value in params.items():
++        name = str(key).strip().lower()
++        if name in REPRESENTATION_ONLY_FIELDS:
++            continue
++        if name == "preconditions":
++            if isinstance(value, (list, tuple, set)):
++                preconditions.extend(str(v) for v in value)
++            else:
++                preconditions.append(str(value))
++            continue
++        field_name = PARAM_ALIASES.get(name)
++        if field_name is None:
++            continue
++        kwargs[field_name] = str(value)
++    if preconditions:
++        kwargs["preconditions"] = tuple(preconditions)
++    return IdentityContext(**kwargs).normalized()  # type: ignore[arg-type]
++
++
++@dataclass(frozen=True)
++class DedupReport:
++    """Bounded, explainable result of a deduplication pass."""
++
++    kept: tuple[str, ...] = ()
++    merged_into: Mapping[str, str] = field(default_factory=dict)
++    groups: int = 0
++    kept_separate: tuple[Mapping[str, object], ...] = ()
++
++    def to_dict(self) -> dict[str, object]:
++        return {
++            "groups": self.groups,
++            "kept_count": len(self.kept),
++            "merged_count": len(self.merged_into),
++            "merged_into": dict(self.merged_into),
++            "kept_separate": list(self.kept_separate),
++        }
++
++
++_MERGE_REASON = ("logically identical: same family and identical "
++                 "identity scope; representation-only deltas ignored")
++_MAX_REPORTED = 50
++
++
++def deduplicate_hypotheses(
++    records: Sequence[HypothesisRecord],
++    contexts: Mapping[str, IdentityContext],
++) -> DedupReport:
++    """Group hypothesis records by (family, identity scope).
++
++    Records whose context is unknown are never merged (absence of
++    evidence is not evidence of equality). Within a group the
++    lexicographically smallest hypothesis_id is kept — a deterministic
++    choice that does not depend on intake order.
++    """
++    groups: dict[tuple[str, str], list[HypothesisRecord]] = {}
++    context_by_key: dict[tuple[str, str], IdentityContext] = {}
++    unkeyed: list[str] = []
++    for record in records:
++        context = contexts.get(record.hypothesis_id)
++        if context is None:
++            unkeyed.append(record.hypothesis_id)
++            continue
++        key = (record.family, identity_scope_key(context))
++        groups.setdefault(key, []).append(record)
++        context_by_key.setdefault(key, context)
++
++    kept: list[str] = []
++    merged_into: dict[str, str] = {}
++    for group_key in sorted(groups):
++        members = sorted(
++            groups[group_key], key=lambda r: r.hypothesis_id)
++        kept.append(members[0].hypothesis_id)
++        for extra in members[1:]:
++            merged_into[extra.hypothesis_id] = members[0].hypothesis_id
++
++    # Explainability for kept-separate pairs: within a family, contrast
++    # each additional group's scope against the family's first group —
++    # bounded so a report can never explode.
++    kept_separate: list[Mapping[str, object]] = []
++    by_family: dict[str, list[tuple[str, str]]] = {}
++    for family, scope in sorted(groups):
++        by_family.setdefault(family, []).append(scope)
++    for family, scopes in sorted(by_family.items()):
++        if len(scopes) < 2:
++            continue
++        first = context_by_key[(family, scopes[0])]
++        for scope in scopes[1:_MAX_REPORTED]:
++            decision = compare_identity_scope(
++                first, context_by_key[(family, scope)])
++            kept_separate.append({
++                "family": family,
++                "reason": decision.reason,
++                "differing_fields": list(decision.differing_fields),
++            })
++    return DedupReport(
++        kept=tuple(kept),
++        merged_into=dict(merged_into),
++        groups=len(groups) + len(unkeyed),
++        kept_separate=tuple(kept_separate),
++    )
+diff --git a/WebPent_UNIFIED/tests/test_umdr43_identity_scope.py b/WebPent_UNIFIED/tests/test_umdr43_identity_scope.py
+new file mode 100644
+index 0000000..63af48b
+--- /dev/null
++++ b/WebPent_UNIFIED/tests/test_umdr43_identity_scope.py
+@@ -0,0 +1,197 @@
++"""UM-DR-43 Workstream B — identity-aware hypothesis intelligence.
++
++Pins the directive §13 contract:
++  1. genuine duplicates (same security context, harmless representation
++     deltas) MERGE;
++  2. security-distinct hypotheses (user/tenant/object/session/auth
++     strength/absence) NEVER merge, with explainable differing fields;
++  3. fingerprints are stable and deterministic;
++  4. every merge/keep decision carries a reason (explainability);
++  5. the dedup report is bounded (no hypothesis explosion).
++"""
++from __future__ import annotations
++
++from webpent.egaie.identity_scope import (
++    IdentityContext,
++    compare_identity_scope,
++    deduplicate_hypotheses,
++    from_params,
++    identity_scope_key,
++)
++from webpent.egaie.schemas import HypothesisRecord, HypothesisStatus
++
++_BASE_PARAMS = {
++    "method": "POST",
++    "actor": "user-a",
++    "role": "buyer",
++    "tenant": "acme",
++    "object_id": "order-1001",
++    "auth_strength": "mfa",
++    # harmless representation noise that MUST be ignored:
++    "idempotency_key": "egaie-abc123",
++    "request_id": "req-9",
++    "nonce": "n-1",
++    "timestamp": "2026-11-20T00:00:00Z",
++}
++
++
++def _ctx(**overrides: object) -> IdentityContext:
++    return from_params({**_BASE_PARAMS, **overrides})
++
++
++def test_representation_only_changes_never_split():
++    """Genuine duplicates: different param order + extra tokens +
++    different method case all produce the SAME fingerprint."""
++    a = from_params(_BASE_PARAMS)
++    b = from_params({
++        "nonce": "n-2", "request_id": "req-77", "ts": "9999",
++        "correlation_id": "c-9", "method": "post",  # case-insensitive
++        "actor": "user-a", "role": "buyer", "tenant": "acme",
++        "object_id": "order-1001", "auth_strength": "mfa",
++    })
++    assert identity_scope_key(a) == identity_scope_key(b)
++    decision = compare_identity_scope(a, b)
++    assert decision.merge is True
++    assert "identity scopes identical" in decision.reason
++
++
++def test_actor_distinction_keeps_hypotheses_separate():
++    decision = compare_identity_scope(_ctx(), _ctx(actor="user-b"))
++    assert decision.merge is False
++    assert decision.verdict == "keep_separate"
++    assert decision.differing_fields == ("actor",)
++    assert "actor" in decision.reason
++
++
++def test_tenant_object_session_auth_distinctions():
++    for changed in (
++        {"tenant": "globex"},
++        {"object_id": "order-1002"},
++        {"session": "sess-1"},
++        {"auth_strength": "password-only"},
++        {"role": "admin"},
++    ):
++        decision = compare_identity_scope(_ctx(), _ctx(**changed))
++        assert decision.merge is False, changed
++        assert decision.differing_fields, changed
++
++
++def test_absence_of_actor_is_itself_a_distinction():
++    """Unauthenticated (no known principal) vs authenticated contexts
++    must never merge — absence contributes to the fingerprint."""
++    anonymous = from_params({
++        "method": "GET", "tenant": "acme", "object_id": "order-1001"})
++    authenticated = from_params({
++        "method": "GET", "tenant": "acme", "object_id": "order-1001",
++        "actor": "user-a"})
++    assert compare_identity_scope(
++        anonymous, authenticated).merge is False
++
++
++def test_fingerprints_stable_and_deterministic():
++    kwargs = dict(_BASE_PARAMS)
++    assert (identity_scope_key(from_params(kwargs))
++            == identity_scope_key(from_params(dict(reversed(
++                list(kwargs.items()))))))
++    # direct construction is stable too
++    direct = IdentityContext(
++        actor="user-a", tenant="acme", method="get",
++        preconditions=("b", "a"))
++    assert identity_scope_key(direct) == identity_scope_key(IdentityContext(
++        actor="user-a", tenant="acme", method="GET",
++        preconditions=("a", "b")))
++
++
++def test_genuine_duplicates_merge_in_dedup():
++    """Directive regression case 1: two records that differ only by
++    harmless representation details merge into one, deterministically."""
++    records = [
++        HypothesisRecord(
++            hypothesis_id="h-b", family="WORKFLOW_IDENTITY",
++            statement="second intake",
++            status=HypothesisStatus.PROPOSED),
++        HypothesisRecord(
++            hypothesis_id="h-a", family="WORKFLOW_IDENTITY",
++            statement="first intake",
++            status=HypothesisStatus.SUPPORTED),
++    ]
++    contexts = {"h-a": _ctx(), "h-b": _ctx(nonce="other")}
++    report = deduplicate_hypotheses(records, contexts)
++    assert report.merged_into == {"h-b": "h-a"}  # smallest id kept
++    assert report.kept == ("h-a",)
++    assert report.groups == 1
++
++
++def test_security_distinct_hypotheses_remain_separate():
++    """Directive regression case 2: same endpoint+family, different
++    principal and object — MUST stay separate, explainably."""
++    records = [
++        HypothesisRecord(
++            hypothesis_id="h-1", family="WORKFLOW_IDENTITY",
++            statement="user-a on order-1001"),
++        HypothesisRecord(
++            hypothesis_id="h-2", family="WORKFLOW_IDENTITY",
++            statement="user-b on order-1002"),
++    ]
++    contexts = {
++        "h-1": _ctx(),
++        "h-2": _ctx(actor="user-b", object_id="order-1002"),
++    }
++    report = deduplicate_hypotheses(records, contexts)
++    assert report.merged_into == {}
++    assert sorted(report.kept) == ["h-1", "h-2"]
++    assert report.groups == 2
++    separate = report.to_dict()["kept_separate"]
++    assert separate and separate[0]["differing_fields"] == [
++        "actor", "object_id"]
++    assert "security contexts differ" in separate[0]["reason"]
++
++
++def test_unknown_context_is_never_merged():
++    """Absence of identity evidence is not evidence of equality."""
++    records = [
++        HypothesisRecord(
++            hypothesis_id="h-1", family="PRICE_INTEGRITY",
++            statement="contexted"),
++        HypothesisRecord(
++            hypothesis_id="h-2", family="PRICE_INTEGRITY",
++            statement="no context available"),
++    ]
++    report = deduplicate_hypotheses(records, {"h-1": _ctx()})
++    assert report.merged_into == {}
++    assert report.groups == 2
++
++
++def test_different_families_never_merge_even_with_same_scope():
++    records = [
++        HypothesisRecord(
++            hypothesis_id="h-1", family="PRICE_INTEGRITY",
++            statement="price"),
++        HypothesisRecord(
++            hypothesis_id="h-2", family="WORKFLOW_IDENTITY",
++            statement="workflow"),
++    ]
++    contexts = {"h-1": _ctx(), "h-2": _ctx()}
++    report = deduplicate_hypotheses(records, contexts)
++    assert report.merged_into == {}
++    assert report.groups == 2
++
++
++def test_dedup_report_bounded():
++    records = [
++        HypothesisRecord(
++            hypothesis_id=f"h-{i}", family="WORKFLOW_IDENTITY",
++            statement=f"distinct actor {i}")
++        for i in range(60)
++    ]
++    contexts = {f"h-{i}": _ctx(actor=f"user-{i}") for i in range(60)}
++    report = deduplicate_hypotheses(records, contexts)
++    assert len(report.kept_separate) <= 50
++    assert report.groups == 60
++    assert report.to_dict()["merged_count"] == 0
++
++
++def test_precondition_order_does_not_split():
++    a = _ctx(preconditions=("stage-1-complete", "stage-2-open"))
++    b = _ctx(preconditions=("stage-2-open", "stage-1-complete"))
++    assert compare_identity_scope(a, b).merge is True
+diff --git a/deliverables/umdr42_closure/UMDR42_CLOSURE.json b/deliverables/umdr42_closure/UMDR42_CLOSURE.json
+index 1600800..b619e9d 100644
+--- a/deliverables/umdr42_closure/UMDR42_CLOSURE.json
++++ b/deliverables/umdr42_closure/UMDR42_CLOSURE.json
+@@ -17,7 +17,7 @@
+     "B_umdr42_source_closure": "COMPLETE",
+     "C_ci_and_verification": "PARTIAL",
+     "D_security": "COMPLETE_WITH_DOCUMENTED_LIMITATIONS",
+-    "E_umdr43": "STARTED_WORKSTREAM_A",
++    "E_umdr43": "STARTED (Workstreams A + B)",
+     "G_final": {
+       "umdr42": "COMPLETE",
+       "umdr43": "STARTED (Workstream A)"
+@@ -92,6 +92,12 @@
+       "implementation": "ApplicationModel.apply_observation — incremental single-observation merge, canonical entity IDs (merges with full-rebuild entities), provenance-exact (observed vs inferred), abstain-with-reason, evidence_ref mandatory",
+       "tests": "tests/test_umdr43_appmodel_incremental.py 6/6",
+       "commit": "6e70c4d"
++    },
++    "umdr43_workstream_b": {
++      "status": "COMPLETE (first increment)",
++      "implementation": "egaie/identity_scope.py — 12-dimension IdentityContext (directive §13), stable sha256 scope fingerprint stripping representation-only details, absence-as-distinction, explainable merge/keep decisions with differing fields, bounded dedup report; state semantics deliberately untouched",
++      "audit": "add_hypothesis appends without dedup; finding-level keying lives entirely in proposer-minted hypothesis_ids — no deterministic identity mechanism existed",
++      "tests": "tests/test_umdr43_identity_scope.py 11/11 (both mandatory directive cases pinned)"
+     }
+   },
+   "gates_local": {
+diff --git a/deliverables/umdr42_closure/UMDR42_CLOSURE_REPORT.md b/deliverables/umdr42_closure/UMDR42_CLOSURE_REPORT.md
+index a2b082e..36415e3 100644
+--- a/deliverables/umdr42_closure/UMDR42_CLOSURE_REPORT.md
++++ b/deliverables/umdr42_closure/UMDR42_CLOSURE_REPORT.md
+@@ -92,10 +92,30 @@ CI لم يُشغّل على GitHub (لا صلاحيات دفع — النشر ب
+ | **B — إغلاق UMDR42 (المصدر)** | COMPLETE | 4 عيوب P1 + ruff + G-02 + provenance + **الـ 62 فشلًا الموروثة عُلّيت جميعها** (جذرها ثابت موافقة متقادم — سطر واحد) |
+ | **C — CI والتحقق** | PARTIAL | البوابات المحلية كلها PASS؛ الـ CI الحقيقي BLOCKED (لا صلاحيات دفع) |
+ | **D — الأمان** | COMPLETE_WITH_DOCUMENTED_LIMITATIONS | الحدود المذكورة في §D |
+-| **E — UM-DR-43** | STARTED_WORKSTREAM_A | `apply_observation` التزايدي على ApplicationModel مُنفّذ ومُختبَر (6/6) — تحديث ملاحظة واحدة بلا إعادة بناء، مع الحفاظ الدقيق على provenance (ملاحَظ مقابل مُستنتَج) والامتناع الموثق بدل الاختراع |
++| **E — UM-DR-43** | STARTED (A + B) | `apply_observation` التزايدي على ApplicationModel مُنفّذ ومُختبَر (6/6) — تحديث ملاحظة واحدة بلا إعادة بناء، مع الحفاظ الدقيق على provenance (ملاحَظ مقابل مُستنتَج) والامتناع الموثق بدل الاختراع |
+ | **F — حدود صادقة** | موثقة بالكامل في هذا التقرير | — |
+ | **G — القرار النهائي** | UMDR42: COMPLETE / UM-DR-43: STARTED (Workstream A) | كل عيوب UMDR42 مُغلقة باختبارات؛ حدود النشر/CI/Docker موثقة |
+ 
++### Workstream B — الوعي بالهوية في الفرضيات (§13، مُنجز كأول تزايد)
++
++**التدقيق:** وجد أن `add_hypothesis` تضيف بلا أي dedup، وإن دمج الـ findings
++يعتمد كليًا على كيفية توليد `hypothesis_id` في المُقترِح — لا يوجد أي
++آلية بصمة لهوية أمنية تمنع الدمج الخاطئ أو التكرار.
++
++**التنفيذ:** `src/webpent/egaie/identity_scope.py` —
++`IdentityContext` بالأبعاد الاثني عشر من التوجيه (المستخدم/الدور/
++المستأجر/الملكية/كائن/عملية/جلسة/قوة المصادقة/الطريقة/الشروط)، وبصمة
++sha256 مستقرة تحذف تفاصيل التمثيل غير المؤثرة (tokens/timestamps/ترتيب
++المعاملات) فلا تشطر الفرضيات المتطابقة منطقيًا، بينما **غياب** بُعد
++هوية بحد ذاته تمييز (مجهول المصادقة ≠ مصادق). كل قرار دمج/فرق
++مفسَّر بحقول الاختلاف بعينها، وتقرير الـ dedup مُقيَّد (بلا انفجار
++فرضيات)، والحالة تُترك سليمة عمدًا (الدمج عملية صريحة قابلة للتقرير
++لا فقد صامت أثناء التحقيق).
++
++**الاختبارات:** `tests/test_umdr43_identity_scope.py` (11/11) —
++الحالتان الإلزاميتان: مكررات حقيقية تندمج، وفرضيات متميزة أمنيًا
++(مستخدم/مستأجر/كائن/جلسة/قوة مصادقة) تبقى منفصلة.
++
+ ## F. ما تبقّى مفتوحًا (بصدق)
+ 
+ 1. **النشر إلى main:** يحتاج المالك (دفع فرع الإغلاق أو squash كما فعل سابقًا).
+-- 
+2.47.3
+

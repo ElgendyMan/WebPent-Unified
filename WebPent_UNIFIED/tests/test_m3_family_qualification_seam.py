@@ -206,9 +206,8 @@ def test_family_execution_node_without_any_surface_stays_honest() -> None:
 
 
 def test_family_execution_node_honors_explicit_inventory_first() -> None:
-    from webpent.families.execution_node import family_execution_node
-
     import webpent.families.execution_node as en
+    from webpent.families.execution_node import family_execution_node
 
     en_get = en.get_default_http_executor
     en.get_default_http_executor = lambda: None

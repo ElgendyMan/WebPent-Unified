@@ -4,7 +4,6 @@ from typer.testing import CliRunner
 
 from webpent.cli.commands import app
 
-
 runner = CliRunner()
 
 

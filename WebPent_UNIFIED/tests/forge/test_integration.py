@@ -11,21 +11,22 @@ from __future__ import annotations
 
 import pytest
 
-from webpent.forge.integration import ForgeIntegration
-from webpent.forge.schemas import Family, NormalizedPayload
-from webpent.forge.indexer import PayloadIndexer
-from webpent.forge.query_engine import PayloadQueryEngine as QueryEngine
-from webpent.forge.contextualizer import Contextualizer
 from webpent.apex.tool_chain_builder import ChainStep, ToolChain
-
 from webpent.campaign.schemas import (
     Family as CampaignFamily,
+)
+from webpent.campaign.schemas import (
     Hypothesis,
     Phase,
     PhaseBudget,
 )
-from webpent.models.targets import Target
 from webpent.dojo.scenario_library import Scenario
+from webpent.forge.contextualizer import Contextualizer
+from webpent.forge.indexer import PayloadIndexer
+from webpent.forge.integration import ForgeIntegration
+from webpent.forge.query_engine import PayloadQueryEngine as QueryEngine
+from webpent.forge.schemas import Family, NormalizedPayload
+from webpent.models.targets import Target
 
 
 def _payload(pid: str, family: Family,
@@ -185,6 +186,7 @@ def test_bola_only_phase_returns_empty_without_error(rig):
 
 def test_family_docstring_carries_the_correction():
     import inspect
+
     from webpent.forge import schemas
     source = inspect.getsource(schemas)
     assert "Not a superset" in source
@@ -203,6 +205,7 @@ def test_string_family_hypothesis_still_yields_bundles(rig):
 
 def test_integration_has_no_dynamic_resolution():
     import inspect
+
     from webpent.forge import integration
     source = inspect.getsource(integration)
     assert "hasattr" not in source

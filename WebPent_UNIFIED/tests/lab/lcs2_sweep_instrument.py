@@ -451,12 +451,14 @@ def run_sweep(*, engagement_id: str, target_url: str, hypotheses: list[dict[str,
     re-rank.  Stops when the budget cannot cover another triple or no
     unselected non-skipped hypothesis remains.
     """
+    from tests.lab.lcs2_sweep_support import (
+        make_orchestrator,
+        seal_principals,
+        stages_delta,
+    )
     from webpent.brain.adaptation import AdaptationEngine
     from webpent.production.autonomous_validation_v1 import (
         AutonomousValidationIntelligence,
-    )
-    from tests.lab.lcs2_sweep_support import (
-        make_orchestrator, seal_principals, stages_delta,
     )
 
     scheduler = _ev_module.EVScheduler()

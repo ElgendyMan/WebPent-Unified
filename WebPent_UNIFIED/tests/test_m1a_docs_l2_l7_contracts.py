@@ -18,19 +18,20 @@ REPO = Path(__file__).resolve().parents[1]
 
 def test_smart_auto_approve_keeps_hitl_interrupts(monkeypatch):
     """SMART_AUTO_APPROVE=true must NOT compile away interrupt_before."""
-    import webpent.config.settings as settings_module
     from types import SimpleNamespace
+
+    import webpent.config.settings as settings_module
 
     monkeypatch.setattr(
         settings_module,
         "get_settings",
         lambda: SimpleNamespace(smart_auto_approve=True),
     )
-    from webpent.graph import builder as graph_builder
-
     # The compile site reads auto_approve (its own parameter), never
     # settings.smart_auto_approve — the two gates are orthogonal.
     import inspect
+
+    from webpent.graph import builder as graph_builder
 
     source = inspect.getsource(graph_builder.build_graph)
     assert "smart_auto_approve" not in source, (

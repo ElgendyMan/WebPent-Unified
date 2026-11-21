@@ -41,7 +41,6 @@ from webpent.production.vulnerability_family_contracts import (  # noqa: E402
     family_contract,
 )
 
-
 _TARGET = "http://127.0.0.1:8099"
 _FAMILIES = ("SSRF", "JWT_MANIPULATION", "FILE_UPLOAD", "OPEN_REDIRECT", "MASS_ASSIGNMENT", "RACE_CONDITION")
 

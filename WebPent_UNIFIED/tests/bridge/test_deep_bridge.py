@@ -25,7 +25,6 @@ from webpent.deep.cache_deception import CacheDeceptionDetector
 from webpent.deep.host_header import HostHeaderDetector
 from webpent.deep.mass_assignment import MassAssignmentDetector
 
-
 # ----------------------------------------------------------------------
 # Fake transports (same contract as tests/deep) — zero network.
 # ----------------------------------------------------------------------
@@ -264,6 +263,7 @@ def _integration():
 
 def test_unknown_deep_family_raises_typed_error():
     from types import SimpleNamespace
+
     from webpent.deep.bridge import DeepBridgeError
 
     finding = SimpleNamespace(

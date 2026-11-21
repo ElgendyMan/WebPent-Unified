@@ -55,6 +55,7 @@ class AccountingPlugin:
             "passed": 0, "failed": 0, "skipped": 0,
             "xfailed": 0, "xpassed": 0,
         }
+        self.failed_nodeids: list[str] = []
 
     # -- collection phase --------------------------------------------------
 
@@ -94,6 +95,8 @@ class AccountingPlugin:
                 # strict xfail failures surface as failed + wasxfail and
                 # pytest counts them as failures in the terminal summary
                 self.outcomes["failed"] += 1
+                if not hasattr(report, "wasxfail"):
+                    self.failed_nodeids.append(report.nodeid)
             return
 
     # -- session end --------------------------------------------------------
@@ -127,6 +130,7 @@ class AccountingPlugin:
             "errors_total": errors_total,
             "interrupted": interrupted,
             "exitstatus": int(exitstatus),
+            "failed_nodeids": self.failed_nodeids,
             "invariants": {
                 "collected_eq_started_plus_not_started_plus_deselected":
                     collected == started + not_started + self.deselected,

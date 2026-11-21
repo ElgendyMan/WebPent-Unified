@@ -1,0 +1,131 @@
+{
+  "schema": "umdr42-closure/v1",
+  "generated_at_utc": "2026-11-20T09:30:00Z",
+  "branch": "security/umdr42-closure",
+  "published_baseline": "5a7e511c0efc5cca8bfc013e8d8d9d10142e16da",
+  "closure_head": "7b5ac9f",
+  "commit_chain": [
+    "8f770eb",
+    "d55f190",
+    "9ff37a1",
+    "07e2eca",
+    "8e6c437",
+    "7b5ac9f"
+  ],
+  "statuses": {
+    "A_repository_identity": "COMPLETE",
+    "B_umdr42_source_closure": "COMPLETE",
+    "C_ci_and_verification": "PARTIAL",
+    "D_security": "COMPLETE_WITH_DOCUMENTED_LIMITATIONS",
+    "E_umdr43": "STARTED (Workstreams A + B)",
+    "G_final": {
+      "umdr42": "COMPLETE",
+      "umdr43": "STARTED (Workstream A)"
+    }
+  },
+  "workstreams": {
+    "A0_baseline_audit": {
+      "status": "COMPLETE",
+      "evidence": [
+        "deliverables/umdr42_closure/UMDR42_BASELINE_AUDIT.json",
+        "deliverables/umdr42_closure/UMDR42_BASELINE_AUDIT.md"
+      ]
+    },
+    "A1_scope_revocation_integrity": {
+      "status": "COMPLETE",
+      "defects_closed": [
+        "P1-SCOPE-REVIVE",
+        "P1-SCOPE-API-500",
+        "P1-SCOPE-WORKER-INIT",
+        "P1-SCOPE-COMPOSE-ENV"
+      ],
+      "files": [
+        "src/webpent/scope/store.py",
+        "src/webpent/api/app.py",
+        "src/webpent/workers/pentest_worker.py",
+        "docker-compose.yml"
+      ],
+      "tests": "tests/test_umdr42_scope_closure.py 7/7 (all four defects proven RED on clean 5a7e511c first)"
+    },
+    "A3_ruff_ratchet": {
+      "status": "COMPLETE",
+      "before": 8175,
+      "after": 8000,
+      "frozen_baseline": 8147,
+      "gate": "PASS",
+      "method": "163 I001 cleared across 103 test files; closure changes add ZERO new findings (row-shift-proof diff, ruff 0.16.3 both sides)"
+    },
+    "G02_direct_io_inventory": {
+      "status": "COMPLETE",
+      "regen": "0 additive identities, 0 removals, 857 line-moved records, 1221->1223",
+      "tests": "4/4 PASS"
+    },
+    "A4_buildinfo_honesty": {
+      "status": "COMPLETE",
+      "gate": "PASS",
+      "test_accounting": {
+        "collected": 9408,
+        "passed": 9332,
+        "failed": 62,
+        "skipped": 12,
+        "xfailed": 3,
+        "suite_count": 9408
+      },
+      "note": "62 failures proven PRE-EXISTING on published 5a7e511c via byte-identical failure-set diff (62=62)"
+    },
+    "frozen_manifest_refreeze": {
+      "status": "COMPLETE",
+      "repinned": [
+        "src/webpent/api/app.py",
+        "src/webpent/workers/pentest_worker.py"
+      ],
+      "gate": "646 passed, 1 skipped"
+    },
+    "inherited_failure_renewal": {
+      "status": "COMPLETE",
+      "root_cause": "G02_HTTP_APPROVAL_EXPIRY='2026-11-19' in src/webpent/shared/g02_contract.py (single stale constant; the D2 renewal pass missed it)",
+      "fix": "renewed to 2027-02-17 matching the documented approval",
+      "result": "62 inherited failures -> 0 (9395 passed / 1 provenance-baseline-gate failure closed by the re-baseline)"
+    },
+    "umdr43_workstream_a": {
+      "status": "COMPLETE (first increment)",
+      "implementation": "ApplicationModel.apply_observation — incremental single-observation merge, canonical entity IDs (merges with full-rebuild entities), provenance-exact (observed vs inferred), abstain-with-reason, evidence_ref mandatory",
+      "tests": "tests/test_umdr43_appmodel_incremental.py 6/6",
+      "commit": "absorbed into 413f739"
+    },
+    "umdr43_workstream_b": {
+      "status": "COMPLETE (first increment)",
+      "implementation": "egaie/identity_scope.py — 12-dimension IdentityContext (directive §13), stable sha256 scope fingerprint stripping representation-only details, absence-as-distinction, explainable merge/keep decisions with differing fields, bounded dedup report; state semantics deliberately untouched",
+      "audit": "add_hypothesis appends without dedup; finding-level keying lives entirely in proposer-minted hypothesis_ids — no deterministic identity mechanism existed",
+      "tests": "tests/test_umdr43_identity_scope.py 11/11 (both mandatory directive cases pinned)",
+      "commit": "f6b3ca8 + 7419edcc (dynamic-resolution-free rewrite)",
+      "note": "initial commit tripped two gates (egaie forbids getattr; G-02 inventory records dynamic-resolution sites) — rewritten with explicit asdict field access; 0 dynamic sites, scan==artifact"
+    }
+  },
+  "gates_local": {
+    "ruff_ratchet": "PASS (8000 < 8147)",
+    "build_info_honesty": "PASS",
+    "frozen_manifest": "PASS (after refreeze)",
+    "g02_inventory": "PASS (4/4)",
+    "full_suite": "9413 passed / 0 failed / 10 skipped / 3 xfailed on final HEAD 7419edcc (9425 collected; v3 invariants all true) — the suite is fully green for the first time in the project's UMDR42 era"
+  },
+  "blocked_or_open": [
+    "Publishing to main requires the owner (no push credentials)",
+    "GitHub CI cannot run until published",
+    "Docker compose runtime verification unavailable in this sandbox",
+    "UM-DR-43 Workstreams B-F not started (A complete as the first increment)",
+    "G-02 approvals expire 2027-02-17 — renewal is the owner's security decision (fail-closed retained)"
+  ],
+  "evidence_paths": {
+    "baseline_audit": "deliverables/umdr42_closure/UMDR42_BASELINE_AUDIT.{json,md}",
+    "durable_suite_evidence": "deliverables/umdr42_closure/FULL_SUITE_EVIDENCE.json",
+    "current_run_evidence": "WebPent_UNIFIED/.webpent-evidence/FULL_SUITE_EVIDENCE.{json,txt}",
+    "closure_tests": "WebPent_UNIFIED/tests/test_umdr42_scope_closure.py",
+    "scripts": [
+      "WebPent_UNIFIED/scripts/regen_direct_io_inventory_umdr42_closure.py",
+      "WebPent_UNIFIED/scripts/refreeze_manifest_umdr42_closure.py",
+      "WebPent_UNIFIED/scripts/umdr42_buildinfo_rebaseline.py",
+      "WebPent_UNIFIED/scripts/umdr42_closure_baseline.py"
+    ]
+  }
+}

@@ -10,13 +10,13 @@ between model builds. These tests pin the additive extensions.
 from __future__ import annotations
 
 from webpent.appmodel.models import (
+    _PROVENANCE_CONFIDENCE,
+    ApplicationModel,
     AppModelEntity,
     AppModelEntityKind,
     AppModelRelation,
     AppModelRelationKind,
-    ApplicationModel,
     DiscoveryProvenance,
-    _PROVENANCE_CONFIDENCE,
     provenance_confidence,
 )
 

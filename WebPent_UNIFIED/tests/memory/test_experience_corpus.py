@@ -15,7 +15,6 @@ from webpent.memory.experience_corpus import (
     redact_text,
 )
 
-
 # -- redaction ---------------------------------------------------------
 
 def test_urls_collapse_to_origins():

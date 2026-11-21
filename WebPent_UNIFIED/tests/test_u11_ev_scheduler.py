@@ -30,11 +30,11 @@ os.environ.setdefault("WEBPENT_ENTRYPOINT", "cli")
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from webpent.brain.ev_scheduler import (  # noqa: E402
-    EVScheduler,
     FAMILY_BASE_RATES,
     LLM_WEIGHT,
     REQUEST_WEIGHT,
     STARVATION_FLOOR,
+    EVScheduler,
 )
 
 

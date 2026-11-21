@@ -20,7 +20,7 @@ from typing import Any
 import pytest
 
 from webpent.config.settings import Settings, activate_settings
-from webpent.models.findings import Confidence, EXPLOITABLE_CLASSES, Finding, Severity, VulnClass
+from webpent.models.findings import EXPLOITABLE_CLASSES, Confidence, Finding, Severity, VulnClass
 from webpent.production.validators import (
     VALIDATORS,
     ValidationOutcome,
@@ -488,8 +488,8 @@ class TestAttachOOBProbes:
 
     def test_payload_generator_flag_off_is_byte_identical(self, monkeypatch) -> None:
         from webpent.agents.payload_generator.agent import payload_generator_node
-        from webpent.state.initial_state import build_initial_state
         from webpent.models.targets import Target
+        from webpent.state.initial_state import build_initial_state
 
         settings = Settings()
         assert settings.enable_oob_collaboration is False  # default off
@@ -511,8 +511,8 @@ class TestAttachOOBProbes:
 
     def test_payload_generator_flag_on_stamps_probe(self, monkeypatch) -> None:
         from webpent.agents.payload_generator.agent import payload_generator_node
-        from webpent.state.initial_state import build_initial_state
         from webpent.models.targets import Target
+        from webpent.state.initial_state import build_initial_state
 
         settings = Settings(
             enable_oob_collaboration=True,

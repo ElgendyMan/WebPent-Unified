@@ -36,8 +36,7 @@ from webpent.graph.budget_governor import (
     steps_remaining,
 )
 from webpent.shared.finding_announcer import FindingAnnouncer, _announce_line
-from webpent.state.unified_state import HUNT_MODES, HUNT_MODE_PRESETS, resolve_hunt_mode
-
+from webpent.state.unified_state import HUNT_MODE_PRESETS, HUNT_MODES, resolve_hunt_mode
 
 # ---------------------------------------------------------------------------
 # state/unified_state.py — mode presets
@@ -232,8 +231,8 @@ class TestSurfaceSizing:
         assert metrics["surface_size"] == 9
 
     def test_node_disabled_writes_nothing(self, monkeypatch: pytest.MonkeyPatch) -> None:
-        from webpent.graph import surface_sizing
         from webpent.config import settings as settings_module
+        from webpent.graph import surface_sizing
 
         class _Off:
             enable_dynamic_step_budget = False

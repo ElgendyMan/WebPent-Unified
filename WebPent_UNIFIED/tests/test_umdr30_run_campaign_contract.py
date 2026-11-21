@@ -31,6 +31,22 @@ def _script_text() -> str:
     return SCRIPT.read_text(encoding="utf-8")
 
 
+def _strip_ansi(text: str) -> str:
+    """Rich styles CLI panels even without a TTY when GITHUB_ACTIONS is
+    set (the CI environment); the contract under test is the text, not
+    the styling. Normalise before asserting on option spellings."""
+    out: list[str] = []
+    i = 0
+    while i < len(text):
+        if text.startswith("\x1b[", i):
+            end = text.find("m", i)
+            i = end + 1 if end != -1 else i + 2
+        else:
+            out.append(text[i])
+            i += 1
+    return "".join(out)
+
+
 def _cli_help_signature() -> str:
     result = subprocess.run(
         [sys.executable, "-m", "webpent.cli", "hunt", "--help"],
@@ -40,7 +56,7 @@ def _cli_help_signature() -> str:
         timeout=120,
     )
     assert result.returncode == 0, f"CLI hunt --help failed: {result.stderr[-400:]}"
-    return result.stdout
+    return _strip_ansi(result.stdout)
 
 
 def _script_cli_flags() -> set[str]:

@@ -203,25 +203,27 @@ class SqliteScopeStore:
             conn.close()
 
     def clear(self, engagement_id: str) -> bool:
-        """Tombstone the current version (history preserved, never deleted)."""
+        """Tombstone EVERY active version (history preserved, never deleted).
+
+        UMDR42 P1-SCOPE-REVIVE: the previous implementation tombstoned
+        only the latest ACTIVE row. Because current()/current_version()
+        filtered tombstones BEFORE choosing the latest version, a
+        revoked v2 resurrected the older v1 policy — a revocation
+        downgrade. clear() now tombstones all active rows for the
+        engagement, so nothing survives to be resurrected.
+        """
         key = str(engagement_id).strip()
         conn = self._connect()
         try:
             conn.execute("BEGIN IMMEDIATE")
-            row = conn.execute(
-                "SELECT policy_version FROM scope_policies "
-                "WHERE engagement_id = ? AND cleared_at_utc IS NULL "
-                "ORDER BY policy_version DESC LIMIT 1", (key,)).fetchone()
-            if row is None:
-                conn.execute("COMMIT")
-                return False
-            conn.execute(
+            cursor = conn.execute(
                 "UPDATE scope_policies SET cleared_at_utc = "
                 "strftime('%Y-%m-%dT%H:%M:%fZ','now') "
-                "WHERE engagement_id = ? AND policy_version = ?",
-                (key, int(row[0])))
+                "WHERE engagement_id = ? AND cleared_at_utc IS NULL",
+                (key,))
+            cleared = cursor.rowcount > 0
             conn.execute("COMMIT")
-            return True
+            return cleared
         except sqlite3.Error as exc:
             try:
                 conn.execute("ROLLBACK")
@@ -262,16 +264,20 @@ class SqliteScopeStore:
         key = str(engagement_id).strip()
         conn = self._connect()
         try:
+            # UMDR42 P1-SCOPE-REVIVE: pick the LATEST version first,
+            # THEN honour its tombstone. The previous order (filter
+            # tombstones, then latest) let a revoked v2 resurrect v1.
             row = conn.execute(
-                "SELECT policy_json, fingerprint FROM scope_policies "
-                "WHERE engagement_id = ? AND cleared_at_utc IS NULL "
+                "SELECT policy_json, fingerprint, cleared_at_utc "
+                "FROM scope_policies "
+                "WHERE engagement_id = ? "
                 "ORDER BY policy_version DESC LIMIT 1", (key,)).fetchone()
         except sqlite3.Error as exc:
             raise ScopeStoreUnavailable(
                 f"scope store read failed: {exc}") from exc
         finally:
             conn.close()
-        if row is None:
+        if row is None or row[2] is not None:
             return None
         try:
             payload = json.loads(row[0])
@@ -298,33 +304,49 @@ class SqliteScopeStore:
         key = str(engagement_id).strip()
         conn = self._connect()
         try:
+            # UMDR42 P1-SCOPE-REVIVE: latest-then-tombstone ordering
+            # (see current() for the rationale).
             row = conn.execute(
-                "SELECT policy_version FROM scope_policies "
-                "WHERE engagement_id = ? AND cleared_at_utc IS NULL "
+                "SELECT policy_version, cleared_at_utc "
+                "FROM scope_policies "
+                "WHERE engagement_id = ? "
                 "ORDER BY policy_version DESC LIMIT 1", (key,)).fetchone()
         except sqlite3.Error as exc:
             raise ScopeStoreUnavailable(
                 f"scope store read failed: {exc}") from exc
         finally:
             conn.close()
-        return int(row[0]) if row is not None else None
+        if row is None or row[1] is not None:
+            return None
+        return int(row[0])
 
     def redacted(self) -> dict[str, dict[str, Any]]:
-        """All CURRENT policies, redacted (engagement -> projection)."""
+        """All CURRENT policies, redacted (engagement -> projection).
+
+        UMDR42 P1-SCOPE-REVIVE: latest-then-tombstone ordering — for
+        each engagement pick the highest version first, then drop it
+        when that latest row is tombstoned. The previous GROUP BY over
+        active rows only could resurface an older policy after a
+        revocation.
+        """
         conn = self._connect()
         try:
             rows = conn.execute(
-                "SELECT engagement_id, policy_json FROM scope_policies "
-                "WHERE cleared_at_utc IS NULL "
-                "GROUP BY engagement_id "
-                "HAVING policy_version = MAX(policy_version)").fetchall()
+                "SELECT engagement_id, policy_json, cleared_at_utc "
+                "FROM scope_policies "
+                "WHERE policy_version = ("
+                "  SELECT MAX(p2.policy_version) FROM scope_policies p2 "
+                "  WHERE p2.engagement_id = scope_policies.engagement_id)"
+            ).fetchall()
         except sqlite3.Error as exc:
             raise ScopeStoreUnavailable(
                 f"scope store listing failed: {exc}") from exc
         finally:
             conn.close()
         out: dict[str, dict[str, Any]] = {}
-        for engagement_id, blob in rows:
+        for engagement_id, blob, cleared_at in rows:
+            if cleared_at is not None:
+                continue  # latest version revoked -> not current
             try:
                 out[str(engagement_id)] = json.loads(blob)
             except (json.JSONDecodeError, TypeError):

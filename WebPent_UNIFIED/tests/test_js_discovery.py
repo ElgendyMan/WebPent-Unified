@@ -20,10 +20,9 @@ from webpent.tools.js_extractors import (
     discover_surfaces,
     extract_api_endpoints,
     extract_graphql_operations,
-    extract_spa_routes,
     extract_secret_hints,
+    extract_spa_routes,
 )
-
 
 SYNTHETIC_BUNDLE = """
 const routes = [{ path: "/dashboard" }, { path: "/admin/settings" }];

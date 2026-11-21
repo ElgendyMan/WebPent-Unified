@@ -7,6 +7,7 @@ from datetime import datetime
 
 import pytest
 
+from webpent.campaign.errors import CampaignNotApprovedError
 from webpent.campaign.executor.budget_guard import (
     BudgetDecision,
     BudgetGuard,
@@ -16,7 +17,6 @@ from webpent.campaign.executor.budget_guard import (
     require_approved,
 )
 from webpent.campaign.schemas import Decision
-from webpent.campaign.errors import CampaignNotApprovedError
 
 
 def make_state(camp_used, camp_max, phase_used, phase_max):
@@ -141,7 +141,7 @@ def test_switch_phase_suggestion(guard):
 # ---------------------------------------------------------------------------
 
 def test_require_approved_accepts_approved():
-    from webpent.campaign.schemas import CampaignBudget, CampaignBrief
+    from webpent.campaign.schemas import CampaignBrief, CampaignBudget
 
     brief = CampaignBrief(
         campaign_id="c1", created_at=datetime(2026, 10, 19),
@@ -154,7 +154,9 @@ def test_require_approved_accepts_approved():
 
 def test_require_approved_rejects_pending():
     from webpent.campaign.schemas import (
-        CampaignBudget, CampaignBrief, TargetThesis,
+        CampaignBrief,
+        CampaignBudget,
+        TargetThesis,
     )
 
     thesis = TargetThesis.create(

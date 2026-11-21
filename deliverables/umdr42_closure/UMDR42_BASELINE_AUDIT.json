@@ -1,0 +1,156 @@
+{
+  "schema": "umdr42-closure-baseline-audit/v1",
+  "generated_at_utc": "2026-11-20T07:42:12.389530+00:00",
+  "classification": "VERIFIED_LOCAL (facts measured from repository) + VERIFIED_REMOTE (published baseline fetched from origin)",
+  "baseline": {
+    "published_main_sha": "5a7e511c0efc5cca8bfc013e8d8d9d10142e16da",
+    "parent_sha": "86e5861ae0f24d40f8f9c1ef9c6ae84fafd026cc",
+    "published_ci_run_id": "44646708112",
+    "published_ci_url": "https://github.com/ElgendyMan/WebPent-Unified/actions/runs/44646708112",
+    "audit_head": "5a7e511c0efc5cca8bfc013e8d8d9d10142e16da",
+    "audit_branch": "security/umdr42-closure",
+    "working_tree_dirty": true
+  },
+  "commit_anatomy_86e5861_to_5a7e511c": {
+    "added": 40,
+    "deleted_unpaired": 8,
+    "modified": 4967,
+    "renamed_r100": 39,
+    "other": 0,
+    "file_mode_changes": 4880,
+    "deleted_paths": [
+      "WebPent_UNIFIED/REGRESSION.json",
+      "WebPent_UNIFIED/UMDR36_2_37_DELIVERABLES/WebPent_Unified_mission-umdr36.2-umdr37.bundle",
+      "WebPent_UNIFIED/deliverables/umdr36_1/WebPent_Unified_recovery-umdr36-closure.bundle",
+      "WebPent_UNIFIED/docs/baseline/coverage.json",
+      "WebPent_UNIFIED/docs/coverage_measured_baseline_0260.json",
+      "WebPent_UNIFIED/docs/history/UMDR37_COVERAGE_LAST_RUN.json",
+      "WebPent_Unified_umdr38.bundle",
+      "deliverables/umdr38/test_evidence/coverage_last_run.json"
+    ]
+  },
+  "ci_observed_at_publication": {
+    "failed_gates": [
+      "ruff-ratchet (8175 vs 8147, +28)",
+      "build-info honesty (6 provenance defects)"
+    ],
+    "skipped_gates": [
+      "umdr42-audit-scanner",
+      "marker-ratchet",
+      "dependency-cve-gate",
+      "secret-scan",
+      "bandit-sast",
+      "coverage-ratchet",
+      "vip-audit-gap-closure",
+      "full-suite"
+    ],
+    "missing": [
+      "current-run test evidence (.webpent-evidence/FULL_SUITE_EVIDENCE.json)"
+    ],
+    "source": "directive \u00a72.1 (VERIFIED_REMOTE observation of Actions run 44646708112); ruff regression and provenance defects re-measured locally below"
+  },
+  "build_info_provenance_facts": {
+    "current_release.source_revision": {
+      "value": "a0807294694ce969c3664cbd3b6e7be4d3ed3b04",
+      "resolves_locally": false
+    },
+    "provenance.source_revision": {
+      "value": "277b1a52c1ac2b0ee8cf512f6a0bb323b17c848d",
+      "resolves_locally": true
+    },
+    "manifest_digest": {
+      "declared": "760dce1150244352416fb35f2868186af13d68d9828d41f68015bf3d875ba8ce",
+      "actual_sha256_of_frozen_modules": "ad62549af0350bd0ba027ae748321f933677422c8500e6047d179d769aedec1b",
+      "match": false
+    },
+    "publication_revision": "5a7e511c0efc5cca8bfc013e8d8d9d10142e16da",
+    "publication_revision_resolves": true
+  },
+  "test_accounting_at_publication": {
+    "passed": 9354,
+    "failed": 0,
+    "skipped": 9,
+    "xfailed": 3,
+    "xpassed": 0,
+    "deselected": 0,
+    "errors": 0,
+    "collected": 9365,
+    "executed": 9366,
+    "sum_of_outcomes": 9366,
+    "collected_minus_outcomes": -1,
+    "declared_accounting_consistent": true
+  },
+  "evidence_state": {
+    "durable_release_record_exists": false,
+    "current_run_record_exists": false,
+    "current_run_record_required_by_ci": true
+  },
+  "ruff_measured_now": {
+    "findings": 5689,
+    "frozen_baseline": null,
+    "note": "measured on the audit working tree; the published CI observed 8175 vs frozen 8147"
+  },
+  "g02_inventory": {
+    "inventory_exists": true,
+    "entry_count": 0
+  },
+  "scope_store_defects": {
+    "clear_tombstones_latest_active_only": true,
+    "current_filters_tombstones_before_latest": false,
+    "worker_attaches_store": true,
+    "compose_has_scope_env": true
+  },
+  "docker_available": false,
+  "docker_note": "docker UNAVAILABLE in this environment \u2014 compose verification will be classified BLOCKED and replaced by a process-level integration test",
+  "known_unresolved_defects": [
+    {
+      "id": "P1-SCOPE-REVIVE",
+      "sev": "P1",
+      "desc": "clear() tombstones latest ACTIVE row only; current()/current_version()/redacted() filter tombstones BEFORE choosing latest \u2192 revoked v2 resurrects v1"
+    },
+    {
+      "id": "P1-SCOPE-API-500",
+      "sev": "P1",
+      "desc": "API scope endpoints do not map ScopeStoreUnavailable to 503 \u2014 an unavailable authority surfaces as an opaque 500"
+    },
+    {
+      "id": "P1-SCOPE-WORKER-INIT",
+      "sev": "P1",
+      "desc": "Celery worker never attaches the durable store \u2014 opt-in env vars are not consumed by worker.py"
+    },
+    {
+      "id": "P1-SCOPE-COMPOSE-ENV",
+      "sev": "P1",
+      "desc": "docker-compose.yml api+worker missing WEBPENT_SCOPE_STORE_* env and store path"
+    },
+    {
+      "id": "P2-RUFF-28",
+      "sev": "P2",
+      "desc": "28 ruff regressions vs frozen 8147 baseline"
+    },
+    {
+      "id": "P2-BUILDINFO-6",
+      "sev": "P2",
+      "desc": "6 provenance inconsistencies in BUILD_INFO.json"
+    },
+    {
+      "id": "P2-D2-NEEDSHUMAN",
+      "sev": "P2",
+      "desc": "D2 decision table NEEDS-HUMAN vs final verdicts DELETABLE conflict for selected symbols"
+    },
+    {
+      "id": "P2-AUDIT-137-VS-108",
+      "sev": "P2",
+      "desc": "audit findings count disagreement 137 vs 108 across copies"
+    },
+    {
+      "id": "P2-G02-RENEWALS",
+      "sev": "P2 (governance)",
+      "desc": "49 expired vs 54 renewed vs 40+3 inventory approvals unreconciled"
+    }
+  ],
+  "external_decisions_required": [
+    "G-02 approval renewal requires the actual repository owner; expiry-date edits without authentic authorization are prohibited (fail-closed retained)",
+    "docker-compose runtime verification requires a Docker daemon (unavailable here)"
+  ]
+}

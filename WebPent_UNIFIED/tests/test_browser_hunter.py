@@ -8,7 +8,12 @@ import pytest
 
 from webpent.agents.hunter_contracts import HunterState
 from webpent.agents.hunter_graph import _planner_prompt
-from webpent.recon.browser_crawler import BrowserCrawlConfig, BrowserCrawler, _navigation_state_key, _safe_navigation_target
+from webpent.recon.browser_crawler import (
+ BrowserCrawlConfig,
+ BrowserCrawler,
+ _navigation_state_key,
+ _safe_navigation_target,
+)
 from webpent.recon.browser_farm import BrowserFarm, BrowserFarmConfig
 from webpent.recon.js_analyzer import analyze_javascript
 from webpent.recon.state_graph import StateGraph

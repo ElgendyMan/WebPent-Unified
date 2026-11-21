@@ -12,9 +12,9 @@ executor still prevents a double-applied mutation (G-02).
 """
 from __future__ import annotations
 
+from webpent.appsuite.corpus import SuiteEntry, open_instance
 from webpent.egaie import discovery_runner as dr
 from webpent.egaie.differential import DifferentialProposer
-from webpent.appsuite.corpus import SuiteEntry, open_instance
 
 
 def _all_status_codes(composites) -> list:

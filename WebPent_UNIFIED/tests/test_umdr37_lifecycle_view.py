@@ -6,8 +6,8 @@ import pytest
 
 from webpent.models.hypothesis import HypothesisStatus
 from webpent.research.lifecycle_view import (
-    lifecycle_stage,
     lifecycle_snapshot,
+    lifecycle_stage,
 )
 
 

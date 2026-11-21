@@ -137,6 +137,12 @@ def load_program_scope(
     try:
         policy = parse_scope_text(request.content, source=f"api:{user.username}")
         GLOBAL_SCOPE_REGISTRY.load(policy, engagement_id=request.engagement_id)
+    except ScopeStoreUnavailable as exc:
+        # UMDR42 P1-SCOPE-API-500: an unavailable durable authority is a
+        # retryable service condition, not a crash — surface 503 so the
+        # operator sees "authority offline" instead of an opaque 500.
+        raise HTTPException(
+            status_code=503, detail="scope authority unavailable") from exc
     except (TypeError, ValueError) as exc:
         raise HTTPException(status_code=422, detail="invalid scope policy") from exc
     return {"engagement_id": request.engagement_id, "policy": policy.as_dict()}
@@ -147,7 +153,12 @@ def list_program_scopes(
     user: User = Depends(require_role("admin", "service")),  # noqa: B008
 ) -> dict[str, Any]:
     """Return only redacted active program-scope policies."""
-    return {"scopes": GLOBAL_SCOPE_REGISTRY.redacted()}
+    try:
+        scopes = GLOBAL_SCOPE_REGISTRY.redacted()
+    except ScopeStoreUnavailable as exc:
+        raise HTTPException(
+            status_code=503, detail="scope authority unavailable") from exc
+    return {"scopes": scopes}
 
 
 @app.get("/api/v1/scope/check")
@@ -157,7 +168,11 @@ def check_program_scope(
     method: str = "GET",
     user: User = Depends(require_role("admin", "service")),  # noqa: B008
 ) -> dict[str, Any]:
-    policy = GLOBAL_SCOPE_REGISTRY.get(engagement_id)
+    try:
+        policy = GLOBAL_SCOPE_REGISTRY.get(engagement_id)
+    except ScopeStoreUnavailable as exc:
+        raise HTTPException(
+            status_code=503, detail="scope authority unavailable") from exc
     if policy is None:
         raise HTTPException(status_code=404, detail="scope policy not loaded")
     return ScopeEnforcer(policy).check_url(url, method=method).as_dict()
@@ -168,7 +183,12 @@ def clear_program_scope(
     engagement_id: str,
     user: User = Depends(require_role("admin", "service")),  # noqa: B008
 ) -> dict[str, Any]:
-    return {"engagement_id": engagement_id, "cleared": GLOBAL_SCOPE_REGISTRY.clear(engagement_id)}
+    try:
+        cleared = GLOBAL_SCOPE_REGISTRY.clear(engagement_id)
+    except ScopeStoreUnavailable as exc:
+        raise HTTPException(
+            status_code=503, detail="scope authority unavailable") from exc
+    return {"engagement_id": engagement_id, "cleared": cleared}
 
 # ===========================================================================
 # V5 Sprint 13/14: CORS Middleware

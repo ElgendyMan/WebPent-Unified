@@ -15,6 +15,12 @@ import pytest
 
 from webpent.config.settings import Settings, activate_settings
 from webpent.workflow_fuzzing import agent
+from webpent.workflow_fuzzing.agent import (
+    STATUS_CONFIRMED,
+    STATUS_INCONCLUSIVE,
+    STATUS_REFUTED,
+    validate_workflow_integrity_break,
+)
 from webpent.workflow_fuzzing.strategies import (
     MAX_MUTATED_STEPS,
     MUTATION_KINDS,
@@ -24,12 +30,6 @@ from webpent.workflow_fuzzing.strategies import (
     enumerate_mutations,
     mutate_workflow,
     semantically_fill,
-)
-from webpent.workflow_fuzzing.agent import (
-    STATUS_CONFIRMED,
-    STATUS_INCONCLUSIVE,
-    STATUS_REFUTED,
-    validate_workflow_integrity_break,
 )
 
 

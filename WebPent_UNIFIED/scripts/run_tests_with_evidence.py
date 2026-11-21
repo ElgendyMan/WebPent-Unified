@@ -422,6 +422,13 @@ def main() -> int:
           f"deselected={a['deselected']}")
     print(f"accounting_consistent={bool(a['accounting_consistent'])} "
           f"exit_code={completed.returncode}")
+    # Name the failing tests in the runner log: the CI log captures only
+    # this script's stdout, not pytest's interactive output, so without
+    # this a red run gives no actionable failure name.
+    if accounting_v3 and accounting_v3.get("failed_nodeids"):
+        print("failed tests:")
+        for nodeid in accounting_v3["failed_nodeids"]:
+            print(f"  FAILED {nodeid}")
     print(f"evidence: {EVIDENCE_JSON}")
 
     # Fail-closed: a non-zero pytest exit or an accounting the evidence

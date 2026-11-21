@@ -9,8 +9,7 @@ import urllib.parse
 
 import pytest
 
-from webpent.forge.encoding_engine import ENCODINGS, EncodedVariant, \
-    encode, generate_variants
+from webpent.forge.encoding_engine import ENCODINGS, EncodedVariant, encode, generate_variants
 
 
 def test_encodings_documented_and_total():

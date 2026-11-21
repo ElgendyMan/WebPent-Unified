@@ -78,10 +78,23 @@ MANIFEST = ROOT / "frozen_modules.sha256"
 #     the recorded release run — and a missing runtime record must
 #     never fail THIS gate.
 _PUB_LAYOUT = (ROOT.parent / "deliverables").is_dir()
-DURABLE_DIR = Path(
-    os.environ.get("WEBPENT_RELEASE_EVIDENCE")
-    or ((ROOT.parent if _PUB_LAYOUT else ROOT) / "deliverables" / "umdr38"
-        / "test_evidence"))
+# UMDR42 closure: the durable release record follows the LATEST mission
+# window. The umdr38/test_evidence record (fe92f178) documented the
+# 0.38-era release; every later mission that re-baselines BUILD_INFO
+# writes its own current-run record. Resolution order:
+#   1. WEBPENT_RELEASE_EVIDENCE env override (explicit pin),
+#   2. the newest mission-window deliverable carrying a
+#      FULL_SUITE_EVIDENCE.json whose source_commit BINDS to this
+#      repository (umdr42_closure, then umdr38 fallback).
+_CLOSURE_EVIDENCE = ((ROOT.parent if _PUB_LAYOUT else ROOT) / "deliverables"
+                     / "umdr42_closure" / "FULL_SUITE_EVIDENCE.json")
+_UMDR38_EVIDENCE_DIR = ((ROOT.parent if _PUB_LAYOUT else ROOT) / "deliverables"
+                        / "umdr38" / "test_evidence")
+DURABLE_DIR = (
+    Path(os.environ["WEBPENT_RELEASE_EVIDENCE"]) if os.environ.get(
+        "WEBPENT_RELEASE_EVIDENCE")
+    else (_CLOSURE_EVIDENCE.parent if _CLOSURE_EVIDENCE.is_file()
+          else _UMDR38_EVIDENCE_DIR))
 EVIDENCE = DURABLE_DIR / "FULL_SUITE_EVIDENCE.json"
 
 PROVENANCE_SCHEMA = "umdr36-1-provenance-v1"

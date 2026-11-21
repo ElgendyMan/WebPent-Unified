@@ -27,7 +27,6 @@ from webpent.campaign.storage.campaign_store import CampaignStore
 from webpent.campaign.strategist.phase_planner import PhasePlanner
 from webpent.campaign.strategist.thesis_builder import ThesisBuilder
 
-
 # ---------------------------------------------------------------------------
 # Oracle stand-ins (U-ORACLE shape, duck-typed)
 # ---------------------------------------------------------------------------
@@ -276,7 +275,12 @@ def phase_idor(phases_fintech):
 def phase_with_pivot():
     """A family phase whose consecutive-failure trigger fires after 2."""
     from webpent.campaign.schemas import (
-        Family, Hypothesis, Phase, PhaseBudget, PivotAction, PivotTrigger,
+        Family,
+        Hypothesis,
+        Phase,
+        PhaseBudget,
+        PivotAction,
+        PivotTrigger,
     )
 
     hypotheses = [

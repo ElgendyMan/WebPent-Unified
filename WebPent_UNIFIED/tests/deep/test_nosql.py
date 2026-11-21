@@ -12,8 +12,8 @@ import pytest
 from webpent.deep.nosql_injection import (
     NOSQL_INJECTION_ATTACKS,
     SEVERITY_BY_SUBFAMILY,
-    NoSqlInjectionFinding,
     NoSqlInjectionDetector,
+    NoSqlInjectionFinding,
 )
 
 

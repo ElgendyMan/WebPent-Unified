@@ -72,10 +72,26 @@ def test_unified_hunt_is_registered() -> None:
 # ---------------------------------------------------------------------------
 # Authorization-first (the fail-closed core the old suite protected)
 # ---------------------------------------------------------------------------
+def _strip_ansi(text: str) -> str:
+    """Rich styles CLI panels even without a TTY when GITHUB_ACTIONS is
+    set (the CI environment); the contract under test is the text, not
+    the styling. Normalise before asserting on option spellings."""
+    out: list[str] = []
+    i = 0
+    while i < len(text):
+        if text.startswith("\x1b[", i):
+            end = text.find("m", i)
+            i = end + 1 if end != -1 else i + 2
+        else:
+            out.append(text[i])
+            i += 1
+    return "".join(out)
+
+
 def test_hunt_refuses_without_authorization() -> None:
     result = runner.invoke(app, ["hunt", "--url", "https://example.test/"])
     assert result.exit_code != 0
-    assert "--authorization" in result.output
+    assert "--authorization" in _strip_ansi(result.output)
 
 
 def test_hunt_refuses_unreadable_scope_file(tmp_path) -> None:

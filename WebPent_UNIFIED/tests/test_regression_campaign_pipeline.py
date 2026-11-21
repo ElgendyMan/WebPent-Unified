@@ -5,14 +5,14 @@ from pathlib import Path
 
 import httpx
 
+from webpent.agents.hunter_contracts import ExploitationResult, HunterState, HunterStatus
+from webpent.agents.hunter_runner import _chain_finding_inputs
+from webpent.cli.loaders import load_creds_file
 from webpent.production.production_spine import ProductionSpineError, ProductionTrace
-from webpent.shared.engagement_audit import EngagementAuditChain
 from webpent.recon import login_executor as login_executor_module
 from webpent.recon.auth_detector import AuthDetection, AuthSignal
 from webpent.recon.login_executor import LoginExecutor
-from webpent.cli.loaders import load_creds_file
-from webpent.agents.hunter_contracts import ExploitationResult, HunterState, HunterStatus
-from webpent.agents.hunter_runner import _chain_finding_inputs
+from webpent.shared.engagement_audit import EngagementAuditChain
 
 
 def test_audit_telemetry_is_trace_anchored_without_consuming_execution_budget(tmp_path):

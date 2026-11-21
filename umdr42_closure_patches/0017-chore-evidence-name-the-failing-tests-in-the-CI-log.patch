@@ -1,0 +1,72 @@
+From 61062b65445522545bc04ecdb3f88dee0b25e28b Mon Sep 17 00:00:00 2001
+From: UMDR42 Closure <closure@webpent.local>
+Date: Sat, 21 Nov 2026 02:53:49 +0000
+Subject: [PATCH 17/17] chore(evidence): name the failing tests in the CI log
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+The CI log captures only run_tests_with_evidence.py stdout — pytest's
+interactive output (and with it every FAILED line) goes to the captured
+output file, so a red run on GitHub gave no actionable failure name and
+required local forensics to identify. The accounting plugin now records
+failed_nodeids (strict xfail excluded, mirroring the terminal summary)
+and the runner prints them: 'failed tests:' / '  FAILED <nodeid>'.
+
+Local probe: plugin captures ['test_acc_probe.py::test_bad'] correctly;
+no change to any counter or invariant (additive field + print only).
+---
+ WebPent_UNIFIED/scripts/pytest_accounting_plugin.py | 4 ++++
+ WebPent_UNIFIED/scripts/run_tests_with_evidence.py  | 7 +++++++
+ 2 files changed, 11 insertions(+)
+
+diff --git a/WebPent_UNIFIED/scripts/pytest_accounting_plugin.py b/WebPent_UNIFIED/scripts/pytest_accounting_plugin.py
+index f827c66..18640ee 100755
+--- a/WebPent_UNIFIED/scripts/pytest_accounting_plugin.py
++++ b/WebPent_UNIFIED/scripts/pytest_accounting_plugin.py
+@@ -55,6 +55,7 @@ class AccountingPlugin:
+             "passed": 0, "failed": 0, "skipped": 0,
+             "xfailed": 0, "xpassed": 0,
+         }
++        self.failed_nodeids: list[str] = []
+ 
+     # -- collection phase --------------------------------------------------
+ 
+@@ -94,6 +95,8 @@ class AccountingPlugin:
+                 # strict xfail failures surface as failed + wasxfail and
+                 # pytest counts them as failures in the terminal summary
+                 self.outcomes["failed"] += 1
++                if not hasattr(report, "wasxfail"):
++                    self.failed_nodeids.append(report.nodeid)
+             return
+ 
+     # -- session end --------------------------------------------------------
+@@ -127,6 +130,7 @@ class AccountingPlugin:
+             "errors_total": errors_total,
+             "interrupted": interrupted,
+             "exitstatus": int(exitstatus),
++            "failed_nodeids": self.failed_nodeids,
+             "invariants": {
+                 "collected_eq_started_plus_not_started_plus_deselected":
+                     collected == started + not_started + self.deselected,
+diff --git a/WebPent_UNIFIED/scripts/run_tests_with_evidence.py b/WebPent_UNIFIED/scripts/run_tests_with_evidence.py
+index 26144a2..d489723 100755
+--- a/WebPent_UNIFIED/scripts/run_tests_with_evidence.py
++++ b/WebPent_UNIFIED/scripts/run_tests_with_evidence.py
+@@ -422,6 +422,13 @@ def main() -> int:
+           f"deselected={a['deselected']}")
+     print(f"accounting_consistent={bool(a['accounting_consistent'])} "
+           f"exit_code={completed.returncode}")
++    # Name the failing tests in the runner log: the CI log captures only
++    # this script's stdout, not pytest's interactive output, so without
++    # this a red run gives no actionable failure name.
++    if accounting_v3 and accounting_v3.get("failed_nodeids"):
++        print("failed tests:")
++        for nodeid in accounting_v3["failed_nodeids"]:
++            print(f"  FAILED {nodeid}")
+     print(f"evidence: {EVIDENCE_JSON}")
+ 
+     # Fail-closed: a non-zero pytest exit or an accounting the evidence
+-- 
+2.47.3
+

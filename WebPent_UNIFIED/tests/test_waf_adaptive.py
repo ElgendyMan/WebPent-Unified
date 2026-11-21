@@ -18,12 +18,12 @@ from __future__ import annotations
 import pytest
 
 from webpent.waf_evasion.adaptive import (
-    AdaptiveClient,
-    AdaptiveContext,
-    AdaptiveResponse,
-    AdaptiveEvasionError,
     MAX_ATTEMPTS_CAP,
     TRANSFORM_ORDER,
+    AdaptiveClient,
+    AdaptiveContext,
+    AdaptiveEvasionError,
+    AdaptiveResponse,
     BackoffPolicy,
     classify_waf_block,
     transform_registry,

@@ -34,7 +34,6 @@ from webpent.models.contracts import (
 from webpent.state.state import PentestState
 from webpent.state.unified_state import UnifiedState
 
-
 # ---------------------------------------------------------------------------
 # Contract catalog
 # ---------------------------------------------------------------------------

@@ -1,0 +1,138 @@
+From 336711d452d6642ab4797c887d6a36fafdb4a61a Mon Sep 17 00:00:00 2001
+From: UMDR43 <umdr43@webpent.local>
+Date: Fri, 20 Nov 2026 12:41:05 +0000
+Subject: [PATCH 13/17] =?UTF-8?q?chore(umdr43):=20durable=20release=20reco?=
+ =?UTF-8?q?rd=20=E2=80=94=20final=20current-run=20evidence=20(7419edcc)=20?=
+ =?UTF-8?q?+=20closure=20numbers?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Durable evidence copy updated to the 7419edcc run: 9425 collected /
+9413 passed / 0 failed / 10 skipped / 3 xfailed, v3 invariants all
+true. Closure JSON carries the final counts and the Workstream-B
+gate-trip post-mortem (getattr -> explicit asdict).
+---
+ .../umdr42_closure/FULL_SUITE_EVIDENCE.json   | 34 +++++++++----------
+ .../umdr42_closure/UMDR42_CLOSURE.json        |  8 +++--
+ 2 files changed, 22 insertions(+), 20 deletions(-)
+
+diff --git a/deliverables/umdr42_closure/FULL_SUITE_EVIDENCE.json b/deliverables/umdr42_closure/FULL_SUITE_EVIDENCE.json
+index 479bc10..d61a208 100644
+--- a/deliverables/umdr42_closure/FULL_SUITE_EVIDENCE.json
++++ b/deliverables/umdr42_closure/FULL_SUITE_EVIDENCE.json
+@@ -1,12 +1,12 @@
+ {
+   "schema": "full-suite-evidence/v3",
+   "runner": "run_tests_with_evidence.py",
+-  "source_commit": "6e70c4d2e5d731149642a25da9d1bea0ecf2b9c8",
++  "source_commit": "7419edcc402c23a038c04480d99282887791d839",
+   "tree_clean": true,
+   "tree_status_sample_at_test_start": [],
+   "github": null,
+-  "started_at_utc": "2026-11-20T10:32:50.927788+00:00",
+-  "completed_at_utc": "2026-11-20T10:52:12.318331+00:00",
++  "started_at_utc": "2026-11-20T12:20:04.538604+00:00",
++  "completed_at_utc": "2026-11-20T12:39:36.913463+00:00",
+   "python_version": "3.12.16",
+   "uv_version": "uv 0.13.9 (x86_64-unknown-linux-gnu)",
+   "lockfile_sha256": "6d714ff5ed5212b8e751d19fc50917aa52fec042583f4d69d9d6b2a75c4ef650",
+@@ -23,41 +23,41 @@
+     "--cov-report=json:/home/z/my-project/repo/webpent-git/WebPent_UNIFIED/.webpent-evidence/coverage_last_run.json",
+     "--cov-fail-under=72"
+   ],
+-  "test_scope_digest": "1b3f12d73c2f2ae60ad196424dffec0b5cd94cb9873380a757e00c72b6668250",
++  "test_scope_digest": "18ea4c5027a50f15b0cc2f74ce29473a35e2c52719216861cd16e985a635bfa8",
+   "accounting": {
+-    "passed": 9401,
+-    "failed": 1,
++    "passed": 9413,
++    "failed": 0,
+     "skipped": 10,
+     "xfailed": 3,
+     "xpassed": 0,
+     "deselected": 0,
+     "errors": 0,
+-    "collected": 9414,
+-    "executed": 9415,
++    "collected": 9425,
++    "executed": 9426,
+     "accounting_consistent": 0,
+     "summary_found": 1
+   },
+   "accounting_v3": {
+     "schema": "pytest-accounting/v1",
+-    "collected_items": 9414,
++    "collected_items": 9425,
+     "collection_errors": 0,
+     "collection_skips": 1,
+     "deselected": 0,
+-    "started_items": 9414,
++    "started_items": 9425,
+     "not_started": 0,
+     "outcomes": {
+-      "passed": 9401,
+-      "failed": 1,
++      "passed": 9413,
++      "failed": 0,
+       "skipped": 9,
+       "xfailed": 3,
+       "xpassed": 0
+     },
+-    "outcomes_total": 9414,
++    "outcomes_total": 9425,
+     "setup_errors": 0,
+     "teardown_errors": 0,
+     "errors_total": 0,
+     "interrupted": false,
+-    "exitstatus": 1,
++    "exitstatus": 0,
+     "invariants": {
+       "collected_eq_started_plus_not_started_plus_deselected": true,
+       "started_eq_outcomes_plus_setup_errors": true,
+@@ -74,8 +74,8 @@
+   },
+   "coverage": {
+     "floor_percent": 72,
+-    "result": "77.19% (floor 72% \u2014 OK)",
+-    "percent_covered": 77.19
++    "result": "77.21% (floor 72% \u2014 OK)",
++    "percent_covered": 77.21
+   },
+-  "exit_code": 1
++  "exit_code": 0
+ }
+diff --git a/deliverables/umdr42_closure/UMDR42_CLOSURE.json b/deliverables/umdr42_closure/UMDR42_CLOSURE.json
+index b619e9d..39a3d3e 100644
+--- a/deliverables/umdr42_closure/UMDR42_CLOSURE.json
++++ b/deliverables/umdr42_closure/UMDR42_CLOSURE.json
+@@ -91,13 +91,15 @@
+       "status": "COMPLETE (first increment)",
+       "implementation": "ApplicationModel.apply_observation — incremental single-observation merge, canonical entity IDs (merges with full-rebuild entities), provenance-exact (observed vs inferred), abstain-with-reason, evidence_ref mandatory",
+       "tests": "tests/test_umdr43_appmodel_incremental.py 6/6",
+-      "commit": "6e70c4d"
++      "commit": "absorbed into 413f739"
+     },
+     "umdr43_workstream_b": {
+       "status": "COMPLETE (first increment)",
+       "implementation": "egaie/identity_scope.py — 12-dimension IdentityContext (directive §13), stable sha256 scope fingerprint stripping representation-only details, absence-as-distinction, explainable merge/keep decisions with differing fields, bounded dedup report; state semantics deliberately untouched",
+       "audit": "add_hypothesis appends without dedup; finding-level keying lives entirely in proposer-minted hypothesis_ids — no deterministic identity mechanism existed",
+-      "tests": "tests/test_umdr43_identity_scope.py 11/11 (both mandatory directive cases pinned)"
++      "tests": "tests/test_umdr43_identity_scope.py 11/11 (both mandatory directive cases pinned)",
++      "commit": "f6b3ca8 + 7419edcc (dynamic-resolution-free rewrite)",
++      "note": "initial commit tripped two gates (egaie forbids getattr; G-02 inventory records dynamic-resolution sites) — rewritten with explicit asdict field access; 0 dynamic sites, scan==artifact"
+     }
+   },
+   "gates_local": {
+@@ -105,7 +107,7 @@
+     "build_info_honesty": "PASS",
+     "frozen_manifest": "PASS (after refreeze)",
+     "g02_inventory": "PASS (4/4)",
+-    "full_suite": "9395 passed / 1 failed (provenance re-baseline gate, closed by BUILD_INFO re-baseline) / 10 skipped / 3 xfailed"
++    "full_suite": "9413 passed / 0 failed / 10 skipped / 3 xfailed on final HEAD 7419edcc (9425 collected; v3 invariants all true) — the suite is fully green for the first time in the project's UMDR42 era"
+   },
+   "blocked_or_open": [
+     "Publishing to main requires the owner (no push credentials)",
+-- 
+2.47.3
+

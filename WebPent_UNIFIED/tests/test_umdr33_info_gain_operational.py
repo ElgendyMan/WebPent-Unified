@@ -34,9 +34,9 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from webpent.models.hypothesis import Hypothesis  # noqa: E402
 from webpent.shared.prioritization import (  # noqa: E402
-    W_INFO_GAIN,
     _INFO_GAIN_NEUTRAL,
     _W_SUM,
+    W_INFO_GAIN,
     rank_open_hypotheses,
     score_hypothesis,
 )

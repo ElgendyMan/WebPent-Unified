@@ -129,7 +129,8 @@ def test_bridge_never_touches_selector_authority():
     score cannot jump a registry+iv-superior one — pinned with real
     selector objects."""
     from webpent.production.autonomous_validation_v1 import (
-        AutonomousExperimentSelector, EXPERIMENT_REGISTRY,
+        EXPERIMENT_REGISTRY,
+        AutonomousExperimentSelector,
     )
     assert "IDOR" in EXPERIMENT_REGISTRY
     sel = AutonomousExperimentSelector()

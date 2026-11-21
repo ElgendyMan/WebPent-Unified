@@ -1,0 +1,2467 @@
+From cff89550b363215a03701a534f03270e8f9f464b Mon Sep 17 00:00:00 2001
+From: UMDR42 Closure <closure@webpent.local>
+Date: Fri, 20 Nov 2026 07:58:03 +0000
+Subject: [PATCH 03/17] =?UTF-8?q?refactor(umdr42=20A3):=20clear=20163=20ru?=
+ =?UTF-8?q?ff=20I001=20findings=20in=20test=20files=20=E2=80=94=20ratchet?=
+ =?UTF-8?q?=20PASS?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+The published 5a7e511 tree measured 8175 ruff findings vs the frozen
+baseline of 8147 (CI-observed +28 regression). Root cause analysis:
+- the closure's own changes add ZERO new findings (proven by a
+  row-shift-proof (file, code, message) diff between the published
+  baseline and the closure tree, both measured with ruff 0.16.3);
+- the overage is concentrated in pre-existing import-sort debt.
+
+Fix: ruff --fix --select I001 across 103 test files (163 findings
+cleared, no behavioral change — import ordering only). 8175 -> 8000,
+below the frozen 8147 baseline: scripts/check_ruff_ratchet.py PASS.
+
+Verification: all 103 modified test files executed (1663 passed,
+12 failed, 5 skipped); the 12 failures were proven byte-identical to
+the clean-baseline failure set (pre-existing in 5a7e511, unrelated to
+import ordering). Proof scripts with intentional post-sys.path imports
+were deliberately left untouched (fixing them trades I001 for E402).
+---
+ .../tests/appsuite/test_discovery.py          |  2 +-
+ .../tests/bridge/test_deep_bridge.py          |  2 +-
+ .../tests/bridge/test_forge_bridge.py         |  4 +-
+ WebPent_UNIFIED/tests/campaign/conftest.py    |  8 +-
+ .../campaign/executor/test_budget_guard.py    |  8 +-
+ .../campaign/executor/test_phase_runner.py    |  5 +-
+ .../campaign/executor/test_pivot_engine.py    |  5 +-
+ WebPent_UNIFIED/tests/deep/test_nosql.py      |  2 +-
+ .../tests/dojo/test_self_benchmark.py         |  1 -
+ .../egaie/test_hypothesis_preconditions.py    |  2 +-
+ .../tests/egaie/test_remediation_replay.py    |  2 +-
+ .../tests/egaie/test_strategy_baselines.py    |  2 +-
+ WebPent_UNIFIED/tests/forge/conftest.py       |  1 -
+ .../tests/forge/test_cross_target.py          |  8 +-
+ .../tests/forge/test_encoding_engine.py       |  3 +-
+ WebPent_UNIFIED/tests/forge/test_evolution.py |  2 +-
+ WebPent_UNIFIED/tests/forge/test_ingester.py  |  2 +-
+ .../tests/forge/test_integration.py           | 17 ++--
+ WebPent_UNIFIED/tests/forge/test_mutation.py  |  2 +-
+ .../tests/forge/test_outcome_tracker.py       |  2 +-
+ .../tests/forge/test_payload_cli.py           |  2 +-
+ .../tests/forge/test_payload_dashboard.py     |  8 +-
+ .../tests/forge/test_quality_gate.py          |  2 +-
+ .../tests/lab/lcs2_sweep_instrument.py        |  8 +-
+ .../tests/learning/test_lessons_ledger.py     |  1 -
+ .../tests/memory/test_experience_corpus.py    |  1 -
+ .../tests/reporter/test_bounty_pipeline.py    |  1 -
+ .../test_hunting_sprint_auth_resilience.py    |  2 +-
+ .../test_hunting_sprint_planner_enrichment.py |  2 +-
+ .../test_hunting_sprint_session_recovery.py   |  2 +-
+ .../test_m2_transport_contract.py             | 10 +-
+ WebPent_UNIFIED/tests/test_browser_hunter.py  |  7 +-
+ .../tests/test_browser_surface_projection.py  |  2 +-
+ .../tests/test_cache_key_discovery.py         |  3 +-
+ WebPent_UNIFIED/tests/test_campaign_resume.py |  2 +-
+ .../tests/test_campaign_scheduler.py          |  2 +-
+ .../tests/test_causal_reasoning.py            |  3 +-
+ WebPent_UNIFIED/tests/test_causal_v2_deep.py  |  1 -
+ WebPent_UNIFIED/tests/test_causal_v2_full.py  |  3 +-
+ WebPent_UNIFIED/tests/test_cross_campaign.py  | 22 ++---
+ WebPent_UNIFIED/tests/test_dom_xss.py         |  2 +-
+ WebPent_UNIFIED/tests/test_evidence_bundle.py |  2 +-
+ WebPent_UNIFIED/tests/test_five_families.py   | 98 ++++++++++++-------
+ .../tests/test_hardening_0330_b1.py           |  1 -
+ .../tests/test_hardening_0330_b2.py           |  1 -
+ .../tests/test_hardening_0330_b3.py           |  4 +-
+ .../tests/test_identity_discovery.py          |  1 +
+ .../tests/test_identity_resolution_ladder.py  |  7 +-
+ WebPent_UNIFIED/tests/test_js_discovery.py    |  3 +-
+ .../tests/test_lcs2_sweep_instrument.py       |  3 +-
+ .../tests/test_lessons_learning_loop.py       |  2 +-
+ WebPent_UNIFIED/tests/test_live_benchmarks.py |  2 +-
+ .../tests/test_m1a_docs_l2_l7_contracts.py    |  7 +-
+ .../tests/test_m1b_domain_contracts.py        |  1 -
+ .../test_m1b_workspace_artifact_ownership.py  |  1 -
+ .../test_m1c_loopback_trusted_endpoint.py     |  4 +-
+ .../tests/test_m2_adversarial_scope.py        | 11 +--
+ WebPent_UNIFIED/tests/test_m3_appmodel.py     |  2 +-
+ .../test_m3_family_qualification_seam.py      |  3 +-
+ .../tests/test_m3_research_wiring.py          |  2 +-
+ .../tests/test_m7_executable_knowledge.py     |  3 +-
+ WebPent_UNIFIED/tests/test_model_tiering.py   |  3 +-
+ WebPent_UNIFIED/tests/test_notifications.py   | 14 +--
+ .../tests/test_oob_collaboration.py           |  6 +-
+ ...test_p0_option1_adapter_and_quick_fixes.py |  2 +-
+ WebPent_UNIFIED/tests/test_platform_export.py |  2 +-
+ .../test_prototype_pollution_detector.py      |  1 -
+ WebPent_UNIFIED/tests/test_redteam_r2_c1.py   |  1 +
+ WebPent_UNIFIED/tests/test_redteam_r2_c2.py   |  4 +-
+ .../test_regression_campaign_pipeline.py      |  8 +-
+ WebPent_UNIFIED/tests/test_repair_recon.py    |  6 +-
+ WebPent_UNIFIED/tests/test_repair_reports.py  |  1 -
+ WebPent_UNIFIED/tests/test_safety_governor.py |  7 +-
+ WebPent_UNIFIED/tests/test_scope_cli_check.py |  1 -
+ WebPent_UNIFIED/tests/test_session_pool.py    |  2 +-
+ WebPent_UNIFIED/tests/test_sourcemap.py       |  2 +-
+ WebPent_UNIFIED/tests/test_target_selector.py |  1 -
+ .../tests/test_u10_off1_remainder.py          | 16 +--
+ .../tests/test_u11_ev_scheduler.py            |  2 +-
+ WebPent_UNIFIED/tests/test_u13_curiosity.py   |  2 +-
+ WebPent_UNIFIED/tests/test_u14_adaptation.py  |  4 +-
+ WebPent_UNIFIED/tests/test_u4_ra3_fixes.py    |  4 +
+ .../tests/test_u7_fabric_families.py          |  1 -
+ WebPent_UNIFIED/tests/test_u8_cheap_yields.py |  2 +-
+ WebPent_UNIFIED/tests/test_u9_de_dvwa.py      |  1 -
+ .../tests/test_ultimate_plan_core.py          |  5 +-
+ .../test_umdr24_release_gate_compliance.py    |  2 +-
+ .../tests/test_umdr31_adaptive_research.py    |  1 -
+ .../tests/test_umdr33_discovery_funnel.py     |  1 +
+ .../tests/test_umdr33_evidence_chain_fixes.py |  2 +-
+ .../test_umdr33_info_gain_operational.py      |  2 +-
+ .../tests/test_umdr36_appmodel_influence.py   |  2 +-
+ .../tests/test_umdr37_appmodel_extensions.py  |  4 +-
+ .../tests/test_umdr37_failure_taxonomy.py     |  2 +-
+ .../tests/test_umdr37_family_profiles.py      |  2 +-
+ .../tests/test_umdr37_lifecycle_view.py       |  2 +-
+ .../tests/test_umdr41_p0_correctness.py       |  3 +-
+ WebPent_UNIFIED/tests/test_unfreeze_fixes.py  |  9 +-
+ WebPent_UNIFIED/tests/test_v2_ssrf_probe.py   | 28 ++++--
+ .../tests/test_vip_orchestrator.py            |  2 +-
+ .../tests/test_vulnbox_benchmark.py           |  2 +-
+ WebPent_UNIFIED/tests/test_waf_adaptive.py    |  6 +-
+ .../tests/test_workflow_fuzzing.py            | 12 +--
+ 103 files changed, 280 insertions(+), 224 deletions(-)
+
+diff --git a/WebPent_UNIFIED/tests/appsuite/test_discovery.py b/WebPent_UNIFIED/tests/appsuite/test_discovery.py
+index 3ca3e9f..73c9b7f 100755
+--- a/WebPent_UNIFIED/tests/appsuite/test_discovery.py
++++ b/WebPent_UNIFIED/tests/appsuite/test_discovery.py
+@@ -15,8 +15,8 @@ tests do, from the outside.
+ """
+ from __future__ import annotations
+ 
+-from webpent.egaie import discovery_runner as dr
+ from webpent.appsuite.corpus import SuiteEntry, open_instance
++from webpent.egaie import discovery_runner as dr
+ 
+ RECON_ORIGIN = "differential:recon:"
+ 
+diff --git a/WebPent_UNIFIED/tests/bridge/test_deep_bridge.py b/WebPent_UNIFIED/tests/bridge/test_deep_bridge.py
+index c017f60..365e8d9 100755
+--- a/WebPent_UNIFIED/tests/bridge/test_deep_bridge.py
++++ b/WebPent_UNIFIED/tests/bridge/test_deep_bridge.py
+@@ -25,7 +25,6 @@ from webpent.deep.cache_deception import CacheDeceptionDetector
+ from webpent.deep.host_header import HostHeaderDetector
+ from webpent.deep.mass_assignment import MassAssignmentDetector
+ 
+-
+ # ----------------------------------------------------------------------
+ # Fake transports (same contract as tests/deep) — zero network.
+ # ----------------------------------------------------------------------
+@@ -264,6 +263,7 @@ def _integration():
+ 
+ def test_unknown_deep_family_raises_typed_error():
+     from types import SimpleNamespace
++
+     from webpent.deep.bridge import DeepBridgeError
+ 
+     finding = SimpleNamespace(
+diff --git a/WebPent_UNIFIED/tests/bridge/test_forge_bridge.py b/WebPent_UNIFIED/tests/bridge/test_forge_bridge.py
+index a01a96f..d952baf 100755
+--- a/WebPent_UNIFIED/tests/bridge/test_forge_bridge.py
++++ b/WebPent_UNIFIED/tests/bridge/test_forge_bridge.py
+@@ -8,11 +8,11 @@ ATTRIBUTION_IS_SACRED). Zero network, zero mutation.
+ from __future__ import annotations
+ 
+ import pytest
+-
+ from forge.conftest import PAYLOADSALLTHETHINGS_MD
++
+ from webpent.forge.bridge import probe_strategy, ranked_for
+-from webpent.forge.ingester import MultiSourceIngester
+ from webpent.forge.indexer import PayloadIndexer
++from webpent.forge.ingester import MultiSourceIngester
+ from webpent.forge.query_engine import PayloadQueryEngine
+ from webpent.forge.schemas import Family, TargetContext
+ 
+diff --git a/WebPent_UNIFIED/tests/campaign/conftest.py b/WebPent_UNIFIED/tests/campaign/conftest.py
+index bb9e3fe..69c557b 100755
+--- a/WebPent_UNIFIED/tests/campaign/conftest.py
++++ b/WebPent_UNIFIED/tests/campaign/conftest.py
+@@ -27,7 +27,6 @@ from webpent.campaign.storage.campaign_store import CampaignStore
+ from webpent.campaign.strategist.phase_planner import PhasePlanner
+ from webpent.campaign.strategist.thesis_builder import ThesisBuilder
+ 
+-
+ # ---------------------------------------------------------------------------
+ # Oracle stand-ins (U-ORACLE shape, duck-typed)
+ # ---------------------------------------------------------------------------
+@@ -276,7 +275,12 @@ def phase_idor(phases_fintech):
+ def phase_with_pivot():
+     """A family phase whose consecutive-failure trigger fires after 2."""
+     from webpent.campaign.schemas import (
+-        Family, Hypothesis, Phase, PhaseBudget, PivotAction, PivotTrigger,
++        Family,
++        Hypothesis,
++        Phase,
++        PhaseBudget,
++        PivotAction,
++        PivotTrigger,
+     )
+ 
+     hypotheses = [
+diff --git a/WebPent_UNIFIED/tests/campaign/executor/test_budget_guard.py b/WebPent_UNIFIED/tests/campaign/executor/test_budget_guard.py
+index 20e145f..1e6200e 100755
+--- a/WebPent_UNIFIED/tests/campaign/executor/test_budget_guard.py
++++ b/WebPent_UNIFIED/tests/campaign/executor/test_budget_guard.py
+@@ -7,6 +7,7 @@ from datetime import datetime
+ 
+ import pytest
+ 
++from webpent.campaign.errors import CampaignNotApprovedError
+ from webpent.campaign.executor.budget_guard import (
+     BudgetDecision,
+     BudgetGuard,
+@@ -16,7 +17,6 @@ from webpent.campaign.executor.budget_guard import (
+     require_approved,
+ )
+ from webpent.campaign.schemas import Decision
+-from webpent.campaign.errors import CampaignNotApprovedError
+ 
+ 
+ def make_state(camp_used, camp_max, phase_used, phase_max):
+@@ -141,7 +141,7 @@ def test_switch_phase_suggestion(guard):
+ # ---------------------------------------------------------------------------
+ 
+ def test_require_approved_accepts_approved():
+-    from webpent.campaign.schemas import CampaignBudget, CampaignBrief
++    from webpent.campaign.schemas import CampaignBrief, CampaignBudget
+ 
+     brief = CampaignBrief(
+         campaign_id="c1", created_at=datetime(2026, 10, 19),
+@@ -154,7 +154,9 @@ def test_require_approved_accepts_approved():
+ 
+ def test_require_approved_rejects_pending():
+     from webpent.campaign.schemas import (
+-        CampaignBudget, CampaignBrief, TargetThesis,
++        CampaignBrief,
++        CampaignBudget,
++        TargetThesis,
+     )
+ 
+     thesis = TargetThesis.create(
+diff --git a/WebPent_UNIFIED/tests/campaign/executor/test_phase_runner.py b/WebPent_UNIFIED/tests/campaign/executor/test_phase_runner.py
+index b0ed3aa..7199873 100755
+--- a/WebPent_UNIFIED/tests/campaign/executor/test_phase_runner.py
++++ b/WebPent_UNIFIED/tests/campaign/executor/test_phase_runner.py
+@@ -39,7 +39,10 @@ def test_run_pivot_on_trigger(runner_with_stub_brain_failing, phase_with_pivot,
+ def test_run_exhausted_budget(tight_budget):
+     """Phase exhausts the campaign budget before finishing."""
+     from webpent.campaign.schemas import (
+-        Family, Hypothesis, Phase, PhaseBudget,
++        Family,
++        Hypothesis,
++        Phase,
++        PhaseBudget,
+     )
+ 
+     # 10 hypotheses × 50 requests = 500 requested, budget allows 20
+diff --git a/WebPent_UNIFIED/tests/campaign/executor/test_pivot_engine.py b/WebPent_UNIFIED/tests/campaign/executor/test_pivot_engine.py
+index 8fb4892..9518861 100755
+--- a/WebPent_UNIFIED/tests/campaign/executor/test_pivot_engine.py
++++ b/WebPent_UNIFIED/tests/campaign/executor/test_pivot_engine.py
+@@ -12,7 +12,7 @@ import pytest
+ 
+ from webpent.campaign.executor.budget_guard import BudgetSnapshot
+ from webpent.campaign.executor.phase_runner import HypothesisResult
+-from webpent.campaign.executor.pivot_engine import PivotEngine, PivotDecision
++from webpent.campaign.executor.pivot_engine import PivotDecision, PivotEngine
+ from webpent.campaign.schemas import (
+     Family,
+     Hypothesis,
+@@ -59,7 +59,8 @@ def make_phase(trigger=None):
+ def make_result(status=PhaseStatus.FAILED, findings=None,
+                 hypothesis_results=None):
+     from webpent.campaign.executor.phase_runner import (
+-        HypothesisResult, PhaseResult,
++        HypothesisResult,
++        PhaseResult,
+     )
+ 
+     if hypothesis_results is None:
+diff --git a/WebPent_UNIFIED/tests/deep/test_nosql.py b/WebPent_UNIFIED/tests/deep/test_nosql.py
+index e33259c..3916261 100755
+--- a/WebPent_UNIFIED/tests/deep/test_nosql.py
++++ b/WebPent_UNIFIED/tests/deep/test_nosql.py
+@@ -12,8 +12,8 @@ import pytest
+ from webpent.deep.nosql_injection import (
+     NOSQL_INJECTION_ATTACKS,
+     SEVERITY_BY_SUBFAMILY,
+-    NoSqlInjectionFinding,
+     NoSqlInjectionDetector,
++    NoSqlInjectionFinding,
+ )
+ 
+ 
+diff --git a/WebPent_UNIFIED/tests/dojo/test_self_benchmark.py b/WebPent_UNIFIED/tests/dojo/test_self_benchmark.py
+index f2343eb..beed458 100755
+--- a/WebPent_UNIFIED/tests/dojo/test_self_benchmark.py
++++ b/WebPent_UNIFIED/tests/dojo/test_self_benchmark.py
+@@ -34,7 +34,6 @@ from webpent.dojo.self_benchmark import (
+     compare,
+ )
+ 
+-
+ # ---------------------------------------------------------------------------
+ # fixtures — real dojo scenarios (the yaml library) and scripted agents
+ # ---------------------------------------------------------------------------
+diff --git a/WebPent_UNIFIED/tests/egaie/test_hypothesis_preconditions.py b/WebPent_UNIFIED/tests/egaie/test_hypothesis_preconditions.py
+index eaae5f2..2ab3391 100755
+--- a/WebPent_UNIFIED/tests/egaie/test_hypothesis_preconditions.py
++++ b/WebPent_UNIFIED/tests/egaie/test_hypothesis_preconditions.py
+@@ -9,8 +9,8 @@ without ever becoming a negative security verdict.
+ """
+ 
+ from webpent.egaie.differential import (
+-    DifferentialGenerator,
+     FAMILY_WORKFLOW_IDENTITY,
++    DifferentialGenerator,
+     RelationshipView,
+ )
+ from webpent.egaie.prerequisites import (
+diff --git a/WebPent_UNIFIED/tests/egaie/test_remediation_replay.py b/WebPent_UNIFIED/tests/egaie/test_remediation_replay.py
+index e1c836c..c7bfb71 100755
+--- a/WebPent_UNIFIED/tests/egaie/test_remediation_replay.py
++++ b/WebPent_UNIFIED/tests/egaie/test_remediation_replay.py
+@@ -12,9 +12,9 @@ executor still prevents a double-applied mutation (G-02).
+ """
+ from __future__ import annotations
+ 
++from webpent.appsuite.corpus import SuiteEntry, open_instance
+ from webpent.egaie import discovery_runner as dr
+ from webpent.egaie.differential import DifferentialProposer
+-from webpent.appsuite.corpus import SuiteEntry, open_instance
+ 
+ 
+ def _all_status_codes(composites) -> list:
+diff --git a/WebPent_UNIFIED/tests/egaie/test_strategy_baselines.py b/WebPent_UNIFIED/tests/egaie/test_strategy_baselines.py
+index eb9e424..e3d730d 100755
+--- a/WebPent_UNIFIED/tests/egaie/test_strategy_baselines.py
++++ b/WebPent_UNIFIED/tests/egaie/test_strategy_baselines.py
+@@ -12,12 +12,12 @@ the secured lookalike.
+ """
+ from __future__ import annotations
+ 
++from webpent.appsuite.corpus import SuiteEntry, open_instance
+ from webpent.egaie import discovery_runner as dr
+ from webpent.egaie.benchmark.fixed_prerequisites import (
+     FixedPrerequisiteRemediator,
+ )
+ from webpent.egaie.planner import PlannerConfig, StatefulPlanner
+-from webpent.appsuite.corpus import SuiteEntry, open_instance
+ 
+ 
+ def _run(entry: SuiteEntry, budget: int = 16, **wiring):
+diff --git a/WebPent_UNIFIED/tests/forge/conftest.py b/WebPent_UNIFIED/tests/forge/conftest.py
+index 2e6968f..f1e9907 100755
+--- a/WebPent_UNIFIED/tests/forge/conftest.py
++++ b/WebPent_UNIFIED/tests/forge/conftest.py
+@@ -11,7 +11,6 @@ import pytest
+ from webpent.forge.schemas import PayloadAttribution, TargetContext
+ from webpent.forge.sources import get_source
+ 
+-
+ # ---------------------------------------------------------------------------
+ # Sample source content (pre-fetched bodies, one per parser)
+ # ---------------------------------------------------------------------------
+diff --git a/WebPent_UNIFIED/tests/forge/test_cross_target.py b/WebPent_UNIFIED/tests/forge/test_cross_target.py
+index fc4eb47..490cf56 100755
+--- a/WebPent_UNIFIED/tests/forge/test_cross_target.py
++++ b/WebPent_UNIFIED/tests/forge/test_cross_target.py
+@@ -8,19 +8,19 @@ corpus.
+ """
+ from __future__ import annotations
+ 
++from datetime import datetime, timezone
++
+ import pytest
+ 
+ from webpent.forge.cross_target import (
+     SIMILARITY_THRESHOLD,
++    CrossTargetTransfer,
+     TargetProfile,
+     compute_similarity,
+-    CrossTargetTransfer,
+ )
++from webpent.forge.indexer import PayloadIndexer
+ from webpent.forge.outcome_tracker import OutcomeTracker, PayloadOutcome
+ from webpent.forge.schemas import Family, NormalizedPayload
+-from webpent.forge.indexer import PayloadIndexer
+-
+-from datetime import datetime, timezone
+ 
+ 
+ def _payload(pid: str, family: Family = Family.SQLI) -> NormalizedPayload:
+diff --git a/WebPent_UNIFIED/tests/forge/test_encoding_engine.py b/WebPent_UNIFIED/tests/forge/test_encoding_engine.py
+index 63c9067..7ffd8ec 100755
+--- a/WebPent_UNIFIED/tests/forge/test_encoding_engine.py
++++ b/WebPent_UNIFIED/tests/forge/test_encoding_engine.py
+@@ -9,8 +9,7 @@ import urllib.parse
+ 
+ import pytest
+ 
+-from webpent.forge.encoding_engine import ENCODINGS, EncodedVariant, \
+-    encode, generate_variants
++from webpent.forge.encoding_engine import ENCODINGS, EncodedVariant, encode, generate_variants
+ 
+ 
+ def test_encodings_documented_and_total():
+diff --git a/WebPent_UNIFIED/tests/forge/test_evolution.py b/WebPent_UNIFIED/tests/forge/test_evolution.py
+index 9f68611..6d44c1d 100755
+--- a/WebPent_UNIFIED/tests/forge/test_evolution.py
++++ b/WebPent_UNIFIED/tests/forge/test_evolution.py
+@@ -17,7 +17,7 @@ from webpent.forge.encoding_engine import EncodedVariant
+ from webpent.forge.evolution import EvolutionEngine
+ from webpent.forge.indexer import PayloadIndexer
+ from webpent.forge.ingester import MultiSourceIngester
+-from webpent.forge.outcome_tracker import PayloadOutcome, OutcomeTracker
++from webpent.forge.outcome_tracker import OutcomeTracker, PayloadOutcome
+ 
+ NOW = datetime(2026, 10, 19, 12, 0, 0, tzinfo=timezone.utc)
+ 
+diff --git a/WebPent_UNIFIED/tests/forge/test_ingester.py b/WebPent_UNIFIED/tests/forge/test_ingester.py
+index 2717025..962cc33 100755
+--- a/WebPent_UNIFIED/tests/forge/test_ingester.py
++++ b/WebPent_UNIFIED/tests/forge/test_ingester.py
+@@ -9,8 +9,8 @@ from __future__ import annotations
+ import pytest
+ 
+ from forge.conftest import DUPLICATED_TXT
+-from webpent.forge.ingester import MultiSourceIngester
+ from webpent.forge.indexer import PayloadIndexer
++from webpent.forge.ingester import MultiSourceIngester
+ 
+ 
+ @pytest.fixture
+diff --git a/WebPent_UNIFIED/tests/forge/test_integration.py b/WebPent_UNIFIED/tests/forge/test_integration.py
+index 6866f7e..ba54ee6 100755
+--- a/WebPent_UNIFIED/tests/forge/test_integration.py
++++ b/WebPent_UNIFIED/tests/forge/test_integration.py
+@@ -11,21 +11,22 @@ from __future__ import annotations
+ 
+ import pytest
+ 
+-from webpent.forge.integration import ForgeIntegration
+-from webpent.forge.schemas import Family, NormalizedPayload
+-from webpent.forge.indexer import PayloadIndexer
+-from webpent.forge.query_engine import PayloadQueryEngine as QueryEngine
+-from webpent.forge.contextualizer import Contextualizer
+ from webpent.apex.tool_chain_builder import ChainStep, ToolChain
+-
+ from webpent.campaign.schemas import (
+     Family as CampaignFamily,
++)
++from webpent.campaign.schemas import (
+     Hypothesis,
+     Phase,
+     PhaseBudget,
+ )
+-from webpent.models.targets import Target
+ from webpent.dojo.scenario_library import Scenario
++from webpent.forge.contextualizer import Contextualizer
++from webpent.forge.indexer import PayloadIndexer
++from webpent.forge.integration import ForgeIntegration
++from webpent.forge.query_engine import PayloadQueryEngine as QueryEngine
++from webpent.forge.schemas import Family, NormalizedPayload
++from webpent.models.targets import Target
+ 
+ 
+ def _payload(pid: str, family: Family,
+@@ -185,6 +186,7 @@ def test_bola_only_phase_returns_empty_without_error(rig):
+ 
+ def test_family_docstring_carries_the_correction():
+     import inspect
++
+     from webpent.forge import schemas
+     source = inspect.getsource(schemas)
+     assert "Not a superset" in source
+@@ -203,6 +205,7 @@ def test_string_family_hypothesis_still_yields_bundles(rig):
+ 
+ def test_integration_has_no_dynamic_resolution():
+     import inspect
++
+     from webpent.forge import integration
+     source = inspect.getsource(integration)
+     assert "hasattr" not in source
+diff --git a/WebPent_UNIFIED/tests/forge/test_mutation.py b/WebPent_UNIFIED/tests/forge/test_mutation.py
+index 43e6df9..3b6bb06 100755
+--- a/WebPent_UNIFIED/tests/forge/test_mutation.py
++++ b/WebPent_UNIFIED/tests/forge/test_mutation.py
+@@ -10,8 +10,8 @@ import pytest
+ 
+ from forge.conftest import PAYLOADSALLTHETHINGS_MD
+ from webpent.forge.mutation import (
+-    MUTATIONS,
+     MUTATION_SEED,
++    MUTATIONS,
+     mutate,
+ )
+ from webpent.forge.schemas import NormalizedPayload, PayloadAttribution
+diff --git a/WebPent_UNIFIED/tests/forge/test_outcome_tracker.py b/WebPent_UNIFIED/tests/forge/test_outcome_tracker.py
+index 8246ea8..ab01d15 100755
+--- a/WebPent_UNIFIED/tests/forge/test_outcome_tracker.py
++++ b/WebPent_UNIFIED/tests/forge/test_outcome_tracker.py
+@@ -10,7 +10,7 @@ from datetime import datetime, timezone
+ import pytest
+ 
+ from webpent.forge.indexer import PayloadIndexer
+-from webpent.forge.outcome_tracker import PayloadOutcome, OutcomeTracker
++from webpent.forge.outcome_tracker import OutcomeTracker, PayloadOutcome
+ 
+ NOW = datetime(2026, 10, 19, 12, 0, 0, tzinfo=timezone.utc)
+ 
+diff --git a/WebPent_UNIFIED/tests/forge/test_payload_cli.py b/WebPent_UNIFIED/tests/forge/test_payload_cli.py
+index f80a5d2..b357747 100755
+--- a/WebPent_UNIFIED/tests/forge/test_payload_cli.py
++++ b/WebPent_UNIFIED/tests/forge/test_payload_cli.py
+@@ -12,9 +12,9 @@ import json
+ 
+ import pytest
+ 
++from webpent.forge.indexer import PayloadIndexer
+ from webpent.forge.payload_cli import PayloadCLI
+ from webpent.forge.schemas import Family, NormalizedPayload
+-from webpent.forge.indexer import PayloadIndexer
+ 
+ 
+ def _seed(indexer: PayloadIndexer) -> None:
+diff --git a/WebPent_UNIFIED/tests/forge/test_payload_dashboard.py b/WebPent_UNIFIED/tests/forge/test_payload_dashboard.py
+index 4637f28..4f3d9cc 100755
+--- a/WebPent_UNIFIED/tests/forge/test_payload_dashboard.py
++++ b/WebPent_UNIFIED/tests/forge/test_payload_dashboard.py
+@@ -7,18 +7,18 @@ zero network.
+ """
+ from __future__ import annotations
+ 
++from datetime import datetime, timedelta, timezone
++
+ import pytest
+ 
+-from webpent.forge.payload_dashboard import PayloadDashboard
++from webpent.forge.indexer import PayloadIndexer
+ from webpent.forge.outcome_tracker import OutcomeTracker, PayloadOutcome
++from webpent.forge.payload_dashboard import PayloadDashboard
+ from webpent.forge.schemas import (
+     Family,
+     NormalizedPayload,
+     PayloadAttribution,
+ )
+-from webpent.forge.indexer import PayloadIndexer
+-
+-from datetime import datetime, timedelta, timezone
+ 
+ 
+ def _attr(pid: str, days_old: int) -> PayloadAttribution:
+diff --git a/WebPent_UNIFIED/tests/forge/test_quality_gate.py b/WebPent_UNIFIED/tests/forge/test_quality_gate.py
+index c09ab6d..e91f684 100755
+--- a/WebPent_UNIFIED/tests/forge/test_quality_gate.py
++++ b/WebPent_UNIFIED/tests/forge/test_quality_gate.py
+@@ -9,7 +9,7 @@ from __future__ import annotations
+ 
+ import pytest
+ 
+-from webpent.forge.quality_gate import QualityGate, QualityDecision
++from webpent.forge.quality_gate import QualityDecision, QualityGate
+ from webpent.forge.schemas import PayloadAttribution, QualitySignal
+ 
+ 
+diff --git a/WebPent_UNIFIED/tests/lab/lcs2_sweep_instrument.py b/WebPent_UNIFIED/tests/lab/lcs2_sweep_instrument.py
+index c736c23..ffb5b40 100755
+--- a/WebPent_UNIFIED/tests/lab/lcs2_sweep_instrument.py
++++ b/WebPent_UNIFIED/tests/lab/lcs2_sweep_instrument.py
+@@ -451,13 +451,15 @@ def run_sweep(*, engagement_id: str, target_url: str, hypotheses: list[dict[str,
+     re-rank.  Stops when the budget cannot cover another triple or no
+     unselected non-skipped hypothesis remains.
+     """
++    from tests.lab.lcs2_sweep_support import (
++        make_orchestrator,
++        seal_principals,
++        stages_delta,
++    )
+     from webpent.brain.adaptation import AdaptationEngine
+     from webpent.production.autonomous_validation_v1 import (
+         AutonomousValidationIntelligence,
+     )
+-    from tests.lab.lcs2_sweep_support import (
+-        make_orchestrator, seal_principals, stages_delta,
+-    )
+ 
+     scheduler = _ev_module.EVScheduler()
+     engine = AdaptationEngine(scheduler)
+diff --git a/WebPent_UNIFIED/tests/learning/test_lessons_ledger.py b/WebPent_UNIFIED/tests/learning/test_lessons_ledger.py
+index 5e3d79d..1b0fbe1 100755
+--- a/WebPent_UNIFIED/tests/learning/test_lessons_ledger.py
++++ b/WebPent_UNIFIED/tests/learning/test_lessons_ledger.py
+@@ -20,7 +20,6 @@ from webpent.learning.lessons_ledger import (
+     influence_of,
+ )
+ 
+-
+ EVIDENCE = {"kind": "proof_bundle", "finding": "idor-1", "verdict": "confirmed"}
+ 
+ 
+diff --git a/WebPent_UNIFIED/tests/memory/test_experience_corpus.py b/WebPent_UNIFIED/tests/memory/test_experience_corpus.py
+index 51b7392..2b14475 100755
+--- a/WebPent_UNIFIED/tests/memory/test_experience_corpus.py
++++ b/WebPent_UNIFIED/tests/memory/test_experience_corpus.py
+@@ -15,7 +15,6 @@ from webpent.memory.experience_corpus import (
+     redact_text,
+ )
+ 
+-
+ # -- redaction ---------------------------------------------------------
+ 
+ def test_urls_collapse_to_origins():
+diff --git a/WebPent_UNIFIED/tests/reporter/test_bounty_pipeline.py b/WebPent_UNIFIED/tests/reporter/test_bounty_pipeline.py
+index 0cd25c9..fef9496 100755
+--- a/WebPent_UNIFIED/tests/reporter/test_bounty_pipeline.py
++++ b/WebPent_UNIFIED/tests/reporter/test_bounty_pipeline.py
+@@ -135,7 +135,6 @@ from webpent.reporter.bounty_pipeline import (
+     SubmissionResult,
+ )
+ 
+-
+ # ---------------------------------------------------------------------------
+ # draft → render → preview
+ # ---------------------------------------------------------------------------
+diff --git a/WebPent_UNIFIED/tests/team1_acceptance/test_hunting_sprint_auth_resilience.py b/WebPent_UNIFIED/tests/team1_acceptance/test_hunting_sprint_auth_resilience.py
+index cf3907f..1c7cba1 100755
+--- a/WebPent_UNIFIED/tests/team1_acceptance/test_hunting_sprint_auth_resilience.py
++++ b/WebPent_UNIFIED/tests/team1_acceptance/test_hunting_sprint_auth_resilience.py
+@@ -8,12 +8,12 @@ from __future__ import annotations
+ import pytest
+ 
+ from webpent.recon.auth_resilience import (
++    SUPPORTED_AUTH_TYPES,
+     ApiKeyAuthExecutor,
+     BasicAuthFallback,
+     CookieExpiryInspector,
+     OAuth2FlowHandler,
+     OAuth2Outcome,
+-    SUPPORTED_AUTH_TYPES,
+ )
+ 
+ 
+diff --git a/WebPent_UNIFIED/tests/team1_acceptance/test_hunting_sprint_planner_enrichment.py b/WebPent_UNIFIED/tests/team1_acceptance/test_hunting_sprint_planner_enrichment.py
+index baa96fb..59c25ca 100755
+--- a/WebPent_UNIFIED/tests/team1_acceptance/test_hunting_sprint_planner_enrichment.py
++++ b/WebPent_UNIFIED/tests/team1_acceptance/test_hunting_sprint_planner_enrichment.py
+@@ -10,8 +10,8 @@ import pytest
+ 
+ from webpent.integration.hypothesis_priority_contract import EndpointProfile, PriorityLevel
+ from webpent.integration.planner_enrichment_bridge import (
+-    ContextEnricher,
+     ContextAwarePayloadSelector,
++    ContextEnricher,
+     PriorityScorer,
+     apply_lesson_priorities,
+     secure_prompt_value,
+diff --git a/WebPent_UNIFIED/tests/team1_acceptance/test_hunting_sprint_session_recovery.py b/WebPent_UNIFIED/tests/team1_acceptance/test_hunting_sprint_session_recovery.py
+index 54d85e1..32c7757 100755
+--- a/WebPent_UNIFIED/tests/team1_acceptance/test_hunting_sprint_session_recovery.py
++++ b/WebPent_UNIFIED/tests/team1_acceptance/test_hunting_sprint_session_recovery.py
+@@ -8,6 +8,7 @@ from __future__ import annotations
+ 
+ import pytest
+ 
++from webpent.integration.session_recovery_bridge import ExploitResultView, RecoveringExploiter
+ from webpent.recon.session_recovery import (
+     CampaignHalted,
+     RecoveryOutcome,
+@@ -16,7 +17,6 @@ from webpent.recon.session_recovery import (
+     is_login_redirect,
+     response_looks_dead,
+ )
+-from webpent.integration.session_recovery_bridge import RecoveringExploiter, ExploitResultView
+ 
+ 
+ # -- stubs -------------------------------------------------------------------
+diff --git a/WebPent_UNIFIED/tests/team1_acceptance/test_m2_transport_contract.py b/WebPent_UNIFIED/tests/team1_acceptance/test_m2_transport_contract.py
+index 652c961..0169e3e 100755
+--- a/WebPent_UNIFIED/tests/team1_acceptance/test_m2_transport_contract.py
++++ b/WebPent_UNIFIED/tests/team1_acceptance/test_m2_transport_contract.py
+@@ -13,7 +13,6 @@ import os
+ 
+ import pytest
+ 
+-
+ # ---------------------------------------------------------------------------
+ # WP-A — audit seam (NF-R2-04): the REAL chain fires through the seam
+ # ---------------------------------------------------------------------------
+@@ -90,8 +89,8 @@ def test_audit_fail_closed_on_chain_failure(tmp_path):
+     """D8: a chain-side failure propagates (no silent audit drop). A
+     finalized chain refuses appends — the failure reaches the caller
+     instead of being swallowed into a silent no-audit path."""
+-    from webpent.shared.engagement_audit import EngagementAuditChain
+     from webpent.production import advisory_registration as ar
++    from webpent.shared.engagement_audit import EngagementAuditChain
+ 
+     chain = EngagementAuditChain(
+         engagement_id="e_fc", audit_dir=tmp_path / "a",
+@@ -158,8 +157,8 @@ def test_bounds_recheck_rejects_oversized_fixture(monkeypatch):
+     """NF-M2-06 disposition: the seam re-checks bounds — an oversized
+     fixture is REJECTED with the frozen layer's oversize reason, not
+     admitted unbounded (RED-2 P-4: 5 MiB field admitted verbatim)."""
+-    from webpent.production.modern_spine_integration import _recheck_fixture_bounds
+     from webpent.production.fixture_intake import RejectionRegister
++    from webpent.production.modern_spine_integration import _recheck_fixture_bounds
+     from webpent.shared.fixture_registry import (
+         REASON_OVERSIZE,
+         REASON_STRUCTURE,
+@@ -203,8 +202,8 @@ def test_noncanonical_record_rejected_not_crashed(monkeypatch):
+ # ---------------------------------------------------------------------------
+ 
+ def test_target_derivation_ladder_from_declared_state():
+-    from webpent.production.modern_spine_integration import _derive_target_url
+     from webpent.models.targets import Target
++    from webpent.production.modern_spine_integration import _derive_target_url
+ 
+     assert _derive_target_url({"target_url": "http://a"}) == "http://a"
+     assert _derive_target_url({"target": Target(url="http://b")}) == "http://b"
+@@ -225,7 +224,8 @@ def test_state_schema_extension_additive_sqlite_roundtrip(tmp_path):
+     descriptor/projection shapes survive a resume unchanged."""
+     import pytest as _pytest
+     from langgraph.checkpoint.sqlite import SqliteSaver
+-    from langgraph.graph import StateGraph, START, END
++    from langgraph.graph import END, START, StateGraph
++
+     from webpent.state.state import PentestState
+ 
+     payload = {
+diff --git a/WebPent_UNIFIED/tests/test_browser_hunter.py b/WebPent_UNIFIED/tests/test_browser_hunter.py
+index a495b56..6579bfb 100755
+--- a/WebPent_UNIFIED/tests/test_browser_hunter.py
++++ b/WebPent_UNIFIED/tests/test_browser_hunter.py
+@@ -8,7 +8,12 @@ import pytest
+ 
+ from webpent.agents.hunter_contracts import HunterState
+ from webpent.agents.hunter_graph import _planner_prompt
+-from webpent.recon.browser_crawler import BrowserCrawlConfig, BrowserCrawler, _navigation_state_key, _safe_navigation_target
++from webpent.recon.browser_crawler import (
++ BrowserCrawlConfig,
++ BrowserCrawler,
++ _navigation_state_key,
++ _safe_navigation_target,
++)
+ from webpent.recon.browser_farm import BrowserFarm, BrowserFarmConfig
+ from webpent.recon.js_analyzer import analyze_javascript
+ from webpent.recon.state_graph import StateGraph
+diff --git a/WebPent_UNIFIED/tests/test_browser_surface_projection.py b/WebPent_UNIFIED/tests/test_browser_surface_projection.py
+index 7f5b902..53dd6d0 100755
+--- a/WebPent_UNIFIED/tests/test_browser_surface_projection.py
++++ b/WebPent_UNIFIED/tests/test_browser_surface_projection.py
+@@ -1,7 +1,7 @@
+ from __future__ import annotations
+ 
+-from webpent.agents.hunter_runner import _candidate_projection, _merge_browser_observed_forms
+ from webpent.agents.hunter_graph import _advisory_json
++from webpent.agents.hunter_runner import _candidate_projection, _merge_browser_observed_forms
+ from webpent.recon.autonomous_crawler import SurfaceMap
+ from webpent.shared.untrusted_content import secure_prompt_value
+ 
+diff --git a/WebPent_UNIFIED/tests/test_cache_key_discovery.py b/WebPent_UNIFIED/tests/test_cache_key_discovery.py
+index bce9043..51a3daf 100755
+--- a/WebPent_UNIFIED/tests/test_cache_key_discovery.py
++++ b/WebPent_UNIFIED/tests/test_cache_key_discovery.py
+@@ -27,7 +27,6 @@ from webpent.shared.cache_key_discovery import (
+     to_validator_inputs,
+ )
+ 
+-
+ # ---------------------------------------------------------------------------
+ # In-memory cache model.
+ #
+@@ -331,7 +330,7 @@ class TestLiveFixtureServer:
+     @staticmethod
+     def _http_fetcher(url: str, headers: Any, params: Any) -> "tuple[int, str]":
+         import http.client
+-        from urllib.parse import urlsplit, urlencode
++        from urllib.parse import urlencode, urlsplit
+ 
+         parts = urlsplit(url)
+         conn = http.client.HTTPConnection(parts.hostname, parts.port, timeout=5)
+diff --git a/WebPent_UNIFIED/tests/test_campaign_resume.py b/WebPent_UNIFIED/tests/test_campaign_resume.py
+index c9a8add..6bad7f5 100755
+--- a/WebPent_UNIFIED/tests/test_campaign_resume.py
++++ b/WebPent_UNIFIED/tests/test_campaign_resume.py
+@@ -244,8 +244,8 @@ class TestV31LedgerBoundsAndPruning:
+             cc.MAX_PROBE_ROWS = original
+ 
+     def test_probe_ledger_enforces_max_rows_memory(self, tmp_path) -> None:
+-        from webpent.resume.campaign_checkpoints import ProbeLedger
+         import webpent.resume.campaign_checkpoints as cc
++        from webpent.resume.campaign_checkpoints import ProbeLedger
+ 
+         ledger = ProbeLedger(db_path=None)
+         original = cc.MAX_PROBE_ROWS
+diff --git a/WebPent_UNIFIED/tests/test_campaign_scheduler.py b/WebPent_UNIFIED/tests/test_campaign_scheduler.py
+index 8303f1b..3a31381 100755
+--- a/WebPent_UNIFIED/tests/test_campaign_scheduler.py
++++ b/WebPent_UNIFIED/tests/test_campaign_scheduler.py
+@@ -25,9 +25,9 @@ from webpent.scheduler.campaign_scheduler import (
+     CampaignRunState,
+     CampaignScheduleStore,
+     RunOutcome,
++    ScheduledCampaign,
+     SchedulerError,
+     SchedulerStateFile,
+-    ScheduledCampaign,
+     next_due_after,
+     parse_iso_utc,
+     run_due_campaigns,
+diff --git a/WebPent_UNIFIED/tests/test_causal_reasoning.py b/WebPent_UNIFIED/tests/test_causal_reasoning.py
+index d0759dc..8a6bdcf 100755
+--- a/WebPent_UNIFIED/tests/test_causal_reasoning.py
++++ b/WebPent_UNIFIED/tests/test_causal_reasoning.py
+@@ -15,9 +15,9 @@ import pytest
+ 
+ from webpent.causal_reasoning import (
+     ArchitectureInferrer,
++    CausalReasoningEngine,
+     ContextFingerprint,
+     ContextualMemory,
+-    CausalReasoningEngine,
+     RootCauseAnalyzer,
+     WeaknessCategory,
+     glob_matches,
+@@ -25,7 +25,6 @@ from webpent.causal_reasoning import (
+     stable_id,
+ )
+ 
+-
+ # ---------------------------------------------------------------------------
+ # Contracts
+ # ---------------------------------------------------------------------------
+diff --git a/WebPent_UNIFIED/tests/test_causal_v2_deep.py b/WebPent_UNIFIED/tests/test_causal_v2_deep.py
+index 044a88e..06710e8 100755
+--- a/WebPent_UNIFIED/tests/test_causal_v2_deep.py
++++ b/WebPent_UNIFIED/tests/test_causal_v2_deep.py
+@@ -21,7 +21,6 @@ from webpent.causal_reasoning_v2.root_cause_analyzer_v2 import (
+ )
+ from webpent.causal_reasoning_v2.structural_knowledge_base import StructuralKnowledgeBase
+ 
+-
+ # ---------------------------------------------------------------------------
+ # Phase 1 — ArchitectureExtractor (static analysis from source)
+ # ---------------------------------------------------------------------------
+diff --git a/WebPent_UNIFIED/tests/test_causal_v2_full.py b/WebPent_UNIFIED/tests/test_causal_v2_full.py
+index 9768258..db02b25 100755
+--- a/WebPent_UNIFIED/tests/test_causal_v2_full.py
++++ b/WebPent_UNIFIED/tests/test_causal_v2_full.py
+@@ -16,7 +16,6 @@ from pathlib import Path
+ 
+ import pytest
+ 
+-from webpent.models.hypothesis import Hypothesis
+ from webpent.causal_reasoning_v2 import (
+     BehaviorProfile,
+     CausalIntegrationLayer,
+@@ -28,7 +27,7 @@ from webpent.causal_reasoning_v2 import (
+     SystemArchitectureGraph,
+     VerificationVerdict,
+ )
+-
++from webpent.models.hypothesis import Hypothesis
+ 
+ # ---------------------------------------------------------------------------
+ # Fixture: a realistic synthetic target architecture
+diff --git a/WebPent_UNIFIED/tests/test_cross_campaign.py b/WebPent_UNIFIED/tests/test_cross_campaign.py
+index cf0e748..fd55ad3 100755
+--- a/WebPent_UNIFIED/tests/test_cross_campaign.py
++++ b/WebPent_UNIFIED/tests/test_cross_campaign.py
+@@ -17,6 +17,17 @@ import json
+ 
+ import pytest
+ 
++from webpent.learning.campaign_dedupe import (
++    CLASS_TOKEN_WEIGHT,
++    DEFAULT_THRESHOLD,
++    CrossCampaignRegistry,
++    InventoryError,
++    annotate_finding,
++    load_inventory,
++    save_inventory,
++    tokenize,
++    weighted_jaccard,
++)
+ from webpent.learning.technique_library import (
+     LIBRARY_SCHEMA_VERSION,
+     REMEMBERING_CAP,
+@@ -29,17 +40,6 @@ from webpent.learning.technique_library import (
+     success_rate,
+     top_payloads,
+ )
+-from webpent.learning.campaign_dedupe import (
+-    CLASS_TOKEN_WEIGHT,
+-    DEFAULT_THRESHOLD,
+-    InventoryError,
+-    CrossCampaignRegistry,
+-    annotate_finding,
+-    load_inventory,
+-    save_inventory,
+-    tokenize,
+-    weighted_jaccard,
+-)
+ 
+ # ---------------------------------------------------------------------------
+ # Technique library: load / save.
+diff --git a/WebPent_UNIFIED/tests/test_dom_xss.py b/WebPent_UNIFIED/tests/test_dom_xss.py
+index ed512cc..a6fcd9f 100755
+--- a/WebPent_UNIFIED/tests/test_dom_xss.py
++++ b/WebPent_UNIFIED/tests/test_dom_xss.py
+@@ -19,8 +19,8 @@ from webpent.agents.dom_xss import (
+     dom_xss_causal_predicate,
+     find_taint_flows,
+     parse_script,
++    payloads,
+ )
+-from webpent.agents.dom_xss import payloads
+ 
+ 
+ class _FakeSettings:
+diff --git a/WebPent_UNIFIED/tests/test_evidence_bundle.py b/WebPent_UNIFIED/tests/test_evidence_bundle.py
+index 8134151..6d68358 100755
+--- a/WebPent_UNIFIED/tests/test_evidence_bundle.py
++++ b/WebPent_UNIFIED/tests/test_evidence_bundle.py
+@@ -18,6 +18,7 @@ from datetime import datetime, timezone
+ 
+ import pytest
+ 
++from webpent.config.settings import Settings
+ from webpent.reporter.evidence_bundle import (
+     EvidenceBundleError,
+     SubmissionRefused,
+@@ -31,7 +32,6 @@ from webpent.reporter.evidence_bundle import (
+     root_endpoint_of,
+     submit_bundle,
+ )
+-from webpent.config.settings import Settings
+ 
+ WHEN = datetime(2026, 10, 29, 12, 0, 0, tzinfo=timezone.utc)
+ 
+diff --git a/WebPent_UNIFIED/tests/test_five_families.py b/WebPent_UNIFIED/tests/test_five_families.py
+index f65f57f..fbf4a94 100755
+--- a/WebPent_UNIFIED/tests/test_five_families.py
++++ b/WebPent_UNIFIED/tests/test_five_families.py
+@@ -8,9 +8,10 @@ No network. No langchain dependency.
+ """
+ from __future__ import annotations
+ 
+-import pytest
+ import os
+ 
++import pytest
++
+ from webpent.agents.validator.family_checks import (
+     FAMILY_VALIDATORS,
+     FamilyVerdict,
+@@ -32,6 +33,7 @@ from webpent.families.base import (
+     FamilyId,
+     ScenarioSpec,
+ )
++
+ try:
+     from webpent.goed_v1.family_strategies import (  # type: ignore[attr-defined]
+         ALL_FAMILY_STRATEGIES,
+@@ -529,8 +531,8 @@ class TestExecutionPlans:
+         assert plan.post_state_check is not None  # attacker capture
+ 
+     def test_build_plan_for_dispatch(self):
+-        from webpent.families.execution_plans import build_plan_for
+         from webpent.families.base import FamilyId
++        from webpent.families.execution_plans import build_plan_for
+         plan = build_plan_for(self._candidate(FamilyId.TENANT_ISOLATION, "GET /api/items/1"),
+                               foreign_resource_ref="42")
+         assert plan is not None
+@@ -569,7 +571,9 @@ class TestArtifactGraph:
+ 
+     def test_publish_and_compose_real_edge(self):
+         from webpent.chained_exploits.artifact_graph import (
+-            ArtifactGraph, ArtifactType, CHAIN_SCENARIO_CONSUMERS,
++            CHAIN_SCENARIO_CONSUMERS,
++            ArtifactGraph,
++            ArtifactType,
+         )
+         g = ArtifactGraph()
+         g.publish("finding-info-disclosure-1", [ArtifactType.LEAKED_TOKEN])
+@@ -581,7 +585,11 @@ class TestArtifactGraph:
+         assert edges[0].injection_point == "header:Authorization"
+ 
+     def test_no_edge_when_no_artifact_match(self):
+-        from webpent.chained_exploits.artifact_graph import ArtifactGraph, ArtifactType, CHAIN_SCENARIO_CONSUMERS
++        from webpent.chained_exploits.artifact_graph import (
++            CHAIN_SCENARIO_CONSUMERS,
++            ArtifactGraph,
++            ArtifactType,
++        )
+         g = ArtifactGraph()
+         g.publish("finding-xss-1", [ArtifactType.CSRF_TOKEN])
+         consumers = [{"path": "/api/x", "consumes": [ArtifactType.LEAKED_TOKEN]}]
+@@ -606,8 +614,8 @@ class TestCritiqueFixesVerification:
+ 
+     def test_build_plan_absolute_url_with_base(self):
+         # Fix #2: relative paths must be prefixed with base_url.
+-        from webpent.families.execution_plans import build_plan_for
+         from webpent.families.base import FamilyCandidate, FamilyId
++        from webpent.families.execution_plans import build_plan_for
+         c = FamilyCandidate(candidate_id="c1", family=FamilyId.RACE_CONDITION,
+                             vuln_class="race_condition", scenario_id="RACE-1",
+                             affected_endpoint="POST /api/transfer", hypothesis="h")
+@@ -653,8 +661,8 @@ class TestProposal1ExecutionSpine:
+         assert len(out["family_execution_plans"]) >= 1
+ 
+     def test_node_promotes_confirmed_and_merges_findings(self):
+-        from webpent.families.execution_node import family_execution_node
+         from webpent.agents.validator.family_checks import Replay
++        from webpent.families.execution_node import family_execution_node
+         r = Replay(method="POST", url="https://t/x", request_body=None, status_code=200, body="b")
+         post = Replay(method="GET", url="https://t/s", request_body=None, status_code=200, body="", label="side_effects:3")
+         state = {
+@@ -683,7 +691,10 @@ class TestProposal1ExecutionSpine:
+         assert out["family_findings_merged"] == 0
+ 
+     def test_wire_function_importable(self):
+-        from webpent.families.execution_node import FAMILY_EXECUTION_NODE_NAME, wire_family_execution
++        from webpent.families.execution_node import (
++            FAMILY_EXECUTION_NODE_NAME,
++            wire_family_execution,
++        )
+         assert FAMILY_EXECUTION_NODE_NAME == "family_execution"
+         assert callable(wire_family_execution)
+ 
+@@ -747,8 +758,8 @@ class TestExecutionLoopClosed:
+         assert "business_logic" in families  # sixth family now present
+ 
+     def test_proof_bundle_seal_attempted(self):
+-        from webpent.families.execution_node import family_execution_node
+         from webpent.agents.validator.family_checks import Replay
++        from webpent.families.execution_node import family_execution_node
+         r = Replay(method="POST", url="https://t/x", request_body=None, status_code=200, body="b")
+         post = Replay(method="GET", url="https://t/s", request_body=None, status_code=200, body="", label="side_effects:3")
+         state = {
+@@ -774,8 +785,8 @@ class TestProposal2AttackGraph:
+         assert len(published) >= 2  # info_disclosure publishes 3 types, xss 2
+ 
+     def test_planner_composes_real_chains(self):
+-        from webpent.chained_exploits.attack_graph_planner import AttackGraphPlanner
+         from webpent.chained_exploits.artifact_graph import ArtifactType
++        from webpent.chained_exploits.attack_graph_planner import AttackGraphPlanner
+         planner = AttackGraphPlanner()
+         planner.ingest_findings([{"vuln_class": "info_disclosure"}])
+         consumers = [{"path": "/api/admin", "consumes": [ArtifactType.LEAKED_TOKEN],
+@@ -786,8 +797,8 @@ class TestProposal2AttackGraph:
+         assert hyps[0].composed_request_plan["url"].startswith("https://t.example")
+ 
+     def test_planner_validates_and_promotes_confirmed_chains(self):
+-        from webpent.chained_exploits.attack_graph_planner import AttackGraphPlanner
+         from webpent.agents.validator.family_checks import Replay
++        from webpent.chained_exploits.attack_graph_planner import AttackGraphPlanner
+         planner = AttackGraphPlanner()
+         planner.ingest_findings([{"vuln_class": "info_disclosure"}, {"vuln_class": "xss"}])
+         consumers = [{"path": "/api/admin", "consumes": ["leaked_token"], "injection_point": "body"}]
+@@ -818,8 +829,8 @@ class TestProposal2AttackGraph:
+         assert ex is None or callable(ex)
+ 
+     def test_execute_composed_chains_injects_artifact_and_sends(self):
+-        from webpent.chained_exploits.attack_graph_planner import AttackGraphPlanner
+         from webpent.chained_exploits.artifact_graph import ArtifactType
++        from webpent.chained_exploits.attack_graph_planner import AttackGraphPlanner
+ 
+         sent = []
+ 
+@@ -841,7 +852,10 @@ class TestProposal2AttackGraph:
+         assert "Authorization" in sent[0][2]  # artifact injected at header point
+ 
+     def test_prioritize_chains_ranks_by_feeder_count(self):
+-        from webpent.chained_exploits.attack_graph_planner import AttackGraphPlanner, ChainHypothesis
++        from webpent.chained_exploits.attack_graph_planner import (
++            AttackGraphPlanner,
++            ChainHypothesis,
++        )
+         planner = AttackGraphPlanner()
+         h1 = ChainHypothesis(chain_id="h1", scenario_id="C-1", feeder_findings=["f1"],
+                              artifact_types_used=["t1"], consumer_endpoint="/a",
+@@ -1033,9 +1047,10 @@ class TestAdaptiveDefensePhases:
+         assert "waf" in tactic.reason or "captcha" in tactic.reason
+ 
+     def test_phase2_emulator_scores_obvious_payload_high(self):
+-        from webpent.adaptive.defense_emulator import DefenseEmulator
+         from dataclasses import dataclass
+ 
++        from webpent.adaptive.defense_emulator import DefenseEmulator
++
+         @dataclass
+         class P:
+             url: str = "https://t/x?id=1 UNION SELECT password FROM users--"
+@@ -1047,9 +1062,10 @@ class TestAdaptiveDefensePhases:
+         assert risk.action != "send" or risk.level == "medium"
+ 
+     def test_phase2_emulator_low_risk_for_clean_plan(self):
+-        from webpent.adaptive.defense_emulator import DefenseEmulator
+         from dataclasses import dataclass
+ 
++        from webpent.adaptive.defense_emulator import DefenseEmulator
++
+         @dataclass
+         class P:
+             url: str = "https://t/api/health"; body: str = ""; label: str = "seq-0"
+@@ -1177,7 +1193,7 @@ class TestSelfVerifyEngine:
+     """Central Proposal 1 — self-verification & confidence engine (4 phases)."""
+ 
+     def test_phase1_confidence_levels(self):
+-        from webpent.verification.self_verify import ConfidenceScorer, ConfidenceLevel, level_for
++        from webpent.verification.self_verify import ConfidenceLevel, ConfidenceScorer, level_for
+         scorer = ConfidenceScorer()
+         weak = scorer.score(None, {})
+         assert weak.score < 0.70
+@@ -1189,7 +1205,7 @@ class TestSelfVerifyEngine:
+         assert level_for(0.96) == ConfidenceLevel.CONFIRMED
+ 
+     def test_phase1_result_filter_routes_low_confidence(self):
+-        from webpent.verification.self_verify import ResultFilter, ConfidenceReport, ConfidenceLevel
++        from webpent.verification.self_verify import ConfidenceLevel, ConfidenceReport, ResultFilter
+         rf = ResultFilter(threshold=0.70)
+         high = ConfidenceReport(score=0.95, level=ConfidenceLevel.CONFIRMED)
+         low = ConfidenceReport(score=0.50, level=ConfidenceLevel.POSSIBLE)
+@@ -1211,7 +1227,11 @@ class TestSelfVerifyEngine:
+         assert all("passed" in t for t in tests2)
+ 
+     def test_phase2_adaptive_retest_only_for_borderline(self):
+-        from webpent.verification.self_verify import AdaptiveRetester, ConfidenceReport, ConfidenceLevel
++        from webpent.verification.self_verify import (
++            AdaptiveRetester,
++            ConfidenceLevel,
++            ConfidenceReport,
++        )
+         ar = AdaptiveRetester()
+         borderline = ConfidenceReport(score=0.60, level=ConfidenceLevel.POSSIBLE)
+         confirmed = ConfidenceReport(score=0.96, level=ConfidenceLevel.CONFIRMED)
+@@ -1236,9 +1256,10 @@ class TestSelfVerifyEngine:
+         assert "suggested_focus_next_run" in q
+ 
+     def test_phase4_engine_orchestrator_accepts_strong_rejects_weak(self):
+-        from webpent.verification.self_verify import SelfVerifyEngine
+         from dataclasses import dataclass
+ 
++        from webpent.verification.self_verify import SelfVerifyEngine
++
+         @dataclass
+         class F:
+             finding_id: str; title: str; vuln_class: str; evidence: dict
+@@ -1287,9 +1308,10 @@ class TestRedTeamFixes:
+         assert q["coverage_note"] == "unknown_real_endpoint_total"
+ 
+     def test_adaptive_retest_wired_to_borderline_reports(self):
+-        from webpent.verification.self_verify import SelfVerifyEngine
+         from dataclasses import dataclass
+ 
++        from webpent.verification.self_verify import SelfVerifyEngine
++
+         @dataclass
+         class F:
+             finding_id: str; title: str; vuln_class: str; evidence: dict
+@@ -1344,14 +1366,15 @@ class TestRedTeamPlanExecution:
+     """Full red-team plan (15 steps) — verified implemented."""
+ 
+     def test_R8_transient_failure_never_becomes_rule(self):
+-        from webpent.verification.advanced import classify_failure, FailureClass
++        from webpent.verification.advanced import FailureClass, classify_failure
+         assert classify_failure("connection timeout") == FailureClass.TRANSIENT
+         assert classify_failure("verification_failed") == FailureClass.FALSE_POSITIVE
+ 
+     def test_R6_correlation_boosts_similar_findings(self):
+-        from webpent.verification.advanced import CorrelationAnalyzer
+         from dataclasses import dataclass
+ 
++        from webpent.verification.advanced import CorrelationAnalyzer
++
+         @dataclass
+         class F:
+             finding_id: str; vuln_class: str; url: str
+@@ -1362,9 +1385,10 @@ class TestRedTeamPlanExecution:
+         assert deltas.get("a", 0) > 0  # similar → boost
+ 
+     def test_R10_conflict_detector_flags_opposite_verdicts(self):
+-        from webpent.verification.advanced import ConflictDetector
+         from dataclasses import dataclass
+ 
++        from webpent.verification.advanced import ConflictDetector
++
+         @dataclass
+         class F:
+             finding_id: str; url: str; verdict: str
+@@ -1382,8 +1406,8 @@ class TestRedTeamPlanExecution:
+         assert tc.multiplier("good-target") >= 1.0
+ 
+     def test_R12_uncertainty_reason_classified(self):
+-        from webpent.verification.advanced import classify_uncertainty, UncertaintyReason
+-        from webpent.verification.self_verify import ConfidenceReport, ConfidenceLevel
++        from webpent.verification.advanced import UncertaintyReason, classify_uncertainty
++        from webpent.verification.self_verify import ConfidenceLevel, ConfidenceReport
+         report = ConfidenceReport(score=0.6, level=ConfidenceLevel.POSSIBLE)
+         r = classify_uncertainty(report, missing_tests=["a", "b"], surviving_alternatives=[])
+         assert r == UncertaintyReason.INSUFFICIENT_DATA
+@@ -1391,7 +1415,9 @@ class TestRedTeamPlanExecution:
+         assert r2 == UncertaintyReason.CONFLICTING_EVIDENCE
+ 
+     def test_R13_rules_io_export_import_and_scope(self):
+-        import tempfile, os
++        import os
++        import tempfile
++
+         from webpent.verification.advanced import RulesIO, ScopedRule
+         rule = ScopedRule(reason="test", scope="endpoint", pattern="/api/admin")
+         with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as fh:
+@@ -1425,9 +1451,10 @@ class TestRedTeamPlanExecution:
+         assert MAX_RETRIES == 2  # hard bound, never infinite
+ 
+     def test_report_has_missing_tests_assumptions_uncertainty(self):
+-        from webpent.verification.self_verify import SelfVerifyEngine
+         from dataclasses import dataclass
+ 
++        from webpent.verification.self_verify import SelfVerifyEngine
++
+         @dataclass
+         class F:
+             finding_id: str; title: str; vuln_class: str; evidence: dict
+@@ -1497,7 +1524,7 @@ class TestRobustLayer:
+         assert "duplicate" in reason
+ 
+     def test_step9_max_retries_reason(self):
+-        from webpent.verification.robust import max_retries_reason, CENTRAL_CONSTANTS
++        from webpent.verification.robust import CENTRAL_CONSTANTS, max_retries_reason
+         r = max_retries_reason(CENTRAL_CONSTANTS["MAX_RETRIES"])
+         assert r["uncertainty_reason"] == "max_retries"
+         assert "uncertainty_detail" in r
+@@ -1606,8 +1633,9 @@ class TestCoreInfrastructure:
+     """Red-team 15-step plan — core/ infrastructure verified."""
+ 
+     def test_finding_validates_at_construction(self):
+-        from webpent.core.infrastructure import Finding
+         import pytest
++
++        from webpent.core.infrastructure import Finding
+         with pytest.raises(ValueError):
+             Finding(finding_id="", vuln_class="xss", endpoint="/x", confidence=0.5)
+         with pytest.raises(ValueError):
+@@ -1616,8 +1644,9 @@ class TestCoreInfrastructure:
+         assert f.confidence == 0.8
+ 
+     def test_rule_validates_scope_and_priority(self):
+-        from webpent.core.infrastructure import Rule
+         import pytest
++
++        from webpent.core.infrastructure import Rule
+         with pytest.raises(ValueError):
+             Rule(rule_id="r1", pattern="x", scope="bogus")
+         with pytest.raises(ValueError):
+@@ -1685,7 +1714,7 @@ class TestCoreInfrastructure:
+         assert any("created_missing_dir" in i for i in report["issues"])
+ 
+     def test_shutdown_handler_marks_safely_stopped(self):
+-        from webpent.core.infrastructure import ExecutionSession, ShutdownHandler, SessionStatus
++        from webpent.core.infrastructure import ExecutionSession, SessionStatus, ShutdownHandler
+         sess = ExecutionSession("s1", "/tmp/nonexistent_sess.json")
+         sess.start()
+         handler = ShutdownHandler(sess)
+@@ -1694,8 +1723,9 @@ class TestCoreInfrastructure:
+         assert handler.triggered is True
+ 
+     def test_performance_metrics_tracks_components(self):
+-        from webpent.core.infrastructure import PerformanceMetrics
+         import time
++
++        from webpent.core.infrastructure import PerformanceMetrics
+         pm = PerformanceMetrics()
+         pm.begin("discovery")
+         time.sleep(0.01)
+@@ -1705,7 +1735,7 @@ class TestCoreInfrastructure:
+         assert s["total_runtime_seconds"] >= 0
+ 
+     def test_version_compatibility_check(self):
+-        from webpent.core.version import is_compatible, DATA_FORMAT_VERSION
++        from webpent.core.version import DATA_FORMAT_VERSION, is_compatible
+         ok, _ = is_compatible(DATA_FORMAT_VERSION)
+         assert ok is True
+         ok2, reason = is_compatible(DATA_FORMAT_VERSION - 1)
+@@ -1761,7 +1791,7 @@ class TestAutonomousHunter:
+         assert "changed" in reason
+ 
+     def test_strategy_engine_escalation_and_priority(self):
+-        from webpent.autonomous_hunter import StrategyEngine, RiskLevel, ImpactLevel
++        from webpent.autonomous_hunter import ImpactLevel, RiskLevel, StrategyEngine
+         r = StrategyEngine().escalate({"finding_id": "f1"}, confirmation_level=2,
+                                       impact_evidence="system_admin_access")
+         assert r.confirmation_level == 2
+@@ -1776,7 +1806,7 @@ class TestAutonomousHunter:
+         assert "<script>" in v
+ 
+     def test_stealth_layer_detects_rate_limit_and_adapts(self):
+-        from webpent.autonomous_hunter import StealthResilienceLayer, DefenseSignal
++        from webpent.autonomous_hunter import DefenseSignal, StealthResilienceLayer
+         s = StealthResilienceLayer()
+         sig = s.analyze_response(429, {})
+         assert sig == DefenseSignal.RATE_LIMIT
+diff --git a/WebPent_UNIFIED/tests/test_hardening_0330_b1.py b/WebPent_UNIFIED/tests/test_hardening_0330_b1.py
+index 787182a..2709db5 100755
+--- a/WebPent_UNIFIED/tests/test_hardening_0330_b1.py
++++ b/WebPent_UNIFIED/tests/test_hardening_0330_b1.py
+@@ -27,7 +27,6 @@ from webpent.llm_researcher.providers.pool import (
+ )
+ from webpent.memory.ab_lab import LessonABLab
+ 
+-
+ # ---------------------------------------------------------------------------
+ # F-01 — open_week must support multiple targets per client per week
+ # ---------------------------------------------------------------------------
+diff --git a/WebPent_UNIFIED/tests/test_hardening_0330_b2.py b/WebPent_UNIFIED/tests/test_hardening_0330_b2.py
+index 0bcebb5..af06d14 100755
+--- a/WebPent_UNIFIED/tests/test_hardening_0330_b2.py
++++ b/WebPent_UNIFIED/tests/test_hardening_0330_b2.py
+@@ -23,7 +23,6 @@ from webpent.shared.engagement_scope import (
+     set_engagement_target_hosts,
+ )
+ 
+-
+ # ---------------------------------------------------------------------------
+ # F-04 — raw-client fallback restricted to literal loopback origins
+ # ---------------------------------------------------------------------------
+diff --git a/WebPent_UNIFIED/tests/test_hardening_0330_b3.py b/WebPent_UNIFIED/tests/test_hardening_0330_b3.py
+index d6c4f1d..281dd7d 100755
+--- a/WebPent_UNIFIED/tests/test_hardening_0330_b3.py
++++ b/WebPent_UNIFIED/tests/test_hardening_0330_b3.py
+@@ -13,7 +13,7 @@ from types import SimpleNamespace
+ 
+ import pytest
+ 
+-from webpent.autonomous.hunt_memory import ScopedHuntMemory, MemoryEntry, _MAX_ENTRIES
++from webpent.autonomous.hunt_memory import _MAX_ENTRIES, MemoryEntry, ScopedHuntMemory
+ from webpent.brain.ev_scheduler import EVScheduler
+ from webpent.core.infrastructure import ExecutionSession
+ from webpent.memory.ab_lab import RUNNING_RUN_STALE_AFTER_SECONDS, LessonABLab
+@@ -426,8 +426,8 @@ def test_p114_request_budget_is_atomic_under_concurrency(monkeypatch):
+ 
+ def test_p115_ingest_observation_trims():
+     from webpent.llm_researcher.interface import (
+-        LLMResearcher,
+         _MAX_OBSERVATIONS,
++        LLMResearcher,
+     )
+ 
+     researcher = LLMResearcher()
+diff --git a/WebPent_UNIFIED/tests/test_identity_discovery.py b/WebPent_UNIFIED/tests/test_identity_discovery.py
+index 264d179..0718c70 100755
+--- a/WebPent_UNIFIED/tests/test_identity_discovery.py
++++ b/WebPent_UNIFIED/tests/test_identity_discovery.py
+@@ -1,6 +1,7 @@
+ from __future__ import annotations
+ 
+ import inspect
++
+ import httpx
+ 
+ from webpent.recon.hypothesis_generator import HypothesisGenerator
+diff --git a/WebPent_UNIFIED/tests/test_identity_resolution_ladder.py b/WebPent_UNIFIED/tests/test_identity_resolution_ladder.py
+index 1876cdc..ef39f69 100755
+--- a/WebPent_UNIFIED/tests/test_identity_resolution_ladder.py
++++ b/WebPent_UNIFIED/tests/test_identity_resolution_ladder.py
+@@ -191,7 +191,12 @@ def test_transport_variants_unsupported_by_boundary_recorded_honestly():
+ 
+ def test_m4_credential_relocation_query_and_cookie_variants_inside_boundary():
+     """Transport variants relocate ONLY the M4-attached credential."""
+-    from webpent.production.context_authority import AuthContextRef, ContextAuthority, PrincipalRef, PrincipalRole
++    from webpent.production.context_authority import (
++        AuthContextRef,
++        ContextAuthority,
++        PrincipalRef,
++        PrincipalRole,
++    )
+ 
+     authority = ContextAuthority(engagement_id="transport-test", target_fingerprint="target123")
+     principal = PrincipalRef(principal_alias="owner", engagement_id="transport-test", target_fingerprint="target123", role=PrincipalRole.OWNER)
+diff --git a/WebPent_UNIFIED/tests/test_js_discovery.py b/WebPent_UNIFIED/tests/test_js_discovery.py
+index a6af71c..5dab091 100755
+--- a/WebPent_UNIFIED/tests/test_js_discovery.py
++++ b/WebPent_UNIFIED/tests/test_js_discovery.py
+@@ -20,11 +20,10 @@ from webpent.tools.js_extractors import (
+     discover_surfaces,
+     extract_api_endpoints,
+     extract_graphql_operations,
+-    extract_spa_routes,
+     extract_secret_hints,
++    extract_spa_routes,
+ )
+ 
+-
+ SYNTHETIC_BUNDLE = """
+ const routes = [{ path: "/dashboard" }, { path: "/admin/settings" }];
+ const hashRoute = "#/orders/42";
+diff --git a/WebPent_UNIFIED/tests/test_lcs2_sweep_instrument.py b/WebPent_UNIFIED/tests/test_lcs2_sweep_instrument.py
+index 6f36a29..55fe7ab 100755
+--- a/WebPent_UNIFIED/tests/test_lcs2_sweep_instrument.py
++++ b/WebPent_UNIFIED/tests/test_lcs2_sweep_instrument.py
+@@ -129,7 +129,8 @@ def test_bridge_never_touches_selector_authority():
+     score cannot jump a registry+iv-superior one — pinned with real
+     selector objects."""
+     from webpent.production.autonomous_validation_v1 import (
+-        AutonomousExperimentSelector, EXPERIMENT_REGISTRY,
++        EXPERIMENT_REGISTRY,
++        AutonomousExperimentSelector,
+     )
+     assert "IDOR" in EXPERIMENT_REGISTRY
+     sel = AutonomousExperimentSelector()
+diff --git a/WebPent_UNIFIED/tests/test_lessons_learning_loop.py b/WebPent_UNIFIED/tests/test_lessons_learning_loop.py
+index b11d105..109c7cd 100755
+--- a/WebPent_UNIFIED/tests/test_lessons_learning_loop.py
++++ b/WebPent_UNIFIED/tests/test_lessons_learning_loop.py
+@@ -44,12 +44,12 @@ os.environ.setdefault("WEBPENT_ENTRYPOINT", "cli")
+ 
+ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+ 
+-from webpent.brain.lessons import Lesson, LessonsLedger, get_lessons_ledger  # noqa: E402
+ from webpent.brain.lesson_emission import (  # noqa: E402
+     emit_run_lessons,
+     lesson_from_family_outcomes,
+     lessons_from_scorecard_emission,
+ )
++from webpent.brain.lessons import Lesson, LessonsLedger, get_lessons_ledger  # noqa: E402
+ from webpent.brain.scorecard import ScorecardEmitter  # noqa: E402
+ from webpent.config.settings import get_settings  # noqa: E402
+ from webpent.models.findings import VulnClass  # noqa: E402
+diff --git a/WebPent_UNIFIED/tests/test_live_benchmarks.py b/WebPent_UNIFIED/tests/test_live_benchmarks.py
+index f0c7184..dc9f9b2 100755
+--- a/WebPent_UNIFIED/tests/test_live_benchmarks.py
++++ b/WebPent_UNIFIED/tests/test_live_benchmarks.py
+@@ -31,8 +31,8 @@ import pytest
+ 
+ from webpent.benchmark.ground_truth import (
+     GroundTruthError,
+-    TargetGroundTruth,
+     GroundTruthVuln,
++    TargetGroundTruth,
+     load_ground_truth,
+ )
+ from webpent.benchmark.live_runner import (
+diff --git a/WebPent_UNIFIED/tests/test_m1a_docs_l2_l7_contracts.py b/WebPent_UNIFIED/tests/test_m1a_docs_l2_l7_contracts.py
+index e1c5189..52f0ed9 100755
+--- a/WebPent_UNIFIED/tests/test_m1a_docs_l2_l7_contracts.py
++++ b/WebPent_UNIFIED/tests/test_m1a_docs_l2_l7_contracts.py
+@@ -18,20 +18,21 @@ REPO = Path(__file__).resolve().parents[1]
+ 
+ def test_smart_auto_approve_keeps_hitl_interrupts(monkeypatch):
+     """SMART_AUTO_APPROVE=true must NOT compile away interrupt_before."""
+-    import webpent.config.settings as settings_module
+     from types import SimpleNamespace
+ 
++    import webpent.config.settings as settings_module
++
+     monkeypatch.setattr(
+         settings_module,
+         "get_settings",
+         lambda: SimpleNamespace(smart_auto_approve=True),
+     )
+-    from webpent.graph import builder as graph_builder
+-
+     # The compile site reads auto_approve (its own parameter), never
+     # settings.smart_auto_approve — the two gates are orthogonal.
+     import inspect
+ 
++    from webpent.graph import builder as graph_builder
++
+     source = inspect.getsource(graph_builder.build_graph)
+     assert "smart_auto_approve" not in source, (
+         "L-2 REGRESSION: build_graph consults smart_auto_approve — the "
+diff --git a/WebPent_UNIFIED/tests/test_m1b_domain_contracts.py b/WebPent_UNIFIED/tests/test_m1b_domain_contracts.py
+index bbe9ca9..5cb2dd2 100755
+--- a/WebPent_UNIFIED/tests/test_m1b_domain_contracts.py
++++ b/WebPent_UNIFIED/tests/test_m1b_domain_contracts.py
+@@ -34,7 +34,6 @@ from webpent.models.contracts import (
+ from webpent.state.state import PentestState
+ from webpent.state.unified_state import UnifiedState
+ 
+-
+ # ---------------------------------------------------------------------------
+ # Contract catalog
+ # ---------------------------------------------------------------------------
+diff --git a/WebPent_UNIFIED/tests/test_m1b_workspace_artifact_ownership.py b/WebPent_UNIFIED/tests/test_m1b_workspace_artifact_ownership.py
+index 1eaf0bf..6d05218 100755
+--- a/WebPent_UNIFIED/tests/test_m1b_workspace_artifact_ownership.py
++++ b/WebPent_UNIFIED/tests/test_m1b_workspace_artifact_ownership.py
+@@ -41,7 +41,6 @@ from webpent.shared.target_workspace_context import (
+     get_active_target_workspace,
+ )
+ 
+-
+ # ---------------------------------------------------------------------------
+ # 1. Identity: deterministic, distinct, normalized
+ # ---------------------------------------------------------------------------
+diff --git a/WebPent_UNIFIED/tests/test_m1c_loopback_trusted_endpoint.py b/WebPent_UNIFIED/tests/test_m1c_loopback_trusted_endpoint.py
+index ad46653..d9e8857 100755
+--- a/WebPent_UNIFIED/tests/test_m1c_loopback_trusted_endpoint.py
++++ b/WebPent_UNIFIED/tests/test_m1c_loopback_trusted_endpoint.py
+@@ -28,8 +28,8 @@ from webpent.shared.oob import poll_remote_collector
+ 
+ def _start_loopback_collector(monkeypatch, records: list[dict]):
+     """Serve GET /poll?token=... returning ``records`` on 127.0.0.1."""
+-    from http.server import BaseHTTPRequestHandler, HTTPServer
+     import threading
++    from http.server import BaseHTTPRequestHandler, HTTPServer
+ 
+     class Handler(BaseHTTPRequestHandler):
+         def do_GET(self):  # noqa: N802
+@@ -104,8 +104,8 @@ def test_exemption_cannot_widen_to_private_nonloopback():
+ 
+ def test_dispatch_loopback_receiver_connects(monkeypatch):
+     """The documented https/loopback dispatch rule is now truly end-to-end."""
+-    from http.server import BaseHTTPRequestHandler, HTTPServer
+     import threading
++    from http.server import BaseHTTPRequestHandler, HTTPServer
+ 
+     seen: list[tuple[str, int]] = []
+ 
+diff --git a/WebPent_UNIFIED/tests/test_m2_adversarial_scope.py b/WebPent_UNIFIED/tests/test_m2_adversarial_scope.py
+index a4a54c2..1cc45ef 100755
+--- a/WebPent_UNIFIED/tests/test_m2_adversarial_scope.py
++++ b/WebPent_UNIFIED/tests/test_m2_adversarial_scope.py
+@@ -27,17 +27,16 @@ import httpx
+ import pytest
+ 
+ import webpent.shared.http as http_module
+-from webpent.shared.http import (
+-    SSRFRedirectBlockedError,
+-    _is_blocked_host,
+-    make_safe_httpx_client,
+-)
+ from webpent.shared.engagement_scope import (
+     admission_target_check,
+     clear_engagement_target_hosts,
+     set_engagement_target_hosts,
+ )
+-
++from webpent.shared.http import (
++    SSRFRedirectBlockedError,
++    _is_blocked_host,
++    make_safe_httpx_client,
++)
+ 
+ # ---------------------------------------------------------------------------
+ # DNS control — simulate the attacker's resolver
+diff --git a/WebPent_UNIFIED/tests/test_m3_appmodel.py b/WebPent_UNIFIED/tests/test_m3_appmodel.py
+index e20f670..8f2491f 100755
+--- a/WebPent_UNIFIED/tests/test_m3_appmodel.py
++++ b/WebPent_UNIFIED/tests/test_m3_appmodel.py
+@@ -27,11 +27,11 @@ from __future__ import annotations
+ from typing import Any
+ 
+ from webpent.appmodel import (
++    ApplicationModel,
+     AppModelEntity,
+     AppModelEntityKind,
+     AppModelRelation,
+     AppModelRelationKind,
+-    ApplicationModel,
+     DiscoveryProvenance,
+     build_application_model,
+     merge_appmodel_into_attack_graph,
+diff --git a/WebPent_UNIFIED/tests/test_m3_family_qualification_seam.py b/WebPent_UNIFIED/tests/test_m3_family_qualification_seam.py
+index 7328116..0dbef9a 100755
+--- a/WebPent_UNIFIED/tests/test_m3_family_qualification_seam.py
++++ b/WebPent_UNIFIED/tests/test_m3_family_qualification_seam.py
+@@ -206,9 +206,8 @@ def test_family_execution_node_without_any_surface_stays_honest() -> None:
+ 
+ 
+ def test_family_execution_node_honors_explicit_inventory_first() -> None:
+-    from webpent.families.execution_node import family_execution_node
+-
+     import webpent.families.execution_node as en
++    from webpent.families.execution_node import family_execution_node
+ 
+     en_get = en.get_default_http_executor
+     en.get_default_http_executor = lambda: None
+diff --git a/WebPent_UNIFIED/tests/test_m3_research_wiring.py b/WebPent_UNIFIED/tests/test_m3_research_wiring.py
+index 3e823b6..6f19142 100755
+--- a/WebPent_UNIFIED/tests/test_m3_research_wiring.py
++++ b/WebPent_UNIFIED/tests/test_m3_research_wiring.py
+@@ -22,6 +22,7 @@ Covers the CANONICAL_PHASE_REGISTRY M3 scope items delivered this window:
+ from __future__ import annotations
+ 
+ from datetime import datetime, timedelta, timezone
++from types import SimpleNamespace
+ 
+ import pytest
+ 
+@@ -30,7 +31,6 @@ from webpent.shared.cve_advisory import (
+     advisory_for_target_state,
+     advisory_hypothesis_to_state_hypothesis,
+ )
+-from types import SimpleNamespace
+ 
+ FEED = [
+     {
+diff --git a/WebPent_UNIFIED/tests/test_m7_executable_knowledge.py b/WebPent_UNIFIED/tests/test_m7_executable_knowledge.py
+index 16cffd0..4c85fe7 100755
+--- a/WebPent_UNIFIED/tests/test_m7_executable_knowledge.py
++++ b/WebPent_UNIFIED/tests/test_m7_executable_knowledge.py
+@@ -148,9 +148,8 @@ def test_malicious_fill_stays_one_argv_token() -> None:
+ 
+ 
+ def test_default_runner_is_the_frozen_argv_typed_run_command() -> None:
+-    from webpent.ekg import executor
+-
+     import webpent.tools.utils.subprocess as subprocess_module
++    from webpent.ekg import executor
+ 
+     assert executor.default_runner.__module__ == "webpent.ekg.executor"
+     # The runner delegates to the frozen argv-typed wrapper.
+diff --git a/WebPent_UNIFIED/tests/test_model_tiering.py b/WebPent_UNIFIED/tests/test_model_tiering.py
+index 747ee04..96b2547 100755
+--- a/WebPent_UNIFIED/tests/test_model_tiering.py
++++ b/WebPent_UNIFIED/tests/test_model_tiering.py
+@@ -19,11 +19,11 @@ from webpent.config.settings import Settings, activate_settings, get_settings
+ from webpent.llm_researcher import tiering
+ from webpent.llm_researcher.task_router import LLMTask
+ from webpent.llm_researcher.tiering import (
++    TASK_TIER_TABLE,
+     TIER_FAST,
+     TIER_STRONG,
+     UNCLASSIFIED_TIER,
+     ModelTieringError,
+-    TASK_TIER_TABLE,
+     model_tier_of,
+     note_tiered_call,
+     parse_tier_flag,
+@@ -32,7 +32,6 @@ from webpent.llm_researcher.tiering import (
+ )
+ from webpent.safety import spend_governor
+ 
+-
+ # ---------------------------------------------------------------------------
+ # Deterministic task->tier table.
+ # ---------------------------------------------------------------------------
+diff --git a/WebPent_UNIFIED/tests/test_notifications.py b/WebPent_UNIFIED/tests/test_notifications.py
+index fd36bba..22efad9 100755
+--- a/WebPent_UNIFIED/tests/test_notifications.py
++++ b/WebPent_UNIFIED/tests/test_notifications.py
+@@ -21,22 +21,22 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
+ 
+ import pytest
+ 
++from webpent.integrations.notifications.daily_digest import (
++    DailyDigestBuffer,
++    build_digest,
++    render_text,
++)
+ from webpent.integrations.notifications.dispatch import (
++    SEVERITY_ORDER,
+     DispatchEntry,
+     DispatchReport,
+     NotificationError,
+-    SEVERITY_ORDER,
+     _default_send,
+     dispatch,
+     notifications_refusal,
+     severity_gate,
+     severity_rank,
+ )
+-from webpent.integrations.notifications.daily_digest import (
+-    DailyDigestBuffer,
+-    build_digest,
+-    render_text,
+-)
+ from webpent.models.findings import Finding
+ 
+ 
+@@ -109,8 +109,8 @@ class TestFormatters:
+ 
+     def test_telegram_payload_shape_and_html_escaping(self):
+         from webpent.integrations.notifications.formatters.telegram import (
+-            format_telegram,
+             escape_html,
++            format_telegram,
+         )
+ 
+         finding = _finding()
+diff --git a/WebPent_UNIFIED/tests/test_oob_collaboration.py b/WebPent_UNIFIED/tests/test_oob_collaboration.py
+index 29df9c2..198fb07 100755
+--- a/WebPent_UNIFIED/tests/test_oob_collaboration.py
++++ b/WebPent_UNIFIED/tests/test_oob_collaboration.py
+@@ -20,7 +20,7 @@ from typing import Any
+ import pytest
+ 
+ from webpent.config.settings import Settings, activate_settings
+-from webpent.models.findings import Confidence, EXPLOITABLE_CLASSES, Finding, Severity, VulnClass
++from webpent.models.findings import EXPLOITABLE_CLASSES, Confidence, Finding, Severity, VulnClass
+ from webpent.production.validators import (
+     VALIDATORS,
+     ValidationOutcome,
+@@ -488,8 +488,8 @@ class TestAttachOOBProbes:
+ 
+     def test_payload_generator_flag_off_is_byte_identical(self, monkeypatch) -> None:
+         from webpent.agents.payload_generator.agent import payload_generator_node
+-        from webpent.state.initial_state import build_initial_state
+         from webpent.models.targets import Target
++        from webpent.state.initial_state import build_initial_state
+ 
+         settings = Settings()
+         assert settings.enable_oob_collaboration is False  # default off
+@@ -511,8 +511,8 @@ class TestAttachOOBProbes:
+ 
+     def test_payload_generator_flag_on_stamps_probe(self, monkeypatch) -> None:
+         from webpent.agents.payload_generator.agent import payload_generator_node
+-        from webpent.state.initial_state import build_initial_state
+         from webpent.models.targets import Target
++        from webpent.state.initial_state import build_initial_state
+ 
+         settings = Settings(
+             enable_oob_collaboration=True,
+diff --git a/WebPent_UNIFIED/tests/test_p0_option1_adapter_and_quick_fixes.py b/WebPent_UNIFIED/tests/test_p0_option1_adapter_and_quick_fixes.py
+index bec7a23..b8df12d 100755
+--- a/WebPent_UNIFIED/tests/test_p0_option1_adapter_and_quick_fixes.py
++++ b/WebPent_UNIFIED/tests/test_p0_option1_adapter_and_quick_fixes.py
+@@ -36,8 +36,8 @@ def test_static_tool_boundary_gate_passes() -> None:
+ 
+ 
+ def test_dalfox_output_is_masked_before_prompt_use(monkeypatch) -> None:
+-    import webpent.tools.exploitation.dalfox as dalfox
+     import webpent.shared.engagement_scope as engagement_scope
++    import webpent.tools.exploitation.dalfox as dalfox
+     from webpent.llm_researcher.tool_boundary_adapter import adapt_tool_boundary_result
+ 
+     monkeypatch.setattr(engagement_scope, "is_engagement_target_host", lambda _host: True)
+diff --git a/WebPent_UNIFIED/tests/test_platform_export.py b/WebPent_UNIFIED/tests/test_platform_export.py
+index a611634..aeb2725 100755
+--- a/WebPent_UNIFIED/tests/test_platform_export.py
++++ b/WebPent_UNIFIED/tests/test_platform_export.py
+@@ -19,6 +19,7 @@ from uuid import uuid4
+ 
+ import pytest
+ 
++from webpent.models.findings import Finding
+ from webpent.reporter.platform_export import (
+     PLATFORMS,
+     PlatformExportError,
+@@ -26,7 +27,6 @@ from webpent.reporter.platform_export import (
+     export_finding,
+     platform_export_refusal,
+ )
+-from webpent.models.findings import Finding
+ 
+ 
+ def _activated(**extra):
+diff --git a/WebPent_UNIFIED/tests/test_prototype_pollution_detector.py b/WebPent_UNIFIED/tests/test_prototype_pollution_detector.py
+index f6c7f81..159210b 100755
+--- a/WebPent_UNIFIED/tests/test_prototype_pollution_detector.py
++++ b/WebPent_UNIFIED/tests/test_prototype_pollution_detector.py
+@@ -17,7 +17,6 @@ from webpent.shared.prototype_pollution_detector import (
+     validate_server_side_pollution,
+ )
+ 
+-
+ # ---------------------------------------------------------------------------
+ # analyze_client_merge_gadgets
+ # ---------------------------------------------------------------------------
+diff --git a/WebPent_UNIFIED/tests/test_redteam_r2_c1.py b/WebPent_UNIFIED/tests/test_redteam_r2_c1.py
+index 5d0ef15..050804b 100755
+--- a/WebPent_UNIFIED/tests/test_redteam_r2_c1.py
++++ b/WebPent_UNIFIED/tests/test_redteam_r2_c1.py
+@@ -110,6 +110,7 @@ def test_scope_drift_approval_is_a_declared_channel():
+ def test_scope_drift_approval_survives_channel_filtering():
+     langgraph = pytest.importorskip("langgraph")
+     from langgraph.graph import END, START, StateGraph  # noqa: F401
++
+     from webpent.state.state import PentestState
+ 
+     g = StateGraph(PentestState)
+diff --git a/WebPent_UNIFIED/tests/test_redteam_r2_c2.py b/WebPent_UNIFIED/tests/test_redteam_r2_c2.py
+index 8f23511..fb68550 100755
+--- a/WebPent_UNIFIED/tests/test_redteam_r2_c2.py
++++ b/WebPent_UNIFIED/tests/test_redteam_r2_c2.py
+@@ -251,7 +251,9 @@ def test_r2prism_04_request_cost_step_is_read_from_config(tmp_path):
+ 
+ def test_r2prism_04_weighter_reads_request_cost_step(tmp_path):
+     from webpent.prism.value_weighter import (
+-        Signal, ValueWeighter, WeightingContext,
++        Signal,
++        ValueWeighter,
++        WeightingContext,
+     )
+ 
+     shipped = (PRISM_CFG / "curiosity_params.yaml").read_text(encoding="utf-8")
+diff --git a/WebPent_UNIFIED/tests/test_regression_campaign_pipeline.py b/WebPent_UNIFIED/tests/test_regression_campaign_pipeline.py
+index 4dbb456..8cf677c 100755
+--- a/WebPent_UNIFIED/tests/test_regression_campaign_pipeline.py
++++ b/WebPent_UNIFIED/tests/test_regression_campaign_pipeline.py
+@@ -5,14 +5,14 @@ from pathlib import Path
+ 
+ import httpx
+ 
++from webpent.agents.hunter_contracts import ExploitationResult, HunterState, HunterStatus
++from webpent.agents.hunter_runner import _chain_finding_inputs
++from webpent.cli.loaders import load_creds_file
+ from webpent.production.production_spine import ProductionSpineError, ProductionTrace
+-from webpent.shared.engagement_audit import EngagementAuditChain
+ from webpent.recon import login_executor as login_executor_module
+ from webpent.recon.auth_detector import AuthDetection, AuthSignal
+ from webpent.recon.login_executor import LoginExecutor
+-from webpent.cli.loaders import load_creds_file
+-from webpent.agents.hunter_contracts import ExploitationResult, HunterState, HunterStatus
+-from webpent.agents.hunter_runner import _chain_finding_inputs
++from webpent.shared.engagement_audit import EngagementAuditChain
+ 
+ 
+ def test_audit_telemetry_is_trace_anchored_without_consuming_execution_budget(tmp_path):
+diff --git a/WebPent_UNIFIED/tests/test_repair_recon.py b/WebPent_UNIFIED/tests/test_repair_recon.py
+index 1fbc276..4748cc4 100755
+--- a/WebPent_UNIFIED/tests/test_repair_recon.py
++++ b/WebPent_UNIFIED/tests/test_repair_recon.py
+@@ -5,13 +5,13 @@ import json
+ import httpx
+ import pytest
+ 
++from webpent import recon
+ from webpent.recon.auth_detector import AuthDetector, AuthSignal
+-from webpent.recon.login_executor import LoginExecutor
+-from webpent.recon.principal_provisioning import PrincipalProvisioner
+ from webpent.recon.autonomous_crawler import _canonical_url
+ from webpent.recon.browser_crawler import BrowserCrawlConfig, _safe_navigation_target
++from webpent.recon.login_executor import LoginExecutor
++from webpent.recon.principal_provisioning import PrincipalProvisioner
+ from webpent.scope import ScopeEnforcer, ScopeParseError, parse_scope_text
+-from webpent import recon
+ 
+ 
+ def test_api_jwt_signal_routes_to_json_and_never_form_cookie_capture(monkeypatch):
+diff --git a/WebPent_UNIFIED/tests/test_repair_reports.py b/WebPent_UNIFIED/tests/test_repair_reports.py
+index 8c94b7a..69f0fc7 100755
+--- a/WebPent_UNIFIED/tests/test_repair_reports.py
++++ b/WebPent_UNIFIED/tests/test_repair_reports.py
+@@ -7,7 +7,6 @@ from pathlib import Path
+ from webpent.reporter.bounty_report import BountyReport, CausalEvidence, ReproductionStep
+ from webpent.reporter.poc_export import build_curl_commands, export_finding_evidence
+ 
+-
+ _SECRET = "super-secret-value"
+ 
+ 
+diff --git a/WebPent_UNIFIED/tests/test_safety_governor.py b/WebPent_UNIFIED/tests/test_safety_governor.py
+index 115476c..5ffd418 100755
+--- a/WebPent_UNIFIED/tests/test_safety_governor.py
++++ b/WebPent_UNIFIED/tests/test_safety_governor.py
+@@ -83,8 +83,8 @@ class TestKillSwitch:
+ 
+ class TestKillSwitchRateGovernorIntegration:
+     def test_flag_off_kill_switch_ignored(self, clean_kill_switch: Any) -> None:
+-        from webpent.shared.rate_governor import RequestRateGovernor
+         from webpent.config.settings import activate_settings
++        from webpent.shared.rate_governor import RequestRateGovernor
+ 
+         kill_switch.engage("frozen")
+         governor = RequestRateGovernor(max_concurrent=2)
+@@ -93,8 +93,8 @@ class TestKillSwitchRateGovernorIntegration:
+                 assert permit.aborted is False  # flag off: unchanged behaviour
+ 
+     def test_engaged_switch_aborts_before_cap(self, clean_kill_switch: Any) -> None:
+-        from webpent.shared.rate_governor import RequestRateGovernor
+         from webpent.config.settings import Settings, activate_settings
++        from webpent.shared.rate_governor import RequestRateGovernor
+ 
+         kill_switch.engage("frozen")
+         governor = RequestRateGovernor(max_concurrent=2)
+@@ -392,7 +392,8 @@ class TestV31Fixes:
+             sg._counters.pop(f"eng-evict-{i}", None)
+ 
+     def test_capped_response_keeps_its_spend(self) -> None:
+-        from dataclasses import dataclass, field as dc_field
++        from dataclasses import dataclass
++        from dataclasses import field as dc_field
+ 
+         @dataclass
+         class Resp:
+diff --git a/WebPent_UNIFIED/tests/test_scope_cli_check.py b/WebPent_UNIFIED/tests/test_scope_cli_check.py
+index 0b04c42..4777145 100755
+--- a/WebPent_UNIFIED/tests/test_scope_cli_check.py
++++ b/WebPent_UNIFIED/tests/test_scope_cli_check.py
+@@ -4,7 +4,6 @@ from typer.testing import CliRunner
+ 
+ from webpent.cli.commands import app
+ 
+-
+ runner = CliRunner()
+ 
+ 
+diff --git a/WebPent_UNIFIED/tests/test_session_pool.py b/WebPent_UNIFIED/tests/test_session_pool.py
+index a9bd636..6b2e921 100755
+--- a/WebPent_UNIFIED/tests/test_session_pool.py
++++ b/WebPent_UNIFIED/tests/test_session_pool.py
+@@ -12,7 +12,6 @@ from typing import Any
+ 
+ import pytest
+ 
+-from webpent.config.settings import Settings
+ from webpent.auth.session_pool import (
+     MAX_REGISTERED_POOLS,
+     SessionPool,
+@@ -20,6 +19,7 @@ from webpent.auth.session_pool import (
+     set_pool,
+     snapshot_all,
+ )
++from webpent.config.settings import Settings
+ from webpent.production.privilege_validator import validate_privilege_differential
+ 
+ 
+diff --git a/WebPent_UNIFIED/tests/test_sourcemap.py b/WebPent_UNIFIED/tests/test_sourcemap.py
+index e5e2bf8..99aa7c4 100755
+--- a/WebPent_UNIFIED/tests/test_sourcemap.py
++++ b/WebPent_UNIFIED/tests/test_sourcemap.py
+@@ -15,8 +15,8 @@ import json
+ import pytest
+ 
+ from webpent.agents.sourcemap_analysis import (
+-    SourceMapError,
+     SourceMapAgent,
++    SourceMapError,
+     build_source_map_agent,
+     decode_vlq_segment,
+     extract_source_map_url,
+diff --git a/WebPent_UNIFIED/tests/test_target_selector.py b/WebPent_UNIFIED/tests/test_target_selector.py
+index 5df697d..b3367e5 100755
+--- a/WebPent_UNIFIED/tests/test_target_selector.py
++++ b/WebPent_UNIFIED/tests/test_target_selector.py
+@@ -32,7 +32,6 @@ from webpent.targeting.selector import (
+     update_stats,
+ )
+ 
+-
+ # ---------------------------------------------------------------------------
+ # Program brief loading.
+ # ---------------------------------------------------------------------------
+diff --git a/WebPent_UNIFIED/tests/test_u10_off1_remainder.py b/WebPent_UNIFIED/tests/test_u10_off1_remainder.py
+index caacd67..fe74f82 100755
+--- a/WebPent_UNIFIED/tests/test_u10_off1_remainder.py
++++ b/WebPent_UNIFIED/tests/test_u10_off1_remainder.py
+@@ -40,18 +40,12 @@ os.environ.setdefault("WEBPENT_ENTRYPOINT", "cli")
+ 
+ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+ 
++from webpent.reporter.export import build_report_data  # noqa: E402
+ from webpent.shared.confidence import (  # noqa: E402
+     DevilsAdvocateVerdict,
+     EvidenceType,
+     compute_confidence_score,
+ )
+-from webpent.shared.self_critique import (  # noqa: E402
+-    SelfCritiqueAction,
+-    SelfCritiqueCheckpoint,
+-    generate_adversarial_questions,
+-    recommend_self_critique_action,
+-    should_fire_before_promotion,
+-)
+ from webpent.shared.poc_policy import (  # noqa: E402
+     evaluate_execution_gate,
+     evaluate_poc_risk,
+@@ -60,7 +54,13 @@ from webpent.shared.report_quality import (  # noqa: E402
+     ReportQualityGateError,
+     enforce_report_quality,
+ )
+-from webpent.reporter.export import build_report_data  # noqa: E402
++from webpent.shared.self_critique import (  # noqa: E402
++    SelfCritiqueAction,
++    SelfCritiqueCheckpoint,
++    generate_adversarial_questions,
++    recommend_self_critique_action,
++    should_fire_before_promotion,
++)
+ 
+ 
+ # ---------------------------------------------------------------------------
+diff --git a/WebPent_UNIFIED/tests/test_u11_ev_scheduler.py b/WebPent_UNIFIED/tests/test_u11_ev_scheduler.py
+index 2a89502..d5de02f 100755
+--- a/WebPent_UNIFIED/tests/test_u11_ev_scheduler.py
++++ b/WebPent_UNIFIED/tests/test_u11_ev_scheduler.py
+@@ -30,11 +30,11 @@ os.environ.setdefault("WEBPENT_ENTRYPOINT", "cli")
+ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+ 
+ from webpent.brain.ev_scheduler import (  # noqa: E402
+-    EVScheduler,
+     FAMILY_BASE_RATES,
+     LLM_WEIGHT,
+     REQUEST_WEIGHT,
+     STARVATION_FLOOR,
++    EVScheduler,
+ )
+ 
+ 
+diff --git a/WebPent_UNIFIED/tests/test_u13_curiosity.py b/WebPent_UNIFIED/tests/test_u13_curiosity.py
+index f4fbe29..75f5726 100755
+--- a/WebPent_UNIFIED/tests/test_u13_curiosity.py
++++ b/WebPent_UNIFIED/tests/test_u13_curiosity.py
+@@ -40,8 +40,8 @@ os.environ.setdefault("WEBPENT_ENTRYPOINT", "cli")
+ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+ 
+ from webpent.brain.curiosity import (  # noqa: E402
+-    CuriositySignal,
+     CuriosityEngine,
++    CuriositySignal,
+     extract_data_behind_4xx,
+     extract_header_comment_js,
+     extract_odd_params,
+diff --git a/WebPent_UNIFIED/tests/test_u14_adaptation.py b/WebPent_UNIFIED/tests/test_u14_adaptation.py
+index d8e4de7..e333bf3 100755
+--- a/WebPent_UNIFIED/tests/test_u14_adaptation.py
++++ b/WebPent_UNIFIED/tests/test_u14_adaptation.py
+@@ -35,13 +35,13 @@ os.environ.setdefault("WEBPENT_ENTRYPOINT", "cli")
+ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+ 
+ from webpent.brain.adaptation import (  # noqa: E402
+-    AdaptationEngine,
+     EV_COLLAPSE_THRESHOLD,
+     SWITCH_COOLDOWN,
++    AdaptationEngine,
+ )
+ from webpent.brain.ev_scheduler import (  # noqa: E402
+-    EVScheduler,
+     FAMILY_BASE_RATES,
++    EVScheduler,
+ )
+ 
+ 
+diff --git a/WebPent_UNIFIED/tests/test_u4_ra3_fixes.py b/WebPent_UNIFIED/tests/test_u4_ra3_fixes.py
+index c4ca48c..b9dab9b 100755
+--- a/WebPent_UNIFIED/tests/test_u4_ra3_fixes.py
++++ b/WebPent_UNIFIED/tests/test_u4_ra3_fixes.py
+@@ -1,7 +1,9 @@
+ """U-4 (RA-3) behavioral tests: B-1 SameSite, B-4 per-call factory."""
+ from __future__ import annotations
++
+ import os
+ from unittest.mock import MagicMock
++
+ import pytest
+ 
+ os.environ.setdefault("WEBPENT_AUDIT_SECRET_KEY", "test_key_32_chars_minimum_required_1234567890")
+@@ -49,6 +51,7 @@ class TestB2ChainStopsOnAuthRejection:
+     """B-2 (RA-3): session-death probe must catch 401/403, not just redirects."""
+     def test_401_triggers_session_death_handling(self):
+         import inspect
++
+         from webpent.agents.validator import agent as agent_mod
+         source = inspect.getsource(agent_mod)
+         assert "probe_resp.status_code in (401, 403)" in source, "B-2 FAIL: 401/403 check not found"
+@@ -59,6 +62,7 @@ class TestB2ChainStopsOnAuthRejection:
+ 
+     def test_403_also_triggers_session_death_handling(self):
+         import inspect
++
+         from webpent.agents.validator import agent as agent_mod
+         source = inspect.getsource(agent_mod)
+         assert "in (401, 403)" in source, "B-2 FAIL: 401 and 403 must be in the same check"
+diff --git a/WebPent_UNIFIED/tests/test_u7_fabric_families.py b/WebPent_UNIFIED/tests/test_u7_fabric_families.py
+index bdc0385..9da7855 100755
+--- a/WebPent_UNIFIED/tests/test_u7_fabric_families.py
++++ b/WebPent_UNIFIED/tests/test_u7_fabric_families.py
+@@ -41,7 +41,6 @@ from webpent.production.vulnerability_family_contracts import (  # noqa: E402
+     family_contract,
+ )
+ 
+-
+ _TARGET = "http://127.0.0.1:8099"
+ _FAMILIES = ("SSRF", "JWT_MANIPULATION", "FILE_UPLOAD", "OPEN_REDIRECT", "MASS_ASSIGNMENT", "RACE_CONDITION")
+ 
+diff --git a/WebPent_UNIFIED/tests/test_u8_cheap_yields.py b/WebPent_UNIFIED/tests/test_u8_cheap_yields.py
+index 64dab9f..6bc2f3d 100755
+--- a/WebPent_UNIFIED/tests/test_u8_cheap_yields.py
++++ b/WebPent_UNIFIED/tests/test_u8_cheap_yields.py
+@@ -30,8 +30,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+ 
+ from webpent.production.validators import (  # noqa: E402
+     ValidationOutcome,
+-    validate_ssrf,
+     validate_sqli,
++    validate_ssrf,
+     validate_xss,
+ )
+ 
+diff --git a/WebPent_UNIFIED/tests/test_u9_de_dvwa.py b/WebPent_UNIFIED/tests/test_u9_de_dvwa.py
+index b389a89..6080c98 100755
+--- a/WebPent_UNIFIED/tests/test_u9_de_dvwa.py
++++ b/WebPent_UNIFIED/tests/test_u9_de_dvwa.py
+@@ -39,7 +39,6 @@ from webpent.production.validators import (  # noqa: E402
+     validate_ssrf,
+ )
+ 
+-
+ # ---------------------------------------------------------------------------
+ # DVWA literals stripped (5 tests)
+ # ---------------------------------------------------------------------------
+diff --git a/WebPent_UNIFIED/tests/test_ultimate_plan_core.py b/WebPent_UNIFIED/tests/test_ultimate_plan_core.py
+index 2d898d2..c20ac32 100755
+--- a/WebPent_UNIFIED/tests/test_ultimate_plan_core.py
++++ b/WebPent_UNIFIED/tests/test_ultimate_plan_core.py
+@@ -36,8 +36,7 @@ from webpent.graph.budget_governor import (
+     steps_remaining,
+ )
+ from webpent.shared.finding_announcer import FindingAnnouncer, _announce_line
+-from webpent.state.unified_state import HUNT_MODES, HUNT_MODE_PRESETS, resolve_hunt_mode
+-
++from webpent.state.unified_state import HUNT_MODE_PRESETS, HUNT_MODES, resolve_hunt_mode
+ 
+ # ---------------------------------------------------------------------------
+ # state/unified_state.py — mode presets
+@@ -232,8 +231,8 @@ class TestSurfaceSizing:
+         assert metrics["surface_size"] == 9
+ 
+     def test_node_disabled_writes_nothing(self, monkeypatch: pytest.MonkeyPatch) -> None:
+-        from webpent.graph import surface_sizing
+         from webpent.config import settings as settings_module
++        from webpent.graph import surface_sizing
+ 
+         class _Off:
+             enable_dynamic_step_budget = False
+diff --git a/WebPent_UNIFIED/tests/test_umdr24_release_gate_compliance.py b/WebPent_UNIFIED/tests/test_umdr24_release_gate_compliance.py
+index 314e0f0..655623e 100755
+--- a/WebPent_UNIFIED/tests/test_umdr24_release_gate_compliance.py
++++ b/WebPent_UNIFIED/tests/test_umdr24_release_gate_compliance.py
+@@ -21,8 +21,8 @@ from __future__ import annotations
+ 
+ import importlib.util
+ import json
+-import subprocess
+ import re
++import subprocess
+ import sys
+ import types
+ from pathlib import Path
+diff --git a/WebPent_UNIFIED/tests/test_umdr31_adaptive_research.py b/WebPent_UNIFIED/tests/test_umdr31_adaptive_research.py
+index 5218a16..560da59 100755
+--- a/WebPent_UNIFIED/tests/test_umdr31_adaptive_research.py
++++ b/WebPent_UNIFIED/tests/test_umdr31_adaptive_research.py
+@@ -32,7 +32,6 @@ from typing import Any
+ 
+ import pytest
+ 
+-
+ # ---------------------------------------------------------------------------
+ # fixtures
+ # ---------------------------------------------------------------------------
+diff --git a/WebPent_UNIFIED/tests/test_umdr33_discovery_funnel.py b/WebPent_UNIFIED/tests/test_umdr33_discovery_funnel.py
+index a5c6a89..cc506af 100755
+--- a/WebPent_UNIFIED/tests/test_umdr33_discovery_funnel.py
++++ b/WebPent_UNIFIED/tests/test_umdr33_discovery_funnel.py
+@@ -213,6 +213,7 @@ class TestStageMeasurements:
+ 
+     def test_funnel_invariants_block_dishonest_shapes(self) -> None:
+         import pytest
++
+         from webpent.production.discovery_funnel import _assert_funnel_invariants
+         with pytest.raises(AssertionError):
+             _assert_funnel_invariants({
+diff --git a/WebPent_UNIFIED/tests/test_umdr33_evidence_chain_fixes.py b/WebPent_UNIFIED/tests/test_umdr33_evidence_chain_fixes.py
+index d407f05..eb6851d 100755
+--- a/WebPent_UNIFIED/tests/test_umdr33_evidence_chain_fixes.py
++++ b/WebPent_UNIFIED/tests/test_umdr33_evidence_chain_fixes.py
+@@ -25,11 +25,11 @@ import pytest
+ ROOT = Path(__file__).resolve().parent.parent
+ sys.path.insert(0, str(ROOT / "src"))
+ 
++from webpent.cqa_v2.causal_guard import GuardedCausalResult, Verdict  # noqa: E402
+ from webpent.cqa_v2.proof_bundle_builder import (  # noqa: E402
+     CompleteProofBundle,
+     build_complete_proof_bundle,
+ )
+-from webpent.cqa_v2.causal_guard import GuardedCausalResult, Verdict  # noqa: E402
+ 
+ 
+ def _causal_result() -> GuardedCausalResult:
+diff --git a/WebPent_UNIFIED/tests/test_umdr33_info_gain_operational.py b/WebPent_UNIFIED/tests/test_umdr33_info_gain_operational.py
+index 2bbbe4b..c3c0199 100755
+--- a/WebPent_UNIFIED/tests/test_umdr33_info_gain_operational.py
++++ b/WebPent_UNIFIED/tests/test_umdr33_info_gain_operational.py
+@@ -34,9 +34,9 @@ sys.path.insert(0, str(ROOT / "src"))
+ 
+ from webpent.models.hypothesis import Hypothesis  # noqa: E402
+ from webpent.shared.prioritization import (  # noqa: E402
+-    W_INFO_GAIN,
+     _INFO_GAIN_NEUTRAL,
+     _W_SUM,
++    W_INFO_GAIN,
+     rank_open_hypotheses,
+     score_hypothesis,
+ )
+diff --git a/WebPent_UNIFIED/tests/test_umdr36_appmodel_influence.py b/WebPent_UNIFIED/tests/test_umdr36_appmodel_influence.py
+index 747c42e..6bcc048 100755
+--- a/WebPent_UNIFIED/tests/test_umdr36_appmodel_influence.py
++++ b/WebPent_UNIFIED/tests/test_umdr36_appmodel_influence.py
+@@ -13,8 +13,8 @@ import uuid
+ from typing import Any
+ 
+ from webpent.appmodel.builder import (
+-    build_appmodel_research_hints,
+     build_application_model,
++    build_appmodel_research_hints,
+ )
+ from webpent.graph.appmodel_nodes import appmodel_node
+ from webpent.models.findings import Finding
+diff --git a/WebPent_UNIFIED/tests/test_umdr37_appmodel_extensions.py b/WebPent_UNIFIED/tests/test_umdr37_appmodel_extensions.py
+index 6c43a82..3c4df9f 100755
+--- a/WebPent_UNIFIED/tests/test_umdr37_appmodel_extensions.py
++++ b/WebPent_UNIFIED/tests/test_umdr37_appmodel_extensions.py
+@@ -10,13 +10,13 @@ between model builds. These tests pin the additive extensions.
+ from __future__ import annotations
+ 
+ from webpent.appmodel.models import (
++    _PROVENANCE_CONFIDENCE,
++    ApplicationModel,
+     AppModelEntity,
+     AppModelEntityKind,
+     AppModelRelation,
+     AppModelRelationKind,
+-    ApplicationModel,
+     DiscoveryProvenance,
+-    _PROVENANCE_CONFIDENCE,
+     provenance_confidence,
+ )
+ 
+diff --git a/WebPent_UNIFIED/tests/test_umdr37_failure_taxonomy.py b/WebPent_UNIFIED/tests/test_umdr37_failure_taxonomy.py
+index 17498de..d5d8162 100755
+--- a/WebPent_UNIFIED/tests/test_umdr37_failure_taxonomy.py
++++ b/WebPent_UNIFIED/tests/test_umdr37_failure_taxonomy.py
+@@ -5,11 +5,11 @@ from __future__ import annotations
+ import pytest
+ 
+ from webpent.research.failure_taxonomy import (
++    REASON_CODES,
+     CausalAttribution,
+     FailureLedger,
+     FailureStage,
+     LearningEvent,
+-    REASON_CODES,
+     apply_failure_policy,
+ )
+ 
+diff --git a/WebPent_UNIFIED/tests/test_umdr37_family_profiles.py b/WebPent_UNIFIED/tests/test_umdr37_family_profiles.py
+index a8a07e2..7a2837b 100755
+--- a/WebPent_UNIFIED/tests/test_umdr37_family_profiles.py
++++ b/WebPent_UNIFIED/tests/test_umdr37_family_profiles.py
+@@ -5,10 +5,10 @@ from __future__ import annotations
+ from webpent.research.failure_taxonomy import REASON_CODES
+ from webpent.research.family_profiles import (
+     ADVISORY,
++    FAMILY_PROFILES,
+     IMPLEMENTED,
+     INTEGRATED,
+     PRODUCTION_PATH_VERIFIED,
+-    FAMILY_PROFILES,
+     FamilySecurityProfile,
+     families_for_entity,
+     profiles_by_status,
+diff --git a/WebPent_UNIFIED/tests/test_umdr37_lifecycle_view.py b/WebPent_UNIFIED/tests/test_umdr37_lifecycle_view.py
+index 04b92ff..726233a 100755
+--- a/WebPent_UNIFIED/tests/test_umdr37_lifecycle_view.py
++++ b/WebPent_UNIFIED/tests/test_umdr37_lifecycle_view.py
+@@ -6,8 +6,8 @@ import pytest
+ 
+ from webpent.models.hypothesis import HypothesisStatus
+ from webpent.research.lifecycle_view import (
+-    lifecycle_stage,
+     lifecycle_snapshot,
++    lifecycle_stage,
+ )
+ 
+ 
+diff --git a/WebPent_UNIFIED/tests/test_umdr41_p0_correctness.py b/WebPent_UNIFIED/tests/test_umdr41_p0_correctness.py
+index b0c2f5b..924b298 100755
+--- a/WebPent_UNIFIED/tests/test_umdr41_p0_correctness.py
++++ b/WebPent_UNIFIED/tests/test_umdr41_p0_correctness.py
+@@ -25,7 +25,6 @@ import pytest
+ from webpent.recon.auth_detector import AuthDetector
+ from webpent.recon.principal_provisioning import PrincipalProvisioner
+ 
+-
+ # ---------------------------------------------------------------------------
+ # §5.1 — detected_type provisioning correctness
+ # ---------------------------------------------------------------------------
+@@ -277,10 +276,10 @@ def test_5_3_production_trace_class_hints_resolve():
+ 
+ def test_5_3_no_import_cycle_introduced():
+     """The direct imports added for resolution must not create cycles."""
++    import webpent.models.hypothesis  # noqa: F401
+     import webpent.shared.cve_advisory  # noqa: F401
+     import webpent.shared.generic_web_contracts  # noqa: F401
+     import webpent.shared.verifier  # noqa: F401
+-    import webpent.models.hypothesis  # noqa: F401
+ 
+ 
+ # ---------------------------------------------------------------------------
+diff --git a/WebPent_UNIFIED/tests/test_unfreeze_fixes.py b/WebPent_UNIFIED/tests/test_unfreeze_fixes.py
+index 8af5550..44c90b9 100755
+--- a/WebPent_UNIFIED/tests/test_unfreeze_fixes.py
++++ b/WebPent_UNIFIED/tests/test_unfreeze_fixes.py
+@@ -1,13 +1,16 @@
+ """Unfreeze-fix verification tests (TEAM-RED defects D2/D3/D4/D7). Synthetic, no network."""
+ from __future__ import annotations
+-import sys, os
++
++import os
++import sys
++
+ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
+ 
+ from webpent.integration.session_recovery_bridge import ExploitResultView, RecoveringExploiter
+-from webpent.recon.session_recovery import SessionRecoveryManager, CampaignHalted
+ from webpent.recon.auth_detector import AuthDetector
+-from webpent.recon.login_executor import LoginExecutor
+ from webpent.recon.hypothesis_generator import _advised_value
++from webpent.recon.login_executor import LoginExecutor
++from webpent.recon.session_recovery import CampaignHalted, SessionRecoveryManager
+ 
+ 
+ # -- D2: ExploitResultView understands ExploitationResult shape ----------------
+diff --git a/WebPent_UNIFIED/tests/test_v2_ssrf_probe.py b/WebPent_UNIFIED/tests/test_v2_ssrf_probe.py
+index 7411458..b404c61 100755
+--- a/WebPent_UNIFIED/tests/test_v2_ssrf_probe.py
++++ b/WebPent_UNIFIED/tests/test_v2_ssrf_probe.py
+@@ -1,7 +1,12 @@
+ """V-2: The Real-Server SSRF Probe — the most security-critical test in the project."""
+ from __future__ import annotations
+-import os, socket, threading, time
++
++import os
++import socket
++import threading
++import time
+ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
++
+ import pytest
+ 
+ os.environ.setdefault("WEBPENT_AUDIT_SECRET_KEY", "test_key_32_chars_minimum_required_1234567890")
+@@ -57,8 +62,11 @@ class TestV2RealServerSSRFProbe:
+         origin_url = f"http://127.0.0.1:{origin_port}"
+         redirect_url = f"http://127.0.0.1:{origin_port}/redirect"
+         CountingHandler.request_counts = {"origin": 0, "redirect": 0, "destination": 0, "other": 0}
+-        from webpent.shared.http import make_safe_httpx_client, SSRFRedirectBlockedError
+-        from webpent.shared.engagement_scope import set_engagement_target_hosts, clear_engagement_target_hosts
++        from webpent.shared.engagement_scope import (
++            clear_engagement_target_hosts,
++            set_engagement_target_hosts,
++        )
++        from webpent.shared.http import SSRFRedirectBlockedError, make_safe_httpx_client
+         target_token = set_engagement_target_hosts(origin_url)
+         try:
+             try:
+@@ -75,8 +83,11 @@ class TestV2RealServerSSRFProbe:
+         origin_url = f"http://127.0.0.1:{origin_port}"
+         redirect_url = f"http://127.0.0.1:{origin_port}/redirect"
+         CountingHandler.request_counts = {"origin": 0, "redirect": 0, "destination": 0, "other": 0}
+-        from webpent.shared.http import make_safe_httpx_client, SSRFRedirectBlockedError
+-        from webpent.shared.engagement_scope import set_engagement_target_hosts, clear_engagement_target_hosts
++        from webpent.shared.engagement_scope import (
++            clear_engagement_target_hosts,
++            set_engagement_target_hosts,
++        )
++        from webpent.shared.http import SSRFRedirectBlockedError, make_safe_httpx_client
+         target_token = set_engagement_target_hosts(origin_url)
+         try:
+             try:
+@@ -93,8 +104,11 @@ class TestV2RealServerSSRFProbe:
+         origin_url = f"http://127.0.0.1:{origin_port}"
+         redirect_url = f"http://127.0.0.1:{origin_port}/redirect"
+         CountingHandler.request_counts = {"origin": 0, "redirect": 0, "destination": 0, "other": 0}
+-        from webpent.shared.http import make_safe_httpx_client, SSRFRedirectBlockedError
+-        from webpent.shared.engagement_scope import set_engagement_target_hosts, clear_engagement_target_hosts
++        from webpent.shared.engagement_scope import (
++            clear_engagement_target_hosts,
++            set_engagement_target_hosts,
++        )
++        from webpent.shared.http import SSRFRedirectBlockedError, make_safe_httpx_client
+         target_token = set_engagement_target_hosts(origin_url)
+         try:
+             try:
+diff --git a/WebPent_UNIFIED/tests/test_vip_orchestrator.py b/WebPent_UNIFIED/tests/test_vip_orchestrator.py
+index 2fdb7e7..de91a41 100755
+--- a/WebPent_UNIFIED/tests/test_vip_orchestrator.py
++++ b/WebPent_UNIFIED/tests/test_vip_orchestrator.py
+@@ -32,8 +32,8 @@ from webpent.shared.detector_hardening import (
+     fold_evasion_padding,
+ )
+ from webpent.shared.red_vs_blue import (
+-    RedVsBlueReport,
+     EvasionAttemptResult,
++    RedVsBlueReport,
+     run_red_vs_blue,
+ )
+ from webpent.shared.surface_evidence_graph import build_surface_evidence_graph
+diff --git a/WebPent_UNIFIED/tests/test_vulnbox_benchmark.py b/WebPent_UNIFIED/tests/test_vulnbox_benchmark.py
+index 05f501f..e23c354 100755
+--- a/WebPent_UNIFIED/tests/test_vulnbox_benchmark.py
++++ b/WebPent_UNIFIED/tests/test_vulnbox_benchmark.py
+@@ -24,8 +24,8 @@ settings_mod = importlib.import_module("webpent.config.settings")
+ 
+ import json  # noqa: E402
+ 
+-from starlette.testclient import TestClient  # noqa: E402
+ import pytest  # noqa: E402
++from starlette.testclient import TestClient  # noqa: E402
+ 
+ 
+ # ---------------------------------------------------------------------------
+diff --git a/WebPent_UNIFIED/tests/test_waf_adaptive.py b/WebPent_UNIFIED/tests/test_waf_adaptive.py
+index 188b316..3f32c73 100755
+--- a/WebPent_UNIFIED/tests/test_waf_adaptive.py
++++ b/WebPent_UNIFIED/tests/test_waf_adaptive.py
+@@ -18,12 +18,12 @@ from __future__ import annotations
+ import pytest
+ 
+ from webpent.waf_evasion.adaptive import (
++    MAX_ATTEMPTS_CAP,
++    TRANSFORM_ORDER,
+     AdaptiveClient,
+     AdaptiveContext,
+-    AdaptiveResponse,
+     AdaptiveEvasionError,
+-    MAX_ATTEMPTS_CAP,
+-    TRANSFORM_ORDER,
++    AdaptiveResponse,
+     BackoffPolicy,
+     classify_waf_block,
+     transform_registry,
+diff --git a/WebPent_UNIFIED/tests/test_workflow_fuzzing.py b/WebPent_UNIFIED/tests/test_workflow_fuzzing.py
+index 5c9a282..83608f4 100755
+--- a/WebPent_UNIFIED/tests/test_workflow_fuzzing.py
++++ b/WebPent_UNIFIED/tests/test_workflow_fuzzing.py
+@@ -15,6 +15,12 @@ import pytest
+ 
+ from webpent.config.settings import Settings, activate_settings
+ from webpent.workflow_fuzzing import agent
++from webpent.workflow_fuzzing.agent import (
++    STATUS_CONFIRMED,
++    STATUS_INCONCLUSIVE,
++    STATUS_REFUTED,
++    validate_workflow_integrity_break,
++)
+ from webpent.workflow_fuzzing.strategies import (
+     MAX_MUTATED_STEPS,
+     MUTATION_KINDS,
+@@ -25,12 +31,6 @@ from webpent.workflow_fuzzing.strategies import (
+     mutate_workflow,
+     semantically_fill,
+ )
+-from webpent.workflow_fuzzing.agent import (
+-    STATUS_CONFIRMED,
+-    STATUS_INCONCLUSIVE,
+-    STATUS_REFUTED,
+-    validate_workflow_integrity_break,
+-)
+ 
+ 
+ def _resp(code: int, text: str, url: str = "https://t/final") -> Any:
+-- 
+2.47.3
+

@@ -41,7 +41,6 @@ from webpent.shared.target_workspace_context import (
     get_active_target_workspace,
 )
 
-
 # ---------------------------------------------------------------------------
 # 1. Identity: deterministic, distinct, normalized
 # ---------------------------------------------------------------------------

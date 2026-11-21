@@ -213,6 +213,7 @@ class TestStageMeasurements:
 
     def test_funnel_invariants_block_dishonest_shapes(self) -> None:
         import pytest
+
         from webpent.production.discovery_funnel import _assert_funnel_invariants
         with pytest.raises(AssertionError):
             _assert_funnel_invariants({

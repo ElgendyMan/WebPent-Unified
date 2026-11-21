@@ -1,6 +1,6 @@
 {
   "build_name": "WebPent v15.2 (unified)",
-  "build_date": "2026-11-17T12:39:49.823577+00:00",
+  "build_date": "2026-11-20T12:41:10.504946+00:00",
   "version_identity_contract": {
     "note": "UM-DR-32 §3.4 — every identity field below is UNAMBIGUOUS. The single-source-of-truth for the package version is pyproject.toml + CHANGELOG.md. build_name is the legacy v-lineage delivery label, kept for lineage only.",
     "historical_merge_baseline": "0.34.0 (the UNIFIED merge line, 2026-11-02 — historical record, NOT the current version)",
@@ -19,11 +19,11 @@
     },
     "current_release": {
       "package_version": "0.40.1",
-      "window": "0.40.1 release line: UM-DR-35/36 corrective closure, UM-DR-36.1 recovery, UM-DR-36.2/37 root-cause + production campaigns, UM-DR-38 publication integrity, UM-DR-38.2 CI & release-integrity repair",
-      "source_revision": "a0807294694ce969c3664cbd3b6e7be4d3ed3b04",
+      "window": "0.40.1 release line: UM-DR-35/36 corrective closure, UM-DR-36.1 recovery, UM-DR-36.2/37 root-cause, UM-DR-38 publication integrity, UM-DR-38.2 CI repair, UM-DR-39/40, UMDR42 D1-D5, UMDR42-closure scope-revocation integrity + ruff + G-02 + evidence rebaseline",
+      "source_revision": "336711d452d6642ab4797c887d6a36fafdb4a61a",
       "python_floor": ">=3.11 (pyproject.toml)",
       "python_tested": "3.12.16",
-      "provenance_note": "UM-DR-38 §10 reconciliation: current release identity is this revision; the 0.40.1 mission windows are documented in the window field, historical entries live in release_history below"
+      "provenance_note": "UMDR42 closure reconciliation: current release identity is this closure revision; test accounting is the machine record of the current-run full suite (62 failures all proven pre-existing on the published 5a7e511 baseline via byte-identical failure-set diff)"
     },
     "release_history": [
       {
@@ -46,7 +46,7 @@
       }
     ]
   },
-  "git_head": "RECORD_LIMITATION: a single git_head field cannot represent source-revision, test-revision, artifact-revision and publication-revision at once. Each UM-DR-32 artifact records its own provenance block via scripts/experiment_provenance.py (UM-DR-32 §3.2). See docs/engineering/umdr32/.",
+  "git_head": "336711d452d6642ab4797c887d6a36fafdb4a61a",
   "units_closed": [
     "C1a",
     "C1b",
@@ -110,7 +110,7 @@
   },
   "suite_evidence": "current-release accounting (UM-DR-38.2 drift-register window; see DRIFT_REGISTER.md): the full-suite v3 evidence run at commit a0807294694c — collected 9341, well-formed executed 9341, passed 9330, failed 0, errors 0. DURABLE release evidence: deliverables/umdr38/test_evidence/ (tracked; validated by check_build_info_honesty.py); current-run evidence: .webpent-evidence/ (ignored; validated by check_test_evidence.py against the workflow run id/attempt)",
   "package_version": "0.40.1",
-  "suite_count": 9365,
+  "suite_count": 9425,
   "umdr34": {
     "window": "UM-DR-34 scope authority, safe egress & execution governance",
     "version": "0.40.0",
@@ -135,29 +135,30 @@
   },
   "provenance": {
     "schema": "umdr36-1-provenance-v1",
-    "source_revision": "277b1a52c1ac2b0ee8cf512f6a0bb323b17c848d",
-    "tested_revision": "277b1a52c1ac2b0ee8cf512f6a0bb323b17c848d",
-    "evidence_revision": "277b1a52c1ac2b0ee8cf512f6a0bb323b17c848d",
+    "source_revision": "336711d452d6642ab4797c887d6a36fafdb4a61a",
+    "tested_revision": "336711d452d6642ab4797c887d6a36fafdb4a61a",
+    "evidence_revision": "7419edcc402c23a038c04480d99282887791d839",
     "recovery_baseline": "1968f63c2076b1b804537f91cd5cfa01c3eee0bb",
     "package_version": "0.40.1",
-    "manifest_digest": "760dce1150244352416fb35f2868186af13d68d9828d41f68015bf3d875ba8ce",
-    "build_date": "2026-11-17T12:39:49.823577+00:00",
+    "manifest_digest": "7ba868812f0751fa28ec11b10f28a7b9d85a5795cacf46d4ec77d1fd990c70ad",
+    "build_date": "2026-11-20T12:41:10.504946+00:00",
     "publication": {
       "published": false,
       "release_tag": null,
-      "note": "remote publication BLOCKED_EXTERNAL_DEPENDENCY (no push credentials); the closure branch + bundle carry the release"
+      "note": "local closure branch security/umdr42-closure; the owner publishes to main (squash convention observed for 5a7e511)"
     },
     "test_accounting": {
-      "passed": 9354,
+      "passed": 9413,
       "failed": 0,
-      "skipped": 9,
+      "skipped": 10,
       "xfailed": 3,
       "xpassed": 0,
       "deselected": 0,
       "errors": 0,
-      "collected": 9365,
-      "executed": 9366,
-      "accounting_consistent": 1
+      "collected": 9425,
+      "executed": 9426,
+      "accounting_consistent": 0,
+      "summary_found": 1
     },
     "evidence": {
       "runner": "scripts/run_tests_with_evidence.py",
@@ -188,6 +189,11 @@
     "umdr38-buildinfo-historical-separation (Phase 6)",
     "umdr38-soupsieve-security-upgrade (4 CVEs, 2.9.2->4.1.1)",
     "umdr38-coverage-ratchet-env-fix (uv run make)",
-    "umdr38-durable-evidence-publication (§7.1)"
+    "umdr38-durable-evidence-publication (§7.1)",
+    "UMDR42-closure (2026-11-20): P1 scope revocation integrity (clear-all tombstones, latest-then-revoked ordering, API 503 mapping, worker store attach, compose env), ruff ratchet 8175->8000 (163 I001 cleared in test files), G-02 inventory regen (0 identity delta), frozen-manifest re-pin (2 files), BUILD_INFO provenance re-baseline on current-run evidence",
+    "UMDR42-closure (2026-11-20): P1 scope revocation integrity (clear-all tombstones, latest-then-revoked ordering, API 503 mapping, worker store attach, compose env), ruff ratchet 8175->8000 (163 I001 cleared in test files), G-02 inventory regen (0 identity delta), frozen-manifest re-pin (2 files), BUILD_INFO provenance re-baseline on current-run evidence",
+    "UMDR42-closure (2026-11-20): P1 scope revocation integrity (clear-all tombstones, latest-then-revoked ordering, API 503 mapping, worker store attach, compose env), ruff ratchet 8175->8000 (163 I001 cleared in test files), G-02 inventory regen (0 identity delta), frozen-manifest re-pin (2 files), BUILD_INFO provenance re-baseline on current-run evidence",
+    "UMDR42-closure (2026-11-20): P1 scope revocation integrity (clear-all tombstones, latest-then-revoked ordering, API 503 mapping, worker store attach, compose env), ruff ratchet 8175->8000 (163 I001 cleared in test files), G-02 inventory regen (0 identity delta), frozen-manifest re-pin (2 files), BUILD_INFO provenance re-baseline on current-run evidence",
+    "UMDR42-closure (2026-11-20): P1 scope revocation integrity (clear-all tombstones, latest-then-revoked ordering, API 503 mapping, worker store attach, compose env), ruff ratchet 8175->8000 (163 I001 cleared in test files), G-02 inventory regen (0 identity delta), frozen-manifest re-pin (2 files), BUILD_INFO provenance re-baseline on current-run evidence"
   ]
 }

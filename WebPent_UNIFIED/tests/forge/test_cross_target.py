@@ -8,19 +8,19 @@ corpus.
 """
 from __future__ import annotations
 
+from datetime import datetime, timezone
+
 import pytest
 
 from webpent.forge.cross_target import (
     SIMILARITY_THRESHOLD,
+    CrossTargetTransfer,
     TargetProfile,
     compute_similarity,
-    CrossTargetTransfer,
 )
+from webpent.forge.indexer import PayloadIndexer
 from webpent.forge.outcome_tracker import OutcomeTracker, PayloadOutcome
 from webpent.forge.schemas import Family, NormalizedPayload
-from webpent.forge.indexer import PayloadIndexer
-
-from datetime import datetime, timezone
 
 
 def _payload(pid: str, family: Family = Family.SQLI) -> NormalizedPayload:

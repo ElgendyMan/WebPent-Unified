@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import pytest
 
+from webpent.integration.session_recovery_bridge import ExploitResultView, RecoveringExploiter
 from webpent.recon.session_recovery import (
     CampaignHalted,
     RecoveryOutcome,
@@ -16,7 +17,6 @@ from webpent.recon.session_recovery import (
     is_login_redirect,
     response_looks_dead,
 )
-from webpent.integration.session_recovery_bridge import RecoveringExploiter, ExploitResultView
 
 
 # -- stubs -------------------------------------------------------------------

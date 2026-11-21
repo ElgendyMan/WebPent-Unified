@@ -21,8 +21,8 @@ from __future__ import annotations
 
 import importlib.util
 import json
-import subprocess
 import re
+import subprocess
 import sys
 import types
 from pathlib import Path

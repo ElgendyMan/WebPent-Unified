@@ -10,8 +10,8 @@ import pytest
 
 from forge.conftest import PAYLOADSALLTHETHINGS_MD
 from webpent.forge.mutation import (
-    MUTATIONS,
     MUTATION_SEED,
+    MUTATIONS,
     mutate,
 )
 from webpent.forge.schemas import NormalizedPayload, PayloadAttribution

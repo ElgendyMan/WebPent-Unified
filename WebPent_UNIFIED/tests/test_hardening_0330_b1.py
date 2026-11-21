@@ -27,7 +27,6 @@ from webpent.llm_researcher.providers.pool import (
 )
 from webpent.memory.ab_lab import LessonABLab
 
-
 # ---------------------------------------------------------------------------
 # F-01 — open_week must support multiple targets per client per week
 # ---------------------------------------------------------------------------

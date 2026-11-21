@@ -12,7 +12,6 @@ from typing import Any
 
 import pytest
 
-from webpent.config.settings import Settings
 from webpent.auth.session_pool import (
     MAX_REGISTERED_POOLS,
     SessionPool,
@@ -20,6 +19,7 @@ from webpent.auth.session_pool import (
     set_pool,
     snapshot_all,
 )
+from webpent.config.settings import Settings
 from webpent.production.privilege_validator import validate_privilege_differential
 
 

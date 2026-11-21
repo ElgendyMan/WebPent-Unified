@@ -11,7 +11,6 @@ import pytest
 from webpent.forge.schemas import PayloadAttribution, TargetContext
 from webpent.forge.sources import get_source
 
-
 # ---------------------------------------------------------------------------
 # Sample source content (pre-fetched bodies, one per parser)
 # ---------------------------------------------------------------------------

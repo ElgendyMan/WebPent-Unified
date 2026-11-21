@@ -251,7 +251,9 @@ def test_r2prism_04_request_cost_step_is_read_from_config(tmp_path):
 
 def test_r2prism_04_weighter_reads_request_cost_step(tmp_path):
     from webpent.prism.value_weighter import (
-        Signal, ValueWeighter, WeightingContext,
+        Signal,
+        ValueWeighter,
+        WeightingContext,
     )
 
     shipped = (PRISM_CFG / "curiosity_params.yaml").read_text(encoding="utf-8")

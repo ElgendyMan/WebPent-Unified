@@ -19,6 +19,7 @@ from uuid import uuid4
 
 import pytest
 
+from webpent.models.findings import Finding
 from webpent.reporter.platform_export import (
     PLATFORMS,
     PlatformExportError,
@@ -26,7 +27,6 @@ from webpent.reporter.platform_export import (
     export_finding,
     platform_export_refusal,
 )
-from webpent.models.findings import Finding
 
 
 def _activated(**extra):
