@@ -1,0 +1,75 @@
+{
+  "cases": [
+    {
+      "case": "L1 repeated does not duplicate pool",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "case": "L2 repeated does not reset investigating",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "case": "L3 repeated does not reset promoted",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "case": "L4 no silent reopen of abandoned",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "case": "L5 legitimate transitions still work",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "case": "L6 contradictory terminal preserved as conflict",
+      "pass": true,
+      "detail": "producer-1 | lifecycle-conflict[resolved_false rejected: terminal resolved_true preserved]"
+    },
+    {
+      "case": "L7 evidence refs preserved and deduplicated",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "case": "L8 origin/provenance preserved",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "case": "L9 checkpoint round-trip preserves ids and lifecycle",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "case": "L10 dict-shaped state honors the contract",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "case": "Scenario A identity OFF \u2014 legacy path intact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "case": "Scenario B identity ON \u2014 separation + merge verified",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "case": "build_graph constructs (Scenario A default)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "case": "Replay determinism \u2014 identical digests across runs",
+      "pass": true,
+      "detail": "A=a6de0d75bcdd B=51c7f8690b41"
+    }
+  ],
+  "all_passed": true
+}
