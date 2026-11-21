@@ -429,6 +429,16 @@ def main() -> int:
         print("failed tests:")
         for nodeid in accounting_v3["failed_nodeids"]:
             print(f"  FAILED {nodeid}")
+        # UM-DR-43C §2.6: pytest's output was captured into a PIPE and
+        # never printed — the CI log named failing tests but never showed
+        # WHY they failed (the option_b runner-only failure stayed
+        # undiagnosed across runs #21/#22/#25 for exactly this reason).
+        # Re-print the tail of the captured output; the FAILURES block
+        # and short summary live at the end.
+        print("---- pytest output tail (FAILURES section) ----")
+        for line in output.splitlines()[-400:]:
+            print(line)
+        print("---- end pytest output tail ----")
     print(f"evidence: {EVIDENCE_JSON}")
 
     # Fail-closed: a non-zero pytest exit or an accounting the evidence

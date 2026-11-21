@@ -157,6 +157,20 @@ def test_option_b_approval_boundary_stays_fail_closed_when_missing(tmp_path: Pat
     With the approval artifact absent, validation must still report
     ``approval_source_missing`` — and the shipped import's recorded sha256
     must never be accepted without the matching external file.
+
+    UM-DR-43C §2.5: the historical-path probe used the module-level
+    ``APPROVAL_SOURCE`` default (``/home/ubuntu/upload/pasted_content.txt``
+    unless ``WEBPENT_OPTION_B_APPROVAL_SOURCE`` is set). That default made
+    the test's second assertion depend on machine state outside the test's
+    control — a runner image or sandbox that happens to provide a file at
+    the default path with content whose sha256 differs from the recorded
+    one satisfies the law, but any environment that resolves the recorded
+    hash makes the intersection empty and fails the test for the WRONG
+    reason (the boundary itself never weakened). The law is pinned
+    deterministically instead: validate against two operator-configurable
+    sources — one absent, one present-but-different — and require
+    fail-closed in BOTH cases. The module-level default stays untouched
+    for production code; only the test's inputs are pinned.
     """
     missing_path = tmp_path / "does_not_exist.txt"
     assert "approval_source_missing" in validate(IMPORT, PACKET, INVENTORY, missing_path)
@@ -164,6 +178,20 @@ def test_option_b_approval_boundary_stays_fail_closed_when_missing(tmp_path: Pat
     # either absence or a content mismatch must remain fail-closed.
     errors = validate(IMPORT, PACKET, INVENTORY, APPROVAL_SOURCE)
     assert {"approval_source_missing", "approval_source_hash_mismatch"}.intersection(errors)
+    # UM-DR-43C §2.5 deterministic pin: a present-but-different artifact at
+    # an operator-configured location must ALSO stay fail-closed (hash
+    # mismatch), independent of any machine's historical-path state.
+    present_but_wrong = tmp_path / "approval_present_but_wrong.txt"
+    present_but_wrong.write_text(
+        SYNTHETIC_APPROVAL_CONTENT, encoding="utf-8"
+    )
+    wrong_errors = validate(
+        IMPORT, PACKET, INVENTORY, present_but_wrong
+    )
+    assert "approval_source_hash_mismatch" in wrong_errors, (
+        "a present artifact whose sha256 differs from the recorded one "
+        "must never pass the boundary"
+    )
 
 
 def test_option_b_import_has_no_human_signoff_or_promotion_effect() -> None:
