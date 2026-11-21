@@ -1,12 +1,12 @@
 {
   "schema": "full-suite-evidence/v3",
   "runner": "run_tests_with_evidence.py",
-  "source_commit": "8e958791e5e42aa28efd2a6bde82e5a54ae14694",
+  "source_commit": "e9f49c875091585557a079dd2f9ec667ffd9d39f",
   "tree_clean": true,
   "tree_status_sample_at_test_start": [],
   "github": null,
-  "started_at_utc": "2026-11-21T07:33:18.683511+00:00",
-  "completed_at_utc": "2026-11-21T07:51:57.421173+00:00",
+  "started_at_utc": "2026-11-21T12:01:02.921179+00:00",
+  "completed_at_utc": "2026-11-21T12:20:28.900593+00:00",
   "python_version": "3.12.16",
   "uv_version": "uv 0.13.9 (x86_64-unknown-linux-gnu)",
   "lockfile_sha256": "6d714ff5ed5212b8e751d19fc50917aa52fec042583f4d69d9d6b2a75c4ef650",
@@ -27,8 +27,8 @@
   "accounting": {
     "collected": 9467,
     "executed": 9468,
-    "passed": 9454,
-    "failed": 1,
+    "passed": 9455,
+    "failed": 0,
     "skipped": 10,
     "xfailed": 3,
     "xpassed": 0,
@@ -44,9 +44,9 @@
     "started_items": 9467,
     "not_started": 0,
     "outcomes": {
-      "passed": 9454,
-      "failed": 1,
-      "skipped": 10,
+      "passed": 9455,
+      "failed": 0,
+      "skipped": 9,
       "xfailed": 3,
       "xpassed": 0
     },
@@ -55,10 +55,8 @@
     "teardown_errors": 0,
     "errors_total": 0,
     "interrupted": false,
-    "exitstatus": 1,
-    "failed_nodeids": [
-      "tests/test_umdr24_release_gate_compliance.py::test_build_info_suite_count_coherent_with_collected_reality"
-    ],
+    "exitstatus": 0,
+    "failed_nodeids": [],
     "invariants": {
       "collected_eq_started_plus_not_started_plus_deselected": true,
       "started_eq_outcomes_plus_setup_errors": true,
@@ -78,5 +76,5 @@
     "result": "77.22% (floor 72% \u2014 OK)",
     "percent_covered": 77.22
   },
-  "exit_code": 1
+  "exit_code": 0
 }
