@@ -427,8 +427,10 @@ def main() -> int:
     # this a red run gives no actionable failure name.
     if accounting_v3 and accounting_v3.get("failed_nodeids"):
         print("failed tests:")
-        for nodeid in accounting_v3["failed_nodeids"]:
-            print(f"  FAILED {nodeid}")
+        for detail in accounting_v3.get("failure_details", []):
+            print(f"  FAILED {detail['nodeid']}")
+            for tb_line in detail.get("longrepr", "").splitlines():
+                print(f"    | {tb_line}")
     print(f"evidence: {EVIDENCE_JSON}")
 
     # Fail-closed: a non-zero pytest exit or an accounting the evidence

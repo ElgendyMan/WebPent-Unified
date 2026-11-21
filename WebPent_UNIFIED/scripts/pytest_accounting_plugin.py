@@ -56,6 +56,7 @@ class AccountingPlugin:
             "xfailed": 0, "xpassed": 0,
         }
         self.failed_nodeids: list[str] = []
+        self.failure_details: list[dict[str, str]] = []
 
     # -- collection phase --------------------------------------------------
 
@@ -97,6 +98,18 @@ class AccountingPlugin:
                 self.outcomes["failed"] += 1
                 if not hasattr(report, "wasxfail"):
                     self.failed_nodeids.append(report.nodeid)
+                    # Capture the assertion text for the CI log: the
+                    # runner's stdout (not pytest's interactive output)
+                    # is what GitHub keeps, so a red run needs the
+                    # traceback excerpt inline to be actionable.
+                    try:
+                        longrepr = str(report.longrepr)
+                        if len(longrepr) > 3000:
+                            longrepr = longrepr[:3000] + "\n...[truncated]"
+                    except Exception:
+                        longrepr = "<unavailable>"
+                    self.failure_details.append(
+                        {"nodeid": report.nodeid, "longrepr": longrepr})
             return
 
     # -- session end --------------------------------------------------------
@@ -131,6 +144,7 @@ class AccountingPlugin:
             "interrupted": interrupted,
             "exitstatus": int(exitstatus),
             "failed_nodeids": self.failed_nodeids,
+            "failure_details": self.failure_details,
             "invariants": {
                 "collected_eq_started_plus_not_started_plus_deselected":
                     collected == started + not_started + self.deselected,
