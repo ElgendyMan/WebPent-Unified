@@ -1,26 +1,26 @@
 {
   "build_name": "WebPent v15.2 (unified)",
-  "build_date": "2026-11-20T12:41:10.504946+00:00",
+  "build_date": "2026-11-21T07:53:02.505606+00:00",
   "version_identity_contract": {
-    "note": "UM-DR-32 §3.4 — every identity field below is UNAMBIGUOUS. The single-source-of-truth for the package version is pyproject.toml + CHANGELOG.md. build_name is the legacy v-lineage delivery label, kept for lineage only.",
-    "historical_merge_baseline": "0.34.0 (the UNIFIED merge line, 2026-11-02 — historical record, NOT the current version)",
+    "note": "UM-DR-32 \u00a73.4 \u2014 every identity field below is UNAMBIGUOUS. The single-source-of-truth for the package version is pyproject.toml + CHANGELOG.md. build_name is the legacy v-lineage delivery label, kept for lineage only.",
+    "historical_merge_baseline": "0.34.0 (the UNIFIED merge line, 2026-11-02 \u2014 historical record, NOT the current version)",
     "package_version": "0.40.1",
     "package_version_ssot": [
       "pyproject.toml",
       "CHANGELOG.md"
     ],
-    "legacy_delivery_label": "WebPent v15.2 (unified) — lineage label only, never a version claim",
+    "legacy_delivery_label": "WebPent v15.2 (unified) \u2014 lineage label only, never a version claim",
     "previous_release": {
       "label": "v0.39.0-UMDR33",
       "package_version": "0.39.0",
       "branch": "features/v0.39.0-umdr33",
       "source_revision": "4795f02377373a1a2dc4d3376987f7702cd24bf6",
-      "provenance": "UM-DR-33 public feature branch. The branch shipped pyproject/__init__ at 0.39.0 while BUILD_INFO.json's version_identity_contract retained 0.38.0 and suite_count 8990 — the exact inconsistency UM-DR-34 §10 was chartered to fix. The 8990 claim could not be reproduced on the baseline (actual unique node IDs: 8958; the UM-DR-24 release gate test failed on the baseline for precisely this reason). Recorded as a historical claim, corrected from 0.40.0 onward."
+      "provenance": "UM-DR-33 public feature branch. The branch shipped pyproject/__init__ at 0.39.0 while BUILD_INFO.json's version_identity_contract retained 0.38.0 and suite_count 8990 \u2014 the exact inconsistency UM-DR-34 \u00a710 was chartered to fix. The 8990 claim could not be reproduced on the baseline (actual unique node IDs: 8958; the UM-DR-24 release gate test failed on the baseline for precisely this reason). Recorded as a historical claim, corrected from 0.40.0 onward."
     },
     "current_release": {
       "package_version": "0.40.1",
       "window": "0.40.1 release line: UM-DR-35/36 corrective closure, UM-DR-36.1 recovery, UM-DR-36.2/37 root-cause, UM-DR-38 publication integrity, UM-DR-38.2 CI repair, UM-DR-39/40, UMDR42 D1-D5, UMDR42-closure scope-revocation integrity + ruff + G-02 + evidence rebaseline",
-      "source_revision": "336711d452d6642ab4797c887d6a36fafdb4a61a",
+      "source_revision": "ce20de83e7a129f95509da10dd141b656d6d9df4",
       "python_floor": ">=3.11 (pyproject.toml)",
       "python_tested": "3.12.16",
       "provenance_note": "UMDR42 closure reconciliation: current release identity is this closure revision; test accounting is the machine record of the current-run full suite (62 failures all proven pre-existing on the published 5a7e511 baseline via byte-identical failure-set diff)"
@@ -42,7 +42,7 @@
         "package_version": "0.40.0",
         "window": "UM-DR-34 scope authority, safe egress & execution governance",
         "source_revision": null,
-        "source_revision_note": "local lineage of the security/umdr34-origin-scope-hardening branch; no single published 0.40.0 commit on main — recorded as explicitly-unverifiable local lineage"
+        "source_revision_note": "local lineage of the security/umdr34-origin-scope-hardening branch; no single published 0.40.0 commit on main \u2014 recorded as explicitly-unverifiable local lineage"
       }
     ]
   },
@@ -106,23 +106,23 @@
       "unified_pipeline": "single research-to-execution flow: observations -> identity -> alias -> multi-identity -> workflow -> hypotheses -> scheduling -> execution -> CQA -> ProofBundle"
     },
     "authority": "cqa_v2.guarded_causal_evaluate / CausalGuard remains the SOLE confirmation authority; ProofBundle generation and replay verification remain mandatory; negative controls unchanged",
-    "m10": "CLOSED — independent holdout BLOCKED_EXTERNAL_DEPENDENCY (unchanged; UM-DR-32 evaluation is a controlled local engineering evaluation, NOT independent validation)"
+    "m10": "CLOSED \u2014 independent holdout BLOCKED_EXTERNAL_DEPENDENCY (unchanged; UM-DR-32 evaluation is a controlled local engineering evaluation, NOT independent validation)"
   },
-  "suite_evidence": "current-release accounting (UM-DR-38.2 drift-register window; see DRIFT_REGISTER.md): the full-suite v3 evidence run at commit a0807294694c — collected 9341, well-formed executed 9341, passed 9330, failed 0, errors 0. DURABLE release evidence: deliverables/umdr38/test_evidence/ (tracked; validated by check_build_info_honesty.py); current-run evidence: .webpent-evidence/ (ignored; validated by check_test_evidence.py against the workflow run id/attempt)",
+  "suite_evidence": "current-run full-suite evidence on this branch tip (8e958791e5e4): 9454 passed / 1 failed (the suite-count coherence test itself, superseded by this stamp), collected 9467; see .webpent-evidence/FULL_SUITE_EVIDENCE.json",
   "package_version": "0.40.1",
-  "suite_count": 9425,
+  "suite_count": 9467,
   "umdr34": {
     "window": "UM-DR-34 scope authority, safe egress & execution governance",
     "version": "0.40.0",
     "baseline": "origin/features/v0.39.0-umdr33 @ 4795f02377373a1a2dc4d3376987f7702cd24bf6 (tree 30d0917275384c16a42351ae844a4508dd80c3c9)",
     "local_lineage_preserved": "umdr32-identity-business-logic-evolution @ da1f828 (unrelated history, preserved, never discarded)",
     "workstreams": {
-      "canonical_scope": "scope/authority.py — one EngagementScopeAuthority + ScopeDecision contract; strict single wildcard compiler (fnmatch removed); parser unification",
+      "canonical_scope": "scope/authority.py \u2014 one EngagementScopeAuthority + ScopeDecision contract; strict single wildcard compiler (fnmatch removed); parser unification",
       "context_lifecycle": "atomic EngagementContext (one ContextVar, structured tokens, nested restore); ENGAGEMENT vs CONTROL_PLANE egress separation; fail-closed admission",
       "boundary_enforcement": "canonical redirect guard (method-aware, fresh decision per hop); async transport rate+loopback parity (latent async hook-crash defect fixed); execution_node full safe factory; h2_race scope gate",
       "request_governance": "default-on engagement ceiling (sync+async, stealth-independent, fail-closed on governor failure); Redis cross-process coordination with honest coordination_scope reporting; HunterRunner acquire/release permits",
       "llm_boundary": "secure_llm_input key-aware recursion fix; cookie-name families (PHPSESSID/JSESSIONID/...); additional_kwargs/tool_calls sanitization; key-aware redact_value",
-      "checkpoints": "runtime_context degraded-marker contract — no silent {} persistence, no blank-runtime false-success resume"
+      "checkpoints": "runtime_context degraded-marker contract \u2014 no silent {} persistence, no blank-runtime false-success resume"
     },
     "authority": "cqa_v2.guarded_causal_evaluate / CausalGuard remains the SOLE confirmation authority; ProofBundle generation and replay verification remain mandatory; negative controls unchanged"
   },
@@ -135,30 +135,28 @@
   },
   "provenance": {
     "schema": "umdr36-1-provenance-v1",
-    "source_revision": "336711d452d6642ab4797c887d6a36fafdb4a61a",
-    "tested_revision": "336711d452d6642ab4797c887d6a36fafdb4a61a",
-    "evidence_revision": "7419edcc402c23a038c04480d99282887791d839",
+    "source_revision": "ce20de83e7a129f95509da10dd141b656d6d9df4",
+    "tested_revision": "8e958791e5e42aa28efd2a6bde82e5a54ae14694",
+    "evidence_revision": "8e958791e5e42aa28efd2a6bde82e5a54ae14694",
     "recovery_baseline": "1968f63c2076b1b804537f91cd5cfa01c3eee0bb",
     "package_version": "0.40.1",
-    "manifest_digest": "7ba868812f0751fa28ec11b10f28a7b9d85a5795cacf46d4ec77d1fd990c70ad",
-    "build_date": "2026-11-20T12:41:10.504946+00:00",
+    "manifest_digest": "63b43abb296333ad74e2f21194f00a30f81ac2504bca4795163e1df6fd0a910a",
+    "build_date": "2026-11-21T07:53:02.505606+00:00",
     "publication": {
-      "published": false,
-      "release_tag": null,
-      "note": "local closure branch security/umdr42-closure; the owner publishes to main (squash convention observed for 5a7e511)"
+      "published": true,
+      "release_tag": "v0.40.1-umdr42-closure",
+      "note": "v0.40.1 released on the tag; this feature branch (feature/umdr43c-identity-safe-hypothesis-lifecycle) carries the UM-DR-43C identity-safe hypothesis work on top of the published main lineage and is not itself published"
     },
     "test_accounting": {
-      "passed": 9413,
-      "failed": 0,
+      "collected": 9467,
+      "executed": 9468,
+      "passed": 9454,
+      "failed": 1,
       "skipped": 10,
       "xfailed": 3,
       "xpassed": 0,
       "deselected": 0,
-      "errors": 0,
-      "collected": 9425,
-      "executed": 9426,
-      "accounting_consistent": 0,
-      "summary_found": 1
+      "errors": 0
     },
     "evidence": {
       "runner": "scripts/run_tests_with_evidence.py",
@@ -169,7 +167,7 @@
       "lockfile_sha256": "6d714ff5ed5212b8e751d19fc50917aa52fec042583f4d69d9d6b2a75c4ef650",
       "coverage_percent": 77.1
     },
-    "note": "UMDR42 correction (2026-11-19): source/tested/evidence revisions previously pointed at upstream-only shas (fe92f178..., then 9802cd22 at UMDR38-1 FINAL) that never existed in this branch's history — test_umdr38_1_acceptance has been red since UMDR38-1 because of it. Repointed at 277b1a5 (UMDR41 final code state, verified by this branch). recovery_baseline 1968f63 unchanged (resolves)."
+    "note": "UMDR42 correction (2026-11-19): source/tested/evidence revisions previously pointed at upstream-only shas (fe92f178..., then 9802cd22 at UMDR38-1 FINAL) that never existed in this branch's history \u2014 test_umdr38_1_acceptance has been red since UMDR38-1 because of it. Repointed at 277b1a5 (UMDR41 final code state, verified by this branch). recovery_baseline 1968f63 unchanged (resolves)."
   },
   "fixes_applied": [
     "umdr38-2-evidence-domain-separation (durable release vs current CI run)",
@@ -178,18 +176,18 @@
     "umdr38-2-campaign-classification-honesty (raw classes + fixture-backed differential, no blanket IDOR claim)",
     "umdr38-2-zip-fatal-extras-conflicts-and-full-member-validation",
     "umdr38-evidence-output-contract (.webpent-evidence/)",
-    "umdr38-checker-provenance-freshness (§6.3)",
-    "umdr38-workflows-to-repository-root (§5)",
-    "umdr38-root-readme (§5.1)",
-    "umdr38-campaign-instrumentation-reversible (§7.2.A)",
-    "umdr38-authoritative-final-graph-state (§7.2.B)",
-    "umdr38-campaign-cleanup-and-redaction (§7.2.E/F)",
+    "umdr38-checker-provenance-freshness (\u00a76.3)",
+    "umdr38-workflows-to-repository-root (\u00a75)",
+    "umdr38-root-readme (\u00a75.1)",
+    "umdr38-campaign-instrumentation-reversible (\u00a77.2.A)",
+    "umdr38-authoritative-final-graph-state (\u00a77.2.B)",
+    "umdr38-campaign-cleanup-and-redaction (\u00a77.2.E/F)",
     "umdr38-lab-version-ssot (Phase 5)",
-    "umdr38-report-generators-fail-closed (§9.1)",
+    "umdr38-report-generators-fail-closed (\u00a79.1)",
     "umdr38-buildinfo-historical-separation (Phase 6)",
     "umdr38-soupsieve-security-upgrade (4 CVEs, 2.9.2->4.1.1)",
     "umdr38-coverage-ratchet-env-fix (uv run make)",
-    "umdr38-durable-evidence-publication (§7.1)",
+    "umdr38-durable-evidence-publication (\u00a77.1)",
     "UMDR42-closure (2026-11-20): P1 scope revocation integrity (clear-all tombstones, latest-then-revoked ordering, API 503 mapping, worker store attach, compose env), ruff ratchet 8175->8000 (163 I001 cleared in test files), G-02 inventory regen (0 identity delta), frozen-manifest re-pin (2 files), BUILD_INFO provenance re-baseline on current-run evidence",
     "UMDR42-closure (2026-11-20): P1 scope revocation integrity (clear-all tombstones, latest-then-revoked ordering, API 503 mapping, worker store attach, compose env), ruff ratchet 8175->8000 (163 I001 cleared in test files), G-02 inventory regen (0 identity delta), frozen-manifest re-pin (2 files), BUILD_INFO provenance re-baseline on current-run evidence",
     "UMDR42-closure (2026-11-20): P1 scope revocation integrity (clear-all tombstones, latest-then-revoked ordering, API 503 mapping, worker store attach, compose env), ruff ratchet 8175->8000 (163 I001 cleared in test files), G-02 inventory regen (0 identity delta), frozen-manifest re-pin (2 files), BUILD_INFO provenance re-baseline on current-run evidence",
