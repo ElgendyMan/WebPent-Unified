@@ -1,0 +1,54 @@
+From: UM-DR-43C <closure@webpent.local>
+Subject: [PATCH] fix(ci): close evidence artifact publication + SBOM export honesty
+
+UM-DR-43C §2.2 + §2.3 — the two CI fixes that could not be pushed with
+the available token (workflow-file pushes need the `workflow` scope).
+
+Apply on main (or the feature branch) with:
+
+    git apply ci_fixes_umdr43c.patch && git commit -m "fix(ci): close evidence artifact publication + SBOM export honesty"
+
+WHY (verified on runs #15-#19 of both branches):
+
+1. Evidence upload (§2.2): run_tests_with_evidence.py writes its
+   evidence to WebPent_UNIFIED/.webpent-evidence/ — a HIDDEN directory
+   (leading dot). actions/upload-artifact v4 defaults to
+   include-hidden-files: false, so the step failed with "No files were
+   found with the provided path" on EVERY run, even the fully green
+   run #18 (9413 passed / 0 failed). The fix adds
+   include-hidden-files: true — no continue-on-error, no weakened
+   if-no-files-found, the root cause itself.
+
+2. SBOM (§2.3): `uv export --locked` without --no-emit-project emits
+   the project itself as an editable requirement; pip-audit then fails
+   to install it inside its hash-pinned requirements dry-run (observed
+   in every run's log: "Failed to install packages ... --dry-run ...
+   -r /tmp/locked-requirements.txt"), and the `|| true` swallowed the
+   distinction between "SBOM built" and "SBOM build failed". The fix
+   emits the dependency closure only (--no-emit-project) and lets a
+   genuine SBOM failure surface as a failure, while dependency CVEs
+   keep their own separate gate step.
+---
+ .github/workflows/ci.yml | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/.github/workflows/ci.yml b/.github/workflows/ci.yml
+--- a/.github/workflows/ci.yml
++++ b/.github/workflows/ci.yml
+@@ -254,8 +254,8 @@
+       - name: Generate SBOM (CycloneDX)
+         run: |
+           uv export --locked --format requirements-txt --output-file /tmp/locked-requirements.txt
+-          uv run pip-audit --format cyclonedx-json --output docs/sbom.cdx.json -r /tmp/locked-requirements.txt || true
++          uv export --locked --no-emit-project --format requirements-txt --output-file /tmp/locked-requirements.txt
++          uv run pip-audit --format cyclonedx-json --output docs/sbom.cdx.json -r /tmp/locked-requirements.txt
+@@ -297,6 +297,7 @@
+       - name: Upload full-suite evidence
+         if: always()
+         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+         with:
+           name: full-suite-evidence
+           path: WebPent_UNIFIED/.webpent-evidence/
++          include-hidden-files: true
+           if-no-files-found: error
+
