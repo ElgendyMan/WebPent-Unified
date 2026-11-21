@@ -199,6 +199,19 @@ UMDR42_CLOSURE_20261120_THAW_PATHS = frozenset(
         "src/webpent/shared/g02_contract.py",
     }
 )
+# UM-DR-43C (2026-11-21): hypothesis lifecycle integrity (directive §6)
+# required upgrading the merge_hypotheses reducer — a frozen trust-chain
+# file. Thawed under the established declared-refreeze convention (same
+# pattern as UM-DR-40b / UMDR42 closure): exactly ONE file, changes
+# verified by tests/test_umdr43c_lifecycle.py, byte-identity restored
+# at window close by scripts/refreeze_manifest_umdr43c.py. The new
+# src file (production/hypothesis_identity.py) is NEW to the manifest
+# (added by the same refreeze script), not a drift.
+UMDR43C_20261121_THAW_PATHS = frozenset(
+    {
+        "src/webpent/state/reducers.py",
+    }
+)
 # The pre-unfreeze drift expectation needs only the paths that
 # exist in that baseline (store.py is newer than it — a
 # byte-identity-only entry above).
@@ -1279,6 +1292,16 @@ def test_frozen_file_byte_identical(relpath: str) -> None:
             f"{relpath} thawed mid-window per the declared UMDR42-"
             "closure scope-revocation window — delta-mode enforcement; "
             "byte-identity restored at the closure re-freeze")
+    if observed != expected and relpath in UMDR43C_20261121_THAW_PATHS:
+        # UM-DR-43C lifecycle window: the hypothesis lifecycle contract
+        # (directive §6) upgraded merge_hypotheses in this frozen file;
+        # regression proof is tests/test_umdr43c_lifecycle.py, and
+        # byte-identity is restored at window close by
+        # scripts/refreeze_manifest_umdr43c.py.
+        pytest.skip(
+            f"{relpath} thawed mid-window per the declared UM-DR-43C "
+            "hypothesis-lifecycle window — delta-mode enforcement; "
+            "byte-identity restored at the window re-freeze")
     if observed != expected and relpath in R3_RULING_THAW_PATHS:
         # Mid-window delta mode: the ruling authorized exactly this file.
         # Authorization/mapping/sub-scope are enforced by the delta gate
@@ -1344,6 +1367,7 @@ def test_baseline_disagrees_only_on_documented_unfreeze_paths() -> None:
         | UMDR40B_20261118_THAW_PATHS
         | UMDR42_20261119_THAW_PATHS
         | UMDR42_CLOSURE_20261120_BASELINE_DRIFT_PATHS
+        | UMDR43C_20261121_THAW_PATHS
     )
     # ULTIMATE PLAN 2026-10-27, proposal 4: the pre-archive drift sets
     # (e.g. TEAM_MERGE_V152_LINEAGE_DRIFT_PATHS' goed_v1 entry) can no
@@ -1417,6 +1441,10 @@ def test_baseline_disagrees_only_on_documented_unfreeze_paths() -> None:
         | REDTEAM_UMDR26_SCOPE_COMPLETION_20261106_PATHS
         | UMDR32_NEW_CAPABILITY_20261109_PATHS
         | UMDR33_NEW_CAPABILITY_20261110_PATHS
+        # UM-DR-43C: the identity contract module pinned by
+        # scripts/refreeze_manifest_umdr43c.py (one NEW trust-chain
+        # file for the hypothesis-identity window).
+        | {"src/webpent/production/hypothesis_identity.py"}
     )
     assert not undocumented_current, (
         f"undocumented paths only in current manifest: {sorted(undocumented_current)}"

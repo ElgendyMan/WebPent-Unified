@@ -27,10 +27,20 @@ def _extract_id(obj: Any) -> Any:
     ``getattr(hyp, "id", None)`` patterns crashed on dicts (AttributeError)
     or returned None (dicts have no .id attribute) → dedup defeated,
     unbounded growth. This helper handles both shapes.
+
+    UM-DR-43C: the key is normalized to ``str`` — a checkpointed dict
+    carries ``"id"`` as a uuid STRING while a live model carries a
+    ``UUID`` object, and ``UUID(...) != "uuid-string"`` in a dict
+    lookup, so a model re-emission NEVER met its own checkpointed
+    record and both copies accumulated in the pool. Normalizing here
+    makes the upsert key shape-independent; the original id value is
+    untouched on the record itself.
     """
     if isinstance(obj, dict):
-        return obj.get("id")
-    return getattr(obj, "id", None)
+        raw = obj.get("id")
+    else:
+        raw = getattr(obj, "id", None)
+    return None if raw is None else str(raw)
 
 
 def model_get(obj: Any, key: str, default: Any = None) -> Any:
@@ -187,21 +197,216 @@ def replace_runtime_capability_gaps(
     return list(new or [])
 
 
+# UM-DR-43C lifecycle contract (directive §6). A flat numeric rank is
+# DELIBERATELY wrong for these states — the model's own docstring
+# documents the state machine as one-way-per-branch, not a total
+# order. What the reducer needs is narrower: "may a NEW record's
+# status overwrite an EXISTING one?" — answered by the transition
+# table below, not by comparing ranks.
+#
+# The table lists every LEGITIMATE transition (from-status → to-status
+# pairs the engine's own nodes perform). Anything absent is refused: a
+# stale re-emission (e.g. a regenerated copy still carrying
+# ``unexplored``) can never drag a hypothesis that already reached
+# ``investigating``/``promoted``/terminal back to an earlier state.
+# Refused transitions do NOT drop the update silently: the incoming
+# status is recorded in the hypothesis's origin_detail provenance
+# block as a lifecycle conflict (auditable, bounded), and every other
+# incoming field is still merged field-by-field under the preservation
+# rules (evidence_refs, origin, parent, decision refs accumulate).
+_LEGITIMATE_HYPOTHESIS_TRANSITIONS: frozenset[tuple[str, str]] = frozenset({
+    # initial work states
+    ("unexplored", "investigating"),
+    ("unexplored", "abandoned"),
+    ("unexplored", "promoted"),
+    # investigation outcomes
+    ("investigating", "promoted"),
+    ("investigating", "abandoned"),
+    ("investigating", "resolved_true"),
+    ("investigating", "resolved_false"),
+    ("investigating", "learned"),
+    # post-promotion outcomes (debunked findings stay ``promoted`` as
+    # an audit trail — see HypothesisStatus docstring — but a promoted
+    # hypothesis can still be closed out by the engine)
+    ("promoted", "resolved_true"),
+    ("promoted", "resolved_false"),
+    ("promoted", "learned"),
+    # learning from any terminal state
+    ("abandoned", "learned"),
+    ("resolved_true", "learned"),
+    ("resolved_false", "learned"),
+    # reopening a CLOSED hypothesis requires an explicit, legitimate
+    # reopen transition — a stale copy re-entering the pool is not one
+    ("abandoned", "investigating"),
+    # self-transitions (idempotent re-emission at the same state)
+    ("unexplored", "unexplored"),
+    ("investigating", "investigating"),
+    ("promoted", "promoted"),
+    ("abandoned", "abandoned"),
+    ("resolved_true", "resolved_true"),
+    ("resolved_false", "resolved_false"),
+    ("learned", "learned"),
+})
+
+# Terminal statuses: reached once, they survive stale re-emissions.
+# resolved_true/resolved_false are ALSO contradictory-pair aware: a
+# record that already holds a terminal verdict keeps it, and a NEW
+# contradictory verdict is recorded as a conflict instead of
+# overwriting it (§6: "any irresolvable conflict is recorded, never
+# hidden").
+_HYPOTHESIS_TERMINAL_STATUSES = frozenset({
+    "resolved_true", "resolved_false", "learned",
+})
+
+
+def _merge_hypothesis_records(existing: Any, new: Any) -> Any:
+    """Field-wise merge of a re-emitted hypothesis (§6 preservation).
+
+    Order matters: the NEW record provides defaults for fields the old
+    one lacks; the OLD record's advanced lifecycle data wins over the
+    stale copy's. Returns a dict or model matching the EXISTING
+    record's shape (dict-shaped checkpoint state stays dict-shaped).
+    """
+    import datetime as _dt
+
+    existing_is_dict = isinstance(existing, dict)
+    if existing_is_dict:
+        base = dict(existing)
+    else:
+        base = {
+            k: model_get(existing, k) for k in (
+                "id", "target_url", "statement", "vuln_class", "status",
+                "confidence_score", "evidence_refs", "origin",
+                "origin_detail", "estimated_cost", "parent_hypothesis_id",
+                "created_at", "updated_at", "request_method", "request_data",
+                "target_param", "preconditions", "alternatives",
+                "expected_behavior", "negative_control", "hint_provenance",
+            ) if model_get(existing, k) is not None
+        }
+
+    # --- preservation rules (§6): accumulate, never replace ------
+    old_refs = list(model_get(existing, "evidence_refs") or [])
+    new_refs = list(model_get(new, "evidence_refs") or [])
+    merged_refs, seen = [], set()
+    for ref in old_refs + new_refs:
+        key = str(ref)
+        if key not in seen:
+            seen.add(key)
+            merged_refs.append(ref)
+    base["evidence_refs"] = merged_refs[:64]  # bounded
+
+    # provenance: keep the original origin; append the re-emission's
+    # origin detail (truncated, bounded) so the audit trail grows
+    # without overwriting who first created the hypothesis.
+    old_detail = str(model_get(existing, "origin_detail") or "")
+    new_detail = str(model_get(new, "origin_detail") or "")
+    if new_detail and new_detail != old_detail:
+        addition = f" | re-emitted[{new_detail[:200]}]"
+        if addition not in old_detail:
+            base["origin_detail"] = (old_detail + addition)[-500:]
+    else:
+        base["origin_detail"] = old_detail
+
+    # parent link, preconditions, alternatives, hints: union (bounded)
+    base["parent_hypothesis_id"] = (
+        model_get(existing, "parent_hypothesis_id")
+        or model_get(new, "parent_hypothesis_id"))
+    for field_name in ("preconditions", "alternatives", "hint_provenance"):
+        merged_l, seen_l = [], set()
+        for value in (list(model_get(existing, field_name) or [])
+                      + list(model_get(new, field_name) or [])):
+            if str(value) not in seen_l:
+                seen_l.add(str(value))
+                merged_l.append(value)
+        base[field_name] = merged_l[:32]
+
+    # numeric fields: keep the existing (measured) values unless the
+    # existing record has none (a re-emission may carry the first
+    # estimate).
+    for field_name in ("estimated_cost", "confidence_score",
+                       "novelty_score", "info_gain", "risk"):
+        if model_get(existing, field_name) is None:
+            base[field_name] = model_get(new, field_name)
+
+    # --- lifecycle: apply the transition contract ----------------
+    # status may arrive as a HypothesisStatus enum, a raw str, or a
+    # dict value after a checkpoint round-trip — normalize to the
+    # plain string value before consulting the transition table.
+    def _status_value(candidate: Any) -> str:
+        raw = model_get(candidate, "status")
+        if raw is None:
+            return "unexplored"
+        value = getattr(raw, "value", raw)
+        return str(value).strip().lower() or "unexplored"
+
+    old_status = _status_value(existing)
+    new_status = _status_value(new)
+    if old_status == new_status or (
+            (old_status, new_status)
+            in _LEGITIMATE_HYPOTHESIS_TRANSITIONS):
+        base["status"] = new_status
+    elif old_status in _HYPOTHESIS_TERMINAL_STATUSES:
+        # stale/contradictory update on a terminal record: record the
+        # conflict, keep the terminal verdict (§6 lifecycle case 6).
+        base["status"] = old_status
+        conflict = (f"lifecycle-conflict[{new_status} rejected: "
+                    f"terminal {old_status} preserved]")
+        detail = str(base.get("origin_detail") or "")
+        if conflict not in detail:
+            base["origin_detail"] = (detail + " | " + conflict)[-500:]
+    else:
+        # refused backward/invalid transition: keep the advanced
+        # status, record what was refused (auditable, not hidden).
+        base["status"] = old_status
+        conflict = (f"lifecycle-conflict[{old_status} -> {new_status} "
+                    "refused: not a legitimate transition]")
+        detail = str(base.get("origin_detail") or "")
+        if conflict not in detail:
+            base["origin_detail"] = (detail + " | " + conflict)[-500:]
+
+    # timestamps: created_at never changes; updated_at advances only
+    # when the record actually changed state or gained evidence.
+    base["created_at"] = (model_get(existing, "created_at")
+                          or model_get(new, "created_at"))
+    if (base["status"] != old_status
+            or len(merged_refs) != len(old_refs)):
+        base["updated_at"] = (
+            model_get(new, "updated_at")
+            or _dt.datetime.now(_dt.timezone.utc).isoformat())
+
+    # request context: fill from the new record only where missing.
+    for field_name in ("request_method", "request_data", "target_param",
+                       "expected_behavior", "negative_control"):
+        if model_get(base, field_name) in (None, "", {}, []):
+            base[field_name] = model_get(new, field_name)
+
+    if existing_is_dict:
+        return base
+    try:  # revalidate into the model when handed a model instance
+        from webpent.models.hypothesis import Hypothesis
+        return Hypothesis.model_validate(base)
+    except Exception:  # pragma: no cover — defensive: keep dict shape
+        return base
+
+
 def merge_hypotheses(
     existing: list[Any] | None,
     new: list[Any] | None,
 ) -> list[Any]:
-    """V9 P0 B2: upsert-by-id reducer for the ``hypotheses`` state field.
+    """V9 P0 B2 → UM-DR-43C: upsert-by-id reducer with lifecycle
+    integrity for the ``hypotheses`` state field.
 
     Previously ``hypotheses`` used :func:`merge_lists` (append-only),
     which meant every ``model_copy(update={"status": ...})`` returned by
     the Strategist on promote/abandon was appended as a NEW item —
     producing duplicates in state and in the final report.
 
-    This reducer mirrors :func:`merge_findings`'s upsert semantics:
-    each hypothesis is keyed by its ``id`` UUID, and a new item with
-    the same id replaces the existing one. This means promote-then-
-    abandon leaves exactly one entry with the final status.
+    This reducer mirrors :func:`merge_findings`' upsert semantics:
+    each hypothesis is keyed by its ``id`` UUID. UM-DR-43C sharpens
+    the upsert into a field-wise merge (see
+    :func:`_merge_hypothesis_records`): a re-emitted hypothesis can
+    no longer reset an advanced status, and evidence refs, origin
+    provenance and parent links accumulate instead of being replaced.
 
     Items without an ``id`` attribute (legacy/defensive) are appended.
 
@@ -227,9 +432,14 @@ def merge_hypotheses(
     for hyp in (new or []):
         hid = _extract_id(hyp)
         if hid is not None:
-            if hid not in merged:
+            if hid in merged:
+                # UM-DR-43C: same id arriving again — merge the records
+                # under the lifecycle contract instead of replacing the
+                # existing entry with the (possibly stale) new one.
+                merged[hid] = _merge_hypothesis_records(merged[hid], hyp)
+            else:
                 order.append(hid)
-            merged[hid] = hyp  # upsert: replaces existing
+                merged[hid] = hyp
         else:
             order.append(("__noid__", id(hyp)))
             merged[("__noid__", id(hyp))] = hyp
