@@ -103,8 +103,12 @@ def hypothesis_identity_fingerprint(
     ``objective=<key>`` line; the generic producer leaves it empty,
     which is itself deterministic.
     """
-    target_url = str(getattr(hypothesis, "target_url", "") or "")
-    vuln_class = str(getattr(hypothesis, "vuln_class", "") or "")
+    if isinstance(hypothesis, dict):
+        target_url = str(hypothesis.get("target_url") or "")
+        vuln_class = str(hypothesis.get("vuln_class") or "")
+    else:
+        target_url = str(hypothesis.target_url or "")
+        vuln_class = str(hypothesis.vuln_class or "")
     identity = identity_from_hypothesis(hypothesis)
     if identity.is_empty():
         return legacy_fingerprint(target_url, vuln_class), False
@@ -118,7 +122,10 @@ def hypothesis_identity_fingerprint(
 
 
 def _objective_key_from_detail(hypothesis: Any) -> str:
-    detail = str(getattr(hypothesis, "origin_detail", "") or "")
+    if isinstance(hypothesis, dict):
+        detail = str(hypothesis.get("origin_detail") or "")
+    else:
+        detail = str(hypothesis.origin_detail or "")
     for line in detail.split():
         key, sep, value = line.partition("=")
         if sep and key.strip().lower() == "objective":

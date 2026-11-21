@@ -336,8 +336,13 @@ def _merge_hypothesis_records(existing: Any, new: Any) -> Any:
         raw = model_get(candidate, "status")
         if raw is None:
             return "unexplored"
-        value = getattr(raw, "value", raw)
-        return str(value).strip().lower() or "unexplored"
+        # HypothesisStatus is a str-enum: str(enum) is
+        # "HypothesisStatus.X" but .value is the plain name — accept
+        # enum, str and dict-value shapes without dynamic resolution.
+        from enum import Enum
+        if isinstance(raw, Enum):
+            raw = raw.value
+        return str(raw).strip().lower() or "unexplored"
 
     old_status = _status_value(existing)
     new_status = _status_value(new)

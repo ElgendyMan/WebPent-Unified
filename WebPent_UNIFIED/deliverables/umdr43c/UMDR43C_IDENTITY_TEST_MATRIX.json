@@ -1,0 +1,226 @@
+{
+  "mission": "UM-DR-43C identity-safe hypothesis intelligence",
+  "contract_version": "umdr43c:v1",
+  "generated_by": "the executed test suites themselves (tests/test_umdr43c_identity_matrix.py, tests/test_umdr43c_lifecycle.py) \u2014 never hand-written",
+  "merge_cases": [
+    {
+      "case": "same target+class+objective+identity \u2192 merge",
+      "verdict": "merge",
+      "reason": "target, class, objective and identity scope all agree (contract umdr43c:v1)",
+      "differing_dimensions": [],
+      "pass": true
+    },
+    {
+      "case": "same object, different representation-only nonce \u2192 merge",
+      "verdict": "merge",
+      "reason": "target, class, objective and identity scope all agree (contract umdr43c:v1)",
+      "differing_dimensions": [],
+      "pass": true
+    },
+    {
+      "case": "same context, different request ids \u2192 merge",
+      "verdict": "merge",
+      "reason": "target, class, objective and identity scope all agree (contract umdr43c:v1)",
+      "differing_dimensions": [],
+      "pass": true
+    },
+    {
+      "case": "same hostname, different hostname casing \u2192 merge",
+      "verdict": "merge",
+      "reason": "target, class, objective and identity scope all agree (contract umdr43c:v1)",
+      "differing_dimensions": [],
+      "pass": true
+    }
+  ],
+  "keep_separate_cases": [
+    {
+      "case": "same target/class, different principal \u2192 keep_separate",
+      "verdict": "keep_separate",
+      "reason": "identity scopes differ on: actor",
+      "differing_dimensions": [
+        "actor"
+      ],
+      "pass": true
+    },
+    {
+      "case": "same target/class, different role \u2192 keep_separate",
+      "verdict": "keep_separate",
+      "reason": "identity scopes differ on: role",
+      "differing_dimensions": [
+        "role"
+      ],
+      "pass": true
+    },
+    {
+      "case": "same target/class, different tenant \u2192 keep_separate",
+      "verdict": "keep_separate",
+      "reason": "identity scopes differ on: tenant",
+      "differing_dimensions": [
+        "tenant"
+      ],
+      "pass": true
+    },
+    {
+      "case": "same target/class, different object \u2192 keep_separate",
+      "verdict": "keep_separate",
+      "reason": "identity scopes differ on: object_id",
+      "differing_dimensions": [
+        "object_id"
+      ],
+      "pass": true
+    },
+    {
+      "case": "same URL/class, different operation \u2192 keep_separate",
+      "verdict": "keep_separate",
+      "reason": "identity scopes differ on: operation",
+      "differing_dimensions": [
+        "operation"
+      ],
+      "pass": true
+    },
+    {
+      "case": "same URL/class, different workflow state \u2192 keep_separate",
+      "verdict": "keep_separate",
+      "reason": "identity scopes differ on: workflow_state",
+      "differing_dimensions": [
+        "workflow_state"
+      ],
+      "pass": true
+    },
+    {
+      "case": "different case-sensitive paths \u2192 keep_separate",
+      "verdict": "keep_separate",
+      "reason": "target or vulnerability class differs",
+      "differing_dimensions": [],
+      "pass": true
+    }
+  ],
+  "unknown_context_cases": [
+    {
+      "case": "unknown context vs known context \u2192 keep_separate",
+      "verdict": "keep_separate",
+      "reason": "one side carries identity context and the other does not \u2014 unknown identity never silently equals known identity",
+      "differing_dimensions": [],
+      "pass": true
+    }
+  ],
+  "cross_producer_cases": [
+    {
+      "case": "same hypothesis from two producers, one without context \u2192 keep_separate",
+      "verdict": "keep_separate",
+      "reason": "one side carries identity context and the other does not \u2014 unknown identity never silently equals known identity",
+      "differing_dimensions": [],
+      "pass": true
+    },
+    {
+      "case": "same hypothesis from two producers, both with matching context+objective \u2192 merge",
+      "verdict": "merge",
+      "reason": "target, class, objective and identity scope all agree (contract umdr43c:v1)",
+      "differing_dimensions": [],
+      "pass": true
+    }
+  ],
+  "lifecycle_cases": [
+    {
+      "case": "L1 repeated does not duplicate pool",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "case": "L2 repeated does not reset investigating",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "case": "L3 repeated does not reset promoted",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "case": "L4 no silent reopen of abandoned",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "case": "L5 legitimate transitions still work",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "case": "L6 contradictory terminal preserved as conflict",
+      "pass": true,
+      "detail": "producer-1 | lifecycle-conflict[resolved_false rejected: terminal resolved_true preserved]"
+    },
+    {
+      "case": "L7 evidence refs preserved and deduplicated",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "case": "L8 origin/provenance preserved",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "case": "L9 checkpoint round-trip preserves ids and lifecycle",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "case": "L10 dict-shaped state honors the contract",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "case": "Scenario A identity OFF \u2014 legacy path intact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "case": "Scenario B identity ON \u2014 separation + merge verified",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "case": "build_graph constructs (Scenario A default)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "case": "Replay determinism \u2014 identical digests across runs",
+      "pass": true,
+      "detail": "A=a6de0d75bcdd B=51c7f8690b41"
+    }
+  ],
+  "replay_cases": [
+    {
+      "case": "Scenario A identity OFF \u2014 legacy path intact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "case": "Scenario B identity ON \u2014 separation + merge verified",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "case": "build_graph constructs (Scenario A default)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "case": "Replay determinism \u2014 identical digests across runs",
+      "pass": true,
+      "detail": "A=a6de0d75bcdd B=51c7f8690b41"
+    }
+  ],
+  "totals": {
+    "identity_matrix_cases": 14,
+    "identity_matrix_all_passed": true,
+    "lifecycle_cases": 14,
+    "lifecycle_all_passed": true,
+    "merge": 5,
+    "legacy_merge": 0,
+    "keep_separate": 9
+  }
+}

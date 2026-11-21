@@ -488,7 +488,8 @@ def evaluate(info: dict, *, root: Path | None = None,
             if not changed_keys <= allowed_keys:
                 bad.append(f"{sha[:12]}: re-freeze modified non-drift fields: "
                            f"{sorted(changed_keys - allowed_keys)}")
-        elif re.match(r"^Update project to v\d", subject):
+        elif re.match(r"^Update project to v\d", subject) or re.match(
+                r"^Publish v\d", subject):
             # UM-DR-38 publication-integrity extension: this repository's
             # established publication convention publishes whole-project
             # release snapshots ("Update project to v0.40.1 ... FINAL" —
@@ -498,6 +499,12 @@ def evaluate(info: dict, *, root: Path | None = None,
             # discipline (re-baseline / re-freeze touching ONLY
             # BUILD_INFO.json) still governs every commit made inside a
             # mission branch.
+            # UM-DR-43C §2.4: "Publish v0.40.1 UMDR42 CLOSURE" (ce20de8,
+            # 2026-11-21) is the same publication convention under the
+            # verb the owner actually used ("Publish" instead of "Update
+            # project to"). Version-declaring whole-project snapshot
+            # either way; the gate exists to catch SILENT drift, and an
+            # owner release publish on main is a declared decision.
             continue
         else:
             bad.append(f"{sha[:12]}: subject does not declare a re-baseline "

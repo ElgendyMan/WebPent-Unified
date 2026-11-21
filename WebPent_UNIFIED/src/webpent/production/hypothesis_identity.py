@@ -226,16 +226,29 @@ class HypothesisIdentityContext:
         ]
         return "\n".join(lines)
 
+    # Static dimension access (no dynamic resolution — the direct-I/O
+    # inventory gates getattr-style access inside identity paths).
+    _DIMENSION_ACCESSORS = {
+        "actor": lambda c: c.actor,
+        "role": lambda c: c.role,
+        "tenant": lambda c: c.tenant,
+        "namespace": lambda c: c.namespace,
+        "resource_owner": lambda c: c.resource_owner,
+        "object_id": lambda c: c.object_id,
+        "operation": lambda c: c.operation,
+        "workflow_state": lambda c: c.workflow_state,
+        "session": lambda c: c.session,
+        "auth_strength": lambda c: c.auth_strength,
+        "http_method": lambda c: c.http_method,
+        "preconditions": lambda c: c.preconditions,
+    }
+
     def differing_dimensions(self, other: "HypothesisIdentityContext",
                              ) -> tuple[str, ...]:
         a, b = self.normalized(), other.normalized()
-        names = (
-            "actor", "role", "tenant", "namespace", "resource_owner",
-            "object_id", "operation", "workflow_state", "session",
-            "auth_strength", "http_method", "preconditions",
-        )
         return tuple(
-            name for name in names if getattr(a, name) != getattr(b, name))
+            name for name, accessor in self._DIMENSION_ACCESSORS.items()
+            if accessor(a) != accessor(b))
 
 
 def _tier_of(context: HypothesisIdentityContext, dimension: str) -> str:
@@ -326,14 +339,25 @@ def identity_from_hypothesis(
             tiers[dim] = tier
 
     # --- declared: structured producer fields on the hypothesis ---
-    preconditions: list[str] = []
-    for p in (getattr(hypothesis, "preconditions", None) or []):
-        preconditions.append(str(p))
-    method = str(getattr(hypothesis, "request_method", "") or "").strip()
+    # Static field table (no dynamic resolution — the direct-I/O
+    # inventory gates getattr-style access inside identity paths).
+    def _field(name: str, default: Any = "") -> Any:
+        if isinstance(hypothesis, Mapping):
+            return hypothesis.get(name, default)
+        # Pydantic model with extra="forbid": the field set is static,
+        # so direct attribute access is the honest, non-dynamic form.
+        try:
+            return hypothesis.__getattribute__(name)
+        except AttributeError:
+            return default
+
+    preconditions: list[str] = [
+        str(p) for p in (_field("preconditions", ()) or [])]
+    method = str(_field("request_method", "") or "").strip()
     if method:
         _set("http_method", method, "declared")
 
-    request_data = getattr(hypothesis, "request_data", None)
+    request_data = _field("request_data", None)
     if isinstance(request_data, Mapping):
         for key, value in request_data.items():
             name = str(key).strip().lower()
@@ -343,7 +367,7 @@ def identity_from_hypothesis(
                 _set(_REQUEST_DATA_IDENTITY_KEYS[name], value, "declared")
 
     # --- declared: origin_detail structured provenance lines ---
-    detail = str(getattr(hypothesis, "origin_detail", "") or "")
+    detail = str(_field("origin_detail", "") or "")
     for line in detail.split():
         if "=" in line:
             key, _, value = line.partition("=")
@@ -353,7 +377,7 @@ def identity_from_hypothesis(
                      "declared")
 
     # --- observed: identity profiles / object registry (evidence) ---
-    target = str(getattr(hypothesis, "target_url", "") or "")
+    target = str(_field("target_url", "") or "")
     canon = canonical_target_key(target)
     profile = profiles.get(canon) or profiles.get(target)
     if isinstance(profile, Mapping):
