@@ -239,6 +239,45 @@ def _probe_refutation_suppressed(state: PentestState, vuln_class: str) -> bool:
         return False
 
 
+def _looks_like_introspection_schema(evidence: dict[str, Any] | None) -> bool:
+    """UM-DR-44 B7: content oracle for an introspection response.
+
+    The probe previously treated ANY returned HTTP exchange as a
+    positive (request-success oracle): a 403 'introspection disabled'
+    errors-array still produced a finding claiming 'Full GraphQL schema
+    returned'.  The candidate is positive ONLY when its body actually
+    parses as a schema (the framework's own
+    ``parse_graphql_introspection``) or carries a ``__schema`` marker
+    in a 2xx body.
+    """
+    if not isinstance(evidence, dict):
+        return False
+    body = str(evidence.get("response_body") or "")
+    status = int(evidence.get("status_code") or 0)
+    if 200 <= status < 300 and "__schema" in body:
+        return True
+    try:
+        import json
+
+        parsed = json.loads(body)
+        if isinstance(parsed, dict):
+            from webpent.shared.schema_ingestion import parse_graphql_introspection
+
+            return bool(parse_graphql_introspection(parsed))
+    except (ValueError, TypeError):
+        pass
+    return False
+
+
+def _looks_like_live_graphql(evidence: dict[str, Any] | None) -> bool:
+    """UM-DR-44 B7: baseline validity — the endpoint speaks GraphQL at
+    all (a __typename answer or a GraphQL errors array)."""
+    if not isinstance(evidence, dict):
+        return False
+    body = str(evidence.get("response_body") or "")
+    return "__typename" in body or "__schema" in body or '"errors"' in body
+
+
 def graphql_testing_node(state: PentestState) -> dict:
     """LangGraph node: bounded GraphQL vulnerability probes.
 
@@ -292,7 +331,17 @@ def graphql_testing_node(state: PentestState) -> dict:
                 negative_control = _post(
                     client, _introspection_control_url(endpoint),
                     {"query": _INTROSPECTION_QUERY}, budget, governor, host)
-                if baseline and candidate and negative_control:
+                # UM-DR-44 B7: content-based oracle — the candidate must
+                # actually parse as a schema, the baseline must show a
+                # live GraphQL endpoint, and the negative control must
+                # NOT itself contain __schema. Request success alone
+                # (any status, any body) is NOT evidence.
+                if (
+                    baseline and candidate and negative_control
+                    and _looks_like_live_graphql(baseline)
+                    and _looks_like_introspection_schema(candidate)
+                    and not _looks_like_introspection_schema(negative_control)
+                ):
                     findings.append(_make_finding(
                         VulnClass.GRAPHQL_INTROSPECTION_EXPOSURE,
                         "GraphQL introspection exposure (probe)",
