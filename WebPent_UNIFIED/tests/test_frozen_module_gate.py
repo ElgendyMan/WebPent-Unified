@@ -232,6 +232,16 @@ UMDR44_20261122_THAW_PATHS = frozenset(
         # (copy-paste); verified by
         # tests/test_umdr44_b5_funnel_bundle_entities.py.
         "src/webpent/production/discovery_funnel.py",
+        # B6(a): EngagementThread + active-engagement registry so a
+        # context-less thread DENIES during an active campaign;
+        # verified by tests/test_umdr44_b6_fail_open_gaps.py.
+        "src/webpent/shared/engagement_scope.py",
+        # B6(c): the raw sender binds the port to the engagement origin
+        # policy (was a free caller parameter); same B6 test file.
+        "src/webpent/agents/request_smuggling/agent.py",
+        # B6(d): rate_limit_enabled default False -> True (the one
+        # authorized default change, mission rule 9); same B6 test file.
+        "src/webpent/config/settings.py",
     }
 )
 # The pre-unfreeze drift expectation needs only the paths that

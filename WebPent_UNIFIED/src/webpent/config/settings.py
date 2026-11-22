@@ -2804,8 +2804,15 @@ class Settings(BaseSettings):
     )
 
     # -- Rate Limiting (V5 Sprint 13) --------------------------------------
+    # UM-DR-44 B6(d): default True — the previous default=False was
+    # fail-open (an operator who never read this setting ran without
+    # any transport ceiling outside engagements).  This is the one
+    # default change authorized by the UM-DR-44 mission (security
+    # exception, rule 9).  MIGRATION NOTE: deployments that
+    # INTENTIONALLY ran unthrottled must now set
+    # rate_limit_enabled=false explicitly.
     rate_limit_enabled: bool = Field(
-        default=False,
+        default=True,
         validation_alias=AliasChoices(
             "rate_limit_enabled", "RATE_LIMIT_ENABLED", "WEBPENT_RATE_LIMIT_ENABLED"
         ),

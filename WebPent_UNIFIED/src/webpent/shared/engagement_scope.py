@@ -66,6 +66,7 @@ import contextvars
 import ipaddress
 import logging
 import re
+import threading
 from dataclasses import dataclass, field
 from urllib.parse import unquote, urlsplit
 
@@ -166,6 +167,39 @@ _ENGAGEMENT_CONTEXT: contextvars.ContextVar[
 ] = contextvars.ContextVar("webpent_engagement_context", default=None)
 
 _EMPTY_CONTEXT = EngagementContext()
+
+# UM-DR-44 B6(a): process-wide registry of ACTIVE engagements.  A
+# threading.Thread starts with an EMPTY contextvars context — it does
+# NOT inherit _ENGAGEMENT_CONTEXT.  During an active campaign such a
+# thread saw mode NONE and the NONE branch allowed everything
+# (fail-open).  This counter (guarded by the same lock the setters
+# use) records whether ANY engagement is active in this process, so
+# the NONE-mode decision can distinguish "no campaign anywhere"
+# (legacy allowed posture) from "campaign active but this thread lost
+# the context" (must DENY — the context was lost, not absent).
+_ACTIVE_ENGAGEMENTS: dict[str, int] = {}
+_ENGAGEMENT_LOCK = threading.RLock()
+
+
+def _register_active_engagement(context: EngagementContext) -> None:
+    key = context.scope_fingerprint or context.authorization_context_id or "default"
+    with _ENGAGEMENT_LOCK:
+        _ACTIVE_ENGAGEMENTS[key] = _ACTIVE_ENGAGEMENTS.get(key, 0) + 1
+
+
+def _unregister_active_engagement(context: EngagementContext) -> None:
+    key = context.scope_fingerprint or context.authorization_context_id or "default"
+    with _ENGAGEMENT_LOCK:
+        count = _ACTIVE_ENGAGEMENTS.get(key, 0) - 1
+        if count <= 0:
+            _ACTIVE_ENGAGEMENTS.pop(key, None)
+        else:
+            _ACTIVE_ENGAGEMENTS[key] = count
+
+
+def _any_engagement_active() -> bool:
+    with _ENGAGEMENT_LOCK:
+        return bool(_ACTIVE_ENGAGEMENTS)
 
 
 def _current_context() -> EngagementContext:
@@ -514,6 +548,10 @@ def set_engagement_target_hosts(*urls_or_hosts: str | None) -> EngagementToken:
     previous = _ENGAGEMENT_CONTEXT.get()
     _ENGAGEMENT_CONTEXT.set(context)
     _sync_compat_vars(context)
+    # UM-DR-44 B6(a): record the active engagement process-wide so a
+    # context-less thread (threads do not inherit contextvars) is
+    # DENIED instead of silently falling back to the NONE posture.
+    _register_active_engagement(context)
     logger.info(
         "Engagement context set: hosts=%s; origin policies=%s; invalid=%s",
         sorted(hosts),
@@ -572,6 +610,10 @@ def clear_engagement_target_hosts(token: EngagementToken | contextvars.Token | N
     """
     try:
         if isinstance(token, EngagementToken):
+            # UM-DR-44 B6(a): unregister the engagement that this token
+            # established (the context it is restoring TO never includes
+            # the one being torn down).
+            _unregister_active_engagement(token.previous or _EMPTY_CONTEXT)
             _ENGAGEMENT_CONTEXT.set(token.previous)
             _sync_compat_vars(token.previous or _EMPTY_CONTEXT)
             return
@@ -596,6 +638,38 @@ def clear_engagement_target_hosts(token: EngagementToken | contextvars.Token | N
         logger.warning(
             "clear_engagement_target_hosts: failed to clear context.",
             exc_info=True,
+        )
+
+
+class EngagementThread(threading.Thread):
+    """UM-DR-44 B6(a): a Thread that propagates the engagement context.
+
+    ``threading.Thread`` starts with an EMPTY ``contextvars`` context —
+    the campaign's ``_ENGAGEMENT_CONTEXT`` is NOT inherited, so work
+    spawned by a campaign node silently ran under the legacy NONE
+    posture (fail-open).  This wrapper runs the target inside a copy of
+    the SPAWNING context (``contextvars.copy_context()``), exactly like
+    ``asyncio`` tasks, so the child thread enforces the same engagement
+    boundaries as the campaign that spawned it.
+
+    Any new raw ``threading.Thread`` inside ``src/webpent/`` that makes
+    network or scope decisions must use this class instead (CI greps
+    for bare ``threading.Thread(`` constructors).
+    """
+
+    def __init__(self, *args: object, **kwargs: object) -> None:
+        super().__init__(*args, **kwargs)
+        self._engagement_context = contextvars.copy_context()
+        self._engagement_target = self._target  # type: ignore[attr-defined]
+        self._engagement_args = self._args  # type: ignore[attr-defined]
+        self._engagement_kwargs = self._kwargs  # type: ignore[attr-defined]
+
+    def run(self) -> None:
+        target = self._engagement_target
+        if target is None:
+            return
+        self._engagement_context.run(
+            target, *self._engagement_args, **self._engagement_kwargs
         )
 
 
@@ -639,7 +713,20 @@ def is_engagement_origin_allowed(value: str, *, method: str | None = None) -> bo
         return any(policy.allows(value, method=method) for policy in context.origin_policies)
     if context.egress_mode == "CONTROL_PLANE":
         return _control_plane_allows(context, value)
-    # No engagement context: legacy non-campaign use (blocklist still
+    # No engagement context IN THIS CONTEXTVAR.  UM-DR-44 B6(a): if an
+    # engagement is active ANYWHERE in this process, this caller lost
+    # the campaign context (a raw Thread does not inherit contextvars)
+    # — the context was LOST, not absent, and lost context must deny.
+    if _any_engagement_active():
+        logger.warning(
+            "Engagement active in this process but the calling context "
+            "(likely an unpropagated Thread) has no engagement context "
+            "— DENYING request to %s. Use EngagementThread (or "
+            "contextvars.copy_context) to propagate the campaign.",
+            value,
+        )
+        return False
+    # No engagement anywhere: legacy non-campaign use (blocklist still
     # enforced by the transports).
     return True
 

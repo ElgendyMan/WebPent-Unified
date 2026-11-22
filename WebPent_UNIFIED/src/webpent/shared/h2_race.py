@@ -113,12 +113,54 @@ def _import_h2() -> Any:
 def _connect(
     host: str, port: int, use_tls: bool, timeout_s: float
 ) -> socket.socket:
-    sock = socket.create_connection((host, port), timeout=timeout_s)
+    # UM-DR-44 B6(b): the raw dial previously called
+    # socket.create_connection on the hostname directly with a blanket
+    # ssl.CERT_NONE — no engagement gate, no DNS pinning, no TLS policy.
+    # It now follows the same transport contract as shared/http.py:
+    #   1. engagement origin decision (fail-closed for non-targets);
+    #   2. SSRF blocklist via pinned first-IP resolution;
+    #   3. TLS verification per the engagement TLS policy — a blanket
+    #      self-signed allowance exists ONLY when the engagement policy
+    #      explicitly allows it, never by default.
+    from webpent.shared.engagement_scope import is_engagement_origin_allowed
+    from webpent.shared.http import _resolve_first_ip
+
+    scheme = "https" if use_tls else "http"
+    target_url = f"{scheme}://{host}:{port}/"
+    if not is_engagement_origin_allowed(target_url):
+        raise H2RaceError(
+            f"h2_race connect refused: {host}:{port} is outside the "
+            "engagement origin policy"
+        )
+    pinned_ip = _resolve_first_ip(host, port, allow_blocked=False)
+    if not pinned_ip:
+        raise H2RaceError(
+            f"h2_race connect refused: DNS resolution/blocklist denied "
+            f"{host}"
+        )
+    sock = socket.create_connection((pinned_ip, port), timeout=timeout_s)
     if use_tls:
         context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
         context.set_alpn_protocols([H2_ALPN.decode()])
-        context.check_hostname = False
-        context.verify_mode = ssl.CERT_NONE  # pentest targets, self-signed
+        # UM-DR-44 B6(b): TLS verification follows the engagement
+        # policy.  verify_target_tls is the existing first-party
+        # self-signed allowance (explicit, per-engagement); without it
+        # the chain and hostname are verified like any safe transport.
+        allow_self_signed = False
+        try:
+            from webpent.config.settings import get_settings
+
+            allow_self_signed = bool(
+                getattr(get_settings(), "verify_target_tls", True) is False
+            )
+        except Exception:  # pragma: no cover — settings unavailable = strict
+            allow_self_signed = False
+        if allow_self_signed:
+            context.check_hostname = False
+            context.verify_mode = ssl.CERT_NONE
+        else:
+            context.check_hostname = True
+            context.verify_mode = ssl.CERT_REQUIRED
         wrapped = context.wrap_socket(sock, server_hostname=host)
         if wrapped.selected_alpn_protocol() != H2_ALPN.decode():
             wrapped.close()

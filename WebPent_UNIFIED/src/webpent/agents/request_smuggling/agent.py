@@ -78,11 +78,26 @@ def _send_raw_http(
         # Defense in depth: enforce the engagement boundary inside the raw
         # sender as well as at node entry. This keeps future callers from
         # accidentally turning this low-level primitive into an SSRF path.
-        from webpent.shared.engagement_scope import is_engagement_target_host
+        from webpent.shared.engagement_scope import (
+            is_engagement_origin_allowed,
+            is_engagement_target_host,
+        )
         from webpent.shared.http import _resolve_first_ip
 
         if not is_engagement_target_host(host):
             logger.warning("Raw HTTP refused for host outside engagement scope: %s", host)
+            return None
+        # UM-DR-44 B6(c): the port was a free parameter from the caller —
+        # host-level checking alone let a scoped host be dialed on ANY
+        # port.  The origin decision binds scheme + host + EFFECTIVE
+        # PORT, so the port must pass it too.
+        scheme = "https" if use_tls else "http"
+        if not is_engagement_origin_allowed(
+            f"{scheme}://{host}:{port}/", method="POST"
+        ):
+            logger.warning(
+                "Raw HTTP refused: %s:%s is not within the engagement "
+                "origin policy (undeclared port)", host, port)
             return None
         pinned_ip = _resolve_first_ip(host, port, allow_blocked=True)
         if not pinned_ip:
