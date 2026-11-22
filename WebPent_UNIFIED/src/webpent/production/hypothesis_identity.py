@@ -111,14 +111,21 @@ def canonical_target_key(url: str) -> str:
     * scheme and host: lower-cased (DNS + scheme are case-insensitive);
     * default port for the scheme: stripped (``:443`` on https adds
       nothing to origin identity);
-    * path: PRESERVED verbatim — case-sensitive in real file systems
-      and routing tables; a trailing slash is preserved too (distinct
-      resources in several frameworks), only a lone ``/`` normalizes
-      away;
+    * path: PRESERVED verbatim except the trailing slash, which is
+      STRIPPED (only a lone ``/`` remains) — this has been the actual
+      behavior since the function's birth (every checkpoint id was
+      minted with the strip); UM-DR-44 A6 corrected this docstring to
+      match the code, never the reverse;
     * query: PRESERVED as the raw ordered string — parameter order is
       behaviorally significant for many applications (§5.4: never sort
       blindly); duplicate parameters therefore stay distinct;
     * fragment: dropped (never reaches the server);
+    * IPv6 literal hosts keep their brackets and are unified through
+      ``ipaddress.IPv6Address`` (compressed + lowercase — hex case and
+      zero-compression spellings of the same literal share one key);
+    * IDN hosts are punycoded (``xn--``) so the unicode and ASCII
+      spellings of the same registrable host share one key; malformed
+      hosts fall back verbatim (never raise);
     * non-http(s) schemes and relative references: returned trimmed
       unchanged (the honest fallback — same as the frozen
       ``_normalize_url`` contract for those inputs).
@@ -140,14 +147,34 @@ def canonical_target_key(url: str) -> str:
     host = host.strip().rstrip(".").lower()
     if not host:
         return raw
+    # UM-DR-44 A6: IPv6 literals — urlsplit returns the hostname WITHOUT
+    # brackets, so rebuilding the netloc plainly produced an INVALID
+    # "https://::1:8443" form. Unify through ipaddress.IPv6Address
+    # (compressed + lowercase: hex case AND zero-compression spellings
+    # of the same literal become one key) and restore the brackets.
+    is_ipv6 = ":" in host
+    if is_ipv6:
+        try:
+            import ipaddress
+
+            host = str(ipaddress.IPv6Address(host))
+        except ValueError:
+            return raw  # malformed literal — honest fallback
+    elif not host.isascii():
+        # UM-DR-44 A6: IDN — punycode the unicode spelling so it shares
+        # one key with the xn-- spelling of the same registrable host.
+        try:
+            host = host.encode("idna").decode("ascii")
+        except (UnicodeError, ValueError):
+            pass  # un-encodable host — keep verbatim (honest fallback)
     try:
         port = parts.port
     except ValueError:
         return raw
     if port is None or port == _DEFAULT_PORTS[scheme]:
-        netloc = host
+        netloc = f"[{host}]" if is_ipv6 else host
     else:
-        netloc = f"{host}:{port}"
+        netloc = f"[{host}]:{port}" if is_ipv6 else f"{host}:{port}"
     path = parts.path or ""
     if len(path) > 1:
         path = path.rstrip("/") or "/"
