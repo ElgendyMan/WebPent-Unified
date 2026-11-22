@@ -213,17 +213,19 @@ class ApplicationModel(BaseModel):
         # the earliest observation timestamp wins (staleness metadata
         # records FIRST observation, not last write)
         observed_at = existing.observed_at or entity.observed_at or _utc_now_iso()
-        # UM-DR-44 A5a: endpoint facets are ACCUMULATING or CURRENT-STATE
-        # metadata — they never compete with the provenance winner.
-        # methods_seen accumulates with set semantics (a POST observation
-        # must not erase a recorded GET when the tie-break keeps the
-        # existing record); status_code keeps the LATEST value (current
-        # response state); identity facets (scheme/host/port/path) carry
-        # the new observation's explicit values (equal by construction of
-        # the canonical tuple id); other metadata keys merge additively.
-        merged_metadata = dict(existing.metadata or {})
+        # UM-DR-44 A5a/A5b: endpoint facets are ACCUMULATING or
+        # CURRENT-STATE metadata — they never compete with the provenance
+        # winner. methods_seen accumulates with set semantics (a POST
+        # observation must not erase a recorded GET when the tie-break
+        # keeps the existing record); status_code keeps the LATEST value
+        # (current response state); identity facets (scheme/host/port/
+        # path) carry the new observation's explicit values (equal by
+        # construction of the canonical tuple id). All OTHER metadata
+        # keys merge additively (new values win on conflict) so extras
+        # from either side survive the merge.
+        merged_metadata: dict[str, Any] = dict(existing.metadata or {})
+        new_meta: dict[str, Any] = dict(entity.metadata or {})
         if str(entity.kind) == "endpoint":
-            new_meta = entity.metadata or {}
             if new_meta.get("methods_seen"):
                 merged_metadata["methods_seen"] = sorted({
                     *(merged_metadata.get("methods_seen") or []),
@@ -232,13 +234,22 @@ class ApplicationModel(BaseModel):
             if "status_code" in new_meta:
                 merged_metadata["status_code"] = new_meta["status_code"]
             for facet in ("scheme", "host", "port", "path"):
-                if new_meta.get(facet) is not None:
-                    merged_metadata[facet] = new_meta[facet]
+                new_meta.pop(facet, None)  # handled by construction below
+                if (entity.metadata or {}).get(facet) is not None:
+                    merged_metadata[facet] = (entity.metadata or {})[facet]
+            new_meta.pop("methods_seen", None)
+            new_meta.pop("status_code", None)
+        merged_metadata.update(new_meta)
         self.entities[entity.id] = stronger.model_copy(
             update={"evidence_refs": merged_refs[:50],
                     "metadata": merged_metadata,
                     "observed_at": observed_at}
         )
+        # UM-DR-44 A5b: the documented contract ("every add/contradiction
+        # increments revision") — the merge path previously did not, so
+        # evidence accumulation on existing entities was invisible to
+        # delta_since (revision_to == revision_from for pure re-observation).
+        self.revision += 1
         return self.entities[entity.id]
 
     def add_relation(self, relation: AppModelRelation) -> bool:
