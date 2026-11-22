@@ -184,4 +184,11 @@ def deduplicated_hypothesis_node(state: Any) -> dict[str, Any]:
     (RC-5 ids, UM-DR-43C identity-aware where context exists)."""
     from webpent.agents.hypothesis_analyzer.agent import hypothesis_node
 
-    return _retag(hypothesis_node(state))
+    # UM-DR-44 A3: expose the pass's bounded §8 counters in the update
+    # itself — the module global (last_identity_telemetry) stays for
+    # backward compatibility, but campaign reporting surfaces read the
+    # state update, not module globals.
+    update = _retag(hypothesis_node(state))
+    if isinstance(update, dict):
+        update["identity_telemetry"] = last_identity_telemetry.to_dict()
+    return update

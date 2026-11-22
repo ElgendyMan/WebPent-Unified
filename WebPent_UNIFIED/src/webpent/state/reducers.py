@@ -13,6 +13,7 @@ import json
 from typing import Any, TypeVar
 
 from webpent.models.findings import Finding
+from webpent.production.hypothesis_identity import decide as _identity_decide
 
 _T = TypeVar("_T")
 
@@ -487,10 +488,35 @@ def merge_hypotheses(
         hid = _extract_id(hyp)
         if hid is not None:
             if hid in merged:
-                # UM-DR-43C: same id arriving again — merge the records
-                # under the lifecycle contract instead of replacing the
-                # existing entry with the (possibly stale) new one.
-                merged[hid] = _merge_hypothesis_records(merged[hid], hyp)
+                # UM-DR-44 A3: the §5.3 pair policy is consulted for
+                # every same-id re-emission BEFORE the field-wise merge
+                # runs — one policy (hypothesis_identity.decide), one
+                # implementation (this reducer), no silent drift.  A
+                # "keep_separate" verdict means the records differ on
+                # an identity dimension; the re-emission is recorded
+                # as a distinct entry (synthetic key) instead of being
+                # merged into a bucket the policy says is not the same
+                # security object.
+                decision = _identity_decide(
+                    target_a=str(model_get(merged[hid], "target_url") or ""),
+                    class_a=str(model_get(merged[hid], "vuln_class") or ""),
+                    objective_a=str(
+                        model_get(merged[hid], "origin_detail") or ""),
+                    identity_a=None,
+                    target_b=str(model_get(hyp, "target_url") or ""),
+                    class_b=str(model_get(hyp, "vuln_class") or ""),
+                    objective_b=str(model_get(hyp, "origin_detail") or ""),
+                    identity_b=None,
+                )
+                if decision.verdict == "keep_separate":
+                    synthetic = (hid, "identity-distinct", id(hyp))
+                    order.append(synthetic)
+                    merged[synthetic] = hyp
+                else:
+                    # UM-DR-43C: same id arriving again — merge the records
+                    # under the lifecycle contract instead of replacing the
+                    # existing entry with the (possibly stale) new one.
+                    merged[hid] = _merge_hypothesis_records(merged[hid], hyp)
             else:
                 order.append(hid)
                 merged[hid] = hyp
