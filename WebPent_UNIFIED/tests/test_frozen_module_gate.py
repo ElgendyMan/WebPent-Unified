@@ -227,6 +227,11 @@ UMDR44_20261122_THAW_PATHS = frozenset(
         # response fell through to "inconclusive"; verified by
         # tests/test_umdr44_b8_tecl_reachable.py.
         "src/webpent/agents/request_smuggling/agent.py",
+        # B5: the funnel counted any truthy non-Mapping ("pending") as a
+        # valid ProofBundle and the entities branch read raw_relations
+        # (copy-paste); verified by
+        # tests/test_umdr44_b5_funnel_bundle_entities.py.
+        "src/webpent/production/discovery_funnel.py",
     }
 )
 # The pre-unfreeze drift expectation needs only the paths that

@@ -137,8 +137,19 @@ def _confirmation_chain_counts(findings: Any) -> tuple[Any, Any, Any, Any, Any, 
             guard.get("verdict", "")
         ).upper() == "CONFIRMED"
         bundle = evidence.get("proof_bundle")
-        bundle_ok = bundle is not None and (
-            bool(bundle) if isinstance(bundle, Mapping) else True
+        # UM-DR-44 B5: a bundle counts ONLY when it is a Mapping carrying
+        # the verifier contract keys (replay_metadata / promotion_guard,
+        # shared/verifier.py) — a truthy non-Mapping value ("pending",
+        # which producers genuinely write while a bundle is being built)
+        # previously counted as a valid ProofBundle.
+        bundle_ok = (
+            isinstance(bundle, Mapping)
+            and bool(bundle)
+            and (
+                "replay_metadata" in bundle
+                or "promotion_guard" in bundle
+                or "bundle_id" in bundle
+            )
         )
         # UM-DR-39 RC-1: count the shapes PRODUCTION writes — the
         # verifier records replay success inside replay_metadata /
@@ -244,8 +255,11 @@ def _appmodel_semantic_counts(state: Mapping[str, Any]) -> tuple[Any, Any, Any]:
     if isinstance(model, Mapping):
         raw_entities = model.get("entities")
         raw_relations = model.get("relations")
+        # UM-DR-44 B5: the entities branch checked raw_relations (a
+        # copy-paste of the relations line), so a list-shaped entities
+        # channel was never read and semantic counts fell to zero.
         entities = raw_entities.values() if isinstance(raw_entities, Mapping) else (
-            raw_entities if isinstance(raw_relations, (list, tuple)) else ()
+            raw_entities if isinstance(raw_entities, (list, tuple)) else ()
         )
         relations = raw_relations if isinstance(raw_relations, (list, tuple)) else ()
     elif model is not None and hasattr(model, "entities") and hasattr(model, "relations"):
