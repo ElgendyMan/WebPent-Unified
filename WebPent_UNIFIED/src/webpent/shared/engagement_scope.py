@@ -157,9 +157,18 @@ class EngagementToken:
     Restores the EXACT previous context — unlike a bare ``ContextVar``
     token, this is valid regardless of how many context variables the
     context spans, and ``None`` (no previous context) is representable.
+
+    UM-DR-44 §7: carries ``registry_key`` — the key its engagement was
+    REGISTERED under in the process-wide active-engagement registry.
+    Teardown unregisters with THIS key, never the previous context's
+    key (the two coincide only when both derive to "default"; real
+    authority contexts carry scope_fingerprint keys, where unregistering
+    with the previous context's key would leak the registration
+    forever).
     """
 
     previous: EngagementContext | None
+    registry_key: str = "default"
 
 
 _ENGAGEMENT_CONTEXT: contextvars.ContextVar[
@@ -181,14 +190,23 @@ _ACTIVE_ENGAGEMENTS: dict[str, int] = {}
 _ENGAGEMENT_LOCK = threading.RLock()
 
 
+def _registry_key_of(context: EngagementContext) -> str:
+    """The registry key an engagement context registers under."""
+    return context.scope_fingerprint or context.authorization_context_id or "default"
+
+
 def _register_active_engagement(context: EngagementContext) -> None:
-    key = context.scope_fingerprint or context.authorization_context_id or "default"
+    key = _registry_key_of(context)
     with _ENGAGEMENT_LOCK:
         _ACTIVE_ENGAGEMENTS[key] = _ACTIVE_ENGAGEMENTS.get(key, 0) + 1
 
 
 def _unregister_active_engagement(context: EngagementContext) -> None:
-    key = context.scope_fingerprint or context.authorization_context_id or "default"
+    _unregister_registry_key(_registry_key_of(context))
+
+
+def _unregister_registry_key(key: str) -> None:
+    """UM-DR-44 §7: unregister by the EXACT key registered under."""
     with _ENGAGEMENT_LOCK:
         count = _ACTIVE_ENGAGEMENTS.get(key, 0) - 1
         if count <= 0:
@@ -551,6 +569,8 @@ def set_engagement_target_hosts(*urls_or_hosts: str | None) -> EngagementToken:
     # UM-DR-44 B6(a): record the active engagement process-wide so a
     # context-less thread (threads do not inherit contextvars) is
     # DENIED instead of silently falling back to the NONE posture.
+    # UM-DR-44 §7: the token carries the registry key this context was
+    # registered under, so teardown unregisters exactly this entry.
     _register_active_engagement(context)
     logger.info(
         "Engagement context set: hosts=%s; origin policies=%s; invalid=%s",
@@ -558,7 +578,8 @@ def set_engagement_target_hosts(*urls_or_hosts: str | None) -> EngagementToken:
         len(policies),
         bool(invalid_reason),
     )
-    return EngagementToken(previous=previous)
+    return EngagementToken(
+        previous=previous, registry_key=_registry_key_of(context))
 
 
 def set_control_plane_egress(
@@ -591,7 +612,11 @@ def set_control_plane_egress(
     previous = _ENGAGEMENT_CONTEXT.get()
     _ENGAGEMENT_CONTEXT.set(context)
     _sync_compat_vars(context)
-    return EngagementToken(previous=previous)
+    # UM-DR-44 §7: registry_key for exact teardown (control-plane
+    # contexts do not register in the campaign registry — the default
+    # key keeps the token's teardown contract uniform and harmless).
+    return EngagementToken(
+        previous=previous, registry_key=_registry_key_of(context))
 
 
 def clear_engagement_target_hosts(token: EngagementToken | contextvars.Token | None = None) -> None:
@@ -610,10 +635,12 @@ def clear_engagement_target_hosts(token: EngagementToken | contextvars.Token | N
     """
     try:
         if isinstance(token, EngagementToken):
-            # UM-DR-44 B6(a): unregister the engagement that this token
-            # established (the context it is restoring TO never includes
-            # the one being torn down).
-            _unregister_active_engagement(token.previous or _EMPTY_CONTEXT)
+            # UM-DR-44 §7: unregister with the key THIS token's
+            # engagement was registered under (carried on the token) —
+            # never the previous context's key (identical only by the
+            # historic "default" coincidence; authority contexts carry
+            # scope_fingerprint keys where the mismatch leaked forever).
+            _unregister_registry_key(token.registry_key)
             _ENGAGEMENT_CONTEXT.set(token.previous)
             _sync_compat_vars(token.previous or _EMPTY_CONTEXT)
             return
@@ -634,6 +661,16 @@ def clear_engagement_target_hosts(token: EngagementToken | contextvars.Token | N
         _ENGAGEMENT_CONTEXT.set(None)
         _ENGAGEMENT_TARGET_HOSTS.set(frozenset())
         _ENGAGEMENT_ORIGIN_POLICIES.set(())
+        # UM-DR-44 §7: a force teardown is a FORCE TEARDOWN — no
+        # engagement survives it.  The registry previously kept every
+        # entry alive (only the structured-token path unregistered), so
+        # _any_engagement_active() stayed True forever after any
+        # force-clear: is_engagement_origin_allowed then took the B6
+        # "context was LOST" branch and DENIED every later request in
+        # the process — fail-closed masquerading as security, and the
+        # root cause of the full-suite cross-test pollution.
+        with _ENGAGEMENT_LOCK:
+            _ACTIVE_ENGAGEMENTS.clear()
     except (ValueError, LookupError):  # pragma: no cover
         logger.warning(
             "clear_engagement_target_hosts: failed to clear context.",

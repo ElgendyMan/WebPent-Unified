@@ -373,8 +373,12 @@ class TestRateCeilingParity:
     def test_ceiling_independent_of_rate_limit_enabled(self) -> None:
         # §5.1: the engagement ceiling is on even with the legacy
         # switch off (and independent of stealth_mode, which lives
-        # elsewhere): proven by test_sync_engagement_ceiling_enforced
-        # running with the default rate_limit_enabled=False settings.
+        # elsewhere): proven by test_sync_engagement_ceiling_enforced.
+        # UM-DR-44 B6(d) (mission rule 9): rate_limit_enabled default
+        # flipped False->True — the ONE authorized default change. The
+        # engagement ceiling itself is UNCHANGED: it is enforced
+        # regardless of this flag (the explicit toggles below prove the
+        # independence). Only the default assumption changed.
         from webpent.config.settings import get_settings
 
-        assert get_settings().rate_limit_enabled is False
+        assert get_settings().rate_limit_enabled is True
