@@ -1,0 +1,17 @@
+=== RUFF PARITY (batch rule: zero NEW findings on modified files) ===
+per-file base(6f3dc7c) -> current:
+src/webpent/appmodel/builder.py: 4 -> 4
+src/webpent/appmodel/models.py: 2 -> 2
+src/webpent/production/hypothesis_identity.py: 3 -> 3
+src/webpent/shared/engagement_scope.py: 3 -> 3
+tests/test_umdr44_b6_thread_gate.py: 1 -> 1 (pre-existing B-track file, not this batch)
+NEW files (must be totally clean): ALL PASS
+  scripts/regen_direct_io_inventory_umdr44.py
+  tests/test_umdr44_appmodel_identity.py
+  tests/test_umdr44_a5b_revision_contract.py
+  tests/test_umdr44_a5c_path_equivalence.py
+  tests/test_umdr44_a5d_hints.py
+  tests/test_umdr44_a6_canonical_target_key.py
+  tests/test_umdr44_clear_none_teardown.py
+=== COMPILEALL ===
+python -m compileall -q src/webpent/ -> RC=0

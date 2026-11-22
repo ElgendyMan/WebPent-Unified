@@ -23,7 +23,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from webpent.shared.direct_io_inventory import scan_direct_io  # noqa: E402 — deliberate import order (P2-203 triage)
+from webpent.shared.direct_io_inventory import (  # noqa: E402 — deliberate import order (P2-203 triage)
+    scan_direct_io,
+)
 
 ARTIFACT = ROOT / "docs" / "direct_io_inventory.json"
 SRC = ROOT / "src"

@@ -16,11 +16,11 @@ from __future__ import annotations
 
 from webpent.appmodel.builder import build_appmodel_research_hints
 from webpent.appmodel.models import (
+    ApplicationModel,
     AppModelEntity,
     AppModelEntityKind,
     AppModelRelation,
     AppModelRelationKind,
-    ApplicationModel,
     DiscoveryProvenance,
 )
 

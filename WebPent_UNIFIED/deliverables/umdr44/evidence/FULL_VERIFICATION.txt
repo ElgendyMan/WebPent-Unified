@@ -1,0 +1,11 @@
+=== FULL SUITE (UMDR-44 deferred batch) ===
+XFAIL tests/test_postp0_phase5_validators.py::test_jwt_confusion_explicit_negative - superseded contract: the 2026-10 validator rewrite re-discovers JWKS before the retired alg-none seam (see block comment above / DR-015)
+XFAIL tests/test_r2_spine_authority_contracts.py::test_t07b_campaign_worker_entrypoint_is_campaign_worker - B-06 residual (D2/R2-04): ratified entrypoint is 'campaign_worker'; v5 uses 'worker' and KNOWN_ENTRYPOINTS (frozen) does not contain 'campaign_worker'. DENIED for R3 — E-3 unfreeze denied, deferred to M3 (Ruling R3-002 §3.5); campaign_worker.py is explicitly NOT THAWED, so this stays xfail(strict) through Phase 1.
+9609 passed, 20 skipped, 3 xfailed, 15 warnings in 879.89s (0:14:39)
+RC=0
+DONE
+
+=== SUITE ENV ===
+base: 6f3dc7c (pushed branch tip)
+batch commits: e0e5d33 dc92dcf 3c8825c 0fc08bc d10ea9b 3d1f6c2 56393e3 + cleanup
+no failed, no order-dependent pollution (the §7 fix eliminated the leak class)

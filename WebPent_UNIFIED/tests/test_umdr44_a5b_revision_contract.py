@@ -16,11 +16,11 @@ metadata extras preserved on merge.
 from __future__ import annotations
 
 from webpent.appmodel.models import (
+    ApplicationModel,
     AppModelEntity,
     AppModelEntityKind,
     AppModelRelation,
     AppModelRelationKind,
-    ApplicationModel,
     DiscoveryProvenance,
 )
 

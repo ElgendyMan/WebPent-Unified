@@ -28,10 +28,10 @@ from __future__ import annotations
 import pytest
 
 from webpent.shared.engagement_scope import (
-    EngagementContext,
     _ACTIVE_ENGAGEMENTS,
-    _any_engagement_active,
     _ENGAGEMENT_LOCK,
+    EngagementContext,
+    _any_engagement_active,
     clear_engagement_target_hosts,
     is_engagement_origin_allowed,
     set_engagement_target_hosts,
@@ -106,12 +106,8 @@ class TestForceClearTeardown:
         unregister with the key its engagement was REGISTERED under —
         not the previous context's key (identical only by today's
         'default' coincidence)."""
-        # an OUTER engagement with a real scope fingerprint
-        outer_ctx = EngagementContext(
-            egress_mode="ENGAGEMENT",
-            target_hosts=frozenset({"outer.example.test"}),
-            scope_fingerprint="outer-fingerprint",
-        )
+        # an OUTER engagement (registered under the 'default' key — the
+        # outer context of a fresh process has no scope fingerprint)
         outer_token = set_engagement_target_hosts(
             "https://outer.example.test/app")
         # simulate the inner registration carrying its own fingerprint
