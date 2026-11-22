@@ -328,6 +328,55 @@ def _merge_hypothesis_records(existing: Any, new: Any) -> Any:
         if model_get(existing, field_name) is None:
             base[field_name] = model_get(new, field_name)
 
+    # UM-DR-44 B2: promotion-critical fields were absent from the base
+    # field list above, so model_validate() reset them to their model
+    # defaults on every merge (deterministic_match -> False) — silently
+    # stripping promotion eligibility after any re-emission.  Per-field
+    # preservation policy (documented in the engineering report):
+    #   deterministic_match: sticky True (True from either side wins);
+    #   evidence_contract:   dict merge, new keys win on collision;
+    #   novelty_score/info_gain: last DECLARED value (existing wins;
+    #       a model default like 0.0 is not a declaration);
+    #   preconditions_satisfied: non-None from either side.
+    def _declared(record: Any, field_name: str) -> bool:
+        """True when the record explicitly carried the field.
+
+        A pydantic model default (novelty_score=0.0) is NOT a
+        declaration; only model_fields_set (or a present dict key for
+        checkpoint round-trips) counts.
+        """
+        if isinstance(record, dict):
+            return record.get(field_name) is not None
+        fields_set = getattr(record, "model_fields_set", None)
+        if fields_set is not None:
+            return (field_name in fields_set
+                    and model_get(record, field_name) is not None)
+        return model_get(record, field_name) is not None
+
+    old_det = model_get(existing, "deterministic_match")
+    new_det = model_get(new, "deterministic_match")
+    base["deterministic_match"] = bool(old_det or new_det)
+
+    old_contract = model_get(existing, "evidence_contract")
+    new_contract = model_get(new, "evidence_contract")
+    if old_contract or new_contract:
+        merged_contract = dict(old_contract or {})
+        merged_contract.update(dict(new_contract or {}))
+        base["evidence_contract"] = merged_contract
+    else:
+        base["evidence_contract"] = None
+
+    for field_name in ("novelty_score", "info_gain"):
+        if _declared(existing, field_name):
+            base[field_name] = model_get(existing, field_name)
+        elif _declared(new, field_name):
+            base[field_name] = model_get(new, field_name)
+
+    old_pre = model_get(existing, "preconditions_satisfied")
+    new_pre = model_get(new, "preconditions_satisfied")
+    base["preconditions_satisfied"] = (
+        old_pre if old_pre is not None else new_pre)
+
     # --- lifecycle: apply the transition contract ----------------
     # status may arrive as a HypothesisStatus enum, a raw str, or a
     # dict value after a checkpoint round-trip — normalize to the
