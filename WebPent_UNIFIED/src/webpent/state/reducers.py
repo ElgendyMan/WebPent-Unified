@@ -491,22 +491,40 @@ def merge_hypotheses(
                 # UM-DR-44 A3: the §5.3 pair policy is consulted for
                 # every same-id re-emission BEFORE the field-wise merge
                 # runs — one policy (hypothesis_identity.decide), one
-                # implementation (this reducer), no silent drift.  A
-                # "keep_separate" verdict means the records differ on
-                # an identity dimension; the re-emission is recorded
-                # as a distinct entry (synthetic key) instead of being
-                # merged into a bucket the policy says is not the same
-                # security object.
+                # implementation (this reducer), no silent drift.  The
+                # REAL identity contexts are extracted from both records
+                # (the A4 integration caught the None-context gap: passing
+                # None made the policy see both sides as unknown and it
+                # merged identity-distinct records).  A "keep_separate"
+                # verdict records the re-emission as a distinct entry
+                # (synthetic key) instead of merging records the policy
+                # says are not the same security object.
+                from webpent.production.hypothesis_identity import (
+                    identity_from_hypothesis,
+                )
+
+                def _objective_key(record: Any) -> str:
+                    # mirror hypothesis_dedup._objective_key_from_detail:
+                    # the objective is the structured "objective=<key>"
+                    # line in origin_detail, NOT the raw text (the raw
+                    # text differs between a record and its replay
+                    # twin, which must still merge).
+                    detail = str(model_get(record, "origin_detail") or "")
+                    for line in detail.split():
+                        key, _sep, value = line.partition("=")
+                        if key.strip().lower() == "objective" and value.strip():
+                            return value.strip()
+                    return ""
+
                 decision = _identity_decide(
                     target_a=str(model_get(merged[hid], "target_url") or ""),
                     class_a=str(model_get(merged[hid], "vuln_class") or ""),
-                    objective_a=str(
-                        model_get(merged[hid], "origin_detail") or ""),
-                    identity_a=None,
+                    objective_a=_objective_key(merged[hid]),
+                    identity_a=identity_from_hypothesis(merged[hid]),
                     target_b=str(model_get(hyp, "target_url") or ""),
                     class_b=str(model_get(hyp, "vuln_class") or ""),
-                    objective_b=str(model_get(hyp, "origin_detail") or ""),
-                    identity_b=None,
+                    objective_b=_objective_key(hyp),
+                    identity_b=identity_from_hypothesis(hyp),
                 )
                 if decision.verdict == "keep_separate":
                     synthetic = (hid, "identity-distinct", id(hyp))
