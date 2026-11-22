@@ -92,6 +92,9 @@ def test_engagement_thread_propagates_context() -> None:
         set_engagement_target_hosts,
     )
 
+    token = set_engagement_target_hosts("https://gate-check.example.com/")
+    # construct AFTER the engagement is set — EngagementThread snapshots
+    # the spawning context at construction time (copy_context)
     holder: dict[str, object] = {}
     t = EngagementThread(
         target=lambda: holder.update(
@@ -101,7 +104,6 @@ def test_engagement_thread_propagates_context() -> None:
                 "https://foreign.example.com/"),
         )
     )
-    token = set_engagement_target_hosts("https://gate-check.example.com/")
     try:
         t.start()
         t.join(timeout=5)
