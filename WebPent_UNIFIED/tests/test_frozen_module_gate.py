@@ -222,6 +222,11 @@ UMDR43C_20261121_THAW_PATHS = frozenset(
 UMDR44_20261122_THAW_PATHS = frozenset(
     {
         "src/webpent/shared/http.py",
+        # B8: the TE.CL status-line split used a double-escaped literal
+        # (4 literal bytes backslash-r-backslash-n) so a poisoned second
+        # response fell through to "inconclusive"; verified by
+        # tests/test_umdr44_b8_tecl_reachable.py.
+        "src/webpent/agents/request_smuggling/agent.py",
     }
 )
 # The pre-unfreeze drift expectation needs only the paths that

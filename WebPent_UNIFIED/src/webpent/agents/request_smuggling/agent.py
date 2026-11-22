@@ -292,7 +292,13 @@ def _probe_te_cl_outcome(
             or "302" in text.split("\r\n")[0]
         ):
             return "confirmed"
-    status_lines = (resp1 + resp2).split(b"\\r\\n")
+    # UM-DR-44 B8: this split used the 4 LITERAL bytes
+    # backslash-r-backslash-n (double-escaped source), so the combined
+    # responses were never actually separated into status lines and a
+    # poisoned SECOND response (first 200, second 4xx) fell through
+    # to "inconclusive". Single-escaped b"\r\n" = real CRLF, matching
+    # the CL.TE twin above.
+    status_lines = (resp1 + resp2).split(b"\r\n")
     if any(
         line.startswith(b"HTTP/")
         and len(line.split()) > 1
