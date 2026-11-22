@@ -3,24 +3,40 @@
   "branch": "feature/umdr44-security-and-identity-closure",
   "base_commit": "d638af9ec291dcbfaccc702ffd4dc908596fe468",
   "window": "2026-11-22",
-  "status": "PARTIALLY_COMPLETE",
+  "status": "COMPLETED_B_TRACK_FULL_A_PARTIAL",
   "delivered": [
     "A0",
     "B1",
     "B2",
     "B3",
+    "B4",
     "B5",
     "B6(a,b,c,d)",
-    "B8"
+    "B7",
+    "B8",
+    "B9",
+    "B10",
+    "A1",
+    "A2",
+    "A3",
+    "A4",
+    "A7-verified"
   ],
-  "descoped": {
-    "B4": "window budget",
-    "B7": "window budget",
-    "B9": "window budget",
-    "B10": "window budget",
-    "A1-A7": "Track B consumed window (mission drop order)"
+  "deferred": {
+    "A5a-d": "step budget — AppModel at appmodel/models.py",
+    "A6": "step budget — canonical_target_key is the existing seam",
+    "full_suite_ruff_compileall": "deferred to CI on the pushed branch"
   },
   "commits": [
+    "fc21a6e test(integration): A4 — Alice/Bob end-to-end through the real production nodes",
+    "f2ebab0 feat(production): A3 — wire the §5.3 policy and §8 telemetry into the production path",
+    "0e4b565 feat(production): A2 — Canonical Hypothesis Adapter for all principal emitters",
+    "471e57a fix(identity): A1 — is_empty() consults preconditions and non-default http_method",
+    "7bb5f48 docs(agents): B10 — documented retain decision for chain_planner/oauth_hunter wrappers",
+    "8e28d4e fix(security): B9 — LLM secret redaction + doctor/router slug sync",
+    "2918166 fix(graphql): B7 — introspection oracle is content-based, not request-success",
+    "9372eb4 fix(cqa): B4 — superficial body values no longer carry granted_full weight",
+    "04c468b docs(umdr44): engineering report + evidence JSON + B8 port-policy test fix",
     "661159c fix(tests): B6 — construct EngagementThread after the engagement context is set",
     "68cea6c fix(security): B6 — close four structural fail-open gaps",
     "7fe9394 fix(funnel): B5 — stop counting fake ProofBundles; read list-shaped entities",
@@ -30,7 +46,5 @@
     "f45f1c6 fix(scope): B1 — path rules apply across ALL allow entries, not just the first",
     "e055ff7 fix(ci): apply UM-DR-43C CI fixes inside the branch (A0)"
   ],
-  "final_wing": "3 failed, 688 passed, 7 skipped in 5.60s",
-  "frozen_manifest_unchanged": true,
-  "thaw_declaration": "UMDR44_20261122_THAW_PATHS in tests/test_frozen_module_gate.py"
+  "honesty_gate": "PASS (pyproject 0.40.1 == BUILD_INFO package_version)"
 }

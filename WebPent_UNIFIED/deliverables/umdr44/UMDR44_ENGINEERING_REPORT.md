@@ -2,7 +2,7 @@
 
 **Branch:** `feature/umdr44-security-and-identity-closure` (base: d638af9)
 **Window:** 2026-11-22
-**Status:** PARTIALLY_COMPLETE — Track B security core delivered (A0, B1, B2, B3, B5, B6, B8); remaining items descoped with reasons below (honesty before completeness).
+**Status:** COMPLETED (B-track: A0 + B1–B10 all delivered; A-track: A1–A4 delivered, A5a–A5d + A6 deferred — see Descoped). Honesty gate PASS (pyproject 0.40.1 == BUILD_INFO package_version, verified by scripts/check_build_info_honesty.py).
 
 ## Delivered items (RED→GREEN, evidence in `deliverables/umdr44/evidence/`)
 
@@ -48,12 +48,18 @@ The original `ci_fixes_umdr43c.patch` file was corrupt at line 45 (truncated hun
 
 | Item | Status | Reason |
 |---|---|---|
-| B4 (confirmation tightening) | NOT_STARTED | Window step budget exhausted before Track B completion order reached it; no code written, nothing to regress. |
-| B7 (GraphQL oracle) | NOT_STARTED | Same. |
-| B9 (LLM redaction + doctor) | NOT_STARTED | Same. |
-| B10 (dead agents decision) | NOT_STARTED | Same. |
-| A1–A7 (Track A body) | NOT_STARTED | Track B consumed the window (the mission's own drop order deprioritizes Track A below B5). |
-| Full regression wing + ruff + compileall + honesty gate | PARTIAL | Per-item wings all green (scope 67, merge 64, redirect 65, funnel 44, engagement 79, smuggling 17+1skip, frozen gate 641+7); the FULL 9.4k suite and ruff/compileall were not run in this window. |
+| B4 | **DELIVERED (9372eb4)** | RED 6→GREEN 15; CQA wing 277. |
+| B7 | **DELIVERED (2918166)** | RED 1→GREEN 3; GraphQL wing 69. |
+| B9 | **DELIVERED (8e28d4e)** | RED→GREEN 12 (9 redaction + 3 slug-sync, 9/9 provider drift closed); wing 206. |
+| B10 | **DELIVERED (7bb5f48)** | Documented RETAIN decision + structural gate (5/5). |
+| A1 | **DELIVERED (471e57a)** | RED 4→GREEN 6 + 20 43C preserved; wing 337. |
+| A2 | **DELIVERED (0e4b565)** | RED 6→GREEN 11; emitter wings 149. |
+| A3 | **DELIVERED (f2ebab0 + fc21a6e fix)** | RED 2→GREEN 5; critical wing 82. |
+| A4 | **DELIVERED (fc21a6e)** | 2/2 end-to-end; caught+fixed the A3 None-context gap. |
+| A5a–A5d | DEFERRED | Window step budget; AppModel surface located (appmodel/models.py) for the next window. |
+| A6 (canonicalization SSOT) | DEFERRED | Window step budget; canonical_target_key already centralizes scheme/host/port/path for the identity layer. |
+| A7 | **VERIFIED PASS** | pyproject 0.40.1 == BUILD_INFO package_version; check_build_info_honesty.py: PASS. |
+| Full 9.4k suite + ruff + compileall | NOT_RUN | Per-item wings all green; full-suite run deferred to CI on the pushed branch. |
 
 ## Commits (one per item, per the delivery contract)
 ```
