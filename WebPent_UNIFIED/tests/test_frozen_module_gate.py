@@ -1501,6 +1501,12 @@ def test_baseline_disagrees_only_on_documented_unfreeze_paths() -> None:
         # scripts/refreeze_manifest_umdr43c.py (one NEW trust-chain
         # file for the hypothesis-identity window).
         | {"src/webpent/production/hypothesis_identity.py"}
+        # UM-DR-44 B6(b) scope completion: h2_race.py gained a
+        # registered broad handler (the fail-closed verify_target_tls
+        # settings read) and missed the last pin cycle — pinned now as
+        # a scope completion, NOT a thaw (the file was never frozen
+        # before, so nothing was unfrozen).
+        | {"src/webpent/shared/h2_race.py"}
     )
     assert not undocumented_current, (
         f"undocumented paths only in current manifest: {sorted(undocumented_current)}"

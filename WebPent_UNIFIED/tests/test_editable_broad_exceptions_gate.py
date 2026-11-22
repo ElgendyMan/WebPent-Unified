@@ -59,6 +59,10 @@ SRC_ROOT = REPO_ROOT / "src" / "webpent"
 # while claiming "all broad sites documented").
 REGISTERED_FILES = {
     "src/webpent/recon/auth_resilience.py": 2,
+    # UM-DR-44 B6(b): the verify_target_tls settings read in h2_race —
+    # any settings failure keeps STRICT TLS (fail-closed), the exact
+    # coverage_gap_report double-gate precedent.
+    "src/webpent/shared/h2_race.py": 1,
     "src/webpent/recon/session_recovery.py": 3,
     "src/webpent/integration/planner_enrichment_bridge.py": 1,
     "src/webpent/reporter/poc_recorder.py": 6,

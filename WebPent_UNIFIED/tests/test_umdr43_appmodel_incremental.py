@@ -13,7 +13,16 @@ Pins the apply_observation contract the workstream requires:
 """
 from __future__ import annotations
 
-from webpent.appmodel.builder import build_application_model
+from webpent.appmodel.builder import (
+    _endpoint_id_of,
+    build_application_model,
+)
+# UM-DR-44 A5a (batch §6): endpoint entity ids are the canonical
+# (scheme, host, effective-port, path) tuple, minted by the SSOT
+# _endpoint_id_of. The legacy host+path literals below were replaced
+# by SSOT-derived ids — a DELIBERATE contract change: https/http and
+# implicit/explicit-port origins are DISTINCT endpoints now.
+
 from webpent.appmodel.models import (
     AppModelEntityKind,
     AppModelRelationKind,
@@ -37,19 +46,19 @@ def test_single_observation_merges_into_existing_model():
     assert result["applied"] is True
     assert result["touched_count"] == 2  # endpoint + identity
     assert model.revision > before_revision
-    assert "appmodel-endpoint:api-example-com-orders-1" in model.entities
+    assert _endpoint_id_of("https://api.example.com/orders/1") in model.entities
     assert "identity:user-a" in model.entities
     # the identity->endpoint relation exists and is typed
     kinds = {(r.kind, r.source_id, r.target_id) for r in model.relations}
     assert (AppModelRelationKind.OBSERVED_ON.value,
             "identity:user-a",
-            "appmodel-endpoint:api-example-com-orders-1") in kinds
+            _endpoint_id_of("https://api.example.com/orders/1")) in kinds
 
 
 def test_provenance_is_exact_observed_vs_inferred():
     model = ApplicationModel(engagement_id="eng-1")
     model.apply_observation(dict(_OBS))
-    endpoint = model.entities["appmodel-endpoint:api-example-com-orders-1"]
+    endpoint = model.entities[_endpoint_id_of("https://api.example.com/orders/1")]
     identity = model.entities["identity:user-a"]
     relation = model.relations[0]
     assert endpoint.provenance == DiscoveryProvenance.OBSERVED.value
@@ -63,7 +72,7 @@ def test_reobservation_merges_refs_and_keeps_identity():
     model = ApplicationModel(engagement_id="eng-1")
     model.apply_observation(dict(_OBS))
     model.apply_observation({**_OBS, "evidence_ref": "req-def456"})
-    endpoint = model.entities["appmodel-endpoint:api-example-com-orders-1"]
+    endpoint = model.entities[_endpoint_id_of("https://api.example.com/orders/1")]
     assert endpoint.ref_list() == ["req-abc123", "req-def456"]
     # no duplicate relation from the second observation
     assert len(model.relations) == 1
@@ -119,8 +128,8 @@ def test_incremental_path_continues_from_full_rebuild():
     assert result["applied"] is True
     # nothing from the rebuild was lost
     assert entities_before <= set(model.entities)
-    assert "appmodel-endpoint:api-example-com-orders-3" in model.entities
+    assert _endpoint_id_of("https://api.example.com/orders/3") in model.entities
     assert "identity:user-b" in model.entities
     # and the rebuild's endpoint for /orders/1 is distinct from /orders/3
-    assert ("appmodel-endpoint:api-example-com-orders-1" in model.entities
-            and "appmodel-endpoint:api-example-com-orders-3" in model.entities)
+    assert (_endpoint_id_of("https://api.example.com/orders/1") in model.entities
+            and _endpoint_id_of("https://api.example.com/orders/3") in model.entities)
