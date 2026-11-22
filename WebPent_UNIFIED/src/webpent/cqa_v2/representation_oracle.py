@@ -76,10 +76,17 @@ VOLATILE_KEYS: frozenset[str] = frozenset({
     "span_id", "nonce", "etag", "x_request_id", "correlation_id", "seq",
 })
 
-#: Body values equivalent to the header grammar's granted outcome.
+#: Body values equivalent to the header grammar's granted outcome —
+#: STRICT vocabulary only (UM-DR-44 B4).  Generic health-check /
+#: transport words ("ok", "success", "allowed", "permit") previously
+#: mapped here too, which let a body like {"status": "ok"} (zero
+#: authorization semantics) satisfy granted_full-grade confirmation
+#: checks.  They now normalize to None — the observation falls back to
+#: the ordinary status+mismatch analysis instead of being treated as
+#: an explicit grant.  The header channel and the strict vocabulary
+#: keep their exact previous strength.
 OUTCOME_GRANTED: frozenset[str] = frozenset({
-    "granted", "granted_full", "allowed", "permit", "permitted",
-    "authorized", "ok", "success",
+    "granted", "granted_full", "authorized", "permitted",
 })
 
 #: Body values equivalent to the header grammar's denied outcome.
