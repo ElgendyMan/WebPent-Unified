@@ -617,11 +617,22 @@ def _redirect_guard_decision(response: httpx.Response) -> None:
     # method-aware: 307/308 re-issue the original method, 301/302/303
     # downgrade to GET — a redirect is allowed only if the target
     # passes under the semantics it will actually be issued with.
+    # UM-DR-44 B3: the GET fallback is legitimate ONLY for the codes
+    # that genuinely downgrade the method (301/302/303).  For 307/308
+    # httpx re-issues the ORIGINAL method, so the target must pass
+    # under that method itself — passing it under a "will become GET"
+    # justification meant an actual POST/DELETE was executed outside
+    # the method constraints.
     original_method = getattr(getattr(response, "request", None), "method", None) or "GET"
-    if not is_engagement_origin_allowed(redirect_url, method=original_method) and not (
-        original_method.upper() not in {"GET", "HEAD"}
+    _downgrade_codes = {301, 302, 303}
+    method_ok = is_engagement_origin_allowed(redirect_url, method=original_method)
+    if not method_ok and (
+        response.status_code in _downgrade_codes
+        and original_method.upper() not in {"GET", "HEAD"}
         and is_engagement_origin_allowed(redirect_url, method="GET")
     ):
+        method_ok = True
+    if not method_ok:
         logger.warning(
             "OriginPolicy blocked redirect from %s to out-of-scope origin %s "
             "(method=%s).",

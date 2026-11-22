@@ -212,6 +212,18 @@ UMDR43C_20261121_THAW_PATHS = frozenset(
         "src/webpent/state/reducers.py",
     }
 )
+# UM-DR-44 security hotfix window (2026-11-22): the P0 redirect-guard
+# method fix (B3) upgrades _redirect_guard_decision in this frozen
+# trust-chain file. Thawed under the established declared-refreeze
+# convention (same pattern as UM-DR-43C / UMDR42 closure): exactly ONE
+# file, changes verified by
+# tests/test_umdr44_b3_redirect_method_guard.py, byte-identity restored
+# at window close by the UM-DR-44 re-freeze.
+UMDR44_20261122_THAW_PATHS = frozenset(
+    {
+        "src/webpent/shared/http.py",
+    }
+)
 # The pre-unfreeze drift expectation needs only the paths that
 # exist in that baseline (store.py is newer than it — a
 # byte-identity-only entry above).
@@ -1301,6 +1313,16 @@ def test_frozen_file_byte_identical(relpath: str) -> None:
         pytest.skip(
             f"{relpath} thawed mid-window per the declared UM-DR-43C "
             "hypothesis-lifecycle window — delta-mode enforcement; "
+            "byte-identity restored at the window re-freeze")
+    if observed != expected and relpath in UMDR44_20261122_THAW_PATHS:
+        # UM-DR-44 security hotfix window: the P0 redirect-guard method
+        # fix (B3) upgraded _redirect_guard_decision in this frozen file;
+        # regression proof is tests/test_umdr44_b3_redirect_method_guard.py,
+        # and byte-identity is restored at window close by the UM-DR-44
+        # re-freeze.
+        pytest.skip(
+            f"{relpath} thawed mid-window per the declared UM-DR-44 "
+            "security-hotfix window — delta-mode enforcement; "
             "byte-identity restored at the window re-freeze")
     if observed != expected and relpath in R3_RULING_THAW_PATHS:
         # Mid-window delta mode: the ruling authorized exactly this file.
