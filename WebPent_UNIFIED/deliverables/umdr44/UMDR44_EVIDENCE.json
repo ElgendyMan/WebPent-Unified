@@ -3,7 +3,7 @@
   "branch": "feature/umdr44-security-and-identity-closure",
   "base_commit": "d638af9ec291dcbfaccc702ffd4dc908596fe468",
   "window": "2026-11-22",
-  "status": "COMPLETED_B_TRACK_FULL_A_PARTIAL",
+  "status": "FULLY_COMPLETE_INCLUDING_DEFERRED_BATCH",
   "delivered": [
     "A0",
     "B1",
@@ -46,5 +46,66 @@
     "f45f1c6 fix(scope): B1 — path rules apply across ALL allow entries, not just the first",
     "e055ff7 fix(ci): apply UM-DR-43C CI fixes inside the branch (A0)"
   ],
-  "honesty_gate": "PASS (pyproject 0.40.1 == BUILD_INFO package_version)"
+  "honesty_gate": "PASS (pyproject 0.40.1 == BUILD_INFO package_version)",
+  "deferred_batch": {
+    "base": "6f3dc7c05a4881588b881558ff2bf874da127ec2",
+    "commits": [
+      "e0e5d33",
+      "dc92dcf",
+      "3c8825c",
+      "0fc08bc",
+      "d10ea9b",
+      "3d1f6c2",
+      "56393e3",
+      "de9a376"
+    ],
+    "items": {
+      "A5a": {
+        "red": 10,
+        "green": 12,
+        "commit": "e0e5d33"
+      },
+      "A5b": {
+        "red": 5,
+        "green": 11,
+        "commit": "dc92dcf"
+      },
+      "A5c": {
+        "green": 3,
+        "commit": "3c8825c"
+      },
+      "A5d": {
+        "red": 2,
+        "green": 4,
+        "commit": "0fc08bc"
+      },
+      "A6": {
+        "red": 5,
+        "green": 19,
+        "wing": 696,
+        "commit": "d10ea9b"
+      },
+      "S7_registry_leak": {
+        "red": 3,
+        "green": 4,
+        "wings": "B6/34/41 63/63",
+        "commit": "3d1f6c2"
+      },
+      "S6_gates": {
+        "g02": "1223->1225 official regen, 2 reviewed additions, 0 removals",
+        "h2_race": "registered + pinned (scope completion)",
+        "commit": "56393e3"
+      }
+    },
+    "full_suite": {
+      "passed": 9609,
+      "failed": 0,
+      "skipped": 20,
+      "xfailed": 3,
+      "seconds": 879.89
+    },
+    "ruff_parity": "exact on all modified files; new files clean",
+    "compileall": "RC=0"
+  },
+  "push_status": "attempted at delivery time; see report honesty note"
 }
