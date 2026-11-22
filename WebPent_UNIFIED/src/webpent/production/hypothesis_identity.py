@@ -200,12 +200,28 @@ class HypothesisIdentityContext:
         )
 
     def is_empty(self) -> bool:
-        """True when NO dimension carries a value — the legacy case."""
+        """True when NO dimension carries a value — the legacy case.
+
+        UM-DR-44 A1: ``preconditions`` now count toward emptiness (a
+        context carrying only observable preconditions is NOT the
+        legacy case).  ``http_method`` counts only when NON-DEFAULT:
+        the Hypothesis model's ``request_method`` defaults to "GET"
+        for every checkpoint-era hypothesis, so a bare GET carries no
+        identity signal — treating it as one would collapse the entire
+        legacy corpus into "contextual".  A declared non-default
+        method (POST/PUT/DELETE/…) IS an identity distinction (the
+        same method-constraint semantics as the scope authority).
+        Kept dimension-consistent with ``canonical_form()`` by
+        tests/test_umdr44_a1_is_empty_dimensions.py (structural
+        contract, with the documented default-method exception).
+        """
         n = self.normalized()
         return not (
             n.actor or n.role or n.tenant or n.namespace
             or n.resource_owner or n.object_id or n.operation
             or n.workflow_state or n.session or n.auth_strength
+            or n.preconditions
+            or (n.http_method and n.http_method != "GET")
         )
 
     def canonical_form(self) -> str:

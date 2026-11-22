@@ -246,6 +246,11 @@ UMDR44_20261122_THAW_PATHS = frozenset(
         # (SDK exception text can embed API-key-shaped URL queries);
         # verified by tests/test_umdr44_b9_llm_secret_redaction.py.
         "src/webpent/shared/llm.py",
+        # A1: is_empty() now consults preconditions and non-default
+        # http_method (the model's request_method="GET" default carries
+        # no identity signal — documented exception); verified by
+        # tests/test_umdr44_a1_is_empty_dimensions.py.
+        "src/webpent/production/hypothesis_identity.py",
     }
 )
 # The pre-unfreeze drift expectation needs only the paths that
