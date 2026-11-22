@@ -346,6 +346,32 @@ def is_llm_enabled(settings: Settings | None = None) -> bool:
     return bool(getattr(settings, "llm_enabled", True)) if override is None else bool(override)
 
 
+# UM-DR-44 B9: secret-shaped URL queries / headers that provider SDK
+# exceptions routinely embed in their message text.  The dead-provider
+# reason is logged verbatim, so these MUST be redacted before logging.
+_SECRET_QUERY_RE = re.compile(
+    r"(?i)(key|api[-_]?key|apikey|token|access[-_]?token|secret)"
+    r"=([^\s&\"']+)"
+)
+_BEARER_RE = re.compile(r"(?i)(bearer\s+)([A-Za-z0-9\-_.~+/]+=*)")
+
+
+def redact_secret_text(text: str) -> str:
+    """Redact secret-shaped values from an arbitrary string (UM-DR-44 B9).
+
+    Provider SDK exception messages routinely embed the request URL,
+    and several providers put the API key in the URL query string
+    (Gemini ``?key=…``, legacy OpenAI ``?api-key=…``) or an
+    ``Authorization: Bearer …`` header fragment.  Those values must
+    never reach the logs.  Ordinary error text (provider names, status
+    codes, URLs without secret parameters) passes through unchanged —
+    debuggability is not weakened, only secret VALUES are masked.
+    """
+    out = _SECRET_QUERY_RE.sub(r"\1=[REDACTED]", str(text or ""))
+    out = _BEARER_RE.sub(r"\1[REDACTED]", out)
+    return out
+
+
 def _mark_provider_dead(provider: str, reason: str = "") -> None:
     """Mark a provider as dead (circuit breaker tripped).
 
@@ -364,11 +390,14 @@ def _mark_provider_dead(provider: str, reason: str = "") -> None:
             # TTL window are expected (every subsequent call will hit
             # the dead-provider short-circuit and call this again) and
             # would spam the logs.
+            # UM-DR-44 B9: the reason is exception text that may embed
+            # an API-key-shaped URL query (Gemini ?key=…, Bearer
+            # headers) — redacted before it reaches the log record.
             logger.warning(
                 "Circuit breaker: provider %r marked as DEAD (%s). "
                 "It will be skipped for all subsequent LLM calls for "
                 "up to %d seconds, then automatically re-tried.",
-                provider, reason, int(_DEAD_PROVIDER_TTL_SECONDS),
+                provider, redact_secret_text(reason), int(_DEAD_PROVIDER_TTL_SECONDS),
             )
 
 

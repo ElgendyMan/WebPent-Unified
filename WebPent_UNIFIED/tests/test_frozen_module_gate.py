@@ -242,6 +242,10 @@ UMDR44_20261122_THAW_PATHS = frozenset(
         # B6(d): rate_limit_enabled default False -> True (the one
         # authorized default change, mission rule 9); same B6 test file.
         "src/webpent/config/settings.py",
+        # B9: redact_secret_text + redaction at the dead-provider log
+        # (SDK exception text can embed API-key-shaped URL queries);
+        # verified by tests/test_umdr44_b9_llm_secret_redaction.py.
+        "src/webpent/shared/llm.py",
     }
 )
 # The pre-unfreeze drift expectation needs only the paths that

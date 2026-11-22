@@ -83,16 +83,23 @@ log = logging.getLogger("doctor")
 # gemini-1.5-flash) were stale/deprecated and caused exactly that
 # class of false-negative in the doctor's pre-V7 output.
 _PROBE_MODELS: dict[str, str] = {
-    "groq": "llama-3.1-8b-instant",
-    "openrouter": "meta-llama/llama-3.3-70b-instruct:free",
-    "github": "gpt-4o-mini",
-    "cerebras": "llama3.1-8b",
-    "zai": "glm-4.7-flash",
-    "mistral": "mistral-small-latest",
-    "gemini": "gemini-2.0-flash",
-    "cohere": "command-r",
+    # UM-DR-44 B9: every slug now EQUALS the router's
+    # _TASK_PREFERENCE_ORDER entry for the same provider (the router
+    # is the source of truth — the doctor must probe exactly what the
+    # router would call).  Enforced structurally by
+    # tests/test_umdr44_b9_doctor_slug_sync.py.  Previous drift: 9/9
+    # shared providers had stale slugs (the doctor reported ACTIVE
+    # while the real router 404'd).
+    "groq": "openai/gpt-oss-120b",
+    "openrouter": "google/gemma-4-31b-it:free",
+    "github": "gpt-4o",
+    "cerebras": "gpt-oss-120b",
+    "zai": "glm-5.2",
+    "mistral": "mistral-large-latest",
+    "gemini": "gemini-2.5-flash",
+    "cohere": "command-a-03-2025",
     # Cloudflare requires account_id too; handled specially below.
-    "cloudflare": "@cf/meta/llama-3-8b-instruct",
+    "cloudflare": "@cf/meta/llama-3.2-3b-instruct",
 }
 
 _PROBE_PROMPT = "Reply with OK"
