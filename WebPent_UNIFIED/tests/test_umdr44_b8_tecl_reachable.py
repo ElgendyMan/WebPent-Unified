@@ -31,11 +31,16 @@ from webpent.shared.engagement_scope import (
 )
 
 
+FIXED_PORT = 9377
+
+
 @pytest.fixture(autouse=True)
 def loopback_engagement() -> None:
     """The raw sender refuses hosts outside the declared engagement
-    targets (fail-closed) — declare loopback for the local test server."""
-    token = set_engagement_target_hosts("127.0.0.1")
+    targets (fail-closed) — declare loopback for the local test server.
+    Since B6c the PORT must also pass the origin policy, so a full URL
+    with the fixed port is declared."""
+    token = set_engagement_target_hosts(f"http://127.0.0.1:{FIXED_PORT}")
     yield
     clear_engagement_target_hosts(token)
 
@@ -44,9 +49,9 @@ def _serve_once(responses: list[bytes], port_holder: dict) -> None:
     """Serve raw bytes for each accepted connection, then close."""
     srv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     srv.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    srv.bind(("127.0.0.1", 0))
+    srv.bind(("127.0.0.1", FIXED_PORT))
     srv.listen(8)
-    port_holder["port"] = srv.getsockname()[1]
+    port_holder["port"] = FIXED_PORT
 
     def _worker() -> None:
         served = 0
@@ -114,9 +119,17 @@ class TestTeClStatusLineScan:
         assert outcome == "confirmed"
 
     def test_unreachable_server_is_inconclusive(self) -> None:
-        outcome = _probe_te_cl_outcome(
-            "127.0.0.1", 1, use_tls=False, cookies=None  # nothing listens
+        from webpent.shared.engagement_scope import (
+            clear_engagement_target_hosts as _clear,
+            set_engagement_target_hosts as _set,
         )
+        tok = _set("http://127.0.0.1:9378")
+        try:
+            outcome = _probe_te_cl_outcome(
+                "127.0.0.1", 9378, use_tls=False, cookies=None  # nothing listens
+            )
+        finally:
+            _clear(tok)
         assert outcome == "inconclusive"
 
     def test_both_healthy_is_inconclusive(self) -> None:

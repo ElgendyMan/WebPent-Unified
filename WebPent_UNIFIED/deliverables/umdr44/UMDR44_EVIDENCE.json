@@ -1,0 +1,36 @@
+{
+  "mission": "UM-DR-44",
+  "branch": "feature/umdr44-security-and-identity-closure",
+  "base_commit": "d638af9ec291dcbfaccc702ffd4dc908596fe468",
+  "window": "2026-11-22",
+  "status": "PARTIALLY_COMPLETE",
+  "delivered": [
+    "A0",
+    "B1",
+    "B2",
+    "B3",
+    "B5",
+    "B6(a,b,c,d)",
+    "B8"
+  ],
+  "descoped": {
+    "B4": "window budget",
+    "B7": "window budget",
+    "B9": "window budget",
+    "B10": "window budget",
+    "A1-A7": "Track B consumed window (mission drop order)"
+  },
+  "commits": [
+    "661159c fix(tests): B6 — construct EngagementThread after the engagement context is set",
+    "68cea6c fix(security): B6 — close four structural fail-open gaps",
+    "7fe9394 fix(funnel): B5 — stop counting fake ProofBundles; read list-shaped entities",
+    "e346ccb fix(smuggling): B8 — TE.CL status-line split used a double-escaped literal",
+    "58a2a16 fix(http): B3 — 307/308 redirects no longer pass via the GET fallback",
+    "371f097 fix(state): B2 — preserve promotion-critical fields through hypothesis merges",
+    "f45f1c6 fix(scope): B1 — path rules apply across ALL allow entries, not just the first",
+    "e055ff7 fix(ci): apply UM-DR-43C CI fixes inside the branch (A0)"
+  ],
+  "final_wing": "3 failed, 688 passed, 7 skipped in 5.60s",
+  "frozen_manifest_unchanged": true,
+  "thaw_declaration": "UMDR44_20261122_THAW_PATHS in tests/test_frozen_module_gate.py"
+}
