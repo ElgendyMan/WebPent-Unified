@@ -1,0 +1,5 @@
+3 passed (on A5a+A5b tree — SSOT makes both paths mint identical ids)
+RED-on-base reasoning: 6f3dc7c builder.ensure_endpoint mints f"{host}{path}"
+while apply_observation minted the same legacy key — but rebuild links observations
+via a DIFFERENT site (~337) that only matched host+path; with scheme/port dropped
+both paths COULD agree only by accident. The equivalence is now structural: one minter.
