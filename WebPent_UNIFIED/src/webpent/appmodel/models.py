@@ -213,8 +213,30 @@ class ApplicationModel(BaseModel):
         # the earliest observation timestamp wins (staleness metadata
         # records FIRST observation, not last write)
         observed_at = existing.observed_at or entity.observed_at or _utc_now_iso()
+        # UM-DR-44 A5a: endpoint facets are ACCUMULATING or CURRENT-STATE
+        # metadata — they never compete with the provenance winner.
+        # methods_seen accumulates with set semantics (a POST observation
+        # must not erase a recorded GET when the tie-break keeps the
+        # existing record); status_code keeps the LATEST value (current
+        # response state); identity facets (scheme/host/port/path) carry
+        # the new observation's explicit values (equal by construction of
+        # the canonical tuple id); other metadata keys merge additively.
+        merged_metadata = dict(existing.metadata or {})
+        if str(entity.kind) == "endpoint":
+            new_meta = entity.metadata or {}
+            if new_meta.get("methods_seen"):
+                merged_metadata["methods_seen"] = sorted({
+                    *(merged_metadata.get("methods_seen") or []),
+                    *new_meta["methods_seen"],
+                })[:16]
+            if "status_code" in new_meta:
+                merged_metadata["status_code"] = new_meta["status_code"]
+            for facet in ("scheme", "host", "port", "path"):
+                if new_meta.get(facet) is not None:
+                    merged_metadata[facet] = new_meta[facet]
         self.entities[entity.id] = stronger.model_copy(
             update={"evidence_refs": merged_refs[:50],
+                    "metadata": merged_metadata,
                     "observed_at": observed_at}
         )
         return self.entities[entity.id]
@@ -349,21 +371,33 @@ class ApplicationModel(BaseModel):
         abstained: list[dict[str, str]] = []
 
         if url:
-            from webpent.appmodel.builder import _entity_id, _host_of, _path_of
-            host = _host_of(url)
-            path = _path_of(url)
-            if host:
-                endpoint_id = _entity_id("endpoint", f"{host}{path}")
+            from webpent.appmodel.builder import _endpoint_id_of, _endpoint_tuple_key
+            # UM-DR-44 A5a: endpoint identity is the canonical
+            # (scheme, host, effective port, path) tuple — the SSOT
+            # _endpoint_id_of, shared with the full-rebuild builder.
+            # The previous f"{host}{path}" key dropped scheme and port,
+            # collapsing https/http and implicit/explicit-port origins
+            # into ONE entity (merging evidence across different trust
+            # boundaries). A URL without scheme+host has NO identity —
+            # the observation abstains instead of inventing one.
+            endpoint_id = _endpoint_id_of(url)
+            if endpoint_id is not None:
+                scheme, host, effective_port, canon_path = \
+                    _endpoint_tuple_key(url)
+                tuple_key = f"{scheme}://{host}:{effective_port}{canon_path}"
                 self.add_entity(AppModelEntity(
                     id=endpoint_id,
                     kind=AppModelEntityKind.ENDPOINT,
-                    label=f"endpoint:{host}{path}"[:160],
+                    label=f"endpoint:{tuple_key}"[:160],
                     provenance=DiscoveryProvenance.OBSERVED,
                     confidence=provenance_confidence(
                         DiscoveryProvenance.OBSERVED),
                     evidence_refs=[evidence_ref[:_MAX_REF]],
                     metadata={
-                        "host": host, "path": path,
+                        "scheme": scheme,
+                        "host": host,
+                        "port": effective_port,
+                        "path": canon_path,
                         "methods_seen": [method],
                         **({"status_code": int(status_code)}
                            if isinstance(status_code, int) else {}),

@@ -66,6 +66,56 @@ def _entity_id(prefix: str, key: str) -> str:
     return f"appmodel-{prefix}:{_slug(key, prefix)[:60]}"
 
 
+# ---------------------------------------------------------------------------
+# UM-DR-44 A5a: the canonical endpoint identity tuple — the SSOT for
+# endpoint entity ids across BOTH build paths (the full rebuild here and
+# the incremental apply_observation in models.py).  The previous
+# f"{host}{path}" key dropped scheme and port, collapsing https/http and
+# implicit/explicit-port origins into ONE entity (merging evidence across
+# different trust boundaries).
+# ---------------------------------------------------------------------------
+
+
+def _endpoint_tuple_key(
+    url: str,
+) -> tuple[str, str, int, str] | None:
+    """The canonical (scheme, host, effective_port, path) tuple.
+
+    ``effective_port`` is the explicit port when present, else the
+    scheme default (http→80, https→443) — so https://h/x ≡
+    https://h:443/x while http://h/x ≠ https://h/x.  A URL without a
+    parseable scheme AND host (bare ``host/path`` references included)
+    has NO identity: returns None and the caller ABSTAINS (never an
+    invented identity).  Path is preserved verbatim (case-sensitive in
+    routing tables); host is lower-cased.
+    """
+    try:
+        parts = urlsplit(str(url or "").strip())
+    except ValueError:
+        return None
+    scheme = (parts.scheme or "").lower()
+    host = _host_of(url)
+    if scheme not in ("http", "https") or not host:
+        return None
+    try:
+        explicit = parts.port
+    except ValueError:
+        return None
+    effective = int(explicit) if explicit is not None else (
+        443 if scheme == "https" else 80)
+    path = parts.path or "/"
+    return scheme, host, effective, path
+
+
+def _endpoint_id_of(url: str) -> str | None:
+    """The canonical endpoint entity id for a URL (None → abstain)."""
+    key = _endpoint_tuple_key(url)
+    if key is None:
+        return None
+    scheme, host, port, path = key
+    return _entity_id("endpoint", f"{scheme}://{host}:{port}{path}")
+
+
 def _add_ownership_relation(
     model: ApplicationModel,
     owner_key: str,
@@ -191,14 +241,17 @@ def build_application_model(state: Mapping[str, Any] | Any) -> ApplicationModel:
         return app_id
 
     def ensure_endpoint(url: str, source: str) -> str | None:
-        host = _host_of(url)
-        if not host or len(endpoint_ids) >= _MAX_ENTITIES:
+        # UM-DR-44 A5a: canonical tuple identity (SSOT _endpoint_id_of).
+        # A URL without scheme+host has NO identity — abstain.
+        endpoint_id = _endpoint_id_of(url)
+        if endpoint_id is None or len(endpoint_ids) >= _MAX_ENTITIES:
             return None
+        host = _host_of(url)
         app_id = ensure_application(host)
         if app_id is None:
             return None
-        path = _path_of(url)
-        endpoint_id = _entity_id("endpoint", f"{host}{path}")
+        scheme, _h, effective_port, canon_path = _endpoint_tuple_key(url)
+        tuple_key = f"{scheme}://{host}:{effective_port}{canon_path}"
         if endpoint_id in endpoint_ids:
             return endpoint_id
         endpoint_ids.add(endpoint_id)
@@ -206,11 +259,12 @@ def build_application_model(state: Mapping[str, Any] | Any) -> ApplicationModel:
             AppModelEntity(
                 id=endpoint_id,
                 kind=AppModelEntityKind.ENDPOINT,
-                label=f"endpoint:{host}{path}"[:160],
+                label=f"endpoint:{tuple_key}"[:160],
                 provenance=DiscoveryProvenance.OBSERVED,
                 confidence=provenance_confidence(DiscoveryProvenance.OBSERVED),
-                evidence_refs=[f"{source}:{host}{path}"],
-                metadata={"host": host, "path": path},
+                evidence_refs=[f"{source}:{host}{canon_path}"],
+                metadata={"scheme": scheme, "host": host,
+                          "port": effective_port, "path": canon_path},
             )
         )
         model.add_relation(
@@ -221,7 +275,7 @@ def build_application_model(state: Mapping[str, Any] | Any) -> ApplicationModel:
                 target_id=endpoint_id,
                 provenance=DiscoveryProvenance.OBSERVED,
                 confidence=provenance_confidence(DiscoveryProvenance.OBSERVED),
-                evidence_refs=[f"{source}:{host}{path}"],
+                evidence_refs=[f"{source}:{host}{canon_path}"],
             )
         )
         return endpoint_id
@@ -334,8 +388,10 @@ def build_application_model(state: Mapping[str, Any] | Any) -> ApplicationModel:
             )
             observation_count += 1
             if url:
-                endpoint_id = _entity_id("endpoint", f"{_host_of(url)}{_path_of(url)}")
-                if endpoint_id in endpoint_ids:
+                # UM-DR-44 A5a: canonical tuple id (SSOT) — abstains on
+                # unidentifiable URLs instead of minting a broken id.
+                endpoint_id = _endpoint_id_of(url)
+                if endpoint_id is not None and endpoint_id in endpoint_ids:
                     model.add_relation(
                         AppModelRelation(
                             id=f"{obs_id}->observed_on->{endpoint_id}",
