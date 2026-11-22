@@ -450,6 +450,11 @@ def build_appmodel_research_hints(model: ApplicationModel) -> dict[str, dict[str
             "subject": subject,
             "advisory_only": True,
             "source": "appmodel",
+            # UM-DR-44 A5d: the model revision this hint was derived
+            # from — a hint derived before newer observations is
+            # recognizable as STALE (model_revision < model.revision).
+            # For traceability only; never authority.
+            "model_revision": int(model.revision),
         }
 
     # 1. Identity-bound endpoints: an endpoint an identity owns or
