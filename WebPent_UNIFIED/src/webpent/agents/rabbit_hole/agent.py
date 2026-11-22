@@ -97,6 +97,7 @@ from webpent.models.goal_tree import (
     find_root_goal_id,
 )
 from webpent.models.hypothesis import Hypothesis, HypothesisOrigin
+from webpent.production.hypothesis_adapter import canonical_hypothesis
 from webpent.models.mental_model import (
     NodeKind,
     _coerce_to_mental_model,
@@ -880,7 +881,7 @@ def rabbit_hole_node(state: PentestState) -> dict[str, Any]:
         # artifacts → SSRF. Command/config artifacts → RCE. File path
         # artifacts → LFI. This makes Rabbit Hole hypotheses promotable.
         _rh_vuln_class = _infer_rabbit_hole_vuln_class(artifact_type, action_type)
-        new_hypothesis = Hypothesis(
+        new_hypothesis = canonical_hypothesis(
             target_url=url,
             statement=draft_description,
             vuln_class=_rh_vuln_class,
@@ -895,6 +896,21 @@ def rabbit_hole_node(state: PentestState) -> dict[str, Any]:
                 source_kind="rag_informed",
             ),
             estimated_cost=estimated_cost,
+            # UM-DR-44 A2: the canonical adapter enforces the contract
+            # fields. Rabbit-hole branches previously omitted both —
+            # the adapter surfaced the gap at construction time.
+            expected_behavior=(
+                "Interacting with the branched artifact under the "
+                "inferred class produces an observable signal the causal "
+                "guard can evaluate (artifact accessible, state changed, "
+                "or target-side effect)."
+            ),
+            negative_control=(
+                "An equivalent interaction on a scope-safe neutral path "
+                "must NOT produce the signal; a bare artifact reference "
+                "without interaction is not evidence."
+            ),
+            preconditions=[f"artifact-observed:{identity_key}"[:120]],
             parent_hypothesis_id=None,  # top-level Rabbit Hole hypothesis
             # RAG/LLM-informed rabbit-hole branches are research proposals,
             # not deterministic validators. They must pass the normal causal

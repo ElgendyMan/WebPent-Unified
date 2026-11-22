@@ -766,6 +766,7 @@ def _hypothesis_from_coverage_signal(
     target_url: str,
 ) -> Any | None:
     from webpent.models.hypothesis import Hypothesis, HypothesisOrigin
+    from webpent.production.hypothesis_adapter import canonical_hypothesis
 
     key = str(signal.get("key") or "")
     vuln_value = str(signal.get("vuln_class") or "")
@@ -795,7 +796,7 @@ def _hypothesis_from_coverage_signal(
             f"The {key} coverage cell is observed but untested; validating it "
             "is expected to add security knowledge the campaign does not have."
         )[:500]
-    return Hypothesis(
+    return canonical_hypothesis(
         id=_hypothesis_id(fingerprint),
         target_url=target_url,
         statement=statement,
@@ -832,6 +833,7 @@ def _hypothesis_from_invariant_signal(
     target_url: str,
 ) -> Any | None:
     from webpent.models.hypothesis import Hypothesis, HypothesisOrigin
+    from webpent.production.hypothesis_adapter import canonical_hypothesis
 
     invariant = str(signal.get("invariant") or "")
     if invariant not in _ACTIONABLE_INVARIANTS or not target_url:
@@ -883,7 +885,7 @@ def _hypothesis_from_invariant_signal(
         state_keys=(str(signal.get("observation_fingerprint") or ""),),
     )
     prior = _INFO_GAIN_PRIORS.get(f"invariant.{invariant}", 0.5)
-    return Hypothesis(
+    return canonical_hypothesis(
         id=_hypothesis_id(fingerprint),
         target_url=target_url,
         statement=statement,
@@ -912,6 +914,7 @@ def _hypothesis_from_workflow_signal(
     target_url: str,
 ) -> Any | None:
     from webpent.models.hypothesis import Hypothesis, HypothesisOrigin
+    from webpent.production.hypothesis_adapter import canonical_hypothesis
 
     boundary = str(signal.get("boundary") or "")
     endpoint = str(signal.get("endpoint") or "")
@@ -937,7 +940,7 @@ def _hypothesis_from_workflow_signal(
         state_keys=state_keys,
     )
     prior = _INFO_GAIN_PRIORS.get(f"workflow.boundary.{boundary}", 0.5)
-    return Hypothesis(
+    return canonical_hypothesis(
         id=_hypothesis_id(fingerprint),
         target_url=endpoint or target_url,
         statement=(

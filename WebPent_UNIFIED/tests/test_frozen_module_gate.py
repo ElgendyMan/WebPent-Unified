@@ -251,6 +251,11 @@ UMDR44_20261122_THAW_PATHS = frozenset(
         # no identity signal — documented exception); verified by
         # tests/test_umdr44_a1_is_empty_dimensions.py.
         "src/webpent/production/hypothesis_identity.py",
+        # A2: the three principal hypothesis emitters now construct
+        # through the canonical adapter; verified by
+        # tests/test_umdr44_a2_hypothesis_adapter.py.
+        "src/webpent/production/identity_workflow.py",
+        "src/webpent/agents/rabbit_hole/agent.py",
     }
 )
 # The pre-unfreeze drift expectation needs only the paths that

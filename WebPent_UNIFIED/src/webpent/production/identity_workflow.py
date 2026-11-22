@@ -101,6 +101,7 @@ def _hypothesis_privilege_differential(
     question: Mapping[str, Any], *, target_url: str,
 ) -> Any | None:
     from webpent.models.hypothesis import Hypothesis, HypothesisOrigin
+    from webpent.production.hypothesis_adapter import canonical_hypothesis
 
     endpoint = str(question.get("target_representation") or "")
     obj = str(question.get("target_object_ref") or "")
@@ -117,7 +118,7 @@ def _hypothesis_privilege_differential(
         preconditions=["observed-owner-allowed-operation"],
         state_keys=[],
     )
-    return Hypothesis(
+    return canonical_hypothesis(
         id=_hypothesis_id(fingerprint),
         target_url=endpoint or target_url,
         statement=(
@@ -160,6 +161,7 @@ def _hypothesis_workflow_invariant(
     candidate: Mapping[str, Any], *, target_url: str,
 ) -> Any | None:
     from webpent.models.hypothesis import Hypothesis, HypothesisOrigin
+    from webpent.production.hypothesis_adapter import canonical_hypothesis
 
     steps = list(candidate.get("steps") or [])
     if not steps:
@@ -177,7 +179,7 @@ def _hypothesis_workflow_invariant(
         preconditions=[f"observed-workflow:{candidate.get('workflow_id')}"],
         state_keys=[str(last.get("from_state") or ""), str(last.get("to_state") or "")],
     )
-    return Hypothesis(
+    return canonical_hypothesis(
         id=_hypothesis_id(fingerprint),
         target_url=endpoint or target_url,
         statement=(

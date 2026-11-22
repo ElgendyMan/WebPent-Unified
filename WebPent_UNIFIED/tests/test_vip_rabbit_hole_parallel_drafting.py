@@ -291,7 +291,11 @@ def test_hypothesis_construction_failure_propagates_like_legacy_code(monkeypatch
         def __init__(self, *a, **kw):
             raise ValueError("simulated Hypothesis construction failure")
 
-    monkeypatch.setattr(rh_module, "Hypothesis", _BoomHypothesis)
+    # UM-DR-44 A2: construction now goes through the canonical adapter,
+    # so the injection point is the adapter's Hypothesis class (the
+    # contract is unchanged: a construction failure must propagate).
+    import webpent.production.hypothesis_adapter as adapter_module
+    monkeypatch.setattr(adapter_module, "Hypothesis", _BoomHypothesis)
 
     state = _build_state(_build_mental_model(3))
 
