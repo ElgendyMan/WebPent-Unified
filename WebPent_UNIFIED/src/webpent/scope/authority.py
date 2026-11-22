@@ -691,21 +691,32 @@ def authority_from_scope_file_spec(
         )
     # Path prefixes apply as constraints on every allow rule (exclusion
     # precedence handled by deny-first evaluation).
-    if include_paths or exclude_paths:
+    # UM-DR-44 B1: the exclusion is materialized per (allow entry x
+    # exclude prefix) — a path restriction must hold for EVERY in-scope
+    # origin, not only the first allow entry.  Previously only
+    # allow_entries[0] received the deny rule, so an excluded path was
+    # reachable through any other in-scope origin.
+    if exclude_paths:
         for exclude_path in exclude_paths:
-            rules.append(
-                ScopeRule(
-                    value=allow_entries[0],
-                    kind="domain",
-                    allow=False,
-                    path=str(exclude_path),
-                    source=f"{source}:exclude_path",
+            for allow_entry in allow_entries:
+                rules.append(
+                    ScopeRule(
+                        value=str(allow_entry),
+                        kind="domain",
+                        allow=False,
+                        path=str(exclude_path),
+                        source=f"{source}:exclude_path",
+                    )
                 )
-            )
-        if include_paths:
-            constrained = []
-            for rule in rules:
-                if rule.allow and rule.path is None:
+    # UM-DR-44 B1: the include constraint is any-of per origin — a
+    # request passes if its path falls under ANY declared include
+    # prefix.  Previously only include_paths[0] was materialized, so
+    # paths under the second and later prefixes were wrongly denied.
+    if include_paths:
+        constrained = []
+        for rule in rules:
+            if rule.allow and rule.path is None:
+                for include_path in include_paths:
                     constrained.append(
                         ScopeRule(
                             value=rule.value,
@@ -713,13 +724,13 @@ def authority_from_scope_file_spec(
                             allow=True,
                             protocol=rule.protocol,
                             port=rule.port,
-                            path=include_paths[0],
+                            path=include_path,
                             source=rule.source,
                         )
                     )
-                else:
-                    constrained.append(rule)
-            rules = constrained
+            else:
+                constrained.append(rule)
+        rules = constrained
 
     digest_input = json.dumps(
         {"rules": [r.as_dict() for r in rules], "spec_fingerprint": fingerprint},
