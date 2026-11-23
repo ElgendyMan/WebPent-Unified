@@ -76,6 +76,10 @@ dependencies = [
     "pydantic-settings==2.15.0",
     "python-dotenv==1.2.4",
     "httpx==0.28.1",
+    # UM-DR-45 K6: h2 is a DIRECT dependency, not a transitive nicety —
+    # deep/smuggling constructs httpx.Client(http2=True) and every such
+    # request raises ImportError('install httpx[http2]') without it.
+    "h2==4.4.1",
     "beautifulsoup4==4.15.0",
     # P0-4: route_web_socket() was added in Playwright 1.48 and is
     # required for the browser SSRF guard to cover ws:// and wss://.
