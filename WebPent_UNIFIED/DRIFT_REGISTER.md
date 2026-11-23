@@ -1807,3 +1807,10 @@ TestLiveSinglePacket, which now declares its loopback listener as the
 engagement target). tests/test_local_causal_lab_option_b_approval.py
 tolerates an unreadable (OSError) historical approval path — the
 deterministic UM-DR-43C §2.5 probes still carry the fail-closed law.
+CI run #45 (f97a700) proved the tolerance incomplete: a
+permission-walled /home/ubuntu on the runner image made the probe take
+the OSError path, and the accepted-set assert omitted the sentinel —
+the intersection failed for the WRONG reason (fail-closed by
+unreadability, not a boundary defect). Follow-up repair: the sentinel
+`approval_source_unreadable_os_error` joined the accepted fail-closed
+set; the two deterministic probes are untouched.

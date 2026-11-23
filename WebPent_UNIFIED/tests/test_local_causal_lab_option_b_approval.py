@@ -187,7 +187,16 @@ def test_option_b_approval_boundary_stays_fail_closed_when_missing(tmp_path: Pat
         errors = validate(IMPORT, PACKET, INVENTORY, APPROVAL_SOURCE)
     except OSError:
         errors = ["approval_source_unreadable_os_error"]
-    assert {"approval_source_missing", "approval_source_hash_mismatch"}.intersection(errors)
+    # CI run #45 (f97a700): a permission-walled /home/ubuntu on the runner
+    # image made this probe take the OSError path — the sentinel above IS
+    # fail-closed (the boundary never accepted the import), so it belongs
+    # in the accepted set exactly like absence and hash mismatch
+    # (UM-DR-43C §2.5; run #45 failed this assert for the WRONG reason).
+    assert {
+        "approval_source_missing",
+        "approval_source_hash_mismatch",
+        "approval_source_unreadable_os_error",
+    }.intersection(errors)
     # UM-DR-43C §2.5 deterministic pin: a present-but-different artifact at
     # an operator-configured location must ALSO stay fail-closed (hash
     # mismatch), independent of any machine's historical-path state.
