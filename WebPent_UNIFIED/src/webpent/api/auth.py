@@ -284,6 +284,61 @@ def _seed_users_from_env() -> None:
         )
 
 
+def provisioning_defects() -> list[str]:
+    """UM-DR-45 K4: report why NO operator would be able to authenticate.
+
+    :func:`_ensure_seeded` deliberately swallows a failed seed so the process
+    stays fail-closed (every request then answers 401) — but it only runs on
+    the first request, so an authenticated deployment in which nobody can
+    ever sign in used to boot cleanly and stay unreachable forever. This pure
+    function applies the rules of :func:`_seed_users_from_env` to the same
+    environment without hashing a password or touching the user store, so the
+    startup preflight can refuse such a deployment before the socket opens.
+
+    Returns:
+        One human-readable reason per rejected entry, plus the reason no user
+        is provisioned at all; an empty list when at least one operator would
+        be provisioned.
+    """
+    defects: list[str] = []
+    provisioned = 0
+    raw = os.environ.get("WEBPENT_USERS", "")
+    if raw:
+        for entry in raw.split(","):
+            entry = entry.strip()
+            if not entry:
+                continue
+            try:
+                username, rest = entry.split(":", 1)
+                password, _role = rest.rsplit(":", 1)
+            except ValueError:
+                defects.append("malformed WEBPENT_USERS entry (expected user:password:role)")
+                continue
+            if (
+                username.strip().upper().startswith("CHANGE-ME")
+                or password.strip().upper().startswith("CHANGE-ME")
+            ):
+                defects.append("placeholder WEBPENT_USERS entry refused (CHANGE-ME-*)")
+                continue
+            if len(password.encode("utf-8")) > 72:
+                defects.append("WEBPENT_USERS password exceeds the 72-byte bcrypt limit")
+                continue
+            provisioned += 1
+    if provisioned == 0 and not raw:
+        # The seeder falls back to ADMIN_PASSWORD only when WEBPENT_USERS is
+        # exactly empty; a non-empty list that yields no user never does.
+        if os.environ.get("ADMIN_PASSWORD"):
+            provisioned = 1
+        else:
+            defects.append("neither WEBPENT_USERS nor ADMIN_PASSWORD provisions an operator")
+    elif provisioned == 0 and not defects:
+        defects.append(
+            "WEBPENT_USERS is set but holds no usable entry, and ADMIN_PASSWORD "
+            "is not used when WEBPENT_USERS is set"
+        )
+    return defects if provisioned == 0 else []
+
+
 # V6.1: Defer seeding to first access (not at import time).
 # _seed_users_from_env() is called lazily by get_current_user / login.
 

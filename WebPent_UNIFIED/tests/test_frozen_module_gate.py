@@ -258,6 +258,20 @@ UMDR44_20261122_THAW_PATHS = frozenset(
         "src/webpent/agents/rabbit_hole/agent.py",
     }
 )
+# UM-DR-45 K4 (2026-11-23): authentication enabled but no provisionable
+# operator (no ADMIN_PASSWORD, placeholder/malformed WEBPENT_USERS) booted
+# cleanly and then answered 401 to everyone — fail-closed but not
+# fail-fast. Thawed under the declared-refreeze convention: auth.py gains
+# the pure provisioning_defects() probe and preflight.py refuses to boot on
+# it plus logs the development bypass at WARNING. Verified by
+# tests/test_umdr45_k4_auth_startup_gate.py; byte-identity is restored at
+# window close by scripts/refreeze_manifest_umdr45.py.
+UMDR45_20261123_THAW_PATHS = frozenset(
+    {
+        "src/webpent/api/auth.py",
+        "src/webpent/shared/preflight.py",
+    }
+)
 # The pre-unfreeze drift expectation needs only the paths that
 # exist in that baseline (store.py is newer than it — a
 # byte-identity-only entry above).
@@ -1357,6 +1371,16 @@ def test_frozen_file_byte_identical(relpath: str) -> None:
         pytest.skip(
             f"{relpath} thawed mid-window per the declared UM-DR-44 "
             "security-hotfix window — delta-mode enforcement; "
+            "byte-identity restored at the window re-freeze")
+    if observed != expected and relpath in UMDR45_20261123_THAW_PATHS:
+        # UM-DR-45 K4 window: the startup operator-provisioning gate
+        # (auth.provisioning_defects + preflight._enforce_operator_
+        # provisioning); regression proof is
+        # tests/test_umdr45_k4_auth_startup_gate.py, and byte-identity is
+        # restored at window close by scripts/refreeze_manifest_umdr45.py.
+        pytest.skip(
+            f"{relpath} thawed mid-window per the declared UM-DR-45 "
+            "K4 startup-gate window — delta-mode enforcement; "
             "byte-identity restored at the window re-freeze")
     if observed != expected and relpath in R3_RULING_THAW_PATHS:
         # Mid-window delta mode: the ruling authorized exactly this file.

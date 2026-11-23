@@ -579,6 +579,53 @@ def _profile_security_posture() -> dict[str, object]:
         }
 
 
+def _enforce_operator_provisioning(report: dict[str, dict[str, object]]) -> None:
+    """UM-DR-45 K4: never boot an authenticated deployment nobody can sign in to.
+
+    ``auth._ensure_seeded`` swallows a failed seed on purpose (fail-closed:
+    every request then answers 401) but only runs on the first request. With
+    authentication enabled and no provisionable operator — no ADMIN_PASSWORD,
+    no valid WEBPENT_USERS entry (the .env.example CHANGE-ME placeholder is
+    refused), or only malformed entries — the service used to start cleanly
+    and stay unreachable. The same rules are now applied before the socket
+    opens, and the development bypass is announced instead of implied.
+    """
+    try:
+        from webpent.config.settings import get_settings
+
+        auth_enabled = bool(getattr(get_settings(), "auth_enabled", False))
+    except Exception:
+        # A settings hard-stop is raised by Settings itself and reported by
+        # the profile/bind gates; this gate only adds the provisioning check.
+        return
+    if not auth_enabled:
+        logger.warning(
+            "[preflight] authentication is DISABLED — development bypass "
+            "active: every request is treated as the stub administrator. "
+            "Safe for direct loopback use only; set AUTH_ENABLED=true with "
+            "real secrets and an operator (WEBPENT_USERS or ADMIN_PASSWORD) "
+            "for anything else."
+        )
+        return
+    try:
+        from webpent.api.auth import provisioning_defects
+
+        defects = provisioning_defects()
+    except Exception as exc:
+        raise SystemExit(
+            "Preflight blocked startup: operator provisioning could not be "
+            f"evaluated with authentication enabled ({type(exc).__name__})"
+        ) from exc
+    if defects:
+        raise SystemExit(
+            "Preflight blocked startup: authentication is enabled but no "
+            "operator can sign in — " + "; ".join(defects)
+        )
+    report["operator_provisioning"] = {
+        "status": "ok — at least one operator is provisioned",
+        "fail_closed": True,
+    }
+
 def _enforce_profile_security(report: dict[str, dict[str, object]]) -> None:
     """Stop startup when strict deployment security invariants are not met."""
     posture = report["profile_security"]
@@ -757,6 +804,7 @@ def run_preflight(host: str | None = None) -> dict[str, dict[str, object]]:
         profile = "unknown"
     report["posture"] = _posture_state(report, profile)
     _enforce_profile_security(report)
+    _enforce_operator_provisioning(report)
     _enforce_redis_security(report)
     _enforce_api_security_posture(host=host, report=report)
     _enforce_construction_escape(report)
