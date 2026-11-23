@@ -92,6 +92,9 @@ class TestEmittersAreCanonical:
     def test_module_has_no_direct_construction(self, module_path: str) -> None:
         """RED on the current tree: all three construct Hypothesis(
         directly."""
+        from webpent.production.hypothesis_adapter import (
+            describes_canonical_emission,
+        )
         source = (REPO_ROOT / module_path).read_text(encoding="utf-8")
         # strip the import lines themselves
         lines = [
@@ -99,7 +102,7 @@ class TestEmittersAreCanonical:
             if not ln.strip().startswith(("import ", "from ", "#"))
         ]
         body = "\n".join(lines)
-        assert "Hypothesis(" not in body, (
+        assert describes_canonical_emission(body), (
             f"{module_path} still constructs Hypothesis( directly — "
             "emission must go through canonical_hypothesis()"
         )

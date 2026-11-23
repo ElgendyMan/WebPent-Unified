@@ -2,7 +2,7 @@
 
 Generated 2026-11-19. Total: 108 findings (0 high, 104 medium, 1 low, 3 info).
 
-Categories: dead-code, error, lint, markers, tooling, weak-code
+Categories: dead-code, error, markers, tooling, weak-code
 
 ---
 
@@ -88,8 +88,8 @@ Categories: dead-code, error, lint, markers, tooling, weak-code
 
 ## UMDR42-017 [MEDIUM] (dead-code) — 1 unreferenced public symbol(s)
 
-- **File:** `src/webpent/config/settings.py` (line 3283))
-- **Detail:** api_key_for (FunctionDef, line 3283)
+- **File:** `src/webpent/config/settings.py` (line 3290))
+- **Detail:** api_key_for (FunctionDef, line 3290)
 
 ## UMDR42-018 [MEDIUM] (dead-code) — 1 unreferenced public symbol(s)
 
@@ -289,7 +289,7 @@ Categories: dead-code, error, lint, markers, tooling, weak-code
 ## UMDR42-057 [MEDIUM] (dead-code) — 3 unreferenced public symbol(s)
 
 - **File:** `src/webpent/recon/autonomous_crawler.py` (line 224))
-- **Detail:** handle_starttag (FunctionDef, line 224); handle_endtag (FunctionDef, line 257); handle_data (FunctionDef, line 261)
+- **Detail:** handle_starttag (FunctionDef, line 224); handle_data (FunctionDef, line 261); handle_endtag (FunctionDef, line 257)
 
 ## UMDR42-058 [MEDIUM] (dead-code) — 1 unreferenced public symbol(s)
 
@@ -388,8 +388,8 @@ Categories: dead-code, error, lint, markers, tooling, weak-code
 
 ## UMDR42-077 [MEDIUM] (dead-code) — 1 unreferenced public symbol(s)
 
-- **File:** `src/webpent/shared/engagement_scope.py` (line 141))
-- **Detail:** is_engagement (FunctionDef, line 141)
+- **File:** `src/webpent/shared/engagement_scope.py` (line 142))
+- **Detail:** is_engagement (FunctionDef, line 142)
 
 ## UMDR42-078 [MEDIUM] (dead-code) — 1 unreferenced public symbol(s)
 
@@ -399,7 +399,7 @@ Categories: dead-code, error, lint, markers, tooling, weak-code
 ## UMDR42-079 [MEDIUM] (dead-code) — 3 unreferenced public symbol(s)
 
 - **File:** `src/webpent/shared/http_discovery.py` (line 140))
-- **Detail:** handle_starttag (FunctionDef, line 140); handle_endtag (FunctionDef, line 186); handle_data (FunctionDef, line 182)
+- **Detail:** handle_starttag (FunctionDef, line 140); handle_data (FunctionDef, line 182); handle_endtag (FunctionDef, line 186)
 
 ## UMDR42-080 [MEDIUM] (dead-code) — 1 unreferenced public symbol(s)
 
@@ -409,7 +409,7 @@ Categories: dead-code, error, lint, markers, tooling, weak-code
 ## UMDR42-081 [MEDIUM] (dead-code) — 2 unreferenced public symbol(s)
 
 - **File:** `src/webpent/shared/llm.py` (line 209))
-- **Detail:** clear_llm_usage_trace (FunctionDef, line 209); reset_dead_providers (FunctionDef, line 417)
+- **Detail:** clear_llm_usage_trace (FunctionDef, line 209); reset_dead_providers (FunctionDef, line 446)
 
 ## UMDR42-082 [MEDIUM] (dead-code) — 2 unreferenced public symbol(s)
 
@@ -536,10 +536,10 @@ Categories: dead-code, error, lint, markers, tooling, weak-code
 - **File:** `src/`
 - **Detail:** all modules compile
 
-## UMDR42-107 [INFO] (lint) — ruff findings: 3314
+## UMDR42-107 [INFO] (tooling) — ruff not installed in sandbox
 
-- **File:** `src/`
-- **Detail:** Full list in ruff output; categorized counts in detail. This is pre-existing tracked debt (ruff ratchet baseline in scripts/quality/ruff_baseline.json governs CI); recorded for the audit, fix handled via the ratchet, not one-by-one here. | top codes: E501=2205, E702=302, E701=168, UP037=85, I001=77, B008=32, `Mapping`=31, UP045=30, `Iterable`,=26, SIM105=22
+- **File:** `-`
+- **Detail:** -
 
 ## UMDR42-108 [INFO] (tooling) — bandit not installed in sandbox
 
