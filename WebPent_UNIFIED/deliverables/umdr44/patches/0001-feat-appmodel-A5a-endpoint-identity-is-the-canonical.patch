@@ -1,0 +1,391 @@
+From e0e5d338a3d3852ad45dd36d41f1178670241817 Mon Sep 17 00:00:00 2001
+From: UM-DR-44 <umdr44@webpent.local>
+Date: Sun, 22 Nov 2026 21:31:40 +0000
+Subject: [PATCH 1/9] =?UTF-8?q?feat(appmodel):=20A5a=20=E2=80=94=20endpoin?=
+ =?UTF-8?q?t=20identity=20is=20the=20canonical=20tuple?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+RED on 6f3dc7c (10 failures, evidence/A5a_red.txt): the three
+endpoint-id construction sites (builder.ensure_endpoint, builder
+observation-link, models.apply_observation) built the identity from
+f"{host}{path}" — scheme and port were DROPPED. https/http on the
+same host+path collapsed into ONE entity (evidence merged across
+different trust boundaries); implicit vs explicit ports collapsed the
+same way; methods_seen was REPLACED by the losing record's value on
+the provenance tie-break; metadata carried only host/path.
+
+Fix — the SSOT pair in builder.py:
+* _endpoint_tuple_key(url) -> (scheme, host, effective_port, path) |
+  None — effective_port is the explicit port or the scheme default
+  (http->80, https->443) so https://h/x == https://h:443/x and
+  http://h/x != https://h/x; a URL without scheme+host (bare
+  host/path included) has NO identity -> the caller ABSTAINS.
+* _endpoint_id_of(url) — the id minted from the tuple, used by BOTH
+  build paths and apply_observation.
+* add_entity merge path: methods_seen ACCUMULATES (set semantics,
+  independent of the provenance winner); status_code keeps the LATEST
+  (current state); identity facets carried explicitly.
+
+GREEN: 12/12 (evidence/A5a_green.txt). Expected follow-up: the four
+43C incremental tests pin legacy host+path ids (handled in the gates
+commit per the batch prompt §6).
+---
+ .../umdr44/evidence/A5a_green.txt             |   1 +
+ .../deliverables/umdr44/evidence/A5a_red.txt  |   2 +
+ .../src/webpent/appmodel/builder.py           |  76 +++++++++--
+ .../src/webpent/appmodel/models.py            |  48 ++++++-
+ .../tests/test_umdr44_appmodel_identity.py    | 126 ++++++++++++++++++
+ 5 files changed, 236 insertions(+), 17 deletions(-)
+ create mode 100644 WebPent_UNIFIED/deliverables/umdr44/evidence/A5a_green.txt
+ create mode 100644 WebPent_UNIFIED/deliverables/umdr44/evidence/A5a_red.txt
+ create mode 100644 WebPent_UNIFIED/tests/test_umdr44_appmodel_identity.py
+
+diff --git a/WebPent_UNIFIED/deliverables/umdr44/evidence/A5a_green.txt b/WebPent_UNIFIED/deliverables/umdr44/evidence/A5a_green.txt
+new file mode 100644
+index 0000000..fd9b6ed
+--- /dev/null
++++ b/WebPent_UNIFIED/deliverables/umdr44/evidence/A5a_green.txt
+@@ -0,0 +1 @@
++12 passed in 0.74s
+diff --git a/WebPent_UNIFIED/deliverables/umdr44/evidence/A5a_red.txt b/WebPent_UNIFIED/deliverables/umdr44/evidence/A5a_red.txt
+new file mode 100644
+index 0000000..2ca291c
+--- /dev/null
++++ b/WebPent_UNIFIED/deliverables/umdr44/evidence/A5a_red.txt
+@@ -0,0 +1,2 @@
++FAILED tests/test_umdr44_appmodel_identity.py::test_tuple_key_none_for_bare_host
++10 failed, 2 passed in 0.80s
+diff --git a/WebPent_UNIFIED/src/webpent/appmodel/builder.py b/WebPent_UNIFIED/src/webpent/appmodel/builder.py
+index d1014f8..ad4ae44 100755
+--- a/WebPent_UNIFIED/src/webpent/appmodel/builder.py
++++ b/WebPent_UNIFIED/src/webpent/appmodel/builder.py
+@@ -66,6 +66,56 @@ def _entity_id(prefix: str, key: str) -> str:
+     return f"appmodel-{prefix}:{_slug(key, prefix)[:60]}"
+ 
+ 
++# ---------------------------------------------------------------------------
++# UM-DR-44 A5a: the canonical endpoint identity tuple — the SSOT for
++# endpoint entity ids across BOTH build paths (the full rebuild here and
++# the incremental apply_observation in models.py).  The previous
++# f"{host}{path}" key dropped scheme and port, collapsing https/http and
++# implicit/explicit-port origins into ONE entity (merging evidence across
++# different trust boundaries).
++# ---------------------------------------------------------------------------
++
++
++def _endpoint_tuple_key(
++    url: str,
++) -> tuple[str, str, int, str] | None:
++    """The canonical (scheme, host, effective_port, path) tuple.
++
++    ``effective_port`` is the explicit port when present, else the
++    scheme default (http→80, https→443) — so https://h/x ≡
++    https://h:443/x while http://h/x ≠ https://h/x.  A URL without a
++    parseable scheme AND host (bare ``host/path`` references included)
++    has NO identity: returns None and the caller ABSTAINS (never an
++    invented identity).  Path is preserved verbatim (case-sensitive in
++    routing tables); host is lower-cased.
++    """
++    try:
++        parts = urlsplit(str(url or "").strip())
++    except ValueError:
++        return None
++    scheme = (parts.scheme or "").lower()
++    host = _host_of(url)
++    if scheme not in ("http", "https") or not host:
++        return None
++    try:
++        explicit = parts.port
++    except ValueError:
++        return None
++    effective = int(explicit) if explicit is not None else (
++        443 if scheme == "https" else 80)
++    path = parts.path or "/"
++    return scheme, host, effective, path
++
++
++def _endpoint_id_of(url: str) -> str | None:
++    """The canonical endpoint entity id for a URL (None → abstain)."""
++    key = _endpoint_tuple_key(url)
++    if key is None:
++        return None
++    scheme, host, port, path = key
++    return _entity_id("endpoint", f"{scheme}://{host}:{port}{path}")
++
++
+ def _add_ownership_relation(
+     model: ApplicationModel,
+     owner_key: str,
+@@ -191,14 +241,17 @@ def build_application_model(state: Mapping[str, Any] | Any) -> ApplicationModel:
+         return app_id
+ 
+     def ensure_endpoint(url: str, source: str) -> str | None:
+-        host = _host_of(url)
+-        if not host or len(endpoint_ids) >= _MAX_ENTITIES:
++        # UM-DR-44 A5a: canonical tuple identity (SSOT _endpoint_id_of).
++        # A URL without scheme+host has NO identity — abstain.
++        endpoint_id = _endpoint_id_of(url)
++        if endpoint_id is None or len(endpoint_ids) >= _MAX_ENTITIES:
+             return None
++        host = _host_of(url)
+         app_id = ensure_application(host)
+         if app_id is None:
+             return None
+-        path = _path_of(url)
+-        endpoint_id = _entity_id("endpoint", f"{host}{path}")
++        scheme, _h, effective_port, canon_path = _endpoint_tuple_key(url)
++        tuple_key = f"{scheme}://{host}:{effective_port}{canon_path}"
+         if endpoint_id in endpoint_ids:
+             return endpoint_id
+         endpoint_ids.add(endpoint_id)
+@@ -206,11 +259,12 @@ def build_application_model(state: Mapping[str, Any] | Any) -> ApplicationModel:
+             AppModelEntity(
+                 id=endpoint_id,
+                 kind=AppModelEntityKind.ENDPOINT,
+-                label=f"endpoint:{host}{path}"[:160],
++                label=f"endpoint:{tuple_key}"[:160],
+                 provenance=DiscoveryProvenance.OBSERVED,
+                 confidence=provenance_confidence(DiscoveryProvenance.OBSERVED),
+-                evidence_refs=[f"{source}:{host}{path}"],
+-                metadata={"host": host, "path": path},
++                evidence_refs=[f"{source}:{host}{canon_path}"],
++                metadata={"scheme": scheme, "host": host,
++                          "port": effective_port, "path": canon_path},
+             )
+         )
+         model.add_relation(
+@@ -221,7 +275,7 @@ def build_application_model(state: Mapping[str, Any] | Any) -> ApplicationModel:
+                 target_id=endpoint_id,
+                 provenance=DiscoveryProvenance.OBSERVED,
+                 confidence=provenance_confidence(DiscoveryProvenance.OBSERVED),
+-                evidence_refs=[f"{source}:{host}{path}"],
++                evidence_refs=[f"{source}:{host}{canon_path}"],
+             )
+         )
+         return endpoint_id
+@@ -334,8 +388,10 @@ def build_application_model(state: Mapping[str, Any] | Any) -> ApplicationModel:
+             )
+             observation_count += 1
+             if url:
+-                endpoint_id = _entity_id("endpoint", f"{_host_of(url)}{_path_of(url)}")
+-                if endpoint_id in endpoint_ids:
++                # UM-DR-44 A5a: canonical tuple id (SSOT) — abstains on
++                # unidentifiable URLs instead of minting a broken id.
++                endpoint_id = _endpoint_id_of(url)
++                if endpoint_id is not None and endpoint_id in endpoint_ids:
+                     model.add_relation(
+                         AppModelRelation(
+                             id=f"{obs_id}->observed_on->{endpoint_id}",
+diff --git a/WebPent_UNIFIED/src/webpent/appmodel/models.py b/WebPent_UNIFIED/src/webpent/appmodel/models.py
+index 6f5314a..4836f1c 100755
+--- a/WebPent_UNIFIED/src/webpent/appmodel/models.py
++++ b/WebPent_UNIFIED/src/webpent/appmodel/models.py
+@@ -213,8 +213,30 @@ class ApplicationModel(BaseModel):
+         # the earliest observation timestamp wins (staleness metadata
+         # records FIRST observation, not last write)
+         observed_at = existing.observed_at or entity.observed_at or _utc_now_iso()
++        # UM-DR-44 A5a: endpoint facets are ACCUMULATING or CURRENT-STATE
++        # metadata — they never compete with the provenance winner.
++        # methods_seen accumulates with set semantics (a POST observation
++        # must not erase a recorded GET when the tie-break keeps the
++        # existing record); status_code keeps the LATEST value (current
++        # response state); identity facets (scheme/host/port/path) carry
++        # the new observation's explicit values (equal by construction of
++        # the canonical tuple id); other metadata keys merge additively.
++        merged_metadata = dict(existing.metadata or {})
++        if str(entity.kind) == "endpoint":
++            new_meta = entity.metadata or {}
++            if new_meta.get("methods_seen"):
++                merged_metadata["methods_seen"] = sorted({
++                    *(merged_metadata.get("methods_seen") or []),
++                    *new_meta["methods_seen"],
++                })[:16]
++            if "status_code" in new_meta:
++                merged_metadata["status_code"] = new_meta["status_code"]
++            for facet in ("scheme", "host", "port", "path"):
++                if new_meta.get(facet) is not None:
++                    merged_metadata[facet] = new_meta[facet]
+         self.entities[entity.id] = stronger.model_copy(
+             update={"evidence_refs": merged_refs[:50],
++                    "metadata": merged_metadata,
+                     "observed_at": observed_at}
+         )
+         return self.entities[entity.id]
+@@ -349,21 +371,33 @@ class ApplicationModel(BaseModel):
+         abstained: list[dict[str, str]] = []
+ 
+         if url:
+-            from webpent.appmodel.builder import _entity_id, _host_of, _path_of
+-            host = _host_of(url)
+-            path = _path_of(url)
+-            if host:
+-                endpoint_id = _entity_id("endpoint", f"{host}{path}")
++            from webpent.appmodel.builder import _endpoint_id_of, _endpoint_tuple_key
++            # UM-DR-44 A5a: endpoint identity is the canonical
++            # (scheme, host, effective port, path) tuple — the SSOT
++            # _endpoint_id_of, shared with the full-rebuild builder.
++            # The previous f"{host}{path}" key dropped scheme and port,
++            # collapsing https/http and implicit/explicit-port origins
++            # into ONE entity (merging evidence across different trust
++            # boundaries). A URL without scheme+host has NO identity —
++            # the observation abstains instead of inventing one.
++            endpoint_id = _endpoint_id_of(url)
++            if endpoint_id is not None:
++                scheme, host, effective_port, canon_path = \
++                    _endpoint_tuple_key(url)
++                tuple_key = f"{scheme}://{host}:{effective_port}{canon_path}"
+                 self.add_entity(AppModelEntity(
+                     id=endpoint_id,
+                     kind=AppModelEntityKind.ENDPOINT,
+-                    label=f"endpoint:{host}{path}"[:160],
++                    label=f"endpoint:{tuple_key}"[:160],
+                     provenance=DiscoveryProvenance.OBSERVED,
+                     confidence=provenance_confidence(
+                         DiscoveryProvenance.OBSERVED),
+                     evidence_refs=[evidence_ref[:_MAX_REF]],
+                     metadata={
+-                        "host": host, "path": path,
++                        "scheme": scheme,
++                        "host": host,
++                        "port": effective_port,
++                        "path": canon_path,
+                         "methods_seen": [method],
+                         **({"status_code": int(status_code)}
+                            if isinstance(status_code, int) else {}),
+diff --git a/WebPent_UNIFIED/tests/test_umdr44_appmodel_identity.py b/WebPent_UNIFIED/tests/test_umdr44_appmodel_identity.py
+new file mode 100644
+index 0000000..49f02aa
+--- /dev/null
++++ b/WebPent_UNIFIED/tests/test_umdr44_appmodel_identity.py
+@@ -0,0 +1,126 @@
++"""UM-DR-44 A5a — endpoint identity is the canonical tuple (RED on 6f3dc7c).
++
++The three endpoint-id construction sites (builder.ensure_endpoint ~201,
++builder observation-link ~337, models.apply_observation ~356) all build
++the identity from f"{host}{path}" — scheme and port are DROPPED:
++
++* https://example.com/x and http://example.com/x collapse into ONE
++  entity (evidence merged across different trust boundaries);
++* https://example.com/x and https://example.com:8443/x collapse the
++  same way (different origin);
++* in add_entity's merge path the provenance tie keeps the EXISTING
++  record, so methods_seen=['GET'] survives and ['GET','POST'] is
++  discarded — methods must ACCUMULATE (set semantics) regardless of
++  which record wins;
++* metadata carries only host/path — scheme/port are not observable.
++
++Required (this prompt):
++
++* ONE SSOT: _endpoint_tuple_key(url) -> (scheme, host, effective_port,
++  path) | None; _endpoint_id_of(url) builds the id from it; both build
++  paths and apply_observation use them;
++* effective_port = explicit port or scheme default (http→80, https→443)
++  so https://h/x ≡ https://h:443/x and http://h/x ≠ https://h/x;
++* URL without scheme or host → None → ABSTAIN (no invented identity);
++* metadata carries scheme/port/host/path;
++* methods_seen accumulates in the merge path (independent of the
++  provenance winner); status_code keeps the latest (current state).
++"""
++
++from __future__ import annotations
++
++import pytest
++
++from webpent.appmodel.models import ApplicationModel
++
++try:  # RED on 6f3dc7c: the SSOT does not exist on the base tree.
++    from webpent.appmodel.builder import _endpoint_id_of, _endpoint_tuple_key
++except ImportError:  # pragma: no cover — the RED state this file proves
++    _endpoint_id_of = None
++    _endpoint_tuple_key = None
++
++EVID = {"evidence_ref": "req-1"}
++
++
++def _endpoints(model: ApplicationModel) -> list[dict]:
++    return [
++        {"id": eid, **(e.metadata or {})}
++        for eid, e in model.entities.items()
++        if str(e.kind) == "endpoint"
++    ]
++
++
++class TestTupleKeySSOT:
++    def test_scheme_change_is_different_endpoint(self) -> None:
++        """RED: http and https on the same host+path must be DISTINCT."""
++        m = ApplicationModel()
++        m.apply_observation({"url": "https://example.com/api/orders", **EVID})
++        m.apply_observation({"url": "http://example.com/api/orders",
++                             "evidence_ref": "req-2"})
++        assert len(_endpoints(m)) == 2
++
++    def test_default_port_equivalence(self) -> None:
++        """https://h/x ≡ https://h:443/x — same identity."""
++        assert _endpoint_id_of("https://example.com/x") == \
++            _endpoint_id_of("https://example.com:443/x")
++
++    def test_explicit_port_distinct(self) -> None:
++        """RED: :8443 must not merge with the implicit :443."""
++        assert _endpoint_id_of("https://example.com/x") != \
++            _endpoint_id_of("https://example.com:8443/x")
++
++    def test_no_scheme_abstains(self) -> None:
++        """A URL without a scheme has NO identity — the observation must
++        abstain (recorded), not invent one from a bare host."""
++        m = ApplicationModel()
++        result = m.apply_observation({"url": "example.com/api/orders",
++                                      **EVID})
++        assert not [
++            e for e in m.entities.values() if str(e.kind) == "endpoint"]
++        assert any(
++            a.get("what") == "endpoint" for a in result.get("abstained", []))
++
++    def test_unparseable_url_abstains(self) -> None:
++        m = ApplicationModel()
++        result = m.apply_observation({"url": "::::not-a-url::::", **EVID})
++        assert not [
++            e for e in m.entities.values() if str(e.kind) == "endpoint"]
++        assert any(
++            a.get("what") == "endpoint" for a in result.get("abstained", []))
++
++
++class TestMethodsAndMetadata:
++    def test_methods_seen_accumulate_get_then_post(self) -> None:
++        """RED: the tie-break currently keeps the OLD methods_seen."""
++        m = ApplicationModel()
++        m.apply_observation({"url": "https://example.com/api/orders",
++                             "method": "GET", "evidence_ref": "req-1"})
++        m.apply_observation({"url": "https://example.com/api/orders",
++                             "method": "POST", "evidence_ref": "req-2"})
++        endpoint = _endpoints(m)[0]
++        assert set(endpoint.get("methods_seen") or []) >= {"GET", "POST"}
++
++    def test_metadata_carries_scheme_and_port(self) -> None:
++        """RED: metadata currently carries only host/path."""
++        m = ApplicationModel()
++        m.apply_observation({"url": "https://example.com:8443/api/orders",
++                             **EVID})
++        endpoint = _endpoints(m)[0]
++        assert endpoint.get("scheme") == "https"
++        assert int(endpoint.get("port")) == 8443
++        assert endpoint.get("host") == "example.com"
++        assert endpoint.get("path") == "/api/orders"
++
++
++@pytest.mark.parametrize("url,expect", [
++    ("https://example.com/x", ("https", "example.com", 443, "/x")),
++    ("http://example.com/x", ("http", "example.com", 80, "/x")),
++    ("https://example.com:8443/x", ("https", "example.com", 8443, "/x")),
++    ("http://example.com:8080/x", ("http", "example.com", 8080, "/x")),
++])
++def test_tuple_key_values(url: str, expect: tuple) -> None:
++    assert _endpoint_tuple_key(url) == expect
++
++
++def test_tuple_key_none_for_bare_host() -> None:
++    assert _endpoint_tuple_key("example.com/api") is None
+-- 
+2.47.3
+

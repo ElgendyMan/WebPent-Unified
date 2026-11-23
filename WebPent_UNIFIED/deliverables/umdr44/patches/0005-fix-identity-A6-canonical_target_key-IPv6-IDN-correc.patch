@@ -1,0 +1,233 @@
+From d10ea9bab0219b280a4f4ef5a251a1d5d3b33074 Mon Sep 17 00:00:00 2001
+From: UM-DR-44 <umdr44@webpent.local>
+Date: Sun, 22 Nov 2026 21:39:07 +0000
+Subject: [PATCH 5/9] =?UTF-8?q?fix(identity):=20A6=20=E2=80=94=20canonical?=
+ =?UTF-8?q?=5Ftarget=5Fkey=20IPv6=20+=20IDN=20correctness?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+RED on 6f3dc7c (5 failures, evidence/A6_red.txt), verified defects:
+
+* parts.hostname strips the IPv6 brackets, so the rebuilt netloc was
+  INVALID: https://[::1]:8443/x -> https://::1:8443/a — no client or
+  comparator can round-trip it (urlsplit cannot parse the host back);
+* different hex/compression spellings of the SAME literal produced
+  different keys — [2001:DB8::1], [2001:db8::1] and the fully
+  expanded [2001:0db8:0000:...:0001] were three keys for one host;
+* IDN hosts were not punycoded — münchen.de and xn--mnchen-3ya.de
+  were two keys for the same registrable host;
+* the docstring claimed the trailing slash is PRESERVED while the code
+  strips it since birth (every checkpoint id was minted with the
+  strip) — docstring corrected to match the code, never the reverse.
+
+Fix: IPv6 literals keep their brackets and are unified through
+ipaddress.IPv6Address (compressed + lowercase — hex case AND
+zero-compression unify); IDN hosts punycode via encode('idna') with a
+verbatim fallback on malformed hosts; IPv4/domain behavior is
+byte-identical with the previous contract (case folding, default-port
+strip, trailing-dot strip, path/query preservation).
+
+GREEN: 19/19 (12 contract + 7 idempotence params,
+evidence/A6_green.txt). Critical wing: 696 passed / 11 skipped —
+43C identity matrix, RC-5 dedup, 43C lifecycle, A1/A3/A4, and the
+frozen-module gate (the file is A1-thaw-authorized; no new gate
+opened, no frozen_modules.sha256 edit — delta-mode silence).
+---
+ .../deliverables/umdr44/evidence/A6_green.txt |  1 +
+ .../deliverables/umdr44/evidence/A6_red.txt   |  2 +
+ .../webpent/production/hypothesis_identity.py | 39 ++++++--
+ .../test_umdr44_a6_canonical_target_key.py    | 97 +++++++++++++++++++
+ 4 files changed, 133 insertions(+), 6 deletions(-)
+ create mode 100644 WebPent_UNIFIED/deliverables/umdr44/evidence/A6_green.txt
+ create mode 100644 WebPent_UNIFIED/deliverables/umdr44/evidence/A6_red.txt
+ create mode 100644 WebPent_UNIFIED/tests/test_umdr44_a6_canonical_target_key.py
+
+diff --git a/WebPent_UNIFIED/deliverables/umdr44/evidence/A6_green.txt b/WebPent_UNIFIED/deliverables/umdr44/evidence/A6_green.txt
+new file mode 100644
+index 0000000..6c40cc2
+--- /dev/null
++++ b/WebPent_UNIFIED/deliverables/umdr44/evidence/A6_green.txt
+@@ -0,0 +1 @@
++19 passed in 0.74s
+diff --git a/WebPent_UNIFIED/deliverables/umdr44/evidence/A6_red.txt b/WebPent_UNIFIED/deliverables/umdr44/evidence/A6_red.txt
+new file mode 100644
+index 0000000..c2feb72
+--- /dev/null
++++ b/WebPent_UNIFIED/deliverables/umdr44/evidence/A6_red.txt
+@@ -0,0 +1,2 @@
++FAILED tests/test_umdr44_a6_canonical_target_key.py::TestIDN::test_unicode_host_punycoded
++5 failed, 14 passed in 0.83s
+diff --git a/WebPent_UNIFIED/src/webpent/production/hypothesis_identity.py b/WebPent_UNIFIED/src/webpent/production/hypothesis_identity.py
+index f0c4cf8..852d6b9 100644
+--- a/WebPent_UNIFIED/src/webpent/production/hypothesis_identity.py
++++ b/WebPent_UNIFIED/src/webpent/production/hypothesis_identity.py
+@@ -111,14 +111,21 @@ def canonical_target_key(url: str) -> str:
+     * scheme and host: lower-cased (DNS + scheme are case-insensitive);
+     * default port for the scheme: stripped (``:443`` on https adds
+       nothing to origin identity);
+-    * path: PRESERVED verbatim — case-sensitive in real file systems
+-      and routing tables; a trailing slash is preserved too (distinct
+-      resources in several frameworks), only a lone ``/`` normalizes
+-      away;
++    * path: PRESERVED verbatim except the trailing slash, which is
++      STRIPPED (only a lone ``/`` remains) — this has been the actual
++      behavior since the function's birth (every checkpoint id was
++      minted with the strip); UM-DR-44 A6 corrected this docstring to
++      match the code, never the reverse;
+     * query: PRESERVED as the raw ordered string — parameter order is
+       behaviorally significant for many applications (§5.4: never sort
+       blindly); duplicate parameters therefore stay distinct;
+     * fragment: dropped (never reaches the server);
++    * IPv6 literal hosts keep their brackets and are unified through
++      ``ipaddress.IPv6Address`` (compressed + lowercase — hex case and
++      zero-compression spellings of the same literal share one key);
++    * IDN hosts are punycoded (``xn--``) so the unicode and ASCII
++      spellings of the same registrable host share one key; malformed
++      hosts fall back verbatim (never raise);
+     * non-http(s) schemes and relative references: returned trimmed
+       unchanged (the honest fallback — same as the frozen
+       ``_normalize_url`` contract for those inputs).
+@@ -140,14 +147,34 @@ def canonical_target_key(url: str) -> str:
+     host = host.strip().rstrip(".").lower()
+     if not host:
+         return raw
++    # UM-DR-44 A6: IPv6 literals — urlsplit returns the hostname WITHOUT
++    # brackets, so rebuilding the netloc plainly produced an INVALID
++    # "https://::1:8443" form. Unify through ipaddress.IPv6Address
++    # (compressed + lowercase: hex case AND zero-compression spellings
++    # of the same literal become one key) and restore the brackets.
++    is_ipv6 = ":" in host
++    if is_ipv6:
++        try:
++            import ipaddress
++
++            host = str(ipaddress.IPv6Address(host))
++        except ValueError:
++            return raw  # malformed literal — honest fallback
++    elif not host.isascii():
++        # UM-DR-44 A6: IDN — punycode the unicode spelling so it shares
++        # one key with the xn-- spelling of the same registrable host.
++        try:
++            host = host.encode("idna").decode("ascii")
++        except (UnicodeError, ValueError):
++            pass  # un-encodable host — keep verbatim (honest fallback)
+     try:
+         port = parts.port
+     except ValueError:
+         return raw
+     if port is None or port == _DEFAULT_PORTS[scheme]:
+-        netloc = host
++        netloc = f"[{host}]" if is_ipv6 else host
+     else:
+-        netloc = f"{host}:{port}"
++        netloc = f"[{host}]:{port}" if is_ipv6 else f"{host}:{port}"
+     path = parts.path or ""
+     if len(path) > 1:
+         path = path.rstrip("/") or "/"
+diff --git a/WebPent_UNIFIED/tests/test_umdr44_a6_canonical_target_key.py b/WebPent_UNIFIED/tests/test_umdr44_a6_canonical_target_key.py
+new file mode 100644
+index 0000000..efbdd75
+--- /dev/null
++++ b/WebPent_UNIFIED/tests/test_umdr44_a6_canonical_target_key.py
+@@ -0,0 +1,97 @@
++"""UM-DR-44 A6 — canonical_target_key: IPv6 and IDN (RED on 6f3dc7c).
++
++Verified failures on the base tree:
++
++* ``parts.hostname`` strips the IPv6 brackets → the rebuilt netloc is
++  INVALID: https://[::1]:8443/a → https://::1:8443/a (no client or
++  comparator can round-trip it; urlsplit cannot parse the host back);
++* different hex/compression spellings of the SAME literal produce
++  different keys ([2001:DB8::1] vs [2001:db8::1] vs
++  [2001:0db8:0000::1]) — canonicalization must go through
++  ipaddress.IPv6Address (compressed + lowercase unifies both);
++* IDN: a unicode host is not punycoded → münchen.de and
++  xn--mnchen-3ya.de produce TWO keys for the same registrable host;
++* documentation lie: the docstring claims the trailing slash is
++  PRESERVED while the code strips it (rstrip('/') since birth) — the
++  docstring must match the actual (checkpoint-id compatible) behavior.
++
++Required: brackets preserved; IPv6 unified via ipaddress.IPv6Address;
++IDN via host.encode('idna') with a safe fallback on malformed hosts;
++domains and IPv4 byte-identical with the previous contract.
++"""
++
++from __future__ import annotations
++
++from urllib.parse import urlsplit
++
++import pytest
++
++from webpent.production.hypothesis_identity import canonical_target_key as c
++
++
++class TestIPv6:
++    def test_brackets_preserved_with_explicit_port(self) -> None:
++        """RED: the base drops the brackets → invalid netloc."""
++        assert c("https://[::1]:8443/x") == "https://[::1]:8443/x"
++
++    def test_brackets_preserved_default_port_stripped(self) -> None:
++        assert c("https://[2001:db8::1]:443/api") == "https://[2001:db8::1]/api"
++
++    def test_hex_case_unified(self) -> None:
++        assert c("https://[2001:DB8::1]/api") == \
++            c("https://[2001:db8::1]/api")
++
++    def test_zero_compression_unified(self) -> None:
++        """The SAME literal in different spellings → ONE key — the
++        unification must go through ipaddress.IPv6Address (compressed
++        form), not just .lower()."""
++        same = "2001:0db8:0000:0000:0000:0000:0000:0001"
++        assert c(f"https://[{same}]/api") == c("https://[2001:db8::1]/api")
++
++    def test_key_round_trips_through_urlsplit(self) -> None:
++        key = c("https://[::1]:8443/x")
++        assert urlsplit(key).hostname == "::1"
++
++    def test_ipv4_byte_identical(self) -> None:
++        assert c("https://192.0.2.1:8443/x") == "https://192.0.2.1:8443/x"
++        assert c("https://192.0.2.1:443/x") == "https://192.0.2.1/x"
++
++
++class TestIDN:
++    def test_unicode_host_punycoded(self) -> None:
++        """RED: the base passes the unicode host through verbatim."""
++        assert c("https://münchen.de/api") == \
++            c("https://xn--mnchen-3ya.de/api")
++
++    def test_unicode_host_uppercase(self) -> None:
++        assert c("https://MÜNCHEN.DE/api") == c("https://münchen.de/api")
++
++    def test_malformed_idn_falls_back_unchanged(self) -> None:
++        """An un-encodable host never raises — honest fallback."""
++        out = c("https://eẍample.test/api")  # combining diaeresis host
++        assert isinstance(out, str) and out
++
++
++class TestDomainContractUnchanged:
++    def test_domain_case_folding(self) -> None:
++        assert c("https://EXAMPLE.com/API") == "https://example.com/API"
++
++    def test_default_port_stripped(self) -> None:
++        assert c("http://example.com:80/x") == "http://example.com/x"
++        assert c("https://example.com:443/x") == "https://example.com/x"
++
++    def test_trailing_dot_stripped(self) -> None:
++        assert c("https://example.com./x") == "https://example.com/x"
++
++    @pytest.mark.parametrize("url", [
++        "https://[::1]:8443/x",
++        "https://[2001:DB8::1]/api",
++        "https://münchen.de/api",
++        "https://xn--mnchen-3ya.de/api",
++        "https://example.com:443/a",
++        "http://example.com:8080/b",
++        "https://192.0.2.1/x",
++    ])
++    def test_idempotent(self, url: str) -> None:
++        once = c(url)
++        assert c(once) == once, f"canonical form not idempotent: {once}"
+-- 
+2.47.3
+

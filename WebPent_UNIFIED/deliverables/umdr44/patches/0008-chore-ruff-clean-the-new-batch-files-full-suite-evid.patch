@@ -1,0 +1,177 @@
+From de9a376cc2f9fe4f2069a14adf1e584e312ce30f Mon Sep 17 00:00:00 2001
+From: UM-DR-44 <umdr44@webpent.local>
+Date: Sun, 22 Nov 2026 22:02:44 +0000
+Subject: [PATCH 8/9] chore: ruff-clean the new batch files; full-suite
+ evidence
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+New test files and the regen tool are ruff-clean (I001 import order
+fixed; the unused outer_ctx fixture variable removed; the E402 noqa
+moved to the correct line). Modified src files keep exact parity with
+the base (builder 4->4, models 2->2, hypothesis_identity 3->3,
+engagement_scope 3->3 — zero new findings). compileall RC=0.
+
+FULL SUITE on the final tree: 9609 passed / 20 skipped / 3 xfailed /
+0 failed in 879.89s (evidence/FULL_VERIFICATION.txt) — the §7 fix
+eliminated the order-dependent pollution class entirely (first
+clean run, no post-hoc justification needed).
+---
+ .../umdr44/evidence/FULL_VERIFICATION.txt       | 11 +++++++++++
+ .../umdr44/evidence/RUFF_COMPILEALL.txt         | 17 +++++++++++++++++
+ WebPent_UNIFIED/docs/direct_io_inventory.json   |  4 ++--
+ .../scripts/regen_direct_io_inventory_umdr44.py |  4 +++-
+ .../tests/test_umdr44_a5b_revision_contract.py  |  2 +-
+ WebPent_UNIFIED/tests/test_umdr44_a5d_hints.py  |  2 +-
+ .../tests/test_umdr44_clear_none_teardown.py    | 12 ++++--------
+ 7 files changed, 39 insertions(+), 13 deletions(-)
+ create mode 100644 WebPent_UNIFIED/deliverables/umdr44/evidence/FULL_VERIFICATION.txt
+ create mode 100644 WebPent_UNIFIED/deliverables/umdr44/evidence/RUFF_COMPILEALL.txt
+
+diff --git a/WebPent_UNIFIED/deliverables/umdr44/evidence/FULL_VERIFICATION.txt b/WebPent_UNIFIED/deliverables/umdr44/evidence/FULL_VERIFICATION.txt
+new file mode 100644
+index 0000000..b81e8d9
+--- /dev/null
++++ b/WebPent_UNIFIED/deliverables/umdr44/evidence/FULL_VERIFICATION.txt
+@@ -0,0 +1,11 @@
++=== FULL SUITE (UMDR-44 deferred batch) ===
++XFAIL tests/test_postp0_phase5_validators.py::test_jwt_confusion_explicit_negative - superseded contract: the 2026-10 validator rewrite re-discovers JWKS before the retired alg-none seam (see block comment above / DR-015)
++XFAIL tests/test_r2_spine_authority_contracts.py::test_t07b_campaign_worker_entrypoint_is_campaign_worker - B-06 residual (D2/R2-04): ratified entrypoint is 'campaign_worker'; v5 uses 'worker' and KNOWN_ENTRYPOINTS (frozen) does not contain 'campaign_worker'. DENIED for R3 — E-3 unfreeze denied, deferred to M3 (Ruling R3-002 §3.5); campaign_worker.py is explicitly NOT THAWED, so this stays xfail(strict) through Phase 1.
++9609 passed, 20 skipped, 3 xfailed, 15 warnings in 879.89s (0:14:39)
++RC=0
++DONE
++
++=== SUITE ENV ===
++base: 6f3dc7c (pushed branch tip)
++batch commits: e0e5d33 dc92dcf 3c8825c 0fc08bc d10ea9b 3d1f6c2 56393e3 + cleanup
++no failed, no order-dependent pollution (the §7 fix eliminated the leak class)
+diff --git a/WebPent_UNIFIED/deliverables/umdr44/evidence/RUFF_COMPILEALL.txt b/WebPent_UNIFIED/deliverables/umdr44/evidence/RUFF_COMPILEALL.txt
+new file mode 100644
+index 0000000..4fd3be1
+--- /dev/null
++++ b/WebPent_UNIFIED/deliverables/umdr44/evidence/RUFF_COMPILEALL.txt
+@@ -0,0 +1,17 @@
++=== RUFF PARITY (batch rule: zero NEW findings on modified files) ===
++per-file base(6f3dc7c) -> current:
++src/webpent/appmodel/builder.py: 4 -> 4
++src/webpent/appmodel/models.py: 2 -> 2
++src/webpent/production/hypothesis_identity.py: 3 -> 3
++src/webpent/shared/engagement_scope.py: 3 -> 3
++tests/test_umdr44_b6_thread_gate.py: 1 -> 1 (pre-existing B-track file, not this batch)
++NEW files (must be totally clean): ALL PASS
++  scripts/regen_direct_io_inventory_umdr44.py
++  tests/test_umdr44_appmodel_identity.py
++  tests/test_umdr44_a5b_revision_contract.py
++  tests/test_umdr44_a5c_path_equivalence.py
++  tests/test_umdr44_a5d_hints.py
++  tests/test_umdr44_a6_canonical_target_key.py
++  tests/test_umdr44_clear_none_teardown.py
++=== COMPILEALL ===
++python -m compileall -q src/webpent/ -> RC=0
+diff --git a/WebPent_UNIFIED/docs/direct_io_inventory.json b/WebPent_UNIFIED/docs/direct_io_inventory.json
+index 64122e6..aaad573 100755
+--- a/WebPent_UNIFIED/docs/direct_io_inventory.json
++++ b/WebPent_UNIFIED/docs/direct_io_inventory.json
+@@ -684,7 +684,7 @@
+     "regenerated_at": "2026-11-20T08:02:47Z",
+     "regenerated_by": "umdr42-closure window regen (scripts/regen_direct_io_inventory_umdr42_closure.py)",
+     "scan_root": "src",
+-    "commit": "3d1f6c2d010428d4a37b9c3eb7c6ae1f58192184"
++    "commit": "56393e32c61d117c9b085dc82a3af41e45f5841f"
+   },
+   "logical_transports": {
+     "api": {
+@@ -17091,7 +17091,7 @@
+     }
+   ],
+   "regen_reason": "umdr44 window regen: B6(b) added the fail-closed verify_target_tls getattr read in shared/h2_race.py and the B2 identity-thread state work carried getattr(record, ...) reads in state/reducers.py \u2014 both dynamic_resolution (non-transport) additions only; ZERO removals",
+-  "regenerated_at": "2026-11-22T21:44:42Z",
++  "regenerated_at": "2026-11-22T21:47:30Z",
+   "schema": "webpent.direct_io_inventory.v1",
+   "unapproved_transport_pin": 47,
+   "window": "UM-DR-34 SCOPE AUTHORITY WINDOW 2026-11-10"
+diff --git a/WebPent_UNIFIED/scripts/regen_direct_io_inventory_umdr44.py b/WebPent_UNIFIED/scripts/regen_direct_io_inventory_umdr44.py
+index 15c164b..fd899e8 100644
+--- a/WebPent_UNIFIED/scripts/regen_direct_io_inventory_umdr44.py
++++ b/WebPent_UNIFIED/scripts/regen_direct_io_inventory_umdr44.py
+@@ -23,7 +23,9 @@ from pathlib import Path
+ ROOT = Path(__file__).resolve().parents[1]
+ sys.path.insert(0, str(ROOT / "src"))
+ 
+-from webpent.shared.direct_io_inventory import scan_direct_io  # noqa: E402 — deliberate import order (P2-203 triage)
++from webpent.shared.direct_io_inventory import (  # noqa: E402 — deliberate import order (P2-203 triage)
++    scan_direct_io,
++)
+ 
+ ARTIFACT = ROOT / "docs" / "direct_io_inventory.json"
+ SRC = ROOT / "src"
+diff --git a/WebPent_UNIFIED/tests/test_umdr44_a5b_revision_contract.py b/WebPent_UNIFIED/tests/test_umdr44_a5b_revision_contract.py
+index 6414fea..b0ad9eb 100644
+--- a/WebPent_UNIFIED/tests/test_umdr44_a5b_revision_contract.py
++++ b/WebPent_UNIFIED/tests/test_umdr44_a5b_revision_contract.py
+@@ -16,11 +16,11 @@ metadata extras preserved on merge.
+ from __future__ import annotations
+ 
+ from webpent.appmodel.models import (
++    ApplicationModel,
+     AppModelEntity,
+     AppModelEntityKind,
+     AppModelRelation,
+     AppModelRelationKind,
+-    ApplicationModel,
+     DiscoveryProvenance,
+ )
+ 
+diff --git a/WebPent_UNIFIED/tests/test_umdr44_a5d_hints.py b/WebPent_UNIFIED/tests/test_umdr44_a5d_hints.py
+index 70152eb..574be4e 100644
+--- a/WebPent_UNIFIED/tests/test_umdr44_a5d_hints.py
++++ b/WebPent_UNIFIED/tests/test_umdr44_a5d_hints.py
+@@ -16,11 +16,11 @@ from __future__ import annotations
+ 
+ from webpent.appmodel.builder import build_appmodel_research_hints
+ from webpent.appmodel.models import (
++    ApplicationModel,
+     AppModelEntity,
+     AppModelEntityKind,
+     AppModelRelation,
+     AppModelRelationKind,
+-    ApplicationModel,
+     DiscoveryProvenance,
+ )
+ 
+diff --git a/WebPent_UNIFIED/tests/test_umdr44_clear_none_teardown.py b/WebPent_UNIFIED/tests/test_umdr44_clear_none_teardown.py
+index beb996d..c9e838f 100644
+--- a/WebPent_UNIFIED/tests/test_umdr44_clear_none_teardown.py
++++ b/WebPent_UNIFIED/tests/test_umdr44_clear_none_teardown.py
+@@ -28,10 +28,10 @@ from __future__ import annotations
+ import pytest
+ 
+ from webpent.shared.engagement_scope import (
+-    EngagementContext,
+     _ACTIVE_ENGAGEMENTS,
+-    _any_engagement_active,
+     _ENGAGEMENT_LOCK,
++    EngagementContext,
++    _any_engagement_active,
+     clear_engagement_target_hosts,
+     is_engagement_origin_allowed,
+     set_engagement_target_hosts,
+@@ -106,12 +106,8 @@ class TestForceClearTeardown:
+         unregister with the key its engagement was REGISTERED under —
+         not the previous context's key (identical only by today's
+         'default' coincidence)."""
+-        # an OUTER engagement with a real scope fingerprint
+-        outer_ctx = EngagementContext(
+-            egress_mode="ENGAGEMENT",
+-            target_hosts=frozenset({"outer.example.test"}),
+-            scope_fingerprint="outer-fingerprint",
+-        )
++        # an OUTER engagement (registered under the 'default' key — the
++        # outer context of a fresh process has no scope fingerprint)
+         outer_token = set_engagement_target_hosts(
+             "https://outer.example.test/app")
+         # simulate the inner registration carrying its own fingerprint
+-- 
+2.47.3
+

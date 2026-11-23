@@ -1,0 +1,267 @@
+From dc92dcf563d939d5c53e7f077704a07da7f2f9f9 Mon Sep 17 00:00:00 2001
+From: UM-DR-44 <umdr44@webpent.local>
+Date: Sun, 22 Nov 2026 21:34:12 +0000
+Subject: [PATCH 2/9] =?UTF-8?q?feat(appmodel):=20A5b=20=E2=80=94=20merge?=
+ =?UTF-8?q?=20path=20increments=20revision;=20additive=20metadata=20merge?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+RED on 6f3dc7c (5 failures, evidence/A5b_red.txt): add_entity's merge
+path did NOT increment revision, violating the documented contract
+('every add/contradiction increments it' — the comment above the
+field) and leaving delta_since blind to evidence accumulation on
+existing entities (revision_to == revision_from for pure
+re-observation). The merge path also replaced metadata wholesale with
+the winner's — extras from the losing side were silently dropped.
+
+Fix: the merge path increments revision; metadata merges additively —
+methods_seen accumulates with set semantics (independent of the
+provenance winner), status_code keeps the LATEST (current state),
+identity facets carry the new observation's explicit values, all other
+keys merge with new-wins-on-conflict so extras from either side
+survive.
+
+Contract suite (11): merge increments; monotonic across 4
+observations; duplicate relation rejected WITHOUT moving the counter;
+contradiction increments; refs dedup; first-observed-at stays oldest;
+delta_since sees re-observation (revision_to > revision_from +
+provenance_changes); stronger wins; weaker never downgrades; refs
+capped at 50 on the merge path; metadata extras preserved.
+
+GREEN: 11/11 (evidence/A5b_green.txt); A5a suite still green (23/23
+combined).
+---
+ .../umdr44/evidence/A5b_green.txt             |   1 +
+ .../deliverables/umdr44/evidence/A5b_red.txt  |   2 +
+ .../src/webpent/appmodel/models.py            |  35 +++--
+ .../test_umdr44_a5b_revision_contract.py      | 141 ++++++++++++++++++
+ 4 files changed, 167 insertions(+), 12 deletions(-)
+ create mode 100644 WebPent_UNIFIED/deliverables/umdr44/evidence/A5b_green.txt
+ create mode 100644 WebPent_UNIFIED/deliverables/umdr44/evidence/A5b_red.txt
+ create mode 100644 WebPent_UNIFIED/tests/test_umdr44_a5b_revision_contract.py
+
+diff --git a/WebPent_UNIFIED/deliverables/umdr44/evidence/A5b_green.txt b/WebPent_UNIFIED/deliverables/umdr44/evidence/A5b_green.txt
+new file mode 100644
+index 0000000..216d210
+--- /dev/null
++++ b/WebPent_UNIFIED/deliverables/umdr44/evidence/A5b_green.txt
+@@ -0,0 +1 @@
++11 passed in 0.74s
+diff --git a/WebPent_UNIFIED/deliverables/umdr44/evidence/A5b_red.txt b/WebPent_UNIFIED/deliverables/umdr44/evidence/A5b_red.txt
+new file mode 100644
+index 0000000..88bc48c
+--- /dev/null
++++ b/WebPent_UNIFIED/deliverables/umdr44/evidence/A5b_red.txt
+@@ -0,0 +1,2 @@
++FAILED tests/test_umdr44_a5b_revision_contract.py::TestMergeSemantics::test_delta_since_sees_reobservation
++5 failed, 6 passed in 0.78s
+diff --git a/WebPent_UNIFIED/src/webpent/appmodel/models.py b/WebPent_UNIFIED/src/webpent/appmodel/models.py
+index 4836f1c..7b084b9 100755
+--- a/WebPent_UNIFIED/src/webpent/appmodel/models.py
++++ b/WebPent_UNIFIED/src/webpent/appmodel/models.py
+@@ -213,17 +213,19 @@ class ApplicationModel(BaseModel):
+         # the earliest observation timestamp wins (staleness metadata
+         # records FIRST observation, not last write)
+         observed_at = existing.observed_at or entity.observed_at or _utc_now_iso()
+-        # UM-DR-44 A5a: endpoint facets are ACCUMULATING or CURRENT-STATE
+-        # metadata — they never compete with the provenance winner.
+-        # methods_seen accumulates with set semantics (a POST observation
+-        # must not erase a recorded GET when the tie-break keeps the
+-        # existing record); status_code keeps the LATEST value (current
+-        # response state); identity facets (scheme/host/port/path) carry
+-        # the new observation's explicit values (equal by construction of
+-        # the canonical tuple id); other metadata keys merge additively.
+-        merged_metadata = dict(existing.metadata or {})
++        # UM-DR-44 A5a/A5b: endpoint facets are ACCUMULATING or
++        # CURRENT-STATE metadata — they never compete with the provenance
++        # winner. methods_seen accumulates with set semantics (a POST
++        # observation must not erase a recorded GET when the tie-break
++        # keeps the existing record); status_code keeps the LATEST value
++        # (current response state); identity facets (scheme/host/port/
++        # path) carry the new observation's explicit values (equal by
++        # construction of the canonical tuple id). All OTHER metadata
++        # keys merge additively (new values win on conflict) so extras
++        # from either side survive the merge.
++        merged_metadata: dict[str, Any] = dict(existing.metadata or {})
++        new_meta: dict[str, Any] = dict(entity.metadata or {})
+         if str(entity.kind) == "endpoint":
+-            new_meta = entity.metadata or {}
+             if new_meta.get("methods_seen"):
+                 merged_metadata["methods_seen"] = sorted({
+                     *(merged_metadata.get("methods_seen") or []),
+@@ -232,13 +234,22 @@ class ApplicationModel(BaseModel):
+             if "status_code" in new_meta:
+                 merged_metadata["status_code"] = new_meta["status_code"]
+             for facet in ("scheme", "host", "port", "path"):
+-                if new_meta.get(facet) is not None:
+-                    merged_metadata[facet] = new_meta[facet]
++                new_meta.pop(facet, None)  # handled by construction below
++                if (entity.metadata or {}).get(facet) is not None:
++                    merged_metadata[facet] = (entity.metadata or {})[facet]
++            new_meta.pop("methods_seen", None)
++            new_meta.pop("status_code", None)
++        merged_metadata.update(new_meta)
+         self.entities[entity.id] = stronger.model_copy(
+             update={"evidence_refs": merged_refs[:50],
+                     "metadata": merged_metadata,
+                     "observed_at": observed_at}
+         )
++        # UM-DR-44 A5b: the documented contract ("every add/contradiction
++        # increments revision") — the merge path previously did not, so
++        # evidence accumulation on existing entities was invisible to
++        # delta_since (revision_to == revision_from for pure re-observation).
++        self.revision += 1
+         return self.entities[entity.id]
+ 
+     def add_relation(self, relation: AppModelRelation) -> bool:
+diff --git a/WebPent_UNIFIED/tests/test_umdr44_a5b_revision_contract.py b/WebPent_UNIFIED/tests/test_umdr44_a5b_revision_contract.py
+new file mode 100644
+index 0000000..6414fea
+--- /dev/null
++++ b/WebPent_UNIFIED/tests/test_umdr44_a5b_revision_contract.py
+@@ -0,0 +1,141 @@
++"""UM-DR-44 A5b — merge increments revision (RED on 6f3dc7c).
++
++The contract comment above ``revision`` (models.py ~177-180) says
++literally "every add/contradiction increments it" — but ``add_entity``'s
++merge path (re-observation) does NOT increment.  ``delta_since`` is
++therefore blind to evidence accumulation on existing entities.
++
++Contract tests (11): merge increments revision; monotonicity across 4
++observations; duplicate relation rejected WITHOUT moving the counter;
++contradiction increments; refs dedup; first-observed-at stays oldest;
++delta_since sees re-observation (revision_to > revision_from);
++stronger provenance wins; weaker never downgrades; refs capped at 50;
++metadata extras preserved on merge.
++"""
++
++from __future__ import annotations
++
++from webpent.appmodel.models import (
++    AppModelEntity,
++    AppModelEntityKind,
++    AppModelRelation,
++    AppModelRelationKind,
++    ApplicationModel,
++    DiscoveryProvenance,
++)
++
++
++def _endpoint(eid: str, *, provenance=DiscoveryProvenance.OBSERVED,
++              refs: list[str] | None = None,
++              metadata: dict | None = None) -> AppModelEntity:
++    return AppModelEntity(
++        id=eid, kind=AppModelEntityKind.ENDPOINT,
++        label=f"endpoint:{eid}"[:160], provenance=provenance,
++        evidence_refs=refs or ["ev-1"], metadata=metadata or {})
++
++
++def _identity(iid: str) -> AppModelEntity:
++    return AppModelEntity(
++        id=iid, kind=AppModelEntityKind.IDENTITY,
++        label=f"identity:{iid}"[:160])
++
++
++class TestRevisionContract:
++    def test_merge_increments_revision(self) -> None:
++        """RED on the base: the merge path leaves revision untouched."""
++        m = ApplicationModel()
++        m.add_entity(_endpoint("ep-1"))
++        before = m.revision
++        m.add_entity(_endpoint("ep-1", refs=["ev-2"]))
++        assert m.revision > before
++
++    def test_monotonic_across_four_observations(self) -> None:
++        m = ApplicationModel()
++        m.add_entity(_endpoint("ep-1", refs=["ev-1"]))
++        revisions = [m.revision]
++        for i in range(2, 5):
++            m.add_entity(_endpoint("ep-1", refs=[f"ev-{i}"]))
++            revisions.append(m.revision)
++        assert revisions == sorted(revisions), revisions
++        assert len(set(revisions)) == 4  # every observation moved it
++
++    def test_duplicate_relation_rejected_without_counter_move(self) -> None:
++        m = ApplicationModel()
++        m.add_entity(_endpoint("ep-1"))
++        m.add_entity(_identity("id-1"))
++        rel = AppModelRelation(
++            id="rel-1", kind=AppModelRelationKind.OBSERVED_ON,
++            source_id="id-1", target_id="ep-1")
++        assert m.add_relation(rel) is True
++        before = m.revision
++        assert m.add_relation(rel) is False  # typed duplicate
++        assert m.revision == before  # rejected → no counter move
++
++    def test_contradiction_increments_revision(self) -> None:
++        m = ApplicationModel()
++        m.add_entity(_endpoint("ep-1"))
++        before = m.revision
++        assert m.mark_contradicted(
++            "ep-1", contradicting_evidence_ref="ev-counter") is True
++        assert m.revision > before
++
++
++class TestMergeSemantics:
++    def test_refs_dedup_on_merge(self) -> None:
++        m = ApplicationModel()
++        m.add_entity(_endpoint("ep-1", refs=["ev-1", "ev-2"]))
++        m.add_entity(_endpoint("ep-1", refs=["ev-2", "ev-3"]))
++        assert m.entities["ep-1"].ref_list() == ["ev-1", "ev-2", "ev-3"]
++
++    def test_first_observed_at_wins(self) -> None:
++        m = ApplicationModel()
++        m.add_entity(_endpoint("ep-1"))
++        first = m.entities["ep-1"].observed_at
++        m.add_entity(AppModelEntity(
++            id="ep-1", kind=AppModelEntityKind.ENDPOINT,
++            label="endpoint:ep-1", provenance=DiscoveryProvenance.OBSERVED,
++            evidence_refs=["ev-2"], observed_at="2020-01-01T00:00:00+00:00"))
++        assert m.entities["ep-1"].observed_at == first
++
++    def test_stronger_provenance_wins(self) -> None:
++        m = ApplicationModel()
++        m.add_entity(_endpoint("ep-1"))
++        m.add_entity(_endpoint("ep-1", provenance=DiscoveryProvenance.DECLARED))
++        assert str(m.entities["ep-1"].provenance) == "declared"
++
++    def test_weaker_provenance_never_downgrades(self) -> None:
++        m = ApplicationModel()
++        m.add_entity(_endpoint("ep-1", provenance=DiscoveryProvenance.DECLARED))
++        m.add_entity(_endpoint("ep-1", provenance=DiscoveryProvenance.INFERRED))
++        assert str(m.entities["ep-1"].provenance) == "declared"
++
++    def test_refs_capped_at_50(self) -> None:
++        """The merge path must never exceed the 50-ref cap.  Pydantic
++        already rejects single inputs above 50, so the cap is proven on
++        the MERGE path: many sub-cap observations merge into one."""
++        m = ApplicationModel()
++        for batch in range(6):  # 6 x 10 = 60 potential refs
++            m.add_entity(_endpoint("ep-1",
++                                   refs=[f"ev-{batch}-{i}" for i in range(10)]))
++        assert len(m.entities["ep-1"].ref_list()) <= 50
++
++    def test_metadata_extras_preserved_on_merge(self) -> None:
++        m = ApplicationModel()
++        m.add_entity(_endpoint("ep-1", metadata={"custom_note": "keep-me",
++                                                 "zone": "a"}))
++        m.add_entity(_endpoint("ep-1", refs=["ev-2"],
++                               metadata={"zone": "a", "extra": "new"}))
++        meta = m.entities["ep-1"].metadata or {}
++        assert meta.get("custom_note") == "keep-me"
++        assert meta.get("extra") == "new"
++
++    def test_delta_since_sees_reobservation(self) -> None:
++        m = ApplicationModel()
++        m.add_entity(_endpoint("ep-1"))
++        before = m.model_copy(deep=True)
++        m.add_entity(_endpoint("ep-1", refs=["ev-2"],
++                               provenance=DiscoveryProvenance.DECLARED))
++        delta = m.delta_since(before)
++        assert delta["revision_to"] > delta["revision_from"]
++        assert delta.get("provenance_changes", {}).get("ep-1") == {
++            "from": "observed", "to": "declared"}
+-- 
+2.47.3
+

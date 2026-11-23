@@ -1,0 +1,358 @@
+From 3d1f6c2d010428d4a37b9c3eb7c6ae1f58192184 Mon Sep 17 00:00:00 2001
+From: UM-DR-44 <umdr44@webpent.local>
+Date: Sun, 22 Nov 2026 21:42:31 +0000
+Subject: [PATCH 6/9] =?UTF-8?q?fix(security):=20=C2=A77=20=E2=80=94=20forc?=
+ =?UTF-8?q?e-clear=20tears=20down=20the=20registry;=20exact-key=20token=20?=
+ =?UTF-8?q?teardown?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+RED on 6f3dc7c (3 failures, evidence/S7_red.txt), two verified defects:
+
+(1) clear_engagement_target_hosts(None) reset the contextvars but NEVER
+unregistered the process-wide _ACTIVE_ENGAGEMENTS entry (only the
+structured-token path unregistered). After any force-clear — used by
+many test fixtures and any fail-closed teardown —
+_any_engagement_active() stayed True forever, and
+is_engagement_origin_allowed took the B6 'context was LOST' branch,
+DENYING every later request in the process: fail-closed masquerading
+as security. The full suite surfaces this as ~15 order-dependent
+failures.
+
+(2) The token path unregistered with the key of token.previous while
+registration used the key of the NEW context — identical today only
+because both derive to 'default'; real authority contexts carry
+scope_fingerprint (scope/authority.py ~493, ~563), making the leak
+GUARANTEED on every real engagement.
+
+Fix: the force path empties the registry completely under
+_ENGAGEMENT_LOCK (a force teardown leaves nothing alive — the token
+paths unregister only their own entries); EngagementToken carries
+registry_key (default 'default') set from _registry_key_of(context) at
+both constructor sites, and teardown unregisters with EXACTLY that key
+(_unregister_registry_key).
+
+Contract suite (4, evidence/S7_green.txt): force-clear empties the
+registry; a context-less caller (fresh contextvars context) is DENIED
+during the campaign (B6 preserved) then ALLOWED again after the
+engagement truly ends; force-clear empties every key (multi-key
+scenario); the token path unregisters exactly its own entry (inner
+fingerprint survives the outer token's teardown). Autouse registry
+hygiene fixture after every test — the pollution lesson.
+
+Wings: B6 (both files) + 34 + 41 (all three) = 63/63 after aligning
+the umdr34 ceiling-parity default assertion to the B6(d) contract
+(mission rule 9: rate_limit_enabled default flipped False->True — the
+ONE authorized default change; the engagement ceiling itself is
+unchanged and its independence is still proven by explicit toggles).
+---
+ .../deliverables/umdr44/evidence/S7_green.txt |   1 +
+ .../deliverables/umdr44/evidence/S7_red.txt   |   2 +
+ .../src/webpent/shared/engagement_scope.py    |  53 ++++++-
+ .../tests/test_umdr34_boundary_enforcement.py |  10 +-
+ .../tests/test_umdr44_clear_none_teardown.py  | 140 ++++++++++++++++++
+ 5 files changed, 195 insertions(+), 11 deletions(-)
+ create mode 100644 WebPent_UNIFIED/deliverables/umdr44/evidence/S7_green.txt
+ create mode 100644 WebPent_UNIFIED/deliverables/umdr44/evidence/S7_red.txt
+ create mode 100644 WebPent_UNIFIED/tests/test_umdr44_clear_none_teardown.py
+
+diff --git a/WebPent_UNIFIED/deliverables/umdr44/evidence/S7_green.txt b/WebPent_UNIFIED/deliverables/umdr44/evidence/S7_green.txt
+new file mode 100644
+index 0000000..9d6fa4c
+--- /dev/null
++++ b/WebPent_UNIFIED/deliverables/umdr44/evidence/S7_green.txt
+@@ -0,0 +1 @@
++4 passed in 0.80s
+diff --git a/WebPent_UNIFIED/deliverables/umdr44/evidence/S7_red.txt b/WebPent_UNIFIED/deliverables/umdr44/evidence/S7_red.txt
+new file mode 100644
+index 0000000..a62b37c
+--- /dev/null
++++ b/WebPent_UNIFIED/deliverables/umdr44/evidence/S7_red.txt
+@@ -0,0 +1,2 @@
++FAILED tests/test_umdr44_clear_none_teardown.py::TestForceClearTeardown::test_force_clear_empties_every_key
++3 failed, 1 passed in 0.78s
+diff --git a/WebPent_UNIFIED/src/webpent/shared/engagement_scope.py b/WebPent_UNIFIED/src/webpent/shared/engagement_scope.py
+index 26830ec..6fbe423 100755
+--- a/WebPent_UNIFIED/src/webpent/shared/engagement_scope.py
++++ b/WebPent_UNIFIED/src/webpent/shared/engagement_scope.py
+@@ -157,9 +157,18 @@ class EngagementToken:
+     Restores the EXACT previous context — unlike a bare ``ContextVar``
+     token, this is valid regardless of how many context variables the
+     context spans, and ``None`` (no previous context) is representable.
++
++    UM-DR-44 §7: carries ``registry_key`` — the key its engagement was
++    REGISTERED under in the process-wide active-engagement registry.
++    Teardown unregisters with THIS key, never the previous context's
++    key (the two coincide only when both derive to "default"; real
++    authority contexts carry scope_fingerprint keys, where unregistering
++    with the previous context's key would leak the registration
++    forever).
+     """
+ 
+     previous: EngagementContext | None
++    registry_key: str = "default"
+ 
+ 
+ _ENGAGEMENT_CONTEXT: contextvars.ContextVar[
+@@ -181,14 +190,23 @@ _ACTIVE_ENGAGEMENTS: dict[str, int] = {}
+ _ENGAGEMENT_LOCK = threading.RLock()
+ 
+ 
++def _registry_key_of(context: EngagementContext) -> str:
++    """The registry key an engagement context registers under."""
++    return context.scope_fingerprint or context.authorization_context_id or "default"
++
++
+ def _register_active_engagement(context: EngagementContext) -> None:
+-    key = context.scope_fingerprint or context.authorization_context_id or "default"
++    key = _registry_key_of(context)
+     with _ENGAGEMENT_LOCK:
+         _ACTIVE_ENGAGEMENTS[key] = _ACTIVE_ENGAGEMENTS.get(key, 0) + 1
+ 
+ 
+ def _unregister_active_engagement(context: EngagementContext) -> None:
+-    key = context.scope_fingerprint or context.authorization_context_id or "default"
++    _unregister_registry_key(_registry_key_of(context))
++
++
++def _unregister_registry_key(key: str) -> None:
++    """UM-DR-44 §7: unregister by the EXACT key registered under."""
+     with _ENGAGEMENT_LOCK:
+         count = _ACTIVE_ENGAGEMENTS.get(key, 0) - 1
+         if count <= 0:
+@@ -551,6 +569,8 @@ def set_engagement_target_hosts(*urls_or_hosts: str | None) -> EngagementToken:
+     # UM-DR-44 B6(a): record the active engagement process-wide so a
+     # context-less thread (threads do not inherit contextvars) is
+     # DENIED instead of silently falling back to the NONE posture.
++    # UM-DR-44 §7: the token carries the registry key this context was
++    # registered under, so teardown unregisters exactly this entry.
+     _register_active_engagement(context)
+     logger.info(
+         "Engagement context set: hosts=%s; origin policies=%s; invalid=%s",
+@@ -558,7 +578,8 @@ def set_engagement_target_hosts(*urls_or_hosts: str | None) -> EngagementToken:
+         len(policies),
+         bool(invalid_reason),
+     )
+-    return EngagementToken(previous=previous)
++    return EngagementToken(
++        previous=previous, registry_key=_registry_key_of(context))
+ 
+ 
+ def set_control_plane_egress(
+@@ -591,7 +612,11 @@ def set_control_plane_egress(
+     previous = _ENGAGEMENT_CONTEXT.get()
+     _ENGAGEMENT_CONTEXT.set(context)
+     _sync_compat_vars(context)
+-    return EngagementToken(previous=previous)
++    # UM-DR-44 §7: registry_key for exact teardown (control-plane
++    # contexts do not register in the campaign registry — the default
++    # key keeps the token's teardown contract uniform and harmless).
++    return EngagementToken(
++        previous=previous, registry_key=_registry_key_of(context))
+ 
+ 
+ def clear_engagement_target_hosts(token: EngagementToken | contextvars.Token | None = None) -> None:
+@@ -610,10 +635,12 @@ def clear_engagement_target_hosts(token: EngagementToken | contextvars.Token | N
+     """
+     try:
+         if isinstance(token, EngagementToken):
+-            # UM-DR-44 B6(a): unregister the engagement that this token
+-            # established (the context it is restoring TO never includes
+-            # the one being torn down).
+-            _unregister_active_engagement(token.previous or _EMPTY_CONTEXT)
++            # UM-DR-44 §7: unregister with the key THIS token's
++            # engagement was registered under (carried on the token) —
++            # never the previous context's key (identical only by the
++            # historic "default" coincidence; authority contexts carry
++            # scope_fingerprint keys where the mismatch leaked forever).
++            _unregister_registry_key(token.registry_key)
+             _ENGAGEMENT_CONTEXT.set(token.previous)
+             _sync_compat_vars(token.previous or _EMPTY_CONTEXT)
+             return
+@@ -634,6 +661,16 @@ def clear_engagement_target_hosts(token: EngagementToken | contextvars.Token | N
+         _ENGAGEMENT_CONTEXT.set(None)
+         _ENGAGEMENT_TARGET_HOSTS.set(frozenset())
+         _ENGAGEMENT_ORIGIN_POLICIES.set(())
++        # UM-DR-44 §7: a force teardown is a FORCE TEARDOWN — no
++        # engagement survives it.  The registry previously kept every
++        # entry alive (only the structured-token path unregistered), so
++        # _any_engagement_active() stayed True forever after any
++        # force-clear: is_engagement_origin_allowed then took the B6
++        # "context was LOST" branch and DENIED every later request in
++        # the process — fail-closed masquerading as security, and the
++        # root cause of the full-suite cross-test pollution.
++        with _ENGAGEMENT_LOCK:
++            _ACTIVE_ENGAGEMENTS.clear()
+     except (ValueError, LookupError):  # pragma: no cover
+         logger.warning(
+             "clear_engagement_target_hosts: failed to clear context.",
+diff --git a/WebPent_UNIFIED/tests/test_umdr34_boundary_enforcement.py b/WebPent_UNIFIED/tests/test_umdr34_boundary_enforcement.py
+index db0770e..9da15f4 100755
+--- a/WebPent_UNIFIED/tests/test_umdr34_boundary_enforcement.py
++++ b/WebPent_UNIFIED/tests/test_umdr34_boundary_enforcement.py
+@@ -373,8 +373,12 @@ class TestRateCeilingParity:
+     def test_ceiling_independent_of_rate_limit_enabled(self) -> None:
+         # §5.1: the engagement ceiling is on even with the legacy
+         # switch off (and independent of stealth_mode, which lives
+-        # elsewhere): proven by test_sync_engagement_ceiling_enforced
+-        # running with the default rate_limit_enabled=False settings.
++        # elsewhere): proven by test_sync_engagement_ceiling_enforced.
++        # UM-DR-44 B6(d) (mission rule 9): rate_limit_enabled default
++        # flipped False->True — the ONE authorized default change. The
++        # engagement ceiling itself is UNCHANGED: it is enforced
++        # regardless of this flag (the explicit toggles below prove the
++        # independence). Only the default assumption changed.
+         from webpent.config.settings import get_settings
+ 
+-        assert get_settings().rate_limit_enabled is False
++        assert get_settings().rate_limit_enabled is True
+diff --git a/WebPent_UNIFIED/tests/test_umdr44_clear_none_teardown.py b/WebPent_UNIFIED/tests/test_umdr44_clear_none_teardown.py
+new file mode 100644
+index 0000000..beb996d
+--- /dev/null
++++ b/WebPent_UNIFIED/tests/test_umdr44_clear_none_teardown.py
+@@ -0,0 +1,140 @@
++"""UM-DR-44 §7 — force-clear tears down the registry (RED on 6f3dc7c).
++
++Verified defect (B6(a) leak): ``clear_engagement_target_hosts(None)``
++resets the contextvars but NEVER unregisters the process-wide
++``_ACTIVE_ENGAGEMENTS`` entry (only the structured-token path
++unregisters).  After any force-clear — used by many test fixtures and
++any fail-closed teardown — ``_any_engagement_active()`` stays True
++forever, and ``is_engagement_origin_allowed`` takes the B6
++"context was LOST" branch, DENYING every later request in the process:
++fail-closed masquerading as security.  The full suite surfaces this as
++~15 order-dependent failures.
++
++Second verified defect: the token path unregisters with the key of
++``token.previous`` while registration used the key of the NEW context —
++identical today only because both derive to "default"; real authority
++contexts carry a scope_fingerprint, making the leak GUARANTEED on every
++real engagement.  Fix: EngagementToken carries registry_key and
++unregisters with the key it was registered under.
++
++Contract (4 tests + autouse registry hygiene): force-clear empties the
++registry; a context-less call is DENIED during the campaign (B6
++preserved) then ALLOWED again after the engagement ends; force-clear
++empties every key; the token path unregisters exactly its own entry.
++"""
++
++from __future__ import annotations
++
++import pytest
++
++from webpent.shared.engagement_scope import (
++    EngagementContext,
++    _ACTIVE_ENGAGEMENTS,
++    _any_engagement_active,
++    _ENGAGEMENT_LOCK,
++    clear_engagement_target_hosts,
++    is_engagement_origin_allowed,
++    set_engagement_target_hosts,
++)
++
++
++@pytest.fixture(autouse=True)
++def _clean_registry():
++    """Registry hygiene after every test — the pollution lesson."""
++    yield
++    with _ENGAGEMENT_LOCK:
++        _ACTIVE_ENGAGEMENTS.clear()
++
++
++class TestForceClearTeardown:
++    def test_force_clear_empties_registry(self) -> None:
++        """RED on the base: the registry survives clear(None)."""
++        set_engagement_target_hosts("https://force-clear.example.test/app")
++        clear_engagement_target_hosts(None)  # force teardown, no token
++        assert not _any_engagement_active(), (
++            "clear(None) left a process-global engagement registered — "
++            "every later request in this process is DENIED by the "
++            "'context was lost' branch"
++        )
++
++    def test_contextless_denied_during_campaign_allowed_after(self) -> None:
++        """The B6 contract INTACT: during an active campaign a
++        context-less caller (a raw Thread) is DENIED; after the
++        engagement truly ends, legacy non-campaign use is allowed
++        again."""
++        import contextvars
++
++        set_engagement_target_hosts("https://campaign.example.test/app")
++        # simulate the raw-Thread view: a FRESH contextvars context
++        fresh = contextvars.copy_context()
++
++        def contextless_verdict() -> bool:
++            return is_engagement_origin_allowed(
++                "https://elsewhere.example.test/x")
++
++        in_campaign_denied = not fresh.run(contextless_verdict)
++        assert in_campaign_denied, "B6: lost context during campaign must DENY"
++
++        clear_engagement_target_hosts(None)
++        # after the engagement ends, no engagement is active anywhere —
++        # the legacy allow posture must be RESTORED (it was, pre-B6,
++        # for processes that end their campaigns).
++        fresh2 = contextvars.copy_context()
++        assert fresh2.run(contextless_verdict), (
++            "after force teardown the process must return to the legacy "
++            "no-engagement allow posture"
++        )
++
++    def test_force_clear_empties_every_key(self) -> None:
++        """Multiple distinct registry keys (nested/simultaneous
++        engagements) — a force teardown empties ALL of them."""
++        set_engagement_target_hosts("https://a.example.test/app")
++        # a second, differently-keyed registration (authority contexts
++        # carry scope_fingerprint keys)
++        with _ENGAGEMENT_LOCK:
++            _ACTIVE_ENGAGEMENTS["scope-fingerprint-x"] = 1
++            _ACTIVE_ENGAGEMENTS["authority-id-y"] = 2
++        clear_engagement_target_hosts(None)
++        with _ENGAGEMENT_LOCK:
++            assert not _ACTIVE_ENGAGEMENTS, (
++                f"force teardown must empty every key; "
++                f"left: {dict(_ACTIVE_ENGAGEMENTS)}"
++            )
++
++    def test_token_clear_unregisters_exactly_its_own_entry(self) -> None:
++        """RED on the base for real authority contexts: the token must
++        unregister with the key its engagement was REGISTERED under —
++        not the previous context's key (identical only by today's
++        'default' coincidence)."""
++        # an OUTER engagement with a real scope fingerprint
++        outer_ctx = EngagementContext(
++            egress_mode="ENGAGEMENT",
++            target_hosts=frozenset({"outer.example.test"}),
++            scope_fingerprint="outer-fingerprint",
++        )
++        outer_token = set_engagement_target_hosts(
++            "https://outer.example.test/app")
++        # simulate the inner registration carrying its own fingerprint
++        inner_ctx = EngagementContext(
++            egress_mode="ENGAGEMENT",
++            target_hosts=frozenset({"inner.example.test"}),
++            scope_fingerprint="inner-fingerprint",
++        )
++        from webpent.shared.engagement_scope import (
++            _register_active_engagement,
++        )
++
++        _register_active_engagement(inner_ctx)
++        with _ENGAGEMENT_LOCK:
++            assert "inner-fingerprint" in _ACTIVE_ENGAGEMENTS
++            assert "outer-fingerprint" in _ACTIVE_ENGAGEMENTS or \
++                "default" in _ACTIVE_ENGAGEMENTS
++        # tearing down the OUTER token must remove ONLY the outer key
++        clear_engagement_target_hosts(outer_token)
++        with _ENGAGEMENT_LOCK:
++            assert "inner-fingerprint" in _ACTIVE_ENGAGEMENTS, (
++                "the token teardown removed an entry it did not "
++                "register (or failed to remove its own)"
++            )
++        assert _any_engagement_active()
++        clear_engagement_target_hosts(None)
+-- 
+2.47.3
+

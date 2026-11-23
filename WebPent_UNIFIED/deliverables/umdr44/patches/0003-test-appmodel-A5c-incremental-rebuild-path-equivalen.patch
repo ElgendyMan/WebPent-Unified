@@ -1,0 +1,154 @@
+From 3c8825c12600128fafba3d99b871d21c31fe811f Mon Sep 17 00:00:00 2001
+From: UM-DR-44 <umdr44@webpent.local>
+Date: Sun, 22 Nov 2026 21:35:57 +0000
+Subject: [PATCH 3/9] =?UTF-8?q?test(appmodel):=20A5c=20=E2=80=94=20increme?=
+ =?UTF-8?q?ntal/rebuild=20path=20equivalence=20contracts?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Three contract tests pinning the SSOT guarantee end-to-end:
+1. the same URL mints the SAME entity id from the full rebuild
+   (build_application_model over crawled_data.surface_records) and the
+   incremental apply_observation — verified against _endpoint_id_of
+   itself, not a hardcoded string;
+2. an incremental observation on top of a rebuild merges IN PLACE —
+   no duplicate endpoint entity for the same tuple, revision bumped
+   (A5b contract), and the method facet accumulates onto the merged
+   entity;
+3. double-apply of one observation is idempotent at the entity/relation
+   level: identical entity set, identical relation set, refs merged
+   (no duplicated evidence ref).
+
+3/3 green on the A5a+A5b tree (evidence/A5c.txt). On 6f3dc7c the two
+paths minted ids from two separate legacy sites — the equivalence is
+now structural: one minter (_endpoint_id_of) for both.
+---
+ .../deliverables/umdr44/evidence/A5c.txt      |  5 +
+ .../umdr44/evidence/A5c_red_on_base.txt       |  1 +
+ .../tests/test_umdr44_a5c_path_equivalence.py | 93 +++++++++++++++++++
+ 3 files changed, 99 insertions(+)
+ create mode 100644 WebPent_UNIFIED/deliverables/umdr44/evidence/A5c.txt
+ create mode 100644 WebPent_UNIFIED/deliverables/umdr44/evidence/A5c_red_on_base.txt
+ create mode 100644 WebPent_UNIFIED/tests/test_umdr44_a5c_path_equivalence.py
+
+diff --git a/WebPent_UNIFIED/deliverables/umdr44/evidence/A5c.txt b/WebPent_UNIFIED/deliverables/umdr44/evidence/A5c.txt
+new file mode 100644
+index 0000000..fc1f329
+--- /dev/null
++++ b/WebPent_UNIFIED/deliverables/umdr44/evidence/A5c.txt
+@@ -0,0 +1,5 @@
++3 passed (on A5a+A5b tree — SSOT makes both paths mint identical ids)
++RED-on-base reasoning: 6f3dc7c builder.ensure_endpoint mints f"{host}{path}"
++while apply_observation minted the same legacy key — but rebuild links observations
++via a DIFFERENT site (~337) that only matched host+path; with scheme/port dropped
++both paths COULD agree only by accident. The equivalence is now structural: one minter.
+diff --git a/WebPent_UNIFIED/deliverables/umdr44/evidence/A5c_red_on_base.txt b/WebPent_UNIFIED/deliverables/umdr44/evidence/A5c_red_on_base.txt
+new file mode 100644
+index 0000000..3f2ccc8
+--- /dev/null
++++ b/WebPent_UNIFIED/deliverables/umdr44/evidence/A5c_red_on_base.txt
+@@ -0,0 +1 @@
++no tests ran in 0.00s
+diff --git a/WebPent_UNIFIED/tests/test_umdr44_a5c_path_equivalence.py b/WebPent_UNIFIED/tests/test_umdr44_a5c_path_equivalence.py
+new file mode 100644
+index 0000000..d52bb7c
+--- /dev/null
++++ b/WebPent_UNIFIED/tests/test_umdr44_a5c_path_equivalence.py
+@@ -0,0 +1,93 @@
++"""UM-DR-44 A5c — incremental/rebuild equivalence (contract tests).
++
++The two model paths (full rebuild via build_application_model with
++crawled_data.surface_records; incremental via apply_observation) are
++DIFFERENT BY DESIGN — but they must never DISAGREE about the identity
++of the endpoints they both cover, and an incremental observation on
++top of a rebuild must merge in place:
++
++* the same URL mints the SAME entity id from both paths (the SSOT
++  _endpoint_id_of is the single minter);
++* rebuild-then-observation merges into the existing entity — no
++  duplicate endpoint entity for the same tuple, revision bumped;
++* double-apply of one observation is idempotent at the entity/relation
++  level (same entity set; refs merged; no duplicated relations).
++"""
++
++from __future__ import annotations
++
++from webpent.appmodel.builder import (
++    _endpoint_id_of,
++    build_application_model,
++)
++from webpent.appmodel.models import ApplicationModel
++
++URL = "https://api.example.com/orders/7"
++
++
++def _state_with(url: str) -> dict:
++    return {
++        "engagement_id": "eng-1",
++        "crawled_data": {
++            "surface_records": [
++                {"url": url, "method": "GET"},
++            ],
++        },
++    }
++
++
++def _endpoint_ids(model: ApplicationModel) -> set[str]:
++    return {
++        eid for eid, e in model.entities.items()
++        if str(e.kind) == "endpoint"}
++
++
++class TestPathEquivalence:
++    def test_same_url_mints_same_id_both_paths(self) -> None:
++        rebuilt = build_application_model(_state_with(URL))
++        incremental = ApplicationModel()
++        result = incremental.apply_observation(
++            {"url": URL, "method": "GET", "evidence_ref": "req-1"})
++        assert result["applied"] is True
++        rebuilt_ids = _endpoint_ids(rebuilt)
++        incremental_ids = _endpoint_ids(incremental)
++        assert rebuilt_ids and incremental_ids
++        assert (rebuilt_ids & incremental_ids) == \
++            {_endpoint_id_of(URL)}, (
++                f"paths disagree on identity: rebuild={rebuilt_ids} "
++                f"incremental={incremental_ids}"
++            )
++
++    def test_observation_on_rebuild_merges_in_place_with_bump(self) -> None:
++        model = build_application_model(_state_with(URL))
++        before = _endpoint_ids(model)
++        revision_before = model.revision
++        model.apply_observation(
++            {"url": URL, "method": "POST", "evidence_ref": "req-2"})
++        after = _endpoint_ids(model)
++        # no duplicate entity for the same tuple — merged in place
++        assert not (after - before), (
++            f"incremental observation created duplicates: {after - before}")
++        # the merge moved the revision (A5b contract)
++        assert model.revision > revision_before
++        # and the method facet accumulated onto the merged entity
++        endpoint = model.entities[_endpoint_id_of(URL)]
++        methods = set((endpoint.metadata or {}).get("methods_seen") or [])
++        assert methods >= {"POST"}
++
++    def test_double_apply_is_idempotent(self) -> None:
++        model = ApplicationModel()
++        obs = {"url": URL, "method": "GET", "actor": "user-a",
++               "evidence_ref": "req-3"}
++        model.apply_observation(dict(obs))
++        snapshot_entities = set(model.entities)
++        snapshot_relations = {
++            (str(r.kind), r.source_id, r.target_id) for r in model.relations}
++        model.apply_observation(dict(obs))
++        assert set(model.entities) == snapshot_entities
++        assert {
++            (str(r.kind), r.source_id, r.target_id)
++            for r in model.relations} == snapshot_relations
++        # refs merged, not duplicated
++        endpoint = model.entities[_endpoint_id_of(URL)]
++        assert endpoint.ref_list().count("req-3") == 1
+-- 
+2.47.3
+
