@@ -1,0 +1,266 @@
+{
+  "trunk": "feature/umdr44-security-and-identity-closure",
+  "trunk_head": "f5af4969b80c2b3dc09885643307828007c3d54b",
+  "trunk_patch_scope": "HEAD (full trunk history)",
+  "trunk_patch_ids": 62,
+  "method": "git patch-id --stable over `git log -p --no-merges`; merge commits carry no patch text",
+  "deletion_policy": "branches are archived as tags; deletion requires the owner signature",
+  "branches": [
+    {
+      "branch": "security/umdr42-closure",
+      "status": "CLASSIFIED",
+      "ref": "origin/security/umdr42-closure",
+      "tip": "828767c42ebe41ab622a9a3ca72ed4af907633d2",
+      "merge_base_with_trunk": "5a7e511c0efc5cca8bfc013e8d8d9d10142e16da",
+      "unique_commit_count": 18,
+      "counts": {
+        "UNIQUE_PATCH": 18
+      },
+      "archive_tag": "archive/security-umdr42-closure-828767c42ebe",
+      "archive_tag_pre_existing": false,
+      "branch_deleted": false,
+      "commits": [
+        {
+          "sha": "828767c42ebe41ab622a9a3ca72ed4af907633d2",
+          "date": "2026-11-21",
+          "subject": "chore(evidence): capture failure tracebacks in the CI log",
+          "patch_id": "63a301ac90542a51e21506c83e36781d5a8d38a4",
+          "classification": "UNIQUE_PATCH",
+          "trunk_commits": []
+        },
+        {
+          "sha": "61062b65445522545bc04ecdb3f88dee0b25e28b",
+          "date": "2026-11-21",
+          "subject": "chore(evidence): name the failing tests in the CI log",
+          "patch_id": "82203203708bec88a9a47963d2676ffc099e8ac5",
+          "classification": "UNIQUE_PATCH",
+          "trunk_commits": []
+        },
+        {
+          "sha": "808eb8d044b18684c15105a1020cda8a79d3e87b",
+          "date": "2026-11-20",
+          "subject": "fix(ci): make the gate suite environment-contract-clean — 8 env-sensitive tests + pip-audit export",
+          "patch_id": "3353c941dbbcddea913b330501f018f9f79ec90c",
+          "classification": "UNIQUE_PATCH",
+          "trunk_commits": []
+        },
+        {
+          "sha": "606a19a5e4c41c4a638909144ed3d5a31cdfd266",
+          "date": "2026-11-20",
+          "subject": "docs(umdr43): closure report — final green numbers (9413/0) + Workstream-B post-mortem",
+          "patch_id": "132590602e34e60287ba008dbf8e86bdfcb9d186",
+          "classification": "UNIQUE_PATCH",
+          "trunk_commits": []
+        },
+        {
+          "sha": "4d292adedc673ffa9fff712852d6a38987bcdcd6",
+          "date": "2026-11-20",
+          "subject": "BUILD_INFO re-baseline: UMDR43 final — 9413/9425, zero failures, honesty gate",
+          "patch_id": "105f0e07493803a06026dec7b326d0e0a4883fe5",
+          "classification": "UNIQUE_PATCH",
+          "trunk_commits": []
+        },
+        {
+          "sha": "336711d452d6642ab4797c887d6a36fafdb4a61a",
+          "date": "2026-11-20",
+          "subject": "chore(umdr43): durable release record — final current-run evidence (7419edcc) + closure numbers",
+          "patch_id": "657119f662f32b57f7055b9453cd0ace5ff05476",
+          "classification": "UNIQUE_PATCH",
+          "trunk_commits": []
+        },
+        {
+          "sha": "7419edcc402c23a038c04480d99282887791d839",
+          "date": "2026-11-20",
+          "subject": "fix(umdr43): eliminate dynamic resolution from identity_scope — two gates, one root cause",
+          "patch_id": "a39bede015d6efb29b87c5decc911487e876cedf",
+          "classification": "UNIQUE_PATCH",
+          "trunk_commits": []
+        },
+        {
+          "sha": "3db8c354cacab850a5e340a6ab923ed9e5d42041",
+          "date": "2026-11-20",
+          "subject": "fix(umdr43): re-baseline script copies test_accounting verbatim",
+          "patch_id": "68b6a41bd5abd3ed4b2c0049ad0377c82da38945",
+          "classification": "UNIQUE_PATCH",
+          "trunk_commits": []
+        },
+        {
+          "sha": "661efe61a5e09b46353ba63bddaf34db7f0f6d8f",
+          "date": "2026-11-20",
+          "subject": "chore(umdr43): D5 scanner regen on the Workstream-B tree — 108 findings unchanged, dead-code ratchet 149<=149 PASS",
+          "patch_id": "082276483f83c739566d873c3d1941c4f94787d2",
+          "classification": "UNIQUE_PATCH",
+          "trunk_commits": []
+        },
+        {
+          "sha": "f6b3ca89a9ed1a8f493f51a97114e8474618afd5",
+          "date": "2026-11-20",
+          "subject": "feat(umdr43 B): identity-aware hypothesis intelligence (directive §13)",
+          "patch_id": "68dfd0b1ca94640592df66a9ed98fcf94e23ee7a",
+          "classification": "UNIQUE_PATCH",
+          "trunk_commits": []
+        },
+        {
+          "sha": "e149426612e43937e60e64827a3b3b4a8870ab2e",
+          "date": "2026-11-20",
+          "subject": "chore(umdr42): post-rebase residue — evidence txt + coverage artifact",
+          "patch_id": "4ee3bac4fd9ec6e4a80b9bacd9231adc514c530b",
+          "classification": "UNIQUE_PATCH",
+          "trunk_commits": []
+        },
+        {
+          "sha": "ae2862c193a552f8a62ab64e4a3fb1bb29bd1fc1",
+          "date": "2026-11-20",
+          "subject": "BUILD_INFO re-baseline: UMDR42 closure final — 9401/9414, honesty gate PASS",
+          "patch_id": "595c6af72b9035678d45422ca160711c64daa50a",
+          "classification": "UNIQUE_PATCH",
+          "trunk_commits": []
+        },
+        {
+          "sha": "413f739148e77ba5ec264dceb71eb74e85b1694e",
+          "date": "2026-11-20",
+          "subject": "fix(umdr42): closure batch — G-02 regen follow-through, docs, expiry renewal, refreeze, A5, UM-DR-43 A",
+          "patch_id": "6644ad8582c5d996e6ed0a0fc8646e664150b151",
+          "classification": "UNIQUE_PATCH",
+          "trunk_commits": []
+        },
+        {
+          "sha": "d70953c2980d29cad9b97fbaf95a50b73a740161",
+          "date": "2026-11-20",
+          "subject": "fix(umdr42 A4-prep): refreeze 2 closure files + evidence rebaseline scripts",
+          "patch_id": "e6b8a062153034b5e521e6b0d12547f4a987e856",
+          "classification": "UNIQUE_PATCH",
+          "trunk_commits": []
+        },
+        {
+          "sha": "379a4469ef4e900ccd15dba35dd17800628d2e56",
+          "date": "2026-11-20",
+          "subject": "fix(umdr42): G-02 direct-I/O inventory regen — closure window line drift",
+          "patch_id": "3440bf622dbb0c7cce94642b2e80657e7a33ca41",
+          "classification": "UNIQUE_PATCH",
+          "trunk_commits": []
+        },
+        {
+          "sha": "cff89550b363215a03701a534f03270e8f9f464b",
+          "date": "2026-11-20",
+          "subject": "refactor(umdr42 A3): clear 163 ruff I001 findings in test files — ratchet PASS",
+          "patch_id": "12224241b19b812e58ea5e56dff5413d32a2134f",
+          "classification": "UNIQUE_PATCH",
+          "trunk_commits": []
+        },
+        {
+          "sha": "ce1d305ddb8d78c6ed42e4d1add94faee2df8c90",
+          "date": "2026-11-20",
+          "subject": "test(umdr42 A1): frozen-gate thaw documentation for the closure window",
+          "patch_id": "978c2e4ce3248e0e4979ea7bacb4317deb99b88b",
+          "classification": "UNIQUE_PATCH",
+          "trunk_commits": []
+        },
+        {
+          "sha": "1f8eaa852f3d3624ed076bf14bf86b793d8ab2ef",
+          "date": "2026-11-20",
+          "subject": "fix(umdr42 A1): scope revocation integrity — 4 P1 defects closed",
+          "patch_id": "a1205663f8023e879e6d32c399a680a057e84f8c",
+          "classification": "UNIQUE_PATCH",
+          "trunk_commits": []
+        }
+      ]
+    },
+    {
+      "branch": "security/umdr34-origin-scope-hardening",
+      "status": "CLASSIFIED",
+      "ref": "origin/security/umdr34-origin-scope-hardening",
+      "tip": "15569005334158f4d1794fac2210bf6f15c7d2b8",
+      "merge_base_with_trunk": "989c49ba5cb3747859496d06736ae7c8317086ed",
+      "unique_commit_count": 5,
+      "counts": {
+        "UNIQUE_PATCH": 5
+      },
+      "archive_tag": "archive/security-umdr34-origin-scope-hardening-155690053341",
+      "archive_tag_pre_existing": true,
+      "branch_deleted": false,
+      "commits": [
+        {
+          "sha": "15569005334158f4d1794fac2210bf6f15c7d2b8",
+          "date": "2026-11-10",
+          "subject": "ci: pin test runner to supported Ubuntu 24.04",
+          "patch_id": "13b5c851a7696ac0e1d44b201dcf99f97eeb7a1f",
+          "classification": "UNIQUE_PATCH",
+          "trunk_commits": []
+        },
+        {
+          "sha": "2d107b4b6f4a04b274e6c03a6ff75230b7ab6d10",
+          "date": "2026-11-10",
+          "subject": "build(release): sync lockfile with v0.40.0",
+          "patch_id": "78e6d3b2bbb19ef9a864041015b781d83e727585",
+          "classification": "UNIQUE_PATCH",
+          "trunk_commits": []
+        },
+        {
+          "sha": "699c17720b40c2c1df45b2c170b6c4e0826a38bd",
+          "date": "2026-11-10",
+          "subject": "security(scope): reject ambiguous paths and port zero",
+          "patch_id": "53daead04d1ef69198a5c202642fe54077ae11b6",
+          "classification": "UNIQUE_PATCH",
+          "trunk_commits": []
+        },
+        {
+          "sha": "94f17d90d636326b30450bf27e5471d7aa7eb540",
+          "date": "2026-11-10",
+          "subject": "Update feature development to v0.40.0 UMDR34",
+          "patch_id": "ed8d5124f70a144228fcf71b0dee45867256a1c7",
+          "classification": "UNIQUE_PATCH",
+          "trunk_commits": []
+        },
+        {
+          "sha": "4795f02377373a1a2dc4d3376987f7702cd24bf6",
+          "date": "2026-11-10",
+          "subject": "Start feature development with v0.39.0 UMDR33",
+          "patch_id": "9a6716061e3ed475b359f0a1d831d57ed8ca4b86",
+          "classification": "UNIQUE_PATCH",
+          "trunk_commits": []
+        }
+      ]
+    },
+    {
+      "branch": "features/v0.39.0-umdr33",
+      "status": "CLASSIFIED",
+      "ref": "origin/features/v0.39.0-umdr33",
+      "tip": "bbe7c4e7300faf29fe487d94df93c3364e877ce7",
+      "merge_base_with_trunk": "989c49ba5cb3747859496d06736ae7c8317086ed",
+      "unique_commit_count": 3,
+      "counts": {
+        "UNIQUE_PATCH": 3
+      },
+      "archive_tag": "archive/features-v0.39.0-umdr33-bbe7c4e7300f",
+      "archive_tag_pre_existing": true,
+      "branch_deleted": false,
+      "commits": [
+        {
+          "sha": "bbe7c4e7300faf29fe487d94df93c3364e877ce7",
+          "date": "2026-11-12",
+          "subject": "Update feature development to UMDR35-36",
+          "patch_id": "dc138db1146c253a244e2e0f00bd7f00be3400c6",
+          "classification": "UNIQUE_PATCH",
+          "trunk_commits": []
+        },
+        {
+          "sha": "94f17d90d636326b30450bf27e5471d7aa7eb540",
+          "date": "2026-11-10",
+          "subject": "Update feature development to v0.40.0 UMDR34",
+          "patch_id": "ed8d5124f70a144228fcf71b0dee45867256a1c7",
+          "classification": "UNIQUE_PATCH",
+          "trunk_commits": []
+        },
+        {
+          "sha": "4795f02377373a1a2dc4d3376987f7702cd24bf6",
+          "date": "2026-11-10",
+          "subject": "Start feature development with v0.39.0 UMDR33",
+          "patch_id": "9a6716061e3ed475b359f0a1d831d57ed8ca4b86",
+          "classification": "UNIQUE_PATCH",
+          "trunk_commits": []
+        }
+      ]
+    }
+  ]
+}

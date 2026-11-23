@@ -1,0 +1,724 @@
+{
+  "schema": "umdr45-r3-approval-inventory/v1",
+  "source_of_truth": "src/webpent/shared/direct_io_inventory.py (APPROVED_TRANSPORT_RECORDS + DYNAMIC_IMPORT_ALLOWLIST)",
+  "artifact": "docs/direct_io_inventory.json (regenerated this window after the K3/K4 line-number drift — deliberate, reviewable diff)",
+  "expiry_gate": "expired_approval_errors() (fail-closed; date injectable so CI proves expiry behaviour without waiting for the calendar)",
+  "records": [
+    {
+      "file": "src/webpent/adapters/generic_web/adapter.py",
+      "symbol": "httpx",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "medium",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/shared/http.py",
+      "symbol": "httpx",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "medium",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/shared/http.py",
+      "symbol": "httpx.AsyncClient",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "medium",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/shared/http.py",
+      "symbol": "httpx.Client",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "medium",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/shared/http.py",
+      "symbol": "socket",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/shared/http.py",
+      "symbol": "socket.getaddrinfo",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/tools/utils/subprocess.py",
+      "symbol": "subprocess",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/tools/utils/subprocess.py",
+      "symbol": "subprocess.Popen",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/cli/git_source.py",
+      "symbol": "subprocess",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/cli/git_source.py",
+      "symbol": "subprocess.run",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/shared/capability_manifest.py",
+      "symbol": "subprocess",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/shared/capability_manifest.py",
+      "symbol": "subprocess.run",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/shared/preflight.py",
+      "symbol": "playwright",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/shared/playwright_adapter.py",
+      "symbol": "playwright.chromium.launch",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/shared/playwright_adapter.py",
+      "symbol": "playwright.sync_api.sync_playwright",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/shared/oob_provider.py",
+      "symbol": "subprocess",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/shared/oob_provider.py",
+      "symbol": "subprocess.Popen",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/agents/authentication/agent.py",
+      "symbol": "playwright.sync_api.sync_playwright",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/agents/authentication/agent.py",
+      "symbol": "sync_playwright",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "medium",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/agents/execution_sandbox/agent.py",
+      "symbol": "playwright.sync_api.sync_playwright",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/agents/execution_sandbox/agent.py",
+      "symbol": "sync_playwright",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "medium",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/agents/validator/agent.py",
+      "symbol": "playwright.sync_api.sync_playwright",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/agents/validator/agent.py",
+      "symbol": "sync_playwright",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "medium",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/cli/__init__.py",
+      "symbol": "playwright.sync_api.sync_playwright",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/cli/__init__.py",
+      "symbol": "sync_playwright",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "medium",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/agents/request_smuggling/agent.py",
+      "symbol": "socket",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/agents/request_smuggling/agent.py",
+      "symbol": "socket.create_connection",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/agents/subdomain_takeover/agent.py",
+      "symbol": "socket",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/agents/subdomain_takeover/agent.py",
+      "symbol": "socket.gethostbyname_ex",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/adapters/controlled_target/adapter.py",
+      "symbol": "urllib.request",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "medium",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/adapters/controlled_target/adapter.py",
+      "symbol": "urllib.request.urlopen",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "medium",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/service/health.py",
+      "symbol": "subprocess",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/service/health.py",
+      "symbol": "subprocess.run",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/production/verdict_bridge.py",
+      "symbol": "subprocess",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/production/verdict_bridge.py",
+      "symbol": "subprocess.run",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/memory/ab_lab.py",
+      "symbol": "subprocess",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/memory/ab_lab.py",
+      "symbol": "subprocess.run",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/apex/sandbox.py",
+      "symbol": "subprocess",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/apex/sandbox.py",
+      "symbol": "subprocess.run",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/recon/browser_farm.py",
+      "symbol": "playwright.sync_api.BrowserContext",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/recon/browser_farm.py",
+      "symbol": "playwright.sync_api.Page",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/recon/browser_farm.py",
+      "symbol": "playwright.sync_api.Playwright",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/recon/browser_farm.py",
+      "symbol": "playwright.sync_api.sync_playwright",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/recon/browser_crawler.py",
+      "symbol": "playwright.sync_api.Error",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/recon/browser_crawler.py",
+      "symbol": "playwright.sync_api.TimeoutError",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    },
+    {
+      "file": "src/webpent/recon/traffic_interceptor.py",
+      "symbol": "playwright.sync_api.Page",
+      "transport": "raw-or-boundary",
+      "owner": "security-engineering",
+      "approved_by": "g02-baseline-review-20260821",
+      "expires_at": "2027-02-17",
+      "expiry_state": "EXPIRING_WITHIN_90D",
+      "risk": "high",
+      "runtime_tests": [
+        "test_g02_direct_io_inventory",
+        "test_g02_runtime_invariants"
+      ],
+      "this_window_decision": "REVIEWED — no change (approval still valid; no renewal granted or required in this window)"
+    }
+  ],
+  "dynamic_import_allowlist": [
+    {
+      "file": "src/webpent/tools/registry.py",
+      "symbol": null,
+      "expires_at": "2027-02-17"
+    },
+    {
+      "file": "src/webpent/cli/ingest.py",
+      "symbol": null,
+      "expires_at": "2027-02-17"
+    },
+    {
+      "file": "src/webpent/shared/oob_provider.py",
+      "symbol": null,
+      "expires_at": "2027-02-17"
+    }
+  ],
+  "bulk_renewals": 0,
+  "per_record_decisions": 46,
+  "summary": {
+    "total_transport_records": 46,
+    "valid": 0,
+    "expiring_within_90d": 46,
+    "expired": 0
+  },
+  "policy": "mission rule 3: NO bulk renewal of expired G-08 approvals; every record reviewed individually; the expiry test is untouched and still fail-closed. This window renewed nothing."
+}

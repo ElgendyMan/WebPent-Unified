@@ -1,0 +1,44 @@
+{
+  "schema": "umdr45-k6-dependency-single-source-of-truth/v1",
+  "ruling": "pyproject.toml [project] is the single source of truth for the dependency SET; uv.lock is the single source of truth for the RESOLVED GRAPH; requirements-runtime.txt / requirements.constraints.txt are DERIVED VIEWS (documented as such by their own headers) — checked by scripts/umdr45_k5_k6_check.py, whose saved run is cited here.",
+  "fixed_this_window": [
+    {
+      "finding": "h2 was pinned in requirements-runtime.txt and requirements.constraints.txt but ABSENT from pyproject and uv.lock: every uv-synced environment (CI, clean installs) raised ImportError('install httpx[http2]') for the http2 smuggling capability — a silently dead capability.",
+      "fix": "declared h2==4.4.1 in pyproject [project] dependencies + constraints; uv.lock regenerated (hpack, hyperframe added). Commit 2eb86c2, verified live: httpx.Client(http2=True) constructs."
+    }
+  ],
+  "remaining_documented_drift": [
+    {
+      "finding": "two pip-audit allowlists exist",
+      "detail": "scripts/pip_audit_allowlist.txt (version-pinned entries with rationale + review-by dates, consumed by scripts/pip_audit_filter.py via run_pip_audit.sh) and scripts/quality/cve_allowlist.json (the R1 SBOM adjudicator's single source, consumed by generate_sbom.py and check_deps_gate.py). Both currently cover the same four chromadb advisories, but they are two files that must be kept in sync manually.",
+      "disposition": "DOCUMENTED — unifying them means touching the frozen gate scripts' inputs; recorded as owner-decision follow-up, not done silently in this window."
+    },
+    {
+      "finding": "Dockerfile.base pins drift from pyproject",
+      "detail": "Dockerfile.base:212 installs playwright==1.48.0 while pyproject pins 1.57.0; the base-image path is documented in its own comments as a pre-baked heavy layer, and the app layer re-installs from pyproject — but the drift is real and visible.",
+      "disposition": "DOCUMENTED for the owner (a base-image rebuild is a release-engineering action, not a silent edit)."
+    }
+  ],
+  "clean_install_proof": {
+    "claimed": "uv lock --check passes (Resolved 242 packages) + h2 import proof + check_deps_gate.py PASS (saved run in umdr45_docs/)",
+    "full_clean_room_install": "NOT_RUN in this window (disk budget: a second full venv with torch wheels does not fit; the existing venv was built without torch, itself evidence that torch is declared-but-unused)"
+  },
+  "saved_run": {
+    "source": "scripts/umdr45_docs/k5_k6.json",
+    "counts": {
+      "pyproject_core": 35,
+      "extras": {
+        "dev": 12,
+        "recon-extra": 1
+      },
+      "uv_lock": 236
+    },
+    "findings_at_scan_time": [
+      "FAIL: requirements entries absent from uv.lock",
+      "FAIL: requirements entries not declared in pyproject: ['WebPent_UNIFIED/requirements-runtime.txt']",
+      "FAIL: pyproject core deps missing from requirements-runtime: {'WebPent_UNIFIED/requirements-runtime.txt': ['httpx']}",
+      "DRIFT: torch declared as a core dependency but never imported under src/webpent"
+    ]
+  },
+  "torch_note": "torch==2.14.1 is declared as a core dependency but has ZERO importers under src/ (verified by AST + grep) — the local venv was built without it and the full suite passes. Kept (removal changes the dependency set = release-engineering decision for the owner)."
+}

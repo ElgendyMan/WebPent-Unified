@@ -1,0 +1,797 @@
+{
+  "agent_folders": 46,
+  "agent_root_modules": 8,
+  "agent_units_total": 54,
+  "decision_summary": {
+    "KEEP": 44,
+    "KEEP-DORMANT": 8,
+    "RETIRE-CANDIDATE": 2
+  },
+  "agents": [
+    {
+      "agent": "access_control",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/graph/builder.py",
+        "src/webpent/shared/legacy_containment.py"
+      ],
+      "production_importer_count": 2,
+      "test_importer_count": 9,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "2 production importer(s)"
+    },
+    {
+      "agent": "advanced_web_vulns",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/benchmark/fixtures/runner.py"
+      ],
+      "production_importer_count": 1,
+      "test_importer_count": 1,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "1 production importer(s)"
+    },
+    {
+      "agent": "api_testing",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/agents/validator/postp0_checks.py",
+        "src/webpent/graph/builder.py",
+        "src/webpent/shared/legacy_containment.py"
+      ],
+      "production_importer_count": 3,
+      "test_importer_count": 2,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "3 production importer(s)"
+    },
+    {
+      "agent": "attack_graph",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/graph/builder.py"
+      ],
+      "production_importer_count": 1,
+      "test_importer_count": 0,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "1 production importer(s)"
+    },
+    {
+      "agent": "authentication",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 3,
+      "production_importers": [
+        "src/webpent/agents/access_control/agent.py",
+        "src/webpent/agents/validator/agent.py",
+        "src/webpent/graph/builder.py",
+        "src/webpent/shared/legacy_containment.py",
+        "src/webpent/shared/session_liveness.py"
+      ],
+      "production_importer_count": 5,
+      "test_importer_count": 10,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "5 production importer(s)"
+    },
+    {
+      "agent": "business_impact",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/graph/builder.py"
+      ],
+      "production_importer_count": 1,
+      "test_importer_count": 0,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "1 production importer(s)"
+    },
+    {
+      "agent": "business_logic_fuzzer",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/graph/builder.py",
+        "src/webpent/shared/legacy_containment.py"
+      ],
+      "production_importer_count": 2,
+      "test_importer_count": 6,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "2 production importer(s)"
+    },
+    {
+      "agent": "cache_poisoning",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/agents/validator/postp0_checks.py"
+      ],
+      "production_importer_count": 1,
+      "test_importer_count": 2,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "1 production importer(s)"
+    },
+    {
+      "agent": "chain_planner",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [],
+      "production_importer_count": 0,
+      "test_importer_count": 2,
+      "graph_nodes": [],
+      "decision": "KEEP-DORMANT — imported only by tests",
+      "rationale": "2 test importer(s), no production importer and no graph node"
+    },
+    {
+      "agent": "cloud_storage",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/agents/validator/postp0_checks.py",
+        "src/webpent/graph/builder.py",
+        "src/webpent/shared/legacy_containment.py"
+      ],
+      "production_importer_count": 3,
+      "test_importer_count": 2,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "3 production importer(s)"
+    },
+    {
+      "agent": "crawler",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/graph/builder.py"
+      ],
+      "production_importer_count": 1,
+      "test_importer_count": 7,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "1 production importer(s)"
+    },
+    {
+      "agent": "cross_reasoning",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/graph/builder.py"
+      ],
+      "production_importer_count": 1,
+      "test_importer_count": 0,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "1 production importer(s)"
+    },
+    {
+      "agent": "cvss_engine",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/graph/builder.py"
+      ],
+      "production_importer_count": 1,
+      "test_importer_count": 2,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "1 production importer(s)"
+    },
+    {
+      "agent": "devils_advocate",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/agents/team.py",
+        "src/webpent/graph/builder.py"
+      ],
+      "production_importer_count": 2,
+      "test_importer_count": 3,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "2 production importer(s)"
+    },
+    {
+      "agent": "disclosed_report_intel",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/graph/builder.py"
+      ],
+      "production_importer_count": 1,
+      "test_importer_count": 1,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "1 production importer(s)"
+    },
+    {
+      "agent": "dom_xss",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 5,
+      "production_importers": [],
+      "production_importer_count": 0,
+      "test_importer_count": 1,
+      "graph_nodes": [],
+      "decision": "KEEP-DORMANT — imported only by tests",
+      "rationale": "1 test importer(s), no production importer and no graph node"
+    },
+    {
+      "agent": "execution_sandbox",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/graph/builder.py"
+      ],
+      "production_importer_count": 1,
+      "test_importer_count": 6,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "1 production importer(s)"
+    },
+    {
+      "agent": "executive_summary",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/graph/builder.py"
+      ],
+      "production_importer_count": 1,
+      "test_importer_count": 1,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "1 production importer(s)"
+    },
+    {
+      "agent": "exploit_chainer",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/agents/rabbit_hole/agent.py",
+        "src/webpent/graph/builder.py",
+        "src/webpent/shared/legacy_containment.py"
+      ],
+      "production_importer_count": 3,
+      "test_importer_count": 3,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "3 production importer(s)"
+    },
+    {
+      "agent": "graphql_testing",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/benchmark/fixtures/runner.py"
+      ],
+      "production_importer_count": 1,
+      "test_importer_count": 1,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "1 production importer(s)"
+    },
+    {
+      "agent": "hypothesis_analyzer",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/agents/team.py",
+        "src/webpent/production/hypothesis_dedup.py",
+        "src/webpent/shared/legacy_containment.py"
+      ],
+      "production_importer_count": 3,
+      "test_importer_count": 16,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "3 production importer(s)"
+    },
+    {
+      "agent": "javascript_intelligence",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/graph/builder.py"
+      ],
+      "production_importer_count": 1,
+      "test_importer_count": 2,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "1 production importer(s)"
+    },
+    {
+      "agent": "js_discovery",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [],
+      "production_importer_count": 0,
+      "test_importer_count": 1,
+      "graph_nodes": [],
+      "decision": "KEEP-DORMANT — imported only by tests",
+      "rationale": "1 test importer(s), no production importer and no graph node"
+    },
+    {
+      "agent": "multi_step_auth",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [],
+      "production_importer_count": 0,
+      "test_importer_count": 1,
+      "graph_nodes": [],
+      "decision": "KEEP-DORMANT — imported only by tests",
+      "rationale": "1 test importer(s), no production importer and no graph node"
+    },
+    {
+      "agent": "oauth_hunter",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [],
+      "production_importer_count": 0,
+      "test_importer_count": 2,
+      "graph_nodes": [],
+      "decision": "KEEP-DORMANT — imported only by tests",
+      "rationale": "2 test importer(s), no production importer and no graph node"
+    },
+    {
+      "agent": "payload_generator",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/graph/builder.py"
+      ],
+      "production_importer_count": 1,
+      "test_importer_count": 5,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "1 production importer(s)"
+    },
+    {
+      "agent": "payload_optimizer",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/graph/builder.py"
+      ],
+      "production_importer_count": 1,
+      "test_importer_count": 2,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "1 production importer(s)"
+    },
+    {
+      "agent": "planner",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/graph/builder.py",
+        "src/webpent/shared/legacy_containment.py"
+      ],
+      "production_importer_count": 2,
+      "test_importer_count": 6,
+      "graph_nodes": [
+        "planner"
+      ],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "2 production importer(s), graph node(s) ['planner']"
+    },
+    {
+      "agent": "post_exploit",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/graph/builder.py",
+        "src/webpent/shared/legacy_containment.py"
+      ],
+      "production_importer_count": 2,
+      "test_importer_count": 2,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "2 production importer(s)"
+    },
+    {
+      "agent": "prototype_pollution",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/agents/validator/postp0_checks.py"
+      ],
+      "production_importer_count": 1,
+      "test_importer_count": 2,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "1 production importer(s)"
+    },
+    {
+      "agent": "rabbit_hole",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/graph/builder.py"
+      ],
+      "production_importer_count": 1,
+      "test_importer_count": 4,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "1 production importer(s)"
+    },
+    {
+      "agent": "recon",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/agents/team.py",
+        "src/webpent/graph/builder.py",
+        "src/webpent/shared/legacy_containment.py"
+      ],
+      "production_importer_count": 3,
+      "test_importer_count": 4,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "3 production importer(s)"
+    },
+    {
+      "agent": "reflection",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/graph/builder.py"
+      ],
+      "production_importer_count": 1,
+      "test_importer_count": 0,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "1 production importer(s)"
+    },
+    {
+      "agent": "reporter",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/graph/builder.py",
+        "src/webpent/models/contracts.py"
+      ],
+      "production_importer_count": 2,
+      "test_importer_count": 7,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "2 production importer(s)"
+    },
+    {
+      "agent": "request_smuggling",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/agents/validator/postp0_checks.py",
+        "src/webpent/graph/builder.py",
+        "src/webpent/shared/legacy_containment.py"
+      ],
+      "production_importer_count": 3,
+      "test_importer_count": 6,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "3 production importer(s)"
+    },
+    {
+      "agent": "role_matrix",
+      "unit": "folder",
+      "has_agent_py": false,
+      "py_files": 3,
+      "production_importers": [],
+      "production_importer_count": 0,
+      "test_importer_count": 1,
+      "graph_nodes": [],
+      "decision": "KEEP-DORMANT — imported only by tests",
+      "rationale": "1 test importer(s), no production importer and no graph node"
+    },
+    {
+      "agent": "scope_enforcer",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/config/policies.py",
+        "src/webpent/graph/builder.py",
+        "src/webpent/workers/pentest_worker.py"
+      ],
+      "production_importer_count": 3,
+      "test_importer_count": 1,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "3 production importer(s)"
+    },
+    {
+      "agent": "smart_campaigns",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/autonomous/hunt_runtime.py",
+        "src/webpent/graph/builder.py",
+        "src/webpent/shared/autonomous_controller.py",
+        "src/webpent/shared/legacy_containment.py"
+      ],
+      "production_importer_count": 4,
+      "test_importer_count": 5,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "4 production importer(s)"
+    },
+    {
+      "agent": "sourcemap_analysis",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 4,
+      "production_importers": [],
+      "production_importer_count": 0,
+      "test_importer_count": 1,
+      "graph_nodes": [],
+      "decision": "KEEP-DORMANT — imported only by tests",
+      "rationale": "1 test importer(s), no production importer and no graph node"
+    },
+    {
+      "agent": "specialists",
+      "unit": "folder",
+      "has_agent_py": false,
+      "py_files": 2,
+      "production_importers": [],
+      "production_importer_count": 0,
+      "test_importer_count": 0,
+      "graph_nodes": [],
+      "decision": "RETIRE-CANDIDATE — no importer anywhere",
+      "rationale": "no importer under src/ or tests/; removal needs the owner signature"
+    },
+    {
+      "agent": "strategist",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/graph/builder.py",
+        "src/webpent/shared/legacy_containment.py"
+      ],
+      "production_importer_count": 2,
+      "test_importer_count": 6,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "2 production importer(s)"
+    },
+    {
+      "agent": "subdomain_takeover",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/agents/validator/postp0_checks.py",
+        "src/webpent/graph/builder.py",
+        "src/webpent/shared/legacy_containment.py"
+      ],
+      "production_importer_count": 3,
+      "test_importer_count": 3,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "3 production importer(s)"
+    },
+    {
+      "agent": "target_understanding",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/agents/team.py",
+        "src/webpent/graph/builder.py"
+      ],
+      "production_importer_count": 2,
+      "test_importer_count": 3,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "2 production importer(s)"
+    },
+    {
+      "agent": "tenant_isolation",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [],
+      "production_importer_count": 0,
+      "test_importer_count": 1,
+      "graph_nodes": [],
+      "decision": "KEEP-DORMANT — imported only by tests",
+      "rationale": "1 test importer(s), no production importer and no graph node"
+    },
+    {
+      "agent": "validator",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 7,
+      "production_importers": [
+        "src/webpent/agents/devils_advocate/agent.py",
+        "src/webpent/agents/smart_campaigns/agent.py",
+        "src/webpent/agents/strategist/agent.py",
+        "src/webpent/agents/team.py",
+        "src/webpent/chained_exploits/attack_graph_planner.py",
+        "src/webpent/families/execution_node.py",
+        "src/webpent/families/promotion.py",
+        "src/webpent/graph/builder.py",
+        "src/webpent/race_conditions/analyzer.py",
+        "src/webpent/shared/campaigns.py",
+        "src/webpent/shared/jwt_deep_testing.py",
+        "src/webpent/shared/legacy_containment.py"
+      ],
+      "production_importer_count": 13,
+      "test_importer_count": 34,
+      "graph_nodes": [
+        "validator"
+      ],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "13 production importer(s), graph node(s) ['validator']"
+    },
+    {
+      "agent": "waf_detector",
+      "unit": "folder",
+      "has_agent_py": true,
+      "py_files": 2,
+      "production_importers": [
+        "src/webpent/graph/builder.py"
+      ],
+      "production_importer_count": 1,
+      "test_importer_count": 0,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "1 production importer(s)"
+    },
+    {
+      "agent": "chain_engine",
+      "unit": "root module",
+      "has_agent_py": true,
+      "py_files": 1,
+      "production_importers": [
+        "src/webpent/agents/hunter_runner.py"
+      ],
+      "production_importer_count": 1,
+      "test_importer_count": 2,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "1 production importer(s)"
+    },
+    {
+      "agent": "curiosity_engine",
+      "unit": "root module",
+      "has_agent_py": true,
+      "py_files": 1,
+      "production_importers": [
+        "src/webpent/agents/hunter_runner.py"
+      ],
+      "production_importer_count": 1,
+      "test_importer_count": 1,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "1 production importer(s)"
+    },
+    {
+      "agent": "hunter_contracts",
+      "unit": "root module",
+      "has_agent_py": true,
+      "py_files": 1,
+      "production_importers": [
+        "src/webpent/agents/curiosity_engine.py",
+        "src/webpent/agents/hunter_graph.py",
+        "src/webpent/agents/hunter_runner.py",
+        "src/webpent/agents/note_taker.py"
+      ],
+      "production_importer_count": 4,
+      "test_importer_count": 7,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "4 production importer(s)"
+    },
+    {
+      "agent": "hunter_graph",
+      "unit": "root module",
+      "has_agent_py": true,
+      "py_files": 1,
+      "production_importers": [
+        "src/webpent/agents/hunter_runner.py"
+      ],
+      "production_importer_count": 1,
+      "test_importer_count": 5,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "1 production importer(s)"
+    },
+    {
+      "agent": "hunter_runner",
+      "unit": "root module",
+      "has_agent_py": true,
+      "py_files": 1,
+      "production_importers": [
+        "src/webpent/cli/commands.py"
+      ],
+      "production_importer_count": 1,
+      "test_importer_count": 10,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "1 production importer(s)"
+    },
+    {
+      "agent": "note_taker",
+      "unit": "root module",
+      "has_agent_py": true,
+      "py_files": 1,
+      "production_importers": [
+        "src/webpent/agents/hunter_runner.py"
+      ],
+      "production_importer_count": 1,
+      "test_importer_count": 1,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "1 production importer(s)"
+    },
+    {
+      "agent": "personas",
+      "unit": "root module",
+      "has_agent_py": true,
+      "py_files": 1,
+      "production_importers": [
+        "src/webpent/agents/hunter_runner.py"
+      ],
+      "production_importer_count": 1,
+      "test_importer_count": 2,
+      "graph_nodes": [],
+      "decision": "KEEP — reachable from production code",
+      "rationale": "1 production importer(s)"
+    },
+    {
+      "agent": "team",
+      "unit": "root module",
+      "has_agent_py": true,
+      "py_files": 1,
+      "production_importers": [],
+      "production_importer_count": 0,
+      "test_importer_count": 0,
+      "graph_nodes": [],
+      "decision": "RETIRE-CANDIDATE — no importer anywhere",
+      "rationale": "no importer under src/ or tests/; removal needs the owner signature"
+    }
+  ]
+}

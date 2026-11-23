@@ -1,0 +1,583 @@
+{
+  "agent_folders": 46,
+  "agent_root_modules": 8,
+  "agent_units_total": 54,
+  "graph_wiring_files": [
+    {
+      "file": "src/webpent/agents/hunter_graph.py",
+      "node_count": 4,
+      "edge_count": 0,
+      "nodes": [
+        "exploiter",
+        "planner",
+        "replan",
+        "validator"
+      ]
+    },
+    {
+      "file": "src/webpent/shared/surface_evidence_graph.py",
+      "node_count": 1,
+      "edge_count": 0,
+      "nodes": [
+        "endpoint"
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "package": "adapters",
+      "py_files": 24,
+      "inbound_importer_files": 3,
+      "classification": "WIRED"
+    },
+    {
+      "package": "adaptive",
+      "py_files": 5,
+      "inbound_importer_files": 1,
+      "classification": "WIRED"
+    },
+    {
+      "package": "agents",
+      "py_files": 113,
+      "inbound_importer_files": 18,
+      "classification": "WIRED"
+    },
+    {
+      "package": "apex",
+      "py_files": 13,
+      "inbound_importer_files": 2,
+      "classification": "WIRED"
+    },
+    {
+      "package": "api",
+      "py_files": 6,
+      "inbound_importer_files": 9,
+      "classification": "WIRED"
+    },
+    {
+      "package": "appmodel",
+      "py_files": 3,
+      "inbound_importer_files": 1,
+      "classification": "WIRED"
+    },
+    {
+      "package": "approvals",
+      "py_files": 3,
+      "inbound_importer_files": 0,
+      "classification": "ORPHAN_PACKAGE"
+    },
+    {
+      "package": "appsuite",
+      "py_files": 12,
+      "inbound_importer_files": 0,
+      "classification": "ORPHAN_PACKAGE"
+    },
+    {
+      "package": "attack_graph",
+      "py_files": 7,
+      "inbound_importer_files": 5,
+      "classification": "WIRED"
+    },
+    {
+      "package": "auth",
+      "py_files": 5,
+      "inbound_importer_files": 8,
+      "classification": "WIRED"
+    },
+    {
+      "package": "autonomous",
+      "py_files": 43,
+      "inbound_importer_files": 17,
+      "classification": "WIRED"
+    },
+    {
+      "package": "benchmark",
+      "py_files": 24,
+      "inbound_importer_files": 0,
+      "classification": "ORPHAN_PACKAGE"
+    },
+    {
+      "package": "brain",
+      "py_files": 9,
+      "inbound_importer_files": 1,
+      "classification": "WIRED"
+    },
+    {
+      "package": "business_logic",
+      "py_files": 7,
+      "inbound_importer_files": 3,
+      "classification": "WIRED"
+    },
+    {
+      "package": "campaign",
+      "py_files": 28,
+      "inbound_importer_files": 2,
+      "classification": "WIRED"
+    },
+    {
+      "package": "causal_reasoning",
+      "py_files": 6,
+      "inbound_importer_files": 0,
+      "classification": "ORPHAN_PACKAGE"
+    },
+    {
+      "package": "causal_reasoning_v2",
+      "py_files": 17,
+      "inbound_importer_files": 1,
+      "classification": "WIRED"
+    },
+    {
+      "package": "chained_exploits",
+      "py_files": 6,
+      "inbound_importer_files": 2,
+      "classification": "WIRED"
+    },
+    {
+      "package": "cli",
+      "py_files": 20,
+      "inbound_importer_files": 3,
+      "classification": "ENTRY_POINT"
+    },
+    {
+      "package": "config",
+      "py_files": 4,
+      "inbound_importer_files": 120,
+      "classification": "WIRED"
+    },
+    {
+      "package": "core",
+      "py_files": 3,
+      "inbound_importer_files": 0,
+      "classification": "ORPHAN_PACKAGE"
+    },
+    {
+      "package": "coverage",
+      "py_files": 5,
+      "inbound_importer_files": 3,
+      "classification": "WIRED"
+    },
+    {
+      "package": "cqa_v2",
+      "py_files": 10,
+      "inbound_importer_files": 19,
+      "classification": "WIRED"
+    },
+    {
+      "package": "dashboard",
+      "py_files": 0,
+      "inbound_importer_files": 0,
+      "classification": "ORPHAN_PACKAGE"
+    },
+    {
+      "package": "deception",
+      "py_files": 6,
+      "inbound_importer_files": 1,
+      "classification": "WIRED"
+    },
+    {
+      "package": "deep",
+      "py_files": 16,
+      "inbound_importer_files": 0,
+      "classification": "ORPHAN_PACKAGE"
+    },
+    {
+      "package": "dojo",
+      "py_files": 16,
+      "inbound_importer_files": 1,
+      "classification": "WIRED"
+    },
+    {
+      "package": "econ",
+      "py_files": 13,
+      "inbound_importer_files": 1,
+      "classification": "WIRED"
+    },
+    {
+      "package": "egaie",
+      "py_files": 33,
+      "inbound_importer_files": 6,
+      "classification": "WIRED"
+    },
+    {
+      "package": "ekg",
+      "py_files": 4,
+      "inbound_importer_files": 0,
+      "classification": "ORPHAN_PACKAGE"
+    },
+    {
+      "package": "evalsuite",
+      "py_files": 2,
+      "inbound_importer_files": 0,
+      "classification": "ORPHAN_PACKAGE"
+    },
+    {
+      "package": "explorer",
+      "py_files": 2,
+      "inbound_importer_files": 1,
+      "classification": "WIRED"
+    },
+    {
+      "package": "families",
+      "py_files": 6,
+      "inbound_importer_files": 19,
+      "classification": "WIRED"
+    },
+    {
+      "package": "forge",
+      "py_files": 21,
+      "inbound_importer_files": 0,
+      "classification": "ORPHAN_PACKAGE"
+    },
+    {
+      "package": "graph",
+      "py_files": 10,
+      "inbound_importer_files": 6,
+      "classification": "WIRED"
+    },
+    {
+      "package": "graphql_testing",
+      "py_files": 2,
+      "inbound_importer_files": 0,
+      "classification": "ORPHAN_PACKAGE"
+    },
+    {
+      "package": "integration",
+      "py_files": 16,
+      "inbound_importer_files": 4,
+      "classification": "WIRED"
+    },
+    {
+      "package": "integrations",
+      "py_files": 9,
+      "inbound_importer_files": 3,
+      "classification": "WIRED"
+    },
+    {
+      "package": "intelligence",
+      "py_files": 9,
+      "inbound_importer_files": 4,
+      "classification": "WIRED"
+    },
+    {
+      "package": "irta",
+      "py_files": 21,
+      "inbound_importer_files": 1,
+      "classification": "WIRED"
+    },
+    {
+      "package": "jc",
+      "py_files": 15,
+      "inbound_importer_files": 1,
+      "classification": "WIRED"
+    },
+    {
+      "package": "jsintel",
+      "py_files": 3,
+      "inbound_importer_files": 1,
+      "classification": "WIRED"
+    },
+    {
+      "package": "knowledge",
+      "py_files": 9,
+      "inbound_importer_files": 8,
+      "classification": "WIRED"
+    },
+    {
+      "package": "labsuite",
+      "py_files": 4,
+      "inbound_importer_files": 0,
+      "classification": "ORPHAN_PACKAGE"
+    },
+    {
+      "package": "learning",
+      "py_files": 7,
+      "inbound_importer_files": 8,
+      "classification": "WIRED"
+    },
+    {
+      "package": "live_hunter",
+      "py_files": 6,
+      "inbound_importer_files": 5,
+      "classification": "WIRED"
+    },
+    {
+      "package": "llm_researcher",
+      "py_files": 19,
+      "inbound_importer_files": 8,
+      "classification": "WIRED"
+    },
+    {
+      "package": "memory",
+      "py_files": 18,
+      "inbound_importer_files": 37,
+      "classification": "WIRED"
+    },
+    {
+      "package": "models",
+      "py_files": 29,
+      "inbound_importer_files": 201,
+      "classification": "WIRED"
+    },
+    {
+      "package": "monitor",
+      "py_files": 2,
+      "inbound_importer_files": 0,
+      "classification": "ORPHAN_PACKAGE"
+    },
+    {
+      "package": "multi_step_auth",
+      "py_files": 3,
+      "inbound_importer_files": 2,
+      "classification": "WIRED"
+    },
+    {
+      "package": "oast",
+      "py_files": 4,
+      "inbound_importer_files": 1,
+      "classification": "WIRED"
+    },
+    {
+      "package": "oauth",
+      "py_files": 3,
+      "inbound_importer_files": 2,
+      "classification": "WIRED"
+    },
+    {
+      "package": "oracle",
+      "py_files": 14,
+      "inbound_importer_files": 4,
+      "classification": "WIRED"
+    },
+    {
+      "package": "portfolio",
+      "py_files": 2,
+      "inbound_importer_files": 1,
+      "classification": "WIRED"
+    },
+    {
+      "package": "prism",
+      "py_files": 17,
+      "inbound_importer_files": 2,
+      "classification": "WIRED"
+    },
+    {
+      "package": "production",
+      "py_files": 61,
+      "inbound_importer_files": 35,
+      "classification": "WIRED"
+    },
+    {
+      "package": "qualification",
+      "py_files": 4,
+      "inbound_importer_files": 0,
+      "classification": "ORPHAN_PACKAGE"
+    },
+    {
+      "package": "race_conditions",
+      "py_files": 3,
+      "inbound_importer_files": 1,
+      "classification": "WIRED"
+    },
+    {
+      "package": "recon",
+      "py_files": 20,
+      "inbound_importer_files": 6,
+      "classification": "WIRED"
+    },
+    {
+      "package": "remediation",
+      "py_files": 14,
+      "inbound_importer_files": 1,
+      "classification": "WIRED"
+    },
+    {
+      "package": "reporter",
+      "py_files": 10,
+      "inbound_importer_files": 5,
+      "classification": "WIRED"
+    },
+    {
+      "package": "reporting",
+      "py_files": 2,
+      "inbound_importer_files": 0,
+      "classification": "ORPHAN_PACKAGE"
+    },
+    {
+      "package": "research",
+      "py_files": 11,
+      "inbound_importer_files": 4,
+      "classification": "WIRED"
+    },
+    {
+      "package": "research_engine",
+      "py_files": 16,
+      "inbound_importer_files": 2,
+      "classification": "WIRED"
+    },
+    {
+      "package": "resume",
+      "py_files": 2,
+      "inbound_importer_files": 1,
+      "classification": "WIRED"
+    },
+    {
+      "package": "safety",
+      "py_files": 7,
+      "inbound_importer_files": 6,
+      "classification": "WIRED"
+    },
+    {
+      "package": "scheduler",
+      "py_files": 2,
+      "inbound_importer_files": 2,
+      "classification": "WIRED"
+    },
+    {
+      "package": "scope",
+      "py_files": 8,
+      "inbound_importer_files": 9,
+      "classification": "WIRED"
+    },
+    {
+      "package": "secrets_scanner",
+      "py_files": 2,
+      "inbound_importer_files": 0,
+      "classification": "ORPHAN_PACKAGE"
+    },
+    {
+      "package": "service",
+      "py_files": 11,
+      "inbound_importer_files": 2,
+      "classification": "WIRED"
+    },
+    {
+      "package": "shared",
+      "py_files": 164,
+      "inbound_importer_files": 159,
+      "classification": "WIRED"
+    },
+    {
+      "package": "smart",
+      "py_files": 6,
+      "inbound_importer_files": 11,
+      "classification": "WIRED"
+    },
+    {
+      "package": "state",
+      "py_files": 5,
+      "inbound_importer_files": 49,
+      "classification": "WIRED"
+    },
+    {
+      "package": "stateful_api",
+      "py_files": 4,
+      "inbound_importer_files": 1,
+      "classification": "WIRED"
+    },
+    {
+      "package": "targeting",
+      "py_files": 3,
+      "inbound_importer_files": 1,
+      "classification": "WIRED"
+    },
+    {
+      "package": "templates",
+      "py_files": 0,
+      "inbound_importer_files": 0,
+      "classification": "ORPHAN_PACKAGE"
+    },
+    {
+      "package": "tenant_isolation",
+      "py_files": 3,
+      "inbound_importer_files": 2,
+      "classification": "WIRED"
+    },
+    {
+      "package": "tools",
+      "py_files": 19,
+      "inbound_importer_files": 12,
+      "classification": "WIRED"
+    },
+    {
+      "package": "utils",
+      "py_files": 4,
+      "inbound_importer_files": 8,
+      "classification": "WIRED"
+    },
+    {
+      "package": "validators",
+      "py_files": 6,
+      "inbound_importer_files": 7,
+      "classification": "WIRED"
+    },
+    {
+      "package": "verification",
+      "py_files": 5,
+      "inbound_importer_files": 1,
+      "classification": "WIRED"
+    },
+    {
+      "package": "vip",
+      "py_files": 5,
+      "inbound_importer_files": 7,
+      "classification": "WIRED"
+    },
+    {
+      "package": "vulns",
+      "py_files": 6,
+      "inbound_importer_files": 2,
+      "classification": "WIRED"
+    },
+    {
+      "package": "waf_evasion",
+      "py_files": 2,
+      "inbound_importer_files": 0,
+      "classification": "ORPHAN_PACKAGE"
+    },
+    {
+      "package": "workers",
+      "py_files": 4,
+      "inbound_importer_files": 1,
+      "classification": "WIRED"
+    },
+    {
+      "package": "workflow_fuzzing",
+      "py_files": 3,
+      "inbound_importer_files": 0,
+      "classification": "ORPHAN_PACKAGE"
+    }
+  ],
+  "orphan_packages": [
+    "approvals",
+    "appsuite",
+    "benchmark",
+    "causal_reasoning",
+    "core",
+    "dashboard",
+    "deep",
+    "ekg",
+    "evalsuite",
+    "forge",
+    "graphql_testing",
+    "labsuite",
+    "monitor",
+    "qualification",
+    "reporting",
+    "secrets_scanner",
+    "templates",
+    "waf_evasion",
+    "workflow_fuzzing"
+  ],
+  "version_identity": {
+    "pyproject.toml": "0.40.1",
+    "src/webpent/__init__.py": "0.40.1",
+    "WebPent_UNIFIED/BUILD_INFO.json": null,
+    "api/app.py version literals": [
+      "1.0.0"
+    ],
+    "consistent": false
+  },
+  "src_py_files": 1128,
+  "test_files": 752,
+  "heuristic_note": "graph-node matching compares normalised names (case/underscore-insensitive); importers are counted by dotted module path"
+}

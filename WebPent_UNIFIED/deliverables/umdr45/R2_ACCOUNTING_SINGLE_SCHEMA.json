@@ -1,0 +1,58 @@
+{
+  "schema": "umdr45-r2-accounting-single-schema/v1",
+  "ruling": "accounting_v3 (schema pytest-accounting/v1) is the SINGLE suite accounting schema; every headline number (suite_count, pass rate) derives from accounting_v3 of the named raw evidence file — never from a summary document. Older reports that quote earlier accounting generations are SUPERSEDED for suite accounting and are listed here instead of edited.",
+  "single_source_of_truth": "scripts/pytest_accounting_plugin.py (producer) + scripts/run_tests_with_evidence.py (validator)",
+  "raw_evidence": [
+    {
+      "where": "deliverables/umdr40/FULL_SUITE_EVIDENCE.json",
+      "schema": "pytest-accounting/v1",
+      "collected": 9365,
+      "executed": 9365,
+      "outcomes": {
+        "passed": 9354,
+        "failed": 0,
+        "skipped": 8,
+        "xfailed": 3,
+        "xpassed": 0
+      },
+      "invariants_all_true": true,
+      "derived": {
+        "suite_count (= started_items)": 9365,
+        "pass_rate": 0.9988
+      }
+    },
+    {
+      "where": "deliverables/umdr42_closure/FULL_SUITE_EVIDENCE.json",
+      "schema": "pytest-accounting/v1",
+      "collected": 9467,
+      "executed": 9467,
+      "outcomes": {
+        "passed": 9455,
+        "failed": 0,
+        "skipped": 9,
+        "xfailed": 3,
+        "xpassed": 0
+      },
+      "invariants_all_true": true,
+      "derived": {
+        "suite_count (= started_items)": 9467,
+        "pass_rate": 0.9987
+      }
+    }
+  ],
+  "superseded_marked": [
+    {
+      "path": "deliverables/umdr38/UMDR38_TEST_EVIDENCE_INTEGRITY_REPORT.md",
+      "reason": "predates accounting_v3 snapshots; numbers derive from v1 accounting"
+    },
+    {
+      "path": "reports/goed_v1_6/accounting_audit.json",
+      "reason": "GOED-line accounting audit, different scope (discovery coverage), kept as historical GOED evidence, superseded for suite accounting"
+    },
+    {
+      "path": "docs/engineering/umdr3*/UMDR3x_TEST_ACCOUNTING.json",
+      "reason": "per-UMDR snapshots predating the v3 invariants; historical only"
+    }
+  ],
+  "renewal_note": "no number in any old report was edited; supersession is recorded HERE (the register), not by rewriting history."
+}

@@ -270,6 +270,10 @@ UMDR45_20261123_THAW_PATHS = frozenset(
     {
         "src/webpent/api/auth.py",
         "src/webpent/shared/preflight.py",
+        # K3: the shadow->state converter's return annotation is resolved
+        # at runtime by typing.get_type_hints in the new reflection test —
+        # Hypothesis is now imported at module level (RED->GREEN defect fix).
+        "src/webpent/jsintel/api_surface_shadow.py",
     }
 )
 # The pre-unfreeze drift expectation needs only the paths that
