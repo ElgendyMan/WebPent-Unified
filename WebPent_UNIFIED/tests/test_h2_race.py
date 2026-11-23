@@ -22,6 +22,10 @@ from typing import Any
 import pytest
 
 from webpent.config.settings import Settings, activate_settings
+from webpent.shared.engagement_scope import (
+    clear_engagement_target_hosts,
+    set_engagement_target_hosts,
+)
 from webpent.shared.h2_race import (
     H2RaceError,
     H2ResponseTimeout,
@@ -361,9 +365,16 @@ class TestLiveSinglePacket:
     def server(self):
         pytest.importorskip("h2.connection", reason=_SERVER_NOTE)
         srv = _RaceServer().start()
+        # UM-DR-45 R2: the live dial now follows the shared/http.py
+        # declared-target contract, so the tests declare their loopback
+        # lab listener as the engagement target (full URL — the port is
+        # non-default) exactly like an operator would, then restore the
+        # previous context so no engagement leaks past the test.
+        token = set_engagement_target_hosts(f"http://127.0.0.1:{srv.port}")
         try:
             yield srv
         finally:
+            clear_engagement_target_hosts(token)
             srv.stop()
 
     def test_single_packet_burst_hits_the_window(self, server) -> None:

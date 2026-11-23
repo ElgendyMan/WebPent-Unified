@@ -332,7 +332,11 @@ def test_broad_exception_count_matches_register() -> None:
         "src/webpent/graph/oast_nodes.py",
         "src/webpent/graph/appmodel_nodes.py",
         "src/webpent/integrations/notifications/dispatch.py",
-        "src/webpent/jsintel/api_surface_shadow.py",
+        # UM-DR-45: api_surface_shadow.py LEFT this unpinned population —
+        # the K3 reflection fix thawed the file and the window re-freeze
+        # pinned it into frozen_modules.sha256 (line 276). Its 1-handler
+        # count is still enforced above via REGISTERED_FILES; only the
+        # pin-status classification changed (unpinned -> manifest-pinned).
         "src/webpent/jsintel/js_reversing.py",
         "src/webpent/learning/refutation_ledger.py",
         "src/webpent/learning/technique_library.py",

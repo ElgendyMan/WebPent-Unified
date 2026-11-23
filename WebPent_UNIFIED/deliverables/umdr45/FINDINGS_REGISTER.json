@@ -1,0 +1,176 @@
+{
+  "schema": "umdr45-findings-register/v1",
+  "window": "UM-DR-45 (2026-11-23)",
+  "counts": {
+    "total": 9,
+    "fixed": 4,
+    "open": 4
+  },
+  "battery_b_summary": {
+    "A": {
+      "101": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 9,
+        "precision": null,
+        "recall": 0.0,
+        "f1": 0.0,
+        "confirmed_total": 0,
+        "requests_total": 324,
+        "requests_per_confirmed": null,
+        "campaigns": 3
+      },
+      "102": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 18,
+        "precision": null,
+        "recall": 0.0,
+        "f1": 0.0,
+        "confirmed_total": 0,
+        "requests_total": 324,
+        "requests_per_confirmed": null,
+        "campaigns": 3
+      },
+      "201": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 15,
+        "precision": null,
+        "recall": 0.0,
+        "f1": 0.0,
+        "confirmed_total": 0,
+        "requests_total": 324,
+        "requests_per_confirmed": null,
+        "campaigns": 3
+      },
+      "301": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "confirmed_total": 0,
+        "requests_total": 285,
+        "requests_per_confirmed": null,
+        "campaigns": 3
+      }
+    },
+    "B": {
+      "101": {
+        "tp": 9,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "confirmed_total": 15,
+        "requests_total": 417,
+        "requests_per_confirmed": 27.8,
+        "campaigns": 3
+      },
+      "102": {
+        "tp": 18,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "confirmed_total": 27,
+        "requests_total": 354,
+        "requests_per_confirmed": 13.11,
+        "campaigns": 3
+      },
+      "201": {
+        "tp": 15,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "confirmed_total": 21,
+        "requests_total": 417,
+        "requests_per_confirmed": 19.86,
+        "campaigns": 3
+      },
+      "301": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "confirmed_total": 0,
+        "requests_total": 417,
+        "requests_per_confirmed": null,
+        "campaigns": 3
+      }
+    }
+  },
+  "findings": [
+    {
+      "id": "UMDR45-F01",
+      "track": "K6/dead-capability",
+      "finding": "h2 pinned in requirements files but absent from pyproject/uv.lock: httpx.Client(http2=True) raised ImportError in every uv-synced env — the http2 smuggling capability was silently dead.",
+      "evidence": "live ImportError reproduced; commit 2eb86c2; httpx.Client(http2=True) constructs after the fix",
+      "status": "FIXED"
+    },
+    {
+      "id": "UMDR45-F02",
+      "track": "G-02",
+      "finding": "direct-I/O artifact drift after the K3/K4 window (1225 vs 1226 records, line-number shift in api_surface_shadow.py).",
+      "evidence": "tests/test_g02_direct_io_inventory.py red pre-regen, green post-regen; commit f5af496 (deliberate regen, reviewable diff)",
+      "status": "FIXED"
+    },
+    {
+      "id": "UMDR45-F03",
+      "track": "K4",
+      "finding": "authenticated deployments with no provisionable operator booted cleanly and then answered 401 to everyone (fail-closed, not fail-fast); the dev bypass was silent.",
+      "evidence": "tests/test_umdr45_k4_auth_startup_gate.py RED on pre-fix sources, GREEN after; commit 1524dd0",
+      "status": "FIXED"
+    },
+    {
+      "id": "UMDR45-F04",
+      "track": "K3",
+      "finding": "typing.get_type_hints raised NameError on the shadow->state converter's return annotation (Hypothesis not module-level).",
+      "evidence": "scripts/umdr45_k3_reflection.py probe + tests/test_umdr45_k3_runtime_reflection.py; commit ba5db14",
+      "status": "FIXED"
+    },
+    {
+      "id": "UMDR45-F05",
+      "track": "X/wiring",
+      "finding": "the CLI hunt surface (run_unified_hunt) carries credentials via cookies/headers only; the authorised lab target authenticates per-request via the actor query parameter — battery A recall 0.0 against labsuite labs documents the gap by measurement.",
+      "evidence": "X_TRACK_BENCHMARK.json battery A (recall 0.0, 324 reqs/seed) vs battery B (precision 1.0 / recall 1.0 on the same targets)",
+      "status": "OPEN (owner decision: add a params channel to the identity profiles, or a cookie-accepting lab adapter)"
+    },
+    {
+      "id": "UMDR45-F06",
+      "track": "K6/drift",
+      "finding": "two pip-audit allowlists (scripts/pip_audit_allowlist.txt vs scripts/quality/cve_allowlist.json) must be kept in sync manually; Dockerfile.base pins playwright 1.48.0 vs pyproject 1.57.0.",
+      "evidence": "K6_DEPENDENCY_SINGLE_SOURCE_OF_TRUTH.json",
+      "status": "OPEN (documented for the owner; unifying touches frozen gate inputs)"
+    },
+    {
+      "id": "UMDR45-F07",
+      "track": "M4/orphans",
+      "finding": "2 RETIRE-CANDIDATE agent units (specialists, team: no importer anywhere) and 8 KEEP-DORMANT (tests-only importers); 19 packages with no inbound importer (labsuite/benchmark are lab surfaces; core/appsuite internal seams).",
+      "evidence": "agent_decision_register.json + orphan_inventory.json (AST import graph)",
+      "status": "OPEN (removal needs the owner signature — inventory only, per the mission)"
+    },
+    {
+      "id": "UMDR45-F08",
+      "track": "R1/CI",
+      "finding": "the pre-window CI was red on the SBOM step (bare pip-audit exit 1 on the allowlisted chromadb advisories).",
+      "evidence": "commit cfb796d (generate_sbom.py adjudicates with the audited allowlist; 18 tests); run #36/#37 history",
+      "status": "FIXED (CI green confirmation on the final SHA pending below)"
+    },
+    {
+      "id": "UMDR45-F09",
+      "track": "D4",
+      "finding": "RC-8 partially complete (bounded rabbit-hole axes, no per-branch new-evidence delta test); RC-9 partially complete (two knowledge models); RC-10 not started (hunt_orchestrator stack library-complete, no entry point — owner decision).",
+      "evidence": "deliverables/umdr45/D_TRACK_REGISTER.md (file:line verified)",
+      "status": "OPEN (honest classification; no silent padding)"
+    }
+  ]
+}

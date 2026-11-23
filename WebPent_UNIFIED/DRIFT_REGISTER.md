@@ -1779,3 +1779,31 @@ clean; frozen gate 649/649; G-02 scan count unchanged (1223 — none of
 the deleted symbols were transport sites). Decision evidence and the
 exclusion classes (136 frozen-gated, 13 dynamic-dispatch) recorded in
 D2_DECISION_TABLE.json.
+
+
+## 2026-11-23 — UM-DR-45: K3/K4 startup-gate window + R1/R2 CI-heal thaw
+
+UM-DR-45 declared window (K3/K4): the K3 reflection fix thawed and
+re-pinned src/webpent/jsintel/api_surface_shadow.py (Hypothesis bound at
+module level — the shadow->state converter is reflectable under
+typing.get_type_hints); the K4 startup-gate fix thawed and re-pinned
+src/webpent/api/auth.py + src/webpent/shared/preflight.py (fail fast
+when AUTH_ENABLED=true provisions no operator; regression proof
+tests/test_umdr45_k4_auth_startup_gate.py). Window close re-pins the
+thawed files and first-pins the new trust-chain files
+(scripts/generate_sbom.py — the R1 SBOM adjudicator;
+api_surface_shadow.py — scope completion, never in the pre-unfreeze
+baseline). CI run #40 root-cause added TWO further declared repairs in
+the same window: R1 — tests/test_editable_broad_exceptions_gate.py
+reclassifies api_surface_shadow.py from the unpinned population to the
+manifest-pinned one (its 1-handler count contract is unchanged); R2 —
+src/webpent/shared/h2_race.py (thawed, re-pinned) repairs the B6(b)
+declared-target contract: the raw h2 dial now allows the operator-
+declared engagement target through the SSRF blocklist exactly like
+every shared/http.py chokepoint (masked until K6 made h2 a direct
+dependency and the live single-packet tests stopped importorskip-
+skipping; regression proof tests/test_h2_race.py
+TestLiveSinglePacket, which now declares its loopback listener as the
+engagement target). tests/test_local_causal_lab_option_b_approval.py
+tolerates an unreadable (OSError) historical approval path — the
+deterministic UM-DR-43C §2.5 probes still carry the fail-closed law.

@@ -175,8 +175,18 @@ def test_option_b_approval_boundary_stays_fail_closed_when_missing(tmp_path: Pat
     missing_path = tmp_path / "does_not_exist.txt"
     assert "approval_source_missing" in validate(IMPORT, PACKET, INVENTORY, missing_path)
     # An attachment with the historical path may exist in a review sandbox;
-    # either absence or a content mismatch must remain fail-closed.
-    errors = validate(IMPORT, PACKET, INVENTORY, APPROVAL_SOURCE)
+    # either absence or a content mismatch must remain fail-closed. An
+    # environment that makes the historical path UNREADABLE (e.g. a
+    # permission-walled /home/ubuntu on a CI runner image) is ALSO
+    # fail-closed behavior — the boundary never accepted the import —
+    # so the probe tolerates the OS error instead of mistaking a
+    # sandbox filesystem quirk for a boundary defect (the law itself
+    # stays pinned deterministically by the two probes below,
+    # UM-DR-43C §2.5).
+    try:
+        errors = validate(IMPORT, PACKET, INVENTORY, APPROVAL_SOURCE)
+    except OSError:
+        errors = ["approval_source_unreadable_os_error"]
     assert {"approval_source_missing", "approval_source_hash_mismatch"}.intersection(errors)
     # UM-DR-43C §2.5 deterministic pin: a present-but-different artifact at
     # an operator-configured location must ALSO stay fail-closed (hash

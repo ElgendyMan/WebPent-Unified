@@ -132,7 +132,19 @@ def _connect(
             f"h2_race connect refused: {host}:{port} is outside the "
             "engagement origin policy"
         )
-    pinned_ip = _resolve_first_ip(host, port, allow_blocked=False)
+    # UM-DR-45 R2: allow_blocked follows the same transport contract as
+    # every other blocking chokepoint in shared/http.py — the
+    # operator-declared engagement target IS allowed through the
+    # private/reserved-network blocklist (V7 P0 declared-target rule),
+    # any other private host stays fail-closed. The B6(b) hardening
+    # hardcoded False, which denied even a DECLARED loopback lab target
+    # and broke this module's own live tests the moment h2 became a
+    # direct dependency (K6) and the importorskip stopped masking them.
+    from webpent.shared.engagement_scope import is_engagement_target_host
+
+    pinned_ip = _resolve_first_ip(
+        host, port, allow_blocked=is_engagement_target_host(host)
+    )
     if not pinned_ip:
         raise H2RaceError(
             f"h2_race connect refused: DNS resolution/blocklist denied "

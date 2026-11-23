@@ -27,6 +27,9 @@ REFREEZE_PATHS = (
     "src/webpent/api/auth.py",
     "src/webpent/shared/preflight.py",
     "src/webpent/jsintel/api_surface_shadow.py",
+    # R2 (CI run #40): the declared-target contract repair in the raw
+    # h2 dial — thawed mid-window, re-pinned here at window close.
+    "src/webpent/shared/h2_race.py",
     "scripts/generate_sbom.py",
 )
 

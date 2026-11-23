@@ -274,6 +274,16 @@ UMDR45_20261123_THAW_PATHS = frozenset(
         # at runtime by typing.get_type_hints in the new reflection test —
         # Hypothesis is now imported at module level (RED->GREEN defect fix).
         "src/webpent/jsintel/api_surface_shadow.py",
+        # R2 (CI run #40 root-cause): the B6(b) hardening hardcoded
+        # allow_blocked=False in the raw h2 dial, violating the declared-
+        # target transport contract every other chokepoint follows
+        # (shared/http.py V7 P0 rule) — a DECLARED loopback lab target
+        # was denied. Masked until K6 made h2 a direct dependency and
+        # the live tests stopped importorskip-skipping; verified by
+        # tests/test_h2_race.py TestLiveSinglePacket (now declares its
+        # listener as the engagement target). Byte-identity is restored
+        # at window close by scripts/refreeze_manifest_umdr45.py.
+        "src/webpent/shared/h2_race.py",
     }
 )
 # The pre-unfreeze drift expectation needs only the paths that
@@ -1452,6 +1462,19 @@ def test_baseline_disagrees_only_on_documented_unfreeze_paths() -> None:
         | UMDR42_20261119_THAW_PATHS
         | UMDR42_CLOSURE_20261120_BASELINE_DRIFT_PATHS
         | UMDR43C_20261121_THAW_PATHS
+        | (
+            UMDR45_20261123_THAW_PATHS
+            # scope completion, NOT drift: api_surface_shadow.py (K3) and
+            # h2_race.py (R2) were never in the pre-unfreeze baseline
+            # (first pinned before/at this window), so after the window
+            # re-freeze their digests match and they must NOT be expected
+            # drift members. auth.py/preflight.py were re-pinned to NEW
+            # digests, so they do drift vs the baseline — expected.
+            - {
+                "src/webpent/jsintel/api_surface_shadow.py",
+                "src/webpent/shared/h2_race.py",
+            }
+        )
     )
     # ULTIMATE PLAN 2026-10-27, proposal 4: the pre-archive drift sets
     # (e.g. TEAM_MERGE_V152_LINEAGE_DRIFT_PATHS' goed_v1 entry) can no
@@ -1535,6 +1558,11 @@ def test_baseline_disagrees_only_on_documented_unfreeze_paths() -> None:
         # a scope completion, NOT a thaw (the file was never frozen
         # before, so nothing was unfrozen).
         | {"src/webpent/shared/h2_race.py"}
+        # UM-DR-45 window-close (2026-11-23): two NEW trust-chain files
+        # pinned by scripts/refreeze_manifest_umdr45.py — the R1 SBOM
+        # adjudicator and the K3 reflectable-converter fix. Scope
+        # completions, NOT thaws (neither was frozen before).
+        | {"scripts/generate_sbom.py", "src/webpent/jsintel/api_surface_shadow.py"}
     )
     assert not undocumented_current, (
         f"undocumented paths only in current manifest: {sorted(undocumented_current)}"
