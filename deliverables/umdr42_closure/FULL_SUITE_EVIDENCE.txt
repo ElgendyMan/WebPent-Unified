@@ -1,7 +1,7 @@
 # Test Run Evidence
 # Schema: full-suite-evidence/v3 (machine record: FULL_SUITE_EVIDENCE.json)
-# Date: 2026-11-23T16:10:12.889647+00:00 -> 2026-11-23T16:29:13.900088+00:00
-# Source commit: 040deebab52751151d172ee453adf1f7d8b0365d (tree clean)
+# Date: 2026-11-23T16:54:12.137606+00:00 -> 2026-11-23T17:12:41.577215+00:00
+# Source commit: 42736397d9e7b6a05fac8dcdeae97396e4aa8cb6 (tree clean)
 # Workflow: local run (no GitHub Actions context)
 # Command: /home/z/my-project/work_umdr44/WebPent_UNIFIED/.venv/bin/python -m pytest tests/ -v --tb=short -p pytest_accounting_plugin --cov=src/webpent --cov-report=json:/home/z/my-project/work_umdr44/WebPent_UNIFIED/.webpent-evidence/coverage_last_run.json --cov-fail-under=72
 # Python: 3.12.16 | uv: uv 0.13.9 (x86_64-unknown-linux-gnu) | lockfile sha256: 508291d5ae1f6321ef8d0787ad84e74c9746e6e874860b07e40a8697ceefe4c8
@@ -2899,16 +2899,16 @@ tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestNegativeInconc
 tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestNegativeInconclusive::test_inconclusive_outcome PASSED [ 29%]
 tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestNegativeInconclusive::test_missing_baseline_fails_closed PASSED [ 29%]
 tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestRefutationFeedback::test_refuted_changes_research_priority PASSED [ 29%]
-tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[IN_SCOPE] PASSED [ 29%]
-tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[REPLAY_VALID] PASSED [ 29%]
 tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[OPERATOR_APPROVED] PASSED [ 29%]
-tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[CONFIRMED] PASSED [ 29%]
-tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[OWNER_VERIFIED] PASSED [ 29%]
-tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[CAUSAL_SIGNAL_TRUE] PASSED [ 29%]
-tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[TOOL_CONFIRMED] PASSED [ 29%]
-tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[NEGATIVE_CONTROL_PASSED] PASSED [ 29%]
-tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[PROMOTION_READY] PASSED [ 29%]
 tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[TARGET_BACKED] PASSED [ 29%]
+tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[PROMOTION_READY] PASSED [ 29%]
+tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[REPLAY_VALID] PASSED [ 29%]
+tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[CAUSAL_SIGNAL_TRUE] PASSED [ 29%]
+tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[IN_SCOPE] PASSED [ 29%]
+tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[NEGATIVE_CONTROL_PASSED] PASSED [ 29%]
+tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[OWNER_VERIFIED] PASSED [ 29%]
+tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[TOOL_CONFIRMED] PASSED [ 29%]
+tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[CONFIRMED] PASSED [ 29%]
 tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_cross_target_external_rejected PASSED [ 29%]
 tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_external_never_authoritative PASSED [ 29%]
 tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestTwoTargetCampaign::test_fabric_works_on_both_targets PASSED [ 29%]
@@ -7522,7 +7522,7 @@ tests/test_umdr24_release_gate_compliance.py::test_umdr24_secret_waives_present_
 tests/test_umdr24_release_gate_compliance.py::test_secret_scan_passes_on_current_tree PASSED [ 77%]
 tests/test_umdr24_release_gate_compliance.py::test_deps_gate_offline_evaluation_path_passes PASSED [ 77%]
 tests/test_umdr24_release_gate_compliance.py::test_deps_gate_run_pip_audit_semantics PASSED [ 77%]
-tests/test_umdr24_release_gate_compliance.py::test_build_info_suite_count_coherent_with_collected_reality FAILED [ 77%]
+tests/test_umdr24_release_gate_compliance.py::test_build_info_suite_count_coherent_with_collected_reality PASSED [ 77%]
 tests/test_umdr24_release_gate_compliance.py::test_refreeze_script_declares_exactly_state_py PASSED [ 77%]
 tests/test_umdr28_campaign_stateful_e2e.py::TestFlags::test_stateful_discovery_flag_defaults_off PASSED [ 77%]
 tests/test_umdr28_campaign_stateful_e2e.py::TestFlags::test_node_reports_disabled_without_flag PASSED [ 77%]
@@ -9699,12 +9699,6 @@ tests/vip/test_retest.py::TestResultModel::test_ledger_row_shape PASSED  [ 99%]
 tests/vip/test_retest.py::TestResultModel::test_outcome_vocabulary_is_closed PASSED [ 99%]
 tests/vip/test_retest.py::test_finding_model_rejects_unknown_extra_fields PASSED [100%]
 
-=================================== FAILURES ===================================
-_________ test_build_info_suite_count_coherent_with_collected_reality __________
-tests/test_umdr24_release_gate_compliance.py:282: in test_build_info_suite_count_coherent_with_collected_reality
-    assert real - count <= 200, (
-E   AssertionError: suite_count 9467 lags collected reality 9681 — the declared BUILD_INFO re-freeze ritual re-fires (UM-DR-24 precedent)
-E   assert (9681 - 9467) <= 200
 =============================== warnings summary ===============================
 .venv/lib/python3.12/site-packages/fastapi/testclient.py:1
   /home/z/my-project/work_umdr44/WebPent_UNIFIED/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
@@ -9763,15 +9757,14 @@ SKIPPED [1] tests/test_production_deployment_contract.py:129: root-path drop ver
 XFAIL tests/test_postp0_phase5_validators.py::test_jwt_confusion_confirms_on_alg_none_acceptance - superseded contract: the 2026-10 validator rewrite re-discovers JWKS before the retired alg-none seam (see block comment above / DR-015)
 XFAIL tests/test_postp0_phase5_validators.py::test_jwt_confusion_explicit_negative - superseded contract: the 2026-10 validator rewrite re-discovers JWKS before the retired alg-none seam (see block comment above / DR-015)
 XFAIL tests/test_r2_spine_authority_contracts.py::test_t07b_campaign_worker_entrypoint_is_campaign_worker - B-06 residual (D2/R2-04): ratified entrypoint is 'campaign_worker'; v5 uses 'worker' and KNOWN_ENTRYPOINTS (frozen) does not contain 'campaign_worker'. DENIED for R3 — E-3 unfreeze denied, deferred to M3 (Ruling R3-002 §3.5); campaign_worker.py is explicitly NOT THAWED, so this stays xfail(strict) through Phase 1.
-FAILED tests/test_umdr24_release_gate_compliance.py::test_build_info_suite_count_coherent_with_collected_reality
-= 1 failed, 9660 passed, 18 skipped, 3 xfailed, 15 warnings in 1136.92s (0:18:56) =
+==== 9661 passed, 18 skipped, 3 xfailed, 15 warnings in 1105.74s (0:18:25) =====
 # --- SUMMARY ---
 # Collected: 9681 | Executed: 9682
-# Total: 9682 | Passed: 9660 | Failed: 1 | Skipped: 18 | Xfailed: 3 | Xpassed: 0 | Errors: 0 | Deselected: 0
+# Total: 9682 | Passed: 9661 | Failed: 0 | Skipped: 18 | Xfailed: 3 | Xpassed: 0 | Errors: 0 | Deselected: 0
 # Accounting consistent: False
-# Exit code: 1
+# Exit code: 0
 # --- V3 HOOK-LEVEL ACCOUNTING (scripts/pytest_accounting_plugin.py) ---
 # Collected items: 9681 | started: 9681 | not_started: 0
-# Item outcomes: passed 9660 | failed 1 | skipped 17 | xfailed 3 | xpassed 0
+# Item outcomes: passed 9661 | failed 0 | skipped 17 | xfailed 3 | xpassed 0
 # Setup errors: 0 | teardown errors: 0 | collection errors: 0 | collection skips: 1
 # Invariants all true: True | terminal cross-check agree: True
