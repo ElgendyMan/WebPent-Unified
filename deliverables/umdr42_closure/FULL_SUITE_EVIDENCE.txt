@@ -1,19 +1,19 @@
 # Test Run Evidence
 # Schema: full-suite-evidence/v3 (machine record: FULL_SUITE_EVIDENCE.json)
-# Date: 2026-11-23T16:54:12.137606+00:00 -> 2026-11-23T17:12:41.577215+00:00
-# Source commit: 42736397d9e7b6a05fac8dcdeae97396e4aa8cb6 (tree clean)
-# Workflow: local run (no GitHub Actions context)
-# Command: /home/z/my-project/work_umdr44/WebPent_UNIFIED/.venv/bin/python -m pytest tests/ -v --tb=short -p pytest_accounting_plugin --cov=src/webpent --cov-report=json:/home/z/my-project/work_umdr44/WebPent_UNIFIED/.webpent-evidence/coverage_last_run.json --cov-fail-under=72
+# Date: 2026-11-23T19:46:23.539109+00:00 -> 2026-11-23T20:00:42.373995+00:00
+# Source commit: adf9056e77d2440fc679740441d4e6278db9ae7c (tree DIRTY)
+# Workflow: {'run_id': '45249558121', 'run_attempt': '1'}
+# Command: /home/runner/work/WebPent-Unified/WebPent-Unified/WebPent_UNIFIED/.venv/bin/python -m pytest tests/ -v --tb=short -p pytest_accounting_plugin --cov=src/webpent --cov-report=json:/home/runner/work/WebPent-Unified/WebPent-Unified/WebPent_UNIFIED/.webpent-evidence/coverage_last_run.json --cov-fail-under=72
 # Python: 3.12.16 | uv: uv 0.13.9 (x86_64-unknown-linux-gnu) | lockfile sha256: 508291d5ae1f6321ef8d0787ad84e74c9746e6e874860b07e40a8697ceefe4c8
-# Test scope digest: 47e4d4574571f1e4cbae435df12caf56b3a7a1444c1a457be4a13a4f590afa24
+# Test scope digest: c36aabba9ee74989540c651e048f8204b3443fd2b15e3c2a421bace18d98ef64
 # Coverage: 77.34% (floor 72% — OK)
 # --- PYTEST OUTPUT ---
 ============================= test session starts ==============================
-platform linux -- Python 3.12.16, pytest-9.1.1, pluggy-1.6.0 -- /home/z/my-project/work_umdr44/WebPent_UNIFIED/.venv/bin/python
+platform linux -- Python 3.12.16, pytest-9.1.1, pluggy-1.6.0 -- /home/runner/work/WebPent-Unified/WebPent-Unified/WebPent_UNIFIED/.venv/bin/python
 cachedir: .pytest_cache
-rootdir: /home/z/my-project/work_umdr44/WebPent_UNIFIED
+rootdir: /home/runner/work/WebPent-Unified/WebPent-Unified/WebPent_UNIFIED
 configfile: pyproject.toml
-plugins: anyio-4.14.2, langsmith-0.11.0, asyncio-1.4.0, cov-7.1.0
+plugins: anyio-4.14.2, asyncio-1.4.0, cov-7.1.0, langsmith-0.11.0
 asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
 collecting ... collected 9681 items / 1 skipped
 
@@ -2899,16 +2899,16 @@ tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestNegativeInconc
 tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestNegativeInconclusive::test_inconclusive_outcome PASSED [ 29%]
 tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestNegativeInconclusive::test_missing_baseline_fails_closed PASSED [ 29%]
 tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestRefutationFeedback::test_refuted_changes_research_priority PASSED [ 29%]
-tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[OPERATOR_APPROVED] PASSED [ 29%]
-tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[TARGET_BACKED] PASSED [ 29%]
-tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[PROMOTION_READY] PASSED [ 29%]
-tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[REPLAY_VALID] PASSED [ 29%]
-tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[CAUSAL_SIGNAL_TRUE] PASSED [ 29%]
 tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[IN_SCOPE] PASSED [ 29%]
-tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[NEGATIVE_CONTROL_PASSED] PASSED [ 29%]
 tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[OWNER_VERIFIED] PASSED [ 29%]
+tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[OPERATOR_APPROVED] PASSED [ 29%]
 tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[TOOL_CONFIRMED] PASSED [ 29%]
+tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[PROMOTION_READY] PASSED [ 29%]
+tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[TARGET_BACKED] PASSED [ 29%]
+tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[CAUSAL_SIGNAL_TRUE] PASSED [ 29%]
+tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[NEGATIVE_CONTROL_PASSED] PASSED [ 29%]
 tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[CONFIRMED] PASSED [ 29%]
+tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[REPLAY_VALID] PASSED [ 29%]
 tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_cross_target_external_rejected PASSED [ 29%]
 tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_external_never_authoritative PASSED [ 29%]
 tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestTwoTargetCampaign::test_fabric_works_on_both_targets PASSED [ 29%]
@@ -9701,16 +9701,16 @@ tests/vip/test_retest.py::test_finding_model_rejects_unknown_extra_fields PASSED
 
 =============================== warnings summary ===============================
 .venv/lib/python3.12/site-packages/fastapi/testclient.py:1
-  /home/z/my-project/work_umdr44/WebPent_UNIFIED/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+  /home/runner/work/WebPent-Unified/WebPent-Unified/WebPent_UNIFIED/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
     from starlette.testclient import TestClient as TestClient  # noqa
 
 tests/team1_acceptance/test_sprint_i1b_part2_secrets_gate.py::TestDevModeWarns::test_dev_mode_still_boots_despite_warning
-  /home/z/my-project/work_umdr44/WebPent_UNIFIED/.venv/lib/python3.12/site-packages/pydantic/main.py:263: UserWarning: INSECURE audit_secret_key in dev mode — evidence hashes are HMAC'd with a publicly-known key and can be forged. Set AUDIT_SECRET_KEY to a strong random value for any non-local deployment.
+  /home/runner/work/WebPent-Unified/WebPent-Unified/WebPent_UNIFIED/.venv/lib/python3.12/site-packages/pydantic/main.py:263: UserWarning: INSECURE audit_secret_key in dev mode — evidence hashes are HMAC'd with a publicly-known key and can be forged. Set AUDIT_SECRET_KEY to a strong random value for any non-local deployment.
     validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
 
 tests/team1_acceptance/test_sprint_i1b_part2_secrets_gate.py::TestDevModeWarns::test_dev_mode_still_boots_despite_warning
 tests/test_v10_exhaustive_audit.py::TestCeleryPayloadKeyEnvAlias::test_neither_set_keeps_the_documented_insecure_dev_default
-  /home/z/my-project/work_umdr44/WebPent_UNIFIED/.venv/lib/python3.12/site-packages/pydantic/main.py:263: UserWarning: INSECURE celery_payload_key in dev mode — task passwords are encrypted with a publicly-known key and can be decrypted by anyone with Redis access. Set CELERY_PAYLOAD_KEY to a strong random value for any non-local deployment.
+  /home/runner/work/WebPent-Unified/WebPent-Unified/WebPent_UNIFIED/.venv/lib/python3.12/site-packages/pydantic/main.py:263: UserWarning: INSECURE celery_payload_key in dev mode — task passwords are encrypted with a publicly-known key and can be decrypted by anyone with Redis access. Set CELERY_PAYLOAD_KEY to a strong random value for any non-local deployment.
     validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
 
 tests/test_postp0_phase6_tool_first.py: 1 warning
@@ -9718,11 +9718,11 @@ tests/test_postp0_phase8_flow_replay.py: 1 warning
 tests/test_scenario_auth_surface_contract.py: 1 warning
 tests/test_umdr37_root_cause_fixes.py: 6 warnings
 tests/test_v58_http_discovery.py: 1 warning
-  /home/z/my-project/work_umdr44/WebPent_UNIFIED/.venv/lib/python3.12/site-packages/httpx/_client.py:1053: DeprecationWarning: Setting per-request cookies=<...> is being deprecated, because the expected behaviour on cookie persistence is ambiguous. Set cookies directly on the client instance instead.
+  /home/runner/work/WebPent-Unified/WebPent-Unified/WebPent_UNIFIED/.venv/lib/python3.12/site-packages/httpx/_client.py:1053: DeprecationWarning: Setting per-request cookies=<...> is being deprecated, because the expected behaviour on cookie persistence is ambiguous. Set cookies directly on the client instance instead.
     return self.request(
 
 tests/test_ultimate_plan_core.py::TestGraphWiring::test_new_nodes_registered
-  /home/z/my-project/work_umdr44/WebPent_UNIFIED/.venv/lib/python3.12/site-packages/_pytest/fixtures.py:1313: PytestRemovedIn10Warning: Class-scoped fixture defined as instance method is deprecated.
+  /home/runner/work/WebPent-Unified/WebPent-Unified/WebPent_UNIFIED/.venv/lib/python3.12/site-packages/_pytest/fixtures.py:1313: PytestRemovedIn10Warning: Class-scoped fixture defined as instance method is deprecated.
   Instance attributes set in this fixture will NOT be visible to test methods,
   as each test gets a new instance while the fixture runs only once per class.
   Use @classmethod decorator and set attributes on cls instead.
@@ -9733,7 +9733,7 @@ tests/test_ultimate_plan_core.py::TestGraphWiring::test_new_nodes_registered
 ================================ tests coverage ================================
 _______________ coverage: platform linux, python 3.12.16-final-0 _______________
 
-Coverage JSON written to file /home/z/my-project/work_umdr44/WebPent_UNIFIED/.webpent-evidence/coverage_last_run.json
+Coverage JSON written to file /home/runner/work/WebPent-Unified/WebPent-Unified/WebPent_UNIFIED/.webpent-evidence/coverage_last_run.json
 Required test coverage of 72% reached. Total coverage: 77.34%
 =========================== short test summary info ============================
 SKIPPED [1] tests/test_lessons_learning_loop.py:23: legacy v4 lessons subsystem: the lessons brain module was deliberately removed in the 0.29.0 G-1 deletion window of the 0.34.0 lineage; this v4-era test is kept for reference and skipped at collection by UNIFIED MERGE (2026-11-02).
@@ -9757,7 +9757,7 @@ SKIPPED [1] tests/test_production_deployment_contract.py:129: root-path drop ver
 XFAIL tests/test_postp0_phase5_validators.py::test_jwt_confusion_confirms_on_alg_none_acceptance - superseded contract: the 2026-10 validator rewrite re-discovers JWKS before the retired alg-none seam (see block comment above / DR-015)
 XFAIL tests/test_postp0_phase5_validators.py::test_jwt_confusion_explicit_negative - superseded contract: the 2026-10 validator rewrite re-discovers JWKS before the retired alg-none seam (see block comment above / DR-015)
 XFAIL tests/test_r2_spine_authority_contracts.py::test_t07b_campaign_worker_entrypoint_is_campaign_worker - B-06 residual (D2/R2-04): ratified entrypoint is 'campaign_worker'; v5 uses 'worker' and KNOWN_ENTRYPOINTS (frozen) does not contain 'campaign_worker'. DENIED for R3 — E-3 unfreeze denied, deferred to M3 (Ruling R3-002 §3.5); campaign_worker.py is explicitly NOT THAWED, so this stays xfail(strict) through Phase 1.
-==== 9661 passed, 18 skipped, 3 xfailed, 15 warnings in 1105.74s (0:18:25) =====
+===== 9661 passed, 18 skipped, 3 xfailed, 15 warnings in 854.43s (0:14:14) =====
 # --- SUMMARY ---
 # Collected: 9681 | Executed: 9682
 # Total: 9682 | Passed: 9661 | Failed: 0 | Skipped: 18 | Xfailed: 3 | Xpassed: 0 | Errors: 0 | Deselected: 0

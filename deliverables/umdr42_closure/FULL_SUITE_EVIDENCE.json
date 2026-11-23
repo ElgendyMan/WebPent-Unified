@@ -1,17 +1,24 @@
 {
   "schema": "full-suite-evidence/v3",
   "runner": "run_tests_with_evidence.py",
-  "source_commit": "42736397d9e7b6a05fac8dcdeae97396e4aa8cb6",
-  "tree_clean": true,
-  "tree_status_sample_at_test_start": [],
-  "github": null,
-  "started_at_utc": "2026-11-23T16:54:12.137606+00:00",
-  "completed_at_utc": "2026-11-23T17:12:41.577215+00:00",
+  "source_commit": "adf9056e77d2440fc679740441d4e6278db9ae7c",
+  "tree_clean": false,
+  "tree_status_sample_at_test_start": [
+    "M WebPent_UNIFIED/deliverables/umdr42_audit/UMDR42_AUDIT_FINDINGS.json",
+    " M WebPent_UNIFIED/deliverables/umdr42_audit/UMDR42_AUDIT_FINDINGS.md",
+    " M WebPent_UNIFIED/docs/sbom.cdx.json"
+  ],
+  "github": {
+    "run_id": "45249558121",
+    "run_attempt": "1"
+  },
+  "started_at_utc": "2026-11-23T19:46:23.539109+00:00",
+  "completed_at_utc": "2026-11-23T20:00:42.373995+00:00",
   "python_version": "3.12.16",
   "uv_version": "uv 0.13.9 (x86_64-unknown-linux-gnu)",
   "lockfile_sha256": "508291d5ae1f6321ef8d0787ad84e74c9746e6e874860b07e40a8697ceefe4c8",
   "command": [
-    "/home/z/my-project/work_umdr44/WebPent_UNIFIED/.venv/bin/python",
+    "/home/runner/work/WebPent-Unified/WebPent-Unified/WebPent_UNIFIED/.venv/bin/python",
     "-m",
     "pytest",
     "tests/",
@@ -20,10 +27,10 @@
     "-p",
     "pytest_accounting_plugin",
     "--cov=src/webpent",
-    "--cov-report=json:/home/z/my-project/work_umdr44/WebPent_UNIFIED/.webpent-evidence/coverage_last_run.json",
+    "--cov-report=json:/home/runner/work/WebPent-Unified/WebPent-Unified/WebPent_UNIFIED/.webpent-evidence/coverage_last_run.json",
     "--cov-fail-under=72"
   ],
-  "test_scope_digest": "47e4d4574571f1e4cbae435df12caf56b3a7a1444c1a457be4a13a4f590afa24",
+  "test_scope_digest": "c36aabba9ee74989540c651e048f8204b3443fd2b15e3c2a421bace18d98ef64",
   "accounting": {
     "passed": 9661,
     "failed": 0,
