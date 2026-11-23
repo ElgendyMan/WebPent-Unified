@@ -256,10 +256,21 @@ jobs:
       # cannot install an editable project requirement in its hash-pinned
       # dry-run) and no `|| true`: a genuine SBOM failure must surface as a
       # failure. Dependency CVEs keep their own separate gate step.
+      # UM-DR-45 R1 (CI root 4): pip-audit writes the SBOM and THEN exits 1
+      # whenever the closure lists any known vulnerability — including the
+      # ones the CVE gate above already waived through the audited allowlist
+      # — so the bare call stopped this job before the regression suite on
+      # every run (run 45135833672: "Found 5 known vulnerabilities in 1
+      # package", exit code 1). scripts/generate_sbom.py separates the two
+      # outcomes instead of dropping the exit code: no parseable SBOM fails,
+      # an advisory NOT waived for the same package fails, only audited
+      # waivers pass — and the SBOM still lists them. One allowlist
+      # (scripts/quality/cve_allowlist.json) backs both the CVE gate and
+      # this step.
       - name: Generate SBOM (CycloneDX)
         run: |
           uv export --locked --no-emit-project --format requirements-txt --output-file /tmp/locked-requirements.txt
-          uv run pip-audit --format cyclonedx-json --output docs/sbom.cdx.json -r /tmp/locked-requirements.txt
+          uv run python scripts/generate_sbom.py --requirements /tmp/locked-requirements.txt
       - name: Upload SBOM artifact
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
