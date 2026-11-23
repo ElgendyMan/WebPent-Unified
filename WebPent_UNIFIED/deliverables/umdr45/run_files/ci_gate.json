@@ -1,0 +1,27 @@
+{
+  "schema": "umdr45-stability-gate/v2",
+  "gate": "PASS-identical-tree",
+  "generated_at": "2026-11-23T21:51:44.110834+00:00",
+  "law": "3 green full-suite runs over ONE release content",
+  "constraint": "re-run and workflow-dispatch APIs return 403 for the delivery token (fine-grained PAT: contents:write only, no actions:write); stability proven instead by three push-triggered runs on three commits sharing one identical tree hash",
+  "tree": "ab14c7c3d6b37e82b1ad3171033e2274726d5d87",
+  "runs": [
+    {
+      "run_number": 47,
+      "sha": "61359fbb72399a75a797923584ca4f1ac243cab1",
+      "conclusion": "success",
+      "run_id": 45256173998,
+      "attempt": 1
+    },
+    {
+      "run_number": 48,
+      "sha": "fbcc089e5f628f7a188e4d30220b44c594a9ec4e",
+      "conclusion": "success"
+    },
+    {
+      "run_number": 49,
+      "sha": "78e651e4e1089172a4b8141d0bc86007fe364bcf",
+      "conclusion": "success"
+    }
+  ]
+}

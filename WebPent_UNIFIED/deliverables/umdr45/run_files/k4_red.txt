@@ -1,0 +1,30 @@
+            if rec.levelno == logging.WARNING and "authentication is DISABLED" in rec.getMessage()
+        ]
+>       assert len(bypass_warnings) == 1, caplog.text
+E       AssertionError: WARNING  webpent.shared.preflight:preflight.py:667 AUDIT: construction_escape_honored env_var=WEBPENT_ALLOW_DIRECT_ORCHESTRATOR_CONSTRUCTION_TEST_ONLY environment_profile=lab
+E         
+E       assert 0 == 1
+E        +  where 0 = len([])
+
+tests/test_umdr45_k4_auth_startup_gate.py:216: AssertionError
+------------------------------ Captured log call -------------------------------
+WARNING  webpent.shared.preflight:preflight.py:667 AUDIT: construction_escape_honored env_var=WEBPENT_ALLOW_DIRECT_ORCHESTRATOR_CONSTRUCTION_TEST_ONLY environment_profile=lab
+=========================== short test summary info ============================
+FAILED tests/test_umdr45_k4_auth_startup_gate.py::test_no_operator_at_all_is_a_defect
+FAILED tests/test_umdr45_k4_auth_startup_gate.py::test_the_env_example_placeholder_provisions_nobody
+FAILED tests/test_umdr45_k4_auth_startup_gate.py::test_placeholder_users_do_not_fall_back_to_admin_password
+FAILED tests/test_umdr45_k4_auth_startup_gate.py::test_malformed_and_oversized_entries_are_reported
+FAILED tests/test_umdr45_k4_auth_startup_gate.py::test_whitespace_only_user_list_provisions_nobody
+FAILED tests/test_umdr45_k4_auth_startup_gate.py::test_a_provisionable_operator_has_no_defect[alice:S3cret-pass:admin-]
+FAILED tests/test_umdr45_k4_auth_startup_gate.py::test_a_provisionable_operator_has_no_defect[alice:pa:ss:with:colons:admin-ignored-when-users-exist]
+FAILED tests/test_umdr45_k4_auth_startup_gate.py::test_a_provisionable_operator_has_no_defect[-a-strong-operator-password]
+FAILED tests/test_umdr45_k4_auth_startup_gate.py::test_a_provisionable_operator_has_no_defect[CHANGE-ME:CHANGE-ME:admin,alice:S3cret-pass:admin-]
+FAILED tests/test_umdr45_k4_auth_startup_gate.py::test_the_probe_does_not_touch_the_user_store
+FAILED tests/test_umdr45_k4_auth_startup_gate.py::test_probe_agrees_with_the_real_seeder
+FAILED tests/test_umdr45_k4_auth_startup_gate.py::test_authenticated_boot_without_an_operator_is_refused
+FAILED tests/test_umdr45_k4_auth_startup_gate.py::test_placeholder_operator_is_refused_at_boot
+FAILED tests/test_umdr45_k4_auth_startup_gate.py::test_authenticated_boot_with_an_operator_passes_and_records_it
+FAILED tests/test_umdr45_k4_auth_startup_gate.py::test_admin_password_alone_satisfies_the_gate
+FAILED tests/test_umdr45_k4_auth_startup_gate.py::test_a_broken_probe_fails_closed
+FAILED tests/test_umdr45_k4_auth_startup_gate.py::test_development_bypass_is_announced_at_boot
+17 failed, 5 passed in 1.92s

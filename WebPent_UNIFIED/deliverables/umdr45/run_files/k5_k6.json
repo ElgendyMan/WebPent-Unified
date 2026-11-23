@@ -1,0 +1,210 @@
+{
+  "k5_scope_registry": {
+    "app_lines": [
+      "60: # WEBPENT_SCOPE_STORE_PATH upgrades the module-level registry to a",
+      "84: from webpent.workers.pentest_worker import resume_pentest_task, run_pentest_task",
+      "117: # ULTIMATE PLAN 2026-10-27, proposal 9: the workers monitoring router",
+      "118: # (GET /api/v1/workers/status + /health). Read-only, self-contained,",
+      "121: from webpent.api.workers_status import router as workers_status_router",
+      "123: app.router.routes.extend(workers_status_router.routes)",
+      "145: status_code=503, detail=\"scope authority unavailable\") from exc",
+      "160: status_code=503, detail=\"scope authority unavailable\") from exc",
+      "175: status_code=503, detail=\"scope authority unavailable\") from exc",
+      "190: status_code=503, detail=\"scope authority unavailable\") from exc",
+      "248: ``sqlite3.ProgrammingError: Cannot operate on a closed database``,",
+      "258: langgraph 1.2.10 / langgraph-checkpoint-sqlite 3.1.1: a compiled",
+      "391: # UM-DR-41 §6.3 — durable cross-process scope authority (opt-in).",
+      "392: # When WEBPENT_SCOPE_STORE_PATH is set (or WEBPENT_SCOPE_STORE_ENABLED=1",
+      "401: if os.getenv(\"WEBPENT_SCOPE_STORE_PATH\", \"\").strip() or os.getenv(",
+      "402: \"WEBPENT_SCOPE_STORE_ENABLED\", \"\").strip().lower() in {\"1\", \"true\", \"yes\"}:",
+      "412: \"FATAL: WEBPENT_SCOPE_STORE requested but the scope store \"",
+      "426: # polls the real /workers status view on an operator-chosen interval",
+      "438: from webpent.workers.monitor_alerts import check_stalled_and_alert",
+      "455: from webpent.api.workers_status import workers_status",
+      "457: status = workers_status()",
+      "1320: # workers/pentest_worker.run_pentest_task for the matching",
+      "1388: # which misses queued tasks and times out on unresponsive workers,",
+      "1527: workers — both leaving the false \"completed\" in place.",
+      "1565: from webpent.workers.pentest_worker import celery_app as _celery",
+      "1708: from webpent.workers.pentest_worker import celery_app as _celery",
+      "1714: executor = _cf.ThreadPoolExecutor(max_workers=1)"
+    ],
+    "registry_lines": 117,
+    "registry_definitions": [
+      "class ScopeRegistry:",
+      "def __init__(self, *, store: SqliteScopeStore | None = None) -> None:",
+      "def attach_store(self, store: SqliteScopeStore) -> None:",
+      "def load(self, policy: ScopePolicy, *, engagement_id: str) -> ScopePolicy:",
+      "def get(self, engagement_id: str) -> ScopePolicy | None:",
+      "def current_version(self, engagement_id: str) -> int | None:",
+      "def clear(self, engagement_id: str) -> bool:",
+      "def redacted(self) -> dict[str, dict[str, Any]]:"
+    ],
+    "registry_sync_primitives": [
+      "threading.RLock"
+    ],
+    "construction_sites": [
+      "src/webpent/scope/registry.py:20: * ``ScopeRegistry()`` — exact legacy behavior (in-memory only). All",
+      "src/webpent/scope/registry.py:22: * ``ScopeRegistry(store=SqliteScopeStore(path))`` — every ``load``",
+      "src/webpent/scope/registry.py:116: GLOBAL_SCOPE_REGISTRY = ScopeRegistry()"
+    ],
+    "process_model_wiring": [],
+    "introspection": {
+      "rc": 0,
+      "stdout": "{\"module\": \"webpent.scope.registry\", \"init\": \"(self, *, store: 'SqliteScopeStore | None' = None) -> 'None'\", \"public\": [\"attach_store\", \"clear\", \"current_version\", \"get\", \"load\", \"redacted\"], \"doc\": \"Process-local registry with an OPTIONAL durable shared backend.\\n\\n    UM-DR-41 \\u00a76.3: the historical registry was an in-memory dict under a\\n    thread lock \\u2014 authoritative only inside one process. A policy loaded\\n    through the API's ``/scope/load`` never reached Celery workers or\\n    other Uvicorn workers, and vanished on restart.\\n\\n    Construction modes (both preserve the historical method signatures):\\n\\n    * ``ScopeRegistry()`` \\u2014 exact legacy behavior (in-memory only). All\\n      existing imports and tests are untouched.\\n    * ``ScopeRegistry(store=SqliteScopeStore(path))`` \\u2014 every ``load``\\n      appends a versioned record to the shared store, every ``get``\\n      falls through to the store \", \"file\": \"/home/z/my-project/work_umdr44/WebPent_UNIFIED/src/webpent/scope/registry.py\"}\n",
+      "stderr_tail": ""
+    },
+    "covering_test_files_total": 39,
+    "covering_test_files_selected": [
+      "tests/team1_acceptance/test_sprint_i2_e2e_walking_skeleton.py",
+      "tests/team1_acceptance/test_sprint_i2_hotfix_regression.py",
+      "tests/team1_acceptance/test_sprint_i3_e2e_flow_vertical.py",
+      "tests/test_campaign_resume.py",
+      "tests/test_e2e_chain_promotion_locks.py",
+      "tests/test_e2e_dalfox_v3_url_flag.py",
+      "tests/test_frozen_module_gate.py",
+      "tests/test_hardening_0330_b2.py",
+      "tests/test_impl_p0_phase_fixes.py",
+      "tests/test_m1a_cli_engagement_hosts.py",
+      "tests/test_m1a_katana_scope_pinning.py",
+      "tests/test_m2_adversarial_scope.py",
+      "tests/test_p0_option1_adapter_and_quick_fixes.py",
+      "tests/test_postp0_phase3_session_liveness.py",
+      "tests/test_r4_production_hardening.py",
+      "tests/test_tc5_trace_r1_chain_verified.py",
+      "tests/test_team1_tool_scope.py",
+      "tests/test_u8_cheap_yields.py",
+      "tests/test_umdr28_campaign_stateful_e2e.py",
+      "tests/test_umdr31_campaign_e2e_ablation.py",
+      "tests/test_umdr32_evaluation_lab.py",
+      "tests/test_umdr34_boundary_enforcement.py",
+      "tests/test_umdr34_engagement_lifecycle.py",
+      "tests/test_umdr37_root_cause_fixes.py",
+      "tests/test_umdr41_scope_registry.py",
+      "tests/test_umdr42_scope_closure.py",
+      "tests/test_umdr44_b6_fail_open_gaps.py",
+      "tests/test_umdr44_b6_thread_gate.py",
+      "tests/test_umdr44_b8_tecl_reachable.py",
+      "tests/test_umdr44_clear_none_teardown.py",
+      "tests/test_v10_audit_fixes.py",
+      "tests/test_v10_p0p1_rca_followup.py",
+      "tests/test_v15_review_hardening.py",
+      "tests/test_v27_memory_boundary.py",
+      "tests/test_v2_ssrf_probe.py",
+      "tests/test_v62_ingest_and_memory_isolation.py",
+      "tests/test_v63_vip_security_regression.py",
+      "tests/test_vip_audit_gap_closure.py",
+      "tests/test_waptlab_live_improvements.py"
+    ],
+    "covering_tests": {
+      "rc": 0,
+      "tail": "........................................................................ [  6%]\n..............................................................s.......s. [ 13%]\n......s................s................................................ [ 20%]\n.............................s.......................................... [ 27%]\n........................................................................ [ 34%]\n.........................................................s...ss......... [ 41%]\n........................................................................ [ 48%]\n.....................................s.......................s.........s [ 55%]\n....................s................................................... [ 62%]\n.............s..............................................s........... [ 69%]\n........................................................................ [ 76%]\n........................................................................ [ 82%]\n........................................................................ [ 89%]\n........................................................................ [ 96%]\n..................................                                       [100%]\n=============================== warnings summary ===============================\n.venv/lib/python3.12/site-packages/fastapi/testclient.py:1\n  /home/z/my-project/work_umdr44/WebPent_UNIFIED/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\ntests/test_umdr37_root_cause_fixes.py::test_production_path_discovers_and_confirms_idor\ntests/test_umdr37_root_cause_fixes.py::test_production_path_discovers_and_confirms_idor\ntests/test_umdr37_root_cause_fixes.py::test_production_path_discovers_and_confirms_idor\ntests/test_umdr37_root_cause_fixes.py::test_production_path_discovers_and_confirms_idor\ntests/test_umdr37_root_cause_fixes.py::test_production_path_discovers_and_confirms_idor\ntests/test_umdr37_root_cause_fixes.py::test_production_path_discovers_and_confirms_idor\n  /home/z/my-project/work_umdr44/WebPent_UNIFIED/.venv/lib/python3.12/site-packages/httpx/_client.py:1053: DeprecationWarning: Setting per-request cookies=<...> is being deprecated, because the expected behaviour on cookie persistence is ambiguous. Set cookies directly on the client instance instead.\n    return self.request(\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n1028 passed, 14 skipped, 7 warnings in 74.55s (0:01:14)\n"
+    }
+  },
+  "k6_dependency_drift": {
+    "counts": {
+      "pyproject_core": 35,
+      "extras": {
+        "dev": 12,
+        "recon-extra": 1
+      },
+      "uv_lock": 236
+    },
+    "core_not_in_lock": [],
+    "extras_not_in_lock": {},
+    "requirements_files": {
+      "WebPent_UNIFIED/requirements-runtime.txt": 35,
+      "WebPent_UNIFIED/requirements.constraints.txt": 34
+    },
+    "requirements_not_declared_in_pyproject": {
+      "WebPent_UNIFIED/requirements-runtime.txt": [
+        "h2"
+      ],
+      "WebPent_UNIFIED/requirements.constraints.txt": []
+    },
+    "requirements_not_in_lock": {
+      "WebPent_UNIFIED/requirements-runtime.txt": [
+        "h2"
+      ],
+      "WebPent_UNIFIED/requirements.constraints.txt": []
+    },
+    "runtime_requirements_file": [
+      "WebPent_UNIFIED/requirements-runtime.txt"
+    ],
+    "pyproject_core_missing_from_requirements_runtime": {
+      "WebPent_UNIFIED/requirements-runtime.txt": [
+        "httpx"
+      ]
+    },
+    "install_surfaces": {
+      ".github/workflows/ci.yml": [
+        "130: run: uv sync --locked --extra dev",
+        "174: run: uv sync --locked --extra dev",
+        "272: uv export --locked --no-emit-project --format requirements-txt --output-file /tmp/locked-requirements.txt",
+        "273: uv run python scripts/generate_sbom.py --requirements /tmp/locked-requirements.txt"
+      ],
+      "WebPent_UNIFIED/Dockerfile": [
+        "9: # V6 DX-Final: Optimised Docker layer caching. The pyproject.toml is",
+        "10: # copied and `pip install -e .` is run BEFORE the rest of the source",
+        "12: # pyproject.toml) trigger a rebuild, but ordinary code changes do NOT",
+        "33: # Copy ONLY pyproject.toml (and README.md, which pyproject.toml references",
+        "34: # via ``readme = \"README.md\"``) so that ``pip install -e .`` can resolve",
+        "36: # Any change to pyproject.toml will invalidate this layer; any change",
+        "39: COPY pyproject.toml README.md ./",
+        "41: # Install the framework's dependencies from pyproject.toml. We use",
+        "47: # (e.g. a dep is unavailable, a typo in pyproject.toml, a network",
+        "50: RUN pip install --no-cache-dir -e .",
+        "56: # all deps from pyproject.toml above, this layer only adds the .py",
+        "60: # Re-run ``pip install -e .`` in editable mode to refresh the egg-link",
+        "65: RUN pip install --no-cache-dir -e ."
+      ],
+      "WebPent_UNIFIED/Dockerfile.base": [
+        "136: # by the Python httpx package's console script that pip install -e .",
+        "156: # pyproject.toml further down does not force torch/chromadb to be",
+        "164: # V8.1 FIX: langchain-chroma REMOVED from this line. pyproject.toml",
+        "167: # DIFFERENT version here than the one the app layer's `pip install -e .`",
+        "169: # pyproject.toml is now the single source of truth for this package's",
+        "170: # version; it still gets installed (during the app-layer `pip install",
+        "210: pip install --upgrade pip && \\",
+        "211: pip install --retries 5 --timeout 100 torch --index-url https://download.pytorch.org/whl/cpu && \\",
+        "212: pip install --retries 5 --timeout 100 \"playwright==1.48.0\" sentence-transformers chromadb \\",
+        "214: || { echo \"heavy pip install attempt $i failed (likely a transient network/TLS error), retrying...\"; sleep 10; }; \\",
+        "222: # Stage 2c: Lightweight framework dependencies (from pyproject.toml)",
+        "226: # Copy only pyproject.toml for dependency resolution",
+        "227: COPY pyproject.toml .",
+        "229: # V7 Fix 1.3: Create stub src/webpent so pip install -e . can resolve egg_base.",
+        "233: pip install -e . --no-deps && \\",
+        "234: pip install PyJWT \"bcrypt>=4.0.1\" python-multipart structlog"
+      ]
+    },
+    "allowlists": {
+      "scripts/pip_audit_allowlist.txt": [
+        "PYSEC-2026-311",
+        "PYSEC-2026-3813",
+        "PYSEC-2026-3814",
+        "PYSEC-2026-3815"
+      ],
+      "scripts/quality/cve_allowlist.json": [
+        "PYSEC-2026-311",
+        "PYSEC-2026-3813",
+        "PYSEC-2026-3814",
+        "PYSEC-2026-3815"
+      ],
+      "identical": true,
+      "only_in_legacy": [],
+      "only_in_quality": []
+    },
+    "torch": {
+      "declared_core": true,
+      "declared_extras": [],
+      "in_lock": true,
+      "importers_in_src": []
+    },
+    "findings": [
+      "FAIL: requirements entries absent from uv.lock",
+      "FAIL: requirements entries not declared in pyproject: ['WebPent_UNIFIED/requirements-runtime.txt']",
+      "FAIL: pyproject core deps missing from requirements-runtime: {'WebPent_UNIFIED/requirements-runtime.txt': ['httpx']}",
+      "DRIFT: torch declared as a core dependency but never imported under src/webpent"
+    ]
+  }
+}

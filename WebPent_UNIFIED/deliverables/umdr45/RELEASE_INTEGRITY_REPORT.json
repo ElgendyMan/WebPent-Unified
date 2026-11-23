@@ -1,0 +1,92 @@
+{
+  "schema": "umdr45-release-integrity/v1",
+  "generated_at": "2026-11-23T21:52:19.017057+00:00",
+  "delivery_branch": "feature/umdr44-security-and-identity-closure",
+  "final_sha": "78e651e4e1089172a4b8141d0bc86007fe364bcf",
+  "checks": {
+    "one_trunk_main_is_ancestor": {
+      "merge_base": "78e651e4e1089172a4b8141d0bc86007fe364bcf",
+      "fast_forward_possible": true
+    },
+    "window_commits": {
+      "count": 60,
+      "subjects": [
+        "78e651e gate(umdr45): stability attempt 3 — empty commit, tree identical to 61359fb (see attempt 2 for the rerun-API-403 rationale)",
+        "fbcc089 gate(umdr45): stability attempt 2 — empty commit, tree identical to 61359fb",
+        "61359fb Update project to v0.44.0 UMDR45 release: BUILD_INFO suite-count + manifest-digest re-sync and durable release evidence re-bound to the current run (UM-DR-45 window re-freeze ritual; suite_count = accounting_v3.started_items, evidence_revision = the suite source commit)",
+        "adf9056 fix(tests): UM-DR-45 — the unreadable-approval sentinel joins the fail-closed set",
+        "f97a700 Update project to v0.44.0 UMDR45 FINAL: durable release evidence re-bound GREEN to the definitive suite on the release tip",
+        "4273639 Update project to v0.44.0 UMDR45 release: BUILD_INFO re-freeze + durable release evidence re-bound to the current run",
+        "040deeb chore(gates): regenerate the direct-I/O artifact after the R2 h2_race repair",
+        "9c0f946 fix(ci): UM-DR-45 R1+R2 — heal the 4 real CI run #40 failures on the window tip",
+        "8cdf820 docs(umdr45): inventories, X-track battery, evidence registers (M2/M4/D5/X/R2/R3/K5/K6)",
+        "f5af496 chore(gates): regenerate the direct-I/O artifact after the K3/K4 window",
+        "2eb86c2 fix(deps): K6 — h2 is a direct dependency (http2 backend), not a transitive nicety",
+        "1524dd0 fix(auth): K4 — fail fast when authentication is enabled and no operator can be provisioned"
+      ]
+    },
+    "archive_tags": {
+      "found": {
+        "archive/features-v0.39.0-umdr33-bbe7c4e7300f": "bbe7c4e7300faf29fe487d94df93c3364e877ce7",
+        "archive/security-umdr34-origin-scope-hardening-155690053341": "15569005334158f4d1794fac2210bf6f15c7d2b8",
+        "archive/security-umdr42-closure-828767c42ebe": "828767c42ebe41ab622a9a3ca72ed4af907633d2"
+      },
+      "all_match_classified_tips": true,
+      "branches_deleted": false
+    },
+    "build_info_provenance": {
+      "git_head": "adf9056e77d2440fc679740441d4e6278db9ae7c",
+      "suite_count": 9681,
+      "manifest_digest": "4ed225d52f7c5826f2370cbf315f7e341ee9eecd26ce7c91f04ad9b88761a8e6",
+      "manifest_digest_matches_file": true,
+      "notes": "v0.44.0 tag points at the final SHA (created at release; see ci_gate + release steps)"
+    },
+    "ci_gate": {
+      "schema": "umdr45-stability-gate/v2",
+      "gate": "PASS-identical-tree",
+      "generated_at": "2026-11-23T21:51:44.110834+00:00",
+      "law": "3 green full-suite runs over ONE release content",
+      "constraint": "re-run and workflow-dispatch APIs return 403 for the delivery token (fine-grained PAT: contents:write only, no actions:write); stability proven instead by three push-triggered runs on three commits sharing one identical tree hash",
+      "tree": "ab14c7c3d6b37e82b1ad3171033e2274726d5d87",
+      "runs": [
+        {
+          "run_number": 47,
+          "sha": "61359fbb72399a75a797923584ca4f1ac243cab1",
+          "conclusion": "success",
+          "run_id": 45256173998,
+          "attempt": 1
+        },
+        {
+          "run_number": 48,
+          "sha": "fbcc089e5f628f7a188e4d30220b44c594a9ec4e",
+          "conclusion": "success"
+        },
+        {
+          "run_number": 49,
+          "sha": "78e651e4e1089172a4b8141d0bc86007fe364bcf",
+          "conclusion": "success"
+        }
+      ]
+    },
+    "suite_evidence_current_run": {
+      "source_commit": "adf9056e77d2440fc679740441d4e6278db9ae7c",
+      "binds_to_final_sha": false,
+      "collected": 9681,
+      "started": 9681,
+      "failed": 0,
+      "invariants_all_true": true
+    },
+    "suite_evidence_durable": {
+      "source_commit": "adf9056e77d2440fc679740441d4e6278db9ae7c",
+      "binds_to_final_sha": false,
+      "collected": 9681,
+      "started": 9681,
+      "failed": 0,
+      "invariants_all_true": true
+    },
+    "sbom": {
+      "exists": true,
+      "generated_by": "scripts/generate_sbom.py (R1: allowlist-adjudicated, generation failure still fails CI)"
+    }
+  }
+}
