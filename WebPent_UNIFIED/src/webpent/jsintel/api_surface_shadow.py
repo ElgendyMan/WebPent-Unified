@@ -55,6 +55,7 @@ from types import SimpleNamespace
 from typing import Any
 from urllib.parse import urlparse
 
+from webpent.models.hypothesis import Hypothesis
 from webpent.shared.javascript_intelligence import analyze_javascript_source
 
 logger = logging.getLogger(__name__)
@@ -558,7 +559,7 @@ def shadow_hypothesis_to_state_hypothesis(
     shadow: ShadowHypothesis,
     *,
     target_url: str,
-) -> "Hypothesis":
+) -> Hypothesis:
     """Convert one shadow hypothesis into a state ``Hypothesis``.
 
     M3 ق8 wiring helper (UM-DR-16). Advisory-pinned by construction:
@@ -567,8 +568,12 @@ def shadow_hypothesis_to_state_hypothesis(
     undocumented-endpoint NEGATIVE CONTROL (a randomized non-existent path
     must reproduce the same baseline status — a hypothesis whose control
     fires is refuted, never confirmed).
+
+    UM-DR-45 K3: ``Hypothesis`` is bound at module level so the return
+    annotation resolves under ``typing.get_type_hints`` (it was imported
+    only inside this body, which made the public helper unreflectable).
     """
-    from webpent.models.hypothesis import Hypothesis, HypothesisOrigin, HypothesisStatus
+    from webpent.models.hypothesis import HypothesisOrigin, HypothesisStatus
 
     provenance = f"api_surface_shadow:{shadow.hypothesis_id}"
     statement = f"{shadow.title}: {shadow.rationale}"[:500]
