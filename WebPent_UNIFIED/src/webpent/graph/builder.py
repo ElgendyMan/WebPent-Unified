@@ -283,6 +283,10 @@ NODE_ATTACK_CHAIN = "attack_chain"
 NODE_DISCOVERY_INTEL = "discovery_intel"
 # UM-DR-46 Phase F — the SKG-driven experiment-planner node
 NODE_EXPERIMENT_PLANNER = "experiment_planner"
+# UM-DR-46 Phase G — the SKG-coverage node
+NODE_SKG_COVERAGE = "skg_coverage"
+# UM-DR-46 Phase H — the research-memory node
+NODE_RESEARCH_MEMORY = "research_memory"
 #: (proposal 7) The four deterministic detector nodes, chained after
 #: request_smuggling inside the deep-probe phase. Pass-throughs unless
 #: the surface/flag applies.
@@ -2236,6 +2240,19 @@ def build_graph(checkpointer: Any = None, auto_approve: bool = False,
     graph.add_node(
         NODE_EXPERIMENT_PLANNER,
         _trace_wrap(NODE_EXPERIMENT_PLANNER, experiment_planner_node))
+    # UM-DR-46 Phase G: the SKG-coverage node — (resource × principal ×
+    # operation) cells, verified only under guard-adjudicated evidence.
+    from webpent.production.skg_coverage_node import skg_coverage_node
+
+    graph.add_node(
+        NODE_SKG_COVERAGE, _trace_wrap(NODE_SKG_COVERAGE, skg_coverage_node))
+    # UM-DR-46 Phase H: the research-memory node — deterministic lesson
+    # compaction + ranking-time demotion lookups (never pool mutation).
+    from webpent.production.research_memory_node import research_memory_node
+
+    graph.add_node(
+        NODE_RESEARCH_MEMORY,
+        _trace_wrap(NODE_RESEARCH_MEMORY, research_memory_node))
     graph.add_node(
         NODE_RESEARCHER_BRAIN, _trace_wrap(NODE_RESEARCHER_BRAIN, researcher_brain_node))
     # UM-DR-46 Phase C: the hypothesis-evolution node — deterministic
@@ -2386,10 +2403,12 @@ def build_graph(checkpointer: Any = None, auto_approve: bool = False,
     graph.add_edge(NODE_ATTACK_CHAIN, NODE_DISCOVERY_INTEL)
     graph.add_edge(NODE_DISCOVERY_INTEL, NODE_EXPERIMENT_PLANNER)
     graph.add_edge(NODE_EXPERIMENT_PLANNER, NODE_RESEARCHER_BRAIN)
+    graph.add_edge(NODE_RESEARCHER_BRAIN, NODE_HYPOTHESIS_EVOLUTION)
+    graph.add_edge(NODE_HYPOTHESIS_EVOLUTION, NODE_SKG_COVERAGE)
+    graph.add_edge(NODE_SKG_COVERAGE, NODE_RESEARCH_MEMORY)
+    graph.add_edge(NODE_RESEARCH_MEMORY, NODE_HYPOTHESIS)
     # UM-DR-46 Phase C: evolution consumes pool + refutations, then
     # the hypothesis node merges the current cycle's own candidates
-    graph.add_edge(NODE_RESEARCHER_BRAIN, NODE_HYPOTHESIS_EVOLUTION)
-    graph.add_edge(NODE_HYPOTHESIS_EVOLUTION, NODE_HYPOTHESIS)
 
     graph.add_conditional_edges(
         # V10 P1-3: renamed route_after_recon -> route_after_hypothesis

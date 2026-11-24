@@ -70,6 +70,8 @@ ADD_NEW = {
     "src/webpent/production/attack_chains_node.py",
     "src/webpent/production/discovery_intel_node.py",
     "src/webpent/production/experiment_planner_node.py",
+    "src/webpent/production/skg_coverage_node.py",
+    "src/webpent/production/research_memory_node.py",
 }
 
 

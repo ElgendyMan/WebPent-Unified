@@ -78,6 +78,12 @@ DECLARED_ADDED = {
         "kind": "dynamic_resolution",
         "normalized_symbol": "getattr(state, ... )",
     }, sort_keys=True),
+    # Phase H: the memory module's status-inspection accessor
+    json.dumps({
+        "file": "src/webpent/researcher/memory.py",
+        "kind": "dynamic_resolution",
+        "normalized_symbol": "getattr(hyp, ... )",
+    }, sort_keys=True),
 }
 
 

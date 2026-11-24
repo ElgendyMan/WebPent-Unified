@@ -565,6 +565,21 @@ class PentestState(TypedDict, total=False):
     experiment_planner: Annotated[dict[str, Any], merge_dicts]
     experiment_plans: Annotated[list[dict[str, Any]], merge_lists]
 
+    # --- UM-DR-46 Phase G (coverage intelligence): the SKG-derived
+    # (resource × principal × operation) coverage cells — VERIFIED only
+    # when the evidence intersects guard-adjudicated observations;
+    # everything else honestly observed_unverified. Advisory telemetry.
+    # ---
+    skg_coverage: Annotated[dict[str, Any], merge_dicts]
+
+    # --- UM-DR-46 Phase H (research memory): the deterministic
+    # wall-clock-free compaction of the negative-evidence lessons with
+    # the family hints and the RANKING-TIME demotion lookup (the pool's
+    # declared values are lifecycle-protected — memory never mutates
+    # pool records; any rank_open_hypotheses consumer may apply the
+    # lookup). Advisory only. ---
+    research_memory: Annotated[dict[str, Any], merge_dicts]
+
     # --- UM-DR-46 Phase E (advanced discovery intelligence): the
     # SKG-mined discovery-target channel written by the discovery_intel
     # node (production/discovery_intel_node.py) — what the model itself

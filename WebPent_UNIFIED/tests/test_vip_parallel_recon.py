@@ -138,7 +138,10 @@ def test_build_graph_flag_off_matches_legacy_topology(monkeypatch):
     # (SKG-mined discovery targets; advisory guidance channel only).
     # UM-DR-46 Phase F (2026-11-24): 61 -> 62 — the experiment-planner
     # node (plans only; ResearchLoop schedules).
-    assert len(nodes) == 62
+    # UM-DR-46 Phase G+H (2026-11-24): 62 -> 64 — the SKG-coverage node
+    # (advisory cells) and the research-memory node (lesson compaction +
+    # ranking-time demotion lookups; never pool mutation).
+    assert len(nodes) == 64
     assert NODE_RECON_FANOUT not in nodes
     assert NODE_RECON_JOIN not in nodes
     assert NODE_SUBDOMAIN_TAKEOVER in nodes
@@ -168,7 +171,8 @@ def test_build_graph_flag_on_adds_fanout_join_pair(monkeypatch):
     # UM-DR-46 Phase E (2026-11-24): 62 -> 63 (same discovery-intel +1
     # as the flag-off case above).
     # UM-DR-46 Phase F (2026-11-24): 63 -> 64 (same planner +1).
-    assert len(nodes) == 64
+    # UM-DR-46 Phase G+H (2026-11-24): 64 -> 66 (same coverage/memory +2).
+    assert len(nodes) == 66
     assert NODE_RECON_FANOUT in nodes
     assert NODE_RECON_JOIN in nodes
     assert NODE_SUBDOMAIN_TAKEOVER in nodes
