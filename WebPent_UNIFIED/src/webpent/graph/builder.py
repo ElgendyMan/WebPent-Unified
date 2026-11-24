@@ -59,16 +59,6 @@ from webpent.agents.disclosed_report_intel.agent import disclosed_report_intel_n
 from webpent.agents.execution_sandbox.agent import execution_sandbox_node
 from webpent.agents.executive_summary.agent import executive_summary_node
 from webpent.agents.exploit_chainer.agent import exploit_chainer_node
-
-# UM-DR-40 RC-5: the registered node is the dedup-wrapped generator —
-# every emitted hypothesis gets its deterministic content id (uuid5
-# of the (target_url, vuln_class) fingerprint) at GENERATION time, so
-# the upsert-by-id merge_hypotheses reducer absorbs cross-pass
-# content duplicates instead of appending them. The bare import above
-# stays for backward compatibility of external callers.
-from webpent.production.hypothesis_dedup import (
-    deduplicated_hypothesis_node,
-)
 from webpent.agents.javascript_intelligence.agent import javascript_intelligence_node
 from webpent.agents.payload_generator.agent import payload_generator_node
 from webpent.agents.payload_optimizer.agent import (
@@ -90,6 +80,16 @@ from webpent.agents.smart_campaigns.agent import (
     smart_campaigns_node,
 )
 from webpent.graph import budget_governor
+
+# UM-DR-40 RC-5: the registered node is the dedup-wrapped generator —
+# every emitted hypothesis gets its deterministic content id (uuid5
+# of the (target_url, vuln_class) fingerprint) at GENERATION time, so
+# the upsert-by-id merge_hypotheses reducer absorbs cross-pass
+# content duplicates instead of appending them. The bare import above
+# stays for backward compatibility of external callers.
+from webpent.production.hypothesis_dedup import (
+    deduplicated_hypothesis_node,
+)
 
 # Sprint I-1b, item 3.1: restored after ruff --fix (F401) wrongly removed
 # it -- unused within this file's own code, but imported here so
@@ -159,11 +159,11 @@ from webpent.shared.research_nodes import (
     research_session_node,
 )
 from webpent.shared.runtime import RegisteredAdapter, RuntimeContext
+from webpent.shared.vip_campaign_node import vip_campaign_node
 from webpent.shared.wildcard_scope import (
     route_after_wildcard_scope,
     wildcard_scope_node,
 )
-from webpent.shared.vip_campaign_node import vip_campaign_node
 from webpent.state.state import PentestState
 
 logger = logging.getLogger(__name__)
@@ -273,6 +273,10 @@ NODE_SURFACE_SIZING = "surface_sizing"
 #: real state channels and emit advisory research hints BEFORE hypothesis
 #: generation, so the model can actually influence research decisions.
 NODE_APPMODEL = "appmodel"
+# UM-DR-46 Phase B — the deterministic researcher-brain node
+NODE_RESEARCHER_BRAIN = "researcher_brain"
+# UM-DR-46 Phase C — the adaptive hypothesis-evolution node
+NODE_HYPOTHESIS_EVOLUTION = "hypothesis_evolution"
 #: (proposal 7) The four deterministic detector nodes, chained after
 #: request_smuggling inside the deep-probe phase. Pass-throughs unless
 #: the surface/flag applies.
@@ -2197,6 +2201,22 @@ def build_graph(checkpointer: Any = None, auto_approve: bool = False,
     from webpent.graph.appmodel_nodes import appmodel_node
 
     graph.add_node(NODE_APPMODEL, _trace_wrap(NODE_APPMODEL, appmodel_node))
+    # UM-DR-46 Phase B: the researcher-brain node — deterministic
+    # understanding components over the SKG (behavioral profiles,
+    # business rules, transition semantics, invariants, contradictions),
+    # feeding canonical hypotheses into the ordinary pool.
+    from webpent.production.researcher_brain import researcher_brain_node
+
+    graph.add_node(
+        NODE_RESEARCHER_BRAIN, _trace_wrap(NODE_RESEARCHER_BRAIN, researcher_brain_node))
+    # UM-DR-46 Phase C: the hypothesis-evolution node — deterministic
+    # mutation/decomposition/competition/negative-evidence/info-gain
+    # over the pool, feeding ordinary canonical hypotheses.
+    from webpent.production.hypothesis_evolution import hypothesis_evolution_node
+
+    graph.add_node(
+        NODE_HYPOTHESIS_EVOLUTION,
+        _trace_wrap(NODE_HYPOTHESIS_EVOLUTION, hypothesis_evolution_node))
     graph.add_node(NODE_GRAPHQL_TESTING, _trace_wrap(NODE_GRAPHQL_TESTING, graphql_testing_node))
     graph.add_node(NODE_CACHE_POISONING, _trace_wrap(NODE_CACHE_POISONING, cache_poisoning_node))
     graph.add_node(NODE_PROTOTYPE_POLLUTION, _trace_wrap(NODE_PROTOTYPE_POLLUTION, prototype_pollution_node))
@@ -2331,7 +2351,12 @@ def build_graph(checkpointer: Any = None, auto_approve: bool = False,
     # data complete) and BEFORE hypothesis generation, so its hints can
     # influence the actual research decisions that follow.
     graph.add_edge(NODE_SURFACE_SIZING, NODE_APPMODEL)
-    graph.add_edge(NODE_APPMODEL, NODE_HYPOTHESIS)
+    # UM-DR-46 Phase B: the brain consumes the SKG and feeds the pool
+    graph.add_edge(NODE_APPMODEL, NODE_RESEARCHER_BRAIN)
+    # UM-DR-46 Phase C: evolution consumes pool + refutations, then
+    # the hypothesis node merges the current cycle's own candidates
+    graph.add_edge(NODE_RESEARCHER_BRAIN, NODE_HYPOTHESIS_EVOLUTION)
+    graph.add_edge(NODE_HYPOTHESIS_EVOLUTION, NODE_HYPOTHESIS)
 
     graph.add_conditional_edges(
         # V10 P1-3: renamed route_after_recon -> route_after_hypothesis

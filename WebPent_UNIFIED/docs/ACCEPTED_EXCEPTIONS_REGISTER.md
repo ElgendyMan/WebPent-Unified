@@ -215,3 +215,15 @@ typed exception set is recorded as per-file follow-up debt.
 - `src/webpent/production/discovery_funnel.py` — 1 handler(s) (UM-DR-33 addition: the discovery-funnel state read — observability must NEVER kill a campaign, the exact coverage_gap_report/identity_workflow fail-soft precedent. The single handler wraps the funnel's bounded ``state.get`` boundary: a malformed state value degrades to the honest ``not_materialized_in_state`` marker, never a crash. The funnel is pure telemetry: no findings, no promotion, no confirmation authority — cqa_v2.guarded_causal_evaluate stays the sole confirmation authority.) (UM-DR-32 addition: the identity_workflow node's master gate — `identity_workflow_enabled()` treats any settings failure as not-enabled (fail-closed no-op), the exact coverage_gap_report double-gate precedent. The node is advisory only: no findings, no promotion, no confirmation authority.)
 - `src/webpent/shared/h2_race.py` — 1 handler(s) (UM-DR-44 B6(b) addition: the verify_target_tls settings read — any settings failure keeps STRICT TLS (fail-closed to certificate verification ON), the exact coverage_gap_report double-gate precedent. The handler decides only whether the operator explicitly disabled target TLS verification; it never widens verification off by default.)
 - `src/webpent/graph/appmodel_nodes.py` — 1 handler(s) (UM-DR-36 addition: the appmodel graph node's construction boundary — the semantic model is an ADVISORY research input by contract, never a confirmation or authorization authority (proven by `test_semantic_model_has_no_confirmation_or_authorization_authority`). A construction failure degrades to the honest `built=False` summary with the error recorded and empty research hints; the campaign continues. The exact coverage_gap_report/adaptive_research fail-soft precedent: observability and advisory understanding must NEVER kill a campaign.)
+
+## UM-DR-46 Phase B+C (2026-11-24) — researcher-brain + hypothesis-evolution nodes
+
+Two advisory graph nodes follow the UM-DR-36 appmodel_node construction-boundary precedent:
+
+* `src/webpent/production/researcher_brain.py` (1 handler) — the deterministic Researcher Brain's SKG construction: a failure degrades to `built=False` telemetry with the error recorded and empty advisory channels; the campaign continues. The node never promotes, confirms, or grants authority.
+* `src/webpent/production/hypothesis_evolution.py` (1 handler) — the adaptive hypothesis engine's SKG construction: mutations/competitors/lessons are ordinary canonical pool additions (same strategist ranking, same promotion gates); a failure degrades to an empty addition set with the error recorded.
+## UM-DR-46 Phase D+E (2026-11-24) — attack-chain + discovery-intel nodes
+
+* `src/webpent/production/attack_chains_node.py` (1 handler) — SKG chain composition degrades to empty chains with the error recorded.
+* `src/webpent/production/discovery_intel_node.py` (1 handler) — SKG discovery mining degrades to an empty channel with the error recorded.
+

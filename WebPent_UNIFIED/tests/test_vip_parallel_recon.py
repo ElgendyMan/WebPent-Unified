@@ -125,7 +125,13 @@ def test_build_graph_flag_off_matches_legacy_topology(monkeypatch):
     # corrective closure: an ADVISORY research-influence node (never a
     # confirmation/authorization authority — pinned by
     # test_semantic_model_has_no_confirmation_or_authorization_authority).
-    assert len(nodes) == 57
+    # UM-DR-46 Phase B+C (2026-11-24): 57 -> 59 — the researcher-brain
+    # node (deterministic SKG understanding) and the hypothesis-evolution
+    # node (deterministic mutation/competition/negative-evidence) chained
+    # appmodel→researcher_brain→hypothesis_evolution→hypothesis; both
+    # ADVISORY research-influence nodes (never confirmation/authorization
+    # authorities).
+    assert len(nodes) == 59
     assert NODE_RECON_FANOUT not in nodes
     assert NODE_RECON_JOIN not in nodes
     assert NODE_SUBDOMAIN_TAKEOVER in nodes
@@ -148,7 +154,9 @@ def test_build_graph_flag_on_adds_fanout_join_pair(monkeypatch):
     # flag-off case above).
     # UM-DR-36 (2026-11-12): 58 -> 59 (same appmodel +1 as the flag-off
     # case above).
-    assert len(nodes) == 59
+    # UM-DR-46 Phase B+C (2026-11-24): 59 -> 61 (same brain/evolution +2
+    # as the flag-off case above).
+    assert len(nodes) == 61
     assert NODE_RECON_FANOUT in nodes
     assert NODE_RECON_JOIN in nodes
     assert NODE_SUBDOMAIN_TAKEOVER in nodes

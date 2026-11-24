@@ -504,6 +504,45 @@ class PentestState(TypedDict, total=False):
     authorization_observations: Annotated[
         list[dict[str, Any]], merge_lists]
 
+    # --- UM-DR-46 Phase A (Security Knowledge Graph): the typed,
+    # evidence-carrying SKG evidence records. Producers write
+    # records like {"evidence_kind": "authz_marker" |
+    # "ownership_change" | "resource_access", "endpoint": path-or-url,
+    # "resource": "type:id", "role"/"actor", "operation", "attribute",
+    # "evidence_refs": [...], "declared": bool} — the appmodel node's
+    # SKG builder (appmodel/skg.py) derives PERMITS / MODIFIES /
+    # READS relations from them. Strictly evidence-backed channel
+    # data: append-only, no values ever inferred, and never an
+    # authority (advisory research prioritization only). ---
+    skg_evidence: Annotated[list[dict[str, Any]], merge_lists]
+
+    # --- UM-DR-46 Phase B (Researcher Brain): the deterministic
+    # understanding channels written by the researcher_brain node
+    # (production/researcher_brain.py) — behavioral profiles, business
+    # rules, transition semantics, invariant candidates and
+    # evidence-vs-evidence contradictions over the SKG. Strictly
+    # advisory: every entry is evidence-carrying and names its
+    # causal-guard validation contract; no finding vocabulary, no
+    # confirmation authority — contradictions surface as ORDINARY
+    # canonical hypotheses (same promotion gates). ---
+    researcher_brain: Annotated[dict[str, Any], merge_dicts]
+    researcher_brain_rules: Annotated[list[dict[str, Any]], merge_lists]
+    researcher_brain_contradictions: Annotated[
+        list[dict[str, Any]], merge_lists]
+
+    # --- UM-DR-46 Phase C (adaptive hypothesis engine): the evolution
+    # channels written by the hypothesis_evolution node
+    # (production/hypothesis_evolution.py) — deterministic mutations/
+    # decompositions/competitors flow through the ORDINARY hypotheses
+    # pool; research_lessons records the deterministic negative-
+    # evidence lessons (decayed relatives carry negative_lesson_id in
+    # their evidence contracts); researcher_priorities is the advisory
+    # info-gain selection over the open pool. Strictly advisory —
+    # no lifecycle authority, never a promotion or confirmation. ---
+    researcher_evolution: Annotated[dict[str, Any], merge_dicts]
+    research_lessons: Annotated[list[dict[str, Any]], merge_lists]
+    researcher_priorities: Annotated[dict[str, Any], merge_dicts]
+
     # UM-DR-30 (Workstream D §6 business-logic): the deterministic
     # invariant review over the workflow observations above (see
     # business_logic/invariant_checker.py — previously a zero-importer
