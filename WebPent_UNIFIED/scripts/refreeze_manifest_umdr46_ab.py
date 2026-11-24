@@ -69,6 +69,7 @@ ADD_NEW = {
     "src/webpent/production/hypothesis_evolution.py",
     "src/webpent/production/attack_chains_node.py",
     "src/webpent/production/discovery_intel_node.py",
+    "src/webpent/production/experiment_planner_node.py",
 }
 
 

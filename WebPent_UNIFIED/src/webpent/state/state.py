@@ -553,6 +553,18 @@ class PentestState(TypedDict, total=False):
     attack_chains: Annotated[list[dict[str, Any]], merge_lists]
     attack_chain_summary: Annotated[dict[str, Any], merge_dicts]
 
+    # --- UM-DR-46 Phase F (autonomous experimentation): the
+    # experiment-PLAN channel written by the experiment_planner node
+    # (production/experiment_planner_node.py) — deterministic plans
+    # binding modeled targets to the registry's experiment families,
+    # complete observed principal matrices only (incomplete matrices
+    # ABSTAIN with a recorded reason). The planner PLANS ONLY: the
+    # ResearchLoop stays the sole scheduler, execution stays inside
+    # ModernOrchestrator (ScopeLaw + ToolBoundary), CausalGuard stays
+    # the sole authority. ---
+    experiment_planner: Annotated[dict[str, Any], merge_dicts]
+    experiment_plans: Annotated[list[dict[str, Any]], merge_lists]
+
     # --- UM-DR-46 Phase E (advanced discovery intelligence): the
     # SKG-mined discovery-target channel written by the discovery_intel
     # node (production/discovery_intel_node.py) — what the model itself

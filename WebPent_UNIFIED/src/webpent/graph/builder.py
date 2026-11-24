@@ -281,6 +281,8 @@ NODE_HYPOTHESIS_EVOLUTION = "hypothesis_evolution"
 NODE_ATTACK_CHAIN = "attack_chain"
 # UM-DR-46 Phase E — the SKG-mined discovery-intel node
 NODE_DISCOVERY_INTEL = "discovery_intel"
+# UM-DR-46 Phase F — the SKG-driven experiment-planner node
+NODE_EXPERIMENT_PLANNER = "experiment_planner"
 #: (proposal 7) The four deterministic detector nodes, chained after
 #: request_smuggling inside the deep-probe phase. Pass-throughs unless
 #: the surface/flag applies.
@@ -2224,6 +2226,16 @@ def build_graph(checkpointer: Any = None, auto_approve: bool = False,
     graph.add_node(
         NODE_DISCOVERY_INTEL,
         _trace_wrap(NODE_DISCOVERY_INTEL, discovery_intel_node))
+    # UM-DR-46 Phase F: the experiment-planner node — deterministic
+    # plans for the registry's experiment families (complete observed
+    # principal matrices only; the ResearchLoop schedules, not this node).
+    from webpent.production.experiment_planner_node import (
+        experiment_planner_node,
+    )
+
+    graph.add_node(
+        NODE_EXPERIMENT_PLANNER,
+        _trace_wrap(NODE_EXPERIMENT_PLANNER, experiment_planner_node))
     graph.add_node(
         NODE_RESEARCHER_BRAIN, _trace_wrap(NODE_RESEARCHER_BRAIN, researcher_brain_node))
     # UM-DR-46 Phase C: the hypothesis-evolution node — deterministic
@@ -2372,7 +2384,8 @@ def build_graph(checkpointer: Any = None, auto_approve: bool = False,
     # consume the SKG and feed the pool
     graph.add_edge(NODE_APPMODEL, NODE_ATTACK_CHAIN)
     graph.add_edge(NODE_ATTACK_CHAIN, NODE_DISCOVERY_INTEL)
-    graph.add_edge(NODE_DISCOVERY_INTEL, NODE_RESEARCHER_BRAIN)
+    graph.add_edge(NODE_DISCOVERY_INTEL, NODE_EXPERIMENT_PLANNER)
+    graph.add_edge(NODE_EXPERIMENT_PLANNER, NODE_RESEARCHER_BRAIN)
     # UM-DR-46 Phase C: evolution consumes pool + refutations, then
     # the hypothesis node merges the current cycle's own candidates
     graph.add_edge(NODE_RESEARCHER_BRAIN, NODE_HYPOTHESIS_EVOLUTION)

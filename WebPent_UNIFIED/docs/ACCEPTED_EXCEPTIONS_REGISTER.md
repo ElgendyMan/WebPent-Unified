@@ -226,4 +226,5 @@ Two advisory graph nodes follow the UM-DR-36 appmodel_node construction-boundary
 
 * `src/webpent/production/attack_chains_node.py` (1 handler) — SKG chain composition degrades to empty chains with the error recorded.
 * `src/webpent/production/discovery_intel_node.py` (1 handler) — SKG discovery mining degrades to an empty channel with the error recorded.
+* `src/webpent/production/experiment_planner_node.py` (1 handler) — experiment-plan construction degrades to an empty channel with the error recorded (Phase F; the planner never schedules or executes).
 
