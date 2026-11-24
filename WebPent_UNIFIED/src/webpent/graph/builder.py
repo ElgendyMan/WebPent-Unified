@@ -287,6 +287,10 @@ NODE_EXPERIMENT_PLANNER = "experiment_planner"
 NODE_SKG_COVERAGE = "skg_coverage"
 # UM-DR-46 Phase H — the research-memory node
 NODE_RESEARCH_MEMORY = "research_memory"
+# UM-DR-46 Phase I — the research-QC node
+NODE_RESEARCH_QC = "research_qc"
+# UM-DR-46 Phase J — the protocol-depth node
+NODE_PROTOCOL_DEPTH = "protocol_depth"
 #: (proposal 7) The four deterministic detector nodes, chained after
 #: request_smuggling inside the deep-probe phase. Pass-throughs unless
 #: the surface/flag applies.
@@ -2253,6 +2257,19 @@ def build_graph(checkpointer: Any = None, auto_approve: bool = False,
     graph.add_node(
         NODE_RESEARCH_MEMORY,
         _trace_wrap(NODE_RESEARCH_MEMORY, research_memory_node))
+    # UM-DR-46 Phase I: the research-QC node — deterministic deficiency
+    # reports over the research artifacts (never deletes or modifies).
+    from webpent.production.research_qc_node import research_qc_node
+
+    graph.add_node(
+        NODE_RESEARCH_QC, _trace_wrap(NODE_RESEARCH_QC, research_qc_node))
+    # UM-DR-46 Phase J: the protocol-depth node — SKG-driven
+    # protocol-depth targets (advisory targets, never requests).
+    from webpent.production.protocol_depth_node import protocol_depth_node
+
+    graph.add_node(
+        NODE_PROTOCOL_DEPTH,
+        _trace_wrap(NODE_PROTOCOL_DEPTH, protocol_depth_node))
     graph.add_node(
         NODE_RESEARCHER_BRAIN, _trace_wrap(NODE_RESEARCHER_BRAIN, researcher_brain_node))
     # UM-DR-46 Phase C: the hypothesis-evolution node — deterministic
@@ -2406,7 +2423,9 @@ def build_graph(checkpointer: Any = None, auto_approve: bool = False,
     graph.add_edge(NODE_RESEARCHER_BRAIN, NODE_HYPOTHESIS_EVOLUTION)
     graph.add_edge(NODE_HYPOTHESIS_EVOLUTION, NODE_SKG_COVERAGE)
     graph.add_edge(NODE_SKG_COVERAGE, NODE_RESEARCH_MEMORY)
-    graph.add_edge(NODE_RESEARCH_MEMORY, NODE_HYPOTHESIS)
+    graph.add_edge(NODE_RESEARCH_MEMORY, NODE_RESEARCH_QC)
+    graph.add_edge(NODE_RESEARCH_QC, NODE_PROTOCOL_DEPTH)
+    graph.add_edge(NODE_PROTOCOL_DEPTH, NODE_HYPOTHESIS)
     # UM-DR-46 Phase C: evolution consumes pool + refutations, then
     # the hypothesis node merges the current cycle's own candidates
 

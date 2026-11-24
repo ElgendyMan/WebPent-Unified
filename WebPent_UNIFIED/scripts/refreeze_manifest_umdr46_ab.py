@@ -72,6 +72,8 @@ ADD_NEW = {
     "src/webpent/production/experiment_planner_node.py",
     "src/webpent/production/skg_coverage_node.py",
     "src/webpent/production/research_memory_node.py",
+    "src/webpent/production/research_qc_node.py",
+    "src/webpent/production/protocol_depth_node.py",
 }
 
 

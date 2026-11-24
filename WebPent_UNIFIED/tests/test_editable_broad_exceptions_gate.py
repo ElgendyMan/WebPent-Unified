@@ -212,6 +212,8 @@ REGISTERED_FILES["src/webpent/production/discovery_intel_node.py"] = 1  # UM-DR-
 REGISTERED_FILES["src/webpent/production/experiment_planner_node.py"] = 1  # UM-DR-46 Phase F: the experiment-planner node's SKG construction boundary — plans are advisory (ResearchLoop schedules, ModernOrchestrator executes, CausalGuard adjudicates): a construction failure degrades to an empty plan channel with the error recorded. The exact UM-DR-36 appmodel_node fail-soft precedent.
 REGISTERED_FILES["src/webpent/production/skg_coverage_node.py"] = 1  # UM-DR-46 Phase G: the SKG-coverage node's construction boundary — cells are advisory telemetry: a failure degrades to an empty channel with the error recorded. The exact UM-DR-36 appmodel_node fail-soft precedent.
 REGISTERED_FILES["src/webpent/production/research_memory_node.py"] = 1  # UM-DR-46 Phase H: the research-memory node's compaction boundary — memory is advisory (ranking-time lookups, never pool mutation): a failure degrades to an empty channel with the error recorded. The exact UM-DR-36 appmodel_node fail-soft precedent.
+REGISTERED_FILES["src/webpent/production/research_qc_node.py"] = 1  # UM-DR-46 Phase I: the research-QC node's channel boundary — QC records are deficiency reports (never deletes/modifies): a failure degrades to an error-shaped channel. The exact UM-DR-36 fail-soft precedent.
+REGISTERED_FILES["src/webpent/production/protocol_depth_node.py"] = 1  # UM-DR-46 Phase J: the protocol-depth node's SKG construction boundary — targets are advisory (no requests): a failure degrades to an empty channel with the error recorded. The exact UM-DR-36 fail-soft precedent.
 
 _BROAD = re.compile(r"^\s*except\s+Exception\b")
 

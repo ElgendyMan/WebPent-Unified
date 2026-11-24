@@ -1603,7 +1603,9 @@ def test_baseline_disagrees_only_on_documented_unfreeze_paths() -> None:
            "src/webpent/production/discovery_intel_node.py",
            "src/webpent/production/experiment_planner_node.py",
            "src/webpent/production/skg_coverage_node.py",
-           "src/webpent/production/research_memory_node.py"}
+           "src/webpent/production/research_memory_node.py",
+           "src/webpent/production/research_qc_node.py",
+           "src/webpent/production/protocol_depth_node.py"}
         # UM-DR-44 B6(b) scope completion: h2_race.py gained a
         # registered broad handler (the fail-closed verify_target_tls
         # settings read) and missed the last pin cycle — pinned now as

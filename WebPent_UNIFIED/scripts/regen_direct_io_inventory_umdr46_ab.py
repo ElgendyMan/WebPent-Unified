@@ -84,6 +84,17 @@ DECLARED_ADDED = {
         "kind": "dynamic_resolution",
         "normalized_symbol": "getattr(hyp, ... )",
     }, sort_keys=True),
+    # Phase I: the QC module's status/origin-inspection accessors
+    json.dumps({
+        "file": "src/webpent/researcher/qc.py",
+        "kind": "dynamic_resolution",
+        "normalized_symbol": "getattr(hyp, ... )",
+    }, sort_keys=True),
+    json.dumps({
+        "file": "src/webpent/researcher/qc.py",
+        "kind": "dynamic_resolution",
+        "normalized_symbol": "getattr(... )",
+    }, sort_keys=True),
 }
 
 

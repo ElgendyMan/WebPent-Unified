@@ -572,6 +572,18 @@ class PentestState(TypedDict, total=False):
     # ---
     skg_coverage: Annotated[dict[str, Any], merge_dicts]
 
+    # --- UM-DR-46 Phase I (autonomous QC): deterministic deficiency
+    # reports over the research artifacts (hypotheses/lessons/plans).
+    # QC never deletes or modifies an artifact — it flags for the
+    # operator. Advisory only. ---
+    research_qc: Annotated[dict[str, Any], merge_dicts]
+
+    # --- UM-DR-46 Phase J (multi-protocol depth): SKG-driven
+    # protocol-depth targets (workflow sequences, enumerable object-id
+    # spaces, cross-origin workflows). Advisory targets only — no
+    # requests, no scope authority. ---
+    protocol_depth: Annotated[dict[str, Any], merge_dicts]
+
     # --- UM-DR-46 Phase H (research memory): the deterministic
     # wall-clock-free compaction of the negative-evidence lessons with
     # the family hints and the RANKING-TIME demotion lookup (the pool's

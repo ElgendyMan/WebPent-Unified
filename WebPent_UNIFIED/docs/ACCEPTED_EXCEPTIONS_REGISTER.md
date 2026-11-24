@@ -229,4 +229,6 @@ Two advisory graph nodes follow the UM-DR-36 appmodel_node construction-boundary
 * `src/webpent/production/experiment_planner_node.py` (1 handler) — experiment-plan construction degrades to an empty channel with the error recorded (Phase F; the planner never schedules or executes).
 * `src/webpent/production/skg_coverage_node.py` (1 handler) — SKG coverage projection degrades to an empty channel (Phase G).
 * `src/webpent/production/research_memory_node.py` (1 handler) — lesson compaction degrades to an empty channel (Phase H; ranking-time lookups only, never pool mutation).
+* `src/webpent/production/research_qc_node.py` (1 handler) — QC channel read degrades to an error shape (Phase I).
+* `src/webpent/production/protocol_depth_node.py` (1 handler) — SKG depth mining degrades to an empty channel (Phase J).
 
