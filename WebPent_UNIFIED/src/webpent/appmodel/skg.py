@@ -450,6 +450,12 @@ def build_security_knowledge_graph(
                 "endpoint": str(record.get("endpoint") or "")[:240],
                 "method": str(record.get("method") or "")[:16],
                 "destructive": bool(record.get("destructive")),
+                # UM-DR-46 Phase D: the observed authorization boundary of
+                # the transition (evidence-backed from the observation
+                # record; empty when unobserved) — the workflow-chain
+                # composition gates on role_scoped transitions.
+                "authorization_boundary": str(
+                    record.get("authorization_boundary") or "")[:60],
             },
         )
 

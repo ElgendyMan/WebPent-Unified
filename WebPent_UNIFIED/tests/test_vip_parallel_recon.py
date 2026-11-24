@@ -131,7 +131,10 @@ def test_build_graph_flag_off_matches_legacy_topology(monkeypatch):
     # appmodel→researcher_brain→hypothesis_evolution→hypothesis; both
     # ADVISORY research-influence nodes (never confirmation/authorization
     # authorities).
-    assert len(nodes) == 59
+    # UM-DR-46 Phase D (2026-11-24): 59 -> 60 — the attack-chain node
+    # (cross-feature SKG compositions feeding canonical hypotheses;
+    # advisory only).
+    assert len(nodes) == 60
     assert NODE_RECON_FANOUT not in nodes
     assert NODE_RECON_JOIN not in nodes
     assert NODE_SUBDOMAIN_TAKEOVER in nodes
@@ -156,7 +159,9 @@ def test_build_graph_flag_on_adds_fanout_join_pair(monkeypatch):
     # case above).
     # UM-DR-46 Phase B+C (2026-11-24): 59 -> 61 (same brain/evolution +2
     # as the flag-off case above).
-    assert len(nodes) == 61
+    # UM-DR-46 Phase D (2026-11-24): 61 -> 62 (same attack-chain +1 as
+    # the flag-off case above).
+    assert len(nodes) == 62
     assert NODE_RECON_FANOUT in nodes
     assert NODE_RECON_JOIN in nodes
     assert NODE_SUBDOMAIN_TAKEOVER in nodes

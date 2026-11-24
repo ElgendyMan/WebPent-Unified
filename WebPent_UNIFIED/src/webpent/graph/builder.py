@@ -277,6 +277,8 @@ NODE_APPMODEL = "appmodel"
 NODE_RESEARCHER_BRAIN = "researcher_brain"
 # UM-DR-46 Phase C — the adaptive hypothesis-evolution node
 NODE_HYPOTHESIS_EVOLUTION = "hypothesis_evolution"
+# UM-DR-46 Phase D — the cross-feature attack-chain node
+NODE_ATTACK_CHAIN = "attack_chain"
 #: (proposal 7) The four deterministic detector nodes, chained after
 #: request_smuggling inside the deep-probe phase. Pass-throughs unless
 #: the surface/flag applies.
@@ -2207,6 +2209,12 @@ def build_graph(checkpointer: Any = None, auto_approve: bool = False,
     # feeding canonical hypotheses into the ordinary pool.
     from webpent.production.researcher_brain import researcher_brain_node
 
+    # UM-DR-46 Phase D: the attack-chain node — composes SKG facts
+    # into multi-step chain candidates feeding canonical hypotheses.
+    from webpent.production.attack_chains_node import attack_chain_node
+
+    graph.add_node(
+        NODE_ATTACK_CHAIN, _trace_wrap(NODE_ATTACK_CHAIN, attack_chain_node))
     graph.add_node(
         NODE_RESEARCHER_BRAIN, _trace_wrap(NODE_RESEARCHER_BRAIN, researcher_brain_node))
     # UM-DR-46 Phase C: the hypothesis-evolution node — deterministic
@@ -2351,8 +2359,10 @@ def build_graph(checkpointer: Any = None, auto_approve: bool = False,
     # data complete) and BEFORE hypothesis generation, so its hints can
     # influence the actual research decisions that follow.
     graph.add_edge(NODE_SURFACE_SIZING, NODE_APPMODEL)
-    # UM-DR-46 Phase B: the brain consumes the SKG and feeds the pool
-    graph.add_edge(NODE_APPMODEL, NODE_RESEARCHER_BRAIN)
+    # UM-DR-46 Phase B+D: the chain composer and the brain both
+    # consume the SKG and feed the pool
+    graph.add_edge(NODE_APPMODEL, NODE_ATTACK_CHAIN)
+    graph.add_edge(NODE_ATTACK_CHAIN, NODE_RESEARCHER_BRAIN)
     # UM-DR-46 Phase C: evolution consumes pool + refutations, then
     # the hypothesis node merges the current cycle's own candidates
     graph.add_edge(NODE_RESEARCHER_BRAIN, NODE_HYPOTHESIS_EVOLUTION)

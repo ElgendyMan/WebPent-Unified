@@ -543,6 +543,16 @@ class PentestState(TypedDict, total=False):
     research_lessons: Annotated[list[dict[str, Any]], merge_lists]
     researcher_priorities: Annotated[dict[str, Any], merge_dicts]
 
+    # --- UM-DR-46 Phase D (cross-feature attack reasoning): the
+    # attack-chain channels written by the attack_chain node
+    # (production/attack_chains_node.py) — deterministic multi-step
+    # compositions of evidence-backed SKG facts (info+authz, workflow
+    # bypass, cross-surface) with one canonical hypothesis per chain
+    # into the ORDINARY pool. Strictly advisory research candidates —
+    # never a finding, never a confirmation, never an authorization. ---
+    attack_chains: Annotated[list[dict[str, Any]], merge_lists]
+    attack_chain_summary: Annotated[dict[str, Any], merge_dicts]
+
     # UM-DR-30 (Workstream D §6 business-logic): the deterministic
     # invariant review over the workflow observations above (see
     # business_logic/invariant_checker.py — previously a zero-importer
