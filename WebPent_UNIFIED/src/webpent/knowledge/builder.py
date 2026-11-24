@@ -126,6 +126,211 @@ def _safe_confidence(value: Any, default: float = 0.5) -> float:
     return max(0.0, min(1.0, confidence))
 
 
+# ---------------------------------------------------------------------------
+# UM-DR-46 Phase A (RC-9 fold): the AppModel → v1 read-only projection.
+# ---------------------------------------------------------------------------
+
+_V1_KIND_MAP = {
+    "identity": KnowledgeKind.IDENTITY,
+    "endpoint": KnowledgeKind.ENDPOINT,
+    "resource": KnowledgeKind.OBJECT,
+    "workflow": KnowledgeKind.WORKFLOW,
+    "role": KnowledgeKind.ROLE,
+    "state": KnowledgeKind.OBJECT,
+    "session": KnowledgeKind.IDENTITY,
+    "parameter": KnowledgeKind.ENDPOINT,
+    "trust_boundary": KnowledgeKind.OBJECT,
+    "organization": KnowledgeKind.OBJECT,
+    "tenant": KnowledgeKind.OBJECT,
+    "application": KnowledgeKind.OBJECT,
+    "observation": KnowledgeKind.OBJECT,
+}
+
+_V1_MAX_NODES = 2000
+_V1_MAX_EDGES = 4000
+_V1_MAX_WORKFLOWS = 64
+_V1_MAX_PROFILES = 64
+
+
+def _bounded_metadata(raw: Mapping[str, Any]) -> dict[str, Any]:
+    metadata: dict[str, Any] = {"discovery_source": "appmodel"}
+    for key, value in list(raw.items())[:20]:
+        if not isinstance(value, (str, int, float, bool)):
+            continue
+        metadata[str(key)[:100]] = _safe_text(value, limit=200)
+    return metadata
+
+
+def build_target_knowledge_model_from_appmodel(
+    appmodel: Mapping[str, Any],
+) -> TargetKnowledgeModel:
+    """Project the Security Knowledge Graph (AppModel channel) into the
+    v1 TargetKnowledgeModel — read-only, one authority (RC-9).
+
+    The AppModel is the contradiction-preserving SSOT; this projection
+    never competes with it: every node/edge carries the SSOT's own
+    confidence, provenance (in metadata) and evidence refs. Provenance
+    ``contradicted`` entities project with their recorded confidence so
+    downstream consumers see the conflict instead of a silent overwrite.
+    """
+    engagement_id = (
+        str(appmodel.get("engagement_id") or "unscoped").strip() or "unscoped"
+    )
+    model = TargetKnowledgeModel(engagement_id=engagement_id)
+    entities = appmodel.get("entities")
+    entities = entities if isinstance(entities, dict) else {}
+    relations = appmodel.get("relations")
+    relations = relations if isinstance(relations, list) else []
+
+    state_names_by_workflow: dict[str, set[str]] = {}
+    workflow_keys_by_entity: dict[str, str] = {}
+    for entity_id, raw in list(entities.items())[:_V1_MAX_NODES]:
+        if not isinstance(raw, dict):
+            continue
+        kind_raw = str(raw.get("kind") or "object")
+        node_kind = _V1_KIND_MAP.get(kind_raw, KnowledgeKind.OBJECT)
+        label = _safe_text(raw.get("label"), limit=200) or entity_id
+        metadata = raw.get("metadata")
+        metadata = metadata if isinstance(metadata, Mapping) else {}
+        provenance = _safe_text(raw.get("provenance"), limit=40) or "unknown"
+        node_metadata = _bounded_metadata(metadata)
+        node_metadata["provenance"] = provenance
+        model.add_node(
+            KnowledgeNode(
+                node_id=str(entity_id),
+                kind=node_kind,
+                canonical_key=label,
+                confidence=_safe_confidence(raw.get("confidence"), default=0.5),
+                in_scope=None,
+                evidence_refs=[
+                    str(ref)[:200]
+                    for ref in (raw.get("evidence_refs") or [])
+                    if str(ref).strip()
+                ][:50],
+                metadata=node_metadata,
+            )
+        )
+        if kind_raw == "workflow":
+            workflow_key = str(metadata.get("workflow_key") or label)
+            workflow_keys_by_entity[str(entity_id)] = workflow_key
+        if kind_raw == "state":
+            workflow_key = str(metadata.get("workflow_key") or "")
+            state_name = str(metadata.get("state") or label)
+            if workflow_key:
+                state_names_by_workflow.setdefault(workflow_key, set()).add(
+                    state_name)
+
+    for raw in relations[:_V1_MAX_EDGES]:
+        if not isinstance(raw, dict):
+            continue
+        source_id = str(raw.get("source_id") or "")
+        target_id = str(raw.get("target_id") or "")
+        if not source_id or not target_id:
+            continue
+        if source_id not in model.nodes or target_id not in model.nodes:
+            continue
+        model.add_edge(
+            KnowledgeEdge(
+                source_id=source_id,
+                target_id=target_id,
+                relation=str(raw.get("kind") or "related_to")[:100],
+                confidence=_safe_confidence(raw.get("confidence"), default=0.5),
+                evidence_refs=[
+                    str(ref)[:200]
+                    for ref in (raw.get("evidence_refs") or [])
+                    if str(ref).strip()
+                ][:50],
+            )
+        )
+
+    # workflows: the SSOT's state-before-after model → v1 WorkflowState
+    transitions_by_workflow: dict[str, list[dict[str, str]]] = {}
+    for raw in relations:
+        if not isinstance(raw, dict):
+            continue
+        if str(raw.get("kind") or "") != "transitions":
+            continue
+        metadata = raw.get("metadata")
+        metadata = metadata if isinstance(metadata, Mapping) else {}
+        workflow_key = str(metadata.get("workflow_key") or "")
+        if not workflow_key:
+            continue
+        source = entities.get(str(raw.get("source_id")) or "")
+        target = entities.get(str(raw.get("target_id")) or "")
+        from_state = (
+            source.get("metadata", {}).get("state")
+            if isinstance(source, dict)
+            else None
+        )
+        to_state = (
+            target.get("metadata", {}).get("state")
+            if isinstance(target, dict)
+            else None
+        )
+        transitions_by_workflow.setdefault(workflow_key, []).append({
+            "from": str(from_state or ""),
+            "to": str(to_state or ""),
+            "endpoint": str(metadata.get("endpoint") or "")[:200],
+            "method": str(metadata.get("method") or "")[:16],
+        })
+    for workflow_entity_id, workflow_key in sorted(
+        workflow_keys_by_entity.items()
+    )[:_V1_MAX_WORKFLOWS]:
+        raw = entities.get(workflow_entity_id) or {}
+        model.workflows[workflow_entity_id] = WorkflowState(
+            workflow_id=workflow_entity_id,
+            name=workflow_key[:200],
+            required_role=None,
+            states=sorted(state_names_by_workflow.get(workflow_key, ()))[:100],
+            transitions=transitions_by_workflow.get(workflow_key, [])[:100],
+            identity_refs=[],
+            evidence_refs=[
+                str(ref)[:200]
+                for ref in (raw.get("evidence_refs") or [])
+                if str(ref).strip()
+            ][:50],
+            confidence=_safe_confidence(raw.get("confidence"), default=0.5),
+        )
+
+    # authorization profiles: identities → their assumed roles (SSOT)
+    role_assumers: dict[str, list[tuple[str, list[str]]]] = {}
+    for raw in relations:
+        if not isinstance(raw, dict):
+            continue
+        if str(raw.get("kind") or "") != "assumes_role":
+            continue
+        identity_id = str(raw.get("source_id") or "")
+        role_id = str(raw.get("target_id") or "")
+        if identity_id not in model.nodes or role_id not in model.nodes:
+            continue
+        role_entity = entities.get(role_id) or {}
+        role_name = (
+            role_entity.get("metadata", {}).get("role")
+            if isinstance(role_entity, dict)
+            else None
+        ) or str(role_entity.get("label") or role_id)[:200]
+        role_assumers.setdefault(identity_id, []).append(
+            (str(role_name)[:200], [
+                str(ref)[:200]
+                for ref in (raw.get("evidence_refs") or [])
+                if str(ref).strip()
+            ])
+        )
+    for identity_id, roles in sorted(role_assumers.items())[:_V1_MAX_PROFILES]:
+        model.authorization_profiles[identity_id] = AuthorizationProfile(
+            identity_id=identity_id,
+            role_names=sorted({role for role, _refs in roles})[:20],
+            observed_capabilities=[],
+            authorization_status="observed",
+            evidence_refs=[
+                ref
+                for _role, refs in roles
+                for ref in refs
+            ][:50],
+        )
+    return model
+
+
 def build_target_knowledge_model(
     *,
     engagement_id: str,
@@ -334,6 +539,13 @@ class KnowledgeBuilder:
     The wrapper is intentionally additive and read-only. It accepts incomplete
     legacy state, uses a stable non-empty scope when no engagement identifier
     exists, and only projects explicitly observed records.
+
+    UM-DR-46 Phase A (RC-9 fold): when the state carries the AppModel
+    channel (the Security Knowledge Graph — the contradiction-preserving
+    SSOT), the v1 model is built as a READ-ONLY PROJECTION of it instead
+    of a competing overwrite-on-conflict scrape of the mental model.
+    One authority, zero data loss; the legacy path remains for states
+    without an AppModel.
     """
 
     def __init__(self, state: Mapping[str, Any] | None = None) -> None:
@@ -347,6 +559,11 @@ class KnowledgeBuilder:
     def build(self) -> TargetKnowledgeModel:
         """Return a bounded deterministic projection, failing closed on bad input."""
         state = self.state
+        appmodel = state.get("appmodel")
+        if isinstance(appmodel, dict) and isinstance(
+            appmodel.get("entities"), dict
+        ) and appmodel["entities"]:
+            return build_target_knowledge_model_from_appmodel(appmodel)
         engagement_id = (
             str(state.get("engagement_id") or state.get("thread_id") or "unscoped").strip()
             or "unscoped"
@@ -378,4 +595,8 @@ class KnowledgeBuilder:
         )
 
 
-__all__ = ["KnowledgeBuilder", "build_target_knowledge_model"]
+__all__ = [
+    "KnowledgeBuilder",
+    "build_target_knowledge_model",
+    "build_target_knowledge_model_from_appmodel",
+]

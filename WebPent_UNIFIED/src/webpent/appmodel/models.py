@@ -30,8 +30,8 @@ Design contracts:
 
 from __future__ import annotations
 
-from enum import Enum
 from collections.abc import Mapping
+from enum import Enum
 from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -58,6 +58,15 @@ class AppModelEntityKind(str, Enum):
     WORKFLOW = "workflow"
     IDENTITY = "identity"
     OBSERVATION = "observation"
+    # UM-DR-46 Phase A — the Security Knowledge Graph entity classes
+    # (mission Phase A: the nine security entities; Users map onto the
+    # existing IDENTITY kind — extend-not-rewrite).
+    RESOURCE = "resource"            # a business object (orders:123)
+    ROLE = "role"                    # a named authorization role
+    SESSION = "session"              # a session principal binding (never its value)
+    PARAMETER = "parameter"          # a varying path segment observed across endpoints
+    TRUST_BOUNDARY = "trust_boundary"  # a network/origin trust boundary
+    STATE = "state"                  # a workflow state (state-before-after)
 
 
 class DiscoveryProvenance(str, Enum):
@@ -107,6 +116,18 @@ class AppModelRelationKind(str, Enum):
     OBSERVED_ON = "observed_on"              # observation→endpoint/workflow
     REACHABLE_FROM = "reachable_from"        # endpoint→endpoint
     OWNS = "owns"                            # identity→endpoint/resource
+    # UM-DR-46 Phase A — the Security Knowledge Graph relation kinds.
+    # Every one is created ONLY from recorded evidence (never from
+    # hypothesis text) by appmodel/skg.py.
+    ASSUMES_ROLE = "assumes_role"            # identity→role
+    PERMITS = "permits"                      # role→endpoint (an authz marker)
+    READS = "reads"                          # identity/endpoint→resource
+    MODIFIES = "modifies"                    # identity/endpoint→resource
+    ACCESSES = "accesses"                    # identity/endpoint→resource (operation unknown)
+    TRANSITIONS = "transitions"              # state→state (before→after, evidence-backed)
+    CROSSES = "crosses"                      # endpoint/workflow→trust_boundary
+    BOUND_TO = "bound_to"                    # session→identity
+    HAS_PARAMETER = "has_parameter"          # endpoint→parameter
 
 
 # UM-DR-36 (2026-11-12): ``OWNS`` was added by the corrective closure to
@@ -476,7 +497,7 @@ class ApplicationModel(BaseModel):
             "revision": self.revision,
         }
 
-    def delta_since(self, previous: "ApplicationModel") -> dict[str, Any]:
+    def delta_since(self, previous: ApplicationModel) -> dict[str, Any]:
         """UM-DR-37 Part 5.6 — the observable delta between two model
         revisions: what was added/removed, which provenance changed, and
         which contradictions were recorded. Bounded, deterministic,
@@ -532,6 +553,15 @@ class ApplicationModel(BaseModel):
             "workflow": "workflow",
             "identity": "identity",
             "observation": "state",
+            # UM-DR-46 Phase A: the SKG entity classes project into the
+            # frozen vocabulary (conventions follow attack_graph/engine.py:
+            # TRUST_BOUNDARY → STATE).
+            "resource": "resource",
+            "role": "permission",
+            "session": "identity",
+            "parameter": "action",
+            "trust_boundary": "state",
+            "state": "state",
         }
         nodes: dict[str, Any] = {}
         for entity_id, entity in self.entities.items():
