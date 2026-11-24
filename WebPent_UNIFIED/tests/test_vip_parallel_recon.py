@@ -134,7 +134,9 @@ def test_build_graph_flag_off_matches_legacy_topology(monkeypatch):
     # UM-DR-46 Phase D (2026-11-24): 59 -> 60 — the attack-chain node
     # (cross-feature SKG compositions feeding canonical hypotheses;
     # advisory only).
-    assert len(nodes) == 60
+    # UM-DR-46 Phase E (2026-11-24): 60 -> 61 — the discovery-intel node
+    # (SKG-mined discovery targets; advisory guidance channel only).
+    assert len(nodes) == 61
     assert NODE_RECON_FANOUT not in nodes
     assert NODE_RECON_JOIN not in nodes
     assert NODE_SUBDOMAIN_TAKEOVER in nodes
@@ -161,7 +163,9 @@ def test_build_graph_flag_on_adds_fanout_join_pair(monkeypatch):
     # as the flag-off case above).
     # UM-DR-46 Phase D (2026-11-24): 61 -> 62 (same attack-chain +1 as
     # the flag-off case above).
-    assert len(nodes) == 62
+    # UM-DR-46 Phase E (2026-11-24): 62 -> 63 (same discovery-intel +1
+    # as the flag-off case above).
+    assert len(nodes) == 63
     assert NODE_RECON_FANOUT in nodes
     assert NODE_RECON_JOIN in nodes
     assert NODE_SUBDOMAIN_TAKEOVER in nodes

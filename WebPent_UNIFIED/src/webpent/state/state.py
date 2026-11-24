@@ -553,6 +553,15 @@ class PentestState(TypedDict, total=False):
     attack_chains: Annotated[list[dict[str, Any]], merge_lists]
     attack_chain_summary: Annotated[dict[str, Any], merge_dicts]
 
+    # --- UM-DR-46 Phase E (advanced discovery intelligence): the
+    # SKG-mined discovery-target channel written by the discovery_intel
+    # node (production/discovery_intel_node.py) — what the model itself
+    # says it has NOT observed yet (unobserved transitions, parameter
+    # siblings, single-path resources, unmarked state triggers).
+    # Advisory guidance only — mining produces no requests, holds no
+    # authority, never expands scope. ---
+    discovery_intel: Annotated[dict[str, Any], merge_dicts]
+
     # UM-DR-30 (Workstream D §6 business-logic): the deterministic
     # invariant review over the workflow observations above (see
     # business_logic/invariant_checker.py — previously a zero-importer
