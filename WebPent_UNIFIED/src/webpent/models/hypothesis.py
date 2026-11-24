@@ -118,6 +118,12 @@ class HypothesisOrigin(str, Enum):
     COVERAGE_GAP = "coverage_gap"    # open coverage-ledger cell (observed, untested)
     INVARIANT = "invariant"          # invariant-review candidate or untested
                                      # workflow authorization boundary
+    # UM-DR-46 Phase B: the deterministic researcher-brain contradictions
+    # (researcher/brain.py — evidence-vs-evidence conflicts recorded in
+    # the SKG SSOT). An ORDINARY hypothesis citizen: same strategist
+    # ranking, same promotion gates, same authorized execution path;
+    # never a finding, never a confirmation.
+    RESEARCHER_BRAIN = "researcher_brain"  # SKG contradiction candidate
 
 
 class Hypothesis(BaseModel):
