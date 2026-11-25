@@ -232,11 +232,19 @@ def test_builder_and_node_channel_roundtrip():
     assert node_out["appmodel_summary"]["built"] is True
     assert node_out["appmodel_summary"]["advisory_only"] is True
     # Ontology honesty (mission §2.2): report the REAL enum counts.
+    # UM-DR-46 Phase A extended the vocabulary by mission mandate: the
+    # 9 security entity classes (Users map onto IDENTITY) add 6 kinds
+    # and the SKG relation set adds 9 kinds (GOVERNANCE_INDEX Phase A
+    # row). The pins below are the Phase A contract.
     from webpent.appmodel.models import AppModelEntityKind, AppModelRelationKind
-    assert len(list(AppModelEntityKind)) == 7
-    assert len(list(AppModelRelationKind)) == 8  # OWNS added by UM-DR-36
+    assert len(list(AppModelEntityKind)) == 13
+    assert len(list(AppModelRelationKind)) == 17  # +9 SKG kinds (Phase A)
     kinds = set(node_out["appmodel_summary"]["entity_kind_counts"])
-    assert kinds <= {"organization", "tenant", "application", "endpoint", "identity"}
-    # PRINCIPAL / ROLE / RESOURCE / STATE kinds do NOT exist in the ontology:
-    # recorded as coverage reality, never claimed.
-    assert "principal" not in kinds and "role" not in kinds and "state" not in kinds
+    assert kinds <= {
+        "organization", "tenant", "application", "endpoint", "identity",
+        "resource", "role", "session", "parameter", "trust_boundary",
+        "state", "workflow", "observation",
+    }
+    # principal remains absent (Users map onto IDENTITY — extend-not-
+    # rewrite); role/resource/state ARE first-class since Phase A.
+    assert "principal" not in kinds

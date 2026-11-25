@@ -2,7 +2,7 @@
   "generated": "2026-11-19",
   "tool": "umdr42 phase B audit",
   "counts": {
-    "total": 108,
+    "total": 107,
     "high": 0,
     "medium": 104,
     "low": 1
@@ -964,21 +964,12 @@
     },
     {
       "id": "UMDR42-107",
-      "category": "tooling",
+      "category": "lint",
       "severity": "info",
-      "file": "-",
+      "file": "src/",
       "line": 0,
-      "title": "ruff not installed in sandbox",
-      "detail": "-"
-    },
-    {
-      "id": "UMDR42-108",
-      "category": "tooling",
-      "severity": "info",
-      "file": "-",
-      "line": 0,
-      "title": "bandit not installed in sandbox",
-      "detail": "-"
+      "title": "ruff findings: 3327",
+      "detail": "Full list in ruff output; categorized counts in detail. This is pre-existing tracked debt (ruff ratchet baseline in scripts/quality/ruff_baseline.json governs CI); recorded for the audit, fix handled via the ratchet, not one-by-one here. | top codes: E501=2205, E702=302, E701=168, UP037=86, I001=79, `Mapping`=32, B008=32, UP045=30, F401=28, `Iterable`,=26"
     }
   ]
 }

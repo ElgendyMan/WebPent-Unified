@@ -27,9 +27,13 @@ from typing import Any
 
 from webpent.appmodel.builder import (
     build_appmodel_research_hints,
-    build_application_model,
 )
 from webpent.appmodel.models import ApplicationModel
+from webpent.appmodel.skg import (
+    build_security_knowledge_graph,
+    build_skg_research_hints,
+)
+from webpent.appmodel.skg_queries import summarize_skg
 
 logger = logging.getLogger(__name__)
 
@@ -39,9 +43,14 @@ NODE_APPMODEL_LABEL = "appmodel"
 
 
 def appmodel_node(state: Any) -> dict[str, Any]:
-    """Build the application semantic model from real state and emit hints."""
+    """Build the application semantic model from real state and emit hints.
+
+    UM-DR-46 Phase A: the model is the Security Knowledge Graph — the
+    base AppModel spine plus the nine security entity classes with the
+    discriminating-question telemetry (advisory only).
+    """
     try:
-        model = build_application_model(state)
+        model = build_security_knowledge_graph(state)
     except Exception as exc:  # noqa: BLE001 — advisory node, never fatal
         logger.warning("appmodel construction failed (advisory node): %s", exc)
         return {
@@ -54,7 +63,10 @@ def appmodel_node(state: Any) -> dict[str, Any]:
             },
         }
 
-    hints = build_appmodel_research_hints(model)
+    hints = {
+        **build_appmodel_research_hints(model),
+        **build_skg_research_hints(model),
+    }
 
     get = state.get if hasattr(state, "get") else (lambda k, d=None: d)
     crawled = get("crawled_data") or {}
@@ -103,6 +115,8 @@ def appmodel_node(state: Any) -> dict[str, Any]:
             "advisory for research prioritization only — never authorizes, "
             "never confirms, never bypasses CausalGuard/ProofBundle/Replay"
         ),
+        # UM-DR-46 Phase A — the SKG discriminating-question telemetry
+        "skg": summarize_skg(model),
     }
     logger.info(
         "UM-DR-36 appmodel node: entities=%d relations=%d hints=%d gaps=%d",

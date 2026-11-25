@@ -550,6 +550,39 @@ def _coerce_hypothesis(h: Any) -> Hypothesis | None:
     return None
 
 
+def _brain_engine_enabled() -> bool:
+    """UM-DR-47 W: fail-closed check, isolated for testability."""
+    try:
+        from webpent.production.brain_engine import brain_engine_enabled
+        return brain_engine_enabled()
+    except Exception:  # noqa: BLE001 — fail-closed
+        return False
+
+
+def _brain_engine_context(state: Any) -> Any:
+    """Build (or reuse) the W1 SKG context for one ranking pass."""
+    cached = None
+    getter = getattr(state, "get", None)
+    if callable(getter):
+        try:
+            cached = getter("brain_engine_context")
+        except Exception:  # noqa: BLE001
+            cached = None
+    if cached is not None and getattr(cached, "built", False):
+        return cached
+    from webpent.production.brain_engine import build_brain_context
+    return build_brain_context(state)
+
+
+def _brain_engine_score(hypothesis: Hypothesis, ctx: Any) -> float:
+    """The literal W3 formula applied to one hypothesis."""
+    from webpent.production.brain_engine import brain_priority
+    try:
+        return brain_priority(hypothesis, ctx)
+    except Exception:  # noqa: BLE001 — fail-safe to a neutral score
+        return 0.0
+
+
 def rank_open_hypotheses(
     hypotheses: list[Hypothesis],
     state: Any,
@@ -593,6 +626,24 @@ def rank_open_hypotheses(
     # are dropped rather than propagated.
     coerced = [_coerce_hypothesis(h) for h in hypotheses]
     open_hyps = [h for h in coerced if h is not None and h.is_open()]
+
+    # UM-DR-47 Phase W (wire-or-it-doesn't-exist): when the brain
+    # engine flag is ON, the ranking score IS the literal priority
+    # formula Priority=(EIG×Impact×Confidence)/(Cost+Risk) with the
+    # variables estimated from the Security Knowledge Graph context
+    # (built once per pass — W1). Flag-off keeps the 46 scoring
+    # byte-comparable. The deterministic-match-first guarantee and
+    # the created_at/id tie-breaks are IDENTICAL in both modes.
+    if open_hyps and _brain_engine_enabled():
+        ctx = _brain_engine_context(state)
+        try:
+            from webpent.production.brain_engine import rank_with_brain
+            return rank_with_brain(open_hyps, ctx)
+        except Exception:  # noqa: BLE001 — fail-safe to legacy ranking
+            logger.warning(
+                "brain-engine ranking failed; falling back to legacy score"
+            )
+
     scored: list[tuple[Hypothesis, float]] = []
     for h in open_hyps:
         novelty = novelty_lookup.get(str(h.id))

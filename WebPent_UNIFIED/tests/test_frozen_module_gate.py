@@ -286,6 +286,47 @@ UMDR45_20261123_THAW_PATHS = frozenset(
         "src/webpent/shared/h2_race.py",
     }
 )
+# UM-DR-46 Phase A+B (2026-11-24): the Security Knowledge Graph + the
+# deterministic Researcher Brain. Three frozen trust-chain files edited
+# under the declared-refreeze convention (same pattern as UM-DR-43C /
+# UMDR42 closure / UM-DR-45):
+#   * knowledge/builder.py — RC-9 fold: v1 retires to a read-only
+#     AppModel projection (SSOT preference); regression proof:
+#     tests/test_umdr46_phase_a_skg.py TestV1Projection + the 32 v1
+#     consumer tests.
+#   * state/state.py — `skg_evidence` channel (Phase A) + the three
+#     researcher-brain channels (Phase B); additive declarations only;
+#     regression proof: tests/test_umdr46_phase_a_skg.py +
+#     tests/test_umdr46_phase_b_brain.py.
+#   * models/hypothesis.py — ONE additive HypothesisOrigin member
+#     (RESEARCHER_BRAIN) for the canonical contradiction hypotheses;
+#     regression proof: tests/test_umdr46_phase_b_brain.py.
+# Byte-identity was restored at window close by
+# scripts/refreeze_manifest_umdr46_ab.py, which ALSO removed the three
+# stale entries left in the manifest by the P0.3 agent retirement
+# (agents/specialists/__init__.py, agents/specialists/passive_planner.py,
+# agents/team.py — files deleted by commit 043b512 with the manifest
+# not regenerated in that window; removed paths are not in the
+# baseline-drift `shared` intersection, so no drift expectation here).
+UMDR46_AB_20261124_THAW_PATHS = frozenset(
+    {
+        "src/webpent/knowledge/builder.py",
+        "src/webpent/state/state.py",
+        "src/webpent/models/hypothesis.py",
+    }
+)
+# UM-DR-46 P0.3 repair (2026-11-24): the three agent-retirement entries
+# (files deleted by commit 043b512, manifest not regenerated in that
+# window) are now baseline-only — removed from the current manifest by
+# scripts/refreeze_manifest_umdr46_ab.py. Documented here so the
+# baseline-only check above matches reality.
+UMDR46_P03_RETIRED_BASELINE_ONLY_PATHS = frozenset(
+    {
+        "src/webpent/agents/specialists/__init__.py",
+        "src/webpent/agents/specialists/passive_planner.py",
+        "src/webpent/agents/team.py",
+    }
+)
 # The pre-unfreeze drift expectation needs only the paths that
 # exist in that baseline (store.py is newer than it — a
 # byte-identity-only entry above).
@@ -1462,6 +1503,7 @@ def test_baseline_disagrees_only_on_documented_unfreeze_paths() -> None:
         | UMDR42_20261119_THAW_PATHS
         | UMDR42_CLOSURE_20261120_BASELINE_DRIFT_PATHS
         | UMDR43C_20261121_THAW_PATHS
+        | UMDR46_AB_20261124_THAW_PATHS
         | (
             UMDR45_20261123_THAW_PATHS
             # scope completion, NOT drift: api_surface_shadow.py (K3) and
@@ -1552,6 +1594,18 @@ def test_baseline_disagrees_only_on_documented_unfreeze_paths() -> None:
         # scripts/refreeze_manifest_umdr43c.py (one NEW trust-chain
         # file for the hypothesis-identity window).
         | {"src/webpent/production/hypothesis_identity.py"}
+        # UM-DR-46 Phase B+C: the two advisory researcher nodes pinned
+        # by scripts/refreeze_manifest_umdr46_ab.py (new trust-chain
+        # files for the SKG/brain windows).
+        | {"src/webpent/production/researcher_brain.py",
+           "src/webpent/production/hypothesis_evolution.py",
+           "src/webpent/production/attack_chains_node.py",
+           "src/webpent/production/discovery_intel_node.py",
+           "src/webpent/production/experiment_planner_node.py",
+           "src/webpent/production/skg_coverage_node.py",
+           "src/webpent/production/research_memory_node.py",
+           "src/webpent/production/research_qc_node.py",
+           "src/webpent/production/protocol_depth_node.py"}
         # UM-DR-44 B6(b) scope completion: h2_race.py gained a
         # registered broad handler (the fail-closed verify_target_tls
         # settings read) and missed the last pin cycle — pinned now as
@@ -1579,8 +1633,10 @@ def test_baseline_disagrees_only_on_documented_unfreeze_paths() -> None:
         only_baseline
         - ULTIMATE_PLAN_20261027_ARCHIVED_PATHS
         - UMDR29_ARCHIVED_PATHS
+        - UMDR46_P03_RETIRED_BASELINE_ONLY_PATHS
     ), (
         f"paths only in baseline manifest (beyond the documented "
-        f"2026-10-27 + 2026-11-07 archive sets): "
-        f"{sorted(only_baseline - ULTIMATE_PLAN_20261027_ARCHIVED_PATHS - UMDR29_ARCHIVED_PATHS)}"
+        f"2026-10-27 + 2026-11-07 archive sets and the UM-DR-46 P0.3 "
+        f"retirement): "
+        f"{sorted(only_baseline - ULTIMATE_PLAN_20261027_ARCHIVED_PATHS - UMDR29_ARCHIVED_PATHS - UMDR46_P03_RETIRED_BASELINE_ONLY_PATHS)}"
     )
