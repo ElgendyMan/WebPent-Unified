@@ -488,6 +488,9 @@ class PentestState(TypedDict, total=False):
     # V55 workflow understanding projection.  Passive observations and
     # explicit coverage gaps are additive; hypotheses continue through the
     # existing merge_hypotheses reducer and are never auto-promoted.
+    # UM-DR-48 Phase D: the detection-lanes flag (CLI -> graph state;
+    # the lanes read it via lanes_enabled — OFF preserves the 47 bytes)
+    enable_umdr48_lanes: bool
     workflow_observations: Annotated[list[dict[str, Any]], merge_lists]
 
     # UM-DR-39 RC-2: the authorization-observation channel. DECLARED

@@ -251,6 +251,26 @@ UMDR47_W_20261125_THAW_PATHS = frozenset({
     # excluded here per the UMDR45 scope-completion precedent.
 })
 
+# UM-DR-48 (BREAK THE CEILING, 2026-11-25): Phase D wires the five
+# detection lanes (production/detection_lanes_48.py — first pin, a
+# scope completion never in the pre-unfreeze baseline; regression
+# proof tests/test_umdr48_d_lanes.py (15) +
+# test_umdr48_d_graph_integration.py (2)). The integration seams thawed
+# by this window: access_control/agent.py (the flag-gated lane call +
+# findings promotion), unified_hunt.py (the CLI flag parameter), and
+# state/state.py (the declared enable_umdr48_lanes channel). settings.py
+# carries the flag field (first-pinned in the 47 window — re-pinned
+# here). unified_hunt.py is a 47 scope-completion (not baseline-shared,
+# never pinned) so it cannot drift vs the baseline — excluded here per
+# the UMDR45/47 precedent. Byte-identity is restored by the 48
+# window-close re-freeze (scripts/refreeze_manifest_umdr48.py).
+UMDR48_D_20261125_THAW_PATHS = frozenset({
+    "src/webpent/agents/access_control/agent.py",
+    "src/webpent/state/state.py",
+    "src/webpent/config/settings.py",
+    "src/webpent/cli/unified_hunt.py",
+})
+
 UMDR44_20261122_THAW_PATHS = frozenset(
     {
         "src/webpent/shared/http.py",
@@ -1469,6 +1489,17 @@ def test_frozen_file_byte_identical(relpath: str) -> None:
             f"{relpath} thawed mid-window per the declared UM-DR-45 "
             "K4 startup-gate window — delta-mode enforcement; "
             "byte-identity restored at the window re-freeze")
+    if observed != expected and relpath in UMDR48_D_20261125_THAW_PATHS:
+        # UM-DR-48 Phase D window: the five detection lanes' integration
+        # seams (the flag-gated call in access_control, the CLI flag,
+        # the declared state channel, the settings field); regression
+        # proof is tests/test_umdr48_d_lanes.py (15) +
+        # test_umdr48_d_graph_integration.py (2), and byte-identity is
+        # restored at window close by scripts/refreeze_manifest_umdr48.py.
+        pytest.skip(
+            f"{relpath} thawed mid-window per the declared UM-DR-48 "
+            "Phase D detection-lanes window — delta-mode enforcement; "
+            "byte-identity restored at the window re-freeze")
     if observed != expected and relpath in R3_RULING_THAW_PATHS:
         # Mid-window delta mode: the ruling authorized exactly this file.
         # Authorization/mapping/sub-scope are enforced by the delta gate
@@ -1537,6 +1568,10 @@ def test_baseline_disagrees_only_on_documented_unfreeze_paths() -> None:
         | UMDR43C_20261121_THAW_PATHS
         | UMDR46_AB_20261124_THAW_PATHS
         | UMDR47_W_20261125_THAW_PATHS
+        | (UMDR48_D_20261125_THAW_PATHS - {
+            # first-pinned by the 47 window (never in the pre-unfreeze
+            # baseline) — the drift set cannot contain it
+            "src/webpent/cli/unified_hunt.py"})
         | (
             UMDR45_20261123_THAW_PATHS
             # scope completion, NOT drift: api_surface_shadow.py (K3) and

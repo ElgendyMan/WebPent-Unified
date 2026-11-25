@@ -768,6 +768,21 @@ class Settings(BaseSettings):
             "unaffected); gap entries capped at 200."
         ),
     )
+    enable_umdr48_lanes: bool = Field(
+        default=False,
+        description=(
+            "UM-DR-48 Phase D (break the ceiling): enable the five "
+            "detection lanes (production/detection_lanes_48.py) — "
+            "workflow-skip state sequencing, CL/TE framing differential, "
+            "GraphQL cross-identity replay, tenant-context override, and "
+            "the redirect-policy walk with the raw-path channel. Every "
+            "lane builds the (baseline, candidate, negative-control) "
+            "triple from recorded observations and promotes only on a "
+            "CausalGuard CONFIRMED verdict. Default OFF: the 47 behavior "
+            "is byte-identical until the flag is set (behavioral merge "
+            "discipline)."
+        ),
+    )
     enable_brain_engine: bool = Field(
         default=False,
         description=(

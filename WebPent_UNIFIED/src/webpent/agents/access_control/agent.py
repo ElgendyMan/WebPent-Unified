@@ -1421,6 +1421,84 @@ def access_control_node(state: PentestState) -> dict:
     for _gate_key in ("session_liveness", "session_cookies", "engagement_limitations"):
         if _liveness_gate and _gate_key in _liveness_gate:
             _bac_result[_gate_key] = _liveness_gate[_gate_key]
+
+    # UM-DR-48 Phase D (break the ceiling): the five detection lanes —
+    # flag-gated (ENABLE_UMDR48_LANES, default OFF = the 47 behavior
+    # byte-identical). Each lane builds its (baseline, candidate,
+    # negative-control) triple from recorded observations and promotes
+    # only on a CausalGuard CONFIRMED verdict; findings join the
+    # ordinary findings channel with their proof bundles.
+    try:
+        from webpent.production.detection_lanes_48 import run_all_lanes
+
+        # the profiles carry their cookies as IdentityProfile objects
+        # (auth_node's channel) — the lanes read plain dicts with the
+        # session cookies the profiles themselves hold
+        _lane_profiles = [
+            {
+                "name": pr.name,
+                "role": pr.role,
+                "cookies": dict(pr.cookies or {}),
+            }
+            for pr in _identity_profiles_from_state(state)
+        ] or (
+            [{"name": "primary", "role": "owner",
+              "cookies": dict(state.get("session_cookies") or {})}]
+            if state.get("session_cookies") else [])
+        _target_url = str(getattr(target, "url", "") or "")
+        if isinstance(target, dict):
+            _target_url = str(target.get("url") or _target_url)
+        _lane_state = {
+            **state,
+            "crawled_data": crawled_data,
+            "identity_profiles": _lane_profiles,
+            "target_url": _target_url,
+        }
+        _lanes_update = run_all_lanes(_lane_state)
+        _lanes_result = _lanes_update.get("umdr48_lanes") or {}
+        if _lanes_result.get("enabled"):
+            for _lane in _lanes_result.get("results") or []:
+                if not _lane.get("confirmed"):
+                    continue
+                _finding = _lane.get("finding_model")
+                if _finding is None and _lane.get("evidence_bundle"):
+                    from webpent.models.findings import Finding as _F
+
+                    _finding = _F(
+                        title=(
+                            f"{_lane.get('vulnerability_class') or 'lane'} "
+                            f"confirmed by {_lane.get('lane')} lane"),
+                        severity="high",
+                        description=str(_lane.get("reason") or "confirmed"),
+                        tool_name=str(_lane.get("lane") or "umdr48"),
+                        url=str(_lane.get("url") or target_url),
+                        vuln_class=str(
+                            _lane.get("vulnerability_class") or "api_issue"),
+                        confidence_level="Tool-Confirmed",
+                        request_method="GET",
+                        evidence_bundle=_lane.get("evidence_bundle"),
+                        evidence={
+                            **(_lane.get("guard_evidence") or {}),
+                            "umdr48_lane": _lane.get("lane"),
+                            "umdr48_candidate": _lane.get("candidate"),
+                        },
+                    )
+                if _finding is not None:
+                    _finding = _finding.model_copy(update={
+                        "confidence_level": "Tool-Confirmed",
+                    })
+                    _bac_result.setdefault("findings", []).append(_finding)
+                    if _lane.get("evidence_bundle"):
+                        _bac_result.setdefault("proof_bundles", []).append(
+                            _lane["evidence_bundle"])
+            _bac_result["umdr48_lanes"] = {
+                "enabled": True,
+                "confirmed_count": _lanes_result.get("confirmed_count", 0),
+                "results_count": len(_lanes_result.get("results") or []),
+                "errors": _lanes_result.get("errors") or [],
+            }
+    except Exception as _lanes_exc:  # noqa: BLE001 — lanes never break the node
+        logger.warning("UM-DR-48 detection lanes skipped safely: %s", _lanes_exc)
     return _bac_result
 
 

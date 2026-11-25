@@ -206,6 +206,7 @@ def run_unified_hunt(
     run_graph: bool = True,
     authorization_manifest: str | None = None,
     scope_file: str | None = None,
+    enable_umdr48_lanes: bool = False,
 ) -> dict[str, Any]:
     """Execute one unified hunt campaign. Returns a summary dict.
 
@@ -314,6 +315,7 @@ def run_unified_hunt(
                     manifest_origins=(manifest_projection or {}).get("authorized_origins") or [],
                     scope_declaration=scope_declaration,
                     identity_profiles=identity_profiles,
+                    enable_umdr48_lanes=enable_umdr48_lanes,
                 )
         else:
             # UM-DR-37 root cause RC-3a (secondary): the no-checkpointer
@@ -480,6 +482,7 @@ def _invoke_with_progress(
     manifest_origins: list[str] | None = None,
     scope_declaration: dict[str, Any] | None = None,
     identity_profiles: dict[str, Any] | None = None,
+    enable_umdr48_lanes: bool = False,
 ) -> dict[str, Any]:
     """Invoke the graph via stream() so the progress view stays live.
 
@@ -517,6 +520,10 @@ def _invoke_with_progress(
         )
         initial_state["scope_source"] = "scope_file"
         initial_state["scope_declaration"] = dict(scope_declaration)
+    # UM-DR-48 Phase D: the detection-lanes flag reaches the graph's
+    # state (the lanes read it via lanes_enabled — flag-gated merge)
+    if enable_umdr48_lanes:
+        initial_state["enable_umdr48_lanes"] = True
     # The mode preset's budget ceilings (schema-declared fields — see
     # state.py's unified-hunt bookkeeping block).
     initial_state["llm_budget_usd"] = float(preset["llm_budget_usd"])
