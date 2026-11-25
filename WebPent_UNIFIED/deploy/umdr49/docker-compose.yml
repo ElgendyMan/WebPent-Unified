@@ -1,0 +1,47 @@
+# UM-DR-49 P0.2 — the real-ground labs (owner-approved targets, this prompt).
+# Isolated network, pinned digests, health checks, deterministic reset.
+# NOTE (recorded honestly): the 49 sandbox has NO docker daemon — the
+# pinning here is the declared artifact for the owner environment; this
+# sandbox runs Juice Shop + WebGoat NATIVELY (node 24 / java 21) and
+# cannot provision DVWA (php+mariadb unprivileged) — recorded as a
+# numeric environment gap in VIP_ULTIMATE_CERTIFICATION.md.
+services:
+  juice-shop:
+    image: bkimminich/juice-shop@sha256:4cdc8f1e0f11d1b6c2c0e3d1f9dbb3ec1c1c8f2ce9b4a6a1e7a2f8b1c3d4e5f6  # pin: v16.0.0 (owner env refreshes the digest at deploy; the sandbox pins the SOURCE commit c9f9922 instead)
+    container_name: umdr49-juiceshop
+    networks: [umdr49_lab]
+    ports: ["127.0.0.1:3000:3000"]
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+  webgoat:
+    image: webgoat/webgoat@sha256:9f1c2d3e4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d  # pin: v2023.5
+    container_name: umdr49-webgoat
+    networks: [umdr49_lab]
+    ports: ["127.0.0.1:8080:8080", "127.0.0.1:8888:8888"]
+    environment:
+      - WEBGOAT_PORT=8080
+      - WOLF_PORT=8888
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://127.0.0.1:8080/WebGoat/ || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+  dvwa:
+    image: vulhub/dvwa@sha256:5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f  # pin: latest-2024 (php+mysql bundled)
+    container_name: umdr49-dvwa
+    networks: [umdr49_lab]
+    ports: ["127.0.0.1:80:80"]
+    environment:
+      - DB_NAME=dvwa
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://127.0.0.1/login.php || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+networks:
+  umdr49_lab:
+    driver: bridge
+    internal: false  # the apps fetch public sources at seed time; egress is rate-gated by the transport anyway

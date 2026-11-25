@@ -1,0 +1,242 @@
+{
+ "schema": "umdr49-truth-catalog/1.0.0",
+ "app": "webgoat",
+ "version_pinned": "v2023.5 (release jar, sha256 recorded at run)",
+ "public_source": "the app's own release artifact + repo tree",
+ "total_items": 29,
+ "projected_items": 10,
+ "items": [
+  {
+   "id": "webgoat:authbypass",
+   "kind": "lesson",
+   "projected_family": "workflow_abuse",
+   "in_projection": true,
+   "public_reference": "https://github.com/WebGoat/WebGoat/tree/main/src/main/java/org/owasp/webgoat/lessons/authbypass",
+   "confirmation_criterion": "the lesson's auth-bypass flow succeeds without the required step"
+  },
+  {
+   "id": "webgoat:bypassrestrictions",
+   "kind": "lesson",
+   "projected_family": "workflow_abuse",
+   "in_projection": true,
+   "public_reference": "https://github.com/WebGoat/WebGoat/tree/main/src/main/java/org/owasp/webgoat/lessons/bypassrestrictions",
+   "confirmation_criterion": "a restricted action completes skipping its gate"
+  },
+  {
+   "id": "webgoat:challenges",
+   "kind": "lesson",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/WebGoat/WebGoat/tree/main/src/main/java/org/owasp/webgoat/lessons/challenges",
+   "confirmation_criterion": "mixed challenge set \u2014 per-challenge mapping"
+  },
+  {
+   "id": "webgoat:chromedevtools",
+   "kind": "lesson",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/WebGoat/WebGoat/tree/main/src/main/java/org/owasp/webgoat/lessons/chromedevtools",
+   "confirmation_criterion": "client-side \u2014 out of our six families"
+  },
+  {
+   "id": "webgoat:cia",
+   "kind": "lesson",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/WebGoat/WebGoat/tree/main/src/main/java/org/owasp/webgoat/lessons/cia",
+   "confirmation_criterion": "info-disclosure \u2014 out of our six families"
+  },
+  {
+   "id": "webgoat:clientsidefiltering",
+   "kind": "lesson",
+   "projected_family": "redirect_scope_bypass",
+   "in_projection": true,
+   "public_reference": "https://github.com/WebGoat/WebGoat/tree/main/src/main/java/org/owasp/webgoat/lessons/clientsidefiltering",
+   "confirmation_criterion": "a client-side filter is bypassed by a raw request the filter never sees"
+  },
+  {
+   "id": "webgoat:cryptography",
+   "kind": "lesson",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/WebGoat/WebGoat/tree/main/src/main/java/org/owasp/webgoat/lessons/cryptography",
+   "confirmation_criterion": "crypto \u2014 out of our six families"
+  },
+  {
+   "id": "webgoat:csrf",
+   "kind": "lesson",
+   "projected_family": "workflow_abuse",
+   "in_projection": true,
+   "public_reference": "https://github.com/WebGoat/WebGoat/tree/main/src/main/java/org/owasp/webgoat/lessons/csrf",
+   "confirmation_criterion": "a state-changing action fires without its consent token"
+  },
+  {
+   "id": "webgoat:deserialization",
+   "kind": "lesson",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/WebGoat/WebGoat/tree/main/src/main/java/org/owasp/webgoat/lessons/deserialization",
+   "confirmation_criterion": "deserialization \u2014 out of our six families"
+  },
+  {
+   "id": "webgoat:hijacksession",
+   "kind": "lesson",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/WebGoat/WebGoat/tree/main/src/main/java/org/owasp/webgoat/lessons/hijacksession",
+   "confirmation_criterion": "session \u2014 adjacent, not our families"
+  },
+  {
+   "id": "webgoat:htmltampering",
+   "kind": "lesson",
+   "projected_family": "workflow_abuse",
+   "in_projection": true,
+   "public_reference": "https://github.com/WebGoat/WebGoat/tree/main/src/main/java/org/owasp/webgoat/lessons/htmltampering",
+   "confirmation_criterion": "a hidden field is tampered and the action accepts the tampered state"
+  },
+  {
+   "id": "webgoat:httpbasics",
+   "kind": "lesson",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/WebGoat/WebGoat/tree/main/src/main/java/org/owasp/webgoat/lessons/httpbasics",
+   "confirmation_criterion": "introduction \u2014 no defect class"
+  },
+  {
+   "id": "webgoat:httpproxies",
+   "kind": "lesson",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/WebGoat/WebGoat/tree/main/src/main/java/org/owasp/webgoat/lessons/httpproxies",
+   "confirmation_criterion": "tooling \u2014 no defect class"
+  },
+  {
+   "id": "webgoat:idor",
+   "kind": "lesson",
+   "projected_family": "idor_bola",
+   "in_projection": true,
+   "public_reference": "https://github.com/WebGoat/WebGoat/tree/main/src/main/java/org/owasp/webgoat/lessons/idor",
+   "confirmation_criterion": "another user's object is read by changing the id"
+  },
+  {
+   "id": "webgoat:insecurelogin",
+   "kind": "lesson",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/WebGoat/WebGoat/tree/main/src/main/java/org/owasp/webgoat/lessons/insecurelogin",
+   "confirmation_criterion": "client-side \u2014 out of our six families"
+  },
+  {
+   "id": "webgoat:jwt",
+   "kind": "lesson",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/WebGoat/WebGoat/tree/main/src/main/java/org/owasp/webgoat/lessons/jwt",
+   "confirmation_criterion": "jwt \u2014 out of our six families"
+  },
+  {
+   "id": "webgoat:logging",
+   "kind": "lesson",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/WebGoat/WebGoat/tree/main/src/main/java/org/owasp/webgoat/lessons/logging",
+   "confirmation_criterion": "logging \u2014 out of our six families"
+  },
+  {
+   "id": "webgoat:missingac",
+   "kind": "lesson",
+   "projected_family": "idor_bola",
+   "in_projection": true,
+   "public_reference": "https://github.com/WebGoat/WebGoat/tree/main/src/main/java/org/owasp/webgoat/lessons/missingac",
+   "confirmation_criterion": "a function is reachable without the role gate"
+  },
+  {
+   "id": "webgoat:passwordreset",
+   "kind": "lesson",
+   "projected_family": "workflow_abuse",
+   "in_projection": true,
+   "public_reference": "https://github.com/WebGoat/WebGoat/tree/main/src/main/java/org/owasp/webgoat/lessons/passwordreset",
+   "confirmation_criterion": "the reset flow completes skipping a step"
+  },
+  {
+   "id": "webgoat:pathtraversal",
+   "kind": "lesson",
+   "projected_family": "redirect_scope_bypass",
+   "in_projection": true,
+   "public_reference": "https://github.com/WebGoat/WebGoat/tree/main/src/main/java/org/owasp/webgoat/lessons/pathtraversal",
+   "confirmation_criterion": "a normalized-looking path reaches a protected file (the raw-path channel class)"
+  },
+  {
+   "id": "webgoat:securepasswords",
+   "kind": "lesson",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/WebGoat/WebGoat/tree/main/src/main/java/org/owasp/webgoat/lessons/securepasswords",
+   "confirmation_criterion": "guidance \u2014 no defect class"
+  },
+  {
+   "id": "webgoat:spoofcookie",
+   "kind": "lesson",
+   "projected_family": "tenant_confusion",
+   "in_projection": true,
+   "public_reference": "https://github.com/WebGoat/WebGoat/tree/main/src/main/java/org/owasp/webgoat/lessons/spoofcookie",
+   "confirmation_criterion": "a spoofed cookie value flips the server's identity/ tenant decision"
+  },
+  {
+   "id": "webgoat:sqlinjection",
+   "kind": "lesson",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/WebGoat/WebGoat/tree/main/src/main/java/org/owasp/webgoat/lessons/sqlinjection",
+   "confirmation_criterion": "sqli \u2014 out of our six families"
+  },
+  {
+   "id": "webgoat:ssrf",
+   "kind": "lesson",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/WebGoat/WebGoat/tree/main/src/main/java/org/owasp/webgoat/lessons/ssrf",
+   "confirmation_criterion": "ssrf \u2014 out of our six families"
+  },
+  {
+   "id": "webgoat:vulnerablecomponents",
+   "kind": "lesson",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/WebGoat/WebGoat/tree/main/src/main/java/org/owasp/webgoat/lessons/vulnerablecomponents",
+   "confirmation_criterion": "the lesson's own success condition (solved flag) reproduced by a blind campaign probe"
+  },
+  {
+   "id": "webgoat:webgoatintroduction",
+   "kind": "lesson",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/WebGoat/WebGoat/tree/main/src/main/java/org/owasp/webgoat/lessons/webgoatintroduction",
+   "confirmation_criterion": "the lesson's own success condition (solved flag) reproduced by a blind campaign probe"
+  },
+  {
+   "id": "webgoat:webwolfintroduction",
+   "kind": "lesson",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/WebGoat/WebGoat/tree/main/src/main/java/org/owasp/webgoat/lessons/webwolfintroduction",
+   "confirmation_criterion": "the lesson's own success condition (solved flag) reproduced by a blind campaign probe"
+  },
+  {
+   "id": "webgoat:xss",
+   "kind": "lesson",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/WebGoat/WebGoat/tree/main/src/main/java/org/owasp/webgoat/lessons/xss",
+   "confirmation_criterion": "the lesson's own success condition (solved flag) reproduced by a blind campaign probe"
+  },
+  {
+   "id": "webgoat:xxe",
+   "kind": "lesson",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/WebGoat/WebGoat/tree/main/src/main/java/org/owasp/webgoat/lessons/xxe",
+   "confirmation_criterion": "xxe \u2014 out of our six families"
+  }
+ ]
+}

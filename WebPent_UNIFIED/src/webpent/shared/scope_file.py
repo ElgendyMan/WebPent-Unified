@@ -184,14 +184,31 @@ def parse_scope_entries(entries: list[str] | tuple[str, ...]) -> ScopeFileSpec:
     return parse_scope_file("\n".join(str(entry or "") for entry in entries or []))
 
 
-def _host_matches_entry(host: str, entry: str) -> bool:
-    """Host-level match of ``host`` against one normalized allow entry."""
+def _effective_port(parsed: urlsplit) -> int:
+    """The entry/target's effective port (scheme default when absent)."""
+    if parsed.port:
+        return int(parsed.port)
+    return 443 if (parsed.scheme or "").lower() == "https" else 80
+
+
+def _host_matches_entry(host: str, entry: str, port: int | None = None) -> bool:
+    """Host-level match of ``host`` against one normalized allow entry.
+
+    UM-DR-49 P0.3 (the safe-stop rehearsal's finding): when the entry
+    carries an EXPLICIT port, the match requires that port — an
+    entry ``http://127.0.0.1:3000`` must NOT authorize other ports on
+    the same host (the scope file is a fail-closed authorization
+    boundary; the OriginPolicy already pins scheme+host+port for full
+    URLs). Port-less entries match the scheme's default port only.
+    """
     try:
         parsed = urlsplit(entry)
         entry_host = (parsed.hostname or "").lower().rstrip(".")
     except ValueError:
         return False
     if not entry_host or not host:
+        return False
+    if port is not None and _effective_port(parsed) != int(port):
         return False
     if host == entry_host:
         return True
@@ -216,7 +233,9 @@ def target_scope_error(spec: ScopeFileSpec, target_url: str) -> str | None:
     if parsed.scheme.lower() not in {"http", "https"} or not host:
         return "scope_file_target_url_invalid"
 
-    if any(_host_matches_entry(host, entry) for entry in spec.excluded_hosts):
+    target_port = _effective_port(parsed)
+    if any(_host_matches_entry(host, entry, target_port)
+           for entry in spec.excluded_hosts):
         return "scope_file_target_url_excluded"
 
     path = parsed.path or "/"
@@ -224,7 +243,8 @@ def target_scope_error(spec: ScopeFileSpec, target_url: str) -> str | None:
         if path == prefix or path.startswith(f"{prefix}/"):
             return "scope_file_target_url_path_excluded"
 
-    if not any(_host_matches_entry(host, entry) for entry in spec.allow_entries):
+    if not any(_host_matches_entry(host, entry, target_port)
+               for entry in spec.allow_entries):
         return "scope_file_target_url_not_in_scope"
     return None
 

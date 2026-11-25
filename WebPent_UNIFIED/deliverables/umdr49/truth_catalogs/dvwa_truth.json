@@ -1,0 +1,163 @@
+{
+ "schema": "umdr49-truth-catalog/1.0.0",
+ "app": "dvwa",
+ "version_pinned": "master clone (commit recorded at run)",
+ "public_source": "github.com/digininja/DVWA (the app's repo)",
+ "runtime_note": "the 49 sandbox cannot provision php+mariadb (unprivileged apt) \u2014 the catalog is extracted from the source; the campaign runs in the owner's docker environment",
+ "total_items": 19,
+ "projected_items": 6,
+ "items": [
+  {
+   "id": "dvwa:api",
+   "kind": "vulnerability_module",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/digininja/DVWA/tree/master/vulnerabilities/api",
+   "confirmation_criterion": "the module's documented low/medium behavior reproduced blindly"
+  },
+  {
+   "id": "dvwa:authbypass",
+   "kind": "vulnerability_module",
+   "projected_family": "workflow_abuse",
+   "in_projection": true,
+   "public_reference": "https://github.com/digininja/DVWA/tree/master/vulnerabilities/authbypass",
+   "confirmation_criterion": "an admin function completes without the admin gate"
+  },
+  {
+   "id": "dvwa:bac",
+   "kind": "vulnerability_module",
+   "projected_family": "idor_bola",
+   "in_projection": true,
+   "public_reference": "https://github.com/digininja/DVWA/tree/master/vulnerabilities/bac",
+   "confirmation_criterion": "an active flag is flipped by a non-owner request"
+  },
+  {
+   "id": "dvwa:brute",
+   "kind": "vulnerability_module",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/digininja/DVWA/tree/master/vulnerabilities/brute",
+   "confirmation_criterion": "the module's documented low/medium behavior reproduced blindly"
+  },
+  {
+   "id": "dvwa:captcha",
+   "kind": "vulnerability_module",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/digininja/DVWA/tree/master/vulnerabilities/captcha",
+   "confirmation_criterion": "the module's documented low/medium behavior reproduced blindly"
+  },
+  {
+   "id": "dvwa:cryptography",
+   "kind": "vulnerability_module",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/digininja/DVWA/tree/master/vulnerabilities/cryptography",
+   "confirmation_criterion": "the module's documented low/medium behavior reproduced blindly"
+  },
+  {
+   "id": "dvwa:csp",
+   "kind": "vulnerability_module",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/digininja/DVWA/tree/master/vulnerabilities/csp",
+   "confirmation_criterion": "the module's documented low/medium behavior reproduced blindly"
+  },
+  {
+   "id": "dvwa:csrf",
+   "kind": "vulnerability_module",
+   "projected_family": "workflow_abuse",
+   "in_projection": true,
+   "public_reference": "https://github.com/digininja/DVWA/tree/master/vulnerabilities/csrf",
+   "confirmation_criterion": "the password-change action fires without the token"
+  },
+  {
+   "id": "dvwa:exec",
+   "kind": "vulnerability_module",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/digininja/DVWA/tree/master/vulnerabilities/exec",
+   "confirmation_criterion": "the module's documented low/medium behavior reproduced blindly"
+  },
+  {
+   "id": "dvwa:fi",
+   "kind": "vulnerability_module",
+   "projected_family": "redirect_scope_bypass",
+   "in_projection": true,
+   "public_reference": "https://github.com/digininja/DVWA/tree/master/vulnerabilities/fi",
+   "confirmation_criterion": "a supplied path includes an unintended file (raw-path class)"
+  },
+  {
+   "id": "dvwa:javascript",
+   "kind": "vulnerability_module",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/digininja/DVWA/tree/master/vulnerabilities/javascript",
+   "confirmation_criterion": "the module's documented low/medium behavior reproduced blindly"
+  },
+  {
+   "id": "dvwa:open_redirect",
+   "kind": "vulnerability_module",
+   "projected_family": "redirect_scope_bypass",
+   "in_projection": true,
+   "public_reference": "https://github.com/digininja/DVWA/tree/master/vulnerabilities/open_redirect",
+   "confirmation_criterion": "the redirect endpoint forwards out of scope"
+  },
+  {
+   "id": "dvwa:sqli",
+   "kind": "vulnerability_module",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/digininja/DVWA/tree/master/vulnerabilities/sqli",
+   "confirmation_criterion": "the module's documented low/medium behavior reproduced blindly"
+  },
+  {
+   "id": "dvwa:sqli_blind",
+   "kind": "vulnerability_module",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/digininja/DVWA/tree/master/vulnerabilities/sqli_blind",
+   "confirmation_criterion": "the module's documented low/medium behavior reproduced blindly"
+  },
+  {
+   "id": "dvwa:upload",
+   "kind": "vulnerability_module",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/digininja/DVWA/tree/master/vulnerabilities/upload",
+   "confirmation_criterion": "the module's documented low/medium behavior reproduced blindly"
+  },
+  {
+   "id": "dvwa:weak_id",
+   "kind": "vulnerability_module",
+   "projected_family": "idor_bola",
+   "in_projection": true,
+   "public_reference": "https://github.com/digininja/DVWA/tree/master/vulnerabilities/weak_id",
+   "confirmation_criterion": "a sequential weak id reveals another user's object"
+  },
+  {
+   "id": "dvwa:xss_d",
+   "kind": "vulnerability_module",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/digininja/DVWA/tree/master/vulnerabilities/xss_d",
+   "confirmation_criterion": "the module's documented low/medium behavior reproduced blindly"
+  },
+  {
+   "id": "dvwa:xss_r",
+   "kind": "vulnerability_module",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/digininja/DVWA/tree/master/vulnerabilities/xss_r",
+   "confirmation_criterion": "the module's documented low/medium behavior reproduced blindly"
+  },
+  {
+   "id": "dvwa:xss_s",
+   "kind": "vulnerability_module",
+   "projected_family": null,
+   "in_projection": false,
+   "public_reference": "https://github.com/digininja/DVWA/tree/master/vulnerabilities/xss_s",
+   "confirmation_criterion": "the module's documented low/medium behavior reproduced blindly"
+  }
+ ]
+}

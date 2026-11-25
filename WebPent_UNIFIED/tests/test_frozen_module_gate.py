@@ -273,6 +273,10 @@ UMDR48_D_20261125_THAW_PATHS = frozenset({
     # surface declarations — the action paths the crawler itself does
     # not follow land here for the detection lanes; UM-DR-48 Phase D)
     "src/webpent/shared/http_discovery.py",
+    # UM-DR-49 P0.3: the scope-file PORT boundary (the safe-stop
+    # rehearsal's finding — an entry's explicit port now binds the
+    # match; regression proof tests/test_umdr49_scope_port_boundary.py)
+    "src/webpent/shared/scope_file.py",
 })
 
 UMDR44_20261122_THAW_PATHS = frozenset(
@@ -1575,7 +1579,8 @@ def test_baseline_disagrees_only_on_documented_unfreeze_paths() -> None:
         | (UMDR48_D_20261125_THAW_PATHS - {
             # first-pinned by the 47 window (never in the pre-unfreeze
             # baseline) — the drift set cannot contain it
-            "src/webpent/cli/unified_hunt.py"})
+            "src/webpent/cli/unified_hunt.py",
+            "src/webpent/shared/scope_file.py"})
         | (
             UMDR45_20261123_THAW_PATHS
             # scope completion, NOT drift: api_surface_shadow.py (K3) and

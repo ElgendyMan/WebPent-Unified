@@ -1,0 +1,40 @@
+# UM-DR-49 P0.2 — the REAL-GROUND battery: nightly/manual ONLY (never in
+# the push gate — the push gate keeps the synthetic battery as the
+# regression guard, per the mission's CI policy).
+name: umdr49-real-ground-battery
+on:
+  schedule:
+    - cron: "0 2 * * *"
+  workflow_dispatch: {}
+jobs:
+  real-ground:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with: { python-version: "3.12" }
+      - uses: actions/setup-node@v4
+        with: { node-version: "22" }
+      - name: Bring up the labs (pinned digests)
+        run: |
+          docker compose -f deploy/umdr49/docker-compose.yml up -d --wait
+          docker compose -f deploy/umdr49/docker-compose.yml ps
+      - name: Smoke — the two-minute bring-up proof
+        run: |
+          curl -sf http://127.0.0.1:3000/ > /dev/null && echo "juiceshop OK"
+          curl -sf http://127.0.0.1:8080/WebGoat/ > /dev/null && echo "webgoat OK"
+          curl -sf http://127.0.0.1:80/login.php > /dev/null && echo "dvwa OK"
+      - name: Blind campaigns (zero prior knowledge)
+        env:
+          LLM_ENABLED: "false"
+        run: |
+          uv sync --frozen --extra dev
+          uv run --no-sync --extra dev python scripts/umdr49_real_campaign.py --app juiceshop --url http://127.0.0.1:3000 --run 1
+          uv run --no-sync --extra dev python scripts/umdr49_real_campaign.py --app webgoat --url http://127.0.0.1:8080 --run 1
+          uv run --no-sync --extra dev python scripts/umdr49_real_campaign.py --app dvwa --url http://127.0.0.1:80 --run 1
+      - name: Upload the raw evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: umdr49-real-ground-evidence
+          path: deliverables/umdr49/
