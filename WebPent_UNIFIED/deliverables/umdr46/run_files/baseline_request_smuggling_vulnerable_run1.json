@@ -1,0 +1,558 @@
+{
+  "schema": "umdr46-baseline-campaign/v1",
+  "battery_version": "umdr46-baseline/1.0.0",
+  "family": "request_smuggling",
+  "variant": "vulnerable",
+  "run": 1,
+  "campaign_id": "umdr46-baseline-request_smuggling-vulnerable-1-088bcd",
+  "started_at_utc": "2026-11-24T04:46:04.688144+00:00",
+  "completed_at_utc": "2026-11-24T04:46:08.585256+00:00",
+  "elapsed_s": 3.897,
+  "status": "COMPLETED",
+  "error": null,
+  "source_commit": "043b5124bdfaae9c7c42a7e1aa692fe90ec1be29",
+  "tree_sha": "3f216ed9bb714b36a3c9096e4f5239254b62e705",
+  "python_version": "3.12.16",
+  "lockfile_sha256": "508291d5ae1f6321ef8d0787ad84e74c9746e6e874860b07e40a8697ceefe4c8",
+  "lab_origin": "http://127.0.0.1:38511",
+  "invocation": {
+    "url": "http://127.0.0.1:38511",
+    "mode": "standard",
+    "authorization": "umdr46-authorized-lab-baseline-battery",
+    "cookies": "***REDACTED***",
+    "identity_profiles": {
+      "user-b": {
+        "name": "user-b",
+        "role": "user",
+        "cookies": {
+          "session": "***REDACTED***"
+        }
+      }
+    },
+    "auto_approve": true,
+    "no_llm": true,
+    "progress": false,
+    "run_graph": true,
+    "engagement_id": "umdr46-baseline-request_smuggling-vulnerable-1-088bcd"
+  },
+  "findings_total": 3,
+  "findings_confirmed": 0,
+  "confirmed_attribution": [],
+  "ground_truth": {
+    "declared_defects": [
+      "GT-SMUG-1"
+    ],
+    "tp": 0,
+    "fp": 0,
+    "fn": 1
+  },
+  "metrics": {
+    "requests": 97,
+    "requests_per_confirmed": null,
+    "time_to_first_candidate_s": null,
+    "time_to_first_confirmed_s": null,
+    "replay_verified": 0,
+    "replay_total": 0
+  },
+  "causal_guard_invocations": 0,
+  "guard_verdicts": [],
+  "verifications": [],
+  "stage_count": 40,
+  "lab_requests": [
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_B"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/robots.txt",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/sitemap.xml",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/openapi.json",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/swagger.json",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api-docs/swagger.json",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api-docs/openapi.json",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api-docs/swagger-ui-init.js",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/swagger/v1/swagger.json",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/graphql",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/session",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/health",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/echo",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/session",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/health",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/echo",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/session",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/health",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/echo",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_B"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "POST",
+      "path": "/graphql",
+      "principal": "User_A"
+    },
+    {
+      "method": "POST",
+      "path": "/api/graphql",
+      "principal": "User_A"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/graphql",
+      "principal": "User_A"
+    },
+    {
+      "method": "POST",
+      "path": "/query",
+      "principal": "User_A"
+    },
+    {
+      "method": "POST",
+      "path": "/api/query",
+      "principal": "User_A"
+    },
+    {
+      "method": "POST",
+      "path": "/graphiql",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/me",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/me",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/user",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/user",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/me",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/me",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/me",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/me",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/profile",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/profile",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/user/whoami",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/user/whoami",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "POST",
+      "path": "",
+      "principal": "User_A"
+    },
+    {
+      "method": "POST",
+      "path": "",
+      "principal": "User_A"
+    },
+    {
+      "method": "POST",
+      "path": "",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/session",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/health",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/echo",
+      "principal": "User_A"
+    }
+  ],
+  "invariants": {
+    "out_of_scope_origin_zero_requests": true,
+    "out_of_scope_requests": [],
+    "all_requests_on_origin": false,
+    "unauthenticated_never_served_protected": true
+  },
+  "notes": [
+    "confirmed = Tool-Confirmed only (CausalGuard + ProofBundle + replay); generated hypotheses are never TP",
+    "attribution joins the finding URL to the declared ground truth anchors \u2014 never the engine label"
+  ]
+}

@@ -59,16 +59,6 @@ from webpent.agents.disclosed_report_intel.agent import disclosed_report_intel_n
 from webpent.agents.execution_sandbox.agent import execution_sandbox_node
 from webpent.agents.executive_summary.agent import executive_summary_node
 from webpent.agents.exploit_chainer.agent import exploit_chainer_node
-
-# UM-DR-40 RC-5: the registered node is the dedup-wrapped generator —
-# every emitted hypothesis gets its deterministic content id (uuid5
-# of the (target_url, vuln_class) fingerprint) at GENERATION time, so
-# the upsert-by-id merge_hypotheses reducer absorbs cross-pass
-# content duplicates instead of appending them. The bare import above
-# stays for backward compatibility of external callers.
-from webpent.production.hypothesis_dedup import (
-    deduplicated_hypothesis_node,
-)
 from webpent.agents.javascript_intelligence.agent import javascript_intelligence_node
 from webpent.agents.payload_generator.agent import payload_generator_node
 from webpent.agents.payload_optimizer.agent import (
@@ -90,6 +80,16 @@ from webpent.agents.smart_campaigns.agent import (
     smart_campaigns_node,
 )
 from webpent.graph import budget_governor
+
+# UM-DR-40 RC-5: the registered node is the dedup-wrapped generator —
+# every emitted hypothesis gets its deterministic content id (uuid5
+# of the (target_url, vuln_class) fingerprint) at GENERATION time, so
+# the upsert-by-id merge_hypotheses reducer absorbs cross-pass
+# content duplicates instead of appending them. The bare import above
+# stays for backward compatibility of external callers.
+from webpent.production.hypothesis_dedup import (
+    deduplicated_hypothesis_node,
+)
 
 # Sprint I-1b, item 3.1: restored after ruff --fix (F401) wrongly removed
 # it -- unused within this file's own code, but imported here so
@@ -159,11 +159,11 @@ from webpent.shared.research_nodes import (
     research_session_node,
 )
 from webpent.shared.runtime import RegisteredAdapter, RuntimeContext
+from webpent.shared.vip_campaign_node import vip_campaign_node
 from webpent.shared.wildcard_scope import (
     route_after_wildcard_scope,
     wildcard_scope_node,
 )
-from webpent.shared.vip_campaign_node import vip_campaign_node
 from webpent.state.state import PentestState
 
 logger = logging.getLogger(__name__)
@@ -273,6 +273,26 @@ NODE_SURFACE_SIZING = "surface_sizing"
 #: real state channels and emit advisory research hints BEFORE hypothesis
 #: generation, so the model can actually influence research decisions.
 NODE_APPMODEL = "appmodel"
+# UM-DR-46 Phase B — the deterministic researcher-brain node
+NODE_RESEARCHER_BRAIN = "researcher_brain"
+# UM-DR-46 Phase C — the adaptive hypothesis-evolution node
+NODE_HYPOTHESIS_EVOLUTION = "hypothesis_evolution"
+# UM-DR-46 Phase D — the cross-feature attack-chain node
+NODE_ATTACK_CHAIN = "attack_chain"
+# UM-DR-46 Phase E — the SKG-mined discovery-intel node
+NODE_DISCOVERY_INTEL = "discovery_intel"
+# UM-DR-46 Phase F — the SKG-driven experiment-planner node
+NODE_EXPERIMENT_PLANNER = "experiment_planner"
+# UM-DR-46 Phase G — the SKG-coverage node
+NODE_SKG_COVERAGE = "skg_coverage"
+# UM-DR-46 Phase H — the research-memory node
+NODE_RESEARCH_MEMORY = "research_memory"
+# UM-DR-46 Phase I — the research-QC node
+NODE_RESEARCH_QC = "research_qc"
+# UM-DR-46 Phase J — the protocol-depth node
+NODE_PROTOCOL_DEPTH = "protocol_depth"
+# UM-DR-47 Phase W: the brain-engine wiring node (flag-gated)
+NODE_BRAIN_ENGINE = "brain_engine"
 #: (proposal 7) The four deterministic detector nodes, chained after
 #: request_smuggling inside the deep-probe phase. Pass-throughs unless
 #: the surface/flag applies.
@@ -439,6 +459,16 @@ def _meets_severity_threshold(finding: Finding) -> bool:
     return rank >= _SEVERITY_RANKS[_MIN_SEVERITY_VALUE]
 
 
+def _brain_engine_enabled() -> bool:
+    """UM-DR-47 Phase W: the brain-engine wiring flag, fail-closed."""
+    try:
+        from webpent.config.settings import get_settings
+
+        return bool(get_settings().enable_brain_engine)
+    except (AttributeError, ImportError, KeyError, OSError, RuntimeError, TypeError, ValueError):
+        return False
+
+
 def _attack_graph_enabled() -> bool:
     """Return the additive Attack Graph flag, fail-closed."""
     try:
@@ -535,15 +565,40 @@ def _umdr32_routes(routes: dict[str, str]) -> dict[str, str]:
     return routes
 
 
+def _umdr47_routes(routes: dict[str, str]) -> dict[str, str]:
+    """UM-DR-47 W: redirect strategist-bound routes through the
+    brain-engine node when the wiring flag is enabled.
+
+    THE 46 LESSON, fixed: running the brain only in the advisory
+    chain (before the testing lanes) sees NO authorization
+    observations — the SKG has no resources at that point and the
+    brain can never change behavior (exactly why 46's brain was
+    advisory-only in practice). This LIVE wiring instead re-runs the
+    brain on every strategist-BOUND route — AFTER
+    access_control/api_testing produced findings and authorization
+    observations: the SKG now sees resources + principals, W4
+    coverage-gap tasks and W5 chain steps enter the pool, and the
+    strategist's NEXT ranking pass applies the literal priority
+    formula. Flag-off returns the mapping unchanged
+    (byte-comparable)."""
+    if not _brain_engine_enabled():
+        return routes
+    if NODE_STRATEGIST in routes:
+        return {**routes, NODE_STRATEGIST: NODE_BRAIN_ENGINE}
+    return routes
+
+
 def _research_route_redirects(routes: dict[str, str]) -> dict[str, str]:
     """The composed advisory-chain redirect for strategist-bound routes.
 
     UM-DR-31 research_loop wraps the strategist target; UM-DR-32
     identity_workflow wraps that (it runs first, then forwards to
-    research_loop when both are on). Each layer is a no-op when its
-    flags are off — the composed function preserves the byte-comparable
-    flag-off shape of every layer beneath it."""
-    return _umdr32_routes(_umdr31_routes(routes))
+    research_loop when both are on); UM-DR-47 W brain_engine wraps
+    outermost (it runs first of all, then forwards into the composed
+    chain). Each layer is a no-op when its flags are off — the composed
+    function preserves the byte-comparable flag-off shape of every
+    layer beneath it."""
+    return _umdr47_routes(_umdr32_routes(_umdr31_routes(routes)))
 
 
 def _autonomous_controller_enabled(state: PentestState) -> bool:
@@ -2114,6 +2169,30 @@ def build_graph(checkpointer: Any = None, auto_approve: bool = False,
             "Identity workflow reasoning wired (UM-DR-32 capabilities; "
             "forward target: %s)", _umdr32_target,
         )
+    if _brain_engine_enabled():
+        # UM-DR-47 W: the LIVE wiring — the brain node runs on every
+        # strategist-bound route (after the testing lanes produced
+        # authorization observations), refreshing the SKG context and
+        # injecting W4/W5 hypotheses right before the strategist's
+        # next ranking pass. Single registration, redirect-only wiring
+        # (the first-pass chain keeps the byte-comparable 46 shape).
+        if NODE_BRAIN_ENGINE not in dict(graph.nodes or {}):
+            from webpent.production.brain_engine import brain_engine_node
+
+            graph.add_node(
+                NODE_BRAIN_ENGINE,
+                _trace_wrap(NODE_BRAIN_ENGINE, brain_engine_node),
+            )
+        _umdr47_forward = (
+            NODE_IDENTITY_WORKFLOW if _umdr32_identity_workflow_enabled()
+            else NODE_RESEARCH_LOOP if _umdr31_research_loop_enabled()
+            else NODE_STRATEGIST
+        )
+        graph.add_edge(NODE_BRAIN_ENGINE, _umdr47_forward)
+        logger.info(
+            "Brain engine wired (UM-DR-47 W; live forward target: %s)",
+            _umdr47_forward,
+        )
     graph.add_node(NODE_PAYLOAD_OPTIMIZER, _trace_wrap(NODE_PAYLOAD_OPTIMIZER, payload_optimizer_node))
     graph.add_node(NODE_CVSS_ENGINE, _trace_wrap(NODE_CVSS_ENGINE, cvss_node))
     graph.add_node(NODE_BUSINESS_IMPACT, _trace_wrap(NODE_BUSINESS_IMPACT, business_impact_node))
@@ -2197,6 +2276,71 @@ def build_graph(checkpointer: Any = None, auto_approve: bool = False,
     from webpent.graph.appmodel_nodes import appmodel_node
 
     graph.add_node(NODE_APPMODEL, _trace_wrap(NODE_APPMODEL, appmodel_node))
+    # UM-DR-46 Phase B: the researcher-brain node — deterministic
+    # understanding components over the SKG (behavioral profiles,
+    # business rules, transition semantics, invariants, contradictions),
+    # feeding canonical hypotheses into the ordinary pool.
+    from webpent.production.researcher_brain import researcher_brain_node
+
+    # UM-DR-46 Phase D: the attack-chain node — composes SKG facts
+    # into multi-step chain candidates feeding canonical hypotheses.
+    from webpent.production.attack_chains_node import attack_chain_node
+
+    graph.add_node(
+        NODE_ATTACK_CHAIN, _trace_wrap(NODE_ATTACK_CHAIN, attack_chain_node))
+    # UM-DR-46 Phase E: the discovery-intel node — SKG-mined discovery
+    # targets (advisory guidance channel only).
+    from webpent.production.discovery_intel_node import discovery_intel_node
+
+    graph.add_node(
+        NODE_DISCOVERY_INTEL,
+        _trace_wrap(NODE_DISCOVERY_INTEL, discovery_intel_node))
+    # UM-DR-46 Phase F: the experiment-planner node — deterministic
+    # plans for the registry's experiment families (complete observed
+    # principal matrices only; the ResearchLoop schedules, not this node).
+    from webpent.production.experiment_planner_node import (
+        experiment_planner_node,
+    )
+
+    graph.add_node(
+        NODE_EXPERIMENT_PLANNER,
+        _trace_wrap(NODE_EXPERIMENT_PLANNER, experiment_planner_node))
+    # UM-DR-46 Phase G: the SKG-coverage node — (resource × principal ×
+    # operation) cells, verified only under guard-adjudicated evidence.
+    from webpent.production.skg_coverage_node import skg_coverage_node
+
+    graph.add_node(
+        NODE_SKG_COVERAGE, _trace_wrap(NODE_SKG_COVERAGE, skg_coverage_node))
+    # UM-DR-46 Phase H: the research-memory node — deterministic lesson
+    # compaction + ranking-time demotion lookups (never pool mutation).
+    from webpent.production.research_memory_node import research_memory_node
+
+    graph.add_node(
+        NODE_RESEARCH_MEMORY,
+        _trace_wrap(NODE_RESEARCH_MEMORY, research_memory_node))
+    # UM-DR-46 Phase I: the research-QC node — deterministic deficiency
+    # reports over the research artifacts (never deletes or modifies).
+    from webpent.production.research_qc_node import research_qc_node
+
+    graph.add_node(
+        NODE_RESEARCH_QC, _trace_wrap(NODE_RESEARCH_QC, research_qc_node))
+    # UM-DR-46 Phase J: the protocol-depth node — SKG-driven
+    # protocol-depth targets (advisory targets, never requests).
+    from webpent.production.protocol_depth_node import protocol_depth_node
+
+    graph.add_node(
+        NODE_PROTOCOL_DEPTH,
+        _trace_wrap(NODE_PROTOCOL_DEPTH, protocol_depth_node))
+    graph.add_node(
+        NODE_RESEARCHER_BRAIN, _trace_wrap(NODE_RESEARCHER_BRAIN, researcher_brain_node))
+    # UM-DR-46 Phase C: the hypothesis-evolution node — deterministic
+    # mutation/decomposition/competition/negative-evidence/info-gain
+    # over the pool, feeding ordinary canonical hypotheses.
+    from webpent.production.hypothesis_evolution import hypothesis_evolution_node
+
+    graph.add_node(
+        NODE_HYPOTHESIS_EVOLUTION,
+        _trace_wrap(NODE_HYPOTHESIS_EVOLUTION, hypothesis_evolution_node))
     graph.add_node(NODE_GRAPHQL_TESTING, _trace_wrap(NODE_GRAPHQL_TESTING, graphql_testing_node))
     graph.add_node(NODE_CACHE_POISONING, _trace_wrap(NODE_CACHE_POISONING, cache_poisoning_node))
     graph.add_node(NODE_PROTOTYPE_POLLUTION, _trace_wrap(NODE_PROTOTYPE_POLLUTION, prototype_pollution_node))
@@ -2331,7 +2475,20 @@ def build_graph(checkpointer: Any = None, auto_approve: bool = False,
     # data complete) and BEFORE hypothesis generation, so its hints can
     # influence the actual research decisions that follow.
     graph.add_edge(NODE_SURFACE_SIZING, NODE_APPMODEL)
-    graph.add_edge(NODE_APPMODEL, NODE_HYPOTHESIS)
+    # UM-DR-46 Phase B+D: the chain composer and the brain both
+    # consume the SKG and feed the pool
+    graph.add_edge(NODE_APPMODEL, NODE_ATTACK_CHAIN)
+    graph.add_edge(NODE_ATTACK_CHAIN, NODE_DISCOVERY_INTEL)
+    graph.add_edge(NODE_DISCOVERY_INTEL, NODE_EXPERIMENT_PLANNER)
+    graph.add_edge(NODE_EXPERIMENT_PLANNER, NODE_RESEARCHER_BRAIN)
+    graph.add_edge(NODE_RESEARCHER_BRAIN, NODE_HYPOTHESIS_EVOLUTION)
+    graph.add_edge(NODE_HYPOTHESIS_EVOLUTION, NODE_SKG_COVERAGE)
+    graph.add_edge(NODE_SKG_COVERAGE, NODE_RESEARCH_MEMORY)
+    graph.add_edge(NODE_RESEARCH_MEMORY, NODE_RESEARCH_QC)
+    graph.add_edge(NODE_RESEARCH_QC, NODE_PROTOCOL_DEPTH)
+    graph.add_edge(NODE_PROTOCOL_DEPTH, NODE_HYPOTHESIS)
+    # UM-DR-46 Phase C: evolution consumes pool + refutations, then
+    # the hypothesis node merges the current cycle's own candidates
 
     graph.add_conditional_edges(
         # V10 P1-3: renamed route_after_recon -> route_after_hypothesis

@@ -504,6 +504,111 @@ class PentestState(TypedDict, total=False):
     authorization_observations: Annotated[
         list[dict[str, Any]], merge_lists]
 
+    # --- UM-DR-46 Phase A (Security Knowledge Graph): the typed,
+    # evidence-carrying SKG evidence records. Producers write
+    # records like {"evidence_kind": "authz_marker" |
+    # "ownership_change" | "resource_access", "endpoint": path-or-url,
+    # "resource": "type:id", "role"/"actor", "operation", "attribute",
+    # "evidence_refs": [...], "declared": bool} — the appmodel node's
+    # SKG builder (appmodel/skg.py) derives PERMITS / MODIFIES /
+    # READS relations from them. Strictly evidence-backed channel
+    # data: append-only, no values ever inferred, and never an
+    # authority (advisory research prioritization only). ---
+    skg_evidence: Annotated[list[dict[str, Any]], merge_lists]
+
+    # --- UM-DR-46 Phase B (Researcher Brain): the deterministic
+    # understanding channels written by the researcher_brain node
+    # (production/researcher_brain.py) — behavioral profiles, business
+    # rules, transition semantics, invariant candidates and
+    # evidence-vs-evidence contradictions over the SKG. Strictly
+    # advisory: every entry is evidence-carrying and names its
+    # causal-guard validation contract; no finding vocabulary, no
+    # confirmation authority — contradictions surface as ORDINARY
+    # canonical hypotheses (same promotion gates). ---
+    researcher_brain: Annotated[dict[str, Any], merge_dicts]
+    researcher_brain_rules: Annotated[list[dict[str, Any]], merge_lists]
+    researcher_brain_contradictions: Annotated[
+        list[dict[str, Any]], merge_lists]
+
+    # --- UM-DR-46 Phase C (adaptive hypothesis engine): the evolution
+    # channels written by the hypothesis_evolution node
+    # (production/hypothesis_evolution.py) — deterministic mutations/
+    # decompositions/competitors flow through the ORDINARY hypotheses
+    # pool; research_lessons records the deterministic negative-
+    # evidence lessons (decayed relatives carry negative_lesson_id in
+    # their evidence contracts); researcher_priorities is the advisory
+    # info-gain selection over the open pool. Strictly advisory —
+    # no lifecycle authority, never a promotion or confirmation. ---
+    researcher_evolution: Annotated[dict[str, Any], merge_dicts]
+    research_lessons: Annotated[list[dict[str, Any]], merge_lists]
+    researcher_priorities: Annotated[dict[str, Any], merge_dicts]
+
+    # --- UM-DR-46 Phase D (cross-feature attack reasoning): the
+    # attack-chain channels written by the attack_chain node
+    # (production/attack_chains_node.py) — deterministic multi-step
+    # compositions of evidence-backed SKG facts (info+authz, workflow
+    # bypass, cross-surface) with one canonical hypothesis per chain
+    # into the ORDINARY pool. Strictly advisory research candidates —
+    # never a finding, never a confirmation, never an authorization. ---
+    attack_chains: Annotated[list[dict[str, Any]], merge_lists]
+    attack_chain_summary: Annotated[dict[str, Any], merge_dicts]
+
+    # --- UM-DR-46 Phase F (autonomous experimentation): the
+    # experiment-PLAN channel written by the experiment_planner node
+    # (production/experiment_planner_node.py) — deterministic plans
+    # binding modeled targets to the registry's experiment families,
+    # complete observed principal matrices only (incomplete matrices
+    # ABSTAIN with a recorded reason). The planner PLANS ONLY: the
+    # ResearchLoop stays the sole scheduler, execution stays inside
+    # ModernOrchestrator (ScopeLaw + ToolBoundary), CausalGuard stays
+    # the sole authority. ---
+    experiment_planner: Annotated[dict[str, Any], merge_dicts]
+    experiment_plans: Annotated[list[dict[str, Any]], merge_lists]
+
+    # --- UM-DR-46 Phase G (coverage intelligence): the SKG-derived
+    # (resource × principal × operation) coverage cells — VERIFIED only
+    # when the evidence intersects guard-adjudicated observations;
+    # everything else honestly observed_unverified. Advisory telemetry.
+    # ---
+    skg_coverage: Annotated[dict[str, Any], merge_dicts]
+
+    # --- UM-DR-46 Phase I (autonomous QC): deterministic deficiency
+    # reports over the research artifacts (hypotheses/lessons/plans).
+    # QC never deletes or modifies an artifact — it flags for the
+    # operator. Advisory only. ---
+    research_qc: Annotated[dict[str, Any], merge_dicts]
+
+    # --- UM-DR-46 Phase J (multi-protocol depth): SKG-driven
+    # protocol-depth targets (workflow sequences, enumerable object-id
+    # spaces, cross-origin workflows). Advisory targets only — no
+    # requests, no scope authority. ---
+    protocol_depth: Annotated[dict[str, Any], merge_dicts]
+
+    # --- UM-DR-47 Phase W (brain-engine wiring): the wiring summary
+    # channel (W1 SKG-selection context + W4 coverage-task count + W5
+    # chain-step count) and the per-pass context cache the strategist
+    # ranking reads. Advisory only — the engine reorders and enriches,
+    # never authorizes, never confirms, never executes. ---
+    brain_engine: Annotated[dict[str, Any], merge_dicts]
+    brain_engine_context: Annotated[dict[str, Any], merge_dicts]
+
+    # --- UM-DR-46 Phase H (research memory): the deterministic
+    # wall-clock-free compaction of the negative-evidence lessons with
+    # the family hints and the RANKING-TIME demotion lookup (the pool's
+    # declared values are lifecycle-protected — memory never mutates
+    # pool records; any rank_open_hypotheses consumer may apply the
+    # lookup). Advisory only. ---
+    research_memory: Annotated[dict[str, Any], merge_dicts]
+
+    # --- UM-DR-46 Phase E (advanced discovery intelligence): the
+    # SKG-mined discovery-target channel written by the discovery_intel
+    # node (production/discovery_intel_node.py) — what the model itself
+    # says it has NOT observed yet (unobserved transitions, parameter
+    # siblings, single-path resources, unmarked state triggers).
+    # Advisory guidance only — mining produces no requests, holds no
+    # authority, never expands scope. ---
+    discovery_intel: Annotated[dict[str, Any], merge_dicts]
+
     # UM-DR-30 (Workstream D §6 business-logic): the deterministic
     # invariant review over the workflow observations above (see
     # business_logic/invariant_checker.py — previously a zero-importer

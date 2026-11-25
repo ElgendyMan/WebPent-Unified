@@ -1,0 +1,652 @@
+{
+  "schema": "umdr46-baseline-campaign/v1",
+  "battery_version": "umdr46-baseline/1.0.0",
+  "family": "idor_bola",
+  "variant": "vulnerable",
+  "run": 3,
+  "campaign_id": "umdr46-baseline-idor_bola-vulnerable-3-e02074",
+  "started_at_utc": "2026-11-24T12:58:43.950111+00:00",
+  "completed_at_utc": "2026-11-24T12:58:48.747510+00:00",
+  "elapsed_s": 4.797,
+  "status": "COMPLETED",
+  "error": null,
+  "source_commit": "06eb943ff02cdce42ed8b8eaecc7cc1ac25ca7a7",
+  "tree_sha": "f284c49d6022a80ec4866cf598045df3102f0479",
+  "python_version": "3.12.16",
+  "lockfile_sha256": "508291d5ae1f6321ef8d0787ad84e74c9746e6e874860b07e40a8697ceefe4c8",
+  "lab_origin": "http://127.0.0.1:44569",
+  "invocation": {
+    "url": "http://127.0.0.1:44569",
+    "mode": "standard",
+    "authorization": "umdr46-authorized-lab-baseline-battery",
+    "cookies": "***REDACTED***",
+    "identity_profiles": {
+      "user-b": {
+        "name": "user-b",
+        "role": "user",
+        "cookies": {
+          "session": "***REDACTED***"
+        }
+      }
+    },
+    "auto_approve": true,
+    "no_llm": true,
+    "progress": false,
+    "run_graph": true,
+    "engagement_id": "umdr46-baseline-idor_bola-vulnerable-3-e02074"
+  },
+  "findings_total": 9,
+  "findings_confirmed": 2,
+  "confirmed_attribution": [
+    {
+      "finding_id": "84dcd74e-c8a0-48ac-8d36-9797d2a6ed85",
+      "vuln_class": "auth_bypass",
+      "url": "http://127.0.0.1:44569/api/invoices/INV-A-101",
+      "normalized_path": "/api/invoices/INV-A-101",
+      "confidence_level": "Tool-Confirmed",
+      "evidence_bundle_id": "proof_bundle_90b47c89eab94f8f8b1486ec74f46f9b",
+      "ground_truth_verdict": "TP"
+    },
+    {
+      "finding_id": "56dc45df-0240-4c2b-b409-966160049be9",
+      "vuln_class": "auth_bypass",
+      "url": "http://127.0.0.1:44569/api/invoices/INV-B-777",
+      "normalized_path": "/api/invoices/INV-B-777",
+      "confidence_level": "Tool-Confirmed",
+      "evidence_bundle_id": "proof_bundle_00138609016b4057bf9da9be895e4529",
+      "ground_truth_verdict": "TP"
+    }
+  ],
+  "ground_truth": {
+    "declared_defects": [
+      "GT-IDOR-1"
+    ],
+    "tp": 2,
+    "fp": 0,
+    "fn": 0
+  },
+  "metrics": {
+    "requests": 108,
+    "requests_per_confirmed": 54.0,
+    "time_to_first_candidate_s": 2.958,
+    "time_to_first_confirmed_s": 2.958,
+    "replay_verified": 2,
+    "replay_total": 2
+  },
+  "causal_guard_invocations": 2,
+  "guard_verdicts": [
+    "CONFIRMED",
+    "CONFIRMED"
+  ],
+  "verifications": [
+    {
+      "t_s": 2.962,
+      "finding_id": "84dcd74e-c8a0-48ac-8d36-9797d2a6ed85",
+      "vuln_class": "auth_bypass",
+      "passed": true,
+      "reason": "verified_replay",
+      "has_bundle": true
+    },
+    {
+      "t_s": 3.009,
+      "finding_id": "56dc45df-0240-4c2b-b409-966160049be9",
+      "vuln_class": "auth_bypass",
+      "passed": true,
+      "reason": "verified_replay",
+      "has_bundle": true
+    }
+  ],
+  "stage_count": 49,
+  "lab_requests": [
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_B"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/robots.txt",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/sitemap.xml",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/openapi.json",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/swagger.json",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api-docs/swagger.json",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api-docs/openapi.json",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api-docs/swagger-ui-init.js",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/swagger/v1/swagger.json",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/graphql",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/users",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/session",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/health",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/INV-A-101",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/INV-B-777",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/INV-ADMIN-9001",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/INV-MISSING-404",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/DECOY-9999",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/users",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/session",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/health",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/INV-A-101",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/users",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/session",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/health",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/INV-A-101",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/INV-B-777",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/INV-ADMIN-9001",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/DECOY-9999",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/INV-A-101",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/INV-A-101",
+      "principal": "User_B"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/INV-A-101",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/INV-B-777",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/INV-B-777",
+      "principal": "User_B"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/INV-B-777",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/INV-ADMIN-9001",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/INV-ADMIN-9001",
+      "principal": "User_B"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/INV-ADMIN-9001",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/me",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/me",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/user",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/user",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/me",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/me",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/me",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/me",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/profile",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/profile",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/user/whoami",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/user/whoami",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/INV-A-101",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/INV-B-777",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/users",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/session",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/health",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/INV-ADMIN-9001",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/DECOY-9999",
+      "principal": "User_A"
+    }
+  ],
+  "invariants": {
+    "out_of_scope_origin_zero_requests": true,
+    "out_of_scope_requests": [],
+    "all_requests_on_origin": true,
+    "unauthenticated_never_served_protected": true
+  },
+  "notes": [
+    "confirmed = Tool-Confirmed only (CausalGuard + ProofBundle + replay); generated hypotheses are never TP",
+    "attribution joins the finding URL to the declared ground truth anchors \u2014 never the engine label"
+  ]
+}

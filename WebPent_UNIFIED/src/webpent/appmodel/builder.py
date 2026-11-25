@@ -23,15 +23,16 @@ simply contributes nothing (and the model records a coverage gap, so
 from __future__ import annotations
 
 import re
-from typing import Any, Mapping
+from collections.abc import Mapping
+from typing import Any
 from urllib.parse import urlsplit
 
 from webpent.appmodel.models import (
+    ApplicationModel,
     AppModelEntity,
     AppModelEntityKind,
     AppModelRelation,
     AppModelRelationKind,
-    ApplicationModel,
     DiscoveryProvenance,
     provenance_confidence,
 )

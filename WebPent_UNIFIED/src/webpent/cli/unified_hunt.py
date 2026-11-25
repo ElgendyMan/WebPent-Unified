@@ -412,6 +412,55 @@ def run_unified_hunt(
         h.model_dump(mode="json") if hasattr(h, "model_dump") else dict(h)
         for h in (final_state.get("hypotheses") or [])
     ]
+    # UM-DR-47 W6/W7: record the safe-stop honestly and persist the
+    # cross-campaign research memory (flag-gated, privacy-scrubbed).
+    brain_stop = final_state.get("_brain_safe_stop")
+    if isinstance(brain_stop, dict):
+        summary["safe_stopped"] = True
+        summary["safe_stop_reason"] = str(brain_stop.get("reason") or "")
+        summary["safe_stop_snapshot"] = str(brain_stop.get("snapshot_path") or "")
+    try:
+        from webpent.production.brain_engine import brain_engine_enabled
+        _w6_on = brain_engine_enabled()
+    except Exception:  # noqa: BLE001 — fail-closed
+        _w6_on = False
+    if _w6_on:
+        try:
+            from webpent.production.research_memory_store import (
+                save_research_memory,
+            )
+
+            _lessons = [
+                str(x) for x in (final_state.get("research_lessons") or [])
+            ][:16] + [
+                str(x) for x in (final_state.get("extracted_lessons") or [])
+            ][:16]
+            _demotion: set[str] = set()
+            for h in (final_state.get("hypotheses") or []):
+                _status = str(
+                    (h.get("status") if isinstance(h, dict)
+                     else getattr(h, "status", "")) or ""
+                ).lower()
+                if _status in {"resolved_false", "abandoned", "refuted"}:
+                    _cls = str(
+                        (h.get("vuln_class") if isinstance(h, dict)
+                         else getattr(h, "vuln_class", "")) or ""
+                    ).lower()
+                    if _cls:
+                        _demotion.add(_cls)
+            _fp_causes = [
+                x for x in _lessons if "false_positive" in str(x).lower()
+            ][:16]
+            _mem_path = save_research_memory(
+                url,
+                demotion_classes=sorted(_demotion),
+                fp_causes=_fp_causes,
+                lesson_summaries=_lessons,
+            )
+            if _mem_path:
+                summary["research_memory_saved"] = _mem_path
+        except Exception as exc:  # noqa: BLE001 — memory is best-effort
+            logger.warning("W6 research-memory save failed: %s", exc)
     return summary
 
 
@@ -495,6 +544,40 @@ def _invoke_with_progress(
     )
 
     last_state: dict[str, Any] = {}
+    # UM-DR-47 W7: the live QC watchdog on the update stream (flag-
+    # gated; OFF keeps the stream loop byte-comparable). Scope hosts =
+    # the same declared set the engagement-allowlist uses below.
+    watchdog = None
+    try:
+        from webpent.production.brain_engine import brain_engine_enabled
+        _brain_on = brain_engine_enabled()
+    except Exception:  # noqa: BLE001 — fail-closed
+        _brain_on = False
+    if _brain_on:
+        from webpent.production.brain_watchdog import BrainWatchdog
+
+        _hosts: set[str] = set()
+        try:
+            _target_url = getattr(target, "url", None) or ""
+            if _target_url:
+                from urllib.parse import urlsplit as _urlsplit
+                _h = _urlsplit(str(_target_url)).hostname
+                if _h:
+                    _hosts.add(str(_h).lower())
+            for _origin in manifest_origins or []:
+                try:
+                    _h = _urlsplit(str(_origin)).hostname
+                except ValueError:
+                    _h = ""
+                if _h:
+                    _hosts.add(str(_h).lower())
+        except Exception:  # noqa: BLE001 — advisory scoping
+            _hosts = set()
+        watchdog = BrainWatchdog(
+            scope_hosts=frozenset(_hosts),
+            engagement_id=engagement_id,
+        )
+    brain_stop: dict[str, Any] | None = None
     try:
         with llm_enabled_override(False if no_llm else None):
             for chunk in graph.stream(
@@ -509,6 +592,8 @@ def _invoke_with_progress(
                 for node_name, update in chunk.items():
                     if not isinstance(update, dict):
                         continue
+                    if watchdog is not None:
+                        watchdog.observe_update(node_name, update)
                     trace = update.get("node_step_trace")
                     if renderer is not None and isinstance(trace, list) and trace:
                         renderer.observe_trace(trace[-1])
@@ -528,6 +613,22 @@ def _invoke_with_progress(
                     ):
                         if key in update:
                             last_state[key] = update[key]
+                if watchdog is not None:
+                    stop, reason = watchdog.should_stop()
+                    if stop:
+                        stop_exc = watchdog.safe_stop(
+                            reason,
+                            last_state=last_state,
+                            node=str(node_name) if node_name else None,
+                        )
+                        brain_stop = {
+                            "reason": stop_exc.reason,
+                            "snapshot_path": stop_exc.snapshot_path,
+                            "details": stop_exc.details,
+                        }
+                        break
+            if brain_stop is not None:
+                last_state["_brain_safe_stop"] = brain_stop
         # The update stream does not carry the accumulated findings list —
         # read the final full state from the graph's own state handle.
         try:
