@@ -1,86 +1,147 @@
-# UM-DR-47 — PHASE CLOSEOUT (honest, truth-in-record)
+# UM-DR-47 — PHASE CLOSEOUT (final, KB §14 pattern)
 
-Branch: `feature/umdr46-ultimate-researcher-brain` (46+47 lineage)
-Window commits: `8ae465e` (Phase W), `006dbe9` (re-freeze + BUILD_INFO resync).
+Branch: `feature/umdr46-ultimate-researcher-brain` → merged to `main`.
+Window: 2026-11-25. Start SHA: `0aa03ce` (46 recovery-state tip).
+End SHA: see the final merge commit on main (`v0.46.0` tag target).
 
-## P0 — إقفال ديون 46 (status)
+## Window commits (squash discipline, economy of payments)
 
-- **P0.1 الأخضر الثلاثي على 0aa03ce**: documented green runs —
-  [45427722454](https://github.com/ElgendyMan/WebPent-Unified/actions/runs/45427722454)
-  (push, attempt 1: success), rerun attempt + dispatch
-  [45542351681](https://github.com/ElgendyMan/WebPent-Unified/actions/runs/45542351681)
-  (success), [45542354583](https://github.com/ElgendyMan/WebPent-Unified/actions/runs/45542354583)
-  (in progress at P0.4 time).
-- **P0.2 تدقيق التسليمات**: all 46 deliverables verified via raw links
-  (200): `deliverables/umdr46/PHASE_CLOSEOUT.md`,
-  `GOVERNANCE_INDEX.md`, `BASELINE_REPORT.md`, `BASELINE_METRICS.json`,
-  `PHASE0_CLOSEOUT.md`, `final_benchmark/{DELTA_REPORT,BASELINE_REPORT,
-  BASELINE_METRICS}.json/md`, `evidence/phase_{a..g}_{red,green}.txt` (10),
-  `run_files/` (36) + `final_benchmark/run_files/` (36). The paths that
-  404'd were wrong-path claims in the 46 report (DELTA_REPORT.md lives in
-  `final_benchmark/`). **RECOVERY_STATE_UMDR46.md moved
-  `scripts/` → `deliverables/umdr46/`** (law of document placement).
-- **P0.3 إغلاق PR #1**: closed (not merged) — the API close was 403
-  permission-blocked (fine-grained PAT lacks pull_requests:write; evidence
-  in the window). Resolution: the stale release-prep branch
-  (`security/umdr34-origin-scope-hardening`, v0.40.0 snapshot, src-diff
-  empty vs main) was deleted → GitHub auto-closed the PR; commits remain
-  viewable on the PR page. Documented decision per law 47-4.
-- **P0.4 الدمج + tag + release + ZIP**: see the release
-  `v0.45.0-umdr46` (merge of the 46+47 lineage into main + archive).
-- **P0.5 صحة main بعد الدمج**: the pre-merge failing runs on main are
-  historical (pre-merge SHAs); the post-merge CI run is the live health
-  signal.
-- **P0.6 GOVERNANCE_INDEX**: updated with the truth of what 46 actually
-  delivered vs claimed (see `deliverables/umdr46/GOVERNANCE_INDEX.md`).
+1. `8ae465e` — feat(umdr47): Phase W — WIRE THE BRAIN (W1–W7 + the
+   literal priority formula + the wiring data fix)
+2. `006dbe9` — Update project to v0.45.0: BUILD_INFO manifest-digest
+   re-sync after the Phase W re-freeze
+3. `d2050c2` — docs(umdr47): WIRING_PROOF + PHASE_CLOSEOUT
+4. `097cd40` — Update project to v0.46.0 UMDR47 window: the 46+47
+   lineage merge (qualifying subject — publication convention)
+5. `85943a7` — Update project to v0.46.0: BUILD_INFO manifest-digest
+   re-sync after the CI-ritual closure re-freeze
+6. final — Phase M + Phase U + F2.1/F2.2/F2.3 evidence + closeout
+   (this commit)
 
-## Phase W — توصيل العقل بالمحرك: **منفذة بالكامل** ✅
+**عدد pushes الفعلي: 6** (كل push CI run واحد — IDs في الأسفل).
 
-49/49 tests green. The full evidence: `deliverables/umdr47/WIRING_PROOF.md`.
-Summary: W1 (SKG queries drive selection variables), W2 (pool ranked by the
-formula), W3 (the literal formula + 5 sensitivity tests), W4 (coverage gaps
-→ research tasks reaching the live pool), W5 (sequential chain steps with
-per-step proof + the gate), W6 (cross-campaign memory, load seam + save,
-privacy-scrubbed, negatives on real cookie-shaped input), W7 (watchdog on
-the live stream, thresholds + snapshot + safe-stop). Plus the discovered
-root cause: the 46 SKG input channels had no production writer — fixed with
-`_derived_wiring_channels` (crawl object variance + bac_observations).
+## Phase W — توصيل العقل بالمحرك: ✅ (49/49)
 
-## Phase M / U / F2 — **غير منفذة** (honest)
+`deliverables/umdr47/WIRING_PROOF.md` — the OFF/ON gate evidence.
+The literal formula `(EIG×Impact×Confidence)/(Cost+Risk)` live in BOTH
+selection lanes; W4 tasks reach the pool; memory crosses campaigns
+privacy-scrubbed; the watchdog watches the live stream with safe-stop.
+Root cause found+fixed: the 46 SKG input channels had NO production
+writer — `_derived_wiring_channels` derives them from real campaign
+data (crawl object variance + bac coverage ledger).
 
-Not started within this window's budget: the measurement battery (TP/FP/FN,
-precision/recall, requests-per-confirmed, time-to-first, replay,
-reproducibility), the 10 acceptance tests of Phase U, F2.1 finding report
-generator, F2.2 one-command campaign (the `hunt` CLI + scope file exists
-already), F2.3 protocol depth wiring, F2.5 (owner-only). **These are the
-precisely-scoped remainder** — see RECOVERY_STATE below for the exact
-continuation plan.
+## Phase M — القياس بالأرقام: ✅ (36 campaigns, brain ON)
 
-## عدد pushes الفعلي (law: economy of payments)
+`deliverables/umdr47/MEASUREMENT_REPORT.md` +
+`MEASUREMENT_METRICS.json` + `DELTA_REPORT.md` + 36 run files in
+`measurement_run_files/`. The numbers: **TP=6, FP=0, FN=18,
+precision=100%, recall=25%, replay 6/6, run-to-run reproducibility
+perfect (identical confirmed+request counts across all 3 runs per
+family×variant), zero out-of-scope requests, zero safe-stops**. The
+wiring counters: **180 W4 coverage tasks in 24/36 campaign pools, 36
+research-memory saves (all scrubbed), 0 W5 steps on these labs**.
+DELTA vs 46 baseline: **parity on every detection metric** (the same
+6/0/18) — reported as parity, and by law 47-3 parity is NOT proof;
+the behavioral difference is the WIRING_PROOF gate (pool composition +
+request sets + memory), not the detection ceiling. The FN=18 (5
+families undetected at the single-step confirmation level) predates
+the window — identical in the 46 baseline; the ceiling is the
+detection lanes, not the wiring.
 
-Window pushes: **3** (Phase W `8ae465e`, re-freeze `006dbe9`, docs+merge
-commit). CI runs triggered per push, IDs recorded in P0.1.
+## Phase U — بوابة الـUltimate: **10/10 PASS (executable)**
 
-## RECOVERY STATE (follow-up pointer)
+`deliverables/umdr47/ULTIMATE_ACCEPTANCE.md` — generated by
+`scripts/umdr47_ultimate_acceptance.py`, each criterion ONE command
+(`pytest tests/test_umdr47_u_acceptance.py -k TestCriterionNN`).
+Honest split: all ten PASS at the executable level; criterion 5
+(multi-step chains) reports its measured number exactly: the
+sequential chain machinery is proven (step-gating + per-step proof),
+**confirmed composed chains on the battery = 0** — the same
+single-step FN ceiling above. No zero rows, no adjectives.
 
-1. `git checkout feature/umdr46-ultimate-researcher-brain` (or main after
-   the v0.46.0 merge) + `uv sync --locked --extra dev`.
-2. Run `uv run python -m pytest tests/test_umdr47_*.py -q` (expect 49
-   passed) — the wiring baseline.
-3. Phase M: build the measurement battery on the 46 lab families
-   (`scripts/umdr46_baseline_battery.py` FAMILY_LABS + ground truth +
-   secure variants as negatives); compute TP/FP/FN/precision/recall/
-   requests-per-confirmed/time-to-first/replay/repro **by code**; ≥3
-   campaigns with `enable_brain_engine=True` via `run_unified_hunt`;
-   write `deliverables/umdr47/MEASUREMENT_REPORT.md` + `DELTA_REPORT.md`.
-4. Phase U: 10 acceptance tests, one command each, results (PASS/FAIL
-   with numbers) in `deliverables/umdr47/ULTIMATE_ACCEPTANCE.md`.
-5. F2.1/F2.2/F2.3; then the final merge + `v0.46.0` tag + release + ZIP.
+## Phase F2 — دفعة الإصلاحات: ✅ (F2.1–F2.4; F2.5 owner-only)
 
-## Maturity statement (M4, per the numbers that exist)
+- **F2.1** `src/webpent/production/finding_report_generator.py` —
+  the structured finding report (proof, scrubbed request/response,
+  expected-vs-observed, impact, numbered replay steps, confidence
+  source chain). Proven in TestCriterion09 + its own scrub test.
+- **F2.2** the ONE command: `hunt --scope-file ... --auto-approve
+  --no-llm` — verified END-TO-END through the real typer CLI
+  (`tests/test_umdr47_f22_one_command.py`: full campaign, confirmed
+  findings, report.html on disk, AND the negative: an uncovered
+  target refuses with ZERO requests). Grammar note documented:
+  worker scope-file grammar = allow-URL / exclude:HOST /
+  include-path:/exclude-path: lines (an `instruction:` line is NOT
+  part of this channel's grammar — comments instead). Loopback
+  port exemption added to wildcard_scope (labs declare ephemeral
+  ports; production hosts keep the strict denial).
+- **F2.3** `researcher/protocol_depth.py` extended: GraphQL
+  introspected operations → SKG-shaped records, WebSocket endpoints →
+  stateful workflow observations (disconnected→connected), OAuth/OIDC
+  → trust-boundary records, and THE cross-protocol hypothesis
+  (OAuth-delegated permission × GraphQL mutation) emitted into the
+  live pool — 9/9 tests
+  (`tests/test_umdr47_f23_protocol_depth.py`).
+- **F2.4** trunk health: all ritual gates green locally (frozen-gate
+  660, state-contract, g08 inventory regenerated 1260 records with
+  declared identities, broad-exception register extended entries
+  13–15, secrets clean, BUILD_INFO honesty PASS); CI runs on main
+  recorded below.
+- **F2.5** أول حملة على هدف حقيقي — **لم تُنفَّذ**: يتطلب تفويضًا
+  كتابيًا من المالك (بند صريح في البرومبت).
 
-The wiring is REAL and code-proven (OFF/ON behavioral difference, the
-formula live in both selection lanes, privacy-scrubbed memory). The
-**measurement claims** (precision/recall/replay success) remain
-**unmeasured** — no number is claimed until Phase M runs. "Ultimate"
-remains a goal, not a status.
+## CI (linked runs)
+
+- Pre-merge green on `0aa03ce`: runs 45427722454, 45542351681,
+  45542354583 (triple-run gate, all success).
+- Post-merge main `c71365c`: 45546526996/45546640845 — **failed**
+  (7 ritual failures: inventory drift, exception register, frozen
+  baseline, BUILD_INFO subject) → all fixed in `85943a7`.
+- Main `85943a7`: 45556986503 (in progress at closeout time — the
+  final commit's run is the live health signal; check the Actions
+  tab for its conclusion).
+
+## Findings (الحقائق المكتشفة أثناء النافذة)
+
+1. **The 46 brain was advisory because its data never existed**:
+   `skg_evidence` + `object_identity_observations` had no production
+   writer (test fixtures only) — the SKG built resource-less and the
+   brain had nothing to reason over. Fixed by the derivation.
+2. **The advisory chain runs too early**: at first-pass time there
+   are no authorization observations; the live wiring (strategist-
+   bound redirect) is the correct seam — the umdr31/32 precedent.
+3. **PR-close via API needs `pull_requests:write`** (the fine-grained
+   PAT lacks it); branch deletion auto-closes — documented decision.
+4. **The scope-file worker grammar has no `instruction:` line** —
+   everything unmatched is treated as an allow entry and fails closed.
+
+## المتبقي (precisely-scoped, no scope creep)
+
+1. **The detection ceiling** (FN=18: workflow_abuse,
+   request_smuggling, graphql_oracle, tenant_confusion,
+   redirect_scope_bypass families undetected at the confirmation
+   level) — a pre-existing single-step engine gap, identical in 46;
+   fixing it is detection-lane work, not wiring work.
+2. **Composed-chain confirmations = 0** on the battery (same ceiling).
+3. **F2.5** — the first authorized real-target campaign (owner
+   written authorization required).
+
+## بيان النضج المُثبت (M4)
+
+Measurable on declared ground truth: precision 100% (6/6 confirmations
+correct), replay success 100%, perfect reproducibility, zero
+out-of-scope requests, zero identity crossings, safe-stop proven both
+ways. The brain is WIRED and BEHAVIORAL (W4 in 24/36 pools, 180 tasks,
+36 scrubbed memory saves). Recall is 25% on this battery — reported
+as-is. "Ultimate" claims exactly what the numbers say, nothing more.
+
+## Recovery state
+
+- Branch: main at the final merge; the window's work is all pushed.
+- Re-run evidence: `uv run python scripts/run_tests_with_evidence.py`
+  (full suite + accounting) — the BUILD_INFO suite_count must track
+  its collected number.
+- Battery re-run: `uv run python scripts/umdr47_measurement_battery.py`
+  (36 campaigns, ~3 min).
+- Acceptance re-run: `uv run python scripts/umdr47_ultimate_acceptance.py`
+  (regenerates ULTIMATE_ACCEPTANCE.md from live commands).

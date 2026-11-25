@@ -513,6 +513,30 @@ def _augmented_state_for_skg(state: Any) -> Any:
     derived wiring channels (advisory-only derivation — the state
     itself is never mutated; real recorded data always wins)."""
     oi_derived, skg_derived = _derived_wiring_channels(state)
+    # F2.3 protocol depth: GraphQL operations, WS sessions and OAuth
+    # trust boundaries as SKG-shaped records (protocol_depth module)
+    try:
+        from webpent.researcher.protocol_depth import (
+            graphql_skg_records,
+            oauth_trust_boundary_records,
+            websocket_session_records,
+        )
+        crawled = _get(state, "crawled_data") or {}
+        if isinstance(crawled, dict):
+            skg_derived = skg_derived + graphql_skg_records(crawled)
+            skg_derived = skg_derived + oauth_trust_boundary_records(
+                crawled, _get(state, "identity_profiles"))
+            ws_recs = websocket_session_records(crawled)
+            if ws_recs:
+                existing_wf = list(
+                    _get(state, "workflow_observations") or [])
+                if isinstance(state, dict):
+                    state = {
+                        **state,
+                        "workflow_observations": existing_wf + ws_recs,
+                    }
+    except Exception:  # noqa: BLE001 — advisory derivation
+        pass
     if not (oi_derived or skg_derived):
         return state
     if isinstance(state, dict):
@@ -869,9 +893,35 @@ def brain_engine_node(state: Any) -> dict[str, Any]:
     if ctx.built:
         hypotheses.extend(coverage_gap_hypotheses(ctx, target_url))
         hypotheses.extend(chain_step_hypotheses(ctx, target_url))
+    # F2.3: the cross-protocol hypothesis (OAuth boundary × GraphQL
+    # mutation) — one REAL candidate when both surfaces are evidenced
+    f23 = None
+    try:
+        from webpent.researcher.protocol_depth import cross_surface_hypothesis
+        from webpent.production.hypothesis_adapter import canonical_hypothesis
 
+        f23 = cross_surface_hypothesis(
+            ctx.model, _get(state, "crawled_data") or {})
+        if f23 is not None:
+            hypotheses.append(canonical_hypothesis(
+                id=f23["id"],
+                statement=f23["statement"],
+                vuln_class=f23["vuln_class"],
+                origin=f23["origin"],
+                origin_detail=f23["origin_detail"],
+                target_url=target_url,
+                expected_behavior=f23["expected_behavior"],
+                negative_control=f23["negative_control"],
+                info_gain=f23.get("info_gain"),
+                evidence_contract=f23.get("evidence_contract"),
+            ))
+    except Exception:  # noqa: BLE001 — advisory emission
+        f23 = None
+
+    summary = dict(ctx.as_summary())
+    summary["f23_cross_surface_hypothesis"] = f23 is not None
     return {
-        BRAIN_ENGINE_CHANNEL: ctx.as_summary(),
+        BRAIN_ENGINE_CHANNEL: summary,
         STATE_CONTEXT_KEY: {
             "built": ctx.built,
             "sensitive_reachable": dict(ctx.sensitive_reachable),

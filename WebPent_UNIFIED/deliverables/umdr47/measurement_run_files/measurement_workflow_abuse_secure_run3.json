@@ -1,0 +1,661 @@
+{
+  "schema": "umdr47-measurement-campaign/v1",
+  "battery_version": "umdr47-measurement/1.0.0",
+  "family": "workflow_abuse",
+  "variant": "secure",
+  "run": 3,
+  "campaign_id": "umdr46-baseline-workflow_abuse-secure-3-8a9f9a",
+  "started_at_utc": "2026-11-25T06:01:20.912118+00:00",
+  "completed_at_utc": "2026-11-25T06:01:23.961623+00:00",
+  "elapsed_s": 3.049,
+  "status": "COMPLETED",
+  "error": null,
+  "source_commit": "85943a7018d59f20d55d81111dd1f1933dedb733",
+  "tree_sha": "aaeaab8de92ff070eeda20c67e0e4f209a654dca",
+  "python_version": "3.12.16",
+  "lockfile_sha256": "508291d5ae1f6321ef8d0787ad84e74c9746e6e874860b07e40a8697ceefe4c8",
+  "lab_origin": "http://127.0.0.1:35987",
+  "invocation": {
+    "url": "http://127.0.0.1:35987",
+    "mode": "standard",
+    "authorization": "umdr46-authorized-lab-baseline-battery",
+    "cookies": "***REDACTED***",
+    "identity_profiles": {
+      "user-b": {
+        "name": "user-b",
+        "role": "user",
+        "cookies": {
+          "session": "***REDACTED***"
+        }
+      }
+    },
+    "auto_approve": true,
+    "no_llm": true,
+    "progress": false,
+    "run_graph": true,
+    "engagement_id": "umdr46-baseline-workflow_abuse-secure-3-8a9f9a"
+  },
+  "findings_total": 6,
+  "findings_confirmed": 0,
+  "confirmed_attribution": [],
+  "ground_truth": {
+    "declared_defects": [],
+    "tp": 0,
+    "fp": 0,
+    "fn": 0
+  },
+  "metrics": {
+    "requests": 116,
+    "requests_per_confirmed": null,
+    "time_to_first_candidate_s": null,
+    "time_to_first_confirmed_s": null,
+    "replay_verified": 0,
+    "replay_total": 0
+  },
+  "causal_guard_invocations": 0,
+  "guard_verdicts": [],
+  "verifications": [],
+  "stage_count": 50,
+  "lab_requests": [
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_B"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/robots.txt",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/sitemap.xml",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/openapi.json",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/swagger.json",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api-docs/swagger.json",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api-docs/openapi.json",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api-docs/swagger-ui-init.js",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/swagger/v1/swagger.json",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/graphql",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/session",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/ORD-W-101",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/ORD-W-555",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/ORD-OK-707",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/ORD-W-101/approve",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/ORD-W-101/ship",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/ORD-OK-707/ship",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/workflow-docs",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/session",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/ORD-W-101",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/ORD-W-555",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/session",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/ORD-W-101",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/ORD-W-555",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/ORD-OK-707",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/workflow-docs",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/ORD-W-101",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/ORD-W-101",
+      "principal": "User_B"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/ORD-W-101",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/ORD-W-555",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/ORD-W-555",
+      "principal": "User_B"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/ORD-W-555",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/ORD-OK-707",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/ORD-OK-707",
+      "principal": "User_B"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/ORD-OK-707",
+      "principal": "User_A"
+    },
+    {
+      "method": "POST",
+      "path": "/graphql",
+      "principal": "User_A"
+    },
+    {
+      "method": "POST",
+      "path": "/api/graphql",
+      "principal": "User_A"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/graphql",
+      "principal": "User_A"
+    },
+    {
+      "method": "POST",
+      "path": "/query",
+      "principal": "User_A"
+    },
+    {
+      "method": "POST",
+      "path": "/api/query",
+      "principal": "User_A"
+    },
+    {
+      "method": "POST",
+      "path": "/graphiql",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/me",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/me",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/user",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/user",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/me",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/me",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/me",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/me",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/profile",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/profile",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/user/whoami",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/user/whoami",
+      "principal": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "POST",
+      "path": "",
+      "principal": "User_A"
+    },
+    {
+      "method": "POST",
+      "path": "",
+      "principal": "User_A"
+    },
+    {
+      "method": "POST",
+      "path": "",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/ORD-W-101",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/ORD-W-555",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/ORD-OK-707",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/session",
+      "principal": "User_A"
+    },
+    {
+      "method": "GET",
+      "path": "/api/workflow-docs",
+      "principal": "User_A"
+    }
+  ],
+  "invariants": {
+    "out_of_scope_origin_zero_requests": true,
+    "out_of_scope_requests": [],
+    "all_requests_on_origin": false,
+    "unauthenticated_never_served_protected": true
+  },
+  "notes": [
+    "confirmed = Tool-Confirmed only (CausalGuard + ProofBundle + replay); generated hypotheses are never TP",
+    "attribution joins the finding URL to the declared ground truth anchors \u2014 never the engine label"
+  ],
+  "brain_engine": {
+    "enabled": true,
+    "flag": "ENABLE_BRAIN_ENGINE=true (env, pydantic-settings mapping)",
+    "memory_dir_policy": "fresh per campaign (deterministic; the save itself is recorded per run)",
+    "w4_coverage_tasks_in_pool": 9,
+    "w5_chain_steps_in_pool": 0,
+    "pool_total": 28,
+    "research_memory_saved": true,
+    "safe_stopped": false
+  }
+}

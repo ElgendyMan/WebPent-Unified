@@ -228,6 +228,10 @@ UMDR43C_20261121_THAW_PATHS = frozenset(
 # test_umdr47_w7_watchdog.py (9) + test_umdr47_w_gate.py (3).
 UMDR47_W_20261125_THAW_PATHS = frozenset({
     "src/webpent/graph/builder.py",
+    # F2.2 continuation: the loopback port exemption in wildcard_scope
+    # (the authorized lab's ephemeral port is declarable; production
+    # hosts keep the strict non-default-port denial).
+    "src/webpent/shared/wildcard_scope.py",
     "src/webpent/state/state.py",
     "src/webpent/shared/prioritization.py",
     "src/webpent/production/autonomous_validation_v1.py",

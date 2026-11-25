@@ -1,0 +1,106 @@
+{
+  "schema": "full-suite-evidence/v3",
+  "runner": "run_tests_with_evidence.py",
+  "source_commit": "85943a7018d59f20d55d81111dd1f1933dedb733",
+  "tree_clean": false,
+  "tree_status_sample_at_test_start": [
+    "M WebPent_UNIFIED/.webpent-research-memory/9deeb77a1ebfc7b923b6.json",
+    " M WebPent_UNIFIED/BUILD_INFO.json",
+    " M WebPent_UNIFIED/docs/direct_io_inventory.json",
+    " M WebPent_UNIFIED/frozen_modules.sha256",
+    " M WebPent_UNIFIED/scripts/refreeze_manifest_umdr47_w.py",
+    " M WebPent_UNIFIED/src/webpent/production/brain_engine.py",
+    " M WebPent_UNIFIED/src/webpent/researcher/protocol_depth.py",
+    " M WebPent_UNIFIED/src/webpent/shared/wildcard_scope.py",
+    " M WebPent_UNIFIED/tests/test_frozen_module_gate.py",
+    "?? WebPent_UNIFIED/deliverables/umdr47/DELTA_REPORT.md",
+    "?? WebPent_UNIFIED/deliverables/umdr47/MEASUREMENT_METRICS.json",
+    "?? WebPent_UNIFIED/deliverables/umdr47/MEASUREMENT_REPORT.md",
+    "?? WebPent_UNIFIED/deliverables/umdr47/ULTIMATE_ACCEPTANCE.md",
+    "?? WebPent_UNIFIED/deliverables/umdr47/measurement_run_files/",
+    "?? WebPent_UNIFIED/hunt_artifacts/",
+    "?? WebPent_UNIFIED/scripts/umdr47_measurement_battery.py",
+    "?? WebPent_UNIFIED/scripts/umdr47_ultimate_acceptance.py",
+    "?? WebPent_UNIFIED/src/webpent/production/finding_report_generator.py",
+    "?? WebPent_UNIFIED/tests/test_umdr47_f22_one_command.py",
+    "?? WebPent_UNIFIED/tests/test_umdr47_f23_protocol_depth.py",
+    "?? WebPent_UNIFIED/tests/test_umdr47_u_acceptance.py"
+  ],
+  "github": null,
+  "started_at_utc": "2026-11-25T06:54:29.188751+00:00",
+  "completed_at_utc": "2026-11-25T07:15:20.933151+00:00",
+  "python_version": "3.12.16",
+  "uv_version": "uv 0.13.9 (x86_64-unknown-linux-gnu)",
+  "lockfile_sha256": "508291d5ae1f6321ef8d0787ad84e74c9746e6e874860b07e40a8697ceefe4c8",
+  "command": [
+    "/home/z/my-project/WebPent-Unified/WebPent_UNIFIED/.venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/",
+    "-v",
+    "--tb=short",
+    "-p",
+    "pytest_accounting_plugin",
+    "--cov=src/webpent",
+    "--cov-report=json:/home/z/my-project/WebPent-Unified/WebPent_UNIFIED/.webpent-evidence/coverage_last_run.json",
+    "--cov-fail-under=72"
+  ],
+  "test_scope_digest": "3cdd7aded30a79b80b2027d3fadb844bc678c83f296e91003d2d9545d279a264",
+  "accounting": {
+    "passed": 9873,
+    "failed": 1,
+    "skipped": 7,
+    "xfailed": 3,
+    "xpassed": 0,
+    "deselected": 0,
+    "errors": 0,
+    "collected": 9883,
+    "executed": 9884,
+    "accounting_consistent": 0,
+    "summary_found": 1
+  },
+  "accounting_v3": {
+    "schema": "pytest-accounting/v1",
+    "collected_items": 9883,
+    "collection_errors": 0,
+    "collection_skips": 1,
+    "deselected": 0,
+    "started_items": 9883,
+    "not_started": 0,
+    "outcomes": {
+      "passed": 9873,
+      "failed": 1,
+      "skipped": 6,
+      "xfailed": 3,
+      "xpassed": 0
+    },
+    "outcomes_total": 9883,
+    "setup_errors": 0,
+    "teardown_errors": 0,
+    "errors_total": 0,
+    "interrupted": false,
+    "exitstatus": 1,
+    "failed_nodeids": [
+      "tests/test_umdr24_release_gate_compliance.py::test_build_info_suite_count_coherent_with_collected_reality"
+    ],
+    "invariants": {
+      "collected_eq_started_plus_not_started_plus_deselected": true,
+      "started_eq_outcomes_plus_setup_errors": true,
+      "errors_total_decomposes": true,
+      "not_started_zero_unless_interrupted": true
+    },
+    "invariants_all_true": true
+  },
+  "accounting_cross_check": {
+    "plugin_available": true,
+    "disagreements": {},
+    "all_agree": true,
+    "plugin_invariants_all_true": true
+  },
+  "coverage": {
+    "floor_percent": 72,
+    "result": "77.66% (floor 72% \u2014 OK)",
+    "percent_covered": 77.66
+  },
+  "exit_code": 1
+}

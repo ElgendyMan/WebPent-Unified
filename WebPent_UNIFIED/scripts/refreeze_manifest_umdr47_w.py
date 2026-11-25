@@ -40,14 +40,19 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 MANIFEST = REPO_ROOT / "frozen_modules.sha256"
 
-ADD = {
+ADD: set[str] = set()  # all three modules are already pinned entries
+
+REPIN = {
     "src/webpent/production/brain_engine.py",
     "src/webpent/production/brain_watchdog.py",
     "src/webpent/production/research_memory_store.py",
-}
-
-REPIN = {
     "src/webpent/graph/builder.py",
+    # F2.2/F2.3 window continuation: the loopback port exemption
+    # (wildcard_scope.py — the authorized lab's ephemeral port is
+    # declarable; production hosts keep the strict rule) and the
+    # F2.3 protocol-depth consumption + cross-surface hypothesis
+    # (brain_engine.py, edited after the first re-pin).
+    "src/webpent/shared/wildcard_scope.py",
     "src/webpent/state/state.py",
     "src/webpent/shared/prioritization.py",
     "src/webpent/production/autonomous_validation_v1.py",

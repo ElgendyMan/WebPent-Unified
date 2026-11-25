@@ -118,7 +118,13 @@ def _parse_entry(raw_entry: str) -> tuple[str, str, bool]:
     except ValueError as exc:
         raise WildcardScopeError("scope_entry_port_invalid") from exc
     default_port = 443 if parsed.scheme.lower() == "https" else 80
-    if port not in (None, default_port):
+    # UM-DR-47 F2.2: loopback (the authorized lab environment) is
+    # exempt from the default-port restriction — an ephemeral-port lab
+    # origin is declarable. Production hosts keep the strict rule
+    # (non-default ports on real targets still deny).
+    host_for_port = parsed.hostname or ""
+    is_loopback = host_for_port in {"127.0.0.1", "::1", "localhost"}
+    if port not in (None, default_port) and not is_loopback:
         raise WildcardScopeError("scope_entry_non_default_port_denied")
     host = parsed.hostname.lower().rstrip(".")
     wildcard_match = _WILDCARD_RE.fullmatch(host)

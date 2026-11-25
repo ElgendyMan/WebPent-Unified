@@ -1,0 +1,386 @@
+{
+  "schema": "umdr47-measurement-benchmark/v1",
+  "battery_version": "umdr47-measurement/1.0.0",
+  "generated_at_utc": "2026-11-25T06:04:01.714736+00:00",
+  "mission": "UM-DR-47 Phase M \u2014 measurement with the brain ON",
+  "system_under_test": {
+    "entrypoint": "webpent.cli.unified_hunt.run_unified_hunt",
+    "branch_commit": "85943a7018d59f20d55d81111dd1f1933dedb733",
+    "brain_engine_flag": "ENABLE_BRAIN_ENGINE=true",
+    "determinism_env": {
+      "LLM_ENABLED": "false",
+      "EMBEDDINGS_OFFLINE": "true",
+      "DISABLE_RAG": "true"
+    }
+  },
+  "brain_wiring": {
+    "campaigns_with_w4_tasks_in_pool": 24,
+    "campaigns_completed": 36,
+    "w4_tasks_total": 180,
+    "w5_steps_total": 0,
+    "research_memory_saved_runs": 36,
+    "safe_stopped_runs": 0
+  },
+  "baseline46_delta": {
+    "comparison": {
+      "baseline_46": "deliverables/umdr46/final_benchmark/BASELINE_METRICS.json",
+      "measured_47": "deliverables/umdr47/MEASUREMENT_METRICS.json",
+      "note": "same six family labs, same ground truth, same entrypoint, same metric attribution; the only intentional variable is ENABLE_BRAIN_ENGINE (46=false, 47=true)"
+    },
+    "overall_table": {
+      "campaigns_total": {
+        "baseline_46": 36,
+        "measured_47": 36,
+        "delta": 0
+      },
+      "campaigns_completed": {
+        "baseline_46": 36,
+        "measured_47": 36,
+        "delta": 0
+      },
+      "tp": {
+        "baseline_46": 6,
+        "measured_47": 6,
+        "delta": 0
+      },
+      "fp": {
+        "baseline_46": 0,
+        "measured_47": 0,
+        "delta": 0
+      },
+      "fn": {
+        "baseline_46": 18,
+        "measured_47": 18,
+        "delta": 0
+      },
+      "declared_defects_total": {
+        "baseline_46": 7,
+        "measured_47": 7,
+        "delta": 0
+      },
+      "precision": {
+        "baseline_46": 1.0,
+        "measured_47": 1.0,
+        "delta_points": 0.0
+      },
+      "recall": {
+        "baseline_46": 0.25,
+        "measured_47": 0.25,
+        "delta_points": 0.0
+      },
+      "replay_success_pct": {
+        "baseline_46": 100.0,
+        "measured_47": 100.0,
+        "delta_points": 0.0
+      }
+    }
+  },
+  "overall": {
+    "campaigns_total": 36,
+    "campaigns_completed": 36,
+    "campaigns_error": 0,
+    "tp": 6,
+    "fp": 0,
+    "fn": 18,
+    "precision": 1.0,
+    "recall": 0.25,
+    "declared_defects_total": 7,
+    "replay": {
+      "verified": 6,
+      "total": 6
+    },
+    "timeouts_or_cancellations": 0,
+    "out_of_scope_zero_requests_all_campaigns": true
+  },
+  "per_family": {
+    "idor_bola": {
+      "declared_defects": 1,
+      "campaigns": {
+        "vulnerable": 3,
+        "secure": 3
+      },
+      "tp": 6,
+      "fp": 0,
+      "fn": 0,
+      "fp_breakdown": {
+        "boundary_or_undeclared_on_vulnerable": 0,
+        "any_confirmation_on_secure_variant": 0
+      },
+      "precision": 1.0,
+      "recall": 1.0,
+      "requests_total": 648,
+      "requests_mean_per_campaign": 108.0,
+      "requests_per_confirmed": 54.0,
+      "requests_per_confirmed_battery_wide": 108.0,
+      "elapsed_s_mean": 3.711,
+      "time_to_first_candidate_s": 1.875,
+      "time_to_first_confirmed_s": 1.875,
+      "replay": {
+        "verified": 6,
+        "total": 6
+      },
+      "statuses": [
+        "COMPLETED"
+      ],
+      "out_of_scope_zero_requests_all_runs": true,
+      "reproducibility": {
+        "identical_confirmed_counts_vulnerable": true,
+        "identical_request_counts_vulnerable": true,
+        "identical_confirmed_counts_secure": true,
+        "confirmed_counts_per_run": {
+          "vulnerable": [
+            2,
+            2,
+            2
+          ],
+          "secure": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "workflow_abuse": {
+      "declared_defects": 1,
+      "campaigns": {
+        "vulnerable": 3,
+        "secure": 3
+      },
+      "tp": 0,
+      "fp": 0,
+      "fn": 3,
+      "fp_breakdown": {
+        "boundary_or_undeclared_on_vulnerable": 0,
+        "any_confirmation_on_secure_variant": 0
+      },
+      "precision": null,
+      "recall": 0.0,
+      "requests_total": 696,
+      "requests_mean_per_campaign": 116.0,
+      "requests_per_confirmed": null,
+      "requests_per_confirmed_battery_wide": null,
+      "elapsed_s_mean": 3.16,
+      "time_to_first_candidate_s": null,
+      "time_to_first_confirmed_s": null,
+      "replay": {
+        "verified": 0,
+        "total": 0
+      },
+      "statuses": [
+        "COMPLETED"
+      ],
+      "out_of_scope_zero_requests_all_runs": true,
+      "reproducibility": {
+        "identical_confirmed_counts_vulnerable": true,
+        "identical_request_counts_vulnerable": true,
+        "identical_confirmed_counts_secure": true,
+        "confirmed_counts_per_run": {
+          "vulnerable": [
+            0,
+            0,
+            0
+          ],
+          "secure": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "request_smuggling": {
+      "declared_defects": 1,
+      "campaigns": {
+        "vulnerable": 3,
+        "secure": 3
+      },
+      "tp": 0,
+      "fp": 0,
+      "fn": 3,
+      "fp_breakdown": {
+        "boundary_or_undeclared_on_vulnerable": 0,
+        "any_confirmation_on_secure_variant": 0
+      },
+      "precision": null,
+      "recall": 0.0,
+      "requests_total": 582,
+      "requests_mean_per_campaign": 97.0,
+      "requests_per_confirmed": null,
+      "requests_per_confirmed_battery_wide": null,
+      "elapsed_s_mean": 3.141,
+      "time_to_first_candidate_s": null,
+      "time_to_first_confirmed_s": null,
+      "replay": {
+        "verified": 0,
+        "total": 0
+      },
+      "statuses": [
+        "COMPLETED"
+      ],
+      "out_of_scope_zero_requests_all_runs": true,
+      "reproducibility": {
+        "identical_confirmed_counts_vulnerable": true,
+        "identical_request_counts_vulnerable": true,
+        "identical_confirmed_counts_secure": true,
+        "confirmed_counts_per_run": {
+          "vulnerable": [
+            0,
+            0,
+            0
+          ],
+          "secure": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "graphql_oracle": {
+      "declared_defects": 1,
+      "campaigns": {
+        "vulnerable": 3,
+        "secure": 3
+      },
+      "tp": 0,
+      "fp": 0,
+      "fn": 3,
+      "fp_breakdown": {
+        "boundary_or_undeclared_on_vulnerable": 0,
+        "any_confirmation_on_secure_variant": 0
+      },
+      "precision": null,
+      "recall": 0.0,
+      "requests_total": 642,
+      "requests_mean_per_campaign": 107.0,
+      "requests_per_confirmed": null,
+      "requests_per_confirmed_battery_wide": null,
+      "elapsed_s_mean": 3.324,
+      "time_to_first_candidate_s": null,
+      "time_to_first_confirmed_s": null,
+      "replay": {
+        "verified": 0,
+        "total": 0
+      },
+      "statuses": [
+        "COMPLETED"
+      ],
+      "out_of_scope_zero_requests_all_runs": true,
+      "reproducibility": {
+        "identical_confirmed_counts_vulnerable": true,
+        "identical_request_counts_vulnerable": true,
+        "identical_confirmed_counts_secure": true,
+        "confirmed_counts_per_run": {
+          "vulnerable": [
+            0,
+            0,
+            0
+          ],
+          "secure": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "tenant_confusion": {
+      "declared_defects": 1,
+      "campaigns": {
+        "vulnerable": 3,
+        "secure": 3
+      },
+      "tp": 0,
+      "fp": 0,
+      "fn": 3,
+      "fp_breakdown": {
+        "boundary_or_undeclared_on_vulnerable": 0,
+        "any_confirmation_on_secure_variant": 0
+      },
+      "precision": null,
+      "recall": 0.0,
+      "requests_total": 564,
+      "requests_mean_per_campaign": 94.0,
+      "requests_per_confirmed": null,
+      "requests_per_confirmed_battery_wide": null,
+      "elapsed_s_mean": 3.114,
+      "time_to_first_candidate_s": null,
+      "time_to_first_confirmed_s": null,
+      "replay": {
+        "verified": 0,
+        "total": 0
+      },
+      "statuses": [
+        "COMPLETED"
+      ],
+      "out_of_scope_zero_requests_all_runs": true,
+      "reproducibility": {
+        "identical_confirmed_counts_vulnerable": true,
+        "identical_request_counts_vulnerable": true,
+        "identical_confirmed_counts_secure": true,
+        "confirmed_counts_per_run": {
+          "vulnerable": [
+            0,
+            0,
+            0
+          ],
+          "secure": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "redirect_scope_bypass": {
+      "declared_defects": 2,
+      "campaigns": {
+        "vulnerable": 3,
+        "secure": 3
+      },
+      "tp": 0,
+      "fp": 0,
+      "fn": 6,
+      "fp_breakdown": {
+        "boundary_or_undeclared_on_vulnerable": 0,
+        "any_confirmation_on_secure_variant": 0
+      },
+      "precision": null,
+      "recall": 0.0,
+      "requests_total": 576,
+      "requests_mean_per_campaign": 96.0,
+      "requests_per_confirmed": null,
+      "requests_per_confirmed_battery_wide": null,
+      "elapsed_s_mean": 3.407,
+      "time_to_first_candidate_s": null,
+      "time_to_first_confirmed_s": null,
+      "replay": {
+        "verified": 0,
+        "total": 0
+      },
+      "statuses": [
+        "COMPLETED"
+      ],
+      "out_of_scope_zero_requests_all_runs": true,
+      "reproducibility": {
+        "identical_confirmed_counts_vulnerable": true,
+        "identical_request_counts_vulnerable": true,
+        "identical_confirmed_counts_secure": true,
+        "confirmed_counts_per_run": {
+          "vulnerable": [
+            0,
+            0,
+            0
+          ],
+          "secure": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    }
+  },
+  "runs_per_variant": 3
+}
