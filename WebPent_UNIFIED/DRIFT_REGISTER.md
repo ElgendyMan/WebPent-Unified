@@ -1814,3 +1814,32 @@ the intersection failed for the WRONG reason (fail-closed by
 unreadability, not a boundary defect). Follow-up repair: the sentinel
 `approval_source_unreadable_os_error` joined the accepted fail-closed
 set; the two deterministic probes are untouched.
+
+
+## 2026-11-25 — UM-DR-47: the brain-wiring window (46+47 lineage merge)
+
+UM-DR-47 declared window (Phase W): the researcher brain WIRED into
+the production flow — brain_engine.py, brain_watchdog.py and
+research_memory_store.py first-pinned as NEW trust-chain files (scope
+completions, never frozen before; regression proofs
+tests/test_umdr47_w3_priority.py, test_umdr47_w_engine.py,
+test_umdr47_w6_memory.py, test_umdr47_w7_watchdog.py,
+test_umdr47_w_gate.py — 49 tests). The 17-window re-pin set (13
+baseline-shared thaws + the three new modules) is declared in
+scripts/refreeze_manifest_umdr47_w.py; the frozen-gate expectation is
+tests/test_frozen_module_gate.py UMDR47_W_20261125_THAW_PATHS. Window
+continuation (F2.2/F2.3) re-pinned src/webpent/shared/wildcard_scope.py
+(the loopback port exemption: the authorized lab's ephemeral port is
+declarable; production hosts keep the strict non-default-port denial)
+and re-pinned brain_engine.py again (F2.3 protocol-depth consumption +
+the OAuth-x-GraphQL-mutation cross-surface hypothesis). The
+direct-I/O inventory regenerated deliberately (1242 -> 1260 records;
+scripts/regen_direct_io_inventory_umdr47_w.py; raw-transport site set
+unchanged). Broad-exception register extended with the three
+documented fail-soft boundaries (docs/ACCEPTED_EXCEPTIONS_REGISTER.md
+entries 13-15); the AVI-lane handler in autonomous_validation_v1.py
+narrowed to the builder precedent's exact set. BUILD_INFO suite
+evidence re-bound to the fresh full-suite machine record (9883
+collected / 9883 started (v3) / 9873 passed; the single failure is the
+suite_count check itself, satisfied by that same update);
+deliverables/umdr47/FULL_SUITE_EVIDENCE.json is the durable copy.
