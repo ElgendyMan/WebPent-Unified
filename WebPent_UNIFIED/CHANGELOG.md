@@ -1,3 +1,29 @@
+## [0.48.0] — UM-DR-49 (2026-11-25)
+
+The real-ground window: the owner-approved labs (OWASP Juice Shop
+v20.4.0, WebGoat v2023.5, DVWA source) as the measurement field, the
+public truth catalogs (118/29/19 items), and the honest verdict.
+
+> **Three REAL engine defects found-and-fixed by the window's own
+> protocols:** (1) the scope-file PORT boundary (an allow entry
+> authorized every port on its host — the safe-stop rehearsal caught
+> it live); (2) hypothesis_evolution crashed whole on info_gain=None
+> (first real multi-hypothesis campaign); (3) 17 inherited app-specific
+> literals in engine code since the Initial upload — cleaned, now
+> enforced by the zero-knowledge grep-gate (24 literals x 1151 files).
+
+Measured on the real ground: discovery 0 -> 42 hypotheses / channel-cap
+endpoints (the JS-route projection — generic, evidence-tagged); FP=0
+across every campaign (blind, learning, adversarial, resumed, scaled);
+kill-and-resume continuity with zero duplicates; dual-app scale with
+zero cross-leak (and the spine guard proving it refuses unsafe
+sharing). The verdict: **VIP Ultimate NOT granted — 0/25 catalog items
+independently confirmed** (every real finding stays Needs Human
+Review; the no-confirmation-without-replay-evidence law held).
+LLM unmeasured (no credentials in the field environment); learning
+stable but not request-reducing. All gaps are numbered in
+deliverables/umdr49/VIP_ULTIMATE_CERTIFICATION.md.
+
 ## [0.40.1] — UM-DR-36.2/37 (2026-11-15)
 
 Version identity alignment + recovery closure + production root-cause

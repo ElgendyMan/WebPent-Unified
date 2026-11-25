@@ -1,0 +1,37 @@
+{
+ "schema": "umdr49-scale-dual-app/1.0.0",
+ "engagement_id": "umdr49-scale-dual-app",
+ "apps": [
+  {
+   "app": "juiceshop",
+   "thread": "umdr49-scale-dual-app-juiceshop",
+   "elapsed_s": 11.54,
+   "endpoints": 5000,
+   "findings": 17,
+   "confirmed": 0,
+   "finding_urls_sample": [
+    "http://127.0.0.1:3000/api/Feedbacks",
+    "http://127.0.0.1:3000/api/Challenges/?key=nftMintChallenge",
+    "http://127.0.0.1:3000/api/Challenges",
+    "http://127.0.0.1:3000/api/Users",
+    "http://127.0.0.1:3000/api/Addresss",
+    "http://127.0.0.1:3000/api/Recycles"
+   ],
+   "cross_app_leak_urls": []
+  },
+  {
+   "app": "webgoat",
+   "thread": "umdr49-scale-dual-app-webgoat",
+   "elapsed_s": 2.13,
+   "endpoints": 10,
+   "findings": 0,
+   "confirmed": 0,
+   "finding_urls_sample": [],
+   "cross_app_leak_urls": []
+  }
+ ],
+ "verdict": {
+  "both_completed": true,
+  "identity_isolation": true
+ }
+}
