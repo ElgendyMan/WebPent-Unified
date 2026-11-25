@@ -4,7 +4,7 @@
 Window: Phase W (wire the brain). Declared delta versus the pre-window
 manifest (7 files, all trust-chain files edited by the window):
 
-  RE-PINNED (7):
+  RE-PINNED (17 — 7 window files + 10 carried-in tree state):
     1. src/webpent/graph/builder.py — the live wiring: NODE_BRAIN_ENGINE
        registration + _umdr47_routes strategist-bound redirect (the
        composed _research_route_redirects chain).
@@ -28,7 +28,7 @@ manifest (7 files, all trust-chain files edited by the window):
 
 Gates (fail-closed, nothing written unless ALL pass):
   1. every manifest entry's file EXISTS in the tree;
-  2. exactly the declared 7 entries changed digest;
+  2. exactly the declared 17 entries changed digest;
   3. entry count >= 630.
 """
 from __future__ import annotations
@@ -48,6 +48,18 @@ REPIN = {
     "src/webpent/shared/learned_context.py",
     "src/webpent/cli/unified_hunt.py",
     "src/webpent/config/settings.py",
+    # carried-in delta: files already modified in the working tree at
+    # window start (committed in 8ae465e) — documented, re-pinned here
+    "src/webpent/agents/rabbit_hole/agent.py",
+    "src/webpent/agents/request_smuggling/agent.py",
+    "src/webpent/agents/strategist/agent.py",
+    "src/webpent/production/discovery_funnel.py",
+    "src/webpent/production/hypothesis_identity.py",
+    "src/webpent/production/identity_workflow.py",
+    "src/webpent/shared/engagement_scope.py",
+    "src/webpent/shared/http.py",
+    "src/webpent/shared/llm.py",
+    "src/webpent/state/reducers.py",
 }
 FLOOR = 630
 
