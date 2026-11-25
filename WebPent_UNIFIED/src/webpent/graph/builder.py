@@ -291,6 +291,8 @@ NODE_RESEARCH_MEMORY = "research_memory"
 NODE_RESEARCH_QC = "research_qc"
 # UM-DR-46 Phase J — the protocol-depth node
 NODE_PROTOCOL_DEPTH = "protocol_depth"
+# UM-DR-47 Phase W: the brain-engine wiring node (flag-gated)
+NODE_BRAIN_ENGINE = "brain_engine"
 #: (proposal 7) The four deterministic detector nodes, chained after
 #: request_smuggling inside the deep-probe phase. Pass-throughs unless
 #: the surface/flag applies.
@@ -457,6 +459,16 @@ def _meets_severity_threshold(finding: Finding) -> bool:
     return rank >= _SEVERITY_RANKS[_MIN_SEVERITY_VALUE]
 
 
+def _brain_engine_enabled() -> bool:
+    """UM-DR-47 Phase W: the brain-engine wiring flag, fail-closed."""
+    try:
+        from webpent.config.settings import get_settings
+
+        return bool(get_settings().enable_brain_engine)
+    except (AttributeError, ImportError, KeyError, OSError, RuntimeError, TypeError, ValueError):
+        return False
+
+
 def _attack_graph_enabled() -> bool:
     """Return the additive Attack Graph flag, fail-closed."""
     try:
@@ -553,15 +565,40 @@ def _umdr32_routes(routes: dict[str, str]) -> dict[str, str]:
     return routes
 
 
+def _umdr47_routes(routes: dict[str, str]) -> dict[str, str]:
+    """UM-DR-47 W: redirect strategist-bound routes through the
+    brain-engine node when the wiring flag is enabled.
+
+    THE 46 LESSON, fixed: running the brain only in the advisory
+    chain (before the testing lanes) sees NO authorization
+    observations — the SKG has no resources at that point and the
+    brain can never change behavior (exactly why 46's brain was
+    advisory-only in practice). This LIVE wiring instead re-runs the
+    brain on every strategist-BOUND route — AFTER
+    access_control/api_testing produced findings and authorization
+    observations: the SKG now sees resources + principals, W4
+    coverage-gap tasks and W5 chain steps enter the pool, and the
+    strategist's NEXT ranking pass applies the literal priority
+    formula. Flag-off returns the mapping unchanged
+    (byte-comparable)."""
+    if not _brain_engine_enabled():
+        return routes
+    if NODE_STRATEGIST in routes:
+        return {**routes, NODE_STRATEGIST: NODE_BRAIN_ENGINE}
+    return routes
+
+
 def _research_route_redirects(routes: dict[str, str]) -> dict[str, str]:
     """The composed advisory-chain redirect for strategist-bound routes.
 
     UM-DR-31 research_loop wraps the strategist target; UM-DR-32
     identity_workflow wraps that (it runs first, then forwards to
-    research_loop when both are on). Each layer is a no-op when its
-    flags are off — the composed function preserves the byte-comparable
-    flag-off shape of every layer beneath it."""
-    return _umdr32_routes(_umdr31_routes(routes))
+    research_loop when both are on); UM-DR-47 W brain_engine wraps
+    outermost (it runs first of all, then forwards into the composed
+    chain). Each layer is a no-op when its flags are off — the composed
+    function preserves the byte-comparable flag-off shape of every
+    layer beneath it."""
+    return _umdr47_routes(_umdr32_routes(_umdr31_routes(routes)))
 
 
 def _autonomous_controller_enabled(state: PentestState) -> bool:
@@ -2131,6 +2168,30 @@ def build_graph(checkpointer: Any = None, auto_approve: bool = False,
         logger.info(
             "Identity workflow reasoning wired (UM-DR-32 capabilities; "
             "forward target: %s)", _umdr32_target,
+        )
+    if _brain_engine_enabled():
+        # UM-DR-47 W: the LIVE wiring — the brain node runs on every
+        # strategist-bound route (after the testing lanes produced
+        # authorization observations), refreshing the SKG context and
+        # injecting W4/W5 hypotheses right before the strategist's
+        # next ranking pass. Single registration, redirect-only wiring
+        # (the first-pass chain keeps the byte-comparable 46 shape).
+        if NODE_BRAIN_ENGINE not in dict(graph.nodes or {}):
+            from webpent.production.brain_engine import brain_engine_node
+
+            graph.add_node(
+                NODE_BRAIN_ENGINE,
+                _trace_wrap(NODE_BRAIN_ENGINE, brain_engine_node),
+            )
+        _umdr47_forward = (
+            NODE_IDENTITY_WORKFLOW if _umdr32_identity_workflow_enabled()
+            else NODE_RESEARCH_LOOP if _umdr31_research_loop_enabled()
+            else NODE_STRATEGIST
+        )
+        graph.add_edge(NODE_BRAIN_ENGINE, _umdr47_forward)
+        logger.info(
+            "Brain engine wired (UM-DR-47 W; live forward target: %s)",
+            _umdr47_forward,
         )
     graph.add_node(NODE_PAYLOAD_OPTIMIZER, _trace_wrap(NODE_PAYLOAD_OPTIMIZER, payload_optimizer_node))
     graph.add_node(NODE_CVSS_ENGINE, _trace_wrap(NODE_CVSS_ENGINE, cvss_node))

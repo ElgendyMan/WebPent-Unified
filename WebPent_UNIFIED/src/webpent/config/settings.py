@@ -768,6 +768,22 @@ class Settings(BaseSettings):
             "unaffected); gap entries capped at 200."
         ),
     )
+    enable_brain_engine: bool = Field(
+        default=False,
+        description=(
+            "UM-DR-47 Phase W (wire the brain): route hypothesis ranking "
+            "and experiment selection through the researcher-brain engine "
+            "(production/brain_engine.py) — the literal priority formula "
+            "Priority=(EIG×Impact×Confidence)/(Cost+Risk) with variables "
+            "estimated from the Security Knowledge Graph, coverage-gap "
+            "research tasks (W4) and sequentially-gated chain-step "
+            "hypotheses (W5) injected into the ordinary pool, research "
+            "memory loaded at campaign start and saved at end (W6), and "
+            "the QC watchdog with safe-stop on the live campaign stream "
+            "(W7). Flag-off keeps the 46 ranking byte-comparable "
+            "(fail-closed default)."
+        ),
+    )
     enable_adaptive_research_loop: bool = Field(
         default=False,
         description=(

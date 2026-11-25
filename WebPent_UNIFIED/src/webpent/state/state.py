@@ -584,6 +584,14 @@ class PentestState(TypedDict, total=False):
     # requests, no scope authority. ---
     protocol_depth: Annotated[dict[str, Any], merge_dicts]
 
+    # --- UM-DR-47 Phase W (brain-engine wiring): the wiring summary
+    # channel (W1 SKG-selection context + W4 coverage-task count + W5
+    # chain-step count) and the per-pass context cache the strategist
+    # ranking reads. Advisory only — the engine reorders and enriches,
+    # never authorizes, never confirms, never executes. ---
+    brain_engine: Annotated[dict[str, Any], merge_dicts]
+    brain_engine_context: Annotated[dict[str, Any], merge_dicts]
+
     # --- UM-DR-46 Phase H (research memory): the deterministic
     # wall-clock-free compaction of the negative-evidence lessons with
     # the family hints and the RANKING-TIME demotion lookup (the pool's

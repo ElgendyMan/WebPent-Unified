@@ -155,16 +155,71 @@ def retrieve_learned_strategy(
         logger.warning("Learned-strategy retrieval failed closed: %s", exc)
         return None
 
-    return {
-        "schema_version": LEARNED_STRATEGY_SCHEMA_VERSION,
-        "target_url": scoped_target,
-        "target_signature": signature,
-        "advisory_only": True,
-        "never_confirmation_evidence": True,
-        "negative_lessons": lessons,
-        "hypothesis_ledger": ledger,
-        "retrieved_at": datetime.now(timezone.utc).isoformat(),
-    }
+    return _merge_w6_research_memory(
+        {
+            "schema_version": LEARNED_STRATEGY_SCHEMA_VERSION,
+            "target_url": scoped_target,
+            "target_signature": signature,
+            "advisory_only": True,
+            "never_confirmation_evidence": True,
+            "negative_lessons": lessons,
+            "hypothesis_ledger": ledger,
+            "retrieved_at": datetime.now(timezone.utc).isoformat(),
+        },
+        scoped_target,
+    )
+
+
+def _merge_w6_research_memory(
+    learned: dict[str, Any], target_url: str
+) -> dict[str, Any]:
+    """UM-DR-47 W6: merge the cross-campaign research memory (demote-only).
+
+    The durable research-memory store (production/research_memory_store)
+    is read at campaign start through THIS seam: its demotion classes
+    are projected into the closed-format negative-lesson channel so the
+    EXISTING ``negative_outcome_classes`` demotion machinery applies
+    them — no new authority, demotion-only, bounded, privacy-scrubbed
+    at write time.
+    """
+    try:
+        from webpent.production.brain_engine import brain_engine_enabled
+        if not brain_engine_enabled():
+            return learned
+        from webpent.production.research_memory_store import (
+            load_research_memory,
+        )
+        record = load_research_memory(target_url)
+        if not record:
+            return learned
+        classes = [
+            str(c).lower() for c in (record.get("demotion_classes") or [])
+            if str(c).strip()
+        ]
+        if not classes:
+            return learned
+        lessons = list(learned.get("negative_lessons") or [])
+        for cls in classes:
+            # the closed negative-lesson format the strategist's regex
+            # reads: "negative_lesson target_signature <16hex>
+            # vulnerability_class <cls> ..."
+            entry = (
+                f"negative_lesson target_signature {learned.get('target_signature', '')} "
+                f"vulnerability_class {cls} (umdr47-w6 cross-campaign memory; "
+                f"demotion-only)"
+            )
+            if entry not in lessons and len(lessons) < MAX_NEGATIVE_LESSONS:
+                lessons.append(entry)
+        learned["negative_lessons"] = lessons
+        learned["research_memory"] = {
+            "revision": record.get("revision"),
+            "fp_cause_count": len(record.get("fp_causes") or []),
+            "lesson_count": len(record.get("lesson_summaries") or []),
+            "source": "umdr47-w6",
+        }
+    except Exception as exc:  # noqa: BLE001 — fail-closed merge
+        logger.warning("W6 research-memory merge failed closed: %s", exc)
+    return learned
 
 
 def negative_outcome_classes(learned: dict[str, Any] | None) -> frozenset[str]:

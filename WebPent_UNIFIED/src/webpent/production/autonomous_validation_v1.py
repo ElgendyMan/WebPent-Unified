@@ -216,6 +216,60 @@ class DeterministicRuntimeTrace:
 # 2. AutonomousExperimentSelector — deterministic, NO LLM authority.
 #    Scores hypotheses by: registry coverage, information value, novelty.
 # ===========================================================================
+def _brain_engine_enabled() -> bool:
+    """UM-DR-47 W: fail-closed flag check for the AVI lane."""
+    try:
+        from webpent.production.brain_engine import brain_engine_enabled
+        return brain_engine_enabled()
+    except Exception:  # noqa: BLE001 — fail-closed
+        return False
+
+
+_AVI_SEVERITY_BY_VULN = {
+    "AUTH_BYPASS": 1.0, "IDOR": 0.95, "PRIVILEGE_DIFFERENTIAL": 0.95,
+    "MULTI_STEP_AUTH_BYPASS": 0.9, "TENANT_ISOLATION": 0.9,
+    "MASS_ASSIGNMENT": 0.8, "RACE_CONDITION": 0.75,
+    "BUSINESS_LOGIC": 0.7, "INFO_DISCLOSURE": 0.55,
+}
+
+
+def _brain_priority_from_dict(hypothesis: dict[str, Any]) -> float:
+    """The literal W3 formula over the dict-shaped AVI hypothesis.
+
+    Declared estimators: EIG = the brain-fed information_value /
+    priority / info_gain field; Impact = vuln-class severity;
+    Confidence = the hypothesis's confidence (default 0.5); Cost = 3
+    (the guarded differential triple); Risk = the hypothesis's own
+    risk estimate (default 0.2). Pure, deterministic, bounded [0, 3].
+    """
+    from webpent.production.brain_engine import priority_formula
+    eig = hypothesis.get(
+        "information_value",
+        hypothesis.get("priority", hypothesis.get("info_gain", 0.5)),
+    )
+    try:
+        eig = float(eig or 0.5)
+    except (TypeError, ValueError):
+        eig = 0.5
+    vuln = str(hypothesis.get("vulnerability_class", "")).upper()
+    impact = _AVI_SEVERITY_BY_VULN.get(vuln, 0.5)
+    try:
+        confidence = float(hypothesis.get("confidence", 0.5) or 0.5)
+    except (TypeError, ValueError):
+        confidence = 0.5
+    try:
+        risk = float(hypothesis.get("risk", 0.2) or 0.2)
+    except (TypeError, ValueError):
+        risk = 0.2
+    return priority_formula(
+        expected_information_gain=eig,
+        impact=impact,
+        confidence=confidence,
+        cost=3.0,
+        risk=risk,
+    )
+
+
 class AutonomousExperimentSelector:
     """Deterministic hypothesis→experiment selector. Advisory inputs only.
 
@@ -229,9 +283,26 @@ class AutonomousExperimentSelector:
 
     @staticmethod
     def _score(hypothesis: dict[str, Any], registry: dict[str, Any]) -> tuple[int, str]:
-        """Deterministic score tuple (higher = selected first)."""
+        """Deterministic score tuple (higher = selected first).
+
+        UM-DR-47 Phase W: when the brain-engine flag is ON, the score
+        IS the literal priority formula
+        Priority=(EIG×Impact×Confidence)/(Cost+Risk) — EIG from the
+        brain-fed ``information_value``/``priority``/``info_gain``
+        fields, Impact from the vulnerability-class severity map,
+        Confidence from the hypothesis's own confidence, Cost = the
+        guarded differential triple (3 requests), Risk from the
+        hypothesis's own risk estimate. Registry coverage is
+        preserved additively. Flag-off keeps the 46 scoring
+        byte-comparable.
+        """
         vuln = str(hypothesis.get("vulnerability_class", "")).upper()
         in_registry = 1000 if vuln in registry else 0
+        if _brain_engine_enabled():
+            score = in_registry + int(
+                _brain_priority_from_dict(hypothesis) * 1000
+            )
+            return (score, str(hypothesis.get("id", "")))
         info = int(float(hypothesis.get("information_value", hypothesis.get("priority", 0.5)) or 0.5) * 100)
         api_bonus = 50 if str(hypothesis.get("api_type", "rest")).lower() in ("rest", "graphql") else 0
         # UM-DR-36 corrective closure: the application semantic model
