@@ -84,7 +84,9 @@ def brain_engine_enabled() -> bool:
     try:
         from webpent.config.settings import get_settings
         return bool(getattr(get_settings(), BRAIN_ENGINE_FLAG_SETTINGS, False))
-    except Exception:  # noqa: BLE001 — fail-closed on any config failure
+    except (AttributeError, ImportError, KeyError, OSError, RuntimeError,
+            TypeError, ValueError):
+        # the builder._attack_graph_enabled precedent's exact set
         return False
 
 

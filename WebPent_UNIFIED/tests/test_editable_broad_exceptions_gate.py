@@ -59,6 +59,14 @@ SRC_ROOT = REPO_ROOT / "src" / "webpent"
 # while claiming "all broad sites documented").
 REGISTERED_FILES = {
     "src/webpent/recon/auth_resilience.py": 2,
+    # UM-DR-47 Phase W (brain wiring): three new production modules
+    # carrying documented fail-soft/fail-closed contracts. Rationale in
+    # docs/ACCEPTED_EXCEPTIONS_REGISTER.md entries 13-15. All are
+    # advisory-path boundaries: the wiring degrades to the 46 behavior
+    # on any internal failure — never a crash, never an authority gain.
+    "src/webpent/production/brain_engine.py": 3,
+    "src/webpent/production/brain_watchdog.py": 2,
+    "src/webpent/production/research_memory_store.py": 2,
     # UM-DR-44 B6(b): the verify_target_tls settings read in h2_race —
     # any settings failure keeps STRICT TLS (fail-closed), the exact
     # coverage_gap_report double-gate precedent.

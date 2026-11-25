@@ -40,6 +40,12 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 MANIFEST = REPO_ROOT / "frozen_modules.sha256"
 
+ADD = {
+    "src/webpent/production/brain_engine.py",
+    "src/webpent/production/brain_watchdog.py",
+    "src/webpent/production/research_memory_store.py",
+}
+
 REPIN = {
     "src/webpent/graph/builder.py",
     "src/webpent/state/state.py",
@@ -90,10 +96,13 @@ def main() -> int:
     problems: list[str] = []
     if missing:
         problems.append(f"missing files: {missing}")
-    if changed != REPIN:
+    if not changed <= REPIN:
         problems.append(
             f"digest delta mismatch — changed={sorted(changed)} "
             f"declared={sorted(REPIN)}")
+    for rel in ADD:
+        if rel in entries:
+            problems.append(f"ADD entry already present: {rel}")
     if len(entries) < FLOOR:
         problems.append(f"entry count {len(entries)} < floor {FLOOR}")
     if problems:
@@ -104,6 +113,8 @@ def main() -> int:
     for rel in REPIN:
         digest = _sha256_file(REPO_ROOT / rel)
         entries[rel] = digest
+    for rel in sorted(ADD):
+        entries[rel] = _sha256_file(REPO_ROOT / rel)
     out = "\n".join(f"{digest}  {rel}" for rel, digest in sorted(entries.items()))
     MANIFEST.write_text(out + "\n", encoding="utf-8")
     print(f"refreeze OK: {len(REPIN)} entries re-pinned; manifest has "

@@ -219,6 +219,34 @@ UMDR43C_20261121_THAW_PATHS = frozenset(
 # file, changes verified by
 # tests/test_umdr44_b3_redirect_method_guard.py, byte-identity restored
 # at window close by the UM-DR-44 re-freeze.
+
+# UM-DR-47 Phase W (2026-11-25): the brain-wiring window re-pinned 17
+# trust-chain files (7 window edits + 10 carried-in tree state, all
+# documented in scripts/refreeze_manifest_umdr47_w.py's header).
+# Regression proof: tests/test_umdr47_w3_priority.py (13) +
+# test_umdr47_w_engine.py (13) + test_umdr47_w6_memory.py (11) +
+# test_umdr47_w7_watchdog.py (9) + test_umdr47_w_gate.py (3).
+UMDR47_W_20261125_THAW_PATHS = frozenset({
+    "src/webpent/graph/builder.py",
+    "src/webpent/state/state.py",
+    "src/webpent/shared/prioritization.py",
+    "src/webpent/production/autonomous_validation_v1.py",
+    "src/webpent/shared/learned_context.py",
+    "src/webpent/config/settings.py",
+    "src/webpent/agents/rabbit_hole/agent.py",
+    "src/webpent/agents/request_smuggling/agent.py",
+    "src/webpent/agents/strategist/agent.py",
+    "src/webpent/shared/engagement_scope.py",
+    "src/webpent/shared/http.py",
+    "src/webpent/shared/llm.py",
+    "src/webpent/state/reducers.py",
+    # NOT baseline-shared (first pinned after the pre-unfreeze baseline),
+    # so they cannot drift vs it: unified_hunt.py, discovery_funnel.py,
+    # hypothesis_identity.py, identity_workflow.py — re-pinned in the
+    # window manifest (see scripts/refreeze_manifest_umdr47_w.py) but
+    # excluded here per the UMDR45 scope-completion precedent.
+})
+
 UMDR44_20261122_THAW_PATHS = frozenset(
     {
         "src/webpent/shared/http.py",
@@ -1504,6 +1532,7 @@ def test_baseline_disagrees_only_on_documented_unfreeze_paths() -> None:
         | UMDR42_CLOSURE_20261120_BASELINE_DRIFT_PATHS
         | UMDR43C_20261121_THAW_PATHS
         | UMDR46_AB_20261124_THAW_PATHS
+        | UMDR47_W_20261125_THAW_PATHS
         | (
             UMDR45_20261123_THAW_PATHS
             # scope completion, NOT drift: api_surface_shadow.py (K3) and
@@ -1617,6 +1646,13 @@ def test_baseline_disagrees_only_on_documented_unfreeze_paths() -> None:
         # adjudicator and the K3 reflectable-converter fix. Scope
         # completions, NOT thaws (neither was frozen before).
         | {"scripts/generate_sbom.py", "src/webpent/jsintel/api_surface_shadow.py"}
+        # UM-DR-47 Phase W (2026-11-25): three NEW trust-chain files
+        # pinned by scripts/refreeze_manifest_umdr47_w.py — the brain
+        # engine, its QC watchdog and the research-memory store. Scope
+        # completions, NOT thaws (none was frozen before).
+        | {"src/webpent/production/brain_engine.py",
+           "src/webpent/production/brain_watchdog.py",
+           "src/webpent/production/research_memory_store.py"}
     )
     assert not undocumented_current, (
         f"undocumented paths only in current manifest: {sorted(undocumented_current)}"

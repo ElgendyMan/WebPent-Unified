@@ -232,3 +232,10 @@ Two advisory graph nodes follow the UM-DR-36 appmodel_node construction-boundary
 * `src/webpent/production/research_qc_node.py` (1 handler) — QC channel read degrades to an error shape (Phase I).
 * `src/webpent/production/protocol_depth_node.py` (1 handler) — SKG depth mining degrades to an empty channel (Phase J).
 
+## UM-DR-47 Phase W additions (2026-11-25) — the brain-wiring boundaries
+
+| # | File | Count | Decision | Wraps | Rationale |
+|---|---|---|---|---|---|
+| 13 | `src/webpent/production/brain_engine.py` | 3 | ACCEPTED | the SKG context build (one advisory query re-raise guard, the researcher-module aggregation, the findings-ref projection) | The context is a deterministic aggregation over heterogeneous model/researcher modules — any internal failure degrades to `built=False` and the ranking falls back to the legacy score (fail-safe, the 46 behavior). Advisory only: never an authority, never a confirmation. |
+| 14 | `src/webpent/production/brain_watchdog.py` | 2 | ACCEPTED | the safe-stop snapshot write + the campaign-lifecycle interrupted mark | Best-effort observability boundaries: a failed snapshot/mark must never mask the stop decision itself (the stop still raises; the snapshot is a record, not an authority). |
+| 15 | `src/webpent/production/research_memory_store.py` | 2 | ACCEPTED | the memory-file read (load) and write (save) | File-I/O fail-closed/fail-safe boundaries: a corrupt or unwritable store returns `{}`/`None` — the campaign proceeds without cross-campaign memory, exactly the 46 behavior. Privacy is enforced BEFORE these boundaries (scrub at write time). |

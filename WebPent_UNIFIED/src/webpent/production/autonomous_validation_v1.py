@@ -221,7 +221,10 @@ def _brain_engine_enabled() -> bool:
     try:
         from webpent.production.brain_engine import brain_engine_enabled
         return brain_engine_enabled()
-    except Exception:  # noqa: BLE001 — fail-closed
+    except (AttributeError, ImportError, KeyError, OSError, RuntimeError,
+            TypeError, ValueError):
+        # the builder._brain_engine_enabled precedent's exact set —
+        # config/flag failures only, never a blanket catch
         return False
 
 
