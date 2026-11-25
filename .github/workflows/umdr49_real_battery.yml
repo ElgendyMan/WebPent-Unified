@@ -1,6 +1,9 @@
-# UM-DR-49 P0.2 — the REAL-GROUND battery: nightly/manual ONLY (never in
-# the push gate — the push gate keeps the synthetic battery as the
-# regression guard, per the mission's CI policy).
+# UM-DR-49 P0.2 — the REAL-GROUND battery: nightly/manual ONLY (never
+# in the push gate — the push gate keeps the synthetic battery as the
+# regression guard, per the mission's CI policy). Runs from the repo
+# root with working-directory: WebPent_UNIFIED (the canonical layout —
+# the historical nested copy never ran and is forbidden by the 38.1
+# structure gate).
 name: umdr49-real-ground-battery
 on:
   schedule:
@@ -10,6 +13,9 @@ jobs:
   real-ground:
     runs-on: ubuntu-latest
     timeout-minutes: 120
+    defaults:
+      run:
+        working-directory: WebPent_UNIFIED
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v5
@@ -33,8 +39,10 @@ jobs:
           uv run --no-sync --extra dev python scripts/umdr49_real_campaign.py --app juiceshop --url http://127.0.0.1:3000 --run 1
           uv run --no-sync --extra dev python scripts/umdr49_real_campaign.py --app webgoat --url http://127.0.0.1:8080 --run 1
           uv run --no-sync --extra dev python scripts/umdr49_real_campaign.py --app dvwa --url http://127.0.0.1:80 --run 1
+      - name: Zero-knowledge gate (no app literals in engine code)
+        run: uv run --no-sync --extra dev python scripts/umdr49_zero_knowledge_gate.py
       - name: Upload the raw evidence
         uses: actions/upload-artifact@v4
         with:
           name: umdr49-real-ground-evidence
-          path: deliverables/umdr49/
+          path: WebPent_UNIFIED/deliverables/umdr49/

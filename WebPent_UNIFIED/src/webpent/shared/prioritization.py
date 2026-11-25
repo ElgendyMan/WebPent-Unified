@@ -794,7 +794,7 @@ def recommend_action(
 
     V9 P0 Fix 2-B: hypotheses with ``deterministic_match=True`` (set
     by hypothesis_analyzer_node's ``_classify_by_url_path`` — a known
-    vuln-path signature, e.g. ``/vulnerabilities/sqli/``) may bypass the
+    vuln-path signature, e.g. ``/api/items/``) may bypass the
     weighted threshold only when a safe downstream validator exists.
     IDOR is deliberately excluded: it requires live owner/foreign BAC
     observations and the central ProofBundle verifier, so path evidence

@@ -626,7 +626,9 @@
   "approved_transport": 122,
   "not_applicable": 1077,
   "unapproved_raw_transport": 27,
-  "total_records": 1226
+  "total_records": 1226,
+  "files_scanned": 287,
+  "records": 1266
  },
  "dynamic_import_allowlist": [
   {
@@ -679,8 +681,8 @@
    ]
   }
  ],
- "generated_at": "2026-11-23T16:08:48.998936+00:00",
- "generated_from": "canonical AST scan of src",
+ "generated_at": "2026-11-25T18:03:55Z",
+ "generated_from": "canonical AST scan of src \u2014 regenerated UM-DR-49 W2.1 (2026-11-25, real-ground window) (DR-009 protocol) \u2014 regenerated UM-DR-49 W2.1 (2026-11-25, real-ground window) (DR-009 protocol)",
  "logical_transports": {
   "api": {
    "authority": "API testing action family and target-origin scope",
@@ -738,7 +740,449 @@
    "proof": "bounded handshake/response observation plus strict verifier"
   }
  },
- "record_count": 1226,
+ "record_count": 1266,
+ "regen_history": [
+  {
+   "added": [
+    [
+     "src/webpent/graph/builder.py",
+     "dynamic_resolution",
+     "getattr(orch.research_loop, ... )"
+    ],
+    [
+     "src/webpent/production/modern_spine_integration.py",
+     "dynamic_resolution",
+     "getattr(target_obj, ... )"
+    ],
+    [
+     "src/webpent/production/spine_flag_gates.py",
+     "dynamic_resolution",
+     "getattr(config, ... )"
+    ]
+   ],
+   "date": "2026-10-06",
+   "note": "3 adjudicated dynamic_resolution getattr identities (non-transport); see script docstring",
+   "removed": [],
+   "window": "M2-impl (Dispatch #009)"
+  },
+  {
+   "added": [],
+   "date": "2026-10-06",
+   "note": "pure linedrift regen: 422 records shifted by the WP-I scoped edits (cli/commands.py, workers/pentest_worker.py \u2014 exit-code honesty only) and the NF-009A-02 builder.py gate reorder; zero identity-level sites added or removed",
+   "removed": [],
+   "window": "M2-impl reopened (Dispatch #009-A)"
+  },
+  {
+   "added": [],
+   "date": "2026-10-06",
+   "note": "pure linedrift regen: 431 records shifted by the WP-I scoped edits (cli/commands.py, workers/pentest_worker.py \u2014 exit-code honesty only) and the NF-009A-02 builder.py gate reorder; zero identity-level sites added or removed",
+   "removed": [],
+   "window": "M2-impl reopened (Dispatch #009-A)"
+  },
+  {
+   "added_unique": 15,
+   "at": "2026-10-28T18:01:45Z",
+   "reason": "deliberate regen for the RESIDUAL CLOSURE window (DR-015): the five new scope-completion files add local-file/zip/DB-stat I/O sites and eleven edited files shift line numbers. No raw-transport site added; the unapproved-site pin is unchanged; no identity removed.",
+   "records_after": 815,
+   "records_before": 773,
+   "removed_unique": 0,
+   "window": "RESIDUAL CLOSURE 2026-10-29 (v0.26.0)"
+  },
+  {
+   "added_unique": 2,
+   "at": "2026-10-29T15:49:56Z",
+   "reason": "deliberate regen for the LEARNING A/B LAB window (C-9/C-10): the new scope-completion file memory/ab_lab.py adds its subprocess import and subprocess.run call site (the real webpent hunt launcher \u2014 process spawn, not network transport). No raw-transport site added; the unapproved-site pin is unchanged; no identity removed.",
+   "records_after": 817,
+   "records_before": 815,
+   "removed_unique": 0,
+   "window": "LEARNING A/B LAB 2026-10-29 (v0.27.0)"
+  },
+  {
+   "added_unique": 0,
+   "at": "2026-11-01T04:06:57Z",
+   "reason": "deliberate regen for the PLAN-EXECUTION window: deprecation-banner text edits in cli/commands.py and provenance-comment path updates in autonomous/__init__.py + agents/validator/agent.py shift line numbers only. Zero new I/O identities, zero removed, zero new raw-transport sites, unapproved pin unchanged.",
+   "records_after": 817,
+   "records_before": 817,
+   "removed_unique": 0,
+   "window": "PLAN-EXECUTION 2026-11-01 (v0.30.0, WEBPENT_FIX_PLAN_20261029.md)"
+  },
+  {
+   "added_unique": 0,
+   "at": "2026-11-01T04:07:37Z",
+   "reason": "deliberate regen for the PLAN-EXECUTION window: deprecation-banner text edits in cli/commands.py and provenance-comment path updates in autonomous/__init__.py + agents/validator/agent.py shift line numbers only. Zero new I/O identities, zero removed, zero new raw-transport sites, unapproved pin unchanged.",
+   "records_after": 817,
+   "records_before": 817,
+   "removed_unique": 0,
+   "window": "PLAN-EXECUTION 2026-11-01 (v0.30.0, WEBPENT_FIX_PLAN_20261029.md)"
+  },
+  {
+   "added_unique": 0,
+   "at": "2026-11-01T04:13:18Z",
+   "reason": "deliberate regen for the PLAN-EXECUTION window: deprecation-banner text edits in cli/commands.py and provenance-comment path updates in autonomous/__init__.py + agents/validator/agent.py shift line numbers only. Zero new I/O identities, zero removed, zero new raw-transport sites, unapproved pin unchanged.",
+   "records_after": 817,
+   "records_before": 817,
+   "removed_unique": 0,
+   "window": "PLAN-EXECUTION 2026-11-01 (v0.30.0, WEBPENT_FIX_PLAN_20261029.md)"
+  },
+  {
+   "added_unique": 0,
+   "at": "2026-11-01T06:35:59Z",
+   "reason": "deliberate regen for the retired-alias removal window: the removed scan/hunt-auto/hunt-plan CLI commands take their two recorded dynamic_resolution getattr sites out of commands.py; the new authorization_recheck module contributes no I/O records. Zero new identities, zero new raw-transport sites, unapproved pin unchanged.",
+   "records_after": 815,
+   "records_before": 817,
+   "removed_unique": 1,
+   "window": "RETIRED-ALIAS REMOVAL 2026-11-01 (v0.32.0)"
+  },
+  {
+   "added_unique": 1,
+   "at": "2026-11-01T15:55:05Z",
+   "reason": "deliberate regen for the 0.33.0 hardening window (docs/PRODUCTION_HARDENING_PLAN_0330.md): P2-02 removed 2 of the 3 dynamic_resolution getattr records in service/api.py (is_admin checks replaced with direct attribute reads); F-02 added 1 dynamic_resolution getattr record in llm_researcher/providers/pool.py (honest-failure branch reads LLMResponse.error). Net -1 record (815 -> 814). All other diffs are pure line-number shifts from fix annotations; zero new raw-transport sites, unapproved pin unchanged.",
+   "records_after": 814,
+   "records_before": 815,
+   "removed_unique": 0,
+   "window": "PRODUCTION HARDENING 2026-11-01 (v0.33.0)"
+  },
+  {
+   "added_unique": 0,
+   "at": "2026-11-01T16:15:22Z",
+   "reason": "deliberate regen for the 0.33.0 hardening window (docs/PRODUCTION_HARDENING_PLAN_0330.md): P2-02 removed 2 of the 3 dynamic_resolution getattr records in service/api.py (is_admin checks replaced with direct attribute reads); F-02 added 1 dynamic_resolution getattr record in llm_researcher/providers/pool.py (honest-failure branch reads LLMResponse.error). Net -1 record (815 -> 814). All other diffs are pure line-number shifts from fix annotations; zero new raw-transport sites, unapproved pin unchanged.",
+   "records_after": 814,
+   "records_before": 814,
+   "removed_unique": 0,
+   "window": "PRODUCTION HARDENING 2026-11-01 (v0.33.0)"
+  },
+  {
+   "added_unique": 0,
+   "at": "2026-11-01T16:16:25Z",
+   "reason": "deliberate regen for the 0.33.0 hardening window (docs/PRODUCTION_HARDENING_PLAN_0330.md): P2-02 removed 2 of the 3 dynamic_resolution getattr records in service/api.py (is_admin checks replaced with direct attribute reads); F-02 added 1 dynamic_resolution getattr record in llm_researcher/providers/pool.py (honest-failure branch reads LLMResponse.error). Net -1 record (815 -> 814). All other diffs are pure line-number shifts from fix annotations; zero new raw-transport sites, unapproved pin unchanged.",
+   "records_after": 814,
+   "records_before": 814,
+   "removed_unique": 0,
+   "window": "PRODUCTION HARDENING 2026-11-01 (v0.33.0)"
+  },
+  {
+   "added_unique": 3,
+   "at": "2026-11-01T19:35:58Z",
+   "reason": "deliberate regen for the 0.34.0 red-team round 2 window (docs/RED_TEAM_ROUND2_20261102.md): R2-econ-05 added 2 dynamic_resolution getattr records in econ/blind_spots.py (gray_zones path entries); R2-graph-01 added 2 in graph/builder.py (append-only channel derivation from PentestState annotations); R2-graph-06 removed the validation_status getattr probes in cli/unified_hunt.py and graph/progress_display.py (replaced by the reducers._finding_strength rank). Net +2 records (814 -> 816). Zero new raw-transport sites, unapproved pin unchanged.",
+   "records_after": 816,
+   "records_before": 814,
+   "removed_unique": 2,
+   "window": "RED-TEAM ROUND 2 2026-11-02 (v0.34.0)"
+  },
+  {
+   "added_files": 61,
+   "added_unique": 244,
+   "at": "2026-11-02T17:19:31Z",
+   "reason": "four-way lineage union added files with transport sites never recorded by the single-lineage artifact (UM-DR-07)",
+   "records_after": 1035,
+   "records_before": 816,
+   "removed_unique": 0,
+   "unapproved_pin_after": 924,
+   "unapproved_pin_before": null,
+   "window": "UNIFIED-MERGE phase-1/2 (2026-11-02)"
+  },
+  {
+   "added_identities": 16,
+   "reason": "deliberate regen for the M2 authorization & scope window: closes the artifact drift accumulated since the UNIFIED-MERGE phase-1/2 regen (2026-11-02) \u2014 M0 R1-R5 fixes, the M1-A M-4/M-5 safe-transport migration (raw urlopen/httpx sites removed), M1-C wiring files, and the M2 subprocess-site adjudication (3 sites approved with reasons); unapproved pin re-pinned 47->36 records / 41->30 identities by adjudication only",
+   "record_count_after": 1084,
+   "record_count_before": 1035,
+   "regenerated_at": "2026-11-05T14:43:03.846249+00:00",
+   "removed_identities": 5,
+   "window": "M2 AUTHORIZATION & SCOPE 2026-11-05"
+  },
+  {
+   "added_identities": 4,
+   "reason": "deliberate regen for the M3 research wiring window: the two advisory hypothesis wirings (target_understanding \u06426, javascript_intelligence \u06428) add four dynamic_resolution getattr identities in their dedup logic; no removals, no new raw transports, pin unchanged",
+   "record_count_after": 1089,
+   "record_count_before": 1084,
+   "regenerated_at": "2026-11-05T15:15:43.117400+00:00",
+   "removed_identities": 0,
+   "window": "M3 RESEARCH WIRING 2026-11-05"
+  },
+  {
+   "added_unique": 39,
+   "at": "2026-11-05T23:00:08Z",
+   "reason": "deliberate regen: the M0-M12 engineering windows and the UM-DR-25 red-team window added I/O-bearing modules without regenerating the artifact (gate red since). 132 identity additions across documented window files, 45 line-drift removals of SURVIVING identities, ZERO new raw-transport / not-approved sites, unapproved pin preserved.",
+   "records_after": 1176,
+   "records_before": 1089,
+   "removed_unique": 0,
+   "window": "UM-DR-25 RED-TEAM WINDOW 2026-11-06 (M0-M12 + UM-DR-13..25 reconciliation)"
+  },
+  {
+   "added_unique": 1,
+   "at": "2026-11-05T23:19:58Z",
+   "reason": "deliberate regen: the M0-M12 engineering windows and the UM-DR-25 red-team window added I/O-bearing modules without regenerating the artifact (gate red since). 132 identity additions across documented window files, 45 line-drift removals of SURVIVING identities, ZERO new raw-transport / not-approved sites, unapproved pin preserved.",
+   "records_after": 1177,
+   "records_before": 1176,
+   "removed_unique": 0,
+   "window": "UM-DR-25 RED-TEAM WINDOW 2026-11-06 (M0-M12 + UM-DR-13..25 reconciliation)"
+  },
+  {
+   "added_unique": 4,
+   "at": "2026-11-06T14:33:49Z",
+   "reason": "deliberate regen: the UM-DR-26 phase-2 behavioral rework (r6c/r9 identity + login ladder, safety-governor wiring incl. the broken active-engagement alias fix, kill-switch/spend-cap/robots gates, browser campaign-target allowlist) moved existing getattr sites and added fail-soft getattr reads in the seven documented window files. ZERO new raw-transport / not-approved sites, unapproved pin preserved, no identity truly removed (line drift only).",
+   "records_after": 1185,
+   "records_before": 1177,
+   "removed_unique": 0,
+   "window": "UM-DR-26 PHASE-2 WINDOW 2026-11-06 (the executed phase 2 of the UM-DR-25 red-team plan)"
+  },
+  {
+   "added_unique": 0,
+   "at": "2026-11-06T15:03:50Z",
+   "reason": "deliberate regen: the UM-DR-26 phase-2 behavioral rework (r6c/r9 identity + login ladder, safety-governor wiring incl. the broken active-engagement alias fix, kill-switch/spend-cap/robots gates, browser campaign-target allowlist) moved existing getattr sites and added fail-soft getattr reads in the seven documented window files. ZERO new raw-transport / not-approved sites, unapproved pin preserved, no identity truly removed (line drift only).",
+   "records_after": 1185,
+   "records_before": 1185,
+   "removed_unique": 0,
+   "window": "UM-DR-26 PHASE-2 WINDOW 2026-11-06 (the executed phase 2 of the UM-DR-25 red-team plan)"
+  },
+  {
+   "added_unique": 1,
+   "at": "2026-11-07T02:23:43Z",
+   "reason": "deliberate regen: the UM-DR-27 source-driven phase 2 (grammar-free transition discovery) added one fail-soft getattr read in stateful_probe.py (the transition response's status_code boundary) and moved the pre-existing getattr sites down the file. ZERO new raw-transport / not-approved sites, unapproved pin preserved, no identity truly removed (line drift only).",
+   "records_after": 1186,
+   "records_before": 1185,
+   "removed_unique": 0,
+   "window": "UM-DR-27 RECALL-GENERALIZATION WINDOW 2026-11-07"
+  },
+  {
+   "added_unique": 2,
+   "at": "2026-11-07T05:21:28Z",
+   "reason": "deliberate regen: the UM-DR-28 production discovery integration added two fail-soft dynamic-resolution sites (the enable_stateful_discovery flag read in execution_node.py step 4c and the outcome accessors in the new stateful_discovery.py) and moved the pre-existing getattr sites in the re-pinned frozen files. ZERO new raw-transport / not-approved sites, unapproved pin preserved, no identity truly removed (line drift only).",
+   "records_after": 1197,
+   "records_before": 1186,
+   "removed_unique": 0,
+   "window": "UM-DR-28 DISCOVERY-INTEGRATION WINDOW 2026-11-07"
+  },
+  {
+   "added_unique": 0,
+   "at": "2026-11-07T05:23:51Z",
+   "reason": "deliberate regen: the UM-DR-28 production discovery integration added two fail-soft dynamic-resolution sites (the enable_stateful_discovery flag read in execution_node.py step 4c and the outcome accessors in the new stateful_discovery.py) and moved the pre-existing getattr sites in the re-pinned frozen files. ZERO new raw-transport / not-approved sites, unapproved pin preserved, no identity truly removed (line drift only).",
+   "records_after": 1197,
+   "records_before": 1197,
+   "removed_unique": 0,
+   "window": "UM-DR-28 DISCOVERY-INTEGRATION WINDOW 2026-11-07"
+  },
+  {
+   "added_unique": 0,
+   "at": "2026-11-07T07:51:49Z",
+   "reason": "deliberate regen for the UM-DR-29 dead-code disposition window: 24 verified-dead packages left src/ (17 completing the Ultimate Plan 2026-10-27 proposal-4 archive move to archive/pre_v10_prototypes/; 7 frozen-but-dead packages moved to archive/umdr29_dead_code/ with the DR-009 refreeze scripts/refreeze_manifest_umdr29.py). All removed I/O identities belong to the archived files; zero additions, zero new raw transport, unapproved pin unchanged.",
+   "records_after": 1149,
+   "records_before": 1197,
+   "removed_unique": 31,
+   "window": "UM-DR-29 DEAD-CODE DISPOSITION 2026-11-07 (v0.35.0)"
+  },
+  {
+   "at": "2026-11-07T13:40:34Z",
+   "identities_added": 0,
+   "identities_removed": 0,
+   "reason": "deliberate regen for the UM-DR-30 capability-wiring window: line drift only (the pre-existing getattr sites moved inside the four re-pinned frozen files: state.py, settings.py, graph/builder.py, agents/business_logic_fuzzer/agent.py). ZERO new identities, ZERO removed identities, ZERO new raw transport, unapproved pin unchanged. The window's new module (production/coverage_gap_report.py) is a pure state projection and adds no direct-I/O site.",
+   "records": 1149,
+   "window": "UM-DR-30 CAPABILITY-WIRING WINDOW 2026-11-07"
+  },
+  {
+   "at": "2026-11-07T15:07:36Z",
+   "identities_added": 2,
+   "identities_removed": 0,
+   "reason": "deliberate regen for the UM-DR-31 adaptive-research-loop window: +2 declared identities (both dynamic-resolution getattr in the new non-frozen module production/adaptive_research.py \u2014 the fail-closed settings limits read and the checkpoint-round-trip-safe pool-index dual-shape read) plus line drift inside the re-pinned frozen files (state.py, settings.py, graph/builder.py, models/hypothesis.py, families/execution_node.py). ZERO removed identities, ZERO new raw transport, unapproved pin unchanged.",
+   "records": 1155,
+   "window": "UM-DR-31 ADAPTIVE-RESEARCH-LOOP WINDOW 2026-11-07"
+  },
+  {
+   "at": "2026-11-08T19:01:29Z",
+   "identities_added": 0,
+   "identities_removed": 0,
+   "reason": "deliberate regen for the UM-DR-31 adaptive-research-loop window: +2 declared identities (both dynamic-resolution getattr in the new non-frozen module production/adaptive_research.py \u2014 the fail-closed settings limits read and the checkpoint-round-trip-safe pool-index dual-shape read) plus line drift inside the re-pinned frozen files (state.py, settings.py, graph/builder.py, models/hypothesis.py, families/execution_node.py). ZERO removed identities, ZERO new raw transport, unapproved pin unchanged.",
+   "records": 1155,
+   "window": "UM-DR-31 ADAPTIVE-RESEARCH-LOOP WINDOW 2026-11-07"
+  },
+  {
+   "at": "2026-11-08T19:02:19Z",
+   "attribution_correction": "UM-DR-31 regen-reason attribution correction (audit F17, remediation R11): the UM-DR-31 reason declared '+2 declared identities in production/adaptive_research.py'. The accurate attribution of that window's dynamic-resolution delta is: FOUR getattr sites in production/adaptive_research.py (two identity classes \u2014 the fail-closed settings limits read and the pool-index dual-shape read \u2014 at two call sites each) PLUS TWO getattr sites in families/execution_node.py (the research-hints wiring: the loop-flag read and the stateful_research_hints resolution block). The recorded IDENTITY SET was complete and correct; only the reason text under-attributed the execution_node additions. This correction is appended, never rewritten into history.",
+   "identities_added": 0,
+   "identities_removed": 0,
+   "reason": "deliberate regen for the UM-DR-31.1 uplift window: ZERO added / ZERO removed identities (the R3 hypothesis-admission filter, the R4 fingerprint canonicalization, the R5 hint-semantics fix, the R6/F20 classification contract, the R7 corrupted-channel fail-closed handling and the \u00a76.1 coverage-surface scheduling hints add no new dynamic-resolution sites), line drift only in the touched modules. ALSO carries the R11/F17 attribution correction for the UM-DR-31 entry (see attribution_correction).",
+   "records": 1155,
+   "window": "UM-DR-31.1 INTELLIGENCE & ENGINEERING UPLIFT WINDOW 2026-11-08"
+  },
+  {
+   "at": "2026-11-09T08:53:27Z",
+   "identities_added": 7,
+   "identities_removed": 0,
+   "reason": "deliberate regen for the UM-DR-32 window: SEVEN added dynamic_resolution identities (four dual-shape result reads in production/composite_workflows.py \u2014 the CausalGuard/validator/verdict/outcome fields over returned objects whose concrete type varies \u2014 and three in production/identity_workflow.py \u2014 the hypothesis-pool dual-shape reads and the fail-closed bounded-limits settings gate, the established identity classes), ZERO removed. No new transport sites: the four new capability modules are pure computation; every request flows through injected clients inside the authorized executor layer.",
+   "records": 1177,
+   "window": "UM-DR-32 IDENTITY & BUSINESS-LOGIC EVOLUTION WINDOW 2026-11-09"
+  },
+  {
+   "at": "2026-11-09T09:38:01Z",
+   "identities_added": 0,
+   "identities_removed": 0,
+   "reason": "deliberate regen for the UM-DR-32 window: SEVEN added dynamic_resolution identities (four dual-shape result reads in production/composite_workflows.py \u2014 the CausalGuard/validator/verdict/outcome fields over returned objects whose concrete type varies \u2014 and three in production/identity_workflow.py \u2014 the hypothesis-pool dual-shape reads and the fail-closed bounded-limits settings gate, the established identity classes), ZERO removed. No new transport sites: the four new capability modules are pure computation; every request flows through injected clients inside the authorized executor layer.",
+   "records": 1177,
+   "window": "UM-DR-32 IDENTITY & BUSINESS-LOGIC EVOLUTION WINDOW 2026-11-09"
+  },
+  {
+   "at": "2026-11-10T00:09:32Z",
+   "identities_added": 1,
+   "identities_removed": 0,
+   "reason": "deliberate regen for the UM-DR-33 window: ONE added dynamic_resolution identity \u2014 production/discovery_funnel.py's hypothesis-status dual-shape read (getattr over Hypothesis objects and Mapping-shaped pool records, the established identity class from identity_workflow.py), ZERO removed. No new transport sites: the funnel is pure telemetry over state channels; it performs no requests and never touches the executor layer.",
+   "records": 1179,
+   "window": "UM-DR-33 RESEARCHER BRAIN WINDOW 2026-11-10"
+  },
+  {
+   "at": "2026-11-12T05:54:22Z",
+   "identities_added": 4,
+   "identities_added_detail": [
+    [
+     "src/webpent/agents/hypothesis_analyzer/agent.py",
+     "dynamic_resolution",
+     "getattr(hypothesis, ... )"
+    ],
+    [
+     "src/webpent/graph/appmodel_nodes.py",
+     "dynamic_resolution",
+     "getattr(... )"
+    ],
+    [
+     "src/webpent/production/autonomous_validation_v1.py",
+     "dynamic_resolution",
+     "getattr(guard_decision.adjudication, ... )"
+    ],
+    [
+     "src/webpent/production/confirmation_adapter.py",
+     "dynamic_resolution",
+     "getattr(observation, ... )"
+    ]
+   ],
+   "identities_removed": 0,
+   "reason": "deliberate regen for the UM-DR-35/36 corrective closure: the confirmation-authority unification (CausalGuard sole authority via production/confirmation_adapter + shared/verifier mandatory adjudication + the SQLi reauth bypass removal) and the semantic-model production wiring (graph/appmodel_nodes, appmodel builder, hypothesis priority) add EXACTLY four declared dynamic-resolution identities (all getattr defensive reads on typed objects: hypothesis_analyzer agent, appmodel_nodes, autonomous_validation_v1 guard-adjudication read, confirmation_adapter observation mapping). Zero removals; zero new raw-transport or not-approved sites; the unapproved pin set is unchanged; line drift only inside the touched modules.",
+   "records": 1198,
+   "window": "UM-DR-35/36 CORRECTIVE CLOSURE WINDOW 2026-11-12"
+  },
+  {
+   "at": "2026-11-13T19:52:12Z",
+   "identities_added": 3,
+   "identities_added_detail": [
+    [
+     "src/webpent/production/discovery_funnel.py",
+     "dynamic_resolution",
+     "getattr(... )"
+    ],
+    [
+     "src/webpent/production/discovery_funnel.py",
+     "dynamic_resolution",
+     "getattr(finding, ... )"
+    ],
+    [
+     "src/webpent/production/discovery_funnel.py",
+     "dynamic_resolution",
+     "getattr(obj, ... )"
+    ]
+   ],
+   "identities_removed": 0,
+   "reason": "deliberate regen for the UM-DR-35/36 corrective closure: the confirmation-authority unification (CausalGuard sole authority via production/confirmation_adapter + shared/verifier mandatory adjudication + the SQLi reauth bypass removal) and the semantic-model production wiring (graph/appmodel_nodes, appmodel builder, hypothesis priority) add EXACTLY four declared dynamic-resolution identities (all getattr defensive reads on typed objects: hypothesis_analyzer agent, appmodel_nodes, autonomous_validation_v1 guard-adjudication read, confirmation_adapter observation mapping). Zero removals; zero new raw-transport or not-approved sites; the unapproved pin set is unchanged; line drift only inside the touched modules.",
+   "records": 1202,
+   "window": "UM-DR-35/36 CORRECTIVE CLOSURE WINDOW 2026-11-12"
+  },
+  {
+   "at": "2026-11-13T20:21:53Z",
+   "identities_added": 0,
+   "identities_added_detail": [],
+   "identities_removed": 0,
+   "reason": "deliberate regen for the UM-DR-35/36 corrective closure: the confirmation-authority unification (CausalGuard sole authority via production/confirmation_adapter + shared/verifier mandatory adjudication + the SQLi reauth bypass removal) and the semantic-model production wiring (graph/appmodel_nodes, appmodel builder, hypothesis priority) add EXACTLY four declared dynamic-resolution identities (all getattr defensive reads on typed objects: hypothesis_analyzer agent, appmodel_nodes, autonomous_validation_v1 guard-adjudication read, confirmation_adapter observation mapping). Zero removals; zero new raw-transport or not-approved sites; the unapproved pin set is unchanged; line drift only inside the touched modules.",
+   "records": 1202,
+   "window": "UM-DR-35/36 CORRECTIVE CLOSURE WINDOW 2026-11-12"
+  },
+  {
+   "at": "2026-11-13T20:38:28Z",
+   "identities_added": 0,
+   "identities_added_detail": [],
+   "identities_removed": 0,
+   "reason": "deliberate regen for the UM-DR-35/36 corrective closure: the confirmation-authority unification (CausalGuard sole authority via production/confirmation_adapter + shared/verifier mandatory adjudication + the SQLi reauth bypass removal) and the semantic-model production wiring (graph/appmodel_nodes, appmodel builder, hypothesis priority) add EXACTLY four declared dynamic-resolution identities (all getattr defensive reads on typed objects: hypothesis_analyzer agent, appmodel_nodes, autonomous_validation_v1 guard-adjudication read, confirmation_adapter observation mapping). Zero removals; zero new raw-transport or not-approved sites; the unapproved pin set is unchanged; line drift only inside the touched modules.",
+   "records": 1202,
+   "window": "UM-DR-35/36 CORRECTIVE CLOSURE WINDOW 2026-11-12"
+  },
+  {
+   "at": "2026-11-16T04:00:58Z",
+   "identities_added": 6,
+   "identities_added_detail": [
+    [
+     "src/webpent/cli/unified_hunt.py",
+     "dynamic_resolution",
+     "getattr(f, ... )"
+    ],
+    [
+     "src/webpent/cli/unified_hunt.py",
+     "dynamic_resolution",
+     "getattr(v, ... )"
+    ],
+    [
+     "src/webpent/families/promotion.py",
+     "dynamic_resolution",
+     "getattr(bundle, ... )"
+    ],
+    [
+     "src/webpent/families/promotion.py",
+     "dynamic_resolution",
+     "getattr(verification, ... )"
+    ],
+    [
+     "src/webpent/research/lifecycle_view.py",
+     "dynamic_resolution",
+     "getattr(hypothesis, ... )"
+    ],
+    [
+     "src/webpent/research/lifecycle_view.py",
+     "dynamic_resolution",
+     "getattr(status, ... )"
+    ]
+   ],
+   "identities_removed": 0,
+   "reason": "deliberate regen for the UM-DR-36.2/37 closure windows: the version-identity and evidence-integrity closure (36.2), the four zero-findings root-cause fixes (37), and the decoy/out-of-scope lab closure add EXACTLY six declared dynamic-resolution identities (all getattr defensive reads, listed in the script). Zero removals; zero new raw-transport or not-approved sites; the unapproved pin set is unchanged; line drift only inside the touched modules.",
+   "records": 1214,
+   "window": "UM-DR-36.2/37 RECOVERY + ROOT-CAUSE + DECOY CLOSURE WINDOW 2026-11-16"
+  },
+  {
+   "added": 3,
+   "declared_modules": [
+    "src/webpent/agents/strategist/agent.py",
+    "src/webpent/production/decision_ledger.py",
+    "src/webpent/production/hypothesis_dedup.py",
+    "src/webpent/production/identity_activation.py"
+   ],
+   "reason": "the window's new production modules (hypothesis_dedup, identity_activation) carry function-local imports per the lazy-import convention",
+   "regenerated_at_utc": "2026-11-18T18:04:12.623537+00:00",
+   "removed": 0,
+   "window": "UM-DR-40"
+  },
+  {
+   "at": "2026-11-20T08:02:47Z",
+   "delta": "1223 -> 1223 records: 0 added identity, 0 removed identity, 857 moved (line drift), +0 duplicate-count delta (same-identity consolidation)",
+   "reason": "umdr42-closure window regen (r9a protocol): the A1 scope-authority repairs touched api/app.py (ScopeStoreUnavailable -> 503 mapping in the /api/v1/scope/* endpoints) and workers/pentest_worker.py (durable scope-store attach block). ZERO identity-level delta (fail-closed gate held; unapproved-site pin unchanged); the only change is line drift of existing records in those two files. No raw-transport site added; the 503 handlers and the store attach reuse governed imports only."
+  },
+  {
+   "at": "2026-11-25T17:36:07Z",
+   "window": "UM-DR-49 W2.1 (2026-11-25, real-ground window)",
+   "reason": "deliberate regen for the UM-DR-49 window: (a) the W2.1 JS-route projection helper in access_control/agent.py (pure state mutation, zero I/O) shifts line numbers; (b) the 48 closeout shipped detection_lanes_48.py (the raw-path lane's VERBATIM socket request + the safe httpx boundary call) without this artifact's regen \u2014 registered retroactively by the 49 CI heal.",
+   "records_before": 1260,
+   "records_after": 1265,
+   "added_unique": 3,
+   "removed_unique": 0
+  },
+  {
+   "at": "2026-11-25T18:03:55Z",
+   "window": "UM-DR-49 W2.1 (2026-11-25, real-ground window)",
+   "reason": "deliberate regen for the UM-DR-49 window: (a) the W2.1 JS-route projection helper in access_control/agent.py (pure state mutation, zero I/O) shifts line numbers; (b) the 48 closeout shipped detection_lanes_48.py (the raw-path lane's VERBATIM socket request + the safe httpx boundary call) without this artifact's regen \u2014 registered retroactively by the 49 CI heal.",
+   "records_before": 1265,
+   "records_after": 1266,
+   "added_unique": 0,
+   "removed_unique": 0
+  }
+ ],
+ "regen_reason": "umdr44 window regen: B6(b) added the fail-closed verify_target_tls getattr read in shared/h2_race.py and the B2 identity-thread state work carried getattr(record, ...) reads in state/reducers.py \u2014 both dynamic_resolution (non-transport) additions only; ZERO removals",
+ "regenerated_at": "2026-11-22T21:47:30Z",
+ "schema": "webpent.direct_io_inventory.v1",
+ "unapproved_transport_pin": 1266,
+ "window": "UM-DR-34 SCOPE AUTHORITY WINDOW 2026-11-10",
  "records": [
   {
    "file": "src/webpent/adapters/controlled_target/adapter.py",
@@ -937,7 +1381,20 @@
   },
   {
    "file": "src/webpent/agents/access_control/agent.py",
-   "line": 782,
+   "line": 826,
+   "column": 13,
+   "kind": "dynamic_resolution",
+   "symbol": "getattr",
+   "normalized_symbol": "getattr(target, ... )",
+   "transport": "dynamic_resolution",
+   "transport_family": "non_transport",
+   "classification": "dynamic_resolution",
+   "approval_status": "not_applicable",
+   "reason": "dynamic attribute access observed without a transport signal"
+  },
+  {
+   "file": "src/webpent/agents/access_control/agent.py",
+   "line": 828,
    "column": 22,
    "kind": "dynamic_resolution",
    "symbol": "getattr",
@@ -950,7 +1407,7 @@
   },
   {
    "file": "src/webpent/agents/access_control/agent.py",
-   "line": 1034,
+   "line": 1080,
    "column": 34,
    "kind": "dynamic_resolution",
    "symbol": "getattr",
@@ -963,7 +1420,7 @@
   },
   {
    "file": "src/webpent/agents/access_control/agent.py",
-   "line": 1127,
+   "line": 1173,
    "column": 26,
    "kind": "dynamic_resolution",
    "symbol": "getattr",
@@ -976,7 +1433,7 @@
   },
   {
    "file": "src/webpent/agents/access_control/agent.py",
-   "line": 1226,
+   "line": 1272,
    "column": 26,
    "kind": "dynamic_resolution",
    "symbol": "getattr",
@@ -989,7 +1446,7 @@
   },
   {
    "file": "src/webpent/agents/access_control/agent.py",
-   "line": 1278,
+   "line": 1324,
    "column": 22,
    "kind": "dynamic_resolution",
    "symbol": "getattr",
@@ -1002,7 +1459,7 @@
   },
   {
    "file": "src/webpent/agents/access_control/agent.py",
-   "line": 1279,
+   "line": 1325,
    "column": 21,
    "kind": "dynamic_resolution",
    "symbol": "getattr",
@@ -1015,7 +1472,7 @@
   },
   {
    "file": "src/webpent/agents/access_control/agent.py",
-   "line": 1280,
+   "line": 1326,
    "column": 22,
    "kind": "dynamic_resolution",
    "symbol": "getattr",
@@ -1028,8 +1485,21 @@
   },
   {
    "file": "src/webpent/agents/access_control/agent.py",
-   "line": 1382,
+   "line": 1428,
    "column": 24,
+   "kind": "dynamic_resolution",
+   "symbol": "getattr",
+   "normalized_symbol": "getattr(target, ... )",
+   "transport": "dynamic_resolution",
+   "transport_family": "non_transport",
+   "classification": "dynamic_resolution",
+   "approval_status": "not_applicable",
+   "reason": "dynamic attribute access observed without a transport signal"
+  },
+  {
+   "file": "src/webpent/agents/access_control/agent.py",
+   "line": 1502,
+   "column": 27,
    "kind": "dynamic_resolution",
    "symbol": "getattr",
    "normalized_symbol": "getattr(target, ... )",
@@ -6085,7 +6555,7 @@
   },
   {
    "file": "src/webpent/cli/unified_hunt.py",
-   "line": 391,
+   "line": 394,
    "column": 16,
    "kind": "dynamic_resolution",
    "symbol": "getattr",
@@ -6098,7 +6568,7 @@
   },
   {
    "file": "src/webpent/cli/unified_hunt.py",
-   "line": 407,
+   "line": 410,
    "column": 18,
    "kind": "dynamic_resolution",
    "symbol": "getattr",
@@ -6111,7 +6581,7 @@
   },
   {
    "file": "src/webpent/cli/unified_hunt.py",
-   "line": 442,
+   "line": 445,
    "column": 27,
    "kind": "dynamic_resolution",
    "symbol": "getattr",
@@ -6124,7 +6594,7 @@
   },
   {
    "file": "src/webpent/cli/unified_hunt.py",
-   "line": 447,
+   "line": 450,
    "column": 31,
    "kind": "dynamic_resolution",
    "symbol": "getattr",
@@ -6137,7 +6607,7 @@
   },
   {
    "file": "src/webpent/cli/unified_hunt.py",
-   "line": 542,
+   "line": 556,
    "column": 9,
    "kind": "dynamic_resolution",
    "symbol": "getattr",
@@ -6150,7 +6620,7 @@
   },
   {
    "file": "src/webpent/cli/unified_hunt.py",
-   "line": 561,
+   "line": 575,
    "column": 27,
    "kind": "dynamic_resolution",
    "symbol": "getattr",
@@ -6163,7 +6633,7 @@
   },
   {
    "file": "src/webpent/cli/unified_hunt.py",
-   "line": 636,
+   "line": 650,
    "column": 38,
    "kind": "dynamic_resolution",
    "symbol": "getattr",
@@ -11206,6 +11676,45 @@
    "reason": "dynamic attribute access observed without a transport signal"
   },
   {
+   "file": "src/webpent/production/detection_lanes_48.py",
+   "line": 211,
+   "column": 14,
+   "kind": "safe_boundary_call",
+   "symbol": "make_safe_httpx_client",
+   "normalized_symbol": "webpent.shared.http.make_safe_httpx_client",
+   "transport": "http_sync",
+   "transport_family": "unknown",
+   "classification": "http_sync",
+   "approval_status": "approved",
+   "reason": "central hardened wrapper call"
+  },
+  {
+   "file": "src/webpent/production/detection_lanes_48.py",
+   "line": 985,
+   "column": 5,
+   "kind": "import",
+   "symbol": "socket",
+   "normalized_symbol": "socket",
+   "transport": "raw_tcp_dns_implementation",
+   "transport_family": "raw_tcp_dns",
+   "classification": "raw_tcp_dns_implementation",
+   "approval_status": "not_approved",
+   "reason": "raw transport is outside the symbol-scoped approval record"
+  },
+  {
+   "file": "src/webpent/production/detection_lanes_48.py",
+   "line": 1006,
+   "column": 14,
+   "kind": "call",
+   "symbol": "socket.create_connection",
+   "normalized_symbol": "socket.create_connection",
+   "transport": "raw_tcp_dns",
+   "transport_family": "raw_tcp_dns",
+   "classification": "raw_tcp_dns",
+   "approval_status": "not_approved",
+   "reason": "raw transport is outside the symbol-scoped approval record"
+  },
+  {
    "file": "src/webpent/production/discovery_funnel.py",
    "line": 133,
    "column": 19,
@@ -11974,7 +12483,7 @@
   },
   {
    "file": "src/webpent/recon/autonomous_crawler.py",
-   "line": 68,
+   "line": 72,
    "column": 20,
    "kind": "dynamic_resolution",
    "symbol": "getattr",
@@ -11987,7 +12496,7 @@
   },
   {
    "file": "src/webpent/recon/autonomous_crawler.py",
-   "line": 73,
+   "line": 77,
    "column": 22,
    "kind": "dynamic_resolution",
    "symbol": "getattr",
@@ -12000,7 +12509,7 @@
   },
   {
    "file": "src/webpent/recon/autonomous_crawler.py",
-   "line": 447,
+   "line": 451,
    "column": 42,
    "kind": "dynamic_resolution",
    "symbol": "getattr",
@@ -12013,7 +12522,7 @@
   },
   {
    "file": "src/webpent/recon/autonomous_crawler.py",
-   "line": 523,
+   "line": 527,
    "column": 35,
    "kind": "dynamic_resolution",
    "symbol": "getattr",
@@ -12026,7 +12535,7 @@
   },
   {
    "file": "src/webpent/recon/autonomous_crawler.py",
-   "line": 529,
+   "line": 533,
    "column": 18,
    "kind": "safe_boundary_call",
    "symbol": "make_safe_httpx_client",
@@ -12819,7 +13328,20 @@
   },
   {
    "file": "src/webpent/researcher/evolution.py",
-   "line": 418,
+   "line": 423,
+   "column": 15,
+   "kind": "dynamic_resolution",
+   "symbol": "getattr",
+   "normalized_symbol": "getattr(h, ... )",
+   "transport": "dynamic_resolution",
+   "transport_family": "non_transport",
+   "classification": "dynamic_resolution",
+   "approval_status": "not_applicable",
+   "reason": "dynamic attribute access observed without a transport signal"
+  },
+  {
+   "file": "src/webpent/researcher/evolution.py",
+   "line": 434,
    "column": 23,
    "kind": "dynamic_resolution",
    "symbol": "getattr",
@@ -14340,7 +14862,7 @@
   },
   {
    "file": "src/webpent/shared/http_discovery.py",
-   "line": 438,
+   "line": 475,
    "column": 33,
    "kind": "dynamic_resolution",
    "symbol": "getattr",
@@ -14353,7 +14875,7 @@
   },
   {
    "file": "src/webpent/shared/http_discovery.py",
-   "line": 465,
+   "line": 502,
    "column": 26,
    "kind": "safe_boundary_call",
    "symbol": "make_safe_httpx_client",
@@ -14366,7 +14888,7 @@
   },
   {
    "file": "src/webpent/shared/http_discovery.py",
-   "line": 506,
+   "line": 543,
    "column": 35,
    "kind": "dynamic_resolution",
    "symbol": "getattr",
@@ -14379,7 +14901,7 @@
   },
   {
    "file": "src/webpent/shared/http_discovery.py",
-   "line": 532,
+   "line": 569,
    "column": 60,
    "kind": "dynamic_resolution",
    "symbol": "getattr",
@@ -14392,7 +14914,7 @@
   },
   {
    "file": "src/webpent/shared/http_discovery.py",
-   "line": 535,
+   "line": 572,
    "column": 29,
    "kind": "dynamic_resolution",
    "symbol": "getattr",
@@ -14405,7 +14927,7 @@
   },
   {
    "file": "src/webpent/shared/http_discovery.py",
-   "line": 552,
+   "line": 589,
    "column": 56,
    "kind": "dynamic_resolution",
    "symbol": "getattr",
@@ -14418,7 +14940,7 @@
   },
   {
    "file": "src/webpent/shared/http_discovery.py",
-   "line": 603,
+   "line": 640,
    "column": 29,
    "kind": "dynamic_resolution",
    "symbol": "getattr",
@@ -14431,7 +14953,7 @@
   },
   {
    "file": "src/webpent/shared/http_discovery.py",
-   "line": 723,
+   "line": 771,
    "column": 33,
    "kind": "dynamic_resolution",
    "symbol": "getattr",
@@ -17120,429 +17642,5 @@
    "approval_status": "not_applicable",
    "reason": "dynamic attribute access observed without a transport signal"
   }
- ],
- "regen_history": [
-  {
-   "added": [
-    [
-     "src/webpent/graph/builder.py",
-     "dynamic_resolution",
-     "getattr(orch.research_loop, ... )"
-    ],
-    [
-     "src/webpent/production/modern_spine_integration.py",
-     "dynamic_resolution",
-     "getattr(target_obj, ... )"
-    ],
-    [
-     "src/webpent/production/spine_flag_gates.py",
-     "dynamic_resolution",
-     "getattr(config, ... )"
-    ]
-   ],
-   "date": "2026-10-06",
-   "note": "3 adjudicated dynamic_resolution getattr identities (non-transport); see script docstring",
-   "removed": [],
-   "window": "M2-impl (Dispatch #009)"
-  },
-  {
-   "added": [],
-   "date": "2026-10-06",
-   "note": "pure linedrift regen: 422 records shifted by the WP-I scoped edits (cli/commands.py, workers/pentest_worker.py \u2014 exit-code honesty only) and the NF-009A-02 builder.py gate reorder; zero identity-level sites added or removed",
-   "removed": [],
-   "window": "M2-impl reopened (Dispatch #009-A)"
-  },
-  {
-   "added": [],
-   "date": "2026-10-06",
-   "note": "pure linedrift regen: 431 records shifted by the WP-I scoped edits (cli/commands.py, workers/pentest_worker.py \u2014 exit-code honesty only) and the NF-009A-02 builder.py gate reorder; zero identity-level sites added or removed",
-   "removed": [],
-   "window": "M2-impl reopened (Dispatch #009-A)"
-  },
-  {
-   "added_unique": 15,
-   "at": "2026-10-28T18:01:45Z",
-   "reason": "deliberate regen for the RESIDUAL CLOSURE window (DR-015): the five new scope-completion files add local-file/zip/DB-stat I/O sites and eleven edited files shift line numbers. No raw-transport site added; the unapproved-site pin is unchanged; no identity removed.",
-   "records_after": 815,
-   "records_before": 773,
-   "removed_unique": 0,
-   "window": "RESIDUAL CLOSURE 2026-10-29 (v0.26.0)"
-  },
-  {
-   "added_unique": 2,
-   "at": "2026-10-29T15:49:56Z",
-   "reason": "deliberate regen for the LEARNING A/B LAB window (C-9/C-10): the new scope-completion file memory/ab_lab.py adds its subprocess import and subprocess.run call site (the real webpent hunt launcher \u2014 process spawn, not network transport). No raw-transport site added; the unapproved-site pin is unchanged; no identity removed.",
-   "records_after": 817,
-   "records_before": 815,
-   "removed_unique": 0,
-   "window": "LEARNING A/B LAB 2026-10-29 (v0.27.0)"
-  },
-  {
-   "added_unique": 0,
-   "at": "2026-11-01T04:06:57Z",
-   "reason": "deliberate regen for the PLAN-EXECUTION window: deprecation-banner text edits in cli/commands.py and provenance-comment path updates in autonomous/__init__.py + agents/validator/agent.py shift line numbers only. Zero new I/O identities, zero removed, zero new raw-transport sites, unapproved pin unchanged.",
-   "records_after": 817,
-   "records_before": 817,
-   "removed_unique": 0,
-   "window": "PLAN-EXECUTION 2026-11-01 (v0.30.0, WEBPENT_FIX_PLAN_20261029.md)"
-  },
-  {
-   "added_unique": 0,
-   "at": "2026-11-01T04:07:37Z",
-   "reason": "deliberate regen for the PLAN-EXECUTION window: deprecation-banner text edits in cli/commands.py and provenance-comment path updates in autonomous/__init__.py + agents/validator/agent.py shift line numbers only. Zero new I/O identities, zero removed, zero new raw-transport sites, unapproved pin unchanged.",
-   "records_after": 817,
-   "records_before": 817,
-   "removed_unique": 0,
-   "window": "PLAN-EXECUTION 2026-11-01 (v0.30.0, WEBPENT_FIX_PLAN_20261029.md)"
-  },
-  {
-   "added_unique": 0,
-   "at": "2026-11-01T04:13:18Z",
-   "reason": "deliberate regen for the PLAN-EXECUTION window: deprecation-banner text edits in cli/commands.py and provenance-comment path updates in autonomous/__init__.py + agents/validator/agent.py shift line numbers only. Zero new I/O identities, zero removed, zero new raw-transport sites, unapproved pin unchanged.",
-   "records_after": 817,
-   "records_before": 817,
-   "removed_unique": 0,
-   "window": "PLAN-EXECUTION 2026-11-01 (v0.30.0, WEBPENT_FIX_PLAN_20261029.md)"
-  },
-  {
-   "added_unique": 0,
-   "at": "2026-11-01T06:35:59Z",
-   "reason": "deliberate regen for the retired-alias removal window: the removed scan/hunt-auto/hunt-plan CLI commands take their two recorded dynamic_resolution getattr sites out of commands.py; the new authorization_recheck module contributes no I/O records. Zero new identities, zero new raw-transport sites, unapproved pin unchanged.",
-   "records_after": 815,
-   "records_before": 817,
-   "removed_unique": 1,
-   "window": "RETIRED-ALIAS REMOVAL 2026-11-01 (v0.32.0)"
-  },
-  {
-   "added_unique": 1,
-   "at": "2026-11-01T15:55:05Z",
-   "reason": "deliberate regen for the 0.33.0 hardening window (docs/PRODUCTION_HARDENING_PLAN_0330.md): P2-02 removed 2 of the 3 dynamic_resolution getattr records in service/api.py (is_admin checks replaced with direct attribute reads); F-02 added 1 dynamic_resolution getattr record in llm_researcher/providers/pool.py (honest-failure branch reads LLMResponse.error). Net -1 record (815 -> 814). All other diffs are pure line-number shifts from fix annotations; zero new raw-transport sites, unapproved pin unchanged.",
-   "records_after": 814,
-   "records_before": 815,
-   "removed_unique": 0,
-   "window": "PRODUCTION HARDENING 2026-11-01 (v0.33.0)"
-  },
-  {
-   "added_unique": 0,
-   "at": "2026-11-01T16:15:22Z",
-   "reason": "deliberate regen for the 0.33.0 hardening window (docs/PRODUCTION_HARDENING_PLAN_0330.md): P2-02 removed 2 of the 3 dynamic_resolution getattr records in service/api.py (is_admin checks replaced with direct attribute reads); F-02 added 1 dynamic_resolution getattr record in llm_researcher/providers/pool.py (honest-failure branch reads LLMResponse.error). Net -1 record (815 -> 814). All other diffs are pure line-number shifts from fix annotations; zero new raw-transport sites, unapproved pin unchanged.",
-   "records_after": 814,
-   "records_before": 814,
-   "removed_unique": 0,
-   "window": "PRODUCTION HARDENING 2026-11-01 (v0.33.0)"
-  },
-  {
-   "added_unique": 0,
-   "at": "2026-11-01T16:16:25Z",
-   "reason": "deliberate regen for the 0.33.0 hardening window (docs/PRODUCTION_HARDENING_PLAN_0330.md): P2-02 removed 2 of the 3 dynamic_resolution getattr records in service/api.py (is_admin checks replaced with direct attribute reads); F-02 added 1 dynamic_resolution getattr record in llm_researcher/providers/pool.py (honest-failure branch reads LLMResponse.error). Net -1 record (815 -> 814). All other diffs are pure line-number shifts from fix annotations; zero new raw-transport sites, unapproved pin unchanged.",
-   "records_after": 814,
-   "records_before": 814,
-   "removed_unique": 0,
-   "window": "PRODUCTION HARDENING 2026-11-01 (v0.33.0)"
-  },
-  {
-   "added_unique": 3,
-   "at": "2026-11-01T19:35:58Z",
-   "reason": "deliberate regen for the 0.34.0 red-team round 2 window (docs/RED_TEAM_ROUND2_20261102.md): R2-econ-05 added 2 dynamic_resolution getattr records in econ/blind_spots.py (gray_zones path entries); R2-graph-01 added 2 in graph/builder.py (append-only channel derivation from PentestState annotations); R2-graph-06 removed the validation_status getattr probes in cli/unified_hunt.py and graph/progress_display.py (replaced by the reducers._finding_strength rank). Net +2 records (814 -> 816). Zero new raw-transport sites, unapproved pin unchanged.",
-   "records_after": 816,
-   "records_before": 814,
-   "removed_unique": 2,
-   "window": "RED-TEAM ROUND 2 2026-11-02 (v0.34.0)"
-  },
-  {
-   "added_files": 61,
-   "added_unique": 244,
-   "at": "2026-11-02T17:19:31Z",
-   "reason": "four-way lineage union added files with transport sites never recorded by the single-lineage artifact (UM-DR-07)",
-   "records_after": 1035,
-   "records_before": 816,
-   "removed_unique": 0,
-   "unapproved_pin_after": 924,
-   "unapproved_pin_before": null,
-   "window": "UNIFIED-MERGE phase-1/2 (2026-11-02)"
-  },
-  {
-   "added_identities": 16,
-   "reason": "deliberate regen for the M2 authorization & scope window: closes the artifact drift accumulated since the UNIFIED-MERGE phase-1/2 regen (2026-11-02) \u2014 M0 R1-R5 fixes, the M1-A M-4/M-5 safe-transport migration (raw urlopen/httpx sites removed), M1-C wiring files, and the M2 subprocess-site adjudication (3 sites approved with reasons); unapproved pin re-pinned 47->36 records / 41->30 identities by adjudication only",
-   "record_count_after": 1084,
-   "record_count_before": 1035,
-   "regenerated_at": "2026-11-05T14:43:03.846249+00:00",
-   "removed_identities": 5,
-   "window": "M2 AUTHORIZATION & SCOPE 2026-11-05"
-  },
-  {
-   "added_identities": 4,
-   "reason": "deliberate regen for the M3 research wiring window: the two advisory hypothesis wirings (target_understanding \u06426, javascript_intelligence \u06428) add four dynamic_resolution getattr identities in their dedup logic; no removals, no new raw transports, pin unchanged",
-   "record_count_after": 1089,
-   "record_count_before": 1084,
-   "regenerated_at": "2026-11-05T15:15:43.117400+00:00",
-   "removed_identities": 0,
-   "window": "M3 RESEARCH WIRING 2026-11-05"
-  },
-  {
-   "added_unique": 39,
-   "at": "2026-11-05T23:00:08Z",
-   "reason": "deliberate regen: the M0-M12 engineering windows and the UM-DR-25 red-team window added I/O-bearing modules without regenerating the artifact (gate red since). 132 identity additions across documented window files, 45 line-drift removals of SURVIVING identities, ZERO new raw-transport / not-approved sites, unapproved pin preserved.",
-   "records_after": 1176,
-   "records_before": 1089,
-   "removed_unique": 0,
-   "window": "UM-DR-25 RED-TEAM WINDOW 2026-11-06 (M0-M12 + UM-DR-13..25 reconciliation)"
-  },
-  {
-   "added_unique": 1,
-   "at": "2026-11-05T23:19:58Z",
-   "reason": "deliberate regen: the M0-M12 engineering windows and the UM-DR-25 red-team window added I/O-bearing modules without regenerating the artifact (gate red since). 132 identity additions across documented window files, 45 line-drift removals of SURVIVING identities, ZERO new raw-transport / not-approved sites, unapproved pin preserved.",
-   "records_after": 1177,
-   "records_before": 1176,
-   "removed_unique": 0,
-   "window": "UM-DR-25 RED-TEAM WINDOW 2026-11-06 (M0-M12 + UM-DR-13..25 reconciliation)"
-  },
-  {
-   "added_unique": 4,
-   "at": "2026-11-06T14:33:49Z",
-   "reason": "deliberate regen: the UM-DR-26 phase-2 behavioral rework (r6c/r9 identity + login ladder, safety-governor wiring incl. the broken active-engagement alias fix, kill-switch/spend-cap/robots gates, browser campaign-target allowlist) moved existing getattr sites and added fail-soft getattr reads in the seven documented window files. ZERO new raw-transport / not-approved sites, unapproved pin preserved, no identity truly removed (line drift only).",
-   "records_after": 1185,
-   "records_before": 1177,
-   "removed_unique": 0,
-   "window": "UM-DR-26 PHASE-2 WINDOW 2026-11-06 (the executed phase 2 of the UM-DR-25 red-team plan)"
-  },
-  {
-   "added_unique": 0,
-   "at": "2026-11-06T15:03:50Z",
-   "reason": "deliberate regen: the UM-DR-26 phase-2 behavioral rework (r6c/r9 identity + login ladder, safety-governor wiring incl. the broken active-engagement alias fix, kill-switch/spend-cap/robots gates, browser campaign-target allowlist) moved existing getattr sites and added fail-soft getattr reads in the seven documented window files. ZERO new raw-transport / not-approved sites, unapproved pin preserved, no identity truly removed (line drift only).",
-   "records_after": 1185,
-   "records_before": 1185,
-   "removed_unique": 0,
-   "window": "UM-DR-26 PHASE-2 WINDOW 2026-11-06 (the executed phase 2 of the UM-DR-25 red-team plan)"
-  },
-  {
-   "added_unique": 1,
-   "at": "2026-11-07T02:23:43Z",
-   "reason": "deliberate regen: the UM-DR-27 source-driven phase 2 (grammar-free transition discovery) added one fail-soft getattr read in stateful_probe.py (the transition response's status_code boundary) and moved the pre-existing getattr sites down the file. ZERO new raw-transport / not-approved sites, unapproved pin preserved, no identity truly removed (line drift only).",
-   "records_after": 1186,
-   "records_before": 1185,
-   "removed_unique": 0,
-   "window": "UM-DR-27 RECALL-GENERALIZATION WINDOW 2026-11-07"
-  },
-  {
-   "added_unique": 2,
-   "at": "2026-11-07T05:21:28Z",
-   "reason": "deliberate regen: the UM-DR-28 production discovery integration added two fail-soft dynamic-resolution sites (the enable_stateful_discovery flag read in execution_node.py step 4c and the outcome accessors in the new stateful_discovery.py) and moved the pre-existing getattr sites in the re-pinned frozen files. ZERO new raw-transport / not-approved sites, unapproved pin preserved, no identity truly removed (line drift only).",
-   "records_after": 1197,
-   "records_before": 1186,
-   "removed_unique": 0,
-   "window": "UM-DR-28 DISCOVERY-INTEGRATION WINDOW 2026-11-07"
-  },
-  {
-   "added_unique": 0,
-   "at": "2026-11-07T05:23:51Z",
-   "reason": "deliberate regen: the UM-DR-28 production discovery integration added two fail-soft dynamic-resolution sites (the enable_stateful_discovery flag read in execution_node.py step 4c and the outcome accessors in the new stateful_discovery.py) and moved the pre-existing getattr sites in the re-pinned frozen files. ZERO new raw-transport / not-approved sites, unapproved pin preserved, no identity truly removed (line drift only).",
-   "records_after": 1197,
-   "records_before": 1197,
-   "removed_unique": 0,
-   "window": "UM-DR-28 DISCOVERY-INTEGRATION WINDOW 2026-11-07"
-  },
-  {
-   "added_unique": 0,
-   "at": "2026-11-07T07:51:49Z",
-   "reason": "deliberate regen for the UM-DR-29 dead-code disposition window: 24 verified-dead packages left src/ (17 completing the Ultimate Plan 2026-10-27 proposal-4 archive move to archive/pre_v10_prototypes/; 7 frozen-but-dead packages moved to archive/umdr29_dead_code/ with the DR-009 refreeze scripts/refreeze_manifest_umdr29.py). All removed I/O identities belong to the archived files; zero additions, zero new raw transport, unapproved pin unchanged.",
-   "records_after": 1149,
-   "records_before": 1197,
-   "removed_unique": 31,
-   "window": "UM-DR-29 DEAD-CODE DISPOSITION 2026-11-07 (v0.35.0)"
-  },
-  {
-   "at": "2026-11-07T13:40:34Z",
-   "identities_added": 0,
-   "identities_removed": 0,
-   "reason": "deliberate regen for the UM-DR-30 capability-wiring window: line drift only (the pre-existing getattr sites moved inside the four re-pinned frozen files: state.py, settings.py, graph/builder.py, agents/business_logic_fuzzer/agent.py). ZERO new identities, ZERO removed identities, ZERO new raw transport, unapproved pin unchanged. The window's new module (production/coverage_gap_report.py) is a pure state projection and adds no direct-I/O site.",
-   "records": 1149,
-   "window": "UM-DR-30 CAPABILITY-WIRING WINDOW 2026-11-07"
-  },
-  {
-   "at": "2026-11-07T15:07:36Z",
-   "identities_added": 2,
-   "identities_removed": 0,
-   "reason": "deliberate regen for the UM-DR-31 adaptive-research-loop window: +2 declared identities (both dynamic-resolution getattr in the new non-frozen module production/adaptive_research.py \u2014 the fail-closed settings limits read and the checkpoint-round-trip-safe pool-index dual-shape read) plus line drift inside the re-pinned frozen files (state.py, settings.py, graph/builder.py, models/hypothesis.py, families/execution_node.py). ZERO removed identities, ZERO new raw transport, unapproved pin unchanged.",
-   "records": 1155,
-   "window": "UM-DR-31 ADAPTIVE-RESEARCH-LOOP WINDOW 2026-11-07"
-  },
-  {
-   "at": "2026-11-08T19:01:29Z",
-   "identities_added": 0,
-   "identities_removed": 0,
-   "reason": "deliberate regen for the UM-DR-31 adaptive-research-loop window: +2 declared identities (both dynamic-resolution getattr in the new non-frozen module production/adaptive_research.py \u2014 the fail-closed settings limits read and the checkpoint-round-trip-safe pool-index dual-shape read) plus line drift inside the re-pinned frozen files (state.py, settings.py, graph/builder.py, models/hypothesis.py, families/execution_node.py). ZERO removed identities, ZERO new raw transport, unapproved pin unchanged.",
-   "records": 1155,
-   "window": "UM-DR-31 ADAPTIVE-RESEARCH-LOOP WINDOW 2026-11-07"
-  },
-  {
-   "at": "2026-11-08T19:02:19Z",
-   "attribution_correction": "UM-DR-31 regen-reason attribution correction (audit F17, remediation R11): the UM-DR-31 reason declared '+2 declared identities in production/adaptive_research.py'. The accurate attribution of that window's dynamic-resolution delta is: FOUR getattr sites in production/adaptive_research.py (two identity classes \u2014 the fail-closed settings limits read and the pool-index dual-shape read \u2014 at two call sites each) PLUS TWO getattr sites in families/execution_node.py (the research-hints wiring: the loop-flag read and the stateful_research_hints resolution block). The recorded IDENTITY SET was complete and correct; only the reason text under-attributed the execution_node additions. This correction is appended, never rewritten into history.",
-   "identities_added": 0,
-   "identities_removed": 0,
-   "reason": "deliberate regen for the UM-DR-31.1 uplift window: ZERO added / ZERO removed identities (the R3 hypothesis-admission filter, the R4 fingerprint canonicalization, the R5 hint-semantics fix, the R6/F20 classification contract, the R7 corrupted-channel fail-closed handling and the \u00a76.1 coverage-surface scheduling hints add no new dynamic-resolution sites), line drift only in the touched modules. ALSO carries the R11/F17 attribution correction for the UM-DR-31 entry (see attribution_correction).",
-   "records": 1155,
-   "window": "UM-DR-31.1 INTELLIGENCE & ENGINEERING UPLIFT WINDOW 2026-11-08"
-  },
-  {
-   "at": "2026-11-09T08:53:27Z",
-   "identities_added": 7,
-   "identities_removed": 0,
-   "reason": "deliberate regen for the UM-DR-32 window: SEVEN added dynamic_resolution identities (four dual-shape result reads in production/composite_workflows.py \u2014 the CausalGuard/validator/verdict/outcome fields over returned objects whose concrete type varies \u2014 and three in production/identity_workflow.py \u2014 the hypothesis-pool dual-shape reads and the fail-closed bounded-limits settings gate, the established identity classes), ZERO removed. No new transport sites: the four new capability modules are pure computation; every request flows through injected clients inside the authorized executor layer.",
-   "records": 1177,
-   "window": "UM-DR-32 IDENTITY & BUSINESS-LOGIC EVOLUTION WINDOW 2026-11-09"
-  },
-  {
-   "at": "2026-11-09T09:38:01Z",
-   "identities_added": 0,
-   "identities_removed": 0,
-   "reason": "deliberate regen for the UM-DR-32 window: SEVEN added dynamic_resolution identities (four dual-shape result reads in production/composite_workflows.py \u2014 the CausalGuard/validator/verdict/outcome fields over returned objects whose concrete type varies \u2014 and three in production/identity_workflow.py \u2014 the hypothesis-pool dual-shape reads and the fail-closed bounded-limits settings gate, the established identity classes), ZERO removed. No new transport sites: the four new capability modules are pure computation; every request flows through injected clients inside the authorized executor layer.",
-   "records": 1177,
-   "window": "UM-DR-32 IDENTITY & BUSINESS-LOGIC EVOLUTION WINDOW 2026-11-09"
-  },
-  {
-   "at": "2026-11-10T00:09:32Z",
-   "identities_added": 1,
-   "identities_removed": 0,
-   "reason": "deliberate regen for the UM-DR-33 window: ONE added dynamic_resolution identity \u2014 production/discovery_funnel.py's hypothesis-status dual-shape read (getattr over Hypothesis objects and Mapping-shaped pool records, the established identity class from identity_workflow.py), ZERO removed. No new transport sites: the funnel is pure telemetry over state channels; it performs no requests and never touches the executor layer.",
-   "records": 1179,
-   "window": "UM-DR-33 RESEARCHER BRAIN WINDOW 2026-11-10"
-  },
-  {
-   "at": "2026-11-12T05:54:22Z",
-   "identities_added": 4,
-   "identities_added_detail": [
-    [
-     "src/webpent/agents/hypothesis_analyzer/agent.py",
-     "dynamic_resolution",
-     "getattr(hypothesis, ... )"
-    ],
-    [
-     "src/webpent/graph/appmodel_nodes.py",
-     "dynamic_resolution",
-     "getattr(... )"
-    ],
-    [
-     "src/webpent/production/autonomous_validation_v1.py",
-     "dynamic_resolution",
-     "getattr(guard_decision.adjudication, ... )"
-    ],
-    [
-     "src/webpent/production/confirmation_adapter.py",
-     "dynamic_resolution",
-     "getattr(observation, ... )"
-    ]
-   ],
-   "identities_removed": 0,
-   "reason": "deliberate regen for the UM-DR-35/36 corrective closure: the confirmation-authority unification (CausalGuard sole authority via production/confirmation_adapter + shared/verifier mandatory adjudication + the SQLi reauth bypass removal) and the semantic-model production wiring (graph/appmodel_nodes, appmodel builder, hypothesis priority) add EXACTLY four declared dynamic-resolution identities (all getattr defensive reads on typed objects: hypothesis_analyzer agent, appmodel_nodes, autonomous_validation_v1 guard-adjudication read, confirmation_adapter observation mapping). Zero removals; zero new raw-transport or not-approved sites; the unapproved pin set is unchanged; line drift only inside the touched modules.",
-   "records": 1198,
-   "window": "UM-DR-35/36 CORRECTIVE CLOSURE WINDOW 2026-11-12"
-  },
-  {
-   "at": "2026-11-13T19:52:12Z",
-   "identities_added": 3,
-   "identities_added_detail": [
-    [
-     "src/webpent/production/discovery_funnel.py",
-     "dynamic_resolution",
-     "getattr(... )"
-    ],
-    [
-     "src/webpent/production/discovery_funnel.py",
-     "dynamic_resolution",
-     "getattr(finding, ... )"
-    ],
-    [
-     "src/webpent/production/discovery_funnel.py",
-     "dynamic_resolution",
-     "getattr(obj, ... )"
-    ]
-   ],
-   "identities_removed": 0,
-   "reason": "deliberate regen for the UM-DR-35/36 corrective closure: the confirmation-authority unification (CausalGuard sole authority via production/confirmation_adapter + shared/verifier mandatory adjudication + the SQLi reauth bypass removal) and the semantic-model production wiring (graph/appmodel_nodes, appmodel builder, hypothesis priority) add EXACTLY four declared dynamic-resolution identities (all getattr defensive reads on typed objects: hypothesis_analyzer agent, appmodel_nodes, autonomous_validation_v1 guard-adjudication read, confirmation_adapter observation mapping). Zero removals; zero new raw-transport or not-approved sites; the unapproved pin set is unchanged; line drift only inside the touched modules.",
-   "records": 1202,
-   "window": "UM-DR-35/36 CORRECTIVE CLOSURE WINDOW 2026-11-12"
-  },
-  {
-   "at": "2026-11-13T20:21:53Z",
-   "identities_added": 0,
-   "identities_added_detail": [],
-   "identities_removed": 0,
-   "reason": "deliberate regen for the UM-DR-35/36 corrective closure: the confirmation-authority unification (CausalGuard sole authority via production/confirmation_adapter + shared/verifier mandatory adjudication + the SQLi reauth bypass removal) and the semantic-model production wiring (graph/appmodel_nodes, appmodel builder, hypothesis priority) add EXACTLY four declared dynamic-resolution identities (all getattr defensive reads on typed objects: hypothesis_analyzer agent, appmodel_nodes, autonomous_validation_v1 guard-adjudication read, confirmation_adapter observation mapping). Zero removals; zero new raw-transport or not-approved sites; the unapproved pin set is unchanged; line drift only inside the touched modules.",
-   "records": 1202,
-   "window": "UM-DR-35/36 CORRECTIVE CLOSURE WINDOW 2026-11-12"
-  },
-  {
-   "at": "2026-11-13T20:38:28Z",
-   "identities_added": 0,
-   "identities_added_detail": [],
-   "identities_removed": 0,
-   "reason": "deliberate regen for the UM-DR-35/36 corrective closure: the confirmation-authority unification (CausalGuard sole authority via production/confirmation_adapter + shared/verifier mandatory adjudication + the SQLi reauth bypass removal) and the semantic-model production wiring (graph/appmodel_nodes, appmodel builder, hypothesis priority) add EXACTLY four declared dynamic-resolution identities (all getattr defensive reads on typed objects: hypothesis_analyzer agent, appmodel_nodes, autonomous_validation_v1 guard-adjudication read, confirmation_adapter observation mapping). Zero removals; zero new raw-transport or not-approved sites; the unapproved pin set is unchanged; line drift only inside the touched modules.",
-   "records": 1202,
-   "window": "UM-DR-35/36 CORRECTIVE CLOSURE WINDOW 2026-11-12"
-  },
-  {
-   "at": "2026-11-16T04:00:58Z",
-   "identities_added": 6,
-   "identities_added_detail": [
-    [
-     "src/webpent/cli/unified_hunt.py",
-     "dynamic_resolution",
-     "getattr(f, ... )"
-    ],
-    [
-     "src/webpent/cli/unified_hunt.py",
-     "dynamic_resolution",
-     "getattr(v, ... )"
-    ],
-    [
-     "src/webpent/families/promotion.py",
-     "dynamic_resolution",
-     "getattr(bundle, ... )"
-    ],
-    [
-     "src/webpent/families/promotion.py",
-     "dynamic_resolution",
-     "getattr(verification, ... )"
-    ],
-    [
-     "src/webpent/research/lifecycle_view.py",
-     "dynamic_resolution",
-     "getattr(hypothesis, ... )"
-    ],
-    [
-     "src/webpent/research/lifecycle_view.py",
-     "dynamic_resolution",
-     "getattr(status, ... )"
-    ]
-   ],
-   "identities_removed": 0,
-   "reason": "deliberate regen for the UM-DR-36.2/37 closure windows: the version-identity and evidence-integrity closure (36.2), the four zero-findings root-cause fixes (37), and the decoy/out-of-scope lab closure add EXACTLY six declared dynamic-resolution identities (all getattr defensive reads, listed in the script). Zero removals; zero new raw-transport or not-approved sites; the unapproved pin set is unchanged; line drift only inside the touched modules.",
-   "records": 1214,
-   "window": "UM-DR-36.2/37 RECOVERY + ROOT-CAUSE + DECOY CLOSURE WINDOW 2026-11-16"
-  },
-  {
-   "added": 3,
-   "declared_modules": [
-    "src/webpent/agents/strategist/agent.py",
-    "src/webpent/production/decision_ledger.py",
-    "src/webpent/production/hypothesis_dedup.py",
-    "src/webpent/production/identity_activation.py"
-   ],
-   "reason": "the window's new production modules (hypothesis_dedup, identity_activation) carry function-local imports per the lazy-import convention",
-   "regenerated_at_utc": "2026-11-18T18:04:12.623537+00:00",
-   "removed": 0,
-   "window": "UM-DR-40"
-  },
-  {
-   "at": "2026-11-20T08:02:47Z",
-   "delta": "1223 -> 1223 records: 0 added identity, 0 removed identity, 857 moved (line drift), +0 duplicate-count delta (same-identity consolidation)",
-   "reason": "umdr42-closure window regen (r9a protocol): the A1 scope-authority repairs touched api/app.py (ScopeStoreUnavailable -> 503 mapping in the /api/v1/scope/* endpoints) and workers/pentest_worker.py (durable scope-store attach block). ZERO identity-level delta (fail-closed gate held; unapproved-site pin unchanged); the only change is line drift of existing records in those two files. No raw-transport site added; the 503 handlers and the store attach reuse governed imports only."
-  }
- ],
- "regen_reason": "umdr44 window regen: B6(b) added the fail-closed verify_target_tls getattr read in shared/h2_race.py and the B2 identity-thread state work carried getattr(record, ...) reads in state/reducers.py \u2014 both dynamic_resolution (non-transport) additions only; ZERO removals",
- "regenerated_at": "2026-11-22T21:47:30Z",
- "schema": "webpent.direct_io_inventory.v1",
- "unapproved_transport_pin": 47,
- "window": "UM-DR-34 SCOPE AUTHORITY WINDOW 2026-11-10"
+ ]
 }

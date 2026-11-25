@@ -187,6 +187,7 @@ REGISTERED_FILES = {
     "src/webpent/llm_researcher/tiering.py": 1,  # UM-DR-25: M0-M12 window fail-soft boundary
     "src/webpent/production/campaign_lifecycle.py": 8,  # UM-DR-25: M0-M12 window fail-soft boundary
     "src/webpent/production/hypothesis_qualification_harness.py": 1,  # UM-DR-25: M0-M12 window fail-soft boundary
+    "src/webpent/production/detection_lanes_48.py": 6,  # UM-DR-49 retroactive registration (48 closeout shipped the lanes without register updates; each lane boundary degrades to a recorded coverage gap — fail-closed, no fabricated verdict)
     "src/webpent/production/oob_validator.py": 1,  # UM-DR-25: M0-M12 window fail-soft boundary
     "src/webpent/qualification/weekly.py": 1,  # UM-DR-25: M0-M12 window fail-soft boundary
     "src/webpent/recon/takeover.py": 1,  # UM-DR-25: M0-M12 window fail-soft boundary
@@ -361,6 +362,13 @@ def test_broad_exception_count_matches_register() -> None:
         "src/webpent/production/campaign_lifecycle.py",
         "src/webpent/production/concurrency_governor.py",
         "src/webpent/production/cross_process_leases.py",
+        # UM-DR-49 (2026-11-25): detection_lanes_48.py entered the
+        # unpinned population retroactively — the 48 window's closeout
+        # push shipped the lanes file without its register updates and
+        # CI went red on every run since (the 49 CI heal registers it
+        # deliberately: 6 lane-boundary handlers, each fail-closed to a
+        # coverage gap).
+        "src/webpent/production/detection_lanes_48.py",
         "src/webpent/production/hypothesis_qualification_harness.py",
         "src/webpent/production/oob_validator.py",
         "src/webpent/production/protection_controls.py",

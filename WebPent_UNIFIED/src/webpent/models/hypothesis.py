@@ -248,7 +248,7 @@ class Hypothesis(BaseModel):
     # (_classify_by_url_path), never by the probabilistic heuristics.
     #
     # Root cause this exists to fix: a deterministic path match (e.g.
-    # /vulnerabilities/sqli/) is ground truth from a known vuln-path
+    # /api/items?id=) is ground truth from a known vuln-path
     # signature, not an uncertain belief — but it was still gated
     # behind Dynamic Prioritization's probabilistic
     # score >= PROMOTION_THRESHOLD formula. Because Mental Model

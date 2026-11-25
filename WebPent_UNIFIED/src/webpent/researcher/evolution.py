@@ -412,11 +412,27 @@ def select_by_info_gain(
         return raw.split(".")[-1].lower() if raw else ""
 
     open_items = [h for h in pool if _status(h) in _OPEN_STATUSES]
+
+    def _gain(h: Hypothesis) -> float:
+        # UM-DR-49 W2.4 (real-ground finding): hypotheses created by the
+        # graph path may carry info_gain=None (the field is optional on
+        # the model); the ORIGINAL float(h.info_gain) crashed the whole
+        # hypothesis_evolution task on the first real SPA campaign.
+        # None sorts LAST (no observed gain yet — deterministic matches
+        # still lead), never crashes.
+        raw = getattr(h, "info_gain", None)
+        if raw is None:
+            return -1.0
+        try:
+            return float(raw)
+        except (TypeError, ValueError):
+            return -1.0
+
     ordered = sorted(
         open_items,
         key=lambda h: (
             0 if bool(getattr(h, "deterministic_match", False)) else 1,
-            -float(h.info_gain),
+            -_gain(h),
             str(h.id),
         ),
     )

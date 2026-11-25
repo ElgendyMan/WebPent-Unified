@@ -489,6 +489,12 @@ _AUTHORITY_ALLOWLIST: dict[str, str] = {
     "egaie/finding_bridge.py": "EGAIE bridge — requires replay-valid bundle records + HypothesisStatus.CONFIRMED (flag-off path)",
     "state/reducers.py": "state channel reducer (read-only state merge)",
     "production/stateful_discovery.py": "CausalGuard-routed stateful discovery (verdict-routed, Pending level)",
+    # UM-DR-49 (2026-11-25) retroactive registration: the 48 window's
+    # detection lanes merge Tool-Confirmed ONLY from confirm_lane_finding
+    # verdicts — every candidate routes through verify_replay_evidence
+    # (the strict verifier, sealed ProofBundle attached); failed
+    # verdicts stay pending (fail-closed).
+    "production/detection_lanes_48.py": "detection lanes — verdict-gated by verify_replay_evidence (sealed bundle attached)",
 }
 
 _CONFIRMED_STATES = ("CONFIRMED", "Tool-Confirmed", "PROMOTED")

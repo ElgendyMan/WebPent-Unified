@@ -109,7 +109,14 @@ SRC_ROOT = REPO_ROOT / "src"
 # safe_boundary_call through make_safe_httpx_client.  Adjudicated
 # security-engineering removal, not a coverage regression — the raw
 # client no longer exists in the tree.
-PINNED_UNAPPROVED_RECORD_COUNT = 29
+# UM-DR-49 (2026-11-25): 29 -> 31 — the 48 closeout shipped
+# detection_lanes_48.py's raw-path lane identities (the VERBATIM
+# socket request: import + call + the safe-boundary companion) without
+# this pin's update. Registered retroactively by the 49 CI heal; the
+# raw socket is the lane's documented mechanism (the literal-path
+# channel httpx normalization defeats) and the safe_boundary_call is
+# the approved transport. Adjudicated registration, not a regression.
+PINNED_UNAPPROVED_RECORD_COUNT = 31
 # MERGE 2026-10-26: 18 -> 27 (unapproved unique identity set of the merged
 # tree after scripts/regenerate_direct_io_inventory.py; every identity in the
 # set is still fail-closed-pinned exactly as before).
@@ -124,7 +131,11 @@ PINNED_UNAPPROVED_RECORD_COUNT = 29
 # UM-DR-34 (2026-11-10): 28 -> 25 — execution_node.py's raw httpx
 # client identities (import + call + companion getattr) removed by the
 # §4.8 safe-factory fix; replacement is an APPROVED safe_boundary_call.
-PINNED_UNAPPROVED_IDENTITY_COUNT = 25
+# UM-DR-49 (2026-11-25): 25 -> 27 — the same retroactive registration
+# as the record pin above: detection_lanes_48.py's raw-path lane adds
+# import+call socket identities (the lane's documented VERBATIM-request
+# mechanism) while its httpx boundary is the approved safe call.
+PINNED_UNAPPROVED_IDENTITY_COUNT = 27
 PINNED_UNAPPROVED_SITES = frozenset({
 # MERGE 2026-10-26: regenerated identity set of the merged tree
 # (scripts/regenerate_direct_io_inventory.py). Every identity here is
@@ -144,6 +155,11 @@ PINNED_UNAPPROVED_SITES = frozenset({
     ('src/webpent/production/context_authority.py', 'dynamic_import', '__import__'),
     ('src/webpent/production/modern_spine.py', 'call', 'httpx.Client'),
     ('src/webpent/production/modern_spine.py', 'import', 'httpx'),
+    # UM-DR-49 (2026-11-25): the 48 closeout's raw-path lane — the
+    # VERBATIM literal-path request mechanism (httpx normalization
+    # defeats the channel); registered retroactively by the CI heal.
+    ('src/webpent/production/detection_lanes_48.py', 'call', 'socket.create_connection'),
+    ('src/webpent/production/detection_lanes_48.py', 'import', 'socket'),
     # LEARNING A/B LAB 2026-10-29: the C-9 window launcher — same
     # adjudicated subprocess family as verdict_bridge/sandbox above.
     ('src/webpent/reporter/poc_recorder.py', 'import', 'playwright.sync_api.sync_playwright'),

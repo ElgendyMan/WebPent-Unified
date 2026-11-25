@@ -296,7 +296,7 @@ def _bounded_js_routes(text: str, base_url: str, *, limit: int = 100) -> list[st
     """Extract route-shaped JS literals as passive discovery hints.
 
     Template literals are common in SPA API clients, for example
-    ``/rest/basket/${basketId}``. A bounded ``1`` materialization turns that
+    ``/api/orders/${orderId}``. A bounded ``1`` materialization turns that
     observed route shape into one read-only surface candidate; it does not
     enumerate IDs and remains subject to same-origin/safe-GET guards.
     """

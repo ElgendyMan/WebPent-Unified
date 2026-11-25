@@ -191,6 +191,7 @@ typed exception set is recorded as per-file follow-up debt.
 - `src/webpent/production/campaign_lifecycle.py` — 8 handler(s)
 - `src/webpent/production/hypothesis_qualification_harness.py` — 1 handler(s)
 - `src/webpent/production/oob_validator.py` — 1 handler(s)
+- `src/webpent/production/detection_lanes_48.py` — 6 handler(s)  # UM-DR-48 lanes (window 48 closeout push — registered retroactively by UM-DR-49 P0 CI heal; each lane boundary degrades to a recorded coverage gap, fail-closed, never a fabricated verdict)
 - `src/webpent/qualification/weekly.py` — 1 handler(s)
 - `src/webpent/recon/takeover.py` — 1 handler(s)
 - `src/webpent/reporter/bounty_pipeline.py` — 2 handler(s)

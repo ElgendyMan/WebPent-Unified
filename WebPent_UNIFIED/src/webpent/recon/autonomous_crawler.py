@@ -34,15 +34,19 @@ _URL_NAME = re.compile(r"(?:url|uri|redirect|return|next|dest|destination|callba
 _SEARCH_NAME = re.compile(r"(?:q|query|search|filter|term|keyword)", re.I)
 _SCRIPT_ROUTE_MARKERS = (
     "/api", "/rest", "/graphql", "/login", "/search", "/basket", "/products",
-    "/orders", "/ftp", "/redirect", "/score-board", "/security", "/admin",
-    "/application-version", "/track-order",
+    "/orders", "/redirect", "/security", "/admin",
 )
 _HEURISTIC_ROUTE_PATHS = (
-    "/administration", "/admin", "/rest/admin", "/rest/admin/application-version",
-    "/rest/basket/1", "/rest/user/login", "/login", "/signin", "/auth/login",
-    "/api/auth/login", "/identity/api/auth/login", "/rest/products/search?q=webpent_route_probe",
+    # UM-DR-49 W2.2 (the zero-knowledge gate): the app-specific seeds
+    # that used to live here (one lab app's admin/basket/scoreboard/
+    # track-order/ftp/product-search routes) were
+    # REMOVED — they were pre-loaded knowledge of one specific lab
+    # app. Only UNIVERSAL route shapes stay; everything app-specific
+    # must be DISCOVERED (the JS-route projection channel, W2.1).
+    "/administration", "/admin", "/login", "/signin", "/auth/login",
+    "/api/auth/login", "/identity/api/auth/login",
     "/search?q=webpent_route_probe",
-    "/redirect?to=https://external.example.invalid/landing", "/rest/track-order",
+    "/redirect?to=https://external.example.invalid/landing",
     "/openapi.json", "/swagger.json", "/api/docs", "/sitemap.xml",
 )
 

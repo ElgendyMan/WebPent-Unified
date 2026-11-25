@@ -1285,7 +1285,7 @@ def route_after_hypothesis(state: PentestState) -> str:
     emptiness under ``skip_recon=True``. But ``hypothesis_node`` emits
     ``Hypothesis`` objects (V7 Phase 1 migration), NOT ``Finding``
     objects — so under ``skip_recon=True`` with path-classified
-    hypotheses (e.g. /vulnerabilities/sqli/), the router short-
+    hypotheses (e.g. /api/items/), the router short-
     circuited to ``NODE_REPORTER`` before the Strategist could
     promote any hypothesis to a Finding. Live operator symptom:
     skip_recon=True + path hypotheses → immediate Report + Persisted 0,

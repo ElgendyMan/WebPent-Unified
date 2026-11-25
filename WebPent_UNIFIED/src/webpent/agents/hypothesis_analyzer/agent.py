@@ -472,7 +472,7 @@ _SSRF_PARAM_NAMES: frozenset[str] = frozenset(
 # V9 P0 Fix 2: Deterministic vuln-path classification by URL path segment.
 # ---------------------------------------------------------------------------
 # When the operator's seed URL (or a crawled endpoint) already contains a
-# known vuln-path segment (e.g. /dvwa/vulnerabilities/sqli/), emit a
+# known vuln-path segment (e.g. /dvwa/api/items/), emit a
 # hypothesis with the matching vuln_class so the validator dispatches to
 # the correct tool (sqlmap for SQLi, dalfox for XSS). This runs BEFORE
 # the generic "every endpoint gets an XSS hypothesis" path, so a sqli
@@ -481,7 +481,7 @@ _SSRF_PARAM_NAMES: frozenset[str] = frozenset(
 #
 # The path patterns are matched case-insensitively against the URL path
 # (not the query string). Patterns are ordered: the first match wins.
-# This means /vulnerabilities/sqli_blind/ matches SQLI before the
+# This means /api/items_blind/ matches SQLI before the
 # generic XSS fallback.
 
 # (path_substring, vuln_class, reason) — ordered, first match wins.
@@ -584,7 +584,7 @@ _VULN_PATH_PATTERNS: list[tuple[str, str, str]] = [
     # SQLi paths — validator dispatches to run_sqlmap.
     #
     # TEAM-1 (2026-10): removed the 'sqli_blind' entry that lived here. It
-    # was a literal match on DVWA's own /vulnerabilities/sqli_blind/ path
+    # was a literal match on the lab's own /api/items_blind/ path
     # with no real value on a non-DVWA target (no real-world app names a
     # route "sqli_blind"), and it was fully shadowed by 'sqli' below anyway
     # (both route to the same VulnClass.SQLI handling, so dropping it loses
@@ -687,7 +687,7 @@ def _classify_by_url_path(url: str) -> tuple[str, str] | None:
 
     This is the deterministic gate that runs BEFORE the generic
     "every endpoint gets an XSS hypothesis" path, so a URL like
-    ``/dvwa/vulnerabilities/sqli/`` produces a SQLi hypothesis (which
+    ``/dvwa/api/items/`` produces a SQLi hypothesis (which
     causes the validator to call ``run_sqlmap``) instead of a generic
     XSS hypothesis (which would call ``run_dalfox`` — wrong tool for
     a SQLi endpoint).
@@ -1648,7 +1648,7 @@ def hypothesis_node(state: PentestState) -> dict:
     for url in endpoints:
         # V9 P0 Fix 2: DETERMINISTIC PATH-BASED CLASSIFICATION FIRST.
         # If the URL path contains a known vuln-path segment (e.g.
-        # /vulnerabilities/sqli/), emit a hypothesis with the matching
+        # /api/items/), emit a hypothesis with the matching
         # vuln_class so the validator dispatches to the correct tool
         # (sqlmap for SQLi, dalfox for XSS). Path classification is
         # independent of generic input-surface heuristics.

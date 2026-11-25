@@ -750,6 +750,47 @@ def _refresh_profile_after_throttle(
 
 
 # NOTE: deterministic agent — no LLM reasoning by design (verified 2026-08-21).
+def _project_js_routes(
+    crawled_data: Any,
+    javascript_intelligence: Any,
+    target_url: str,
+) -> Any:
+    """UM-DR-49 W2.1: project OBSERVED same-origin JS routes into the
+    crawl channel so every consumer of ``crawled_data`` (BAC candidate
+    extraction, the detection lanes) probes the surface the app's own
+    bundles declare. The routes are RECORDED observations from the JS
+    analysis (evidence_ref per route) — no guessing, no app-specific
+    knowledge. Path-only routes are included (the hypothesis engine's
+    Stage-0 no-query contract is untouched — this projection adds PROBE
+    TARGETS, not query hypotheses)."""
+    if hasattr(javascript_intelligence, "model_dump"):
+        javascript_intelligence = javascript_intelligence.model_dump(mode="json")
+    if not isinstance(javascript_intelligence, dict) or not isinstance(
+            crawled_data, dict):
+        return crawled_data
+    endpoints = crawled_data.setdefault("endpoints", [])
+    existing = {str(e if isinstance(e, str) else (e or {}).get("url", ""))
+                for e in endpoints}
+    added = 0
+    for record in (javascript_intelligence.get("routes") or [])[:300]:
+        if not isinstance(record, dict):
+            continue
+        url = str(record.get("route") or record.get("url") or "")
+        if not url or "${" in url or "{{" in url:
+            continue
+        if url in existing:
+            continue
+        endpoints.append({
+            "url": url,
+            "method": str(record.get("method_hint") or "GET").upper(),
+            "candidate_sources": ["js_route_projection"],
+            "evidence_ref": str(record.get("evidence_ref") or ""),
+        })
+        existing.add(url)
+        added += 1
+    return crawled_data
+
+
 def access_control_node(state: PentestState) -> dict:
     """Compare resource access across anonymous and available identities."""
     target = state.get("target")
@@ -778,6 +819,11 @@ def access_control_node(state: PentestState) -> dict:
         or state.get("js_intelligence")
         or {}
     )
+    # UM-DR-49 W2.1: the JS-observed same-origin routes join the crawl
+    # channel (RECORDED surface — see _project_js_routes)
+    crawled_data = _project_js_routes(
+        crawled_data, javascript_intelligence,
+        str(getattr(target, "url", "") or ""))
     records = _extract_candidate_records(crawled_data, javascript_intelligence)
     target_url = str(getattr(target, "url", "") or "")
     if isinstance(target, dict):

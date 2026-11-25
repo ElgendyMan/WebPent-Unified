@@ -292,13 +292,21 @@ class TestP0ASqlmapArgv:
         )
 
     def test_dbms_mysql_for_vulnerabilities_sqli_without_dvwa(self):
-        """--dbms=mysql must be added when path contains vulnerabilities/sqli
-        even without /dvwa/ prefix."""
+        """--dbms=mysql is added ONLY on the /dvwa/ stack signal (the
+        UM-DR-49 zero-knowledge cleanup removed the literal
+        vulnerabilities/sqli heuristic — app-path sniffing; the php-lab
+        stack prefix remains a legitimate CLASS signal)."""
         from webpent.tools.exploitation.sqlmap import _build_sqlmap_cmd
         cmd = _build_sqlmap_cmd(
-            "http://target/vulnerabilities/sqli/?id=1&Submit=Submit"
+            "http://target/dvwa/vulnerabilities/sqli/?id=1&Submit=Submit"
         )
         assert "--dbms=mysql" in cmd
+        # ...and the bare app path (no stack prefix) no longer pins the
+        # DBMS — fingerprinting handles it
+        cmd2 = _build_sqlmap_cmd(
+            "http://target/vulnerabilities/sqli/?id=1&Submit=Submit"
+        )
+        assert "--dbms=mysql" not in cmd2
 
     def test_no_dbms_for_non_dvwa_url(self):
         """--dbms=mysql must NOT be added for arbitrary URLs (fingerprinting

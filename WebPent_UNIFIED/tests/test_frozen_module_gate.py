@@ -277,6 +277,16 @@ UMDR48_D_20261125_THAW_PATHS = frozenset({
     # rehearsal's finding — an entry's explicit port now binds the
     # match; regression proof tests/test_umdr49_scope_port_boundary.py)
     "src/webpent/shared/scope_file.py",
+    # UM-DR-49 W2.2 (the zero-knowledge cleanup): app-specific literals
+    # removed from engine code (crawler seeds generalized, contract
+    # templates de-literalized, docstrings neutralized). The gate that
+    # proves it: scripts/umdr49_zero_knowledge_gate.py (CLEAN).
+    "src/webpent/agents/hypothesis_analyzer/agent.py",
+    "src/webpent/models/hypothesis.py",
+    "src/webpent/production/vulnerability_family_contracts.py",
+    "src/webpent/recon/autonomous_crawler.py",
+    "src/webpent/shared/prioritization.py",
+    "src/webpent/tools/exploitation/sqlmap.py",
 })
 
 UMDR44_20261122_THAW_PATHS = frozenset(
@@ -1580,7 +1590,13 @@ def test_baseline_disagrees_only_on_documented_unfreeze_paths() -> None:
             # first-pinned by the 47 window (never in the pre-unfreeze
             # baseline) — the drift set cannot contain it
             "src/webpent/cli/unified_hunt.py",
-            "src/webpent/shared/scope_file.py"})
+            "src/webpent/shared/scope_file.py",
+            "src/webpent/agents/hypothesis_analyzer/agent.py",
+            "src/webpent/models/hypothesis.py",
+            "src/webpent/production/vulnerability_family_contracts.py",
+            "src/webpent/recon/autonomous_crawler.py",
+            "src/webpent/shared/prioritization.py",
+            "src/webpent/tools/exploitation/sqlmap.py"})
         | (
             UMDR45_20261123_THAW_PATHS
             # scope completion, NOT drift: api_surface_shadow.py (K3) and
