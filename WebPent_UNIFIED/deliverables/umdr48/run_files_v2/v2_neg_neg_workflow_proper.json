@@ -1,0 +1,31 @@
+{
+ "schema": "umdr48-negative-run/1.0.0",
+ "fixture_id": "neg_workflow_proper",
+ "family": "workflow_abuse",
+ "why_near_miss": "action endpoints + order states exist; ship refuses the skip with 409 and the conforming path ships cleanly",
+ "measured_at_utc": "2026-11-25T10:13:04.369193+00:00",
+ "elapsed_s": 0.525,
+ "lane_results_count": 0,
+ "findings_confirmed": 0,
+ "confirmed_detail": [],
+ "lab_requests": [
+  {
+   "method": "GET",
+   "path": "/api/orders/ORD-N1",
+   "principal": "User_A"
+  },
+  {
+   "method": "POST",
+   "path": "/api/orders/ORD-N1/ship",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/api/orders/ORD-N1",
+   "principal": "User_A"
+  }
+ ],
+ "invariants": {
+  "out_of_scope_origin_zero_requests": true
+ }
+}

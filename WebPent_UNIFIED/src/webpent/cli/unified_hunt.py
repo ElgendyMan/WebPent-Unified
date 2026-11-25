@@ -316,6 +316,7 @@ def run_unified_hunt(
                     scope_declaration=scope_declaration,
                     identity_profiles=identity_profiles,
                     enable_umdr48_lanes=enable_umdr48_lanes,
+                    auto_approve=auto_approve,
                 )
         else:
             # UM-DR-37 root cause RC-3a (secondary): the no-checkpointer
@@ -483,6 +484,7 @@ def _invoke_with_progress(
     scope_declaration: dict[str, Any] | None = None,
     identity_profiles: dict[str, Any] | None = None,
     enable_umdr48_lanes: bool = False,
+    auto_approve: bool = False,
 ) -> dict[str, Any]:
     """Invoke the graph via stream() so the progress view stays live.
 
@@ -508,6 +510,11 @@ def _invoke_with_progress(
         llm_override=False if no_llm else None,
         report_formats=[report_format] if report_format else None,
         skip_recon=False,
+        # UM-DR-48: the auto-approve decision must reach the STATE (the
+        # BAC state-changing gate and the D-lanes read it) — before
+        # this fix it only chose the graph's compile shape, so
+        # auto_approve campaigns ran with state["auto_approve"]=False
+        auto_approve=auto_approve,
     )
     # M2-A: a supplied scope file feeds the same state channels the worker
     # path feeds (raw entries are policy input; the projection is

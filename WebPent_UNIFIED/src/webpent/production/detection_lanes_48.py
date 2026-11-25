@@ -39,6 +39,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 from dataclasses import dataclass
 from typing import Any
 from urllib.parse import urlsplit
@@ -340,6 +341,38 @@ def confirm_lane_finding(
 # ---------------------------------------------------------------------------
 # D1 — workflow-skip lane (state-before/after proof)
 # ---------------------------------------------------------------------------
+def _all_crawl_urls(crawled_data: dict[str, Any]) -> list[str]:
+    """Every URL every crawl channel declared: the endpoints lists, the
+    surface records' own urls, and the surface records' declared_links
+    (the JSON-interface declarations — action paths the crawler does
+    not follow land there)."""
+    urls: list[str] = []
+    seen: set[str] = set()
+
+    def _add(value: str) -> None:
+        if value and value.startswith(("http://", "https://")) \
+                and value not in seen:
+            seen.add(value)
+            urls.append(value)
+
+    if isinstance(crawled_data, dict):
+        for key in ("endpoints", "surface_records"):
+            value = crawled_data.get(key)
+            if isinstance(value, list):
+                for record in value:
+                    if isinstance(record, str):
+                        _add(record)
+                    elif isinstance(record, dict):
+                        _add(str(record.get("url") or ""))
+                        for link in record.get("declared_links") or []:
+                            _add(str(link))
+        http = crawled_data.get("http_discovery")
+        if isinstance(http, dict):
+            for record in http.get("endpoints") or []:
+                _add(str(record))
+    return urls
+
+
 def workflow_skip_candidates(
     crawled_data: dict[str, Any],
     workflow_observations: list[dict[str, Any]],
@@ -369,10 +402,17 @@ def workflow_skip_candidates(
             "terminal_state": to_state, "required_intermediate": via,
             "source": "workflow_observation",
         })
-    # 2. crawl shape: /resource/{id}/action paths (the battery's actions)
-    for record in (crawled_data or {}).get("endpoints") or []:
-        url = str(record if isinstance(record, str) else
-                  (record or {}).get("url") or "")
+    # 2. crawl shape: /resource/{id}/action paths (the battery's
+    #    actions) — the unified reader (endpoints + surface records +
+    #    declared_links: the JSON-interface declarations carry the
+    #    action paths the crawler itself does not follow)
+    import os as _os
+    _all_records: list = _all_crawl_urls(crawled_data or {})
+    if _os.getenv("UMDR48_D1_DEBUG"):
+        print(f"[d1-cand] records={len(_all_records)} "
+              f"all={[str(r)[:75] for r in _all_records]}",
+              flush=True)
+    for url in _all_records:
         # /api/orders/ORD-W-101/ship — an action suffix on an object path
         parts = url.rstrip("/").split("/")
         if len(parts) >= 2 and parts[-1] in {"ship", "approve", "pay",
@@ -430,38 +470,59 @@ def run_workflow_skip_lane(
             endpoint = origin.rstrip("/") + (
                 endpoint if endpoint.startswith("/") else f"/{endpoint}")
         resource_read = endpoint.rsplit("/", 1)[0]
-        # the recorded owner (the resource's own reply names it)
-        probe_read = send(resource_read, cookies=owner.get("cookies"),
-                          identity_label=str(owner.get("name") or "owner"),
-                          actor_role="owner", target_scope=scope)
-        probe_read.identity_label = str(
-            _json_body(probe_read).get("owner")
-            or owner.get("name") or "owner")
-        probe_body = _json_body(probe_read)
-        recorded_owner = str(probe_body.get("owner") or "")
-        if not (probe_read.status_code == 200 and recorded_owner):
-            continue
-        state_before = str(probe_body.get("status") or "")
+        # the recorded owner: probe EVERY identity — the profile order
+        # is not an ownership fact (the graph's list may put the
+        # foreign user first)
+        probe_read = None
+        probe_body = {}
+        recorded_owner = ""
+        state_before = ""
+        owner_cookies = None
+        for profile in profiles:
+            trial = send(
+                resource_read, cookies=profile.get("cookies"),
+                identity_label=str(profile.get("name") or "owner"),
+                actor_role="owner", target_scope=scope)
+            trial_body = _json_body(trial)
+            if trial.status_code == 200 and trial_body.get("owner"):
+                probe_read = trial
+                probe_body = trial_body
+                recorded_owner = str(trial_body["owner"])
+                state_before = str(trial_body.get("status") or "")
+                owner_cookies = profile.get("cookies")
+                probe_read.identity_label = recorded_owner
+                break
+        if not recorded_owner:
+            continue  # no identity could read the resource
         # the SKIP probe: the action POST skipping the intermediate
         skip = send(endpoint, method="POST",
-                    cookies=owner.get("cookies"),
+                    cookies=owner_cookies,
                     allow_state_changing=True,
                     identity_label=recorded_owner,
                     actor_role="owner", target_scope=scope)
         skip_body = _json_body(skip)
-        skipped_flag = bool(skip_body.get("skipped_approval"))
-        terminal = str(cand["terminal_state"])
-        if not (skip.status_code == 200 and skipped_flag):
-            continue  # the skip was refused (secure) or not an oracle
         # the AFTER read: the terminal state was reached
-        after = send(resource_read, cookies=owner.get("cookies"),
+        after = send(resource_read, cookies=owner_cookies,
                      identity_label=recorded_owner,
                      actor_role="owner", target_scope=scope)
-        state_after = str(_json_body(after).get("status") or "")
+        state_after_check = str(_json_body(after).get("status") or "")
+        terminal = str(cand["terminal_state"])
+        # THE TRANSITION IS THE PROOF (the flag alone is untrustworthy:
+        # a lab's flag may record the approver bookkeeping, not the
+        # gate) — pending -> terminal without the required
+        # intermediate IS the skip; approved -> terminal is the
+        # authorized path
         terminal_stem = terminal[:4]
-        reached_terminal = state_after in (
+        reached_terminal = state_after_check in (
             terminal, terminal + "ped", terminal + "ed") or (
-            state_after.startswith(terminal_stem))
+            state_after_check.startswith(terminal_stem))
+        skipped_flag = bool(
+            skip_body.get("skipped_approval")) or (
+            state_before not in ("approved", terminal))
+        if not (skip.status_code == 200 and skipped_flag
+                and state_before != "approved"):
+            continue  # refused (secure), conforming, or not an oracle
+        state_after = state_after_check
         if not (reached_terminal and state_before != state_after):
             continue
         # the CONTROL: the conforming sibling — the same action class
@@ -476,9 +537,9 @@ def run_workflow_skip_lane(
                 sibling = origin.rstrip("/") + (
                     sibling if sibling.startswith("/") else f"/{sibling}")
             ctrl = send(sibling, method="POST",
-                        cookies=owner.get("cookies"),
+                        cookies=owner_cookies,
                         allow_state_changing=True,
-                        identity_label=str(owner.get("name") or "owner"),
+                        identity_label=recorded_owner,
                         actor_role="owner", target_scope=scope)
             ctrl.identity_label = recorded_owner
             ctrl_body = _json_body(ctrl)
@@ -558,9 +619,7 @@ def run_framing_differential_lane(
     # the candidate endpoints: POST-style endpoints seen in the crawl
     endpoints: list[str] = []
     crawled = state.get("crawled_data") or {}
-    for record in (crawled.get("endpoints") or []):
-        url = str(record if isinstance(record, str) else
-                  (record or {}).get("url") or "")
+    for url in _all_crawl_urls(crawled):
         if "/echo" in url or "echo" in url.lower():
             endpoints.append(url)
     for extra in state.get("umdr48_smuggling_endpoints") or []:
@@ -681,8 +740,24 @@ def run_graphql_cross_identity_lane(
     operations = list(crawled.get("graphql_operations") or [])
     for extra in state.get("umdr48_graphql_queries") or []:
         operations.append({"query": str(extra)})
-    if not operations or not origin:
+    if not origin:
         return []
+    if not operations:
+        # self-discovery: the docs-declared example queries (a
+        # /api/graphql-docs style route is a standard surface
+        # declaration; its example_queries are RECORDED operations)
+        for url in _all_crawl_urls(crawled):
+            if "docs" not in url.lower():
+                continue
+            docs = send(url, cookies=(
+                _state_profiles(state) or [{}])[0].get("cookies"),
+                identity_label="owner", actor_role="owner",
+                target_scope=scope)
+            docs_body = _json_body(docs)
+            for query in docs_body.get("example_queries") or []:
+                if isinstance(query, str):
+                    operations.append({"query": query})
+        operations = operations[:4]
     profiles = _state_profiles(state)
     if len(profiles) < 2:
         return []
@@ -808,40 +883,55 @@ def run_tenant_override_lane(
     profiles = _state_profiles(state)
     if len(profiles) < 2:
         return []
-    local, resource_side = profiles[0], profiles[1]
     results: list[dict[str, Any]] = []
     for url in candidates:
         if not url.startswith(("http://", "https://")):
             url = origin.rstrip("/") + (
                 url if url.startswith("/") else f"/{url}")
-        # the LOCAL identity without override: the honest denial (control)
-        control = send(url, cookies=local.get("cookies"),
-                       identity_label=str(local.get("name") or "local"),
-                       actor_role="owner", target_scope=scope)
-        control_body = _json_body(control)
-        resource_tenant = str(control_body.get("profile_tenant")
-                              or control_body.get("tenant") or "")
-        if control.status_code != 403 or not resource_tenant:
-            continue  # not a cross-tenant denial — no differential here
-        # resolve the recorded owner: the resource-side identity's
-        # replay (its reply names the owner) — then THAT name labels
-        # the baseline actor (canonical form)
-        probe = send(url, cookies=resource_side.get("cookies"),
-                     identity_label=str(resource_side.get("name")
-                                        or "resource-side"),
-                     actor_role="owner", target_scope=scope)
-        probe_body = _json_body(probe)
-        recorded_owner = str(probe_body.get("owner") or "")
-        if not (probe.status_code == 200 and recorded_owner):
-            continue  # the resource-side identity is not the owner
+        # discover BOTH sides empirically: the identity DENIED without
+        # the header is the local side; the identity GRANTED is the
+        # resource side (the profile order is not an ownership fact)
+        control = None
+        resource_tenant = ""
+        local_cookies = None
+        for profile in profiles:
+            trial = send(url, cookies=profile.get("cookies"),
+                         identity_label=str(profile.get("name") or "local"),
+                         actor_role="owner", target_scope=scope)
+            trial_body = _json_body(trial)
+            if trial.status_code == 403 and trial_body.get("profile_tenant"):
+                control = trial
+                control.identity_label = str(
+                    trial_body.get("requested_by")
+                    or profile.get("name") or "local")
+                resource_tenant = str(trial_body["profile_tenant"])
+                local_cookies = profile.get("cookies")
+                break
+        if control is None or not resource_tenant:
+            continue  # no cross-tenant denial — no differential here
+        # the resource side: whichever identity is GRANTED
+        probe = None
+        recorded_owner = ""
+        for profile in profiles:
+            trial = send(url, cookies=profile.get("cookies"),
+                         identity_label=str(profile.get("name")
+                                            or "resource-side"),
+                         actor_role="owner", target_scope=scope)
+            trial_body = _json_body(trial)
+            if trial.status_code == 200 and trial_body.get("owner"):
+                probe = trial
+                recorded_owner = str(trial_body["owner"])
+                break
+        if probe is None or not recorded_owner:
+            continue  # no identity can read the resource
         # the baseline: the owner's own granted replay
         baseline = probe
         baseline.identity_label = recorded_owner
         # the CANDIDATE: local identity + the tenant override header
-        cand = send(url, cookies=local.get("cookies"),
+        cand = send(url, cookies=local_cookies,
                     headers={"X-Tenant-ID": resource_tenant},
-                    identity_label=str(local.get("name") or "local"),
-                    actor_role="owner",
+                    identity_label=str(control.identity_label or "local"),
+                    actor_role="user",
                     target_scope=scope)
         cand_body = _json_body(cand)
         tenant_source = str(cand_body.get("tenant_source") or "")
@@ -856,7 +946,8 @@ def run_tenant_override_lane(
             baseline=baseline, candidate=cand, negative_control=control,
             identity_context={
                 "owner_identity": recorded_owner,
-                "candidate_identity": str(local.get("name") or "local"),
+                "candidate_identity": str(
+                    control.identity_label or "local"),
                 "resource_tenant": resource_tenant,
                 "override_header": "X-Tenant-ID",
                 "tenant_source": tenant_source,
@@ -865,7 +956,7 @@ def run_tenant_override_lane(
                            "declared_scope": list(scope)},
             engagement_id=str(state.get("engagement_id") or ""),
             causal_basis=(
-                f"identity '{local.get('name')}' was denied (403) the "
+                f"identity '{control.identity_label}' was denied (403) the "
                 f"tenant-{resource_tenant} resource without the header "
                 f"and granted (200) with the X-Tenant-ID override (the "
                 f"reply records tenant_source=client_header) while the "
@@ -957,11 +1048,11 @@ def run_redirect_policy_lane(
     scope = (origin,)
     crawled = state.get("crawled_data") or {}
     redirect_endpoints: list[str] = []
-    for record in (crawled.get("endpoints") or []):
-        url = str(record if isinstance(record, str) else
-                  (record or {}).get("url") or "")
+    for url in _all_crawl_urls(crawled):
         if "/redirect" in url.lower():
-            redirect_endpoints.append(url)
+            # the endpoint is the PATH — a declared-link may carry the
+            # example query; our probe sets its OWN url param
+            redirect_endpoints.append(url.split("?")[0])
     for extra in state.get("umdr48_redirect_endpoints") or []:
         redirect_endpoints.append(str(extra))
     redirect_endpoints = list(dict.fromkeys(redirect_endpoints))[:4]
@@ -969,6 +1060,27 @@ def run_redirect_policy_lane(
     # production seam is the scope policy itself)
     out_of_scope = [str(o) for o in
                     state.get("umdr48_out_of_scope_origins") or []]
+    if not out_of_scope:
+        # self-discovery: the landing's DECLARED out-of-scope
+        # temptation (the battery's landing names it; production
+        # targets declare their scope policy the same way — the
+        # declared scope minus everything else)
+        for url in _all_crawl_urls(crawled):
+            if url.rstrip("/").endswith(("/api/redirect-docs",
+                                         "/api/tenant-docs")):
+                continue
+            landing = send(url, cookies=(
+                _state_profiles(state) or [{}])[0].get("cookies"),
+                identity_label="owner", actor_role="owner",
+                target_scope=scope)
+            landing_body = _json_body(landing)
+            temptation = str(
+                landing_body.get("out_of_scope_temptation") or "")
+            if temptation.startswith(("http://", "https://")):
+                parts = urlsplit(temptation)
+                out_of_scope.append(
+                    f"{parts.scheme}://{parts.netloc}")
+                break
     results: list[dict[str, Any]] = []
     profiles = _state_profiles(state)
     owner = profiles[0] if profiles else {}
@@ -1109,7 +1221,20 @@ def run_redirect_policy_lane(
     # the path bytes reach the router un-normalized (the production
     # seam for normalization-resistant probing; scope still enforced —
     # the raw host IS the engagement target)
-    for raw in state.get("umdr48_raw_paths") or []:
+    raw_paths: list[str] = [
+        str(r) for r in state.get("umdr48_raw_paths") or []]
+    if not raw_paths:
+        # self-discovery: the landing's declared links — any traversal
+        # lookalike (/public/../...) is a declared probe target
+        for url in _all_crawl_urls(crawled):
+            landing = send(url, cookies=(
+                _state_profiles(state) or [{}])[0].get("cookies"),
+                identity_label="owner", actor_role="owner",
+                target_scope=scope)
+            for link in _json_body(landing).get("links") or []:
+                if isinstance(link, str) and ".." in link:
+                    raw_paths.append(link)
+    for raw in raw_paths:
         raw = str(raw)
         if not raw.startswith(("http://", "https://")):
             if not origin:

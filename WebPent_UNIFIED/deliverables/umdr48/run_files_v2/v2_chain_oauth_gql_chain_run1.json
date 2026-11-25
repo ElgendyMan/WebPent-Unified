@@ -1,0 +1,63 @@
+{
+ "schema": "umdr48-chain-run/1.0.0",
+ "chain_id": "oauth_gql_chain",
+ "run": 1,
+ "campaign_id": "umdr48-chain-oauth_gql_chain-1-b07dfb",
+ "started_at_utc": "2026-11-25T10:13:03.842937+00:00",
+ "elapsed_s": 0.513,
+ "status": "COMPLETED",
+ "variant": "vulnerable",
+ "chain_steps_confirmed": 2,
+ "chain_end_to_end": true,
+ "steps": [
+  {
+   "n": 1,
+   "anchor": "/oauth/token",
+   "signal": "access_token issued with state_check_performed=false",
+   "class": "csrf"
+  },
+  {
+   "n": 2,
+   "anchor": "/graphql",
+   "signal": "transferCredits ok=true with owner_confirmation=skipped under the state-less token",
+   "class": "idor"
+  }
+ ],
+ "step_evidence": [
+  {
+   "step": 1,
+   "anchor": "/oauth/token",
+   "signal": "elevated token issued with state_check_performed=false",
+   "reply_excerpt": {
+    "scope": "credits:transfer",
+    "state_check_performed": false
+   }
+  },
+  {
+   "step": 2,
+   "anchor": "/graphql",
+   "signal": "transferCredits ok under the state-less token with owner_confirmation=skipped",
+   "reply_excerpt": {
+    "ok": true,
+    "owner_confirmation": "skipped",
+    "new_balance": 550
+   }
+  }
+ ],
+ "lab_requests": [
+  {
+   "method": "POST",
+   "path": "/oauth/token",
+   "principal": "User_A"
+  },
+  {
+   "method": "POST",
+   "path": "/graphql",
+   "principal": "User_A"
+  }
+ ],
+ "invariants": {
+  "out_of_scope_origin_zero_requests": true
+ },
+ "notes": []
+}

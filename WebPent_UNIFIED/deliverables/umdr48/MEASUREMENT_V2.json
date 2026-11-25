@@ -1,0 +1,107 @@
+{
+ "schema": "umdr48-measurement-v2/1.0.0",
+ "measured_at_utc": "2026-11-25T10:10:14.783883+00:00",
+ "battery_version": "umdr48-v2 (lanes ON)",
+ "source_commit": "2beb1494ff46213ea485a610e413a6301306fa9d",
+ "runs_per_variant": 3,
+ "families": {
+  "idor_bola": {
+   "tp_mean": 2.0,
+   "fn_mean": 0.0,
+   "fp_total": 0,
+   "recall": 1.0,
+   "requests_total": 705,
+   "reproducible_tp": true
+  },
+  "workflow_abuse": {
+   "tp_mean": 1.0,
+   "fn_mean": 0.0,
+   "fp_total": 0,
+   "recall": 1.0,
+   "requests_total": 837,
+   "reproducible_tp": true
+  },
+  "request_smuggling": {
+   "tp_mean": 1.0,
+   "fn_mean": 0.0,
+   "fp_total": 0,
+   "recall": 1.0,
+   "requests_total": 624,
+   "reproducible_tp": true
+  },
+  "graphql_oracle": {
+   "tp_mean": 1.0,
+   "fn_mean": 0.0,
+   "fp_total": 0,
+   "recall": 1.0,
+   "requests_total": 705,
+   "reproducible_tp": true
+  },
+  "tenant_confusion": {
+   "tp_mean": 2.0,
+   "fn_mean": 0.0,
+   "fp_total": 0,
+   "recall": 1.0,
+   "requests_total": 657,
+   "reproducible_tp": true
+  },
+  "redirect_scope_bypass": {
+   "tp_mean": 2.0,
+   "fn_mean": 0.0,
+   "fp_total": 0,
+   "recall": 1.0,
+   "requests_total": 669,
+   "reproducible_tp": true
+  }
+ },
+ "battery": {
+  "recall": 1.0,
+  "recall_gate": {
+   "target": 0.75,
+   "met": true
+  },
+  "fp_total": 0,
+  "fp_gate": {
+   "target": 0,
+   "met": true
+  },
+  "reproducibility": true,
+  "cost_per_finding_requests": 233,
+  "cost_gate": {
+   "target": 300,
+   "met": true,
+   "frame": "vulnerable-campaign requests per confirmed finding"
+  },
+  "requests_total": 4197,
+  "vulnerable_requests": 2098.5
+ },
+ "chains": {
+  "declared": 2,
+  "end_to_end_confirmed": 2,
+  "gate": {
+   "target": 2,
+   "met": true
+  },
+  "detail": [
+   {
+    "chain_id": "chain_compose",
+    "steps_confirmed": 2,
+    "end_to_end": true
+   },
+   {
+    "chain_id": "oauth_gql_chain",
+    "steps_confirmed": 2,
+    "end_to_end": true
+   }
+  ]
+ },
+ "negatives": {
+  "fixtures": 12,
+  "confirmations": 0,
+  "gate": {
+   "target_fixtures": 12,
+   "target_confirmations": 0,
+   "met": true
+  }
+ }
+}

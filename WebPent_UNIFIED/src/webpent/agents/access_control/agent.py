@@ -1441,10 +1441,18 @@ def access_control_node(state: PentestState) -> dict:
                 "cookies": dict(pr.cookies or {}),
             }
             for pr in _identity_profiles_from_state(state)
-        ] or (
-            [{"name": "primary", "role": "owner",
-              "cookies": dict(state.get("session_cookies") or {})}]
-            if state.get("session_cookies") else [])
+            if pr.cookies
+        ]
+        # the campaign's OWN session is always a probeable identity
+        # (the operator's primary principal — the normaliser's own list
+        # carries only the operator-DECLARED secondary profiles)
+        _primary_cookies = dict(state.get("session_cookies") or {})
+        if _primary_cookies and not any(
+                pr["cookies"] == _primary_cookies
+                for pr in _lane_profiles):
+            _lane_profiles.append({
+                "name": "primary", "role": "owner",
+                "cookies": _primary_cookies})
         _target_url = str(getattr(target, "url", "") or "")
         if isinstance(target, dict):
             _target_url = str(target.get("url") or _target_url)

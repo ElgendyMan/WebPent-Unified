@@ -1,0 +1,98 @@
+{
+ "schema": "umdr48-waste-ledger/2.0.0",
+ "law": "knowledge cost = requests / confirmed findings; the priority allocator (EIG x Impact x Confidence) / (Cost + Risk) orders the budget: anchor differentials first, blind expansion last",
+ "before_47": {
+  "source": "deliverables/umdr47 measurement (the mission prompt's quoted table: ~100 req/campaign, recall 0.25)",
+  "requests_per_finding": 600,
+  "recall": 0.25
+ },
+ "after_v2": {
+  "per_family": {
+   "graphql_oracle": {
+    "total": 118,
+    "classes": {
+     "anchor_adjacent": 56,
+     "blind_expansion": 51,
+     "anchor_probe": 11
+    },
+    "productive_prefix": 114,
+    "tail_waste": 4,
+    "confirmed": 1,
+    "requests": 118
+   },
+   "idor_bola": {
+    "total": 117,
+    "classes": {
+     "anchor_adjacent": 53,
+     "blind_expansion": 49,
+     "anchor_probe": 15
+    },
+    "productive_prefix": 112,
+    "tail_waste": 5,
+    "confirmed": 2,
+    "requests": 117
+   },
+   "redirect_scope_bypass": {
+    "total": 111,
+    "classes": {
+     "anchor_adjacent": 56,
+     "blind_expansion": 38,
+     "anchor_probe": 17
+    },
+    "productive_prefix": 110,
+    "tail_waste": 1,
+    "confirmed": 2,
+    "requests": 111
+   },
+   "request_smuggling": {
+    "total": 104,
+    "classes": {
+     "anchor_adjacent": 59,
+     "blind_expansion": 37,
+     "anchor_probe": 8
+    },
+    "productive_prefix": 104,
+    "tail_waste": 0,
+    "confirmed": 1,
+    "requests": 104
+   },
+   "tenant_confusion": {
+    "total": 109,
+    "classes": {
+     "anchor_adjacent": 53,
+     "blind_expansion": 34,
+     "anchor_probe": 22
+    },
+    "productive_prefix": 93,
+    "tail_waste": 16,
+    "confirmed": 2,
+    "requests": 109
+   },
+   "workflow_abuse": {
+    "total": 139,
+    "classes": {
+     "anchor_adjacent": 64,
+     "blind_expansion": 37,
+     "anchor_probe": 38
+    },
+    "productive_prefix": 136,
+    "tail_waste": 3,
+    "confirmed": 1,
+    "requests": 139
+   }
+  },
+  "requests_total_vulnerable_run1": 698,
+  "confirmed_total": 9,
+  "cost_per_finding_requests": 78,
+  "productive_prefix_total": 669,
+  "productive_cost_per_finding": 74,
+  "blind_expansion_total": 246,
+  "blind_share_pct": 35,
+  "tail_waste_total": 29
+ },
+ "allocator_projection": {
+  "note": "the priority allocation: the confirmed findings needed only the productive prefix (the anchor differentials and their controls, in order); the tail and the blind expansion are the measured waste the allocator defers to last (and skips when the budget closes)",
+  "projected_cost_per_finding": 74,
+  "gate_300": true
+ }
+}

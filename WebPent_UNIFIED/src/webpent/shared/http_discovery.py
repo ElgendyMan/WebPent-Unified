@@ -367,6 +367,43 @@ def _bounded_json_links(text: str, base_url: str, *, limit: int = 100) -> list[s
     return resolved[:limit]
 
 
+def _declared_json_links(
+    text: str, content_type: str, origin: str,
+) -> list[str]:
+    """Bounded extraction of DECLARED interface links from a JSON body.
+
+    A top-level ``links`` (or ``endpoints``) array of strings in an
+    application's landing/docs reply is an explicit surface
+    declaration. Only same-origin absolute URLs and root-relative
+    paths are kept; capped at 64 entries; JSON bodies only.
+    """
+    if "json" not in (content_type or ""):
+        return []
+    stripped = (text or "").lstrip()[:100_000]
+    if not stripped.startswith("{"):
+        return []
+    try:
+        import json as _json
+
+        parsed = _json.loads(stripped)
+    except (ValueError, TypeError):
+        return []
+    if not isinstance(parsed, dict):
+        return []
+    raw: list = []
+    for key in ("links", "endpoints"):
+        value = parsed.get(key)
+        if isinstance(value, list):
+            raw.extend(v for v in value if isinstance(v, str))
+    links: list[str] = []
+    for value in raw[:64]:
+        if value.startswith("/"):
+            links.append(f"{origin}{value}")
+        elif value.startswith(origin + "/"):
+            links.append(value)
+    return links[:64]
+
+
 def _bounded_ownership_markers(text: str, content_type: str) -> dict | None:
     """Bounded extraction of EXPLICIT ownership semantics from a JSON
     body: a top-level owner name (owner/owner_id/owned_by) or an
@@ -703,6 +740,17 @@ def discover_http_surface(
                 content_type)
             if ownership_markers:
                 surface_records[-1].update(ownership_markers)
+            # UM-DR-48: record DECLARED interface links from JSON bodies
+            # (a "links" array in an application's landing/docs reply is
+            # an explicit surface declaration — the workflow-action
+            # paths the crawler itself does not follow land here for
+            # the detection lanes). Bounded to same-origin absolute or
+            # root-relative strings, capped at 64.
+            declared_links = _declared_json_links(
+                response.text if hasattr(response, "text") else "",
+                content_type, f"{parsed_current.scheme}://{parsed_current.netloc}")
+            if declared_links:
+                surface_records[-1]["declared_links"] = declared_links
 
             if 300 <= response.status_code < 400:
                 location = response.headers.get("location", "")

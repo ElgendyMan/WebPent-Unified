@@ -1,0 +1,60 @@
+{
+ "schema": "umdr48-stress/1.0.0",
+ "measured_at_utc": "2026-11-25T09:22:38.683040+00:00",
+ "s1_parallel": {
+  "test": "S1_parallel_4",
+  "outcomes": [
+   {
+    "index": 0,
+    "confirmed": 1,
+    "requests": 12
+   },
+   {
+    "index": 1,
+    "confirmed": 1,
+    "requests": 12
+   },
+   {
+    "index": 2,
+    "confirmed": 1,
+    "requests": 12
+   },
+   {
+    "index": 3,
+    "confirmed": 1,
+    "requests": 12
+   }
+  ],
+  "all_confirmed": true,
+  "elapsed_s": 1.005,
+  "passed": true
+ },
+ "s2_resume": {
+  "test": "S2_resume_zero_duplicates",
+  "requests_resumed": 3,
+  "declared_plan_size": 3,
+  "plan_violations": [],
+  "confirmed_first": 1,
+  "confirmed_second": 1,
+  "same_verdict": true,
+  "passed": true
+ },
+ "s3_safe_stop": {
+  "test": "S3_safe_stop_mid_chain",
+  "reference_steps": 2,
+  "reference_e2e": true,
+  "rerun_steps": 2,
+  "rerun_e2e": true,
+  "passed": true
+ },
+ "s4_determinism": {
+  "test": "S4_determinism",
+  "result_hashes": [
+   "daab51ff62071a3e",
+   "daab51ff62071a3e"
+  ],
+  "identical": true,
+  "passed": true
+ },
+ "all_passed": true
+}
