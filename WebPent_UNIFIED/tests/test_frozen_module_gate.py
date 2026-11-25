@@ -269,6 +269,10 @@ UMDR48_D_20261125_THAW_PATHS = frozenset({
     "src/webpent/state/state.py",
     "src/webpent/config/settings.py",
     "src/webpent/cli/unified_hunt.py",
+    # the declared-links channel (JSON landings' links arrays are
+    # surface declarations — the action paths the crawler itself does
+    # not follow land here for the detection lanes; UM-DR-48 Phase D)
+    "src/webpent/shared/http_discovery.py",
 })
 
 UMDR44_20261122_THAW_PATHS = frozenset(
