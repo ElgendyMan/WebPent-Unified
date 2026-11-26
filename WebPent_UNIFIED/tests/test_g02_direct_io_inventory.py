@@ -116,7 +116,13 @@ SRC_ROOT = REPO_ROOT / "src"
 # raw socket is the lane's documented mechanism (the literal-path
 # channel httpx normalization defeats) and the safe_boundary_call is
 # the approved transport. Adjudicated registration, not a regression.
-PINNED_UNAPPROVED_RECORD_COUNT = 31
+# UM-DR-50 W1 (2026-11-26): 31 -> 29 — the D5 raw dial MIGRATED onto
+# the governed raw-transport contract (shared/raw_transport.py, the
+# approved sanctioned chokepoint every bare dial must route through);
+# the lane's own socket sites physically left the tree and the
+# unapproved set shrinks by exactly those two records
+# (scripts/regen_direct_io_inventory_umdr50_w1.py, all gates passed).
+PINNED_UNAPPROVED_RECORD_COUNT = 29
 # MERGE 2026-10-26: 18 -> 27 (unapproved unique identity set of the merged
 # tree after scripts/regenerate_direct_io_inventory.py; every identity in the
 # set is still fail-closed-pinned exactly as before).
@@ -135,7 +141,10 @@ PINNED_UNAPPROVED_RECORD_COUNT = 31
 # as the record pin above: detection_lanes_48.py's raw-path lane adds
 # import+call socket identities (the lane's documented VERBATIM-request
 # mechanism) while its httpx boundary is the approved safe call.
-PINNED_UNAPPROVED_IDENTITY_COUNT = 27
+# UM-DR-50 W1 (2026-11-26): 27 -> 25 — the same migration as the record
+# pin above: the two detection_lanes_48 socket identities are gone from
+# the tree (the governed contract node is the approved replacement).
+PINNED_UNAPPROVED_IDENTITY_COUNT = 25
 PINNED_UNAPPROVED_SITES = frozenset({
 # MERGE 2026-10-26: regenerated identity set of the merged tree
 # (scripts/regenerate_direct_io_inventory.py). Every identity here is
@@ -158,8 +167,6 @@ PINNED_UNAPPROVED_SITES = frozenset({
     # UM-DR-49 (2026-11-25): the 48 closeout's raw-path lane — the
     # VERBATIM literal-path request mechanism (httpx normalization
     # defeats the channel); registered retroactively by the CI heal.
-    ('src/webpent/production/detection_lanes_48.py', 'call', 'socket.create_connection'),
-    ('src/webpent/production/detection_lanes_48.py', 'import', 'socket'),
     # LEARNING A/B LAB 2026-10-29: the C-9 window launcher — same
     # adjudicated subprocess family as verdict_bridge/sandbox above.
     ('src/webpent/reporter/poc_recorder.py', 'import', 'playwright.sync_api.sync_playwright'),

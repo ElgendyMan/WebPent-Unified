@@ -151,6 +151,14 @@ APPROVED_DIRECT_FILES = {
     "src/webpent/agents/execution_sandbox/agent.py": "scoped_playwright_xss_replay",
     "src/webpent/agents/validator/agent.py": "scoped_playwright_csrf_replay",
     "src/webpent/cli/__init__.py": "bounded_playwright_preflight",
+    # UM-DR-50 W1: the governed raw-transport contract node itself —
+    # EVERY bare dial in the tree must go through governed_raw_request;
+    # the module's own socket.create_connection IS the sanctioned
+    # chokepoint (authorization + IP pinning + budgets + recorded
+    # policy decisions live there).
+    "src/webpent/shared/raw_transport.py": (
+        "governed_raw_transport_contract_node_umdr50_w1"
+    ),
     "src/webpent/agents/request_smuggling/agent.py": "scoped_raw_tcp_validator",
     "src/webpent/agents/subdomain_takeover/agent.py": "scoped_dns_resolution_validator",
     "src/webpent/adapters/controlled_target/adapter.py": (
@@ -170,6 +178,11 @@ APPROVED_DIRECT_FILES = {
 # Structured approvals are intentionally symbol-scoped.  A file-level entry
 # alone is never enough to make a new raw transport safe.
 APPROVED_RAW_SYMBOLS_BY_FILE: dict[str, frozenset[str]] = {
+    # UM-DR-50 W1: the governed raw-transport contract node — its own
+    # socket import + create_connection are the sanctioned chokepoint.
+    "src/webpent/shared/raw_transport.py": frozenset(
+        {"socket", "socket.create_connection"}
+    ),
     "src/webpent/adapters/generic_web/adapter.py": frozenset({"httpx"}),
     "src/webpent/shared/http.py": frozenset(
         {"socket", "httpx", "socket.getaddrinfo", "httpx.Client", "httpx.AsyncClient"}

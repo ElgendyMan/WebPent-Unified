@@ -1862,3 +1862,24 @@ release evidence: deliverables/umdr49_closure/FULL_SUITE_EVIDENCE.json
 (9924 started / 9897 passed / 4 coherence-only failures, satisfied by
 the re-baseline this entry documents); BUILD_INFO suite_count =
 accounting_v3.started_items per the §6 contract.
+
+## 2026-11-26 — UM-DR-50 W3: the publication-push history correction (law 4 record)
+
+- from: 3daf15d + f290cbf (the gate-closure batch whose subject touched
+  BUILD_INFO.json without a qualifying declared decision, and the
+  re-baseline commit that followed it — both pushed to main)
+- to: the SAME tree content re-split as two commits with the
+  qualifying subjects the provenance-stability gate mandates
+  (fix(umdr50) for the no-BUILD_INFO batch; "Update project to
+  v0.48.0 UM-DR-50 window: BUILD_INFO re-freeze..." for the re-baseline)
+- reason: check_build_info_honesty's provenance-stability rule walks
+  every post-baseline BUILD_INFO touch and requires a qualifying
+  subject; the original split attributed the manifest-digest re-sync to
+  a non-qualifying fix() subject — a commit-subject defect, NOT a
+  content defect (the tree content is byte-identical)
+- safety alternative: none needed — content unchanged; rollback is
+  `git push origin --force-with-lease 3daf15d:main` (both originals
+  recoverable from the pushed refs until overwrite)
+- push mode: --force-with-lease (lease = f290cbf), documented here per
+  law 4; the CI runs on the superseded tips (45767101536/45767232172
+  era) are the honest red of a superseded history

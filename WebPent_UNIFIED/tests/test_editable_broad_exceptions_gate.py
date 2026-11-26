@@ -187,7 +187,7 @@ REGISTERED_FILES = {
     "src/webpent/llm_researcher/tiering.py": 1,  # UM-DR-25: M0-M12 window fail-soft boundary
     "src/webpent/production/campaign_lifecycle.py": 8,  # UM-DR-25: M0-M12 window fail-soft boundary
     "src/webpent/production/hypothesis_qualification_harness.py": 1,  # UM-DR-25: M0-M12 window fail-soft boundary
-    "src/webpent/production/detection_lanes_48.py": 6,  # UM-DR-49 retroactive registration (48 closeout shipped the lanes without register updates; each lane boundary degrades to a recorded coverage gap — fail-closed, no fabricated verdict)
+    "src/webpent/production/detection_lanes_48.py": 7,  # UM-DR-49 retroactive registration (6 lane boundaries) + UM-DR-50 W1 (the raw_path_channel_enabled flag read — same fail-closed best-effort class as lanes_enabled's own flag read; the raw-path arm is lab-only gated)
     "src/webpent/production/oob_validator.py": 1,  # UM-DR-25: M0-M12 window fail-soft boundary
     "src/webpent/qualification/weekly.py": 1,  # UM-DR-25: M0-M12 window fail-soft boundary
     "src/webpent/recon/takeover.py": 1,  # UM-DR-25: M0-M12 window fail-soft boundary

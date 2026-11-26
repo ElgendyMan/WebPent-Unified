@@ -1590,12 +1590,18 @@ def test_baseline_disagrees_only_on_documented_unfreeze_paths() -> None:
         | UMDR47_W_20261125_THAW_PATHS
         | (UMDR48_D_20261125_THAW_PATHS - {
             # first-pinned by the 47 window (never in the pre-unfreeze
-            # baseline) — the drift set cannot contain it
+            # baseline) — the drift set cannot contain it.
+            # UM-DR-50 correction (2026-11-26): scope_file.py and
+            # vulnerability_family_contracts.py were WRONGLY subtracted
+            # here — both ARE baseline-shared (pinned before the
+            # baseline snapshot), so their UM-DR-49-declared edits
+            # (P0.3 scope-port boundary / W2.2 zero-knowledge cleanup)
+            # legitimately drift vs the baseline. They are documented
+            # drift members (the refreeze_manifest_umdr50.py re-pin
+            # carries their regression proofs).
             "src/webpent/cli/unified_hunt.py",
-            "src/webpent/shared/scope_file.py",
             "src/webpent/agents/hypothesis_analyzer/agent.py",
             "src/webpent/models/hypothesis.py",
-            "src/webpent/production/vulnerability_family_contracts.py",
             "src/webpent/recon/autonomous_crawler.py",
             "src/webpent/shared/prioritization.py",
             "src/webpent/tools/exploitation/sqlmap.py"})
@@ -1719,6 +1725,12 @@ def test_baseline_disagrees_only_on_documented_unfreeze_paths() -> None:
         | {"src/webpent/production/brain_engine.py",
            "src/webpent/production/brain_watchdog.py",
            "src/webpent/production/research_memory_store.py"}
+        # UM-DR-50 W1 (2026-11-26): the governed raw-transport contract
+        # node joins the frozen trust chain (the sanctioned chokepoint
+        # every bare dial must route through) — pinned by
+        # scripts/refreeze_manifest_umdr50.py; regression proof:
+        # tests/test_umdr50_raw_transport_adversarial.py (10/10).
+        | {"src/webpent/shared/raw_transport.py"}
     )
     assert not undocumented_current, (
         f"undocumented paths only in current manifest: {sorted(undocumented_current)}"

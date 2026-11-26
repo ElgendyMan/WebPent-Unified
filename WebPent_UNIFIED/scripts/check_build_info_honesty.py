@@ -89,8 +89,13 @@ _PUB_LAYOUT = (ROOT.parent / "deliverables").is_dir()
 # UM-DR-49 (2026-11-26): the durable record follows the LATEST window —
 # umdr49_closure when present (this window's full-suite battery), then
 # the umdr42_closure record, then the umdr38 fallback.
+# UM-DR-50 (2026-11-26): the durable record follows the LATEST window —
+# umdr50_closure (the W1+W2 close battery on a clean tree, bound to the
+# living revision), then umdr49_closure (its 66fec2d binding is the
+# orphaned-commit break this window's P0.1 audit documented), then the
+# umdr42_closure record, then the umdr38 fallback.
 _LATEST_CLOSURE = ((ROOT.parent if _PUB_LAYOUT else ROOT) / "deliverables"
-                   / "umdr49_closure" / "FULL_SUITE_EVIDENCE.json")
+                   / "umdr50_closure" / "FULL_SUITE_EVIDENCE.json")
 _CLOSURE_EVIDENCE = (_LATEST_CLOSURE if _LATEST_CLOSURE.is_file() else (
     (ROOT.parent if _PUB_LAYOUT else ROOT) / "deliverables"
     / "umdr42_closure" / "FULL_SUITE_EVIDENCE.json"))
