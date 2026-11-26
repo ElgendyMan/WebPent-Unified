@@ -1,0 +1,105 @@
+{
+ "schema": "umdr48-measurement-v2/1.0.0",
+ "measured_at_utc": "2026-11-26T15:33:18.561240+00:00",
+ "battery_version": "umdr48-v2 (lanes ON)",
+ "source_commit": "3f5ea0541296207423865cb7d08c3e826c65bb6b",
+ "runs_per_variant": 3,
+ "families": {
+  "idor_bola": {
+   "tp_mean": 2.0,
+   "fn_mean": 0.0,
+   "fp_total": 0,
+   "recall": 1.0,
+   "requests_total": 651,
+   "reproducible_tp": true
+  },
+  "workflow_abuse": {
+   "tp_mean": 0.0,
+   "fn_mean": 1.0,
+   "fp_total": 3,
+   "recall": 0.0,
+   "requests_total": 777,
+   "reproducible_tp": true
+  },
+  "request_smuggling": {
+   "tp_mean": 0.0,
+   "fn_mean": 1.0,
+   "fp_total": 3,
+   "recall": 0.0,
+   "requests_total": 603,
+   "reproducible_tp": true
+  },
+  "graphql_oracle": {
+   "tp_mean": 0.0,
+   "fn_mean": 1.0,
+   "fp_total": 3,
+   "recall": 0.0,
+   "requests_total": 672,
+   "reproducible_tp": true
+  },
+  "tenant_confusion": {
+   "tp_mean": 0.0,
+   "fn_mean": 2.0,
+   "fp_total": 6,
+   "recall": 0.0,
+   "requests_total": 624,
+   "reproducible_tp": true
+  },
+  "redirect_scope_bypass": {
+   "tp_mean": 0.0,
+   "fn_mean": 2.0,
+   "fp_total": 3,
+   "recall": 0.0,
+   "requests_total": 615,
+   "reproducible_tp": true
+  }
+ },
+ "battery": {
+  "recall": 0.222,
+  "recall_gate": {
+   "target": 0.75,
+   "met": false
+  },
+  "fp_total": 18,
+  "fp_gate": {
+   "target": 0,
+   "met": false
+  },
+  "reproducibility": true,
+  "cost_per_finding_requests": 986,
+  "cost_gate": {
+   "target": 300,
+   "met": false
+  },
+  "requests_total": 3942
+ },
+ "chains": {
+  "declared": 2,
+  "end_to_end_confirmed": 2,
+  "gate": {
+   "target": 2,
+   "met": true
+  },
+  "detail": [
+   {
+    "chain_id": "chain_compose",
+    "steps_confirmed": 2,
+    "end_to_end": true
+   },
+   {
+    "chain_id": "oauth_gql_chain",
+    "steps_confirmed": 2,
+    "end_to_end": true
+   }
+  ]
+ },
+ "negatives": {
+  "fixtures": 12,
+  "confirmations": 0,
+  "gate": {
+   "target_fixtures": 12,
+   "target_confirmations": 0,
+   "met": true
+  }
+ }
+}

@@ -1596,6 +1596,12 @@ def access_control_node(state: PentestState) -> dict:
                         _promoted = promote_confirmed_finding(
                             _verdict,
                             verification=_lane_verification(_lane),
+                            # UM-DR-51 P3: keep the REAL target origin on
+                            # the promoted finding (the pre-fix fallback
+                            # stamped the synthetic host and lost the
+                            # campaign origin — measured battery regression
+                            # recall 1.0 -> 0.0, fp 0 -> 3-6/family).
+                            origin_url=str(getattr(_finding, "url", "") or ""),
                         )
                         if _promoted is not None:
                             _finding = _promoted

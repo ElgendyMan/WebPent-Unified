@@ -1,0 +1,635 @@
+{
+ "schema": "umdr46-baseline-campaign/v1",
+ "battery_version": "umdr48-v2",
+ "family": "tenant_confusion",
+ "variant": "vulnerable",
+ "run": 1,
+ "campaign_id": "umdr46-baseline-tenant_confusion-vulnerable-1-66235b",
+ "started_at_utc": "2026-11-26T15:40:15.755238+00:00",
+ "completed_at_utc": "2026-11-26T15:40:19.222931+00:00",
+ "elapsed_s": 3.468,
+ "status": "COMPLETED",
+ "error": null,
+ "source_commit": "3f5ea0541296207423865cb7d08c3e826c65bb6b",
+ "tree_sha": "65d130e1f6cc99388504cd41c3846562b27ba180",
+ "python_version": "3.12.16",
+ "lockfile_sha256": "7a8e68c5ee27ca0dbc9e2a8e44f46124fcb189593c623476afadd5397dcf6432",
+ "lab_origin": "http://127.0.0.1:43959",
+ "invocation": {
+  "url": "http://127.0.0.1:43959",
+  "mode": "standard",
+  "authorization": "umdr46-authorized-lab-baseline-battery",
+  "cookies": "***REDACTED***",
+  "identity_profiles": {
+   "user-b": {
+    "name": "user-b",
+    "role": "user",
+    "cookies": {
+     "session": "***REDACTED***"
+    }
+   }
+  },
+  "auto_approve": true,
+  "no_llm": true,
+  "progress": false,
+  "run_graph": true,
+  "engagement_id": "umdr46-baseline-tenant_confusion-vulnerable-1-66235b"
+ },
+ "findings_total": 3,
+ "findings_confirmed": 2,
+ "confirmed_attribution": [
+  {
+   "finding_id": "720235d5-8ce9-47c6-bad8-e18a3c4beac9",
+   "vuln_class": "auth_bypass",
+   "url": "https://family-validated-target.local/",
+   "normalized_path": "/",
+   "confidence_level": "Tool-Confirmed",
+   "evidence_bundle_id": "proof_bundle_128e4bf5f4884e1c95e9f5372dc7713b",
+   "ground_truth_verdict": "FP_BOUNDARY_OR_UNDECLARED"
+  },
+  {
+   "finding_id": "9b408fb5-7583-43a9-ba0c-1c24095d8f38",
+   "vuln_class": "auth_bypass",
+   "url": "https://family-validated-target.local/",
+   "normalized_path": "/",
+   "confidence_level": "Tool-Confirmed",
+   "evidence_bundle_id": "proof_bundle_0250838eebaa47f0a261d4d95328fa34",
+   "ground_truth_verdict": "FP_BOUNDARY_OR_UNDECLARED"
+  }
+ ],
+ "ground_truth": {
+  "declared_defects": [
+   "GT-TEN-1",
+   "GT-TEN-1-MIRROR"
+  ],
+  "tp": 0,
+  "fp": 2,
+  "fn": 2
+ },
+ "metrics": {
+  "requests": 104,
+  "requests_per_confirmed": 52.0,
+  "time_to_first_candidate_s": 2.038,
+  "time_to_first_confirmed_s": 2.038,
+  "replay_verified": 2,
+  "replay_total": 2
+ },
+ "causal_guard_invocations": 2,
+ "guard_verdicts": [
+  "CONFIRMED",
+  "CONFIRMED"
+ ],
+ "verifications": [
+  {
+   "t_s": 2.041,
+   "finding_id": "81b37142-68b9-4335-837e-83a6b86806ea",
+   "vuln_class": "auth_bypass",
+   "passed": true,
+   "reason": "verified_replay",
+   "has_bundle": true
+  },
+  {
+   "t_s": 2.071,
+   "finding_id": "5b4cc384-a218-4010-9e7e-8c0a5aead74b",
+   "vuln_class": "auth_bypass",
+   "passed": true,
+   "reason": "verified_replay",
+   "has_bundle": true
+  }
+ ],
+ "stage_count": 49,
+ "lab_requests": [
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_B"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": null
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/robots.txt",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/sitemap.xml",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/openapi.json",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/swagger.json",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/api-docs/swagger.json",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/api-docs/openapi.json",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/api-docs/swagger-ui-init.js",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/swagger/v1/swagger.json",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/graphql",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/api/session",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/api/tenants",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/api/tenant/profiles/PROF-T1-11",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/api/tenant/profiles/PROF-T2-55",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/api/tenant-docs",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": null
+  },
+  {
+   "method": "GET",
+   "path": "/api/session",
+   "principal": null
+  },
+  {
+   "method": "GET",
+   "path": "/api/tenants",
+   "principal": null
+  },
+  {
+   "method": "GET",
+   "path": "/api/tenant/profiles/PROF-T1-11",
+   "principal": null
+  },
+  {
+   "method": "GET",
+   "path": "/api/tenant/profiles/PROF-T2-55",
+   "principal": null
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/api/session",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/api/tenants",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/api/tenant/profiles/PROF-T1-11",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/api/tenant/profiles/PROF-T2-55",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/api/tenant-docs",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/api/tenant/profiles/PROF-T1-11",
+   "principal": null
+  },
+  {
+   "method": "GET",
+   "path": "/api/tenant/profiles/PROF-T1-11",
+   "principal": "User_B"
+  },
+  {
+   "method": "GET",
+   "path": "/api/tenant/profiles/PROF-T1-11",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/api/tenant/profiles/PROF-T2-55",
+   "principal": null
+  },
+  {
+   "method": "GET",
+   "path": "/api/tenant/profiles/PROF-T2-55",
+   "principal": "User_B"
+  },
+  {
+   "method": "GET",
+   "path": "/api/tenant/profiles/PROF-T2-55",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/api/tenant-docs",
+   "principal": "User_B"
+  },
+  {
+   "method": "GET",
+   "path": "/api/tenant/profiles/PROF-T1-11",
+   "principal": "User_B"
+  },
+  {
+   "method": "GET",
+   "path": "/api/tenant/profiles/PROF-T1-11",
+   "principal": "User_B"
+  },
+  {
+   "method": "GET",
+   "path": "/api/tenant/profiles/PROF-T1-11",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/api/tenant/profiles/PROF-T1-11",
+   "principal": "User_B"
+  },
+  {
+   "method": "GET",
+   "path": "/api/tenant/profiles/PROF-T2-55",
+   "principal": "User_B"
+  },
+  {
+   "method": "GET",
+   "path": "/api/tenant/profiles/PROF-T2-55",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/api/tenant/profiles/PROF-T2-55",
+   "principal": "User_B"
+  },
+  {
+   "method": "GET",
+   "path": "/api/tenant/profiles/PROF-T2-55",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_B"
+  },
+  {
+   "method": "GET",
+   "path": "/api/v1/me",
+   "principal": null
+  },
+  {
+   "method": "GET",
+   "path": "/api/v1/me",
+   "principal": null
+  },
+  {
+   "method": "GET",
+   "path": "/api/v1/user",
+   "principal": null
+  },
+  {
+   "method": "GET",
+   "path": "/api/v1/user",
+   "principal": null
+  },
+  {
+   "method": "GET",
+   "path": "/api/me",
+   "principal": null
+  },
+  {
+   "method": "GET",
+   "path": "/api/me",
+   "principal": null
+  },
+  {
+   "method": "GET",
+   "path": "/me",
+   "principal": null
+  },
+  {
+   "method": "GET",
+   "path": "/me",
+   "principal": null
+  },
+  {
+   "method": "GET",
+   "path": "/api/v1/profile",
+   "principal": null
+  },
+  {
+   "method": "GET",
+   "path": "/api/v1/profile",
+   "principal": null
+  },
+  {
+   "method": "GET",
+   "path": "/rest/user/whoami",
+   "principal": null
+  },
+  {
+   "method": "GET",
+   "path": "/rest/user/whoami",
+   "principal": null
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/api/session",
+   "principal": "User_A"
+  }
+ ],
+ "invariants": {
+  "out_of_scope_origin_zero_requests": true,
+  "out_of_scope_requests": [],
+  "all_requests_on_origin": true,
+  "unauthenticated_never_served_protected": true
+ },
+ "notes": [
+  "confirmed = Tool-Confirmed only (CausalGuard + ProofBundle + replay); generated hypotheses are never TP",
+  "attribution joins the finding URL to the declared ground truth anchors \u2014 never the engine label"
+ ],
+ "lanes_via": "invocation-parameter",
+ "lanes": "ON"
+}

@@ -1,0 +1,26 @@
+{
+ "schema": "umdr48-negative-run/1.0.0",
+ "fixture_id": "neg_echo_keepalive",
+ "family": "request_smuggling",
+ "why_near_miss": "keep-alive style echo with explicit Content-Length echo back \u2014 a correct framing reporter is NOT an oracle",
+ "measured_at_utc": "2026-11-26T15:36:21.991670+00:00",
+ "elapsed_s": 0.512,
+ "lane_results_count": 0,
+ "findings_confirmed": 0,
+ "confirmed_detail": [],
+ "lab_requests": [
+  {
+   "method": "GET",
+   "path": "/api/echo",
+   "principal": "User_A"
+  },
+  {
+   "method": "POST",
+   "path": "/api/echo",
+   "principal": "User_A"
+  }
+ ],
+ "invariants": {
+  "out_of_scope_origin_zero_requests": true
+ }
+}

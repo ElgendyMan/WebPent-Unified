@@ -1,0 +1,26 @@
+{
+ "schema": "umdr48-negative-run/1.0.0",
+ "fixture_id": "neg_graphql_scoped",
+ "family": "graphql_oracle",
+ "why_near_miss": "the query endpoint resolves invoices but the resolver enforces ownership (errors for foreign identities)",
+ "measured_at_utc": "2026-11-26T15:41:14.217344+00:00",
+ "elapsed_s": 0.512,
+ "lane_results_count": 0,
+ "findings_confirmed": 0,
+ "confirmed_detail": [],
+ "lab_requests": [
+  {
+   "method": "POST",
+   "path": "/graphql",
+   "principal": "User_A"
+  },
+  {
+   "method": "POST",
+   "path": "/graphql",
+   "principal": "User_B"
+  }
+ ],
+ "invariants": {
+  "out_of_scope_origin_zero_requests": true
+ }
+}

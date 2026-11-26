@@ -61,6 +61,7 @@ def promote_confirmed_finding(
     *,
     engagement_id: str = "",
     verification: Any | None = None,
+    origin_url: str = "",
 ) -> Finding | None:
     """Insert a Finding for a CONFIRMED family result — candidate by default.
 
@@ -69,6 +70,19 @@ def promote_confirmed_finding(
     carry Tool-Confirmed; anything else (including a failed verification)
     yields an explicit Pending candidate. Returns None for non-CONFIRMED
     results (fail-closed).
+
+    ``origin_url`` (UM-DR-51 P3 root-cause fix): the campaign's REAL
+    target origin. The candidate's ``affected_endpoint`` is often a
+    relative path or "METHOD /path" (or absent at lane call sites) —
+    the pre-fix fallback stamped such findings with the synthetic
+    ``family-validated-target.local`` host, LOSING the real origin:
+    every anchor-attributed battery measurement (TP by declared anchor
+    path) then counted real confirmations as FP (measured regression:
+    recall 1.0 -> 0.0, fp 0 -> 3-6 per family — the window-50 W2
+    closure moved promotions through this seam). With ``origin_url``
+    supplied, a relative endpoint resolves against the real origin;
+    without it the synthetic host remains EXPLICITLY synthetic (never
+    a silent wrong-origin claim).
     """
     if result.verdict != FamilyVerdict.CONFIRMED:
         return None
@@ -85,8 +99,16 @@ def promote_confirmed_finding(
     # affected_endpoint may be "METHOD /path" — extract path; must be absolute http(s).
     if " " in raw_url:
         raw_url = raw_url.split(" ", 1)[-1]
+    # UM-DR-51 P3: resolve relative/absent endpoints against the REAL
+    # campaign origin when the caller supplied it (see docstring) —
+    # never silently lose the target the confirmation was earned on.
+    _origin = str(origin_url or "").strip().rstrip("/")
     if raw_url.startswith("http://") or raw_url.startswith("https://"):
         url = raw_url
+    elif raw_url.startswith("/") and _origin.startswith(("http://", "https://")):
+        url = f"{_origin}{raw_url}"
+    elif (not raw_url) and _origin.startswith(("http://", "https://")):
+        url = f"{_origin}/"
     elif raw_url.startswith("/"):
         url = f"https://family-validated-target.local{raw_url}"
     else:

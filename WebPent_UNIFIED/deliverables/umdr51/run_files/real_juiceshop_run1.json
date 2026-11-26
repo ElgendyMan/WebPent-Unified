@@ -1,0 +1,143 @@
+{
+  "schema": "umdr51-real-family-campaign/1.0.0",
+  "app": "juiceshop",
+  "target_url": "http://127.0.0.1:3000",
+  "run": 1,
+  "campaign_id": "umdr51-juiceshop-family-run1-14edf9",
+  "brain": "ON",
+  "llm": "OFF",
+  "lanes": "ON",
+  "zero_prior_knowledge": true,
+  "measured_at_utc": "2026-11-26T15:36:05.214172+00:00",
+  "elapsed_s": 7.955,
+  "findings_total": 6,
+  "findings_confirmed": 0,
+  "findings_by_class": {
+    "api_issue": 6
+  },
+  "hypotheses_total": 32,
+  "hypotheses_by_class": {
+    "sqli": 1,
+    "api_issue": 6,
+    "xss": 2,
+    "mass_assignment": 1,
+    "auth_bypass": 8,
+    "unknown": 12,
+    "privilege_differential": 2
+  },
+  "findings_detail": [
+    {
+      "vuln_class": "api_issue",
+      "url": "http://127.0.0.1:3000/api/Feedbacks",
+      "title": "Potential API_ISSUE at http://127.0.0.1:3000/api/Feedbacks",
+      "confidence_level": "Needs Human Review",
+      "evidence_keys": [
+        "api_surface_observation",
+        "dedup_review",
+        "evidence_quality",
+        "follow_up_required",
+        "security_impact_unproven",
+        "validation_attempted",
+        "validation_requeue",
+        "validation_status"
+      ]
+    },
+    {
+      "vuln_class": "api_issue",
+      "url": "http://127.0.0.1:3000/api/Challenges/?key=nftMintChallenge",
+      "title": "Potential API_ISSUE at http://127.0.0.1:3000/api/Challenges/?key=nftMintChalleng",
+      "confidence_level": "Needs Human Review",
+      "evidence_keys": [
+        "api_surface_observation",
+        "dedup_review",
+        "evidence_quality",
+        "follow_up_required",
+        "security_impact_unproven",
+        "validation_attempted",
+        "validation_requeue",
+        "validation_status"
+      ]
+    },
+    {
+      "vuln_class": "api_issue",
+      "url": "http://127.0.0.1:3000/api/Challenges",
+      "title": "Potential API_ISSUE at http://127.0.0.1:3000/api/Challenges",
+      "confidence_level": "Needs Human Review",
+      "evidence_keys": [
+        "api_surface_observation",
+        "dedup_review",
+        "evidence_quality",
+        "follow_up_required",
+        "security_impact_unproven",
+        "validation_attempted",
+        "validation_requeue",
+        "validation_status"
+      ]
+    },
+    {
+      "vuln_class": "api_issue",
+      "url": "http://127.0.0.1:3000/api/Users",
+      "title": "Potential API_ISSUE at http://127.0.0.1:3000/api/Users",
+      "confidence_level": "Not Scanned",
+      "evidence_keys": [
+        "dedup_review",
+        "evidence_quality",
+        "validation_attempted",
+        "validation_requeue",
+        "validation_status"
+      ]
+    },
+    {
+      "vuln_class": "api_issue",
+      "url": "http://127.0.0.1:3000/api/Addresss",
+      "title": "Potential API_ISSUE at http://127.0.0.1:3000/api/Addresss",
+      "confidence_level": "Not Scanned",
+      "evidence_keys": [
+        "dedup_review",
+        "evidence_quality",
+        "validation_attempted",
+        "validation_requeue",
+        "validation_status"
+      ]
+    },
+    {
+      "vuln_class": "api_issue",
+      "url": "http://127.0.0.1:3000/api/Recycles",
+      "title": "Potential API_ISSUE at http://127.0.0.1:3000/api/Recycles",
+      "confidence_level": "Needs Human Review",
+      "evidence_keys": [
+        "api_surface_observation",
+        "dedup_review",
+        "evidence_quality",
+        "follow_up_required",
+        "security_impact_unproven",
+        "validation_attempted",
+        "validation_requeue",
+        "validation_status"
+      ]
+    }
+  ],
+  "summary_keys": {
+    "url": "http://127.0.0.1:3000",
+    "mode": "standard",
+    "authorization": "umdr51-owner-approved-local-lab",
+    "time_budget_s": 3600,
+    "request_budget": 1000,
+    "llm_budget_usd": 5.0,
+    "max_hypotheses": 12,
+    "recursion_limit": 260,
+    "engine": "unified_hunt",
+    "graph_invoked": true,
+    "elapsed_s": 7.6,
+    "llm_calls": 0,
+    "llm_tokens_used": 0,
+    "thread_id": "6a67493d-fbeb-42c4-8499-5919691c82cf",
+    "engagement_id": "umdr51-juiceshop-family-run1-14edf9",
+    "findings_total": 6,
+    "findings_confirmed": 0,
+    "dynamic_step_budget": 100,
+    "consulted_lessons": true,
+    "detector_results": 0,
+    "research_memory_saved": "/home/z/my-project/WebPent-Unified/WebPent_UNIFIED/.webpent-research-memory/9deeb77a1ebfc7b923b6.json"
+  }
+}

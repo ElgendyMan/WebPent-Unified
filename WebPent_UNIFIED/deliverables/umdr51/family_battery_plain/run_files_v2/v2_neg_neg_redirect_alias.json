@@ -1,0 +1,26 @@
+{
+ "schema": "umdr48-negative-run/1.0.0",
+ "fixture_id": "neg_redirect_alias",
+ "family": "redirect_scope_bypass",
+ "why_near_miss": "the same scoped redirect on /api/hop naming",
+ "measured_at_utc": "2026-11-26T15:47:24.594262+00:00",
+ "elapsed_s": 0.518,
+ "lane_results_count": 0,
+ "findings_confirmed": 0,
+ "confirmed_detail": [],
+ "lab_requests": [
+  {
+   "method": "GET",
+   "path": "/api/redirect",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/api/redirect",
+   "principal": "User_A"
+  }
+ ],
+ "invariants": {
+  "out_of_scope_origin_zero_requests": true
+ }
+}
