@@ -1,7 +1,7 @@
 # Test Run Evidence
 # Schema: full-suite-evidence/v3 (machine record: FULL_SUITE_EVIDENCE.json)
-# Date: 2026-11-26T08:30:19.562058+00:00 -> 2026-11-26T08:52:10.781022+00:00
-# Source commit: 3daf15daec5678aa3956c009af41d66ad8bc869e (tree clean)
+# Date: 2026-11-26T10:52:22.448919+00:00 -> 2026-11-26T11:14:43.879679+00:00
+# Source commit: 8d2032dc774f8aed3cd3c4e79247e62345fca687 (tree clean)
 # Workflow: local run (no GitHub Actions context)
 # Command: /home/z/my-project/WebPent-Unified/WebPent_UNIFIED/.venv/bin/python -m pytest tests/ -v --tb=short -p pytest_accounting_plugin --cov=src/webpent --cov-report=json:/home/z/my-project/WebPent-Unified/WebPent_UNIFIED/.webpent-evidence/coverage_last_run.json --cov-fail-under=72
 # Python: 3.12.16 | uv: uv 0.13.9 (x86_64-unknown-linux-gnu) | lockfile sha256: 7a8e68c5ee27ca0dbc9e2a8e44f46124fcb189593c623476afadd5397dcf6432
@@ -13,7 +13,7 @@ platform linux -- Python 3.12.16, pytest-9.1.1, pluggy-1.6.0 -- /home/z/my-proje
 cachedir: .pytest_cache
 rootdir: /home/z/my-project/WebPent-Unified/WebPent_UNIFIED
 configfile: pyproject.toml
-plugins: anyio-4.14.2, asyncio-1.4.0, cov-7.1.0, langsmith-0.11.0
+plugins: langsmith-0.11.0, cov-7.1.0, anyio-4.14.2, asyncio-1.4.0
 asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
 collecting ... collected 9938 items / 1 skipped
 
@@ -2899,16 +2899,16 @@ tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestNegativeInconc
 tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestNegativeInconclusive::test_inconclusive_outcome PASSED [ 28%]
 tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestNegativeInconclusive::test_missing_baseline_fails_closed PASSED [ 28%]
 tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestRefutationFeedback::test_refuted_changes_research_priority PASSED [ 28%]
-tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[IN_SCOPE] PASSED [ 29%]
-tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[TOOL_CONFIRMED] PASSED [ 29%]
-tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[OWNER_VERIFIED] PASSED [ 29%]
-tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[REPLAY_VALID] PASSED [ 29%]
-tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[NEGATIVE_CONTROL_PASSED] PASSED [ 29%]
-tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[OPERATOR_APPROVED] PASSED [ 29%]
-tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[TARGET_BACKED] PASSED [ 29%]
 tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[CONFIRMED] PASSED [ 29%]
-tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[CAUSAL_SIGNAL_TRUE] PASSED [ 29%]
+tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[NEGATIVE_CONTROL_PASSED] PASSED [ 29%]
+tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[IN_SCOPE] PASSED [ 29%]
+tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[OPERATOR_APPROVED] PASSED [ 29%]
+tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[REPLAY_VALID] PASSED [ 29%]
+tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[TOOL_CONFIRMED] PASSED [ 29%]
 tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[PROMOTION_READY] PASSED [ 29%]
+tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[TARGET_BACKED] PASSED [ 29%]
+tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[OWNER_VERIFIED] PASSED [ 29%]
+tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_authority_claims_stripped[CAUSAL_SIGNAL_TRUE] PASSED [ 29%]
 tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_cross_target_external_rejected PASSED [ 29%]
 tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestExternalObservationAdapter::test_external_never_authoritative PASSED [ 29%]
 tests/team1_acceptance/test_validator_execution_fabric_v2.py::TestTwoTargetCampaign::test_fabric_works_on_both_targets PASSED [ 29%]
@@ -6697,8 +6697,8 @@ tests/test_residual_closure_modules.py::TestAssetTriage::test_no_enforcer_is_fai
 tests/test_residual_closure_modules.py::TestAssetTriage::test_store_persists_digest_index_and_0600_files PASSED [ 67%]
 tests/test_residual_closure_modules.py::TestAssetTriage::test_no_capturer_is_honest_advisory PASSED [ 67%]
 tests/test_residual_closure_modules.py::TestAssetTriage::test_retention_plan_is_dry_run_and_purge_explicit PASSED [ 67%]
-tests/test_resurrect_residue_aware.py::test_resurrect_passes_and_leaves_tree_clean FAILED [ 67%]
-tests/test_resurrect_residue_aware.py::test_hygiene_gate_stays_green_after_resurrect FAILED [ 67%]
+tests/test_resurrect_residue_aware.py::test_resurrect_passes_and_leaves_tree_clean PASSED [ 67%]
+tests/test_resurrect_residue_aware.py::test_hygiene_gate_stays_green_after_resurrect PASSED [ 67%]
 tests/test_resurrect_residue_aware.py::test_import_origin_proof_covers_six_brain_modules PASSED [ 67%]
 tests/test_retired_alias_removal_v0320.py::test_retired_alias_is_not_a_registered_command[scan] PASSED [ 67%]
 tests/test_retired_alias_removal_v0320.py::test_retired_alias_is_not_a_registered_command[hunt-auto] PASSED [ 67%]
@@ -8097,7 +8097,7 @@ tests/test_umdr35_confirmation_authority.py::test_ast_invariant_no_confirmation_
 tests/test_umdr35_confirmation_authority.py::test_ast_invariant_allowlist_entries_exist_and_justified PASSED [ 81%]
 tests/test_umdr35_confirmation_authority.py::test_verifier_records_guard_provenance_in_evidence_and_bundle PASSED [ 81%]
 tests/test_umdr35_confirmation_authority.py::test_guard_blocks_when_actor_and_resource_context_absent PASSED [ 81%]
-tests/test_umdr36_1_build_info_provenance.py::test_honest_record_passes FAILED [ 81%]
+tests/test_umdr36_1_build_info_provenance.py::test_honest_record_passes PASSED [ 81%]
 tests/test_umdr36_1_build_info_provenance.py::test_version_mismatch_against_pyproject_fails PASSED [ 81%]
 tests/test_umdr36_1_build_info_provenance.py::test_nested_contract_version_mismatch_fails PASSED [ 81%]
 tests/test_umdr36_1_build_info_provenance.py::test_provenance_package_version_mismatch_fails PASSED [ 81%]
@@ -8118,7 +8118,7 @@ tests/test_umdr36_1_build_info_provenance.py::test_history_null_revision_without
 tests/test_umdr36_1_build_info_provenance.py::test_history_null_revision_with_note_is_accepted PASSED [ 81%]
 tests/test_umdr36_1_build_info_provenance.py::test_evidence_accounting_mismatch_same_revision_fails PASSED [ 81%]
 tests/test_umdr36_1_build_info_provenance.py::test_durable_evidence_bound_to_different_revision_fails PASSED [ 81%]
-tests/test_umdr36_1_build_info_provenance.py::test_evidence_from_same_revision_with_matching_accounting_binds FAILED [ 81%]
+tests/test_umdr36_1_build_info_provenance.py::test_evidence_from_same_revision_with_matching_accounting_binds PASSED [ 81%]
 tests/test_umdr36_1_build_info_provenance.py::test_published_claim_without_real_tag_fails PASSED [ 81%]
 tests/test_umdr36_1_build_info_provenance.py::test_missing_fixes_applied_fails PASSED [ 81%]
 tests/test_umdr36_1_confirmation_authority.py::test_non_confirmed_never_promotes PASSED [ 81%]
@@ -8930,7 +8930,7 @@ tests/test_umdr50_raw_transport_adversarial.py::test_adv4_rebinding_cannot_chang
 tests/test_umdr50_raw_transport_adversarial.py::test_adv5_loopback_refused_without_isolated_lab PASSED [ 89%]
 tests/test_umdr50_raw_transport_adversarial.py::test_adv6_verbatim_path_reaches_the_router PASSED [ 89%]
 tests/test_umdr50_raw_transport_adversarial.py::test_adv7a_response_cap_stops_the_read ----------------------------------------
-Exception occurred during processing of request from ('127.0.0.1', 38234)
+Exception occurred during processing of request from ('127.0.0.1', 49602)
 PASSED [ 89%]
 tests/test_umdr50_raw_transport_adversarial.py::test_adv7b_header_cap_refuses PASSED [ 89%]
 tests/test_umdr50_raw_transport_adversarial.py::test_adv7c_timeout_is_bounded PASSED [ 89%]
@@ -9959,71 +9959,17 @@ tests/vip/test_retest.py::TestResultModel::test_outcome_vocabulary_is_closed PAS
 tests/vip/test_retest.py::test_finding_model_rejects_unknown_extra_fields PASSED [100%]
 
 =================================== FAILURES ===================================
-_________________ test_resurrect_passes_and_leaves_tree_clean __________________
-tests/test_resurrect_residue_aware.py:56: in test_resurrect_passes_and_leaves_tree_clean
-    assert first.returncode == 0, (
-E   AssertionError: resurrect.py failed rc=3
-E     === WebPent resurrect (residue-aware, TC-2 C2b) ===
-E     import-origin OK: 12 modules resolve from src/
-E     default paths redirected (4): webpent.memory.vectorstore._DEFAULT_CHROMA_PATH, webpent.memory.lessons._DEFAULT_LESSONS_DB_PATH, webpent.memory.decision_log._DEFAULT_DECISION_LOG_DB_PATH, webpent.graph.checkpoints._DEFAULT_SESSIONS_DB_PATH
-E     residue intercepted + purged (7): memory/global/campaign_resume.db, memory/global/request_ledger.db, memory/global/chroma_db/chroma.sqlite3, output/report.html, output/report.json, output/report.md, hunt_artifacts/eng_poc_integration_test/audit/eng_poc_integration_test.audit.jsonl
-E     hygiene gate: 1 finding(s). Classify per rider R2: purge run residue, or record as evidence allowlist (with report reference).
-E     RESURRECT: FAIL — hygiene gate not green after sweep
-E     
-E     
-E   assert 3 == 0
-E    +  where 3 = CompletedProcess(args=['/home/z/my-project/WebPent-Unified/WebPent_UNIFIED/.venv/bin/python', '/home/z/my-project/WebPent-Unified/WebPent_UNIFIED/scripts/resurrect.py'], returncode=3, stdout='=== WebPent resurrect (residue-aware, TC-2 C2b) ===\nimport-origin OK: 12 modules resolve from src/\ndefault paths redirected (4): webpent.memory.vectorstore._DEFAULT_CHROMA_PATH, webpent.memory.lessons._DEFAULT_LESSONS_DB_PATH, webpent.memory.decision_log._DEFAULT_DECISION_LOG_DB_PATH, webpent.graph.checkpoints._DEFAULT_SESSIONS_DB_PATH\nresidue intercepted + purged (7): memory/global/campaign_resume.db, memory/global/request_ledger.db, memory/global/chroma_db/chroma.sqlite3, output/report.html, output/report.json, output/report.md, hunt_artifacts/eng_poc_integration_test/audit/eng_poc_integration_test.audit.jsonl\nhygiene gate: 1 finding(s). Classify per rider R2: purge run residue, or record as evidence allowlist (with report reference).\nRESURRECT: FAIL — hygiene gate not green after sweep\n', stderr='').returncode
-________________ test_hygiene_gate_stays_green_after_resurrect _________________
-tests/test_resurrect_residue_aware.py:79: in test_hygiene_gate_stays_green_after_resurrect
-    assert first.returncode == 0, first.stdout + first.stderr
-E   AssertionError: === WebPent resurrect (residue-aware, TC-2 C2b) ===
-E     import-origin OK: 12 modules resolve from src/
-E     default paths redirected (4): webpent.memory.vectorstore._DEFAULT_CHROMA_PATH, webpent.memory.lessons._DEFAULT_LESSONS_DB_PATH, webpent.memory.decision_log._DEFAULT_DECISION_LOG_DB_PATH, webpent.graph.checkpoints._DEFAULT_SESSIONS_DB_PATH
-E     residue probe clean: redirection held (zero tree writes)
-E     hygiene gate: 1 finding(s). Classify per rider R2: purge run residue, or record as evidence allowlist (with report reference).
-E     RESURRECT: FAIL — hygiene gate not green after sweep
-E     
-E   assert 3 == 0
-E    +  where 3 = CompletedProcess(args=['/home/z/my-project/WebPent-Unified/WebPent_UNIFIED/.venv/bin/python', '/home/z/my-project/WebPent-Unified/WebPent_UNIFIED/scripts/resurrect.py'], returncode=3, stdout='=== WebPent resurrect (residue-aware, TC-2 C2b) ===\nimport-origin OK: 12 modules resolve from src/\ndefault paths redirected (4): webpent.memory.vectorstore._DEFAULT_CHROMA_PATH, webpent.memory.lessons._DEFAULT_LESSONS_DB_PATH, webpent.memory.decision_log._DEFAULT_DECISION_LOG_DB_PATH, webpent.graph.checkpoints._DEFAULT_SESSIONS_DB_PATH\nresidue probe clean: redirection held (zero tree writes)\nhygiene gate: 1 finding(s). Classify per rider R2: purge run residue, or record as evidence allowlist (with report reference).\nRESURRECT: FAIL — hygiene gate not green after sweep\n', stderr='').returncode
-__________________________ test_honest_record_passes ___________________________
-tests/test_umdr36_1_build_info_provenance.py:94: in test_honest_record_passes
-    assert failures == [], failures
-E   AssertionError: ['BUILD_INFO.json was modified after the recovery baseline without a qualifying declared decision: 3daf15daec56: subject does not declare a re-baseline or re-freeze']
-E   assert ['BUILD_INFO....or re-freeze'] == []
-E     
-E     Left contains one more item: 'BUILD_INFO.json was modified after the recovery baseline without a qualifying declared decision: 3daf15daec56: subject does not declare a re-baseline or re-freeze'
-E     
-E     Full diff:
-E     - []
-E     + [
-E     +     'BUILD_INFO.json was modified after the recovery baseline without a '...
-E     
-E     ...Full output truncated (3 lines hidden), use '-vv' to show
-_______ test_evidence_from_same_revision_with_matching_accounting_binds ________
-tests/test_umdr36_1_build_info_provenance.py:266: in test_evidence_from_same_revision_with_matching_accounting_binds
-    assert failures == [], failures
-E   AssertionError: ['BUILD_INFO.json was modified after the recovery baseline without a qualifying declared decision: 3daf15daec56: subject does not declare a re-baseline or re-freeze']
-E   assert ['BUILD_INFO....or re-freeze'] == []
-E     
-E     Left contains one more item: 'BUILD_INFO.json was modified after the recovery baseline without a qualifying declared decision: 3daf15daec56: subject does not declare a re-baseline or re-freeze'
-E     
-E     Full diff:
-E     - []
-E     + [
-E     +     'BUILD_INFO.json was modified after the recovery baseline without a '...
-E     
-E     ...Full output truncated (3 lines hidden), use '-vv' to show
 ________________ test_provenance_shas_resolve_from_this_branch _________________
 tests/test_umdr38_1_acceptance.py:84: in test_provenance_shas_resolve_from_this_branch
     assert _git_ok(["git", "cat-file", "-e", f"{sha}^{{commit}}"]), (
-E   AssertionError: provenance.source_revision 66fec2d1e8548dd9c9861fa2a3f2014223a2834d does not resolve as a commit from this branch
+E   AssertionError: provenance.source_revision 3daf15daec5678aa3956c009af41d66ad8bc869e does not resolve as a commit from this branch
 E   assert False
-E    +  where False = _git_ok(['git', 'cat-file', '-e', '66fec2d1e8548dd9c9861fa2a3f2014223a2834d^{commit}'])
+E    +  where False = _git_ok(['git', 'cat-file', '-e', '3daf15daec5678aa3956c009af41d66ad8bc869e^{commit}'])
 ______________________ test_evidence_revisions_resolvable ______________________
 tests/test_umdr50_publication_integrity.py:75: in test_evidence_revisions_resolvable
     assert not orphans, (
-E   AssertionError: EVIDENCE REVISIONS UNRESOLVABLE in this clone (the 49-class provenance break): ['BUILD_INFO.json: 66fec2d1e8548dd9c9861fa2a3f2014223a2834d']
-E   assert not ['BUILD_INFO.json: 66fec2d1e8548dd9c9861fa2a3f2014223a2834d']
+E   AssertionError: EVIDENCE REVISIONS UNRESOLVABLE in this clone (the 49-class provenance break): ['BUILD_INFO.json: 3daf15daec5678aa3956c009af41d66ad8bc869e']
+E   assert not ['BUILD_INFO.json: 3daf15daec5678aa3956c009af41d66ad8bc869e']
 =============================== warnings summary ===============================
 .venv/lib/python3.12/site-packages/fastapi/testclient.py:1
   /home/z/my-project/WebPent-Unified/WebPent_UNIFIED/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
@@ -10077,20 +10023,16 @@ SKIPPED [1] tests/test_umdr50_publication_integrity.py:101: no PUBLICATION.json 
 XFAIL tests/test_postp0_phase5_validators.py::test_jwt_confusion_confirms_on_alg_none_acceptance - superseded contract: the 2026-10 validator rewrite re-discovers JWKS before the retired alg-none seam (see block comment above / DR-015)
 XFAIL tests/test_postp0_phase5_validators.py::test_jwt_confusion_explicit_negative - superseded contract: the 2026-10 validator rewrite re-discovers JWKS before the retired alg-none seam (see block comment above / DR-015)
 XFAIL tests/test_r2_spine_authority_contracts.py::test_t07b_campaign_worker_entrypoint_is_campaign_worker - B-06 residual (D2/R2-04): ratified entrypoint is 'campaign_worker'; v5 uses 'worker' and KNOWN_ENTRYPOINTS (frozen) does not contain 'campaign_worker'. DENIED for R3 — E-3 unfreeze denied, deferred to M3 (Ruling R3-002 §3.5); campaign_worker.py is explicitly NOT THAWED, so this stays xfail(strict) through Phase 1.
-FAILED tests/test_resurrect_residue_aware.py::test_resurrect_passes_and_leaves_tree_clean
-FAILED tests/test_resurrect_residue_aware.py::test_hygiene_gate_stays_green_after_resurrect
-FAILED tests/test_umdr36_1_build_info_provenance.py::test_honest_record_passes
-FAILED tests/test_umdr36_1_build_info_provenance.py::test_evidence_from_same_revision_with_matching_accounting_binds
 FAILED tests/test_umdr38_1_acceptance.py::test_provenance_shas_resolve_from_this_branch
 FAILED tests/test_umdr50_publication_integrity.py::test_evidence_revisions_resolvable
-= 6 failed, 9921 passed, 9 skipped, 3 xfailed, 91 warnings in 1305.34s (0:21:45) =
+= 2 failed, 9925 passed, 9 skipped, 3 xfailed, 91 warnings in 1333.88s (0:22:13) =
 # --- SUMMARY ---
 # Collected: 9938 | Executed: 9939
-# Total: 9939 | Passed: 9921 | Failed: 6 | Skipped: 9 | Xfailed: 3 | Xpassed: 0 | Errors: 0 | Deselected: 0
+# Total: 9939 | Passed: 9925 | Failed: 2 | Skipped: 9 | Xfailed: 3 | Xpassed: 0 | Errors: 0 | Deselected: 0
 # Accounting consistent: False
 # Exit code: 1
 # --- V3 HOOK-LEVEL ACCOUNTING (scripts/pytest_accounting_plugin.py) ---
 # Collected items: 9938 | started: 9938 | not_started: 0
-# Item outcomes: passed 9921 | failed 6 | skipped 8 | xfailed 3 | xpassed 0
+# Item outcomes: passed 9925 | failed 2 | skipped 8 | xfailed 3 | xpassed 0
 # Setup errors: 0 | teardown errors: 0 | collection errors: 0 | collection skips: 1
 # Invariants all true: True | terminal cross-check agree: True

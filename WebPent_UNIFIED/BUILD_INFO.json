@@ -1,6 +1,6 @@
 {
   "build_name": "WebPent v15.2 (unified)",
-  "build_date": "2026-11-26T08:59:10.043099+00:00",
+  "build_date": "2026-11-26T11:17:49.037337+00:00",
   "version_identity_contract": {
     "note": "UM-DR-32 \u00a73.4 \u2014 every identity field below is UNAMBIGUOUS. The single-source-of-truth for the package version is pyproject.toml + CHANGELOG.md. build_name is the legacy v-lineage delivery label, kept for lineage only.",
     "historical_merge_baseline": "0.34.0 (the UNIFIED merge line, 2026-11-02 \u2014 historical record, NOT the current version)",
@@ -20,7 +20,7 @@
     "current_release": {
       "package_version": "0.48.0",
       "window": "0.48.0 release line: UM-DR-49 the real-ground window \u2014 owner-approved labs (Juice Shop v20.4.0 / WebGoat v2023.5 / DVWA source), public truth catalogs, three real engine defects found-and-fixed (scope port boundary, evolution info_gain crash, inherited zero-knowledge contamination), the zero-knowledge grep-gate, W1-W3 measurements (REAL_BASELINE/GAP_TAXONOMY/REAL_DELTA/W3), and the honest VIP-Ultimate verdict (NOT granted: 0/25 independently confirmed; numbered gaps in deliverables/umdr49/VIP_ULTIMATE_CERTIFICATION.md)",
-      "source_revision": "3daf15daec5678aa3956c009af41d66ad8bc869e",
+      "source_revision": "8d2032dc774f8aed3cd3c4e79247e62345fca687",
       "python_floor": ">=3.11 (pyproject.toml)",
       "python_tested": "3.12.16",
       "provenance_note": "UMDR42 closure reconciliation: current release identity is this closure revision; test accounting is the machine record of the current-run full suite (62 failures all proven pre-existing on the published 5a7e511 baseline via byte-identical failure-set diff)"
@@ -108,7 +108,7 @@
     "authority": "cqa_v2.guarded_causal_evaluate / CausalGuard remains the SOLE confirmation authority; ProofBundle generation and replay verification remain mandatory; negative controls unchanged",
     "m10": "CLOSED \u2014 independent holdout BLOCKED_EXTERNAL_DEPENDENCY (unchanged; UM-DR-32 evaluation is a controlled local engineering evaluation, NOT independent validation)"
   },
-  "suite_evidence": "current-run full-suite evidence on this branch tip: UM-DR-50 W1+W2 window close \u2014 9938 collected / 9938 started (v3 started_items, invariants_all_true, cross-check all_agree) / 9921 passed / 6 failed \u2014 the failures are this BUILD_INFO record's own coherence tests (provenance x2, provenance-shas, evidence-resolvable) plus the resurrect pair, satisfied BY THIS re-freeze commit; one collection-phase skip explains the v2 executed=9939 vs v3 started_items=9938 disagreement (v3-explained per the gate contract); durable machine record at deliverables/umdr50_closure/FULL_SUITE_EVIDENCE.json (tree_clean=TRUE at 3daf15d)",
+  "suite_evidence": "current-run full-suite evidence on this branch tip: UM-DR-50 W3 provenance re-bind battery \u2014 9938 collected / 9938 started (v3 started_items, invariants_all_true, cross-check all_agree) / 9925 passed / 2 failed \u2014 the two failures are the branch-ancestry gates holding the PREVIOUS binding (3daf15d, cut from the ancestry by the law-4 correction), satisfied BY THIS re-bind commit; one collection-phase skip explains the v2 executed=9939 vs v3 started_items=9938 disagreement (v3-explained per the gate contract); durable machine record at deliverables/umdr50_closure/FULL_SUITE_EVIDENCE.json (tree_clean=TRUE at 8d2032d)",
   "package_version": "0.48.0",
   "suite_count": 9938,
   "umdr34": {
@@ -135,21 +135,21 @@
   },
   "provenance": {
     "schema": "umdr36-1-provenance-v1",
-    "source_revision": "3daf15daec5678aa3956c009af41d66ad8bc869e",
-    "tested_revision": "3daf15daec5678aa3956c009af41d66ad8bc869e",
-    "evidence_revision": "3daf15daec5678aa3956c009af41d66ad8bc869e",
+    "source_revision": "8d2032dc774f8aed3cd3c4e79247e62345fca687",
+    "tested_revision": "8d2032dc774f8aed3cd3c4e79247e62345fca687",
+    "evidence_revision": "8d2032dc774f8aed3cd3c4e79247e62345fca687",
     "recovery_baseline": "1968f63c2076b1b804537f91cd5cfa01c3eee0bb",
     "package_version": "0.48.0",
     "manifest_digest": "64713a424d3b8ea4cbae2658376e025353e2fd17cabccd88b8dfc519e4ad88e7",
-    "build_date": "2026-11-26T08:59:10.043099+00:00",
+    "build_date": "2026-11-26T11:17:49.037337+00:00",
     "publication": {
       "published": true,
       "release_tag": "v0.48.0",
-      "note": "v0.48.0 published from main on the UM-DR-50 W1+W2 close commit (the governed raw-transport contract + the confirmation-authority closure + the full re-freeze); the battery evidence binds 3daf15d, this commit binds it."
+      "note": "v0.48.0 published from main on the UM-DR-50 W3 re-bind commit (the governed raw-transport contract + the confirmation-authority closure + the full re-freeze + the living-tip provenance binding); the battery evidence binds 8d2032d, this commit binds it."
     },
     "test_accounting": {
-      "passed": 9921,
-      "failed": 6,
+      "passed": 9925,
+      "failed": 2,
       "skipped": 9,
       "xfailed": 3,
       "xpassed": 0,
@@ -171,7 +171,7 @@
     },
     "note": "UMDR42 correction (2026-11-19): source/tested/evidence revisions previously pointed at upstream-only shas (fe92f178..., then 9802cd22 at UMDR38-1 FINAL) that never existed in this branch's history \u2014 test_umdr38_1_acceptance has been red since UMDR38-1 because of it. Repointed at 277b1a5 (UMDR41 final code state, verified by this branch). recovery_baseline 1968f63 unchanged (resolves).",
     "manifest_digest_note": "UM-DR-50 W1+W2 window re-freeze ritual (the UM-DR-46 precedent): scripts/refreeze_manifest_umdr50.py re-pinned the 4 trust-chain files edited by W1/W2, absorbed the 13 UM-DR-48/49 declared-thaw files whose re-freeze their closes shipped without (the CI-failure tail this window inherited), and joined the new contract node shared/raw_transport.py as a fresh trust-chain pin. Zero manifest drift after the refreeze (verified entry-by-entry).",
-    "source_revision_note": "UM-DR-50 W1+W2 close: the definitive battery ran on a CLEAN tree at 3daf15d (tree_clean=TRUE, run_tests_with_evidence); this BUILD_INFO record is the re-freeze commit that binds it."
+    "source_revision_note": "UM-DR-50 W3 re-bind: the definitive battery re-ran on a CLEAN tree at 8d2032d (tree_clean=TRUE, run_tests_with_evidence) after the law-4 history correction; the binding now lives on the branch ancestry (3daf15d remains declared in DRIFT_REGISTER as the superseded-tip lineage, not an orphan-hidden commit)."
   },
   "fixes_applied": [
     "umdr38-2-evidence-domain-separation (durable release vs current CI run)",

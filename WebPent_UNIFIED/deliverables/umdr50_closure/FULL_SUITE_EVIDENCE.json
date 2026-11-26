@@ -1,12 +1,12 @@
 {
   "schema": "full-suite-evidence/v3",
   "runner": "run_tests_with_evidence.py",
-  "source_commit": "3daf15daec5678aa3956c009af41d66ad8bc869e",
+  "source_commit": "8d2032dc774f8aed3cd3c4e79247e62345fca687",
   "tree_clean": true,
   "tree_status_sample_at_test_start": [],
   "github": null,
-  "started_at_utc": "2026-11-26T08:30:19.562058+00:00",
-  "completed_at_utc": "2026-11-26T08:52:10.781022+00:00",
+  "started_at_utc": "2026-11-26T10:52:22.448919+00:00",
+  "completed_at_utc": "2026-11-26T11:14:43.879679+00:00",
   "python_version": "3.12.16",
   "uv_version": "uv 0.13.9 (x86_64-unknown-linux-gnu)",
   "lockfile_sha256": "7a8e68c5ee27ca0dbc9e2a8e44f46124fcb189593c623476afadd5397dcf6432",
@@ -25,8 +25,8 @@
   ],
   "test_scope_digest": "e5b46a4e71e4e64bf0e6ddac9556e75a0e7c55965beb2313ade9c945ee3dff3f",
   "accounting": {
-    "passed": 9921,
-    "failed": 6,
+    "passed": 9925,
+    "failed": 2,
     "skipped": 9,
     "xfailed": 3,
     "xpassed": 0,
@@ -46,8 +46,8 @@
     "started_items": 9938,
     "not_started": 0,
     "outcomes": {
-      "passed": 9921,
-      "failed": 6,
+      "passed": 9925,
+      "failed": 2,
       "skipped": 8,
       "xfailed": 3,
       "xpassed": 0
@@ -59,10 +59,6 @@
     "interrupted": false,
     "exitstatus": 1,
     "failed_nodeids": [
-      "tests/test_resurrect_residue_aware.py::test_resurrect_passes_and_leaves_tree_clean",
-      "tests/test_resurrect_residue_aware.py::test_hygiene_gate_stays_green_after_resurrect",
-      "tests/test_umdr36_1_build_info_provenance.py::test_honest_record_passes",
-      "tests/test_umdr36_1_build_info_provenance.py::test_evidence_from_same_revision_with_matching_accounting_binds",
       "tests/test_umdr38_1_acceptance.py::test_provenance_shas_resolve_from_this_branch",
       "tests/test_umdr50_publication_integrity.py::test_evidence_revisions_resolvable"
     ],
