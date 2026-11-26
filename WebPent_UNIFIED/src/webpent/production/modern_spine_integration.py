@@ -255,12 +255,31 @@ def _derive_entrypoint(state: dict[str, Any], known_entrypoints: Any, error_cls:
     if main_file.endswith(os.path.join("webpent", "cli", "__main__.py")):
         return "cli"
 
+    # UM-DR-51 P2 (the console-script surface): the installed
+    # ``webpent`` console script (pyproject [project.scripts]
+    # ``webpent = "webpent.cli:main"``) runs with ``__main__.__file__``
+    # pointing at the generated wrapper (.venv/bin/webpent or a
+    # dist-scripts path), which matched NO documented surface — the
+    # official CLI entrypoint crashed with ProductionSpineError
+    # ("entrypoint underivable") unless WEBPENT_ENTRYPOINT was set
+    # externally: the entrypoint could not derive ITSELF. The wrapper
+    # basename IS the surface identity; the fail-closed posture is
+    # unchanged (an unknown basename still raises below — never a
+    # silent wrong label).
+    try:
+        main_basename = os.path.basename(main_file)
+    except ValueError:
+        main_basename = ""
+    if main_basename == "webpent":
+        return "cli"
+
     raise error_cls(
         "entrypoint underivable in this process (no explicit state value, no "
         "WEBPENT_ENTRYPOINT, main module is not a documented launch surface) — "
         "refusing to record a silently wrong label (R3 E-4 fail-closed). "
-        "Launch through worker.py / server.py / webpent-cli.sh or "
-        "`python -m webpent.cli`, or set WEBPENT_ENTRYPOINT explicitly."
+        "Launch through worker.py / server.py / webpent-cli.sh, the "
+        "installed `webpent` console script, or `python -m webpent.cli`, "
+        "or set WEBPENT_ENTRYPOINT explicitly."
     )
 
 
