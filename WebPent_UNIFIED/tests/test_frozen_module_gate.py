@@ -277,6 +277,8 @@ UMDR48_D_20261125_THAW_PATHS = frozenset({
     # rehearsal's finding — an entry's explicit port now binds the
     # match; regression proof tests/test_umdr49_scope_port_boundary.py)
     "src/webpent/shared/scope_file.py",
+    # UM-DR-49 W3.5 (v0.48.0 release): the version-identity bump
+    "src/webpent/__init__.py",
     # UM-DR-49 W2.2 (the zero-knowledge cleanup): app-specific literals
     # removed from engine code (crawler seeds generalized, contract
     # templates de-literalized, docstrings neutralized). The gate that
