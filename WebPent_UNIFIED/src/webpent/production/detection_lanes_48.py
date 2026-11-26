@@ -1356,12 +1356,21 @@ def _state_profiles(state: dict[str, Any]) -> list[dict[str, Any]]:
 
 def _lane_result(lane: str, candidate: dict[str, Any],
                   verdict: dict[str, Any]) -> dict[str, Any]:
+    """One lane outcome — a CANDIDATE, never a self-declared confirmation.
+
+    UM-DR-50 W2 (the confirmation-authority closure): detection lanes
+    no longer write the Tool-Confirmed literal — that was a retroactive
+    exception licensed in UM-DR-49 and it is exactly the pattern the
+    master plan forbids (law 7: the architecture shrinks writers, it
+    does not raise exceptions). The lane emits its verified evidence
+    and the candidate; promotion to Tool-Confirmed goes through the
+    ONE canonical promotion service (families/promotion.py with a
+    passed verify_replay_evidence result), same as every family.
+    """
     finding = verdict.get("finding")
-    # the promoted finding (the caller appends it to the ordinary
-    # findings channel with its bundle)
     if finding is not None and verdict.get("passed"):
         finding = finding.model_copy(update={
-            "confidence_level": "Tool-Confirmed",
+            "confidence_level": "Pending",
             "evidence_bundle": verdict.get("bundle"),
             "evidence": verdict.get("evidence") or {},
         })

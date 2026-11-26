@@ -1468,6 +1468,34 @@ def access_control_node(state: PentestState) -> dict:
         if _liveness_gate and _gate_key in _liveness_gate:
             _bac_result[_gate_key] = _liveness_gate[_gate_key]
 
+    # UM-DR-50 W2: reconstructs the lane's recorded CausalGuard verdict
+    # as the canonical promotion input (a lightweight object exposing
+    # passed/reason/proof_bundle — exactly the attributes
+    # promote_confirmed_finding reads from a verify_replay_evidence
+    # result). The lane result itself carries the sealed bundle the
+    # authority attached at adjudication time.
+    def _lane_verification(_lane: dict[str, Any]) -> Any:
+        class _SimpleBundle:
+            def __init__(self, data: dict[str, Any]) -> None:
+                self.bundle_id = data.get("bundle_id")
+                self._data = data
+
+            def model_dump(self, mode: str = "json") -> dict[str, Any]:
+                return self._data
+
+        class _LaneVerdict:
+            def __init__(self, lane: dict[str, Any]) -> None:
+                self.passed = bool(lane.get("confirmed"))
+                self.reason = str(lane.get("reason") or "")
+                self.evidence = (lane.get("guard_evidence")
+                                 or lane.get("evidence") or {})
+                _bundle = lane.get("evidence_bundle")
+                self.proof_bundle = (
+                    _SimpleBundle(_bundle)
+                    if isinstance(_bundle, dict) else None)
+
+        return _LaneVerdict(_lane)
+
     # UM-DR-48 Phase D (break the ceiling): the five detection lanes —
     # flag-gated (ENABLE_UMDR48_LANES, default OFF = the 47 behavior
     # byte-identical). Each lane builds its (baseline, candidate,
@@ -1518,6 +1546,11 @@ def access_control_node(state: PentestState) -> dict:
                 if _finding is None and _lane.get("evidence_bundle"):
                     from webpent.models.findings import Finding as _F
 
+                    # UM-DR-50 W2: the fallback candidate carries its
+                    # verified evidence; the confidence stays a Pending
+                    # candidate — the ONE canonical promotion service
+                    # (families/promotion.py with a passed
+                    # verify_replay_evidence result) writes Tool-Confirmed
                     _finding = _F(
                         title=(
                             f"{_lane.get('vulnerability_class') or 'lane'} "
@@ -1528,7 +1561,7 @@ def access_control_node(state: PentestState) -> dict:
                         url=str(_lane.get("url") or target_url),
                         vuln_class=str(
                             _lane.get("vulnerability_class") or "api_issue"),
-                        confidence_level="Tool-Confirmed",
+                        confidence_level="Pending",
                         request_method="GET",
                         evidence_bundle=_lane.get("evidence_bundle"),
                         evidence={
@@ -1538,9 +1571,38 @@ def access_control_node(state: PentestState) -> dict:
                         },
                     )
                 if _finding is not None:
-                    _finding = _finding.model_copy(update={
-                        "confidence_level": "Tool-Confirmed",
-                    })
+                    # UM-DR-50 W2: the lane candidate reaches
+                    # Tool-Confirmed ONLY through the canonical promotion
+                    # service — families/promotion.py with a passed
+                    # verify_replay_evidence result. The lane's verdict
+                    # (confirm_lane_finding's CausalGuard adjudication)
+                    # is reconstructed as the verification input; a
+                    # failed/absent verification leaves an explicit
+                    # Pending candidate (fail-closed), never a re-label.
+                    try:
+                        from webpent.families.promotion import (
+                            promote_confirmed_finding)
+                        from webpent.agents.validator.family_checks import (
+                            FamilyValidationResult, FamilyVerdict)
+
+                        _verdict = FamilyValidationResult(
+                            verdict=FamilyVerdict.CONFIRMED,
+                            vuln_class=str(_finding.vuln_class or "api_issue"),
+                            scenario_id=str(_lane.get("lane") or "umdr48"),
+                            rationale=str(_lane.get("reason") or ""),
+                            evidence_refs=(),
+                            proof_bundle_spec={},
+                        )
+                        _promoted = promote_confirmed_finding(
+                            _verdict,
+                            verification=_lane_verification(_lane),
+                        )
+                        if _promoted is not None:
+                            _finding = _promoted
+                    except Exception as _promo_exc:  # noqa: BLE001
+                        logger.debug(
+                            "canonical lane promotion unavailable: %s",
+                            _promo_exc)
                     _bac_result.setdefault("findings", []).append(_finding)
                     if _lane.get("evidence_bundle"):
                         _bac_result.setdefault("proof_bundles", []).append(

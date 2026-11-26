@@ -57,13 +57,12 @@ APPROVED_TOOL_CONFIRMED_WRITERS = {
     # sealed ProofBundle attached); every other family-verdict path
     # yields an explicit Pending candidate (fail-closed).
     "families/promotion.py",
-    # UM-DR-49 (2026-11-25) retroactive registration: the 48 closeout's
-    # detection lanes. _lane_result writes the Tool-Confirmed literal
-    # ONLY on verdict.passed from confirm_lane_finding, which routes
-    # every candidate through verify_replay_evidence (the CausalGuard
-    # authority) and attaches its sealed bundle — same gate family as
-    # the validators above.
-    "production/detection_lanes_48.py",
+    # UM-DR-50 W2 (2026-11-26): the UM-DR-49 retroactive license for
+    # production/detection_lanes_48.py is REVOKED — the lanes emit
+    # Pending candidates only; promotion goes through the canonical
+    # families/promotion.py service (law 7: the architecture shrinks
+    # writers, it does not raise exceptions). The writer list got
+    # strictly SMALLER this window.
 }
 
 
