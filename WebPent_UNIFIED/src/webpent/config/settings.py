@@ -793,6 +793,19 @@ class Settings(BaseSettings):
     )
     enable_brain_engine: bool = Field(
         default=False,
+        # UM-DR-51 P1 root-cause fix: the flag's documented env var
+        # (production/brain_engine.py BRAIN_ENGINE_FLAG_ENV =
+        # "WEBPENT_ENABLE_BRAIN_ENGINE") was UNREACHABLE — the Settings
+        # model has no env_prefix and this field had no validation_alias,
+        # so pydantic only ever read the bare ENABLE_BRAIN_ENGINE. The
+        # 47 tests bypassed the seam entirely (monkeypatch.setattr),
+        # so the env path was never exercised end-to-end. Same
+        # AliasChoices pattern as global_rate_governor_requests_per_minute.
+        validation_alias=AliasChoices(
+            "enable_brain_engine",
+            "ENABLE_BRAIN_ENGINE",
+            "WEBPENT_ENABLE_BRAIN_ENGINE",
+        ),
         description=(
             "UM-DR-47 Phase W (wire the brain): route hypothesis ranking "
             "and experiment selection through the researcher-brain engine "
