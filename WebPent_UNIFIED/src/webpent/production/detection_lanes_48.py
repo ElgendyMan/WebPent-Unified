@@ -47,6 +47,10 @@ from urllib.parse import urlsplit
 from webpent.shared.http import build_cookie_header, make_safe_httpx_client
 
 LANES_FLAG = "enable_umdr48_lanes"
+# UM-DR-50 W1: the raw-path arm of D5 (bare sockets) stays DISABLED on
+# real engagements until its full contract passes; it may only be
+# enabled inside an explicitly declared isolated lab engagement.
+RAW_PATH_LAB_ONLY_FLAG = "enable_umdr48_raw_path_lab_only"
 
 _LANE_VERSION = "umdr48-detection-lanes/1.0.0"
 
@@ -55,6 +59,29 @@ MAX_WORKFLOW_CANDIDATES = 8
 _MAX_REDIRECT_HOPS = 5
 _MAX_TENANT_OVERRIDES = 4
 _MAX_SMUGGLING_PROBES = 4
+
+
+def raw_path_channel_enabled(state: dict[str, Any]) -> bool:
+    """UM-DR-50 W1 — the bare-socket raw-path arm is LAB-ONLY.
+
+    Independent of the general lanes OFF/ON gate (which governs
+    ``run_all_lanes``): the arm runs ONLY when the engagement
+    explicitly declares itself an isolated lab — via the state flag
+    (``enable_umdr48_raw_path_lab_only``) or the engagement settings
+    (``engagement_isolated_lab``). On a real engagement the arm is
+    skipped entirely; the governed httpx channel covers the same
+    probes. Direct lane invocation in isolated-lab tests is the
+    documented path (same contract as the battery labs).
+    """
+    if state.get(RAW_PATH_LAB_ONLY_FLAG) is True:
+        return True
+    try:
+        from webpent.config.settings import get_settings
+
+        return bool(getattr(
+            get_settings(), "engagement_isolated_lab", False))
+    except Exception:  # noqa: BLE001 — flag read, fail-closed
+        return False
 
 
 def lanes_enabled(state: dict[str, Any]) -> bool:
@@ -972,62 +999,58 @@ def run_tenant_override_lane(
 # ---------------------------------------------------------------------------
 
 def _raw_socket_request(
-    url: str, *, cookies: dict[str, str] | None = None, timeout: float = 10.0,
+    url: str, *, cookies: dict[str, str] | None = None,
+    timeout: float = 10.0, cookie_origin: str | None = None,
+    target_scope: tuple[str, ...] = (),
 ) -> LaneObservation:
-    """A literal-path HTTP request over a raw socket (no normalization).
+    """A literal-path HTTP request over the GOVERNED raw transport.
 
-    httpx (and the crawler) normalize `/public/../admin` to `/admin`
-    BEFORE the bytes reach the router — the traversal lookalike never
-    arrives. This helper sends the path VERBATIM (the scope invariant
-    holds: the raw host is the declared engagement target, port and
-    all; the request itself is a plain GET).
+    UM-DR-50 W1 (the bare-transport contract): the raw channel now
+    goes through ``shared/raw_transport.governed_raw_request`` — the
+    destination is authorized against the engagement origin policy
+    BEFORE the dial, the IP is pinned against rebinding, cookies are
+    bound to their origin, the same rate ceilings apply, and every
+    attempt is a recorded policy decision. A link discovered in a
+    response is NOT a grant (mission law 8); the old comment's
+    "scope still enforced" claim was a claim without a mechanism —
+    the mechanism is now this contract. Refusals come back as
+    structured policy facts (fail-closed), never as silent dials.
     """
-    import socket
+    from webpent.shared.raw_transport import (
+        RawTransportRefused, governed_raw_request)
+    from webpent.shared.engagement_scope import (
+        clear_engagement_target_hosts,
+        set_engagement_target_hosts,
+    )
 
-    parts = urlsplit(url)
-    host = parts.hostname or "127.0.0.1"
-    port = parts.port or (443 if parts.scheme == "https" else 80)
-    path = parts.path or "/"
-    if parts.query:
-        path = f"{path}?{parts.query}"
-    cookie_header = ""
-    if cookies:
-        cookie_header = "Cookie: " + build_cookie_header(cookies) + "\r\n"
-    request = (
-        f"GET {path} HTTP/1.1\r\n"
-        f"Host: {host}:{port}\r\n"
-        f"User-Agent: Mozilla/5.0 WebPent/UMDR48-RawPath\r\n"
-        f"Accept: application/json, */*\r\n"
-        f"Connection: close\r\n"
-        f"{cookie_header}"
-        f"\r\n"
-    ).encode("latin-1", "replace")
+    # the same engagement-scoped window _send uses: the raw channel
+    # AUTHORIZES against the declared target scope, never against
+    # whatever context happens to be ambient
+    scope_token = None
+    if target_scope:
+        scope_token = set_engagement_target_hosts(*target_scope)
     try:
-        with socket.create_connection((host, port), timeout=timeout) as sock:
-            sock.sendall(request)
-            chunks: list[bytes] = []
-            while True:
-                chunk = sock.recv(65536)
-                if not chunk:
-                    break
-                chunks.append(chunk)
-        raw = b"".join(chunks)
-        head, _, body = raw.partition(b"\r\n\r\n")
-        status_line = head.split(b"\r\n", 1)[0].decode("latin-1", "replace")
-        try:
-            status_code = int(status_line.split()[1])
-        except (IndexError, ValueError):
-            status_code = 0
-        headers: dict[str, str] = {}
-        for line in head.split(b"\r\n")[1:]:
-            if b":" in line:
-                k, _, v = line.partition(b":")
-                headers[k.decode("latin-1").strip()] = v.decode(
-                    "latin-1").strip()
+        from urllib.parse import urlsplit as _us
+
+        literal_path = _us(url).path or "/"
+        out = governed_raw_request(
+            url, method="GET", cookies=cookies,
+            cookie_origin=cookie_origin or url,
+            path_verbatim=literal_path,
+            timeout_s=timeout)
         return LaneObservation(
-            status_code=status_code, method="GET", url=url,
-            response_body=body, response_headers=headers,
+            status_code=out["status_code"], method="GET", url=url,
+            response_body=out["body"],
+            response_headers=out["headers"],
             identity_label="owner", actor_role="owner",
+        )
+    except RawTransportRefused as exc:
+        return LaneObservation(
+            status_code=0, method="GET", url=url,
+            identity_label="owner", actor_role="owner",
+            structured_fields={
+                "error_type": "RawTransportRefused",
+                "policy_clause": str(exc)},
         )
     except OSError as exc:
         return LaneObservation(
@@ -1035,6 +1058,9 @@ def _raw_socket_request(
             identity_label="owner", actor_role="owner",
             structured_fields={"error_type": type(exc).__name__},
         )
+    finally:
+        if scope_token is not None:
+            clear_engagement_target_hosts(scope_token)
 
 
 def run_redirect_policy_lane(
@@ -1221,9 +1247,13 @@ def run_redirect_policy_lane(
     # the path bytes reach the router un-normalized (the production
     # seam for normalization-resistant probing; scope still enforced —
     # the raw host IS the engagement target)
-    raw_paths: list[str] = [
-        str(r) for r in state.get("umdr48_raw_paths") or []]
-    if not raw_paths:
+    raw_paths: list[str] = []
+    if raw_path_channel_enabled(state):
+        raw_paths = [
+            str(r) for r in state.get("umdr48_raw_paths") or []]
+    if raw_paths or not raw_path_channel_enabled(state):
+        pass  # explicit list, or the arm is gated OFF (lab-only)
+    else:
         # self-discovery: the landing's declared links — any traversal
         # lookalike (/public/../...) is a declared probe target
         for url in _all_crawl_urls(crawled):
@@ -1244,7 +1274,9 @@ def run_redirect_policy_lane(
         else:
             raw_url = raw
         cand = _raw_socket_request(
-            raw_url, cookies=owner.get("cookies"))
+            raw_url, cookies=owner.get("cookies"),
+            cookie_origin=origin or None,
+            target_scope=scope)
         base = send(raw_url.replace("..", ""), cookies=owner.get("cookies"),
                     identity_label="owner", actor_role="owner",
                     target_scope=scope) if ".." in raw_url else None

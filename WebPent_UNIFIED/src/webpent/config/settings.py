@@ -768,6 +768,14 @@ class Settings(BaseSettings):
             "unaffected); gap entries capped at 200."
         ),
     )
+    engagement_isolated_lab: bool = Field(
+        default=False,
+        description=(
+            "UM-DR-50 W1: the engagement explicitly declares itself an "
+            "isolated lab (local, owner-controlled range). Gates the "
+            "bare-socket raw-path channel and any lab-only probing "
+            "arm. NEVER set for a real engagement target."),
+    )
     enable_umdr48_lanes: bool = Field(
         default=False,
         description=(

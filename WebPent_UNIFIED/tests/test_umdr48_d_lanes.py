@@ -287,7 +287,8 @@ class TestD5Redirect:
 
     def test_green_on_vulnerable_raw_path(self, redirect_lab):
         state = _state(redirect_lab, crawled_data={},
-                       umdr48_raw_paths=["/public/../admin/reports"])
+                       umdr48_raw_paths=["/public/../admin/reports"],
+                       enable_umdr48_raw_path_lab_only=True)
         results = run_redirect_policy_lane(state)
         assert any(r["confirmed"] and
                    r["vulnerability_class"] == "path_traversal"
@@ -300,7 +301,8 @@ class TestD5Redirect:
             state = _state(redirect_secure_lab, crawled_data={
                 "endpoints": [f"{redirect_secure_lab}/api/redirect"]},
                 umdr48_out_of_scope_origins=[oos.origin],
-                umdr48_raw_paths=["/public/../admin/reports"])
+                umdr48_raw_paths=["/public/../admin/reports"],
+                enable_umdr48_raw_path_lab_only=True)
             results = run_redirect_policy_lane(state)
             assert not any(r["confirmed"] for r in results), results
         finally:
