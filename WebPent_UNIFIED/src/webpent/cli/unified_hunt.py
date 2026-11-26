@@ -397,6 +397,11 @@ def run_unified_hunt(
             "id": str(_artifact(f, "id", "") or ""),
             "title": str(_artifact(f, "title", "") or ""),
             "vuln_class": str(_artifact(f, "vuln_class", "") or ""),
+            # UM-DR-51 P5: severity is part of the professional finding
+            # identity — the raw battery attribution and the 19-field
+            # report contract both start at this record; it was dropped
+            # here (recorded null downstream)
+            "severity": str(_artifact(f, "severity", "") or ""),
             "confidence": str(_artifact(f, "confidence", "") or ""),
             "confidence_level": str(_artifact(f, "confidence_level", "") or ""),
             "url": str(_artifact(f, "url", "") or ""),

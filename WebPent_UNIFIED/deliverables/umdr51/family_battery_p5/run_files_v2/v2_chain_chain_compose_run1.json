@@ -1,0 +1,79 @@
+{
+ "schema": "umdr48-chain-run/1.0.0",
+ "chain_id": "chain_compose",
+ "run": 1,
+ "campaign_id": "umdr48-chain-chain_compose-1-ed70b1",
+ "started_at_utc": "2026-11-26T16:19:56.144671+00:00",
+ "elapsed_s": 0.732,
+ "status": "COMPLETED",
+ "variant": "vulnerable",
+ "chain_steps_confirmed": 2,
+ "chain_end_to_end": true,
+ "steps": [
+  {
+   "n": 1,
+   "anchor": "/api/orders/ORD-C1-11/ship",
+   "signal": "skipped_approval=true on the ship reply",
+   "class": "business_logic"
+  },
+  {
+   "n": 2,
+   "anchor": "/api/invoices/INV-XC-88",
+   "signal": "200 with owner=User_B to requester User_A (tenant_source of the reveal: linked_invoice)",
+   "class": "idor"
+  }
+ ],
+ "step_evidence": [
+  {
+   "step": 1,
+   "anchor": "/api/orders/ORD-C1-11/ship",
+   "signal": "skipped_approval=true; pending->shipped",
+   "reply_excerpt": {
+    "skipped_approval": true,
+    "status": "shipped",
+    "linked_invoice": "INV-XC-88"
+   }
+  },
+  {
+   "step": 2,
+   "anchor": "/api/invoices/INV-XC-88",
+   "signal": "User_A served the User_B-owned invoice (requested_by=User_A, owner=User_B) on the path the skip REVEALED",
+   "reply_excerpt": {
+    "owner": "User_B",
+    "requested_by": "User_A",
+    "amount": 9100
+   }
+  }
+ ],
+ "lab_requests": [
+  {
+   "method": "GET",
+   "path": "/api/orders/ORD-C1-11",
+   "principal": "User_A"
+  },
+  {
+   "method": "POST",
+   "path": "/api/orders/ORD-C1-11/ship",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/api/orders/ORD-C1-11",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/api/invoices/INV-XC-88",
+   "principal": "User_B"
+  },
+  {
+   "method": "GET",
+   "path": "/api/invoices/INV-XC-88",
+   "principal": "User_A"
+  }
+ ],
+ "invariants": {
+  "out_of_scope_origin_zero_requests": true
+ },
+ "notes": []
+}

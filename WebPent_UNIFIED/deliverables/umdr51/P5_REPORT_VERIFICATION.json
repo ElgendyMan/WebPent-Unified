@@ -1,0 +1,109 @@
+{
+  "schema": "umdr51-p5-report-verification/1.0.0",
+  "generated_at_utc": "2026-11-26T16:20:03.111014+00:00",
+  "chain_campaign": "idor_bola vulnerable run1 (real family battery, raw record)",
+  "fields_19_coverage": {
+    "title": {
+      "present": true,
+      "explicit_not_recorded": false,
+      "excerpt": "[auth_bypass] confirmed differential"
+    },
+    "vuln_class": {
+      "present": true,
+      "explicit_not_recorded": false,
+      "excerpt": "auth_bypass"
+    },
+    "severity": {
+      "present": true,
+      "explicit_not_recorded": false,
+      "excerpt": "critical"
+    },
+    "url": {
+      "present": true,
+      "explicit_not_recorded": false,
+      "excerpt": "http://127.0.0.1:39941/api/invoices/INV-A-101"
+    },
+    "resource": {
+      "present": true,
+      "explicit_not_recorded": true,
+      "excerpt": "not recorded by the earning campaign"
+    },
+    "identity_authz_context": {
+      "present": true,
+      "explicit_not_recorded": true,
+      "excerpt": "not recorded by the earning campaign"
+    },
+    "app_state_context": {
+      "present": true,
+      "explicit_not_recorded": true,
+      "excerpt": "not recorded by the earning campaign"
+    },
+    "fix_recommendation": {
+      "present": true,
+      "explicit_not_recorded": true,
+      "excerpt": "not recorded by the earning campaign"
+    },
+    "retest_status": {
+      "present": true,
+      "explicit_not_recorded": false,
+      "excerpt": "not retested (first report)"
+    },
+    "business_impact": {
+      "present": true,
+      "explicit_not_recorded": true,
+      "excerpt": "not recorded by the earning campaign"
+    },
+    "cvss_score": {
+      "present": true,
+      "explicit_not_recorded": true,
+      "excerpt": "not recorded by the earning campaign (the CVSS engine node has not enriched this finding)"
+    },
+    "expected": {
+      "present": true,
+      "explicit_not_recorded": false,
+      "excerpt": "both surfaces/legs enforce the same authorization requirement"
+    },
+    "observed": {
+      "present": true,
+      "explicit_not_recorded": false,
+      "excerpt": "CausalGuard-adjudicated differential (sealed ProofBundle, replayed); promoted through families/promo"
+    },
+    "engine_reasoning": {
+      "present": true,
+      "explicit_not_recorded": false,
+      "excerpt": "CausalGuard-adjudicated differential (sealed ProofBundle, replayed); promoted through families/promo"
+    },
+    "request_method": {
+      "present": true,
+      "explicit_not_recorded": false,
+      "excerpt": "GET"
+    },
+    "request_url": {
+      "present": true,
+      "explicit_not_recorded": false,
+      "excerpt": "http://127.0.0.1:39941/api/invoices/INV-A-101"
+    },
+    "proof_bundle_id": {
+      "present": true,
+      "explicit_not_recorded": false,
+      "excerpt": "proof_bundle_55e337553e8e4376905526a3c8b5a1b5"
+    },
+    "replay_steps": {
+      "present": true,
+      "explicit_not_recorded": false,
+      "excerpt": "[\"Step 1: replay GET http://127.0.0.1:39941/api/invoices/INV-A-101 as the resource's legitimate owne"
+    },
+    "confidence_level": {
+      "present": true,
+      "explicit_not_recorded": false,
+      "excerpt": "Tool-Confirmed"
+    }
+  },
+  "missing_fields": [],
+  "rendered_report_markdown": "## Finding: [auth_bypass] confirmed differential\n\n- **Class**: auth_bypass | **Severity**: critical | **Tool**: n/a\n- **URL**: `http://127.0.0.1:39941/api/invoices/INV-A-101`\n- **Resource**: not recorded by the earning campaign\n- **Identity/authz context**: not recorded by the earning campaign\n- **App state context**: not recorded by the earning campaign\n- **Fix recommendation**: not recorded by the earning campaign\n- **Retest status**: not retested (first report)\n- **Confidence**: Tool-Confirmed — Tool-Confirmed = CausalGuard adjudicated differential + ProofBundle evidence + sealed replay verification\n\n### Why this is real (expected vs observed)\n\n- **Expected**: both surfaces/legs enforce the same authorization requirement\n- **Observed**: CausalGuard-adjudicated differential (sealed ProofBundle, replayed); promoted through families/promotion.py with a passed verification\n- **Engine reasoning**: CausalGuard-adjudicated differential (sealed ProofBundle, replayed); promoted through families/promotion.py with a passed verification\n\n### The original request (scrubbed) and the response\n\n- `GET http://127.0.0.1:39941/api/invoices/INV-A-101`\n- proof bundle: `proof_bundle_55e337553e8e4376905526a3c8b5a1b5`\n\n### Impact\n\n- not recorded by the earning campaign (CVSS not recorded by the earning campaign (the CVSS engine node has not enriched this finding))\n\n### How to re-prove it, step by step\n\nStep 1: replay GET http://127.0.0.1:39941/api/invoices/INV-A-101 as the resource's legitimate owner — it must succeed\nStep 2: replay the identical request as a foreign principal (the differential leg) — the differential must reproduce\nStep 3: verify the replay through the CausalGuard adjudication (sealed replay, ProofBundle evidence intact)\n\n---\n",
+  "gate": {
+    "question": "does a security engineer independently understand what was tested, what was confirmed, why it was confirmed, and what remains unknown?",
+    "fields_present": "19/19",
+    "status": "VERIFIED"
+  }
+}

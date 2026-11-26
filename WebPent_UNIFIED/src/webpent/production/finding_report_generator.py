@@ -120,7 +120,7 @@ def generate_finding_report(finding: Any) -> dict[str, Any]:
     }
 
     return {
-        "schema": "umdr47-finding-report/v1",
+        "schema": "umdr47-finding-report/v2",
         "identity": {
             "finding_id": str(_field(finding, "id") or ""),
             "title": _truncate(_field(finding, "title"), 200),
@@ -128,6 +128,33 @@ def generate_finding_report(finding: Any) -> dict[str, Any]:
             "severity": str(_field(finding, "severity") or ""),
             "url": str(_field(finding, "url") or ""),
             "tool_name": str(_field(finding, "tool_name") or ""),
+            # UM-DR-51 P5 — the 19-field contract, fields 4b/5/15/16/17:
+            # resource, identity/authz context, app state context, fix
+            # recommendation, retest status. Explicit and honest: each
+            # carries the recorded material or an explicit "not recorded
+            # by the earning campaign" marker — never an invented value.
+            "resource": str(
+                _field(finding, "resource") or _field(finding, "asset") or ""
+            ) or "not recorded by the earning campaign",
+            "identity_authz_context": _truncate(
+                evidence.get("identity_context")
+                or evidence.get("identity")
+                or guard.get("identity_context")
+                or differential.get("identities")
+                or "", 400) or "not recorded by the earning campaign",
+            "app_state_context": _truncate(
+                evidence.get("app_state")
+                or evidence.get("application_state")
+                or "", 400) or "not recorded by the earning campaign",
+            "fix_recommendation": _truncate(
+                _field(finding, "remediation")
+                or _field(finding, "fix_recommendation")
+                or evidence.get("remediation")
+                or "", 400) or "not recorded by the earning campaign",
+            "retest_status": str(
+                _field(finding, "retest_status")
+                or evidence.get("retest_status") or ""
+            ) or "not retested (first report)",
         },
         "confidence": {
             "level": str(_field(finding, "confidence_level")
@@ -157,10 +184,17 @@ def generate_finding_report(finding: Any) -> dict[str, Any]:
             "verification": evidence.get("replay_verified"),
         },
         "impact": {
+            # explicit honesty: business impact/CVSS are the graph's
+            # post-pipeline enrichment — until the earning campaign
+            # records them, the field states so, never a silent blank
             "business_impact": _truncate(
-                _field(finding, "business_impact"), 400),
-            "severity": str(_field(finding, "severity") or ""),
-            "cvss_score": _field(finding, "cvss_score", None),
+                _field(finding, "business_impact"), 400
+            ) or "not recorded by the earning campaign",
+            "severity": str(_field(finding, "severity") or "")
+            or "not recorded by the earning campaign",
+            "cvss_score": _field(finding, "cvss_score", None)
+            or "not recorded by the earning campaign (the CVSS engine "
+               "node has not enriched this finding)",
         },
         "replay_steps": replay_steps,
         "privacy_contract": (
@@ -183,6 +217,11 @@ def render_finding_report_markdown(report: dict[str, Any]) -> str:
         f"- **Class**: {i['vuln_class']} | **Severity**: "
         f"{i['severity'] or 'n/a'} | **Tool**: {i['tool_name'] or 'n/a'}",
         f"- **URL**: `{i['url']}`",
+        f"- **Resource**: {i['resource']}",
+        f"- **Identity/authz context**: {i['identity_authz_context']}",
+        f"- **App state context**: {i['app_state_context']}",
+        f"- **Fix recommendation**: {i['fix_recommendation']}",
+        f"- **Retest status**: {i['retest_status']}",
         f"- **Confidence**: {c['level']} — {c['source_chain']}"
         + (f" (guard verdict: `{c['guard_verdict']}`)"
            if c["guard_verdict"] else ""),

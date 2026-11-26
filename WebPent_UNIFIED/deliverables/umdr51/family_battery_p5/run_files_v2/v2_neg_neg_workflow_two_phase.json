@@ -1,0 +1,31 @@
+{
+ "schema": "umdr48-negative-run/1.0.0",
+ "fixture_id": "neg_workflow_two_phase",
+ "family": "workflow_abuse",
+ "why_near_miss": "a two-phase confirm flow (both phases enforced) \u2014 the sequence machinery exists with no skip possible",
+ "measured_at_utc": "2026-11-26T16:19:58.219151+00:00",
+ "elapsed_s": 0.517,
+ "lane_results_count": 0,
+ "findings_confirmed": 0,
+ "confirmed_detail": [],
+ "lab_requests": [
+  {
+   "method": "GET",
+   "path": "/api/orders/ORD-N1",
+   "principal": "User_A"
+  },
+  {
+   "method": "POST",
+   "path": "/api/orders/ORD-N1/ship",
+   "principal": "User_A"
+  },
+  {
+   "method": "GET",
+   "path": "/api/orders/ORD-N1",
+   "principal": "User_A"
+  }
+ ],
+ "invariants": {
+  "out_of_scope_origin_zero_requests": true
+ }
+}

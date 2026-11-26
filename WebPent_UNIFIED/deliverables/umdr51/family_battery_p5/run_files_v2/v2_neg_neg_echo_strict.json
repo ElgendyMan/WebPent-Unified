@@ -1,0 +1,26 @@
+{
+ "schema": "umdr48-negative-run/1.0.0",
+ "fixture_id": "neg_echo_strict",
+ "family": "request_smuggling",
+ "why_near_miss": "an echo endpoint exists and answers POSTs, but CL+TE ambiguity is rejected with 400 (no framing report)",
+ "measured_at_utc": "2026-11-26T16:19:58.738771+00:00",
+ "elapsed_s": 0.519,
+ "lane_results_count": 0,
+ "findings_confirmed": 0,
+ "confirmed_detail": [],
+ "lab_requests": [
+  {
+   "method": "GET",
+   "path": "/api/echo",
+   "principal": "User_A"
+  },
+  {
+   "method": "POST",
+   "path": "/api/echo",
+   "principal": "User_A"
+  }
+ ],
+ "invariants": {
+  "out_of_scope_origin_zero_requests": true
+ }
+}

@@ -1153,6 +1153,10 @@ def run_campaign(family: str, variant: str, run_index: int) -> dict:
             "normalized_path": path,
             "confidence_level": f.get("confidence_level"),
             "evidence_bundle_id": f.get("evidence_bundle_id"),
+            # UM-DR-51 P5: the raw attribution record must carry the
+            # finding's professional identity (severity) — the 19-field
+            # report contract starts at the raw record, not at re-derivation
+            "severity": f.get("severity"),
             "ground_truth_verdict": verdict,
         })
     matched_anchors = {a for a in defect_anchors
