@@ -1,0 +1,91 @@
+{
+  "schema": "umdr51-performance-meters/1.0.0",
+  "generated_at_utc": "2026-11-26T16:13:48.069927+00:00",
+  "the_before_after_of_this_windows_fix": {
+    "honest_note": "التنبيه الصادق: إصلاح أصل الترقية لم يغيّر الكشف — التأكيدات الخام موجودة في الحالتين (24 تأكيدًا عبر 36 حملة عائلة). العطل كان في طبقة قياس الإسناد بالمَراسي داخل MEASUREMENT_V2 (عدّت التأكيدات الحقيقية FP: recall 0.222، fp 18). الإصلاح أصلح قياس الإسناد — عاد أصل الحملة الحقيقي على النتيجة المرقاة (recall 0.889، fp 0). أرقام الأداء الخام نفسها لم تتغير.",
+    "before_the_promotion_origin_fix": {
+      "raw_confirmed_findings": 24,
+      "measured_recall": 0.222,
+      "measured_fp_total": 18,
+      "requests_per_confirmed_from_raw": 164.2
+    },
+    "after_the_promotion_origin_fix": {
+      "raw_confirmed_findings": 24,
+      "measured_recall": 0.889,
+      "measured_fp_total": 0,
+      "requests_per_confirmed_from_raw": 164.2
+    }
+  },
+  "meters_now_measured": {
+    "family_campaign_runs": 36,
+    "requests_total": 3942,
+    "wall_clock_s": 118.0,
+    "confirmed_findings": 24,
+    "candidate_findings": 177,
+    "requests_per_confirmed": 164.2,
+    "findings_per_hour": 732.0,
+    "per_family": {
+      "graphql_oracle": {
+        "requests": 672,
+        "elapsed_s": 18.5,
+        "confirmed": 3,
+        "candidates": 33,
+        "runs": 6,
+        "requests_per_confirmed": 224.0,
+        "time_to_first_confirmed_s": 3.09
+      },
+      "idor_bola": {
+        "requests": 651,
+        "elapsed_s": 20.3,
+        "confirmed": 6,
+        "candidates": 48,
+        "runs": 6,
+        "requests_per_confirmed": 108.5,
+        "time_to_first_confirmed_s": 3.38
+      },
+      "redirect_scope_bypass": {
+        "requests": 615,
+        "elapsed_s": 18.8,
+        "confirmed": 3,
+        "candidates": 24,
+        "runs": 6,
+        "requests_per_confirmed": 205.0,
+        "time_to_first_confirmed_s": 3.13
+      },
+      "request_smuggling": {
+        "requests": 603,
+        "elapsed_s": 19.2,
+        "confirmed": 3,
+        "candidates": 21,
+        "runs": 6,
+        "requests_per_confirmed": 201.0,
+        "time_to_first_confirmed_s": 3.19
+      },
+      "tenant_confusion": {
+        "requests": 624,
+        "elapsed_s": 20.0,
+        "confirmed": 6,
+        "candidates": 12,
+        "runs": 6,
+        "requests_per_confirmed": 104.0,
+        "time_to_first_confirmed_s": 3.33
+      },
+      "workflow_abuse": {
+        "requests": 777,
+        "elapsed_s": 21.3,
+        "confirmed": 3,
+        "candidates": 39,
+        "runs": 6,
+        "requests_per_confirmed": 259.0,
+        "time_to_first_confirmed_s": 3.55
+      }
+    }
+  },
+  "meters_declared_not_instrumented_yet": [
+    "requests/coverage-cell (خلية Resource×Principal×Operation — القناة موجودة في SKG لكن عدّاد الطلبات لكل خلية غير مفعل)",
+    "network-vs-compute split per phase (node_step_trace يسجل العقد لا زمن الشبكة/الحساب)",
+    "validator/replay cost isolated per proof bundle",
+    "LLM token consumption (LLM معطل بالكامل في كل القياسات — 0 استهلاك مقيس، لا عدّاد مطلوب)",
+    "retrieval cost per memory lookup"
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "schema": "umdr51-meter-correction/1.0.0",
+  "generated_at_utc": "2026-11-26T16:14:11.846784+00:00",
+  "source": "the 36 raw family campaign files of window 48 (deliverables/umdr48/run_files_v2), never summaries",
+  "ground_truth_fingerprint_sha256": "f46511e1a3c31b222cbd7fa0a186b373a4e19f8b5e99c398a7785762d95881b6",
+  "cost_lines": {
+    "vulnerable_runs_only": {
+      "requests": 2094,
+      "runs": 18,
+      "confirmed_findings": 27,
+      "cost_per_finding": 77.6,
+      "denominator_note": "36 raw family campaigns of window 48: this line = the 18 VULNERABLE runs only (requests summed, confirmations summed — a total over a total, never an average of averages)"
+    },
+    "secure_runs_only": {
+      "requests": 2103,
+      "runs": 18,
+      "confirmed_findings": 0,
+      "note": "the 18 SECURE runs: their cost is the negative-control cost (findings must stay 0 — never mixed into the detection ratio)"
+    },
+    "all_36_runs_declared": {
+      "requests": 4197,
+      "runs": 36,
+      "confirmed_findings_vulnerable": 27,
+      "cost_per_finding_if_full_battery_counted": 155.4,
+      "denominator_note": "the FULL battery cost per confirmed finding (detection + negative controls together) — declared as its own line, never silently merged with the vulnerable-only number"
+    }
+  },
+  "recall_original_vs_mirrors": {
+    "idor_bola": {
+      "original_anchors": [
+        "/api/invoices/INV-A-101",
+        "/api/invoices/INV-B-777"
+      ],
+      "original_line": {
+        "tp": 6,
+        "fn": 0,
+        "recall": 1.0,
+        "fp_on_original_truth": 0,
+        "fp_on_original_truth_note": "confirmations on the mirror path are FP per the ORIGINAL GT's must_not_confirm — the same confirmations are TP only on the battery's declared-expansion SEPARATE line"
+      }
+    },
+    "workflow_abuse": {
+      "original_anchors": [
+        "/api/orders/ORD-W-101/ship",
+        "/api/orders/ORD-W-555/ship"
+      ],
+      "original_line": {
+        "tp": 3,
+        "fn": 0,
+        "recall": 1.0,
+        "fp_on_original_truth": 0,
+        "fp_on_original_truth_note": "confirmations on the mirror path are FP per the ORIGINAL GT's must_not_confirm — the same confirmations are TP only on the battery's declared-expansion SEPARATE line"
+      }
+    },
+    "request_smuggling": {
+      "original_anchors": [
+        "/api/echo"
+      ],
+      "original_line": {
+        "tp": 3,
+        "fn": 0,
+        "recall": 1.0,
+        "fp_on_original_truth": 0,
+        "fp_on_original_truth_note": "confirmations on the mirror path are FP per the ORIGINAL GT's must_not_confirm — the same confirmations are TP only on the battery's declared-expansion SEPARATE line"
+      }
+    },
+    "graphql_oracle": {
+      "original_anchors": [
+        "/graphql"
+      ],
+      "original_line": {
+        "tp": 3,
+        "fn": 0,
+        "recall": 1.0,
+        "fp_on_original_truth": 0,
+        "fp_on_original_truth_note": "confirmations on the mirror path are FP per the ORIGINAL GT's must_not_confirm — the same confirmations are TP only on the battery's declared-expansion SEPARATE line"
+      }
+    },
+    "tenant_confusion": {
+      "original_anchors": [
+        "/api/tenant/profiles/PROF-T2-55"
+      ],
+      "original_line": {
+        "tp": 3,
+        "fn": 0,
+        "recall": 1.0,
+        "fp_on_original_truth": 3,
+        "fp_on_original_truth_note": "confirmations on the mirror path are FP per the ORIGINAL GT's must_not_confirm — the same confirmations are TP only on the battery's declared-expansion SEPARATE line"
+      },
+      "expanded_mirrors_separate_line": {
+        "anchors": [
+          "/api/tenant/profiles/PROF-T1-11"
+        ],
+        "tp": 3,
+        "fn": 0,
+        "recall": 1.0,
+        "independence_note": "the mirror line is scored against the EXPANSION declared BEFORE the runs — never re-scored after seeing results"
+      }
+    },
+    "redirect_scope_bypass": {
+      "original_anchors": [
+        "/api/redirect",
+        "/public/../admin/reports"
+      ],
+      "original_line": {
+        "tp": 6,
+        "fn": 0,
+        "recall": 1.0,
+        "fp_on_original_truth": 0,
+        "fp_on_original_truth_note": "confirmations on the mirror path are FP per the ORIGINAL GT's must_not_confirm — the same confirmations are TP only on the battery's declared-expansion SEPARATE line"
+      }
+    }
+  },
+  "waste_ledger_reconciliation": {
+    "idor_bola": {
+      "ledger_confirmed_per_run": 2,
+      "raw36_confirmed_per_vuln_run": 2.0,
+      "raw36_confirmed_total_vuln_runs": 6,
+      "denominator_note": "ledger = ONE representative run; raw36 = 3 runs x 2 variants — compared per-run (apples to apples)",
+      "agrees": true
+    },
+    "workflow_abuse": {
+      "ledger_confirmed_per_run": 1,
+      "raw36_confirmed_per_vuln_run": 1.0,
+      "raw36_confirmed_total_vuln_runs": 3,
+      "denominator_note": "ledger = ONE representative run; raw36 = 3 runs x 2 variants — compared per-run (apples to apples)",
+      "agrees": true
+    },
+    "request_smuggling": {
+      "ledger_confirmed_per_run": 1,
+      "raw36_confirmed_per_vuln_run": 1.0,
+      "raw36_confirmed_total_vuln_runs": 3,
+      "denominator_note": "ledger = ONE representative run; raw36 = 3 runs x 2 variants — compared per-run (apples to apples)",
+      "agrees": true
+    },
+    "graphql_oracle": {
+      "ledger_confirmed_per_run": 1,
+      "raw36_confirmed_per_vuln_run": 1.0,
+      "raw36_confirmed_total_vuln_runs": 3,
+      "denominator_note": "ledger = ONE representative run; raw36 = 3 runs x 2 variants — compared per-run (apples to apples)",
+      "agrees": true
+    },
+    "tenant_confusion": {
+      "ledger_confirmed_per_run": 2,
+      "raw36_confirmed_per_vuln_run": 2.0,
+      "raw36_confirmed_total_vuln_runs": 6,
+      "denominator_note": "ledger = ONE representative run; raw36 = 3 runs x 2 variants — compared per-run (apples to apples)",
+      "agrees": true
+    },
+    "redirect_scope_bypass": {
+      "ledger_confirmed_per_run": 2,
+      "raw36_confirmed_per_vuln_run": 2.0,
+      "raw36_confirmed_total_vuln_runs": 6,
+      "denominator_note": "ledger = ONE representative run; raw36 = 3 runs x 2 variants — compared per-run (apples to apples)",
+      "agrees": true
+    }
+  },
+  "the_48_claim_vs_correction": {
+    "claimed": "233 requests/finding",
+    "corrected_vulnerable_only": 77.6,
+    "corrected_full_battery": 155.4
+  }
+}
