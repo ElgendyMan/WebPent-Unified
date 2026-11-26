@@ -46,7 +46,7 @@ def _valid_info() -> dict:
     return {
         "build_name": "WebPent v15.2 (unified)",
         "build_date": "2026-11-14T00:00:00+00:00",
-        "package_version": "0.40.1",
+        "package_version": "0.48.0",
         "provenance": {
             "schema": "umdr36-1-provenance-v1",
             "source_revision": RESOLVABLE_OLD,
@@ -54,7 +54,7 @@ def _valid_info() -> dict:
             "evidence_revision": RESOLVABLE_OLD,
             "recovery_baseline": RECOVERY_BASELINE,
             "manifest_digest": _manifest_digest(),
-            "package_version": "0.40.1",
+            "package_version": "0.48.0",
             "test_accounting": accounting,
             "build_date": "2026-11-14T00:00:00+00:00",
             "publication": {"published": False, "release_tag": None},
@@ -66,9 +66,9 @@ def _valid_info() -> dict:
         "units_closed": ["UM-DR-35", "UM-DR-36"],
         "fixes_applied": ["umdr36.1-lockfile-sync"],
         "version_identity_contract": {
-            "package_version": "0.40.1",
+            "package_version": "0.48.0",
             "current_release": {
-                "package_version": "0.40.1",
+                "package_version": "0.48.0",
                 "source_revision": RESOLVABLE_OLD,
             },
             "release_history": [
@@ -195,8 +195,10 @@ def test_inflated_test_accounting_fails() -> None:
 
 def test_history_entry_not_older_than_current_fails() -> None:
     info = _valid_info()
+    # UM-DR-49: the fixture's current release is 0.48.0 — a history
+    # entry must be STRICTLY older; 0.48.0 (equal) trips the gate
     info["version_identity_contract"]["release_history"][0][
-        "package_version"] = "0.40.1"
+        "package_version"] = "0.48.0"
     failures, _ = _evaluate(info)
     assert any("not strictly older" in f for f in failures)
 

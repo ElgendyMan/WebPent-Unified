@@ -86,8 +86,14 @@ _PUB_LAYOUT = (ROOT.parent / "deliverables").is_dir()
 #   2. the newest mission-window deliverable carrying a
 #      FULL_SUITE_EVIDENCE.json whose source_commit BINDS to this
 #      repository (umdr42_closure, then umdr38 fallback).
-_CLOSURE_EVIDENCE = ((ROOT.parent if _PUB_LAYOUT else ROOT) / "deliverables"
-                     / "umdr42_closure" / "FULL_SUITE_EVIDENCE.json")
+# UM-DR-49 (2026-11-26): the durable record follows the LATEST window —
+# umdr49_closure when present (this window's full-suite battery), then
+# the umdr42_closure record, then the umdr38 fallback.
+_LATEST_CLOSURE = ((ROOT.parent if _PUB_LAYOUT else ROOT) / "deliverables"
+                   / "umdr49_closure" / "FULL_SUITE_EVIDENCE.json")
+_CLOSURE_EVIDENCE = (_LATEST_CLOSURE if _LATEST_CLOSURE.is_file() else (
+    (ROOT.parent if _PUB_LAYOUT else ROOT) / "deliverables"
+    / "umdr42_closure" / "FULL_SUITE_EVIDENCE.json"))
 _UMDR38_EVIDENCE_DIR = ((ROOT.parent if _PUB_LAYOUT else ROOT) / "deliverables"
                         / "umdr38" / "test_evidence")
 DURABLE_DIR = (

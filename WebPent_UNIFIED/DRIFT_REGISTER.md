@@ -1843,3 +1843,22 @@ evidence re-bound to the fresh full-suite machine record (9883
 collected / 9883 started (v3) / 9873 passed; the single failure is the
 suite_count check itself, satisfied by that same update);
 deliverables/umdr47/FULL_SUITE_EVIDENCE.json is the durable copy.
+
+## 2026-11-26 — UM-DR-49: the real-ground window (v0.48.0)
+
+UM-DR-49 declared window: the owner-approved real-ground measurement
+(Juice Shop v20.4.0 / WebGoat v2023.5 / DVWA source) with the public
+truth catalogs and the honest VIP-Ultimate verdict. Production thaws
+this window: shared/scope_file.py (the PORT boundary fix — the
+safe-stop rehearsal's finding), agents/access_control/agent.py (the
+JS-route projection), researcher/evolution.py (the info_gain=None
+crash fix), the zero-knowledge cleanup set (hypothesis_analyzer,
+models/hypothesis, vulnerability_family_contracts, autonomous_crawler,
+shared/prioritization, tools/exploitation/sqlmap), and the v0.48.0
+version-identity bump (webpent/__init__.py). Regression proofs:
+tests/test_umdr49_scope_port_boundary.py (5 tests) +
+scripts/umdr49_zero_knowledge_gate.py (CLEAN). The window's durable
+release evidence: deliverables/umdr49_closure/FULL_SUITE_EVIDENCE.json
+(9924 started / 9897 passed / 4 coherence-only failures, satisfied by
+the re-baseline this entry documents); BUILD_INFO suite_count =
+accounting_v3.started_items per the §6 contract.
