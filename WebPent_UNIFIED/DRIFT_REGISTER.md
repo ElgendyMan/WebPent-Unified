@@ -1883,3 +1883,27 @@ accounting_v3.started_items per the §6 contract.
 - push mode: --force-with-lease (lease = f290cbf), documented here per
   law 4; the CI runs on the superseded tips (45767101536/45767232172
   era) are the honest red of a superseded history
+
+## 2026-11-26 — UM-DR-50 W3: the provenance re-bind remainder (the session-cut state)
+
+- the provenance-stability correction (law 4, the commit above) rewrote
+  the publication push onto 1fc4e7f/836babc — the subjects now qualify,
+  but the REBASE removed 3daf15d from the branch's ancestry while
+  BUILD_INFO + the durable evidence still bind it: the two durable
+  integrity gates (test_provenance_shas_resolve_from_this_branch,
+  test_evidence_revisions_resolvable) correctly hold the binding
+  unresolvable FROM THIS BRANCH in CI (run 45789392566 — the gates
+  doing exactly their 49-class job, on our own binding this time).
+- THE DOCUMENTED REMAINDER (one continuous ~40-min sequence):
+  1. re-run scripts/run_tests_with_evidence.py on a CLEAN tree at
+     836babc (no code delta vs the battery tree — same 9938/9921/6
+     accounting is the expectation);
+  2. re-bind BUILD_INFO provenance + deliverables/umdr50_closure/
+     FULL_SUITE_EVIDENCE.json source_commit to the new tip;
+  3. push as "Update project to v0.48.0 UM-DR-50 window: BUILD_INFO
+     re-freeze (provenance re-bind onto the living tip)";
+  4. CI green with run_id on the exact tip -> Release v0.48.0 +
+     PUBLICATION.json (main_head/tag/run_id/release_url).
+- everything else is GREEN locally and in CI's g08 job on this tree
+  (frozen 646+, G02 4/4, exceptions, honesty gate PASS, resurrect,
+  publication integrity minus the self-referential bind).
