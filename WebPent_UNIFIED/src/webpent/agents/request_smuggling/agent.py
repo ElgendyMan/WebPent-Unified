@@ -48,6 +48,29 @@ logger = logging.getLogger(__name__)
 
 _RAW_MAX_REQUEST_BYTES = 16 * 1024
 _RAW_MAX_RESPONSE_BYTES = 8 * 1024
+
+
+def _record_smuggle_decision(url: str, *, allowed: bool, clause: str,
+                             reason: str, resolved_ip: str | None = None,
+                             ) -> None:
+    """Clause 8 — every smuggling-seam dial is a recorded decision.
+
+    The smuggling channel predates the unified raw-transport contract
+    and keeps its own byte/idle/deadline budgets (tighter than the
+    generic ones — 8 KiB / 2 s idle); what it MUST share is the
+    RECORDED decision, so the engagement audit sees this seam too.
+    """
+    try:
+        from webpent.shared.raw_transport import (
+            RawTransportDecision, _record)
+
+        _record(RawTransportDecision(
+            url=url, resolved_ip=resolved_ip, allowed=allowed,
+            clause=clause, reason=f"smuggling seam: {reason}",
+            method="POST"))
+    except Exception:  # noqa: BLE001 — recording never breaks the probe
+        pass
+_RAW_MAX_RESPONSE_BYTES = 8 * 1024
 _RAW_CONNECT_TIMEOUT_SECONDS = 5.0
 _RAW_IDLE_TIMEOUT_SECONDS = 2.0
 
@@ -86,6 +109,9 @@ def _send_raw_http(
 
         if not is_engagement_target_host(host):
             logger.warning("Raw HTTP refused for host outside engagement scope: %s", host)
+            _record_smuggle_decision(
+                f"{scheme}://{host}:{port}/", allowed=False,
+                clause="1", reason="host outside engagement scope")
             return None
         # UM-DR-44 B6(c): the port was a free parameter from the caller —
         # host-level checking alone let a scoped host be dialed on ANY
@@ -98,6 +124,9 @@ def _send_raw_http(
             logger.warning(
                 "Raw HTTP refused: %s:%s is not within the engagement "
                 "origin policy (undeclared port)", host, port)
+            _record_smuggle_decision(
+                f"{scheme}://{host}:{port}/", allowed=False,
+                clause="1/4", reason="outside the origin policy")
             return None
         pinned_ip = _resolve_first_ip(host, port, allow_blocked=True)
         if not pinned_ip:

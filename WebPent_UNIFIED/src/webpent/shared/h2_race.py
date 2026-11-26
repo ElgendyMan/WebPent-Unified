@@ -110,6 +110,25 @@ def _import_h2() -> Any:
         raise H2Unavailable("h2_library_not_installed") from exc
 
 
+def _record_h2_decision(url: str, *, allowed: bool, clause: str,
+                      reason: str, resolved_ip: str | None = None) -> None:
+    """Clause 8 — every h2-race dial is a recorded decision.
+
+    The h2 race seam predates the unified raw-transport contract and
+    keeps its own race-specific budgets; what it MUST share is the
+    RECORDED policy decision (the engagement audit sees every seam).
+    """
+    try:
+        from webpent.shared.raw_transport import (
+            RawTransportDecision, _record)
+
+        _record(RawTransportDecision(
+            url=url, resolved_ip=resolved_ip, allowed=allowed,
+            clause=clause, reason=f"h2 race seam: {reason}"))
+    except Exception:  # noqa: BLE001 — recording never breaks the race
+        pass
+
+
 def _connect(
     host: str, port: int, use_tls: bool, timeout_s: float
 ) -> socket.socket:
@@ -128,6 +147,8 @@ def _connect(
     scheme = "https" if use_tls else "http"
     target_url = f"{scheme}://{host}:{port}/"
     if not is_engagement_origin_allowed(target_url):
+        _record_h2_decision(target_url, allowed=False, clause="1/4",
+                            reason="outside the engagement origin policy")
         raise H2RaceError(
             f"h2_race connect refused: {host}:{port} is outside the "
             "engagement origin policy"
@@ -146,10 +167,14 @@ def _connect(
         host, port, allow_blocked=is_engagement_target_host(host)
     )
     if not pinned_ip:
+        _record_h2_decision(target_url, allowed=False, clause="2",
+                            reason="DNS resolution/blocklist denied")
         raise H2RaceError(
             f"h2_race connect refused: DNS resolution/blocklist denied "
             f"{host}"
         )
+    _record_h2_decision(target_url, allowed=True, clause="all",
+                        reason="h2 pinned dial", resolved_ip=pinned_ip)
     sock = socket.create_connection((pinned_ip, port), timeout=timeout_s)
     if use_tls:
         context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
