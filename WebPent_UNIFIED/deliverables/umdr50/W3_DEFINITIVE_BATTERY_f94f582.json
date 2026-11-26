@@ -1,0 +1,52 @@
+{
+  "schema": "full-suite-evidence/v3",
+  "runner": "run_tests_with_evidence.py",
+  "source_commit": "f94f582fd744c98b65e537f3677c956a5b9035ec",
+  "tree_clean": true,
+  "tree_status_sample_at_test_start": [],
+  "github": null,
+  "started_at_utc": "2026-11-26T05:32:23.844113+00:00",
+  "completed_at_utc": "2026-11-26T05:54:05.895163+00:00",
+  "python_version": "3.12.16",
+  "uv_version": "uv 0.13.9 (x86_64-unknown-linux-gnu)",
+  "lockfile_sha256": "7a8e68c5ee27ca0dbc9e2a8e44f46124fcb189593c623476afadd5397dcf6432",
+  "command": [
+    "/home/z/my-project/WebPent-Unified/WebPent_UNIFIED/.venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/",
+    "-v",
+    "--tb=short",
+    "-p",
+    "pytest_accounting_plugin",
+    "--cov=src/webpent",
+    "--cov-report=json:/home/z/my-project/WebPent-Unified/WebPent_UNIFIED/.webpent-evidence/coverage_last_run.json",
+    "--cov-fail-under=72"
+  ],
+  "test_scope_digest": "6024d45453763098acf12cf07010a86d8476f84fdac693cce50e14e479bfae7d",
+  "accounting": {
+    "passed": null,
+    "failed": null,
+    "skipped": null,
+    "xfailed": null,
+    "xpassed": null,
+    "deselected": null,
+    "errors": null,
+    "collected": 9937,
+    "executed": null,
+    "accounting_consistent": 0,
+    "summary_found": 0
+  },
+  "accounting_v3": null,
+  "accounting_cross_check": {
+    "plugin_available": false,
+    "all_agree": false,
+    "plugin_invariants_all_true": false
+  },
+  "coverage": {
+    "floor_percent": 72,
+    "result": "77.70% (floor 72% \u2014 OK)",
+    "percent_covered": 77.7
+  },
+  "exit_code": 1
+}

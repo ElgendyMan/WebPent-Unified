@@ -1,0 +1,31 @@
+warning: `VIRTUAL_ENV=/home/z/.venv` does not match the project environment path `.venv` and will be ignored; use `--active` to target the active environment instead
+collected=9937 executed=None passed=None failed=None skipped=None xfailed=None xpassed=None errors=None deselected=None
+accounting_consistent=False exit_code=1
+evidence: /home/z/my-project/WebPent-Unified/WebPent_UNIFIED/.webpent-evidence/FULL_SUITE_EVIDENCE.json
+
+=== UM-DR-50 W3 CONTINUATION NOTE (2026-11-26, session cut) ===
+الحالة لحظة القطع:
+1. البطارية النهائية على شجرة نظيفة f94f582: tree_clean=TRUE، collected=9937
+   لكن accounting=None (الملف خرج ناقص الحساب — يتطلب إعادة تشغيل البطارية).
+2. CI على 0d74894 (W1) فشل بثلاث فئات — كلها متوقعة من عمل W1/W2:
+   a) test_g02_direct_io_inventory (x2): raw_transport.py الجديد يستخدم
+      socket.create_connection مباشرة ويجب تسجيله في جرد direct-I/O
+      (المسار: tests/test_g02_direct_io_inventory.py + سجل الجرد الخاص به).
+   b) test_editable_broad_exceptions_gate: استثناءاتي الواسعة الجديدة
+      (except Exception في _record_smuggle_decision و _record_h2_decision
+      وحول الترقية الكانونية في access_control) تحتاج تسجيلًا في سجل
+      الاستثناءات الواسعة أو تضييقًا.
+   c) test_umdr38_1_acceptance::test_provenance_shas_resolve: BUILD_INFO
+      ما زال يربط 66fec2d اليتيم — يحتاج re-baseline إلى الشجرة الحية
+      بعد إغلاق (a) و(b) ثم بطارية نظيفة كاملة (P3.2/P3.5 بالترتيب).
+   d) g08-inventory job فشل بنفس فئة (a).
+3. المتوقع: CI على 7caa43f/f94f582 (ما زالا in_progress وقت الكتابة)
+   سيفشلان بنفس الفئات.
+الترتيب الصحيح للجلسة القادمة: (a) تسجيل raw_transport في جرد direct-I/O
+→ (b) تسجيل/تضييق الاستثناءات الواسعة → بطارية محلية targeted على هذه
+الملفات → بطارية كاملة نظيفة عند الطرف الجديد → re-baseline BUILD_INFO
+(كل حقول provenance إلى SHA الطرف + suite_count = started_items) →
+اختبارا P3.4 يخضرّان تلقائيًا → رفعة "Publish v0.48.0 UM-DR-49/50 window"
+(الرسالة النظامية المؤهلة) → CI أخضر بـrun_id على الطرف بالضبط →
+Release v0.48.0 + PUBLICATION.json (main_head/release_tag/ci_run_id/
+release_url) → حزمة download.
