@@ -5,7 +5,6 @@ If runs 5-6 collapse (budget 50, 0 hyps) the trigger is process-level
 accumulation, NOT the brain flag. Pure honest bisection."""
 from __future__ import annotations
 
-import json
 import os
 import sys
 import time

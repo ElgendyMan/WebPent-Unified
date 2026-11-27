@@ -159,11 +159,11 @@ def test_battery_import_mutation_is_exactly_the_declared_expansion() -> None:
     assert mirror not in set(live_tenant["must_not_confirm"]), (
         "the mirror path must not be in must_not after the declared "
         "expansion (the battery removes exactly it)")
-    _ORIGINAL_MUST_NOT = {
+    original_must_not = {
         "/api/tenant/profiles/PROF-T1-11", "/api/tenants",
         "/api/tenant-docs", "/api/session",
     }
     assert set(live_tenant["must_not_confirm"]) == (
-        _ORIGINAL_MUST_NOT - {mirror}), (
+        original_must_not - {mirror}), (
         "the must_not set changed beyond the single declared removal"
     )

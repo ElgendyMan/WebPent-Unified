@@ -105,9 +105,8 @@ def run_child(app: str, url: str, run: int, arm: str,
         except OSError:
             pass
     from webpent.production.research_memory_store import (
-        _memory_path, load_research_memory,
+        load_research_memory,
     )
-    mem_path = _memory_path(url, None)
     mem_before = load_research_memory(url) or {}
 
     summary = run_unified_hunt(
@@ -204,7 +203,8 @@ def main() -> int:
             f"{rec['findings_confirmed']} hyps={rec['hypotheses_total']} "
             f"flag_verified={rec['brain_flag_verified_in_process']} "
             f"rankFP={rec['rank_fingerprint_sha256']} "
-            f"gov_req={rec['governor_snapshot']['requests_last_minute']}/{rec['governor_snapshot']['requests_per_minute']} "
+            f"gov_req={rec['governor_snapshot']['requests_last_minute']}"
+            f"/{rec['governor_snapshot']['requests_per_minute']} "
             f"elapsed={rec['elapsed_s']}s")
         return 0
 

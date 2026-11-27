@@ -19,7 +19,8 @@ ACCEPTANCE = {
         "determinism": "3/3 runs متطابقة (reproducible_tp=true)",
         "negative_controls": "fixtures آمنة: صفر تأكيد (must_not + secure variant)",
         "fp": 0,
-        "causalguard": "التأكيد عبر confirm_lane_finding حصرًا (CausalGuard) + promotion.py بمُتحقق replay ناجح",
+        "causalguard": "التأكيد عبر confirm_lane_finding حصرًا (CausalGuard) "
+                       "+ promotion.py بمُتحقق replay ناجح",
         "replay": "reproducible_tp=true (إعادة التشغيل الموثقة)",
         "integration": "داخل الحملة الرسمية (run_unified_hunt، lanes ON)",
         "status": "VERIFIED",

@@ -203,8 +203,6 @@ def main() -> int:
             m["vuln_fn_mirror"] = 0
 
     # the corrected cost lines (each denominator spelled out)
-    tp_total_original = sum(m["vuln_tp_original"] for m in per_family.values())
-    tp_total_mirror = sum(m["vuln_tp_mirror"] for m in per_family.values())
     cost_lines = {
         "vulnerable_runs_only": {
             "requests": totals["vuln_requests"],

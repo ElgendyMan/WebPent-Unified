@@ -18,7 +18,6 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "scripts"))
 sys.path.insert(0, str(REPO / "src"))
 
-import umdr48_chain_labs as chain_labs  # noqa: E402
 
 # the 19-field contract (the window's mission, verbatim order)
 FIELDS_19 = [
@@ -51,13 +50,14 @@ def main() -> int:
                       "families/promotion.py with a passed verification")
 
     from webpent.production.finding_report_generator import (
-        generate_finding_report, render_finding_report_markdown,
+        generate_finding_report,
+        render_finding_report_markdown,
     )
     report = generate_finding_report(finding)
     md = render_finding_report_markdown(report)
 
     flat = {
-        **{k: v for k, v in report["identity"].items()},
+        **dict(report["identity"].items()),
         "business_impact": report["impact"]["business_impact"],
         "cvss_score": report["impact"]["cvss_score"],
         **{k: v for k, v in report["why_discovered"].items()},
