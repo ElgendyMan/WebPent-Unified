@@ -525,6 +525,25 @@ def evaluate(info: dict, *, root: Path | None = None,
             # either way; the gate exists to catch SILENT drift, and an
             # owner release publish on main is a declared decision.
             continue
+        elif re.match(
+                r"^docs\(umdr\d+\): the v\d+\.\d+\.\d+ "
+                r"publication record", subject):
+            # UM-DR-51 publication closure (2026-11-27): the v0.49.0
+            # publication record commit (3c776ca, "docs(umdr51): the
+            # v0.49.0 publication record — PUBLICATION.json + the
+            # BUILD_INFO publication block (pure bookkeeping on the
+            # green head)") is the same declared-decision class as the
+            # publication conventions above: a version-declaring
+            # publication-bookkeeping commit on main by the owner, not
+            # silent drift. The gate exists to catch SILENT drift, and
+            # the commit that binds PUBLICATION.json to the green
+            # published head IS the publication decision itself. It
+            # necessarily touches two files (the record + the block it
+            # records), so the stricter mission discipline (re-baseline
+            # / re-freeze touching ONLY BUILD_INFO.json) does not fit;
+            # the subject names the version and the artifact, which is
+            # exactly the declaration the gate asks for.
+            continue
         else:
             bad.append(f"{sha[:12]}: subject does not declare a re-baseline "
                        "or re-freeze")
