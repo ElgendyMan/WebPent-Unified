@@ -1,29 +1,29 @@
 {
   "build_name": "WebPent v15.2 (unified)",
-  "build_date": "2026-11-26T11:17:49.037337+00:00",
+  "build_date": "2026-11-27T09:56:23.190610+00:00",
   "version_identity_contract": {
     "note": "UM-DR-32 \u00a73.4 \u2014 every identity field below is UNAMBIGUOUS. The single-source-of-truth for the package version is pyproject.toml + CHANGELOG.md. build_name is the legacy v-lineage delivery label, kept for lineage only.",
     "historical_merge_baseline": "0.34.0 (the UNIFIED merge line, 2026-11-02 \u2014 historical record, NOT the current version)",
-    "package_version": "0.48.0",
+    "package_version": "0.49.0",
     "package_version_ssot": [
       "pyproject.toml",
       "CHANGELOG.md"
     ],
     "legacy_delivery_label": "WebPent v15.2 (unified) \u2014 lineage label only, never a version claim",
     "previous_release": {
-      "label": "v0.39.0-UMDR33",
-      "package_version": "0.39.0",
+      "label": "v0.48.0-UMDR50",
+      "package_version": "0.48.0",
       "branch": "features/v0.39.0-umdr33",
-      "source_revision": "4795f02377373a1a2dc4d3376987f7702cd24bf6",
+      "source_revision": "e7c5e3ab71edb88fee7d7ab97f8206bb6cbca0e5",
       "provenance": "UM-DR-33 public feature branch. The branch shipped pyproject/__init__ at 0.39.0 while BUILD_INFO.json's version_identity_contract retained 0.38.0 and suite_count 8990 \u2014 the exact inconsistency UM-DR-34 \u00a710 was chartered to fix. The 8990 claim could not be reproduced on the baseline (actual unique node IDs: 8958; the UM-DR-24 release gate test failed on the baseline for precisely this reason). Recorded as a historical claim, corrected from 0.40.0 onward."
     },
     "current_release": {
-      "package_version": "0.48.0",
-      "window": "0.48.0 release line: UM-DR-49 the real-ground window \u2014 owner-approved labs (Juice Shop v20.4.0 / WebGoat v2023.5 / DVWA source), public truth catalogs, three real engine defects found-and-fixed (scope port boundary, evolution info_gain crash, inherited zero-knowledge contamination), the zero-knowledge grep-gate, W1-W3 measurements (REAL_BASELINE/GAP_TAXONOMY/REAL_DELTA/W3), and the honest VIP-Ultimate verdict (NOT granted: 0/25 independently confirmed; numbered gaps in deliverables/umdr49/VIP_ULTIMATE_CERTIFICATION.md)",
-      "source_revision": "8d2032dc774f8aed3cd3c4e79247e62345fca687",
+      "package_version": "0.49.0",
+      "window": "0.49.0 release line: UM-DR-51 the convergence & ascension window \u2014 the brain measured honestly OFF/ON on the field (pool +2 deterministic, no rank/outcome change), the unified loop through the official CLI entrypoint, the family acceptance machine (5/6 families recall 1.0 / FP=0 / deterministic after the inherited promotion-origin regression found-and-fixed: recall 0.222->0.889, fp 18->0, cost 986->246), the 19-field report verified 19/19, the meters corrected from the raw records with declared denominators, GT-integrity armed. Six real production defects found-and-fixed. The honest verdict: gaps declared by number and item (FINAL_ACCEPTANCE_MATRIX)",
+      "source_revision": "ee4832626ebeade9a3d9bb396bdadeb133cff5aa",
       "python_floor": ">=3.11 (pyproject.toml)",
       "python_tested": "3.12.16",
-      "provenance_note": "UMDR42 closure reconciliation: current release identity is this closure revision; test accounting is the machine record of the current-run full suite (62 failures all proven pre-existing on the published 5a7e511 baseline via byte-identical failure-set diff)"
+      "provenance_note": "UM-DR-51 re-freeze: the battery on a clean tree at ee48326 (9947/9947/9927/7 \u2014 the seven are the re-bind gates, satisfied by the 9aa79d1 re-bind commit); current release identity is this re-freeze revision line"
     },
     "release_history": [
       {
@@ -108,9 +108,9 @@
     "authority": "cqa_v2.guarded_causal_evaluate / CausalGuard remains the SOLE confirmation authority; ProofBundle generation and replay verification remain mandatory; negative controls unchanged",
     "m10": "CLOSED \u2014 independent holdout BLOCKED_EXTERNAL_DEPENDENCY (unchanged; UM-DR-32 evaluation is a controlled local engineering evaluation, NOT independent validation)"
   },
-  "suite_evidence": "current-run full-suite evidence on this branch tip: UM-DR-50 W3 provenance re-bind battery \u2014 9938 collected / 9938 started (v3 started_items, invariants_all_true, cross-check all_agree) / 9925 passed / 2 failed \u2014 the two failures are the branch-ancestry gates holding the PREVIOUS binding (3daf15d, cut from the ancestry by the law-4 correction), satisfied BY THIS re-bind commit; one collection-phase skip explains the v2 executed=9939 vs v3 started_items=9938 disagreement (v3-explained per the gate contract); durable machine record at deliverables/umdr50_closure/FULL_SUITE_EVIDENCE.json (tree_clean=TRUE at 8d2032d)",
-  "package_version": "0.48.0",
-  "suite_count": 9938,
+  "suite_evidence": "current-run full-suite evidence on this branch tip: UM-DR-51 v0.49.0 re-freeze battery at ee48326 (tree_clean=TRUE) \u2014 9947 collected / 9947 started (v3 started_items, invariants_all_true, cross-check all_agree) / 9927 passed / 7 failed \u2014 the seven failures are the re-bind gates themselves (the G02 inventory drift from the window's four edited files \u2014 regenerated by scripts/regen_direct_io_inventory_umdr51.py, pin UNCHANGED 29/25 \u2014 plus the version-source and BUILD_INFO-binding gates for 0.48.0->0.49.0), satisfied BY THIS re-bind commit; accounting_consistent per the \u00a76 contract",
+  "package_version": "0.49.0",
+  "suite_count": 9947,
   "umdr34": {
     "window": "UM-DR-34 scope authority, safe egress & execution governance",
     "version": "0.40.0",
@@ -135,17 +135,17 @@
   },
   "provenance": {
     "schema": "umdr36-1-provenance-v1",
-    "source_revision": "8d2032dc774f8aed3cd3c4e79247e62345fca687",
-    "tested_revision": "8d2032dc774f8aed3cd3c4e79247e62345fca687",
-    "evidence_revision": "8d2032dc774f8aed3cd3c4e79247e62345fca687",
+    "source_revision": "ee4832626ebeade9a3d9bb396bdadeb133cff5aa",
+    "tested_revision": "ee4832626ebeade9a3d9bb396bdadeb133cff5aa",
+    "evidence_revision": "ee4832626ebeade9a3d9bb396bdadeb133cff5aa",
     "recovery_baseline": "1968f63c2076b1b804537f91cd5cfa01c3eee0bb",
-    "package_version": "0.48.0",
+    "package_version": "0.49.0",
     "manifest_digest": "64713a424d3b8ea4cbae2658376e025353e2fd17cabccd88b8dfc519e4ad88e7",
-    "build_date": "2026-11-26T11:17:49.037337+00:00",
+    "build_date": "2026-11-27T09:56:23.190610+00:00",
     "publication": {
-      "published": true,
-      "release_tag": "v0.48.0",
-      "note": "v0.48.0 published from main on the UM-DR-50 W3 re-bind commit (the governed raw-transport contract + the confirmation-authority closure + the full re-freeze + the living-tip provenance binding); the battery evidence binds 8d2032d, this commit binds it.",
+      "published": false,
+      "release_tag": "v0.49.0",
+      "note": "v0.49.0 publication in progress from main on the UM-DR-51 re-bind: CI green on the exact tip -> tag -> Release + PUBLICATION.json (the window-50 e7c5e3a pattern)",
       "ci_run_id": 45809508777,
       "ci_run_url": "https://github.com/ElgendyMan/WebPent-Unified/actions/runs/45809508777",
       "ci_head": "e7c5e3ab71edb88fee7d7ab97f8206bb6cbca0e5",
@@ -153,15 +153,15 @@
       "recorded_at": "2026-11-26T12:01:03.226687+00:00"
     },
     "test_accounting": {
-      "passed": 9925,
-      "failed": 2,
-      "skipped": 9,
+      "passed": 9927,
+      "failed": 7,
+      "skipped": 11,
       "xfailed": 3,
       "xpassed": 0,
       "deselected": 0,
       "errors": 0,
-      "collected": 9938,
-      "executed": 9939,
+      "collected": 9947,
+      "executed": 9948,
       "accounting_consistent": 0,
       "summary_found": 1
     },

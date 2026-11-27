@@ -1907,3 +1907,30 @@ accounting_v3.started_items per the §6 contract.
 - everything else is GREEN locally and in CI's g08 job on this tree
   (frozen 646+, G02 4/4, exceptions, honesty gate PASS, resurrect,
   publication integrity minus the self-referential bind).
+
+## 2026-11-26 — UM-DR-51: the convergence & ascension window (v0.49.0)
+
+UM-DR-51 declared window on the green v0.48.0 base (26b2dea): the
+brain measured honestly OFF/ON on the field, the unified loop through
+the official CLI entrypoint, the family acceptance machine with the
+meters corrected from the raw records, and six real production
+defects found-and-fixed by the window's own protocols. Production
+thaws this window (both files were already in declared delta-mode
+thaw sets): config/settings.py (the brain flag's env reachability —
+validation_alias AliasChoices, the documented env var was UNREACHABLE
+before) and production/modern_spine_integration.py (the console-script
+entrypoint derivation — the official `webpent` CLI crashed with
+ProductionSpineError before). Non-frozen production fixes:
+families/promotion.py (origin_url — the window-50-inherited loss of
+the real campaign origin on promoted findings) and
+cli/unified_hunt.py (severity in findings_detail). Regression proofs:
+tests/test_umdr51_promotion_origin.py (5) +
+tests/test_umdr51_gt_integrity.py (4, the GT-integrity pins) +
+targeted suites 962/415/280/15 green. The window's measured recovery:
+family battery recall 0.222→0.889, FP 18→0, cost 986→246
+requests/finding (the raw-record evidence under
+deliverables/umdr51/). The window's durable verdict:
+deliverables/umdr51/FINAL_ACCEPTANCE_MATRIX.json (gaps declared by
+number and item — no ultimate-production-readiness claim while a
+mandatory gate is open). BUILD_INFO suite_count = the battery's
+accounting per the §6 contract, re-frozen onto the v0.49.0 tip.

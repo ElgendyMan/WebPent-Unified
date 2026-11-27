@@ -628,7 +628,7 @@
     "unapproved_raw_transport": 27,
     "total_records": 1226,
     "files_scanned": 288,
-    "records": 1268
+    "records": 1269
   },
   "dynamic_import_allowlist": [
     {
@@ -681,8 +681,8 @@
       ]
     }
   ],
-  "generated_at": "2026-11-26T08:18:39Z",
-  "generated_from": "canonical AST scan of src \u2014 regenerated UM-DR-49 W2.1 (2026-11-25, real-ground window) (DR-009 protocol) \u2014 regenerated UM-DR-49 W2.1 (2026-11-25, real-ground window) (DR-009 protocol) \u2014 regenerated UM-DR-50 W1 (2026-11-26) (DR-009 protocol)",
+  "generated_at": "2026-11-27T09:55:10Z",
+  "generated_from": "canonical AST scan of src \u2014 regenerated UM-DR-49 W2.1 (2026-11-25, real-ground window) (DR-009 protocol) \u2014 regenerated UM-DR-49 W2.1 (2026-11-25, real-ground window) (DR-009 protocol) \u2014 regenerated UM-DR-50 W1 (2026-11-26) (DR-009 protocol) \u2014 regenerated UM-DR-51 v0.49.0-window (2026-11-26)",
   "logical_transports": {
     "api": {
       "authority": "API testing action family and target-origin scope",
@@ -740,7 +740,7 @@
       "proof": "bounded handshake/response observation plus strict verifier"
     }
   },
-  "record_count": 1268,
+  "record_count": 1269,
   "regen_history": [
     {
       "added": [
@@ -1199,6 +1199,17 @@
       ],
       "unapproved_pin_before": 31,
       "unapproved_pin_after": 29
+    },
+    {
+      "at": "2026-11-27T09:55:10Z",
+      "window": "UM-DR-51 v0.49.0-window (2026-11-26)",
+      "reason": "UM-DR-51: the promotion-origin getattr (access_control:1604, ONE new non-transport dynamic_resolution identity) + line-number drift in the window's four edited files (unified_hunt severity field, promotion origin_url contract, modern_spine_integration console-script derivation). Unapproved pin UNCHANGED (29 -> 29).",
+      "records_before": 1268,
+      "records_after": 1269,
+      "added_unique": 11,
+      "removed_unique": 10,
+      "unapproved_pin_before": 29,
+      "unapproved_pin_after": 29
     }
   ],
   "regen_reason": "umdr44 window regen: B6(b) added the fail-closed verify_target_tls getattr read in shared/h2_race.py and the B2 identity-thread state work carried getattr(record, ...) reads in state/reducers.py \u2014 both dynamic_resolution (non-transport) additions only; ZERO removals",
@@ -1526,6 +1537,19 @@
       "kind": "dynamic_resolution",
       "symbol": "getattr",
       "normalized_symbol": "getattr(target, ... )",
+      "transport": "dynamic_resolution",
+      "transport_family": "non_transport",
+      "classification": "dynamic_resolution",
+      "approval_status": "not_applicable",
+      "reason": "dynamic attribute access observed without a transport signal"
+    },
+    {
+      "file": "src/webpent/agents/access_control/agent.py",
+      "line": 1604,
+      "column": 44,
+      "kind": "dynamic_resolution",
+      "symbol": "getattr",
+      "normalized_symbol": "getattr(_promoted, ... )",
       "transport": "dynamic_resolution",
       "transport_family": "non_transport",
       "classification": "dynamic_resolution",
@@ -6591,7 +6615,7 @@
     },
     {
       "file": "src/webpent/cli/unified_hunt.py",
-      "line": 410,
+      "line": 415,
       "column": 18,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -6604,7 +6628,7 @@
     },
     {
       "file": "src/webpent/cli/unified_hunt.py",
-      "line": 445,
+      "line": 450,
       "column": 27,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -6617,7 +6641,7 @@
     },
     {
       "file": "src/webpent/cli/unified_hunt.py",
-      "line": 450,
+      "line": 455,
       "column": 31,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -6630,7 +6654,7 @@
     },
     {
       "file": "src/webpent/cli/unified_hunt.py",
-      "line": 556,
+      "line": 561,
       "column": 9,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -6643,7 +6667,7 @@
     },
     {
       "file": "src/webpent/cli/unified_hunt.py",
-      "line": 575,
+      "line": 580,
       "column": 27,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -6656,7 +6680,7 @@
     },
     {
       "file": "src/webpent/cli/unified_hunt.py",
-      "line": 650,
+      "line": 655,
       "column": 38,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -7124,7 +7148,7 @@
     },
     {
       "file": "src/webpent/families/promotion.py",
-      "line": 108,
+      "line": 130,
       "column": 21,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -7137,7 +7161,7 @@
     },
     {
       "file": "src/webpent/families/promotion.py",
-      "line": 114,
+      "line": 136,
       "column": 13,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -7150,7 +7174,7 @@
     },
     {
       "file": "src/webpent/families/promotion.py",
-      "line": 133,
+      "line": 155,
       "column": 18,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -7163,7 +7187,7 @@
     },
     {
       "file": "src/webpent/families/promotion.py",
-      "line": 138,
+      "line": 160,
       "column": 40,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -12155,7 +12179,7 @@
     },
     {
       "file": "src/webpent/production/modern_spine_integration.py",
-      "line": 282,
+      "line": 301,
       "column": 23,
       "kind": "dynamic_resolution",
       "symbol": "getattr",

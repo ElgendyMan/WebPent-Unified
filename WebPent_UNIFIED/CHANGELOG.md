@@ -1,3 +1,39 @@
+## [0.49.0] — UM-DR-51 (2026-11-26)
+
+The convergence & ascension window on the green v0.48.0 base: the
+brain measured honestly OFF/ON on the field, the unified loop through
+the official CLI entrypoint, the family acceptance machine with the
+meters corrected from the raw records, and the six real production
+defects found-and-fixed by the window's own protocols.
+
+> **Six REAL engine defects found-and-fixed (each measured):**
+> (1) the brain flag's documented env var WEBPENT_ENABLE_BRAIN_ENGINE
+> was UNREACHABLE (no env_prefix, no validation_alias — the env path
+> was never exercised end-to-end; tests bypassed the seam); (2) the
+> official `webpent` console script crashed with ProductionSpineError
+> — the entrypoint could not derive ITS OWN identity; (3) promotions
+> lost the real campaign origin (synthetic host) — the inherited
+> window-50 regression that broke anchor attribution: recall
+> 0.222→0.889, FP 18→0, cost 986→246 requests/finding; (4) severity
+> dropped from findings_detail/attribution; (5) silent blanks in the
+> finding report replaced by explicit not-recorded markers; (6) the
+> family battery mutated the shared GT at import (the live-measured
+> independence violation — GT-integrity tests now pin the truth).
+>
+> **The honest verdict (FINAL_ACCEPTANCE_MATRIX):** the unified loop
+> runs end-to-end through the official entrypoint; 5/6 families
+> recall 1.0 / FP=0 / deterministic on the authorized fixture labs;
+> the 19-field professional report verified 19/19 on a real confirmed
+> finding; cost corrected from the raw 36 campaigns with declared
+> denominators (77.6 vulnerable-only / 155.4 full battery vs the 233
+> claim). Gaps declared by number and item: the brain's measured
+> delta is pool-enrichment only (+2 hypotheses, deterministic); W6
+> lesson extraction still emits zero; redirect tp 1/2 anchors
+> (integration gap); zero confirmations on the real apps in standard
+> mode (candidates only); WebGoat behind the auth wall; DVWA BLOCKED
+> in-sandbox. NO ultimate-production-readiness claim while a
+> mandatory gate is open.
+
 ## [0.48.0] — UM-DR-49 (2026-11-25)
 
 The real-ground window: the owner-approved labs (OWASP Juice Shop

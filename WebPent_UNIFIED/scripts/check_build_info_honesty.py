@@ -94,11 +94,19 @@ _PUB_LAYOUT = (ROOT.parent / "deliverables").is_dir()
 # living revision), then umdr49_closure (its 66fec2d binding is the
 # orphaned-commit break this window's P0.1 audit documented), then the
 # umdr42_closure record, then the umdr38 fallback.
+# UM-DR-51 (2026-11-26): the durable record follows the LATEST window —
+# umdr51_closure (the v0.49.0 re-freeze battery on a clean tree at
+# ee48326, the seven failures being the re-bind gates themselves,
+# satisfied by the 9aa79d1 re-bind commit), then the umdr50_closure
+# record, then the umdr42_closure record, then the umdr38 fallback.
 _LATEST_CLOSURE = ((ROOT.parent if _PUB_LAYOUT else ROOT) / "deliverables"
-                   / "umdr50_closure" / "FULL_SUITE_EVIDENCE.json")
+                   / "umdr51_closure" / "FULL_SUITE_EVIDENCE.json")
+_LATEST_CLOSURE_FALLBACK = ((ROOT.parent if _PUB_LAYOUT else ROOT) / "deliverables"
+                            / "umdr50_closure" / "FULL_SUITE_EVIDENCE.json")
 _CLOSURE_EVIDENCE = (_LATEST_CLOSURE if _LATEST_CLOSURE.is_file() else (
-    (ROOT.parent if _PUB_LAYOUT else ROOT) / "deliverables"
-    / "umdr42_closure" / "FULL_SUITE_EVIDENCE.json"))
+    _LATEST_CLOSURE_FALLBACK if _LATEST_CLOSURE_FALLBACK.is_file() else (
+        (ROOT.parent if _PUB_LAYOUT else ROOT) / "deliverables"
+        / "umdr42_closure" / "FULL_SUITE_EVIDENCE.json")))
 _UMDR38_EVIDENCE_DIR = ((ROOT.parent if _PUB_LAYOUT else ROOT) / "deliverables"
                         / "umdr38" / "test_evidence")
 DURABLE_DIR = (

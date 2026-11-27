@@ -244,7 +244,7 @@ def test_release_metadata_consistent() -> None:
     version = [line for line in pyproject.splitlines()
                if line.strip().startswith("version")][0].split('"')[1]
     # UM-DR-49 (v0.48.0): the pinned triple follows the release SSOT
-    assert version == build_info.get("package_version") == "0.48.0"
+    assert version == build_info.get("package_version") == "0.49.0"
 
 
 # --- 27: the remote gates stay honest in the matrix ------------------
