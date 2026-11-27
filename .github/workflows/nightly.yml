@@ -72,7 +72,7 @@ jobs:
       - name: Upload canary evidence
         if: always()
         # same audited SHA pin as the ci.yml evidence upload (v4)
-        uses: actions/upload-artifact@ea165f8d65b6e755540449e92b4886f43607fa02 # v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: canary-evidence
           # actions/upload-artifact does NOT inherit defaults.run.working-
