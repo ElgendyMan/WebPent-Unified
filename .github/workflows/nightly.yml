@@ -71,8 +71,17 @@ jobs:
 
       - name: Upload canary evidence
         if: always()
-        uses: actions/upload-artifact@v4
+        # same audited SHA pin as the ci.yml evidence upload (v4)
+        uses: actions/upload-artifact@ea165f8d65b6e755540449e92b4886f43607fa02 # v4
         with:
           name: canary-evidence
-          path: reports/canary/
+          # actions/upload-artifact does NOT inherit defaults.run.working-
+          # directory (that applies to `run:` steps only) — it resolves from
+          # the workspace root, so the path must carry the project subdir
+          # exactly like the ci.yml full-suite evidence upload does
+          # (WebPent_UNIFIED/...). The unprefixed reports/canary/ made every
+          # nightly run fail at THIS step while the canary itself was green
+          # (7/7 STABLE, e.g. run 45980705842 on 9cd0f07: "No files were
+          # found with the provided path: reports/canary/").
+          path: WebPent_UNIFIED/reports/canary/
           if-no-files-found: error
