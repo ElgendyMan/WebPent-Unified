@@ -1,36 +1,38 @@
 {
-  "schema": "umdr51-final-acceptance-matrix/1.0.0",
-  "generated_at_utc": "2026-11-26T16:23:07.278179+00:00",
-  "gates": {
-    "G1_main_on_publish_chain": "VERIFIED (inherited: 26b2dea <- e7c5e3a, this window on top)",
-    "G2_governed_transport": "VERIFIED (inherited; raw_transport + G02 intact; rate ceiling measured 222/campaign)",
-    "G3_one_confirmation_authority": "VERIFIED (inherited; no new exceptions; 962 spine tests green)",
-    "G4_ci_green_run_id_on_release_head": "PENDING — v0.49.0 publication in progress (PUBLICATION contract v1)",
-    "G5_brain_off_on_delta": "PARTIALLY VERIFIED — pool +2 deterministic, no rank/outcome change; W6 lessons zero (INTEGRATED, NOT E2E-VERIFIED)",
-    "G6_family_acceptance": "PARTIALLY VERIFIED — 5/6 families recall 1.0/FP 0/deterministic; redirect tp 1/2 (integration gap); real apps: candidates only, WebGoat behind auth wall, DVWA BLOCKED",
-    "G7_meter_corrections": "PARTIALLY VERIFIED — 77.6/155.4 vs 233 claimed, declared denominators, ledger reconciled 6/6, GT-integrity 4/4; per-cell/phase meters declared-not-instrumented",
-    "G8_ultimate_readiness": "NOT GRANTED — G5/G6/G7 partially verified, G4 pending; no ultimate-production-readiness claim with any mandatory gate open (first letter of the law)"
-  },
-  "owner_ten_criteria": "1 ok, 2 ok(32/campaign), 3 ok(+2 W4/W5), 4 ok, 5 ok(2 chains e2e), 6 ok, 7 ok(0/6 unconfirmed on real apps - sealed evidence only), 8 ok(governor fail-closed measured), 9 ok(19/19), 10 ok-manual (W6 machine extraction still zero)",
-  "dod_seven": {
-    "intelligence": "PARTIALLY VERIFIED",
-    "detection": "PARTIALLY VERIFIED (5/6)",
-    "autonomy": "VERIFIED within bounds",
-    "security": "VERIFIED (boundaries enforced+measured)",
-    "performance": "PARTIALLY VERIFIED (meters corrected; declared gaps)",
-    "reliability": "VERIFIED (deterministic 3/3 everywhere measured)",
-    "product_readiness": "bounded by the gaps above"
-  },
-  "pre_window_checks": {
-    "nightly_canary": "FAILED on superseded tip 8d2032d (declared, follow-up item)",
-    "main_protection": "BLOCKED by literal attempt (403, documented)"
-  },
-  "real_defects_found_and_fixed_this_window": [
-    "env flag WEBPENT_ENABLE_BRAIN_ENGINE unreachable (no env_prefix/alias) — fixed+verified both polarities",
-    "console-script entrypoint crashed (could not derive itself) — fixed, fail-closed preserved",
-    "promotion lost the real campaign origin (synthetic host) — fixed, recall 0.222->0.889, fp 18->0, cost 986->246",
-    "severity dropped from findings_detail/attribution — fixed at source",
-    "report generator silent blanks — explicit not-recorded markers (schema v2)",
-    "GT mutated at battery import (independence violation measured live) — snapshot defense + GT-integrity test 4/4"
-  ]
+ "schema": "umdr51-final-acceptance-matrix/1.0.0",
+ "generated_at_utc": "2026-11-26T16:23:07.278179+00:00",
+ "gates": {
+  "G1_main_on_publish_chain": "VERIFIED (inherited: 26b2dea <- e7c5e3a, this window on top)",
+  "G2_governed_transport": "VERIFIED (inherited; raw_transport + G02 intact; rate ceiling measured 222/campaign)",
+  "G3_one_confirmation_authority": "VERIFIED (inherited; no new exceptions; 962 spine tests green)",
+  "G4_ci_green_run_id_on_release_head": "VERIFIED (amended 2026-11-27 post-publication: CI SUCCESS run 45980000715 on the exact published head 9cd0f07; tag v0.49.0; release 460474411 — PUBLICATION.json webpent.publication.v1)",
+  "G5_brain_off_on_delta": "PARTIALLY VERIFIED — pool +2 deterministic, no rank/outcome change; W6 lessons zero (INTEGRATED, NOT E2E-VERIFIED)",
+  "G6_family_acceptance": "PARTIALLY VERIFIED — 5/6 families recall 1.0/FP 0/deterministic; redirect tp 1/2 (integration gap); real apps: candidates only, WebGoat behind auth wall, DVWA BLOCKED",
+  "G7_meter_corrections": "PARTIALLY VERIFIED — 77.6/155.4 vs 233 claimed, declared denominators, ledger reconciled 6/6, GT-integrity 4/4; per-cell/phase meters declared-not-instrumented",
+  "G8_ultimate_readiness": "NOT GRANTED — G5/G6/G7 partially verified; no ultimate-production-readiness claim with any mandatory gate open (first letter of the law) [G4 verified 2026-11-27; verdict unchanged]"
+ },
+ "owner_ten_criteria": "1 ok, 2 ok(32/campaign), 3 ok(+2 W4/W5), 4 ok, 5 ok(2 chains e2e), 6 ok, 7 ok(0/6 unconfirmed on real apps - sealed evidence only), 8 ok(governor fail-closed measured), 9 ok(19/19), 10 ok-manual (W6 machine extraction still zero)",
+ "dod_seven": {
+  "intelligence": "PARTIALLY VERIFIED",
+  "detection": "PARTIALLY VERIFIED (5/6)",
+  "autonomy": "VERIFIED within bounds",
+  "security": "VERIFIED (boundaries enforced+measured)",
+  "performance": "PARTIALLY VERIFIED (meters corrected; declared gaps)",
+  "reliability": "VERIFIED (deterministic 3/3 everywhere measured)",
+  "product_readiness": "bounded by the gaps above"
+ },
+ "pre_window_checks": {
+  "nightly_canary": "FAILED on superseded tip 8d2032d (declared, follow-up item)",
+  "main_protection": "BLOCKED by literal attempt (403, documented)"
+ },
+ "real_defects_found_and_fixed_this_window": [
+  "env flag WEBPENT_ENABLE_BRAIN_ENGINE unreachable (no env_prefix/alias) — fixed+verified both polarities",
+  "console-script entrypoint crashed (could not derive itself) — fixed, fail-closed preserved",
+  "promotion lost the real campaign origin (synthetic host) — fixed, recall 0.222->0.889, fp 18->0, cost 986->246",
+  "severity dropped from findings_detail/attribution — fixed at source",
+  "report generator silent blanks — explicit not-recorded markers (schema v2)",
+  "GT mutated at battery import (independence violation measured live) — snapshot defense + GT-integrity test 4/4"
+ ],
+ "amended_at_utc": "2026-11-27T12:11:00.724609+00:00",
+ "amendment_note": "2026-11-27 post-publication bookkeeping: G4 completed by the v0.49.0 publication (PUBLICATION.json bound to CI run 45980000715 on 9cd0f07, release 460474411). The living tip a0a751b had gone red (run 45985348473) because the publication-record commit 3c776ca tripped the build-info provenance gate; fixed at the source at 86ef723 (the publication-record convention qualified per the UM-DR-43C §2.4 precedent) with CI SUCCESS run 45991382017 on it. Measured verdicts unchanged."
 }
