@@ -82,7 +82,6 @@ def main() -> int:
         rank_with_brain,
     )
     from webpent.shared.prioritization import (
-        PrioritizationAction,
         rank_open_hypotheses,
         recommend_action,
     )
@@ -92,7 +91,7 @@ def main() -> int:
     # ---- OFF arm: legacy ranking + legacy decisions ----------------
     off_ranked = rank_open_hypotheses(pool, state)
     off_rows, off_actions = [], {}
-    for hyp, score in off_ranked:
+    for hyp, _score in off_ranked:
         action, sval, rule = recommend_action(hyp, state, priority_score=None)
         target = str(getattr(hyp, "target_url", ""))
         off_actions[target] = action

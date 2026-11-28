@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""UM-DR-52 W1 (derived from the umdr51 harness — measurement logic byte-identical, outputs isolated) — the brain OFF/ON decision delta (gate G5).
+"""UM-DR-52 W1 — the brain OFF/ON decision delta (gate G5), field arm.
+
+Derived from the umdr51 harness: measurement logic byte-identical,
+outputs isolated to deliverables/umdr52/.
 
 Design (the honest-measurement contract, fixed after the ceiling
 root-cause): ONE campaign per SUBPROCESS — the settings singleton is

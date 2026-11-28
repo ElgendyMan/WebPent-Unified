@@ -36,8 +36,8 @@ JS = "http://127.0.0.1:3000"
 
 
 def _get(url: str, timeout: float = 10.0) -> dict:
-    import urllib.request
     import urllib.error
+    import urllib.request
     try:
         with urllib.request.urlopen(url, timeout=timeout) as r:
             body = r.read()

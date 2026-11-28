@@ -1934,3 +1934,57 @@ deliverables/umdr51/FINAL_ACCEPTANCE_MATRIX.json (gaps declared by
 number and item — no ultimate-production-readiness claim while a
 mandatory gate is open). BUILD_INFO suite_count = the battery's
 accounting per the §6 contract, re-frozen onto the v0.49.0 tip.
+
+## UM-DR-52 window (2026-11-28) — behavioral reasoning + adaptive experimentation
+
+The window's declared drift and re-binds, the window-51 pattern:
+
+- **Code edits (declared):** production/brain_engine.py (the behavioral
+  evidence wiring — ctx.behavioral + estimate_priority_inputs terms +
+  the invariant-spec pool injection), shared/prioritization.py (the
+  brain decision map, priority_score + p/(p+k)), agents/strategist/
+  agent.py (the priority_score handoff — the brain DECIDES, not only
+  orders); TWO NEW src files (researcher/behavioral_layer.py — the
+  fail-safe behavioral layer, pinned NEW; researcher/adaptive_engine.py
+  — the advisory adaptive engine, unpinned by the researcher-package
+  convention). Regression proofs: tests/test_umdr52_w1_behavioral.py
+  (19/19) + tests/test_umdr52_w2_adaptive.py (24/24) + the window's
+  measurement scripts and their raw records under deliverables/umdr52/.
+- **Frozen manifest re-bind (scripts/umdr52_refreeze_manifest.py):**
+  8 declared repins — the three UM-DR-52 edits + the five UM-DR-51
+  declared-thaw stragglers inherited at its close (settings b9b7601,
+  modern_spine 3f5ea05, unified_hunt c5bf5b7, access_control 8db809b,
+  __init__ 7465670 — each verified by the post-publication green CI
+  chain 45991382017..45997282322) + ONE new pin
+  (researcher/behavioral_layer.py, the ACCEPTED_EXCEPTIONS_REGISTER
+  frozen-pin contract). 659 entries; no removals; floor holds.
+- **G02 inventory regen (scripts/umdr52_regen_direct_io_inventory.py):**
+  1269 → 1272 records; 24 added / 21 removed — ALL dynamic_resolution
+  non-transport inside the window's five files; the unapproved pin
+  UNCHANGED (29 -> 29).
+- **Broad-exceptions register:** researcher/behavioral_layer.py — 4
+  fail-safe boundaries ACCEPTED (entry 16); the gate test map updated
+  deliberately.
+- **Version SSOT:** 0.49.0 → 0.50.0 (pyproject + __init__ + Dockerfile
+  ARG + the 36.1 fixture + the 38.1 pinned triple); the root README
+  version line now reads the SSOT (0.40.1 staleness closed).
+- **fixes_applied dedup:** the UMDR42-closure line duplicated 4x in
+  BUILD_INFO — deduplicated to one occurrence at this re-bind
+  (declared, content unchanged).
+- **Known flake instance (honest record):**
+  tests/test_blind_v3_replica.py::test_stateful_prober_confirms_
+  compositional_case failed ONCE in the closing battery under
+  full-suite load and passed 5/5 standalone (the file carries a real
+  time.sleep — the same class as the registered v0.49.0 timing flake);
+  the deterministic-transform follow-up stays open.
+- **The window's durable verdict:**
+  deliverables/umdr52/ — W1_CLOSEOUT/W2_CLOSEOUT (G5 VERIFIED on both
+  surfaces: ORDER on the field + TWO outcome flips on the fixture;
+  the W1→W2 integration VERIFIED), FINDINGS_REGISTER (confirmed=0,
+  honest), FIELD_CAMPAIGN_RECORDS (the wall BLOCKED by declaration,
+  DVWA BLOCKED by environment, the traversal differential
+  byte-identical — recorded, never claimed), LESSONS_LEDGER (six
+  general lessons — the zero-lessons verdict dies),
+  FINAL_ACCEPTANCE_MATRIX (G8 stays NOT GRANTED — G6 items open by
+  name). BUILD_INFO suite_count = the battery's accounting per the
+  §6 contract, re-frozen onto the v0.50.0 tip.

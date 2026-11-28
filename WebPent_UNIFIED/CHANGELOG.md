@@ -1,3 +1,32 @@
+## [0.50.0] — UM-DR-52 (2026-11-28)
+
+The behavioral & adaptive window on the green v0.49.0 base: a brain
+that changes decisions (measured), an adaptive experimentation engine
+that learns from failure, and the honest field record.
+
+- W1 behavioral reasoning: the state-transition/business-logic layer
+  over the SKG with invariant mining and contradiction detection; the
+  brain consumes it (EIG/confidence/impact terms) and DECIDES through
+  the priority map — OFF/ON measured on two labs: ORDER changed on
+  Juice Shop (3 deterministic runs/arm) and TWO decisions flipped on
+  the approved fixture (defer→abandon, /api/transfer + /api/profile).
+  Pool-only was never claimed (G5 VERIFIED on both surfaces).
+- W2 adaptive experimentation: the eight-state lifecycle VIEW measured
+  after the actual reducer, the experiment ledger with fail-closed
+  failure-cause recording and the repeat-guard QC, identity-safe
+  parallelism, measured per-family economics; the W1→W2 integration
+  VERIFIED (behavioral backing reorders the full rank and flips the
+  k=3 selection membership). 24/24 new tests.
+- W3 field honesty: the auth wall BLOCKED by the owner's declared
+  GET-only constraint (no login POST sent); DVWA BLOCKED on the
+  recorded environment attempt; Juice Shop 0 confirmed in standard
+  mode — recorded, never claimed; six real lessons extracted
+  (the zero-lessons verdict dies).
+- Housekeeping: the UMDR42 fixes_applied duplication deduplicated,
+  the frozen manifest re-bound (8 declared repins + 1 new pin), the
+  G02 inventory regenerated with gates (1269→1272, pin 29/25
+  UNCHANGED), the root README version line now derives from the SSOT.
+
 ## [0.49.0] — UM-DR-51 (2026-11-26)
 
 The convergence & ascension window on the green v0.48.0 base: the

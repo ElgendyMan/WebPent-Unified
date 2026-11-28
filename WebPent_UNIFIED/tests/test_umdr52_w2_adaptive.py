@@ -22,16 +22,15 @@ creation, no CausalGuard/ProofBundle/Replay bypass.
 from __future__ import annotations
 
 from typing import Any
-
-import pytest
 from uuid import NAMESPACE_URL, uuid5
 
-from tests.test_umdr46_phase_a_skg import BASE, _lab_state
+import pytest
 
+from tests.test_umdr46_phase_a_skg import BASE
 from webpent.researcher.adaptive_engine import (
+    LIFECYCLE_STATES,
     ExperimentLedger,
     ExperimentRecord,
-    LIFECYCLE_STATES,
     experiment_economics,
     lifecycle_of,
     partition_safe_parallel,
@@ -77,10 +76,9 @@ class TestLifecycleView:
 
     def test_open_statuses_map_open(self) -> None:
         from webpent.models.hypothesis import HypothesisStatus
-        for st in (HypothesisStatus.UNEXPLORED, HypothesisStatus.INVESTIGATING):
-            assert lifecycle_of(_mk("a", "idor", 0.5, BASE)) == "open" or True
-        # status lives on the object; check via the raw enum path
         h = _mk("a", "idor", 0.5, BASE)
+        assert h.status in (HypothesisStatus.UNEXPLORED,
+                            HypothesisStatus.INVESTIGATING)
         assert lifecycle_of(h) == "open"
 
     def test_terminal_status_beats_live_action(self) -> None:
@@ -272,6 +270,7 @@ class TestAuthorityIsolation:
 
     def test_engine_is_pure_in_memory(self) -> None:
         import inspect
+
         from webpent.researcher import adaptive_engine as ae
         src = inspect.getsource(ae)
         # no network / execution / persistence primitives in the module

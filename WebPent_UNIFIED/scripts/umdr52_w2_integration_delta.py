@@ -37,7 +37,7 @@ if str(REPO) not in sys.path:
 
 def _pool_plans():
     """The approved-lab pool as experiment plans (differential triples)."""
-    from tests.test_umdr46_phase_a_skg import BASE, _lab_state
+    from tests.test_umdr46_phase_a_skg import BASE
     from webpent.production.hypothesis_adapter import canonical_hypothesis
 
     def mk(hid: str, vc: str, conf: float, target: str, ig: float | None):
@@ -76,17 +76,21 @@ def _pool_plans():
 
 def main() -> int:
     from tests.test_umdr46_phase_a_skg import _lab_state
-    from webpent.researcher.adaptive_engine import (
-        ExperimentLedger, ExperimentRecord,
-        experiment_economics, select_adaptive,
-    )
-    from webpent.researcher.experiment_planner import plan_experiments
     from webpent.appmodel.skg import build_security_knowledge_graph
     from webpent.production.brain_engine import (
-        build_brain_context, estimate_priority_inputs, priority_formula,
+        build_brain_context,
+        estimate_priority_inputs,
+        priority_formula,
     )
+    from webpent.researcher.adaptive_engine import (
+        ExperimentLedger,
+        ExperimentRecord,
+        experiment_economics,
+        select_adaptive,
+    )
+    from webpent.researcher.experiment_planner import plan_experiments
 
-    plans, BASE = _pool_plans()
+    plans, base = _pool_plans()
     planner_plans = plan_experiments(
         build_security_knowledge_graph(_lab_state()))
 
@@ -114,15 +118,17 @@ def main() -> int:
     order_changed = off_ranked != on_ranked
     selection_changed = off_sel != on_sel
 
+    from tests.test_umdr46_phase_a_skg import BASE as _FIXTURE_BASE
     paths = {p["plan_id"]: str(p["target"]["endpoint_path"]) for p in plans}
     backing_rows = {
         paths[pid]: [round(v, 4) for v in ctx.behavioral.backing_for(
             paths[pid] if paths[pid].startswith("http")
-            else f"{BASE}{paths[pid].rsplit('/', 1)[0]}")]
+            else f"{_FIXTURE_BASE}{paths[pid].rsplit('/', 1)[0]}")]
         for pid in on_ranked[:1]}
     backing_rows.update({
         paths[pid]: [round(v, 4) for v in ctx.behavioral.backing_for(
-            paths[pid] if paths[pid].startswith("http") else f"{BASE}{paths[pid]}")]
+            paths[pid] if paths[pid].startswith("http")
+        else f"{_FIXTURE_BASE}{paths[pid]}")]
         for pid in paths})
 
     verdict = {
@@ -142,10 +148,12 @@ def main() -> int:
         "rank_order_changed": order_changed,
         "selection_changed": selection_changed,
         "planner_surface_note": (
-            "plan_experiments on this fixture emits %d plans — the "
+            "plan_experiments on this fixture emits {} plans — the "
             "top-k membership cannot flip with a 2-plan pool; the pool "
-            "surface above is the measured integration surface."
-            % len(planner_plans)),
+            f"plan_experiments on this fixture emits {len(planner_plans)} "
+            "plans — the top-k membership cannot flip with a 2-plan "
+            "pool; the pool surface above is the measured integration "
+            "surface."),
         "integration": {
             "question": "does the W1 behavioral evidence, through the W3 "
                         "formula, change WHICH experiments W2 selects "

@@ -17,7 +17,7 @@
 
 ## النسخة الحالية
 
-**0.40.1** — راجع [`WebPent_UNIFIED/CHANGELOG.md`](WebPent_UNIFIED/CHANGELOG.md)
+**0.50.0** — راجع [`WebPent_UNIFIED/CHANGELOG.md`](WebPent_UNIFIED/CHANGELOG.md)
 و[`WebPent_UNIFIED/BUILD_INFO.json`](WebPent_UNIFIED/BUILD_INFO.json).
 
 ## التثبيت (من clone نظيف)

@@ -95,8 +95,8 @@ class TestA1StateMachine:
         assert m.entry_states == ("pending",)
 
     def test_skip_transition_recorded_with_its_boundary(self) -> None:
-        from webpent.researcher.behavioral_layer import extract_state_machine
         from webpent.appmodel.skg import build_security_knowledge_graph
+        from webpent.researcher.behavioral_layer import extract_state_machine
         m = extract_state_machine(build_security_knowledge_graph(_lab_state()))[0]
         direct = [t for t in m.transitions if t.transition_key == "fasttrack"]
         assert len(direct) == 1
@@ -106,11 +106,11 @@ class TestA1StateMachine:
         assert t.evidence_refs == ("wf-3",)
 
     def test_five_questions_answered_by_measurement(self) -> None:
+        from webpent.appmodel.skg import build_security_knowledge_graph
         from webpent.researcher.behavioral_layer import (
             answer_five_questions,
             extract_state_machine,
         )
-        from webpent.appmodel.skg import build_security_knowledge_graph
         model = build_security_knowledge_graph(_lab_state())
         answers = answer_five_questions(extract_state_machine(model), model)
         assert len(answers) == 5
@@ -136,11 +136,11 @@ class TestA1StateMachine:
             assert a.evidence_refs, f"{a.question_id} carries no evidence"
 
     def test_answers_deterministic(self) -> None:
+        from webpent.appmodel.skg import build_security_knowledge_graph
         from webpent.researcher.behavioral_layer import (
             answer_five_questions,
             extract_state_machine,
         )
-        from webpent.appmodel.skg import build_security_knowledge_graph
         model = build_security_knowledge_graph(_lab_state())
         first = answer_five_questions(extract_state_machine(model), model)
         second = answer_five_questions(extract_state_machine(model), model)
@@ -153,8 +153,8 @@ class TestA1StateMachine:
 
 class TestA2Invariants:
     def _specs(self) -> list:
-        from webpent.researcher.behavioral_layer import mine_invariant_hypotheses
         from webpent.appmodel.skg import build_security_knowledge_graph
+        from webpent.researcher.behavioral_layer import mine_invariant_hypotheses
         return mine_invariant_hypotheses(
             build_security_knowledge_graph(_lab_state()))
 
@@ -209,11 +209,11 @@ class TestA2Invariants:
     def test_empty_model_mines_nothing(self) -> None:
         # fail-closed: no evidence ⇒ no specs, no behavioral signals —
         # the layer never invents a hypothesis from nothing
+        from webpent.appmodel.skg import build_security_knowledge_graph
         from webpent.researcher.behavioral_layer import (
             behavioral_ranking_evidence,
             mine_invariant_hypotheses,
         )
-        from webpent.appmodel.skg import build_security_knowledge_graph
         model = build_security_knowledge_graph({"crawled_data": {}})
         assert mine_invariant_hypotheses(model) == []
         ev = behavioral_ranking_evidence(model)

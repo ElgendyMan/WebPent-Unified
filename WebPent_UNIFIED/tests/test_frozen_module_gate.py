@@ -1731,6 +1731,12 @@ def test_baseline_disagrees_only_on_documented_unfreeze_paths() -> None:
         # scripts/refreeze_manifest_umdr50.py; regression proof:
         # tests/test_umdr50_raw_transport_adversarial.py (10/10).
         | {"src/webpent/shared/raw_transport.py"}
+        # UM-DR-52 W1 (2026-11-28): the behavioral layer joins the
+        # frozen set — new pin by scripts/umdr52_refreeze_manifest.py;
+        # the ACCEPTED_EXCEPTIONS_REGISTER contract (every registered
+        # broad-handler src file carries its frozen pin). Regression
+        # proof: tests/test_umdr52_w1_behavioral.py (19/19).
+        | {"src/webpent/researcher/behavioral_layer.py"}
     )
     assert not undocumented_current, (
         f"undocumented paths only in current manifest: {sorted(undocumented_current)}"

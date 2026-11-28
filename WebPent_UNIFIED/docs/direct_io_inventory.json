@@ -627,8 +627,8 @@
     "not_applicable": 1077,
     "unapproved_raw_transport": 27,
     "total_records": 1226,
-    "files_scanned": 288,
-    "records": 1269
+    "files_scanned": 289,
+    "records": 1272
   },
   "dynamic_import_allowlist": [
     {
@@ -681,8 +681,8 @@
       ]
     }
   ],
-  "generated_at": "2026-11-27T09:55:10Z",
-  "generated_from": "canonical AST scan of src \u2014 regenerated UM-DR-49 W2.1 (2026-11-25, real-ground window) (DR-009 protocol) \u2014 regenerated UM-DR-49 W2.1 (2026-11-25, real-ground window) (DR-009 protocol) \u2014 regenerated UM-DR-50 W1 (2026-11-26) (DR-009 protocol) \u2014 regenerated UM-DR-51 v0.49.0-window (2026-11-26)",
+  "generated_at": "2026-11-28T04:32:22Z",
+  "generated_from": "canonical AST scan of src \u2014 regenerated UM-DR-49 W2.1 (2026-11-25, real-ground window) (DR-009 protocol) \u2014 regenerated UM-DR-49 W2.1 (2026-11-25, real-ground window) (DR-009 protocol) \u2014 regenerated UM-DR-50 W1 (2026-11-26) (DR-009 protocol) \u2014 regenerated UM-DR-51 v0.49.0-window (2026-11-26) \u2014 regenerated UM-DR-52 v0.50.0-window (2026-11-28)",
   "logical_transports": {
     "api": {
       "authority": "API testing action family and target-origin scope",
@@ -740,7 +740,7 @@
       "proof": "bounded handshake/response observation plus strict verifier"
     }
   },
-  "record_count": 1269,
+  "record_count": 1272,
   "regen_history": [
     {
       "added": [
@@ -1208,6 +1208,17 @@
       "records_after": 1269,
       "added_unique": 11,
       "removed_unique": 10,
+      "unapproved_pin_before": 29,
+      "unapproved_pin_after": 29
+    },
+    {
+      "at": "2026-11-28T04:32:22Z",
+      "window": "UM-DR-52 v0.50.0-window (2026-11-28)",
+      "reason": "UM-DR-52: line-number drift in the window's three edited files (brain_engine behavioral wiring, prioritization brain decision map, strategist priority_score handoff); the two NEW researcher modules (behavioral_layer, adaptive_engine) carry no I/O by design. Unapproved pin UNCHANGED.",
+      "records_before": 1269,
+      "records_after": 1272,
+      "added_unique": 24,
+      "removed_unique": 21,
       "unapproved_pin_before": 29,
       "unapproved_pin_after": 29
     }
@@ -4652,7 +4663,7 @@
     },
     {
       "file": "src/webpent/agents/strategist/agent.py",
-      "line": 645,
+      "line": 662,
       "column": 32,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -4665,7 +4676,7 @@
     },
     {
       "file": "src/webpent/agents/strategist/agent.py",
-      "line": 689,
+      "line": 706,
       "column": 35,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -4678,7 +4689,7 @@
     },
     {
       "file": "src/webpent/agents/strategist/agent.py",
-      "line": 701,
+      "line": 718,
       "column": 32,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -4691,7 +4702,7 @@
     },
     {
       "file": "src/webpent/agents/strategist/agent.py",
-      "line": 734,
+      "line": 751,
       "column": 31,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -4704,7 +4715,7 @@
     },
     {
       "file": "src/webpent/agents/strategist/agent.py",
-      "line": 829,
+      "line": 846,
       "column": 17,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -11191,7 +11202,7 @@
     },
     {
       "file": "src/webpent/production/brain_engine.py",
-      "line": 86,
+      "line": 90,
       "column": 21,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -11204,7 +11215,7 @@
     },
     {
       "file": "src/webpent/production/brain_engine.py",
-      "line": 331,
+      "line": 360,
       "column": 12,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -11217,7 +11228,7 @@
     },
     {
       "file": "src/webpent/production/brain_engine.py",
-      "line": 352,
+      "line": 381,
       "column": 10,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -11230,7 +11241,7 @@
     },
     {
       "file": "src/webpent/production/brain_engine.py",
-      "line": 373,
+      "line": 411,
       "column": 18,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -11243,7 +11254,7 @@
     },
     {
       "file": "src/webpent/production/brain_engine.py",
-      "line": 377,
+      "line": 415,
       "column": 11,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -11256,7 +11267,7 @@
     },
     {
       "file": "src/webpent/production/brain_engine.py",
-      "line": 387,
+      "line": 425,
       "column": 24,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -11269,7 +11280,7 @@
     },
     {
       "file": "src/webpent/production/brain_engine.py",
-      "line": 551,
+      "line": 596,
       "column": 12,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -11282,7 +11293,7 @@
     },
     {
       "file": "src/webpent/production/brain_engine.py",
-      "line": 645,
+      "line": 690,
       "column": 19,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -11295,7 +11306,7 @@
     },
     {
       "file": "src/webpent/production/brain_engine.py",
-      "line": 663,
+      "line": 708,
       "column": 23,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -11308,7 +11319,7 @@
     },
     {
       "file": "src/webpent/production/brain_engine.py",
-      "line": 685,
+      "line": 730,
       "column": 16,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -11321,7 +11332,7 @@
     },
     {
       "file": "src/webpent/production/brain_engine.py",
-      "line": 701,
+      "line": 746,
       "column": 18,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -11334,7 +11345,7 @@
     },
     {
       "file": "src/webpent/production/brain_engine.py",
-      "line": 874,
+      "line": 919,
       "column": 66,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -13315,6 +13326,45 @@
       "kind": "dynamic_resolution",
       "symbol": "getattr",
       "normalized_symbol": "getattr(task, ... )",
+      "transport": "dynamic_resolution",
+      "transport_family": "non_transport",
+      "classification": "dynamic_resolution",
+      "approval_status": "not_applicable",
+      "reason": "dynamic attribute access observed without a transport signal"
+    },
+    {
+      "file": "src/webpent/researcher/adaptive_engine.py",
+      "line": 79,
+      "column": 15,
+      "kind": "dynamic_resolution",
+      "symbol": "getattr",
+      "normalized_symbol": "getattr(value, ... )",
+      "transport": "dynamic_resolution",
+      "transport_family": "non_transport",
+      "classification": "dynamic_resolution",
+      "approval_status": "not_applicable",
+      "reason": "dynamic attribute access observed without a transport signal"
+    },
+    {
+      "file": "src/webpent/researcher/adaptive_engine.py",
+      "line": 90,
+      "column": 20,
+      "kind": "dynamic_resolution",
+      "symbol": "getattr",
+      "normalized_symbol": "getattr(hyp, ... )",
+      "transport": "dynamic_resolution",
+      "transport_family": "non_transport",
+      "classification": "dynamic_resolution",
+      "approval_status": "not_applicable",
+      "reason": "dynamic attribute access observed without a transport signal"
+    },
+    {
+      "file": "src/webpent/researcher/adaptive_engine.py",
+      "line": 121,
+      "column": 19,
+      "kind": "dynamic_resolution",
+      "symbol": "getattr",
+      "normalized_symbol": "getattr(hyp, ... )",
       "transport": "dynamic_resolution",
       "transport_family": "non_transport",
       "classification": "dynamic_resolution",
@@ -16014,7 +16064,7 @@
     },
     {
       "file": "src/webpent/shared/prioritization.py",
-      "line": 834,
+      "line": 881,
       "column": 24,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -16027,7 +16077,7 @@
     },
     {
       "file": "src/webpent/shared/prioritization.py",
-      "line": 836,
+      "line": 883,
       "column": 22,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -16040,7 +16090,7 @@
     },
     {
       "file": "src/webpent/shared/prioritization.py",
-      "line": 846,
+      "line": 893,
       "column": 19,
       "kind": "dynamic_resolution",
       "symbol": "getattr",
@@ -16053,7 +16103,7 @@
     },
     {
       "file": "src/webpent/shared/prioritization.py",
-      "line": 849,
+      "line": 896,
       "column": 22,
       "kind": "dynamic_resolution",
       "symbol": "getattr",

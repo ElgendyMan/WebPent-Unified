@@ -67,6 +67,15 @@ REGISTERED_FILES = {
     "src/webpent/production/brain_engine.py": 3,
     "src/webpent/production/brain_watchdog.py": 2,
     "src/webpent/production/research_memory_store.py": 2,
+    # UM-DR-52 W1: the behavioral layer's four fail-safe boundaries —
+    # the layer's own contract (fail-open forbidden): (1) the SKG state
+    # machine extraction, (2) the invariant mining, (3) the contradiction
+    # scan, (4) the ranking-evidence projection — any internal failure
+    # degrades that behavioral channel to empty (a NO-OP for the brain
+    # formula terms), never a crash and never a silent evidence claim.
+    # Advisory only: never an authority, never a confirmation. Rationale
+    # in docs/ACCEPTED_EXCEPTIONS_REGISTER.md (UM-DR-52 section).
+    "src/webpent/researcher/behavioral_layer.py": 4,
     # UM-DR-44 B6(b): the verify_target_tls settings read in h2_race —
     # any settings failure keeps STRICT TLS (fail-closed), the exact
     # coverage_gap_report double-gate precedent.

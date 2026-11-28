@@ -266,7 +266,6 @@ def answer_five_questions(
     roles_by_endpoint = _endpoint_roles(model)
     ownership_by_path = _endpoint_ownership(model)
     endpoint_id_by_path = _endpoint_id_by_path(model)
-    entity = model.entities
 
     answers: list[MeasuredAnswer] = []
     for machine in machines:

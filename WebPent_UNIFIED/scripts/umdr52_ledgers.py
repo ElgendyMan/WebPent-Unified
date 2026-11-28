@@ -40,10 +40,7 @@ def lessons() -> dict:
     """
     delta = _load(D52 / "W1_FIELD_BRAIN_DELTA.json") or {}
     w6 = delta.get("w6_chain") or {}
-    g5 = delta.get("gate_g5") or {}
-    integ = _load(D52 / "W2_INTEGRATION_DELTA.json") or {}
     probe = _load(D52 / "FIELD_CAMPAIGN_RECORDS/field_probe.json") or {}
-    ledger_lessons: list[dict] = []
     led = {
         "schema": "umdr52-lessons-ledger/1.0.0",
         "measured_at_utc": NOW,

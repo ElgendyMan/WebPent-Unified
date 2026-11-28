@@ -116,7 +116,7 @@ def reduce_final_lifecycle(
     """
     actions = actions or {}
     blocked = blocked_ids or set()
-    counts: Counter[str] = Counter({s: 0 for s in LIFECYCLE_STATES})
+    counts: Counter[str] = Counter(dict.fromkeys(LIFECYCLE_STATES, 0))
     for hyp in pool:
         hid = str(getattr(hyp, "id", ""))
         if hid in blocked:
