@@ -1,0 +1,23 @@
+{
+  "schema": "umdr52-findings-register/1.0.0",
+  "measured_at_utc": "2026-11-28T03:57:08.238807+00:00",
+  "confirmed_count": 0,
+  "honesty_note": "no CausalGuard-confirmed finding exists from this window's standard-mode campaigns \u2014 the register records what IS, it does not manufacture a Tool-Confirmed item",
+  "field_candidates": [
+    {
+      "id": "C1",
+      "target": "juiceshop (local lab)",
+      "description": "standard-mode campaigns produced candidates only; confirmation requires the differential proof bundle path which the standard mode did not reach this window",
+      "validation_status": "NOT_VERIFIED",
+      "evidence": "deliverables/umdr52/run_files/brain_on_run*.json (findings_confirmed_mean=0)"
+    }
+  ],
+  "probe_records": [
+    {
+      "id": "P1",
+      "target": "webgoat path_traversal",
+      "validation_status": "NOT_VERIFIED",
+      "note": "byte-identical differential \u2014 no evidence, no claim"
+    }
+  ]
+}

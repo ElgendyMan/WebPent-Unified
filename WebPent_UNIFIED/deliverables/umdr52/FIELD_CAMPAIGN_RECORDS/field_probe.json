@@ -1,0 +1,73 @@
+{
+  "schema": "umdr52-field-probe/1.0.0",
+  "measured_at_utc": "2026-11-28T03:56:18.516301+00:00",
+  "authority_note": "advisory probe \u2014 GET-only on owner-approved shapes; no finding is created; CausalGuard authority untouched",
+  "webgoat_login_page": {
+    "status": 200,
+    "sha256": "61153914d077b9f9",
+    "bytes": 1929,
+    "content_type": "text/html;charset=UTF-8"
+  },
+  "webgoat_path_traversal": {
+    "approved_shape": "GET /WebGoat/PathTraversal/random-picture?id=... (option_b.py: approved_methods=GET, approved_query_keys=(id,))",
+    "candidate_probe": {
+      "status": 200,
+      "sha256": "61153914d077b9f9",
+      "bytes": 1929,
+      "content_type": "text/html;charset=UTF-8"
+    },
+    "negative_control_opaque": {
+      "status": 200,
+      "sha256": "61153914d077b9f9",
+      "bytes": 1929,
+      "content_type": "text/html;charset=UTF-8"
+    },
+    "baseline_no_param": {
+      "status": 200,
+      "sha256": "61153914d077b9f9",
+      "bytes": 1929,
+      "content_type": "text/html;charset=UTF-8"
+    },
+    "discrimination_note": "the differential (candidate vs negative control vs baseline) is RECORDED here; confirmation authority stays with CausalGuard \u2014 this probe asserts nothing"
+  },
+  "webgoat_auth_wall": {
+    "status": "BLOCKED",
+    "blocker_code": "WEBGOAT_LESSON_SESSION_OWNER_FIXTURE_UNAVAILABLE",
+    "declared_reason": "option_b.py precondition: GET-only approval cannot create the required LessonSession; POST login and built-in lesson credentials are not approved by the owner",
+    "attempt_documented": "no login POST was sent \u2014 sending it would exceed the declared approval; the wall state is recorded, not guessed",
+    "unauthenticated_coverage_probe": {
+      "approved_shape": "GET /WebGoat/PathTraversal/random-picture?id=... (option_b.py: approved_methods=GET, approved_query_keys=(id,))",
+      "candidate_probe": {
+        "status": 200,
+        "sha256": "61153914d077b9f9",
+        "bytes": 1929,
+        "content_type": "text/html;charset=UTF-8"
+      },
+      "negative_control_opaque": {
+        "status": 200,
+        "sha256": "61153914d077b9f9",
+        "bytes": 1929,
+        "content_type": "text/html;charset=UTF-8"
+      },
+      "baseline_no_param": {
+        "status": 200,
+        "sha256": "61153914d077b9f9",
+        "bytes": 1929,
+        "content_type": "text/html;charset=UTF-8"
+      },
+      "discrimination_note": "the differential (candidate vs negative control vs baseline) is RECORDED here; confirmation authority stays with CausalGuard \u2014 this probe asserts nothing"
+    }
+  },
+  "dvwa": {
+    "status": "BLOCKED",
+    "docker_available": false,
+    "php_available": false,
+    "attempt_note": "no container runtime / PHP in this sandbox (recorded above) \u2014 same blockers as v0.49.0; stays BLOCKED by documented environment attempt, no bypass claimed"
+  },
+  "juiceshop_root": {
+    "status": 200,
+    "sha256": "7a077ea089234d5f",
+    "bytes": 9984,
+    "content_type": "text/html; charset=UTF-8"
+  }
+}

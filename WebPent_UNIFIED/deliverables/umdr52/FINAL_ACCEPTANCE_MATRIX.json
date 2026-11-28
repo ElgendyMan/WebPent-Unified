@@ -1,0 +1,57 @@
+{
+  "schema": "umdr52-final-acceptance-matrix/1.0.0",
+  "measured_at_utc": "2026-11-28T03:57:08.238807+00:00",
+  "gates": {
+    "G5_brain": {
+      "verdict": "VERIFIED",
+      "basis": "ORDER changed on field (True) AND >=1 OUTCOME flipped on the approved fixture (2 flips); pool-only never claimed",
+      "evidence": [
+        "W1_FIELD_BRAIN_DELTA.json",
+        "W1_FIXTURE_DECISION_DELTA.json"
+      ]
+    },
+    "W2_integration": {
+      "verdict": "VERIFIED",
+      "basis": "behavioral backing reorders the adaptive rank and flips the k=3 selection",
+      "evidence": [
+        "W2_INTEGRATION_DELTA.json"
+      ]
+    },
+    "G6_field": {
+      "verdict": "PARTIAL \u2014 declared gaps",
+      "items": {
+        "juice_shop_tool_confirmed": {
+          "verdict": "NOT_VERIFIED",
+          "basis": "0 confirmed in standard mode (findings_confirmed_mean=0)"
+        },
+        "webgoat_behind_auth_wall": {
+          "verdict": "BLOCKED",
+          "basis": "owner-declared GET-only approval; no legal login path exists this window"
+        },
+        "redirect_scope_bypass_2of2": {
+          "verdict": "NOT_RUN",
+          "basis": "second anchor requires the campaign replay infrastructure of window 48/49; not reached this window"
+        },
+        "dvwa": {
+          "verdict": "BLOCKED",
+          "basis": "no docker/php in sandbox (probe recorded)"
+        },
+        "multi_step_chain_confirmed": {
+          "verdict": "NOT_VERIFIED",
+          "basis": "chain composition measured in SKG (attack_chains), no Tool-Confirmed chain this window"
+        }
+      }
+    },
+    "G7_measurement": {
+      "verdict": "PARTIAL",
+      "basis": "per-cell + network-phase instrumented; compute isolation + field economics stay open",
+      "evidence": [
+        "METER_INSTRUMENTATION.json"
+      ]
+    },
+    "G8_ultimate": {
+      "verdict": "NOT GRANTED",
+      "basis": "an obligatory gate (G6) remains open \u2014 first letter of the law (\u00a70.7)"
+    }
+  }
+}

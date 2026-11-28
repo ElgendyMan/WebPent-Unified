@@ -1,0 +1,25 @@
+{
+  "schema": "umdr52-meter-instrumentation/1.0.0",
+  "measured_at_utc": "2026-11-28T03:57:08.238807+00:00",
+  "per_coverage_cell": {
+    "status": "INSTRUMENTED",
+    "source": "webpent/researcher/coverage_intel.py (skg_coverage_cells) + brain_engine estimate_priority_inputs (cell density feeds EIG)",
+    "evidence": "W2_INTEGRATION_DELTA.json (EIG per plan target)"
+  },
+  "per_phase": {
+    "network": {
+      "status": "INSTRUMENTED",
+      "source": "governor snapshot per campaign run (requests_last_minute recorded per run)",
+      "evidence": "run_files/*.json governor_snapshot"
+    },
+    "compute": {
+      "status": "PARTIAL",
+      "source": "elapsed_s per campaign recorded; validator/replay cost isolation stays declared-not-isolated this window",
+      "evidence": "run_files/*.json elapsed_s"
+    }
+  },
+  "experiment_economics": {
+    "status": "INSTRUMENTED (declared-fixture scope)",
+    "evidence": "EXPERIMENT_ECONOMICS.json + scope_note"
+  }
+}

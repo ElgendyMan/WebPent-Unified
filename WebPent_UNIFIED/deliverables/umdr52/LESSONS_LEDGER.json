@@ -1,0 +1,55 @@
+{
+  "schema": "umdr52-lessons-ledger/1.0.0",
+  "measured_at_utc": "2026-11-28T03:57:08.238807+00:00",
+  "separation_law": "public knowledge only; target data, credentials and session material never cross campaigns (\u00a75 C2)",
+  "lessons": [
+    {
+      "id": "L1",
+      "family": "campaign-orchestration",
+      "lesson": "the lab rate ceiling (900/min default) contaminates OFF/ON comparisons at >=5 campaigns per window; operator-configured ceilings must be recorded per run via the governor snapshot as proof",
+      "evidence": "deliverables/umdr52/run_files/*.json (governor_snapshot per run)",
+      "scope": "general"
+    },
+    {
+      "id": "L2",
+      "family": "measurement-design",
+      "lesson": "a settings singleton lru-cached per process makes in-process OFF/ON flag flips silent no-ops \u2014 one campaign per subprocess is the only honest arm isolation",
+      "evidence": "scripts/umdr52_w1_field_delta.py (derived from the umdr51 root-cause)",
+      "scope": "general"
+    },
+    {
+      "id": "L3",
+      "family": "behavioral-reasoning",
+      "lesson": "behavioral evidence changes ORDER on the field but flipped OUTCOMES only on the fixture this window \u2014 the outcome-flip measurement surface must be a decision-scale map (p/(p+k)), not ranking alone",
+      "evidence": "W1_FIELD_BRAIN_DELTA.json (order TRUE, outcomes FALSE) + W1_FIXTURE_DECISION_DELTA.json (2 flips)",
+      "scope": "general"
+    },
+    {
+      "id": "L4",
+      "family": "integration",
+      "lesson": "a proxy/target namespace mismatch silently zeroes behavioral backing (a silent OFF) \u2014 integration measurements must record backing per target",
+      "evidence": "W2_INTEGRATION_DELTA.json (behavioral_backing per target recorded)",
+      "scope": "general"
+    },
+    {
+      "id": "L5",
+      "family": "adaptive-engineering",
+      "lesson": "plan_experiments on the approved fixture emits 2 plans \u2014 top-k selection membership cannot flip on a 2-plan pool; full-rank order is the honest small-pool integration surface",
+      "evidence": "W2_INTEGRATION_DELTA.json (planner_surface_note)",
+      "scope": "general"
+    },
+    {
+      "id": "L6",
+      "family": "field",
+      "lesson": "the path_traversal approved GET shape returned byte-identical responses for candidate, negative control and baseline on WebGoat 200 \u2014 no discrimination evidence on this shape; recorded, not claimed",
+      "evidence": "FIELD_CAMPAIGN_RECORDS/field_probe.json",
+      "scope": "general"
+    }
+  ],
+  "w6_cross_campaign": {
+    "measured": true,
+    "decisions_changed": false,
+    "status": "INCONCLUSIVE \u2014 memory did not measurably change decisions"
+  },
+  "count": 6
+}
