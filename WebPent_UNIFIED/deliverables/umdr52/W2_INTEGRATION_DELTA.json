@@ -1,0 +1,88 @@
+{
+  "schema": "umdr52-w2-integration-delta/1.1.0",
+  "measured_at_utc": "2026-11-28T03:54:39.092152+00:00",
+  "fixture": "tests.test_umdr46_phase_a_skg._lab_state (approved lab)",
+  "pool_plans": 6,
+  "planner_plans": 2,
+  "off_full_rank": [
+    "b30c2f5a-6eb7-5dbb-ae71-55e2b0786df2",
+    "9f7860ff-2247-54e1-b51d-de1f008fd52f",
+    "21a1e3d6-d9bc-52e5-9e5a-c1528f346658",
+    "1227c8f1-38f9-56a0-b47d-a115a206c0ae",
+    "6fb03350-5e6c-56fd-ad01-4eef8a6a497f",
+    "0177c879-1d44-5493-85f0-153c5ee0fb8c"
+  ],
+  "on_full_rank": [
+    "21a1e3d6-d9bc-52e5-9e5a-c1528f346658",
+    "b30c2f5a-6eb7-5dbb-ae71-55e2b0786df2",
+    "9f7860ff-2247-54e1-b51d-de1f008fd52f",
+    "1227c8f1-38f9-56a0-b47d-a115a206c0ae",
+    "6fb03350-5e6c-56fd-ad01-4eef8a6a497f",
+    "0177c879-1d44-5493-85f0-153c5ee0fb8c"
+  ],
+  "off_selection_k3": [
+    "b30c2f5a-6eb7-5dbb-ae71-55e2b0786df2",
+    "9f7860ff-2247-54e1-b51d-de1f008fd52f",
+    "21a1e3d6-d9bc-52e5-9e5a-c1528f346658"
+  ],
+  "on_selection_k3": [
+    "21a1e3d6-d9bc-52e5-9e5a-c1528f346658",
+    "b30c2f5a-6eb7-5dbb-ae71-55e2b0786df2",
+    "9f7860ff-2247-54e1-b51d-de1f008fd52f"
+  ],
+  "on_scores": {
+    "21a1e3d6-d9bc-52e5-9e5a-c1528f346658": 0.111746,
+    "1227c8f1-38f9-56a0-b47d-a115a206c0ae": 0.013359,
+    "9f7860ff-2247-54e1-b51d-de1f008fd52f": 0.0216,
+    "6fb03350-5e6c-56fd-ad01-4eef8a6a497f": 0.008437,
+    "b30c2f5a-6eb7-5dbb-ae71-55e2b0786df2": 0.035933,
+    "0177c879-1d44-5493-85f0-153c5ee0fb8c": 0.005967
+  },
+  "declared_info_gains": {
+    "21a1e3d6-d9bc-52e5-9e5a-c1528f346658": 0.2,
+    "1227c8f1-38f9-56a0-b47d-a115a206c0ae": 0.15,
+    "9f7860ff-2247-54e1-b51d-de1f008fd52f": 0.3,
+    "6fb03350-5e6c-56fd-ad01-4eef8a6a497f": 0.1,
+    "b30c2f5a-6eb7-5dbb-ae71-55e2b0786df2": 0.35,
+    "0177c879-1d44-5493-85f0-153c5ee0fb8c": 0.05
+  },
+  "behavioral_backing(target=[density,contradiction,invariant])": {
+    "https://shop.example/api/orders/123/fasttrack": [
+      1.0,
+      0.25,
+      1.0
+    ],
+    "https://shop.example/api/invoices/900": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "https://shop.example/api/transfer": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "https://shop.example/api/profile": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "https://shop.example/api/orders/123/status": [
+      0.0,
+      0.25,
+      0.0
+    ],
+    "https://shop.example/api/orders": [
+      0.0,
+      0.25,
+      0.0
+    ]
+  },
+  "rank_order_changed": true,
+  "selection_changed": true,
+  "planner_surface_note": "plan_experiments on this fixture emits 2 plans \u2014 the top-k membership cannot flip with a 2-plan pool; the pool surface above is the measured integration surface.",
+  "integration": {
+    "question": "does the W1 behavioral evidence, through the W3 formula, change WHICH experiments W2 selects and in WHAT order?",
+    "status": "VERIFIED"
+  }
+}

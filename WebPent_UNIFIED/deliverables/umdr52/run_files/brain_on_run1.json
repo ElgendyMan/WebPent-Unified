@@ -1,0 +1,129 @@
+{
+  "schema": "umdr52-brain-delta-run/1.0.0",
+  "app": "juiceshop",
+  "target_url": "http://127.0.0.1:3000",
+  "run": 1,
+  "campaign_id": "umdr52-juiceshop-brainon-run1-284855",
+  "brain": "ON",
+  "brain_flag_verified_in_process": true,
+  "llm": "OFF",
+  "lanes": "ON",
+  "lab_rate_ceiling_config": 10000,
+  "zero_prior_knowledge": true,
+  "measured_at_utc": "2026-11-28T03:45:10.547745+00:00",
+  "elapsed_s": 8.326,
+  "findings_total": 6,
+  "findings_confirmed": 0,
+  "hypotheses_total": 32,
+  "hypotheses_confirmed": 0,
+  "hypotheses_status_counts": {
+    "abandoned": 24,
+    "promoted": 6,
+    "unexplored": 2
+  },
+  "hypotheses_rank_fingerprint": [
+    "abandoned|http://127.0.0.1:3000/1|sqli",
+    "promoted|http://127.0.0.1:3000/api/Feedbacks|api_issue",
+    "promoted|http://127.0.0.1:3000/api/Challenges/?key=nftMintChallenge|api_issue",
+    "abandoned|http://127.0.0.1:3000/api/Challenges/?key=nftMintChallenge|xss",
+    "promoted|http://127.0.0.1:3000/api/Challenges|api_issue",
+    "promoted|http://127.0.0.1:3000/api/Users|api_issue",
+    "abandoned|http://127.0.0.1:3000/rest/user/change-password?current=|xss",
+    "promoted|http://127.0.0.1:3000/api/Addresss|api_issue",
+    "promoted|http://127.0.0.1:3000/api/Recycles|api_issue",
+    "abandoned|http://127.0.0.1:3000/orders|mass_assignment",
+    "abandoned|http://127.0.0.1:3000/|auth_bypass",
+    "abandoned|http://127.0.0.1:3000/orders|auth_bypass",
+    "abandoned|http://127.0.0.1:3000/b2b/v2/orders|auth_bypass",
+    "abandoned|http://127.0.0.1:3000/graphql|auth_bypass",
+    "abandoned|http://127.0.0.1:3000/g,|auth_bypass",
+    "abandoned|http://127.0.0.1:3000/1|auth_bypass",
+    "abandoned|http://127.0.0.1:3000/(|auth_bypass",
+    "abandoned|http://127.0.0.1:3000/.1|auth_bypass",
+    "abandoned|http://127.0.0.1:3000/orders|unknown",
+    "abandoned|http://127.0.0.1:3000/b2b/v2/orders|unknown",
+    "abandoned|http://127.0.0.1:3000/graphql|unknown",
+    "abandoned|http://127.0.0.1:3000/assets/public/favicon_js.ico|unknown",
+    "abandoned|http://127.0.0.1:3000/styles.css|unknown",
+    "abandoned|http://127.0.0.1:3000/rolldown-runtime-kqx1xuJ_.js|unknown"
+  ],
+  "rank_fingerprint_sha256": "383288d57538dd88",
+  "governor_snapshot": {
+    "max_concurrent": 16,
+    "requests_per_minute": 10000,
+    "active_campaigns": [],
+    "requests_last_minute": 222,
+    "backend": "memory",
+    "backend_degraded": false,
+    "coordination_scope": "process-local"
+  },
+  "research_memory": {
+    "existed_before": false,
+    "revision_before": 0,
+    "revision_after": 1,
+    "saved": true,
+    "demotion_classes_after": [
+      "auth_bypass",
+      "mass_assignment",
+      "sqli",
+      "unknown",
+      "xss"
+    ],
+    "lesson_count_after": 0
+  },
+  "findings_detail": [
+    {
+      "vuln_class": "api_issue",
+      "url": "http://127.0.0.1:3000/api/Feedbacks",
+      "confidence_level": "Needs Human Review"
+    },
+    {
+      "vuln_class": "api_issue",
+      "url": "http://127.0.0.1:3000/api/Challenges/?key=nftMintChallenge",
+      "confidence_level": "Needs Human Review"
+    },
+    {
+      "vuln_class": "api_issue",
+      "url": "http://127.0.0.1:3000/api/Challenges",
+      "confidence_level": "Needs Human Review"
+    },
+    {
+      "vuln_class": "api_issue",
+      "url": "http://127.0.0.1:3000/api/Users",
+      "confidence_level": "Not Scanned"
+    },
+    {
+      "vuln_class": "api_issue",
+      "url": "http://127.0.0.1:3000/api/Addresss",
+      "confidence_level": "Not Scanned"
+    },
+    {
+      "vuln_class": "api_issue",
+      "url": "http://127.0.0.1:3000/api/Recycles",
+      "confidence_level": "Needs Human Review"
+    }
+  ],
+  "summary_keys": {
+    "url": "http://127.0.0.1:3000",
+    "mode": "standard",
+    "authorization": "umdr52-owner-approved-local-lab",
+    "time_budget_s": 3600,
+    "request_budget": 1000,
+    "llm_budget_usd": 5.0,
+    "max_hypotheses": 12,
+    "recursion_limit": 260,
+    "engine": "unified_hunt",
+    "graph_invoked": true,
+    "elapsed_s": 6.8,
+    "llm_calls": 0,
+    "llm_tokens_used": 0,
+    "thread_id": "c8370dfc-01e5-4d10-aff6-c450fdfdeb46",
+    "engagement_id": "umdr52-juiceshop-brainon-run1-284855",
+    "findings_total": 6,
+    "findings_confirmed": 0,
+    "dynamic_step_budget": 100,
+    "consulted_lessons": true,
+    "detector_results": 0,
+    "research_memory_saved": "/home/z/my-project/WebPent-Unified/WebPent_UNIFIED/.webpent-research-memory/9deeb77a1ebfc7b923b6.json"
+  }
+}

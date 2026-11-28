@@ -1,0 +1,157 @@
+{
+  "schema": "umdr52-w1-fixture-delta/1.0.0",
+  "measured_at_utc": "2026-11-28T03:47:34.271113+00:00",
+  "fixture": "tests.test_umdr46_phase_a_skg._lab_state (approved lab)",
+  "arms": {
+    "off": "legacy rank_open_hypotheses + recommend_action(None)",
+    "on": "rank_with_brain(W3 formula + behavioral terms) + recommend_action(priority_score=score)"
+  },
+  "context_built": true,
+  "context_summary": {
+    "built": true,
+    "error": "",
+    "sensitive_reachable_count": 5,
+    "ownership_changer_targets": 1,
+    "unauthz_read_targets": 4,
+    "coverage_cells": 3,
+    "unverified_cells": 3,
+    "chains": 2,
+    "behavioral": {
+      "machine_count": 1,
+      "transition_endpoints": 3,
+      "contradiction_backed_paths": 3,
+      "invariant_backed_paths": 1,
+      "invariant_specs": 2,
+      "contradictions": 2,
+      "measured_answers": 5,
+      "influence_contract": "UM-DR-52 W1: behavioral evidence shifts EIG (transition density), confidence (contradiction backing) and impact (invariant-backed write surface) inside the W3 formula \u2014 advisory only; never authorizes, never confirms, never bypasses CausalGuard"
+    },
+    "influence_contract": "wired (UM-DR-47 W + UM-DR-52 W1): SKG queries + brain estimates + behavioral evidence steer selection ordering and the decided priority \u2014 still never authorizes, never confirms, never bypasses CausalGuard/ProofBundle/Replay",
+    "diagnostics": {
+      "entity_count": 37,
+      "relation_count": 56
+    }
+  },
+  "behavioral_evidence_present": true,
+  "off_order_fingerprint_sha256": "20c40e9ea23263c8",
+  "on_order_fingerprint_sha256": "01741a4438914b88",
+  "off_rows": [
+    {
+      "target": "https://shop.example/api/orders/123/status",
+      "vuln_class": "business_logic",
+      "status": "defer",
+      "legacy_score": 0.2236,
+      "rule": "0.15 < score=0.2236 < 0.50; rabbit_hole_available=False (deferred until score improves or Rabbit Hole lands)"
+    },
+    {
+      "target": "https://shop.example/api/orders/123/fasttrack",
+      "vuln_class": "idor",
+      "status": "defer",
+      "legacy_score": 0.214,
+      "rule": "IDOR/BAC promotion guard: live owner/foreign observations and central ProofBundle verifier are required; hypothesis reta"
+    },
+    {
+      "target": "https://shop.example/api/transfer",
+      "vuln_class": "mass_assignment",
+      "status": "defer",
+      "legacy_score": 0.2114,
+      "rule": "0.15 < score=0.2114 < 0.50; rabbit_hole_available=False (deferred until score improves or Rabbit Hole lands)"
+    },
+    {
+      "target": "https://shop.example/api/invoices/900",
+      "vuln_class": "idor",
+      "status": "defer",
+      "legacy_score": 0.2,
+      "rule": "IDOR/BAC promotion guard: live owner/foreign observations and central ProofBundle verifier are required; hypothesis reta"
+    },
+    {
+      "target": "https://shop.example/api/profile",
+      "vuln_class": "auth_bypass",
+      "status": "defer",
+      "legacy_score": 0.186,
+      "rule": "0.15 < score=0.1860 < 0.50; rabbit_hole_available=False (deferred until score improves or Rabbit Hole lands)"
+    },
+    {
+      "target": "https://shop.example/api/orders",
+      "vuln_class": "idor",
+      "status": "defer",
+      "legacy_score": 0.1756,
+      "rule": "IDOR/BAC promotion guard: live owner/foreign observations and central ProofBundle verifier are required; hypothesis reta"
+    }
+  ],
+  "on_rows": [
+    {
+      "target": "https://shop.example/api/orders/123/fasttrack",
+      "vuln_class": "idor",
+      "status": "defer",
+      "brain_priority_score": 0.111746,
+      "decision_score": 0.426925,
+      "rule": "IDOR/BAC promotion guard: live owner/foreign observations and central ProofBundle verifier are required; hypothesis reta"
+    },
+    {
+      "target": "https://shop.example/api/orders/123/status",
+      "vuln_class": "business_logic",
+      "status": "defer",
+      "brain_priority_score": 0.035933,
+      "decision_score": 0.193259,
+      "rule": "0.15 < score=0.1933 < 0.50; rabbit_hole_available=False (deferred until score improves or Rabbit Hole lands) (brain-prio"
+    },
+    {
+      "target": "https://shop.example/api/transfer",
+      "vuln_class": "mass_assignment",
+      "status": "abandon",
+      "brain_priority_score": 0.0216,
+      "decision_score": 0.125874,
+      "rule": "score=0.1259 <= ABANDON_THRESHOLD=0.15 (brain-priority-mapped)"
+    },
+    {
+      "target": "https://shop.example/api/invoices/900",
+      "vuln_class": "idor",
+      "status": "defer",
+      "brain_priority_score": 0.013359,
+      "decision_score": 0.081779,
+      "rule": "IDOR/BAC promotion guard: live owner/foreign observations and central ProofBundle verifier are required; hypothesis reta"
+    },
+    {
+      "target": "https://shop.example/api/profile",
+      "vuln_class": "auth_bypass",
+      "status": "abandon",
+      "brain_priority_score": 0.008437,
+      "decision_score": 0.053254,
+      "rule": "score=0.0533 <= ABANDON_THRESHOLD=0.15 (brain-priority-mapped)"
+    },
+    {
+      "target": "https://shop.example/api/orders",
+      "vuln_class": "idor",
+      "status": "defer",
+      "brain_priority_score": 0.005967,
+      "decision_score": 0.038259,
+      "rule": "IDOR/BAC promotion guard: live owner/foreign observations and central ProofBundle verifier are required; hypothesis reta"
+    }
+  ],
+  "order_changed": true,
+  "outcomes_flipped": [
+    {
+      "target": "https://shop.example/api/transfer",
+      "off_action": "defer",
+      "on_action": "abandon",
+      "off_score": 0.2114,
+      "brain_priority": 0.0216,
+      "decision_score": 0.125874
+    },
+    {
+      "target": "https://shop.example/api/profile",
+      "off_action": "defer",
+      "on_action": "abandon",
+      "off_score": 0.186,
+      "brain_priority": 0.008437,
+      "decision_score": 0.053254
+    }
+  ],
+  "gate_g5_fixture": {
+    "question": "does the brain, fueled by the behavioral layer, change ORDER and \u22651 OUTCOME on the approved fixture, without touching confirmation authority?",
+    "order_changed": true,
+    "outcome_changed": true,
+    "status": "VERIFIED"
+  }
+}
