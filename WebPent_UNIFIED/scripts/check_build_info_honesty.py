@@ -99,10 +99,17 @@ _PUB_LAYOUT = (ROOT.parent / "deliverables").is_dir()
 # ee48326, the seven failures being the re-bind gates themselves,
 # satisfied by the 9aa79d1 re-bind commit), then the umdr50_closure
 # record, then the umdr42_closure record, then the umdr38 fallback.
+# UM-DR-52 (2026-11-28): the durable record follows the LATEST window —
+# umdr52_closure (the v0.50.0 re-freeze battery on a clean tree at
+# 3e3ff17, 9990 collected / 9969 passed / 5 failed — four the re-bind
+# gates satisfied by the 90d1890 re-bind commit, one a recorded load
+# flake 5/5-green standalone), then the umdr51_closure record, then
+# the umdr50_closure record, then the umdr42_closure record, then the
+# umdr38 fallback.
 _LATEST_CLOSURE = ((ROOT.parent if _PUB_LAYOUT else ROOT) / "deliverables"
-                   / "umdr51_closure" / "FULL_SUITE_EVIDENCE.json")
+                   / "umdr52_closure" / "FULL_SUITE_EVIDENCE.json")
 _LATEST_CLOSURE_FALLBACK = ((ROOT.parent if _PUB_LAYOUT else ROOT) / "deliverables"
-                            / "umdr50_closure" / "FULL_SUITE_EVIDENCE.json")
+                            / "umdr51_closure" / "FULL_SUITE_EVIDENCE.json")
 _CLOSURE_EVIDENCE = (_LATEST_CLOSURE if _LATEST_CLOSURE.is_file() else (
     _LATEST_CLOSURE_FALLBACK if _LATEST_CLOSURE_FALLBACK.is_file() else (
         (ROOT.parent if _PUB_LAYOUT else ROOT) / "deliverables"
