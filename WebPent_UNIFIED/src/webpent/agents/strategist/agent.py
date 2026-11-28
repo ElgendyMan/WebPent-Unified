@@ -400,6 +400,16 @@ def strategist_node(state: PentestState) -> dict[str, Any]:
     except Exception as exc:
         logger.warning("Strategist: discovery-cadence checkpoint failed: %s", exc)
 
+    # UM-DR-52 W1/A3: when the brain engine is ON, rank_open_hypotheses
+    # ranked by the W3 priority formula — the tuple score IS the
+    # literal priority, so it must decide too. OFF mode passes nothing
+    # to recommend_action (byte-comparable legacy decisions).
+    try:
+        from webpent.production.brain_engine import brain_engine_enabled
+        _brain_decides = bool(brain_engine_enabled())
+    except Exception:
+        _brain_decides = False
+
     def record_coverage(
         hypothesis: Any,
         *,
@@ -497,6 +507,13 @@ def strategist_node(state: PentestState) -> dict[str, Any]:
                 hypothesis,
                 state,
                 rabbit_hole_available=is_re_entry,
+                # UM-DR-52 W1/A3: when the brain engine is ON, the
+                # ranked tuple's score IS the W3 priority formula's
+                # output — the literal priority decides, not only the
+                # order (the fixed decision map in prioritization
+                # carries it onto the threshold scale). OFF mode
+                # passes nothing: byte-comparable legacy decisions.
+                priority_score=score if _brain_decides else None,
             )
             cadence_override = cadence_overrides.get(
                 str(model_get(hypothesis, "id", ""))

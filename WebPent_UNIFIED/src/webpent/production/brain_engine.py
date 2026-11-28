@@ -51,6 +51,10 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from webpent.models.hypothesis import Hypothesis
+from webpent.researcher.behavioral_layer import (
+    DENSITY_EIG_WEIGHT,
+    INVARIANT_IMPACT,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -155,6 +159,12 @@ class BrainPriorityContext:
     # blast-radius signal per target path (write operations without
     # an authorization marker — the brain's own QC risk signal)
     risk_targets: dict[str, float] = field(default_factory=dict)
+    # UM-DR-52 W1/A3: behavioral evidence over the same SKG model
+    # (transition density / contradiction backing / invariant-backed
+    # write surface + the mined A2 specs). None when it never built;
+    # its dicts are empty when the model carries no behavioral
+    # signals, which makes every formula term a NO-OP.
+    behavioral: Any = None
     diagnostics: dict[str, Any] = field(default_factory=dict)
 
     def as_summary(self) -> dict[str, Any]:
@@ -167,10 +177,15 @@ class BrainPriorityContext:
             "coverage_cells": len(self.coverage_cells),
             "unverified_cells": len(self.unverified_cells),
             "chains": len(self.chains),
+            "behavioral": (
+                self.behavioral.as_summary()
+                if self.behavioral is not None else None
+            ),
             "influence_contract": (
-                "wired (UM-DR-47 W): SKG queries + brain estimates steer "
-                "selection ordering; still never authorizes, never confirms, "
-                "never bypasses CausalGuard/ProofBundle/Replay"
+                "wired (UM-DR-47 W + UM-DR-52 W1): SKG queries + brain "
+                "estimates + behavioral evidence steer selection ordering "
+                "and the decided priority — still never authorizes, never "
+                "confirms, never bypasses CausalGuard/ProofBundle/Replay"
             ),
             **({"diagnostics": self.diagnostics} if self.diagnostics else {}),
         }
@@ -281,6 +296,20 @@ def build_brain_context(state: Any) -> BrainPriorityContext:
                     (0.7 if writes and not authz else 0.4 if writes else 0.15)
                 )
 
+        # --- UM-DR-52 W1: behavioral evidence over the same model ---
+        # A1 state machines + five measured questions, A2 invariant
+        # specs, A3 ranking evidence — one deterministic pass. Its
+        # failure degrades the behavioral terms to no-ops, never the
+        # whole context (fail-safe, same contract as every query).
+        try:
+            from webpent.researcher.behavioral_layer import (
+                behavioral_ranking_evidence,
+            )
+            ctx.behavioral = behavioral_ranking_evidence(model)
+        except Exception as exc:  # noqa: BLE001 — fail-safe context
+            logger.debug("brain_engine: behavioral evidence failed: %s", exc)
+            ctx.behavioral = None
+
         ctx.built = True
         ctx.diagnostics = {
             "entity_count": len(model.entities),
@@ -369,6 +398,15 @@ def estimate_priority_inputs(hyp: Hypothesis, ctx: BrainPriorityContext) -> dict
         differential triple (default 3).
       Risk — the brain's endpoint profile risk (state-changing
         surface without an authorization marker).
+
+    UM-DR-52 W1/A3 behavioral terms (on top of the four sources,
+    each a NO-OP when the evidence is absent — declared constants in
+    ``behavioral_layer``, imported here so one SSOT holds):
+      transition density raises EIG of targets that drive the
+      observed workflow; contradiction backing raises confidence on
+      evidence-conflicted endpoints; invariant backing raises impact
+      of invariant-guarded write surfaces. Sources stay declared +
+      deterministic + evidence-ref'd.
     """
     target = str(getattr(hyp, "target_url", "") or "")
     path = target.rsplit("/", 1)[-1] if target else ""
@@ -391,6 +429,13 @@ def estimate_priority_inputs(hyp: Hypothesis, ctx: BrainPriorityContext) -> dict
 
     # Risk
     risk = _lookup_by_substring(ctx.risk_targets, target, path, default=0.2)
+
+    # UM-DR-52 W1/A3: the behavioral terms
+    if ctx.behavioral is not None:
+        density, contrad, invar = ctx.behavioral.backing_for(target)
+        eig = eig + (1.0 - float(eig or 0.0)) * DENSITY_EIG_WEIGHT * density
+        confidence = min(1.0, confidence + contrad)
+        impact = min(1.0, impact + INVARIANT_IMPACT * invar)
 
     return {
         "expected_information_gain": max(0.0, min(1.0, float(eig or 0.0))),
@@ -882,9 +927,9 @@ def brain_engine_node(state: Any) -> dict[str, Any]:
 
     Wired (flag-gated) on the strategist-bound redirect — it runs
     after the testing lanes produced authorization observations. Emits
-    W4 coverage-gap research tasks and W5 chain-step hypotheses into
-    the pool, and records the wiring summary on the ``brain_engine``
-    channel.
+    W4 coverage-gap research tasks, W5 chain-step hypotheses and the
+    UM-DR-52 W1 behavioral invariant hypotheses into the pool, and
+    records the wiring summary on the ``brain_engine`` channel.
     """
     target_url = _resolve_target_url(state)
     ctx = build_brain_context(state)
@@ -893,6 +938,19 @@ def brain_engine_node(state: Any) -> dict[str, Any]:
     if ctx.built:
         hypotheses.extend(coverage_gap_hypotheses(ctx, target_url))
         hypotheses.extend(chain_step_hypotheses(ctx, target_url))
+        # UM-DR-52 W1/A2: mined invariant specs → canonical research
+        # hypotheses through the same legal adapter path — they enter
+        # the strategist's ranking like every other hypothesis and
+        # gain no confirmation authority from this layer.
+        if ctx.behavioral is not None and ctx.behavioral.invariant_specs:
+            try:
+                from webpent.researcher.behavioral_layer import (
+                    invariant_hypotheses,
+                )
+                hypotheses.extend(invariant_hypotheses(
+                    list(ctx.behavioral.invariant_specs), target_url))
+            except Exception:  # noqa: BLE001 — advisory emission
+                pass
     # F2.3: the cross-protocol hypothesis (OAuth boundary × GraphQL
     # mutation) — one REAL candidate when both surfaces are evidenced
     f23 = None

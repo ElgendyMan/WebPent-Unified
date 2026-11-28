@@ -708,6 +708,31 @@ _PROMOTION_THRESHOLD: float = 0.5
 # and respects the Risk Manager's caps regardless.
 _ABANDON_THRESHOLD: float = 0.15
 
+# UM-DR-52 W1/A3 — the brain-priority decision map. When the brain
+# engine is ON, the strategist passes the W3 priority formula's score
+# as ``priority_score`` and THAT score decides (the formula is the
+# literal priority: it must decide, not only order). The formula's
+# natural scale is cost-divided ((EIG×Impact×Conf)/(Cost+Risk) ≈
+# 0.003–1.0), while these thresholds are calibrated for the weighted
+# decision scale. The fixed monotone map ``p/(p+k)`` carries one onto
+# the other: p=k maps to 0.5 (promotion boundary), p=k×(0.15/0.85)≈
+# 0.176k maps to 0.15 (abandon boundary — with k=0.15: p≈0.026).
+# Declared, bounded, regression-tested; the legacy path
+# (priority_score absent) is untouched — byte-comparable.
+_BRAIN_DECISION_MAP_K: float = 0.15
+
+
+def _brain_decision_score(priority: float) -> float:
+    """UM-DR-52 W1/A3: the fixed monotone priority→decision map.
+
+    ``p/(p+k)`` with ``k=_BRAIN_DECISION_MAP_K``: p=k lands exactly on
+    the promotion boundary (0.5), p≈0.176k on the abandon boundary
+    (0.15). Monotone, bounded to [0, 1), zero maps to zero. Pure
+    arithmetic — no evidence, no gates changed.
+    """
+    p = max(0.0, float(priority))
+    return min(1.0, p / (p + _BRAIN_DECISION_MAP_K))
+
 # Deterministic hypotheses may bypass the weighted score only when a real
 # downstream validator exists. INFO_DISCLOSURE is allowed here because the
 # structural validator performs a bounded fetch and requires disclosure
@@ -765,12 +790,25 @@ def recommend_action(
     *,
     novelty_bonus: float | None = None,
     rabbit_hole_available: bool = False,
+    priority_score: float | None = None,
 ) -> tuple[PrioritizationAction, float, str]:
     """Recommend a deterministic action for a single hypothesis.
 
     Phase 3 step 4: "This is the mechanism that decides: promote a
     hypothesis to a Finding now, defer it, or (once Phase 5/7 exist)
     enter a Rabbit Hole branch."
+
+    UM-DR-52 W1/A3 — ``priority_score``: when the brain engine is ON,
+    the strategist passes the W3 priority formula's score (the ranked
+    tuple's score) and it REPLACES the legacy weighted score for the
+    threshold comparisons, after the fixed monotone decision map
+    ``p/(p+_BRAIN_DECISION_MAP_K)`` (see the constant's docstring).
+    Every other guard is unchanged and fires first: preconditions,
+    the IDOR/BAC promotion guard, the deterministic-match bypass —
+    no gate is weakened; the brain changes WHICH score the same
+    thresholds compare, which is exactly the G5 contract (the delta
+    shows in ORDER and in OUTCOMES, not in pool size). Absent (None,
+    the default) the legacy weighted score is used — byte-comparable.
 
     The LLM is NEVER asked to pick the action. The action is a pure
     function of the deterministic score and the two thresholds above.
@@ -830,7 +868,16 @@ def recommend_action(
         )
     hypothesis = coerced_hypothesis
 
-    score = score_hypothesis(hypothesis, state, novelty_bonus=novelty_bonus)
+    # UM-DR-52 W1/A3: the decision score. Legacy path (no
+    # priority_score) is byte-comparable; the brain path maps the
+    # formula's priority onto the decision scale before the SAME
+    # thresholds compare it (map docstring: _BRAIN_DECISION_MAP_K).
+    if priority_score is None:
+        score = score_hypothesis(hypothesis, state, novelty_bonus=novelty_bonus)
+        _basis = ""
+    else:
+        score = _brain_decision_score(priority_score)
+        _basis = " (brain-priority-mapped)"
     is_deterministic = getattr(hypothesis, "deterministic_match", False)
 
     vuln_class = str(getattr(hypothesis, "vuln_class", ""))
@@ -884,11 +931,13 @@ def recommend_action(
         action = PrioritizationAction.PROMOTE
         rule = (
             f"score={score:.4f} >= PROMOTION_THRESHOLD={_PROMOTION_THRESHOLD:.2f}"
+            f"{_basis}"
         )
     elif score <= _ABANDON_THRESHOLD:
         action = PrioritizationAction.ABANDON
         rule = (
             f"score={score:.4f} <= ABANDON_THRESHOLD={_ABANDON_THRESHOLD:.2f}"
+            f"{_basis}"
         )
     elif rabbit_hole_available:
         # Mid-score hypotheses are Rabbit Hole candidates IF Phase 7
@@ -901,6 +950,7 @@ def recommend_action(
         rule = (
             f"{_ABANDON_THRESHOLD:.2f} < score={score:.4f} < "
             f"{_PROMOTION_THRESHOLD:.2f}; rabbit_hole_available=True"
+            f"{_basis}"
         )
     else:
         action = PrioritizationAction.DEFER
@@ -908,6 +958,7 @@ def recommend_action(
             f"{_ABANDON_THRESHOLD:.2f} < score={score:.4f} < "
             f"{_PROMOTION_THRESHOLD:.2f}; rabbit_hole_available=False "
             f"(deferred until score improves or Rabbit Hole lands)"
+            f"{_basis}"
         )
 
     # Phase 3 step 5: every prioritization decision writes to the
